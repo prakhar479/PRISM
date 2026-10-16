@@ -44,5 +44,5 @@ case "$cmd" in
   results)
     d="${1:-$(latest)}"; echo "run: $d"
     for f in "$d/INDEX.md" "$d/DECISIONS.md" "$d"/*/SUMMARY.md "$d"/*/figures; do [[ -e "$f" ]] && echo "  $f"; done ;;
-  *) sed -n '2,12p' "$0" ;;
+  *) sed -n '2,11p' "$0" ;;
 esac

@@ -134,6 +134,7 @@ There are two patch modes:
 | fig3_spectrum_and_probes | Low-rank and decodable? | ε reaches high cumulative variance in few directions; the ε probe bars beat x̂ |
 | fig4_hybrid_pareto | How small a subspace repairs it? | Curves reach the dotted line by r ≈ 4–16, far above the grey random line |
 | fig7_subspace_methods | Which subspace works? | Supervised and unsupervised SVD ≫ random. Interesting either way: generic ≈ task-specific? Does transfer work? |
+| `metrics/sae_fidelity.csv` | Are the SAEs themselves good? | CE recovered > 0.8 everywhere. Then a large ε effect is *despite* a good SAE |
 | fig5_width_scaling | Do bigger SAEs absorb the state? | The `error_only` NLDR stays flat as width grows, so it is a blind spot, not just missing capacity |
 
 Every NLDR in `SUMMARY.md` is written as `value [lo, hi]`, a 95% bootstrap CI. Two numbers differ only if their CIs don't overlap.
@@ -152,6 +153,7 @@ Every NLDR in `SUMMARY.md` is written as `value [lo, hi]`, a 95% bootstrap CI. T
 | S2 | A task is in `drop_tasks` | gemma-2-2b cannot solve it | Make it easier in `src/data/synthetic_tasks.py`: mod_sum `n_steps` 4→2, graph `n_edges` 4→3, dyck `n_ops` 8→6. Then rerun |
 | S3 | Retention < 0.3 or `filter_mode: clean_only` | Few clean pairs, so wide CIs | Results are still valid but noisy. Tier 3 (larger n) helps |
 | S4 | `clean_full` with `from_diff` < 0.9 | **Patching is broken** | Stop and interpret nothing. Check the hook name and dtype in `run_patched` |
+| S5 | `sae_fidelity`: CE recovered < 0.7 for an SAE (Gemma Scope normally gives > 0.8) | That SAE was loaded or encoded wrongly | Ignore its rows. Check `resolve_sae_id` / `RealSAE.encode` |
 
 ### Hypotheses
 

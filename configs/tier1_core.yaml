@@ -1,0 +1,10 @@
+# Tier 1 (~45-60 min on a 24 GB GPU): the H1-H3 core at full sample size.
+base: default_config.yaml
+run_name: tier1_core
+layers: [4, 8, 12, 16, 20, 24]
+widths: ["16k", "65k"]
+geometry_layers: [12, 16, 20]
+geometry_widths: ["16k", "65k"]
+exp1_positions: [last, from_diff]
+exp3_positions: [last, from_diff]
+exp3_methods: [unsupervised_svd, supervised_centroid_svd, random_subspace, top_xhat_svd, span_svd, transfer]

@@ -1,0 +1,37 @@
+run_name: full_suite
+seed: 0
+model_name: gemma-2-2b
+hf_tokenizer: google/gemma-2-2b
+sae_release: gemma-scope-2b-pt-res-canonical
+tasks: [mod_sum, dyck_depth, graph_reach, ioi_control]
+layers: [4, 8, 12, 16, 20, 24]
+widths: ["16k", "65k"]
+geometry_layers: [12, 16, 20]      # exp2 / exp3
+geometry_widths: ["16k", "65k"]
+ranks: [0, 1, 2, 4, 8, 16, 32, 64]
+n_train: 400
+n_test: 200
+candidate_multiplier: 3            # candidate pool size before base-model filtering
+min_pairs: 20                      # skip a task/split if fewer valid pairs survive
+min_logit_diff: 2.0
+n_shots: 0
+batch_size: 32
+noise_seeds: 3
+mock:
+  d_model: 256
+  n_layers: 26
+  d_sae: {"16k": 1024, "65k": 4096}
+  noise_std: 0.05
+# ---- v2 options ------------------------------------------------------------------------------
+answer_format: auto                # auto | space_target ('=' + ' 3') | space_prompt ('= ' + '3')
+filter_mode: strict                # strict | clean_only | none
+task_overrides: {}                 # {task: {n_shots, answer_format, filter_mode, candidate_multiplier}} (preflight)
+exp1_positions: [last, from_diff]  # patch the last token, or every token from the first differing one
+exp3_positions: [last, from_diff]
+exp1_extras: [controls]            # same/diff-state error resampling, mean error, clean_full
+exp3_methods: [unsupervised_svd, supervised_centroid_svd, random_subspace, top_xhat_svd, span_svd]
+random_seeds: 3
+bootstrap: 1000                    # paired-bootstrap resamples for NLDR CIs (0 = off)
+latent_probe: true
+latent_probe_cols: 4096
+generic_text: {dataset: NeelNanda/pile-10k, n_docs: 200, seq_len: 128, skip_positions: 4}

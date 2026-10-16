@@ -1,0 +1,13 @@
+# Tier 2b (~1-1.5 h incl. downloads): width scaling at layer 12. Widths that Gemma Scope does not provide are
+# skipped (recorded in metrics/failures.jsonl). >=524k SAEs are held in bf16 (1m is built on CPU in fp32 first:
+# needs ~20 GB free system RAM).
+base: default_config.yaml
+run_name: tier2_widths
+layers: [12]
+widths: ["16k", "32k", "65k", "131k", "262k", "524k", "1m"]
+geometry_layers: [12]
+geometry_widths: ["16k", "32k", "65k", "131k", "262k", "524k", "1m"]
+exp1_positions: [last]
+exp3_positions: [last]
+exp3_methods: [unsupervised_svd, supervised_centroid_svd, random_subspace]
+latent_probe_cols: 4096

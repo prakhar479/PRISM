@@ -216,10 +216,20 @@ class RealSAE:
         self.sae_id = None
 
     def encode(self, x: torch.Tensor) -> torch.Tensor:
-        return self.sae.encode(x)
+        """Gemma Scope JumpReLU computed from the weights directly (robust to SAELens dtype/version quirks):
+        f(x) = ReLU(x W_enc + b_enc) * 1[x W_enc + b_enc > theta]."""
+        s = self.sae
+        if hasattr(s, "threshold") and hasattr(s, "W_enc"):
+            x = x.to(s.W_enc.dtype)
+            pre = x @ s.W_enc + s.b_enc
+            return torch.relu(pre) * (pre > s.threshold)
+        return s.encode(x)
 
     def decode(self, acts: torch.Tensor) -> torch.Tensor:
-        return self.sae.decode(acts)
+        s = self.sae
+        if hasattr(s, "W_dec"):
+            return acts.to(s.W_dec.dtype) @ s.W_dec + s.b_dec
+        return s.decode(acts)
 
     @torch.inference_mode()
     def decompose(self, x: torch.Tensor) -> Tuple[torch.Tensor, torch.Tensor, torch.Tensor]:

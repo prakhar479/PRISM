@@ -123,9 +123,12 @@ def _unit(ctx: RunContext, sae, task: str, layer: int, width: str, positions: st
             proj = lambda e: (e @ U) @ U.T
             vecs = {"hybrid_patch": xh_c + e_k + proj(e_c - e_k),                         # xh_c + P e_c + (I-P) e_k
                     "hybrid_splice": xh_c + proj(e_c)}
+            d_ck = e_c - e_k
+            energy = {"eps_energy_captured": float((proj(e_c).norm(dim=-1) ** 2).sum() / (e_c.norm(dim=-1) ** 2).sum()),
+                      "diff_energy_captured": float((proj(d_ck).norm(dim=-1) ** 2).sum() / (d_ck.norm(dim=-1) ** 2).sum().clamp_min(1e-12))}
             for kind in kinds:
                 dl, top1 = run_patched(ctx.model, te, layer, vecs[kind], ctx.device, positions=positions)
-                acc.setdefault((method, r, kind), []).append(summarize(dl, top1, te, n_boot))
+                acc.setdefault((method, r, kind), []).append({**summarize(dl, top1, te, n_boot), **energy})
     base = dict(task=task, layer=layer, width=width, positions=positions)
     rows = []
     for (method, r, kind), rs in acc.items():

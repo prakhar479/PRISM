@@ -34,4 +34,5 @@ random_seeds: 3
 bootstrap: 1000                    # paired-bootstrap resamples for NLDR CIs (0 = off)
 latent_probe: true
 latent_probe_cols: 4096
-generic_text: {dataset: NeelNanda/pile-10k, n_docs: 200, seq_len: 128, skip_positions: 4}
+generic_text: {dataset: NeelNanda/pile-10k, n_docs: 200, seq_len: 128, skip_positions: 4, fidelity_batches: 4}
+sae_fidelity: true                 # CE-loss-recovered of every SAE on generic text (exp1)

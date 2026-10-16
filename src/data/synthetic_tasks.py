@@ -370,15 +370,21 @@ def tokenize_pairs(tok, pairs: Sequence[CounterfactualPair], answer_format: str 
 
 
 # --------------------------------------------------------------------------- filtering / batching
-def batch_by_length(items: Sequence[TokenizedPair], batch_size: int) -> List[List[TokenizedPair]]:
-    """Group by sequence length so no padding is ever needed (pos=-1 is always the real last token)."""
+MAX_BATCH_TOKENS = 4096   # B*L cap: full-sequence logits over Gemma's 256k vocab cost B*L*0.5 MB in bf16
+
+
+def batch_by_length(items: Sequence[TokenizedPair], batch_size: int,
+                    max_tokens: int = MAX_BATCH_TOKENS) -> List[List[TokenizedPair]]:
+    """Group by sequence length so no padding is ever needed (pos=-1 is always the real last token).
+    Batches also respect a token budget so long few-shot prompts cannot OOM the logits tensor."""
     groups: Dict[int, List[TokenizedPair]] = {}
     for it in items:
         groups.setdefault(len(it.clean_ids), []).append(it)
     batches = []
     for L in sorted(groups):
         g = groups[L]
-        batches += [g[i:i + batch_size] for i in range(0, len(g), batch_size)]
+        bs = max(1, min(batch_size, max_tokens // max(L, 1)))
+        batches += [g[i:i + bs] for i in range(0, len(g), bs)]
     return batches
 
 
@@ -449,13 +455,21 @@ def build_task_splits(task: str, tok, n_train: int, n_test: int, seed: int, mode
     do_filter = (model is not None) and not mock and filter_mode != "none"
     mult = candidate_multiplier if do_filter else 1
     exclude: Set[str] = set()
-    out: Dict[str, List[TokenizedPair]] = {}
+    raw: Dict[str, List[CounterfactualPair]] = {}
     for split, n, s in (("train", n_train, seed), ("test", n_test, seed + 10_000)):
-        pairs = generate_pairs(task, int(n * mult), s, exclude=exclude, split=split)
-        for p in pairs:
+        raw[split] = generate_pairs(task, int(n * mult), s, exclude=exclude, split=split)
+        for p in raw[split]:
             exclude.add(p.clean_prompt)
             exclude.add(p.corrupt_prompt)
-        add_few_shot_prefix(pairs, n_shots, seed + 77)
+    # one shared few-shot prefix, disjoint from EVERY train/test prompt (no answer leakage, identical across splits)
+    shots = generate_pairs(task, n_shots, seed + 77, exclude=exclude, split="shot") if n_shots > 0 else []
+    prefix = "".join(f"{q.clean_prompt}{q.clean_target_str}\n" for q in shots)
+    out: Dict[str, List[TokenizedPair]] = {}
+    for split, n in (("train", n_train), ("test", n_test)):
+        pairs = raw[split]
+        for p in pairs:
+            p.clean_prompt, p.corrupt_prompt = prefix + p.clean_prompt, prefix + p.corrupt_prompt
+            p.meta["n_shots"] = n_shots
         toks = tokenize_pairs(tok, pairs, answer_format)
         if do_filter:
             toks = filter_valid_pairs(model, toks, min_logit_diff, batch_size, mode=filter_mode)

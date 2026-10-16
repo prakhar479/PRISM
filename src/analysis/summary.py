@@ -49,6 +49,14 @@ def write_summary(results_dir: Path) -> Path:
             L.append(f"| {k[0]} | {k[1]} | {k[2]} | {k[3]} | {_fmt(any_r.get('rel_recon_err'))} | "
                      + " | ".join(_ci(g[i]) if i in g else "-" for i in ivs) + " |")
         L.append("")
+    if (m / "sae_fidelity.json").exists():
+        fr = load_json(m / "sae_fidelity.json")
+        L += ["## SAE fidelity on generic text (CE nats/token)", "",
+              "| layer | width | CE clean | CE spliced | CE mean-ablated | delta | CE recovered |", "|---|---|---|---|---|---|---|"]
+        for r in sorted(fr, key=lambda r: (r["layer"], r["width"])):
+            L.append(f"| {r['layer']} | {r['width']} | {_fmt(r['ce_clean'])} | {_fmt(r['ce_splice'])} | {_fmt(r['ce_ablate'])} | "
+                     f"{_fmt(r['ce_delta'])} | {_fmt(r['ce_recovered'])} |")
+        L.append("")
     if (m / "exp2_results.json").exists():
         pr = load_json(m / "exp2_results.json")["probes"]
         L += ["## Exp2: test probe accuracy (selectivity) / R^2 (circular for mod_sum)", "",

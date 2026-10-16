@@ -11,4 +11,4 @@ geometry_widths: ["16k", "65k"]
 exp1_positions: [last, from_diff]
 exp3_positions: [last, from_diff]
 exp3_methods: [unsupervised_svd, supervised_centroid_svd, random_subspace, span_svd, generic_text_svd, transfer]
-generic_text: {dataset: NeelNanda/pile-10k, n_docs: 400, seq_len: 128, skip_positions: 4}
+generic_text: {dataset: NeelNanda/pile-10k, n_docs: 400, seq_len: 128, skip_positions: 4, fidelity_batches: 4}

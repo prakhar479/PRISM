@@ -46,6 +46,19 @@ def check_setup(root: Path) -> None:
         for t in pf.get("drop_tasks", []):
             say("FAIL", f"`{t}` dropped: gemma-2-2b cannot solve it under any prompt setting",
                 "make the task easier (mod_sum: n_steps 4->2; graph_reach: 3 edges) in src/data/synthetic_tasks.py, rerun with --resume")
+    for f in sorted(root.glob("*/metrics/sae_fidelity.json")):
+        fr = json.loads(f.read_text())
+        ri = load(f.parent.parent / "run_info.json") or {}
+        if ri.get("mock"):
+            say("INFO", f"`{f.parent.parent.name}`: mock run, SAE CE fidelity is meaningless (no real LM)")
+            continue
+        bad = [r for r in fr if not (r["ce_recovered"] > 0.7)]
+        if fr and not bad:
+            say("OK", f"`{f.parent.parent.name}`: all {len(fr)} SAEs recover >70% of CE on generic text "
+                f"(min {min(r['ce_recovered'] for r in fr):.2f})")
+        for r in bad:
+            say("FAIL", f"`{f.parent.parent.name}` SAE L{r['layer']} {r['width']}: CE recovered {r['ce_recovered']:.2f} (delta {r['ce_delta']:.2f} nats)",
+                "SAE loading/encoding is wrong for this SAE (expect >0.8): do not interpret its exp1-3 rows; check resolve_sae_id/RealSAE.encode")
     for f in sorted(root.glob("*/metrics/failures.jsonl")):
         n = len([x for x in f.read_text().splitlines() if x.strip()])
         say("WARN", f"{n} failed work units in `{f.parent.parent.name}`",

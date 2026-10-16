@@ -275,3 +275,39 @@ def test_unit_log_resume_and_failure_isolation(tmp_path, model, tok):
     ctx.resume = True
     ctx.run_unit("x", "a", lambda: calls.append(1) or [], u2)
     assert not calls and u2.rows() == [{"v": 1}]
+
+
+def test_few_shot_prefix_shared_and_leak_free(tok):
+    s = build_task_splits("mod_sum", tok, 60, 60, 0, n_shots=3)
+    pre = lambda it: it.pair.clean_prompt.rsplit("\n", 1)[0]
+    prefixes = {pre(it) for sp in s.values() for it in sp}
+    assert len(prefixes) == 1
+    shot_prompts = {l.rsplit("=", 1)[0] + "=" for l in next(iter(prefixes)).split("\n")}
+    queries = {it.pair.clean_prompt.rsplit("\n", 1)[1] for sp in s.values() for it in sp}
+    queries |= {it.pair.corrupt_prompt.rsplit("\n", 1)[1] for sp in s.values() for it in sp}
+    assert not (shot_prompts & queries)
+
+
+def test_batches_respect_token_budget(tok):
+    from src.data.synthetic_tasks import batch_by_length, generate_pairs, tokenize_pairs
+    items = tokenize_pairs(tok, generate_pairs("mod_sum", 64, 0))
+    L = len(items[0].clean_ids)
+    for b in batch_by_length(items, 32, max_tokens=4 * L):
+        assert len(b) <= 4 and len({len(i.clean_ids) for i in b}) == 1
+
+
+def test_real_sae_jumprelu_encode():
+    import types
+    from src.models.sae_loader import RealSAE
+    d, n = 8, 16
+    fake = torch.nn.Module()
+    fake.W_enc, fake.b_enc = torch.nn.Parameter(torch.randn(d, n)), torch.nn.Parameter(torch.zeros(n))
+    fake.W_dec, fake.b_dec = torch.nn.Parameter(torch.randn(n, d)), torch.nn.Parameter(torch.zeros(d))
+    fake.threshold = torch.nn.Parameter(torch.full((n,), 0.5))
+    sae = RealSAE(fake, "16k", 0)
+    x = torch.randn(5, d)
+    pre = x @ fake.W_enc
+    a = sae.encode(x)
+    assert torch.all((a > 0) == (pre > 0.5)) and torch.allclose(a[a > 0], pre[pre > 0.5])
+    xh, e, _ = sae.decompose(x)
+    assert torch.allclose(xh + e, x, atol=1e-6)

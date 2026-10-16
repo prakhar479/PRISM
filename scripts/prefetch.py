@@ -43,7 +43,10 @@ def main() -> int:
             import datasets  # noqa: F401
         except ImportError:
             log.warning("`datasets` not installed: generic_text_svd falls back to parquet via huggingface_hub")
-    from sae_lens.loading.pretrained_saes_directory import get_pretrained_saes_directory
+    try:
+        from sae_lens.loading.pretrained_saes_directory import get_pretrained_saes_directory
+    except ImportError:   # older SAELens layout
+        from sae_lens.toolkit.pretrained_saes_directory import get_pretrained_saes_directory
 
     directory = get_pretrained_saes_directory()
     need = set()

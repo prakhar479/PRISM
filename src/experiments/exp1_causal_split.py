@@ -16,8 +16,8 @@ from typing import Dict, List, Optional, Sequence
 import numpy as np
 import torch
 
-from src.experiments.common import (RunContext, decompose_batched, rescaled_noise, run_patched, summarize)
-from src.utils import free_memory, save_json, save_table
+from src.experiments.common import (RunContext, decompose_batched, rescaled_noise, run_patched, sae_fidelity, summarize)
+from src.utils import free_memory, save_json, save_npz, save_table
 from src.models.sae_loader import load_sae
 
 log = logging.getLogger("prism")
@@ -63,6 +63,8 @@ def _unit(ctx: RunContext, sae, task: str, layer: int, width: str, positions: st
                   sae_id=getattr(sae, "sae_id", None))
     n_boot = ctx.cfg.get("bootstrap", 1000)
     results: Dict[str, List[dict]] = {}
+    per_pair: Dict[str, np.ndarray] = {"dl_clean": base.dl_clean.numpy(), "dl_corrupt": base.dl_corrupt.numpy(),
+                                       "state_clean": base.states_clean, "state_corrupt": base.states_corrupt}
     for seed in range(ctx.cfg.get("noise_seeds", 1)):
         gen = torch.Generator().manual_seed(ctx.cfg["seed"] + 1000 * seed + layer)
         vecs = build_vectors(xh_c, e_c, xh_k, e_k, rescaled_noise(e_c, gen))
@@ -80,6 +82,9 @@ def _unit(ctx: RunContext, sae, task: str, layer: int, width: str, positions: st
                 continue  # deterministic interventions need one pass only
             dl, top1 = run_patched(ctx.model, base, layer, v, ctx.device, positions=positions)
             results.setdefault(name, []).append(summarize(dl, top1, base, n_boot))
+            if seed == 0:
+                per_pair[f"dl_{name}"] = dl.numpy()
+    save_npz(ctx.out_dir / "tensors" / f"exp1_pairs_{task}_L{layer}_{width}_{positions}.npz", **per_pair)
     rows = []
     for name, rs in results.items():
         agg = {k: float(np.nanmean([r[k] for r in rs])) for k in rs[0]}
@@ -98,7 +103,8 @@ def run_exp1(ctx: RunContext, layers: Optional[Sequence[int]] = None, widths: Op
     for layer in layers:
         for width in widths:
             todo = [(t, m) for t in ctx.data for m in modes if not units.done(units.key(t, layer, width, m))]
-            if not todo or ctx.out_of_time():
+            need_fid = ctx.cfg.get("sae_fidelity", True) and not units.done(units.key("__fidelity__", layer, width))
+            if (not todo and not need_fid) or ctx.out_of_time():
                 continue
             try:
                 sae = load_sae(layer, width, model=ctx.model, mock=ctx.mock, device=ctx.device)   # one SAE at a time
@@ -106,14 +112,25 @@ def run_exp1(ctx: RunContext, layers: Optional[Sequence[int]] = None, widths: Op
                 log.error("exp1: cannot load SAE L%d %s: %s", layer, width, e)
                 ctx.record_failure("exp1", f"load_sae|{layer}|{width}", e)
                 continue
+            fkey = units.key("__fidelity__", layer, width)
+            if ctx.cfg.get("sae_fidelity", True) and not units.done(fkey):
+                def fid():
+                    f = sae_fidelity(ctx, sae, layer)
+                    return [dict(task="__fidelity__", layer=layer, width=width, intervention="sae_fidelity", **f)] if f else []
+                ctx.run_unit("exp1", fkey, fid, units)
             for task, mode in todo:
                 ctx.run_unit("exp1", units.key(task, layer, width, mode),
                              lambda: _unit(ctx, sae, task, layer, width, mode), units)
             del sae
             free_memory()
-    rows = units.rows()
+    all_rows = units.rows()
+    rows = [r for r in all_rows if r["task"] != "__fidelity__"]
+    fid_rows = [r for r in all_rows if r["task"] == "__fidelity__"]
     out = ctx.out_dir / "metrics"
     save_json(rows, out / "exp1_results.json")
+    if fid_rows:
+        save_json(fid_rows, out / "sae_fidelity.json")
+        save_table(fid_rows, out / "sae_fidelity")
     if rows:
         save_table(rows, out / "exp1_results")
     return rows

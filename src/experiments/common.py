@@ -176,7 +176,8 @@ def summarize(dl_patched: torch.Tensor, top1: torch.Tensor, base: Baseline, n_bo
     nldr = (p.mean() - dk.mean()) / (dc.mean() - dk.mean() + EPS)
     pair = ((p - dk) / (dc - dk + EPS)).mean()
     a_c, a_k, a_p = base.top1_clean_run.float().mean(), base.top1_corrupt_run.float().mean(), top1.float().mean()
-    out = {"nldr": float(nldr), "nldr_pair_mean": float(pair), "top1_rate": float(a_p),
+    out = {"nldr": float(nldr), "nldr_pair_mean": float(pair), "nldr_pair_median": float(((p - dk) / (dc - dk + EPS)).median()),
+           "dl_patched": float(p.mean()), "top1_rate": float(a_p),
            "top1_recovery": float((a_p - a_k) / (a_c - a_k)) if abs(float(a_c - a_k)) > 1e-6 else float("nan")}
     if n_boot and len(base) > 1:
         idx = base.boot_idx(n_boot)
@@ -310,6 +311,13 @@ class RunContext:
     deadline: Optional[float] = None          # unix time after which no new unit starts
     task_info: Dict[str, dict] = field(default_factory=dict)
     generic: Dict[int, torch.Tensor] = field(default_factory=dict)
+    generic_batches: Optional[List[torch.Tensor]] = None
+
+    def get_generic_batches(self) -> List[torch.Tensor]:
+        """Generic-text token batches, loaded once per run (download/streaming is slow)."""
+        if self.generic_batches is None:
+            self.generic_batches = generic_token_batches(self.tok, self.cfg, self.mock)
+        return self.generic_batches
 
     @property
     def cache_spans(self) -> bool:
@@ -429,7 +437,7 @@ def generic_resid(ctx: RunContext, layer: int) -> Optional[torch.Tensor]:
         return ctx.generic[layer]
     g = ctx.cfg.get("generic_text") or {}
     skip = int(g.get("skip_positions", 4))
-    batches = generic_token_batches(ctx.tok, ctx.cfg, ctx.mock)
+    batches = ctx.get_generic_batches()
     if not batches:
         ctx.generic[layer] = None
         return None
@@ -444,3 +452,45 @@ def generic_resid(ctx: RunContext, layer: int) -> Optional[torch.Tensor]:
     ctx.generic[layer] = torch.cat(store)
     log.info("generic text: %d residual rows at layer %d", len(ctx.generic[layer]), layer)
     return ctx.generic[layer]
+
+
+@torch.inference_mode()
+def sae_fidelity(ctx: RunContext, sae, layer: int) -> Optional[dict]:
+    """Standard SAE quality on generic text at `layer`: next-token CE clean / with x_hat spliced in / with the
+    residual mean-ablated, and CE-loss-recovered = (CE_ablate - CE_splice) / (CE_ablate - CE_clean).
+    Positions < skip_positions (BOS / attention sinks) are left untouched and excluded from the loss."""
+    g = ctx.cfg.get("generic_text") or {}
+    skip = int(g.get("skip_positions", 4))
+    batches = ctx.get_generic_batches()[: int(g.get("fidelity_batches", 4))]
+    if not batches:
+        return None
+    G = generic_resid(ctx, layer)
+    mean = G.float().mean(0) if G is not None else None
+    tot = {"clean": 0.0, "splice": 0.0, "ablate": 0.0}
+    n = 0
+    for b in batches:
+        b = b.to(ctx.device)
+
+        def ce(logits):
+            lp = torch.log_softmax(logits[:, skip:-1].float(), -1)
+            return -lp.gather(-1, b[:, skip + 1:, None]).squeeze(-1).sum().item()
+
+        def splice(act, hook):
+            act = act.clone()
+            x = act[:, skip:]
+            xh, _, _ = decompose_batched(sae, x.reshape(-1, x.shape[-1]))      # chunked: 1m SAEs are huge
+            act[:, skip:] = xh.reshape(x.shape).to(act.device, act.dtype)
+            return act
+
+        def ablate(act, hook):
+            act = act.clone()
+            act[:, skip:] = mean.to(act.device, act.dtype)
+            return act
+
+        tot["clean"] += ce(ctx.model.run_with_hooks(b, fwd_hooks=[]))
+        tot["splice"] += ce(ctx.model.run_with_hooks(b, fwd_hooks=[(hook_name(layer), splice)]))
+        tot["ablate"] += ce(ctx.model.run_with_hooks(b, fwd_hooks=[(hook_name(layer), ablate)]))
+        n += b.shape[0] * (b.shape[1] - skip - 1)
+    c, s_, a = (tot[k] / n for k in ("clean", "splice", "ablate"))
+    return {"ce_clean": c, "ce_splice": s_, "ce_ablate": a, "ce_delta": s_ - c,
+            "ce_recovered": (a - s_) / (a - c) if abs(a - c) > 1e-9 else float("nan"), "n_tokens": n}

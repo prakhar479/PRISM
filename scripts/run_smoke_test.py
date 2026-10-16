@@ -59,6 +59,15 @@ def main() -> int:
         pr = load_json(out / "metrics" / "exp2_results.json")["probes"]
         c = lambda s: next(x["r2_circular"] for x in pr if (x["task"], x["layer"], x["width"], x["source"]) == ("mod_sum", 12, "16k", s))
         check(c("eps") > 0.6 and c("x_hat") < 0.3, f"mod_sum circular R2: eps {c('eps'):.2f} vs x_hat {c('x_hat'):.2f}", f)
+    if not a.mock:   # real-model gates: hook correctness and SAE loading/encoding
+        cf = [r["nldr"] for r in rows if r["intervention"] == "clean_full" and r.get("positions") == "from_diff"]
+        check(bool(cf) and min(cf) > 0.9, f"full clean patch (from_diff) restores clean answer: {cf}", f)
+        fid = Path(out / "metrics" / "sae_fidelity.json")
+        if fid.exists():
+            fr = load_json(fid)
+            check(all(r["ce_recovered"] > 0.7 for r in fr), f"SAE CE recovered on generic text: {[round(r['ce_recovered'], 3) for r in fr]}", f)
+        rel = [r["rel_recon_err"] for r in rows if r["intervention"] == "error_only"]
+        check(bool(rel) and max(rel) < 0.6, f"SAE relative reconstruction error plausible: {[round(x, 3) for x in rel]}", f)
     print("\nSMOKE TEST " + ("FAILED" if f else "PASSED"))
     return 1 if f else 0
 

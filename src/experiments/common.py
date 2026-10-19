@@ -1,5 +1,9 @@
 """Shared machinery: residual caching, patched forward passes, NLDR (+bootstrap CIs), interventions,
-resumable work units and the shared RunContext.
+resumable work units, background SAE loading and the shared RunContext.
+
+All forward passes go through src/models/runtime.py: logits are computed at the last position only, and with
+resume_from_layer a patched run restarts at block layer+1 from the cached unpatched corrupt residual
+(the patch is applied to that residual directly), which is bit-identical to a hooked full forward.
 
 Patch positions
     "last"      : overwrite resid_post[layer][:, -1] only.
@@ -13,6 +17,7 @@ import json
 import logging
 import time
 import traceback
+from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Callable, Dict, List, Optional, Sequence, Tuple
@@ -21,7 +26,8 @@ import numpy as np
 import torch
 
 from src.data.synthetic_tasks import TokenizedPair, batch_by_length, build_task_splits, make_tensors
-from src.models.sae_loader import hook_name
+from src.models import runtime
+from src.models.sae_loader import hook_name, load_sae, place_sae, sae_bytes
 from src.utils import free_memory, model_device
 
 EPS = 1e-8
@@ -55,6 +61,8 @@ class Baseline:
     span_clean: Dict[int, torch.Tensor] = field(default_factory=dict)
     span_corrupt: Dict[int, torch.Tensor] = field(default_factory=dict)
     _boot: Optional[np.ndarray] = None
+    _lr_layer: Optional[int] = None            # layer of the cached full corrupt residual (one layer at a time)
+    _lr: Optional[List[torch.Tensor]] = None
 
     def __len__(self) -> int:
         return len(self.items)
@@ -67,6 +75,17 @@ class Baseline:
         if layer not in store:
             raise KeyError(f"span activations for layer {layer} were not cached (cache_spans=False?)")
         return store[layer].float()
+
+    @torch.inference_mode()
+    def layer_resid(self, model, layer: int, device=None) -> List[torch.Tensor]:
+        """Unpatched corrupt-run resid_post[layer] at every position, one CPU tensor per batch (cached for one layer)."""
+        if self._lr_layer != layer:
+            self._lr, self._lr_layer = None, None
+            device = device if device is not None else model_device(model)
+            self._lr = [runtime.pin(runtime.resid_at(model, make_tensors(self.items[s:e], device)["corrupt"], layer).cpu())
+                        for s, e in self.spans]
+            self._lr_layer = layer
+        return self._lr
 
     def boot_idx(self, n_boot: int, seed: int = 0) -> np.ndarray:
         """Fixed resampling indices shared by every intervention (paired bootstrap)."""
@@ -84,7 +103,7 @@ def _logit_diff(logits_last: torch.Tensor, ca: torch.Tensor, ka: torch.Tensor) -
 def cache_baseline(model, items: Sequence[TokenizedPair], layers: Sequence[int], batch_size: int = 32,
                    device=None, cache_spans: bool = True) -> Baseline:
     device = device if device is not None else model_device(model)
-    batches = batch_by_length(list(items), batch_size)
+    batches = batch_by_length(list(items), batch_size)       # token-budgeted (runtime.max_batch_tokens)
     ordered = [it for b in batches for it in b]
     spans, s = [], 0
     for b in batches:
@@ -114,7 +133,7 @@ def cache_baseline(model, items: Sequence[TokenizedPair], layers: Sequence[int],
                         return None
                     return fn
                 hooks.append((hook_name(l), make()))
-            logits = model.run_with_hooks(t[kind], fwd_hooks=hooks)[:, -1].float()
+            logits = runtime.last_logits(model, t[kind], hooks)
             dl[kind].append(_logit_diff(logits, ca, ka).cpu())
             top1[kind].append((logits.argmax(-1) == ca).cpu())
     cat = lambda xs: torch.cat(xs)
@@ -134,39 +153,54 @@ def cache_baseline(model, items: Sequence[TokenizedPair], layers: Sequence[int],
 
 @torch.inference_mode()
 def run_patched(model, base: Baseline, layer: int, vecs: torch.Tensor, device=None,
-                positions: str = "last") -> Tuple[torch.Tensor, torch.Tensor]:
+                positions: str = "last", resume: Optional[bool] = None) -> Tuple[torch.Tensor, torch.Tensor]:
     """Run the corrupt prompts with resid_post[layer] overwritten by `vecs` at the chosen positions.
 
     vecs: [N, d] for positions='last', [M, d] (span rows) for positions='from_diff'.
+    resume: start at block layer+1 from the cached corrupt residual (default: runtime.resume_enabled(model)).
     Returns (logit diff [N], top-1 == clean answer [N]).
     """
     assert positions in POSITIONS, positions
     device = device if device is not None else model_device(model)
+    resume = runtime.resume_enabled(model) if resume is None else resume
+    R = base.layer_resid(model, layer, device) if resume else None
     dls, tops = [], []
-    for (s, e) in base.spans:
+    for bidx, (s, e) in enumerate(base.spans):
         t = make_tensors(base.items[s:e], device)
         if positions == "last":
-            v = vecs[s:e]
+            v = vecs[s:e].to(device, non_blocking=True)
 
-            def fn(act, hook, v=v):
-                act = act.clone()
-                act[:, -1, :] = v.to(device=act.device, dtype=act.dtype)
+            def patch(act, v=v):
+                act[:, -1, :] = v.to(act.dtype)
                 return act
         else:
             r0, r1 = int(base.row_ptr[s]), int(base.row_ptr[e])
-            v = vecs[r0:r1]
+            v = vecs[r0:r1].to(device, non_blocking=True)
             bi = (base.row_item[r0:r1] - s).to(device)
             pi = base.row_pos[r0:r1].to(device)
 
-            def fn(act, hook, v=v, bi=bi, pi=pi):
-                act = act.clone()
-                act[bi, pi] = v.to(device=act.device, dtype=act.dtype)
+            def patch(act, v=v, bi=bi, pi=pi):
+                act[bi, pi] = v.to(act.dtype)
                 return act
 
-        logits = model.run_with_hooks(t["corrupt"], fwd_hooks=[(hook_name(layer), fn)])[:, -1].float()
+        if resume:
+            x = R[bidx].to(device, non_blocking=True)
+            x = x.clone() if x.data_ptr() == R[bidx].data_ptr() else x       # never write into the cache
+            logits = runtime.last_logits_from(model, patch(x), layer, t["corrupt"])
+        else:
+            logits = runtime.last_logits(model, t["corrupt"], [(hook_name(layer), lambda act, hook: patch(act.clone()))])
         dls.append(_logit_diff(logits, t["clean_ans"], t["corrupt_ans"]).cpu())
         tops.append((logits.argmax(-1) == t["clean_ans"]).cpu())
     return torch.cat(dls), torch.cat(tops)
+
+
+@torch.inference_mode()
+def verify_resume(model, base: Baseline, layer: int, tol: float = 0.05) -> float:
+    """Max |logit diff| between hooked full forwards and resumed forwards for the clean_full patch."""
+    v = base.acts(layer, "clean", "last")
+    a, _ = run_patched(model, base, layer, v, resume=False)
+    b, _ = run_patched(model, base, layer, v, resume=True)
+    return float((a - b).abs().max())
 
 
 def summarize(dl_patched: torch.Tensor, top1: torch.Tensor, base: Baseline, n_boot: int = 1000) -> Dict[str, float]:
@@ -188,14 +222,15 @@ def summarize(dl_patched: torch.Tensor, top1: torch.Tensor, base: Baseline, n_bo
 
 
 @torch.inference_mode()
-def decompose_batched(sae, X: torch.Tensor, chunk: int = 256) -> Tuple[torch.Tensor, torch.Tensor, float]:
+def decompose_batched(sae, X: torch.Tensor, chunk: Optional[int] = None) -> Tuple[torch.Tensor, torch.Tensor, float]:
     """Decompose [N, d] residuals in chunks -> (x_hat [N,d], eps [N,d]) on CPU float32 and mean L0."""
+    chunk = chunk or getattr(sae, "row_chunk", 256)
     xs, es, l0, n = [], [], 0.0, 0
     for i in range(0, len(X), chunk):
-        xh, e, acts = sae.decompose(X[i:i + chunk].float())
+        xh, e, l0_rows = sae.decompose(X[i:i + chunk])
         xs.append(xh.cpu())
         es.append(e.cpu())
-        l0 += float((acts > 0).sum(-1).float().sum())
+        l0 += float(l0_rows.sum())
         n += len(xh)
     if not xs:
         d = X.shape[-1]
@@ -207,6 +242,7 @@ def decompose_batched(sae, X: torch.Tensor, chunk: int = 256) -> Tuple[torch.Ten
 def latent_features(sae, Xtr: torch.Tensor, Xte: torch.Tensor, max_cols: int = 4096,
                     chunk: int = 256) -> Tuple[np.ndarray, np.ndarray]:
     """SAE latent activations restricted to the `max_cols` latents most often active on train (memory-safe for 1m)."""
+    chunk = max(1, min(chunk, getattr(sae, "encode_rows", chunk)))
     counts = None
     for i in range(0, len(Xtr), chunk):
         a = sae.encode(Xtr[i:i + chunk].float().to(sae.device, sae.dtype))
@@ -312,6 +348,7 @@ class RunContext:
     task_info: Dict[str, dict] = field(default_factory=dict)
     generic: Dict[int, torch.Tensor] = field(default_factory=dict)
     generic_batches: Optional[List[torch.Tensor]] = None
+    runtime_plan: Dict[str, object] = field(default_factory=dict)
 
     def get_generic_batches(self) -> List[torch.Tensor]:
         """Generic-text token batches, loaded once per run (download/streaming is slow)."""
@@ -344,6 +381,65 @@ class RunContext:
             self.task_info[task] = info
         self.cached_layers = layers
         log.info("prepared tasks %s at layers %s", list(self.data), list(layers))
+        self._check_resume()
+
+    def _check_resume(self) -> None:
+        """Enable resume_from_layer only if it reproduces the hooked forward on real data."""
+        want = runtime.runtime_cfg(self.cfg).get("resume_from_layer", True)
+        runtime.set_resume(self.model, False)
+        if not want or not self.data or "resume_check_max_abs_diff" in self.runtime_plan:
+            runtime.set_resume(self.model, bool(want and self.runtime_plan.get("resume_from_layer_ok")))
+            return
+        base = next(iter(self.data.values()))["test"]
+        layer = self.cached_layers[len(self.cached_layers) // 2]
+        diff = verify_resume(self.model, base, layer)
+        ok = diff < 0.05
+        runtime.set_resume(self.model, ok)
+        self.runtime_plan.update(resume_check_max_abs_diff=diff, resume_from_layer_ok=ok)
+        (log.info if ok else log.warning)("resume_from_layer check at L%d: max |dLogit| %.4g -> %s", layer, diff,
+                                          "enabled" if ok else "DISABLED (falling back to full hooked forwards)")
+
+    def iter_saes(self, exp: str, combos: Sequence[Tuple[int, str]]):
+        """Yield (layer, width, sae) for each combo. The next SAE is read from disk on a background thread while
+        the current one is in use; load failures are recorded and skipped. The caller must `del sae` at the end of
+        its loop body so the previous SAE is freed before the next one is placed on the GPU."""
+        combos = list(combos)
+        rt = runtime.runtime_cfg(self.cfg)
+        kw = dict(model=self.model, mock=self.mock, device=self.device, place=False,
+                  release=self.cfg.get("sae_release", "gemma-scope-2b-pt-res-canonical"))
+        pool = ThreadPoolExecutor(1, thread_name_prefix="sae-prefetch") if rt.get("prefetch_saes", True) and not self.mock else None
+
+        def submit(i):
+            if pool is None or i >= len(combos) or sae_bytes(combos[i][1]) > 0.25 * runtime.available_ram():
+                return None
+            return pool.submit(load_sae, *combos[i], **kw)
+
+        fut = submit(0)
+        try:
+            for i, (layer, width) in enumerate(combos):
+                if self.out_of_time():
+                    break
+                sae, step = None, "load"
+                try:
+                    sae = fut.result() if fut is not None else load_sae(layer, width, **kw)
+                    fut = None
+                    fut = submit(i + 1)                      # next SAE loads while this one is used
+                    step = "place"
+                    sae = place_sae(sae, self.device, rt.get("sae_placement", "auto"))
+                except Exception as e:  # noqa: BLE001 - missing SAE id / download / RAM / VRAM: skip it
+                    log.error("%s: cannot %s SAE L%d %s: %s: %s", exp, step, layer, width, type(e).__name__, e)
+                    self.record_failure(exp, f"load_sae|{layer}|{width}", e)
+                    if step == "load":
+                        fut = submit(i + 1)
+                    sae = None
+                    free_memory()
+                    continue
+                yield layer, width, sae
+                sae = None
+                free_memory()
+        finally:
+            if pool is not None:
+                pool.shutdown(wait=False, cancel_futures=True)
 
     @property
     def d_model(self) -> int:
@@ -358,11 +454,12 @@ class RunContext:
             return True
         return False
 
-    def run_unit(self, exp: str, key: str, fn: Callable[[], List[dict]], units: UnitLog) -> bool:
+    def run_unit(self, exp: str, key: str, fn: Callable[[], List[dict]], units: UnitLog,
+                 check_deadline: bool = True) -> bool:
         """Run one work unit, record its rows; on failure log + record and continue. Returns success."""
         if units.done(key):
             return True
-        if self.out_of_time():
+        if check_deadline and self.out_of_time():
             return False
         t0 = time.time()
         if torch.cuda.is_available():
@@ -441,14 +538,10 @@ def generic_resid(ctx: RunContext, layer: int) -> Optional[torch.Tensor]:
     if not batches:
         ctx.generic[layer] = None
         return None
-    store: List[torch.Tensor] = []
-
-    def fn(act, hook):
-        store.append(act[:, skip:].reshape(-1, act.shape[-1]).detach().cpu())
-        return None
-
+    store = []
     for b in batches:
-        ctx.model.run_with_hooks(b.to(ctx.device), fwd_hooks=[(hook_name(layer), fn)])
+        act = runtime.resid_at(ctx.model, b.to(ctx.device), layer)          # blocks 0..layer only
+        store.append(act[:, skip:].reshape(-1, act.shape[-1]).cpu())
     ctx.generic[layer] = torch.cat(store)
     log.info("generic text: %d residual rows at layer %d", len(ctx.generic[layer]), layer)
     return ctx.generic[layer]
@@ -471,10 +564,6 @@ def sae_fidelity(ctx: RunContext, sae, layer: int) -> Optional[dict]:
     for b in batches:
         b = b.to(ctx.device)
 
-        def ce(logits):
-            lp = torch.log_softmax(logits[:, skip:-1].float(), -1)
-            return -lp.gather(-1, b[:, skip + 1:, None]).squeeze(-1).sum().item()
-
         def splice(act, hook):
             act = act.clone()
             x = act[:, skip:]
@@ -487,9 +576,10 @@ def sae_fidelity(ctx: RunContext, sae, layer: int) -> Optional[dict]:
             act[:, skip:] = mean.to(act.device, act.dtype)
             return act
 
-        tot["clean"] += ce(ctx.model.run_with_hooks(b, fwd_hooks=[]))
-        tot["splice"] += ce(ctx.model.run_with_hooks(b, fwd_hooks=[(hook_name(layer), splice)]))
-        tot["ablate"] += ce(ctx.model.run_with_hooks(b, fwd_hooks=[(hook_name(layer), ablate)]))
+        nll = lambda hooks: runtime.token_nll_sum(ctx.model, b, hooks, skip)      # logits in position chunks
+        tot["clean"] += nll([])
+        tot["splice"] += nll([(hook_name(layer), splice)])
+        tot["ablate"] += nll([(hook_name(layer), ablate)])
         n += b.shape[0] * (b.shape[1] - skip - 1)
     c, s_, a = (tot[k] / n for k in ("clean", "splice", "ablate"))
     return {"ce_clean": c, "ce_splice": s_, "ce_ablate": a, "ce_delta": s_ - c,

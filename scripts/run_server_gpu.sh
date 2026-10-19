@@ -46,6 +46,8 @@ import os, sys, torch
 assert torch.cuda.is_available(), "torch.cuda.is_available() is False"
 free, total = torch.cuda.mem_get_info()
 print(f"torch {torch.__version__}, CUDA ok ({torch.cuda.get_device_name()}), free VRAM {free/2**30:.1f}/{total/2**30:.1f} GiB")
+if total < 16 * 2**30:
+    print("  < 16 GB VRAM: low-memory mode (embedding on CPU, SAEs streamed from RAM when needed)")
 for m in ("transformer_lens", "sae_lens", "transformers"):
     mod = __import__(m); print(f"  {m} {getattr(mod, '__version__', '?')}")
 from huggingface_hub import HfApi

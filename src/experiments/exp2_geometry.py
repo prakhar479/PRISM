@@ -5,7 +5,9 @@ evaluated / applied on the held-out test split.
 """
 from __future__ import annotations
 
+import contextlib
 import logging
+from concurrent.futures import Future, ThreadPoolExecutor
 from typing import Dict, List, Optional, Sequence, Tuple
 
 import numpy as np
@@ -18,8 +20,8 @@ from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
 
 from src.experiments.common import RunContext, decompose_batched, latent_features
-from src.models.sae_loader import load_sae
-from src.utils import free_memory, save_json, save_npz, save_table
+from src.models.runtime import blas_threads_per_worker, cpu_workers
+from src.utils import save_json, save_npz, save_table
 
 log = logging.getLogger("prism")
 ALPHAS = [1.0, 10.0, 100.0, 1e3, 1e4]
@@ -82,7 +84,8 @@ def _stack(base, layer: int) -> Tuple[torch.Tensor, np.ndarray]:
     return X, y
 
 
-def _unit(ctx: RunContext, sae, task: str, layer: int, width: str) -> List[dict]:
+def _features(ctx: RunContext, sae, task: str, layer: int) -> dict:
+    """GPU part of a unit: decompose train/test residuals and gather SAE latents -> CPU arrays."""
     splits = ctx.data[task]
     Xtr, ytr = _stack(splits["train"], layer)
     Xte, yte = _stack(splits["test"], layer)
@@ -91,6 +94,12 @@ def _unit(ctx: RunContext, sae, task: str, layer: int, width: str) -> List[dict]
     feats = {"x": (Xtr.numpy(), Xte.numpy()), "x_hat": (xh_tr.numpy(), xh_te.numpy()), "eps": (e_tr.numpy(), e_te.numpy())}
     if ctx.cfg.get("latent_probe", True):
         feats["latents"] = latent_features(sae, Xtr, Xte, ctx.cfg.get("latent_probe_cols", 4096))
+    return {"feats": feats, "ytr": ytr, "yte": yte}
+
+
+def _analyze(ctx: RunContext, task: str, layer: int, width: str, f: dict) -> List[dict]:
+    """CPU part of a unit (probes, spectra, PCA/LDA); runs on a worker thread while the GPU moves on."""
+    feats, ytr, yte = f["feats"], f["ytr"], f["yte"]
     chance = float(np.mean(yte == np.bincount(ytr).argmax()))
     arrays: Dict[str, np.ndarray] = {"labels": yte}
     rows = []
@@ -113,26 +122,54 @@ def _unit(ctx: RunContext, sae, task: str, layer: int, width: str) -> List[dict]
     return rows
 
 
+def _unit(ctx: RunContext, sae, task: str, layer: int, width: str) -> List[dict]:
+    return _analyze(ctx, task, layer, width, _features(ctx, sae, task, layer))
+
+
+def _blas_limit(n: int):
+    """Limit BLAS threads per worker so parallel probe fits do not oversubscribe the CPU."""
+    try:
+        from threadpoolctl import threadpool_limits
+        return threadpool_limits(limits=max(1, n))
+    except ImportError:
+        return contextlib.nullcontext()
+
+
 def run_exp2(ctx: RunContext, layers: Optional[Sequence[int]] = None, widths: Optional[Sequence[str]] = None) -> List[dict]:
     layers = list(layers if layers is not None else ctx.cfg["geometry_layers"])
     widths = list(widths if widths is not None else ctx.cfg["geometry_widths"])
     ctx.prepare(sorted(set(layers) | set(ctx.cached_layers)))
     units = ctx.unit_log("exp2")
-    for layer in layers:
-        for width in widths:
-            todo = [t for t in ctx.data if not units.done(units.key(t, layer, width))]
-            if not todo or ctx.out_of_time():
-                continue
-            try:
-                sae = load_sae(layer, width, model=ctx.model, mock=ctx.mock, device=ctx.device)
-            except Exception as e:  # noqa: BLE001
-                log.error("exp2: cannot load SAE L%d %s: %s", layer, width, e)
-                ctx.record_failure("exp2", f"load_sae|{layer}|{width}", e)
-                continue
-            for task in todo:
-                ctx.run_unit("exp2", units.key(task, layer, width), lambda: _unit(ctx, sae, task, layer, width), units)
+    todo = lambda l, w: [t for t in ctx.data if not units.done(units.key(t, l, w))]
+    combos = [(l, w) for l in layers for w in widths if todo(l, w)]
+    workers = cpu_workers()
+    pending: List[Tuple[str, Future]] = []
+
+    def drain(block: bool) -> None:
+        keep = []
+        for i, (key, fut) in enumerate(pending):
+            if block or fut.done() or len(pending) - i > 4 * workers:   # bound queued feature memory
+                # results computed before the deadline are always kept
+                ctx.run_unit("exp2", key, fut.result, units, check_deadline=False)
+            else:
+                keep.append((key, fut))
+        pending[:] = keep
+
+    with ThreadPoolExecutor(workers, thread_name_prefix="exp2-cpu") as pool, \
+            _blas_limit(blas_threads_per_worker()):
+        for layer, width, sae in ctx.iter_saes("exp2", combos):
+            for task in todo(layer, width):
+                key = units.key(task, layer, width)
+                try:
+                    f = _features(ctx, sae, task, layer)                       # GPU, main thread
+                except Exception as e:  # noqa: BLE001
+                    log.error("unit exp2/%s FAILED: %s: %s", key, type(e).__name__, e)
+                    ctx.record_failure("exp2", key, e)
+                    continue
+                pending.append((key, pool.submit(_analyze, ctx, task, layer, width, f)))   # CPU, worker threads
             del sae
-            free_memory()
+            drain(block=False)
+        drain(block=True)
     rows = units.rows()
     strip = lambda r: {k: v for k, v in r.items() if k != "kind"}
     probe_rows = [strip(r) for r in rows if r["kind"] == "probe"]

@@ -17,8 +17,7 @@ import numpy as np
 import torch
 
 from src.experiments.common import (RunContext, decompose_batched, rescaled_noise, run_patched, sae_fidelity, summarize)
-from src.utils import free_memory, save_json, save_npz, save_table
-from src.models.sae_loader import load_sae
+from src.utils import save_json, save_npz, save_table
 
 log = logging.getLogger("prism")
 
@@ -100,29 +99,20 @@ def run_exp1(ctx: RunContext, layers: Optional[Sequence[int]] = None, widths: Op
     modes = list(ctx.cfg.get("exp1_positions", ["last"]))
     ctx.prepare(sorted(set(layers) | set(ctx.cached_layers)))
     units = ctx.unit_log("exp1")
-    for layer in layers:
-        for width in widths:
-            todo = [(t, m) for t in ctx.data for m in modes if not units.done(units.key(t, layer, width, m))]
-            need_fid = ctx.cfg.get("sae_fidelity", True) and not units.done(units.key("__fidelity__", layer, width))
-            if (not todo and not need_fid) or ctx.out_of_time():
-                continue
-            try:
-                sae = load_sae(layer, width, model=ctx.model, mock=ctx.mock, device=ctx.device)   # one SAE at a time
-            except Exception as e:  # noqa: BLE001 - missing SAE id / download failure: skip this (layer, width)
-                log.error("exp1: cannot load SAE L%d %s: %s", layer, width, e)
-                ctx.record_failure("exp1", f"load_sae|{layer}|{width}", e)
-                continue
-            fkey = units.key("__fidelity__", layer, width)
-            if ctx.cfg.get("sae_fidelity", True) and not units.done(fkey):
-                def fid():
-                    f = sae_fidelity(ctx, sae, layer)
-                    return [dict(task="__fidelity__", layer=layer, width=width, intervention="sae_fidelity", **f)] if f else []
-                ctx.run_unit("exp1", fkey, fid, units)
-            for task, mode in todo:
-                ctx.run_unit("exp1", units.key(task, layer, width, mode),
-                             lambda: _unit(ctx, sae, task, layer, width, mode), units)
-            del sae
-            free_memory()
+    want_fid = ctx.cfg.get("sae_fidelity", True)
+    todo = lambda l, w: [(t, m) for t in ctx.data for m in modes if not units.done(units.key(t, l, w, m))]
+    need_fid = lambda l, w: want_fid and not units.done(units.key("__fidelity__", l, w))
+    combos = [(l, w) for l in layers for w in widths if todo(l, w) or need_fid(l, w)]
+    for layer, width, sae in ctx.iter_saes("exp1", combos):        # one SAE at a time; next one prefetched
+        if need_fid(layer, width):
+            def fid():
+                f = sae_fidelity(ctx, sae, layer)
+                return [dict(task="__fidelity__", layer=layer, width=width, intervention="sae_fidelity", **f)] if f else []
+            ctx.run_unit("exp1", units.key("__fidelity__", layer, width), fid, units)
+        for task, mode in todo(layer, width):
+            ctx.run_unit("exp1", units.key(task, layer, width, mode),
+                         lambda: _unit(ctx, sae, task, layer, width, mode), units)
+        del sae
     all_rows = units.rows()
     rows = [r for r in all_rows if r["task"] != "__fidelity__"]
     fid_rows = [r for r in all_rows if r["task"] == "__fidelity__"]

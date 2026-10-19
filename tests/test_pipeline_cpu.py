@@ -94,10 +94,10 @@ def test_device_dtype():
 def test_decomposition_identity(model, width):
     sae = load_sae(LAYER, width, model=model, mock=True)
     x = torch.randn(5, 7, 256)
-    xh, e, acts = sae.decompose(x)
+    xh, e, l0 = sae.decompose(x)
     assert xh.dtype == e.dtype == torch.float32
     assert torch.allclose(xh + e, x, atol=1e-5)
-    assert ((acts > 0).sum(-1) <= sae.k).all()
+    assert l0.shape == (5, 7) and (l0 <= sae.k).all()
 
 
 def test_mock_sae_blind_to_dark_subspace(model):
@@ -311,3 +311,80 @@ def test_real_sae_jumprelu_encode():
     assert torch.all((a > 0) == (pre > 0.5)) and torch.allclose(a[a > 0], pre[pre > 0.5])
     xh, e, _ = sae.decompose(x)
     assert torch.allclose(xh + e, x, atol=1e-6)
+
+
+# ------------------------------------------------------------------ memory-lean runtime (8 GB GPUs)
+def test_last_logits_and_nll_match_full_forward(model, tok):
+    from src.models import runtime
+    ids = torch.tensor([tok.encode("State = 0. Add 3. Add 4. Add 2. Add 1. Modulo 7, State =")] * 3)
+    full = model.run_with_hooks(ids, fwd_hooks=[])
+    assert torch.allclose(runtime.last_logits(model, ids), full[:, -1].float(), atol=1e-5)
+    lp = torch.log_softmax(full[:, 2:-1].float(), -1)
+    ref = -float(lp.gather(-1, ids[:, 3:, None]).sum())
+    assert runtime.token_nll_sum(model, ids, skip=2) == pytest.approx(ref, rel=1e-5)
+
+
+@pytest.mark.parametrize("positions", ["last", "from_diff"])
+def test_resume_from_layer_matches_hooked_forward(model, data, positions):
+    b = data["mod_sum"]["test"]
+    sae = load_sae(LAYER, "16k", model=model, mock=True)
+    xh_c, _, _ = decompose_batched(sae, b.acts(LAYER, "clean", positions))
+    _, e_k, _ = decompose_batched(sae, b.acts(LAYER, "corrupt", positions))
+    v = xh_c + e_k
+    dl_a, top_a = run_patched(model, b, LAYER, v, None, positions=positions, resume=False)
+    dl_b, top_b = run_patched(model, b, LAYER, v, None, positions=positions, resume=True)
+    assert torch.allclose(dl_a, dl_b, atol=1e-4) and torch.equal(top_a, top_b)
+    # the cached corrupt residual must not be modified by patching
+    dl_c, _ = run_patched(model, b, LAYER, b.resid_corrupt[LAYER], None, resume=True)
+    assert torch.allclose(dl_c, b.dl_corrupt, atol=1e-4)
+
+
+def _toy_jumprelu(d=16, n=40, seed=0):
+    g = torch.Generator().manual_seed(seed)
+    W_enc, W_dec = torch.randn(d, n, generator=g), torch.randn(n, d, generator=g) / 4
+    b_enc, b_dec, thr = torch.randn(n, generator=g) / 4, torch.randn(d, generator=g), torch.rand(n, generator=g)
+    return W_enc, b_enc, thr, W_dec, b_dec
+
+
+def test_jumprelu_streamed_equals_resident_and_reference():
+    from src.models.sae_loader import JumpReLUSAE
+    W_enc, b_enc, thr, W_dec, b_dec = _toy_jumprelu()
+    x = torch.randn(33, 16)
+    pre = x @ W_enc + b_enc
+    f = torch.relu(pre) * (pre > thr)
+    ref = f @ W_dec + b_dec
+    res = JumpReLUSAE(W_enc.T.contiguous(), b_enc, thr, W_dec, b_dec, "16k", 0)
+    st = JumpReLUSAE(W_enc.T.contiguous(), b_enc, thr, W_dec, b_dec, "16k", 0).stream_to("cpu", chunk_latents=7, pin=False)
+    for sae in (res, st):
+        xh, e, l0 = sae.decompose(x)
+        assert torch.allclose(xh, ref, atol=1e-5) and torch.allclose(xh + e, x, atol=1e-6)
+        assert torch.equal(l0, (f > 0).sum(-1))
+        assert torch.allclose(sae.encode(x), f, atol=1e-6)
+        assert torch.allclose(sae.decode(f), ref, atol=1e-5)
+    assert st.streamed and len(st._host) == 6
+
+
+@pytest.mark.parametrize("dtype", [torch.float32, torch.bfloat16])
+def test_gemma_scope_npz_loader(tmp_path, dtype):
+    from src.models.sae_loader import JumpReLUSAE, load_gemma_scope_npz
+    W_enc, b_enc, thr, W_dec, b_dec = _toy_jumprelu()
+    path = tmp_path / "params.npz"
+    np.savez(path, W_enc=W_enc.numpy(), b_enc=b_enc.numpy(), threshold=thr.numpy(), W_dec=W_dec.numpy(), b_dec=b_dec.numpy())
+    sae = load_gemma_scope_npz(str(path), "16k", 3, dtype)
+    assert sae.dtype == dtype and sae.d_sae == 40 and sae.d_model == 16
+    assert torch.equal(sae.W_enc_T, W_enc.T.to(dtype)) and torch.equal(sae.W_dec, W_dec.to(dtype))
+    ref = JumpReLUSAE(W_enc.T.contiguous().to(dtype), b_enc.to(dtype), thr.to(dtype), W_dec.to(dtype), b_dec, "16k", 3)
+    x = torch.randn(9, 16)
+    assert torch.equal(sae.decompose(x)[0], ref.decompose(x)[0])
+
+
+def test_token_budget_is_runtime_configurable(tok):
+    from src.data import synthetic_tasks as st
+    items = tokenize_pairs(tok, generate_pairs("mod_sum", 64, 0))
+    L = len(items[0].clean_ids)
+    old = st.MAX_BATCH_TOKENS
+    try:
+        st.MAX_BATCH_TOKENS = 3 * L
+        assert max(len(b) for b in st.batch_by_length(items, 128)) == 3
+    finally:
+        st.MAX_BATCH_TOKENS = old

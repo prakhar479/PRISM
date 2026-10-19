@@ -19,8 +19,8 @@ import torch
 
 from src.experiments.common import RunContext, decompose_batched, generic_resid, run_patched, summarize
 from src.experiments.exp2_geometry import _stack, centered_svd
-from src.models.sae_loader import load_sae, parse_width
-from src.utils import free_memory, save_json, save_npz, save_table
+from src.models.sae_loader import parse_width
+from src.utils import save_json, save_npz, save_table
 
 log = logging.getLogger("prism")
 METHODS = ["unsupervised_svd", "supervised_centroid_svd", "random_subspace", "top_xhat_svd", "span_svd"]
@@ -153,38 +153,28 @@ def run_exp3(ctx: RunContext, layers: Optional[Sequence[int]] = None, widths: Op
     ctx.prepare(sorted(set(layers) | set(ctx.cached_layers)))
     d = ctx.d_model
     units = ctx.unit_log("exp3")
-    for layer in layers:
-        for width in widths:
-            todo = [(t, m) for t in ctx.data for m in modes if not units.done(units.key(t, layer, width, m))]
-            if not todo or ctx.out_of_time():
-                continue
-            try:
-                sae = load_sae(layer, width, model=ctx.model, mock=ctx.mock, device=ctx.device)
-            except Exception as e:  # noqa: BLE001
-                log.error("exp3: cannot load SAE L%d %s: %s", layer, width, e)
-                ctx.record_failure("exp3", f"load_sae|{layer}|{width}", e)
-                continue
-            try:
-                U_all = {t: _fit_subspaces(ctx, sae, t, layer, max(ranks), methods) for t in ctx.data}
-                for t, U in U_all.items():
-                    save_npz(ctx.out_dir / "tensors" / f"exp3_U_{t}_L{layer}_{width}.npz",
-                             **{k.replace("#", "_seed"): v for k, v in U.items()})
-                if "generic_text_svd" in methods:
-                    G = generic_resid(ctx, layer)
-                    if G is not None:
-                        _, E_g, _ = decompose_batched(sae, G)
-                        U_all["__generic__"] = {"generic_text_svd": fit_cov_eig(E_g, min(max(ranks), d))}
-            except Exception as e:  # noqa: BLE001
-                log.error("exp3: subspace fitting failed L%d %s: %s", layer, width, e)
-                ctx.record_failure("exp3", f"fit|{layer}|{width}", e)
-                del sae
-                free_memory()
-                continue
-            for task, mode in todo:
-                ctx.run_unit("exp3", units.key(task, layer, width, mode),
-                             lambda: _unit(ctx, sae, task, layer, width, mode, U_all, ranks, methods), units)
+    todo = lambda l, w: [(t, m) for t in ctx.data for m in modes if not units.done(units.key(t, l, w, m))]
+    combos = [(l, w) for l in layers for w in widths if todo(l, w)]
+    for layer, width, sae in ctx.iter_saes("exp3", combos):
+        try:
+            U_all = {t: _fit_subspaces(ctx, sae, t, layer, max(ranks), methods) for t in ctx.data}
+            for t, U in U_all.items():
+                save_npz(ctx.out_dir / "tensors" / f"exp3_U_{t}_L{layer}_{width}.npz",
+                         **{k.replace("#", "_seed"): v for k, v in U.items()})
+            if "generic_text_svd" in methods:
+                G = generic_resid(ctx, layer)
+                if G is not None:
+                    _, E_g, _ = decompose_batched(sae, G)
+                    U_all["__generic__"] = {"generic_text_svd": fit_cov_eig(E_g, min(max(ranks), d))}
+        except Exception as e:  # noqa: BLE001
+            log.error("exp3: subspace fitting failed L%d %s: %s", layer, width, e)
+            ctx.record_failure("exp3", f"fit|{layer}|{width}", e)
             del sae
-            free_memory()
+            continue
+        for task, mode in todo(layer, width):
+            ctx.run_unit("exp3", units.key(task, layer, width, mode),
+                         lambda: _unit(ctx, sae, task, layer, width, mode, U_all, ranks, methods), units)
+        del sae
     rows = units.rows()
     sizes = {w: parse_width(w) for w in widths}
     overhead = {"d_model": d, "ranks": ranks, "rank_params": {int(r): r * d for r in ranks},

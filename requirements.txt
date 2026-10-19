@@ -10,7 +10,7 @@ tqdm>=4.66
 # Optional locally (mock mode never imports these); required on the GPU server:
 seaborn>=0.13
 pyarrow>=14.0
-transformers>=4.44
+transformers>=4.57,<5     # TL 2.x is not validated against transformers 5
 huggingface_hub>=0.24
 transformer_lens>=2.16,<4   # 4.x removed HookedTransformer
 sae_lens>=6.0,<7

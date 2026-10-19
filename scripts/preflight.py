@@ -18,6 +18,7 @@ import numpy as np
 
 from src.data.synthetic_tasks import (add_few_shot_prefix, generate_pairs, get_tokenizer, score_pairs, tokenize_pairs,
                                       valid_mask)
+from src.models.runtime import setup_runtime
 from src.models.sae_loader import load_model
 from src.utils import get_device, get_dtype, load_config, save_json, setup_logging
 
@@ -38,7 +39,8 @@ def main() -> int:
     device = get_device("cpu" if a.mock else None)
     tok = get_tokenizer(a.mock, cfg.get("hf_tokenizer", "google/gemma-2-2b"))
     model = load_model(mock=a.mock, device=device, dtype=get_dtype(device), mock_cfg=cfg.get("mock"), tokenizer=tok,
-                       model_name=cfg["model_name"])
+                       model_name=cfg["model_name"], runtime_cfg=cfg.get("runtime"))
+    setup_runtime(cfg, model, device)
     margin = cfg.get("min_logit_diff", 2.0)
     grid, overrides, drop = [], {}, []
     t0 = time.time()

@@ -370,13 +370,14 @@ def tokenize_pairs(tok, pairs: Sequence[CounterfactualPair], answer_format: str 
 
 
 # --------------------------------------------------------------------------- filtering / batching
-MAX_BATCH_TOKENS = 4096   # B*L cap: full-sequence logits over Gemma's 256k vocab cost B*L*0.5 MB in bf16
+MAX_BATCH_TOKENS = 4096   # B*L cap per forward; set from free VRAM by runtime.setup_runtime
 
 
 def batch_by_length(items: Sequence[TokenizedPair], batch_size: int,
-                    max_tokens: int = MAX_BATCH_TOKENS) -> List[List[TokenizedPair]]:
+                    max_tokens: Optional[int] = None) -> List[List[TokenizedPair]]:
     """Group by sequence length so no padding is ever needed (pos=-1 is always the real last token).
-    Batches also respect a token budget so long few-shot prompts cannot OOM the logits tensor."""
+    Batches also respect a token budget so long few-shot prompts cannot run out of activation memory."""
+    max_tokens = max_tokens or MAX_BATCH_TOKENS
     groups: Dict[int, List[TokenizedPair]] = {}
     for it in items:
         groups.setdefault(len(it.clean_ids), []).append(it)
@@ -403,6 +404,7 @@ FILTER_MODES = ("strict", "clean_only", "none")
 @torch.inference_mode()
 def score_pairs(model, items: Sequence[TokenizedPair], batch_size: int = 32, device=None) -> Dict[str, np.ndarray]:
     """Per-pair base-model diagnostics (in the order of `items`)."""
+    from src.models.runtime import last_logits
     from src.utils import model_device
 
     device = device if device is not None else model_device(model)
@@ -412,8 +414,7 @@ def score_pairs(model, items: Sequence[TokenizedPair], batch_size: int = 32, dev
     out.update({k: np.zeros(n, bool) for k in ("clean_top1", "corrupt_top1")})
     for batch in batch_by_length(items, batch_size):
         t = make_tensors(batch, device)
-        lc = model.run_with_hooks(t["clean"], fwd_hooks=[])[:, -1].float()
-        lk = model.run_with_hooks(t["corrupt"], fwd_hooks=[])[:, -1].float()
+        lc, lk = last_logits(model, t["clean"]), last_logits(model, t["corrupt"])
         idx = torch.arange(len(batch), device=lc.device)
         ca, ka = t["clean_ans"].to(lc.device), t["corrupt_ans"].to(lc.device)
         rows = [pos[id(b)] for b in batch]

@@ -12,6 +12,7 @@ from src.experiments.common import RunContext
 from src.experiments.exp1_causal_split import run_exp1
 from src.experiments.exp2_geometry import run_exp2
 from src.experiments.exp3_hybrid_repair import run_exp3
+from src.models.runtime import setup_runtime
 from src.models.sae_loader import load_model
 from src.utils import get_device, get_dtype, save_json, set_seed
 
@@ -31,15 +32,17 @@ def run_suite(cfg: Dict, mock: bool, out_dir: Path, experiments: Sequence[str] =
     log.info("device=%s dtype=%s mock=%s out=%s", device, dtype, mock, out_dir)
     tok = get_tokenizer(mock, cfg.get("hf_tokenizer", "google/gemma-2-2b"))
     model = load_model(mock=mock, device=device, dtype=dtype, mock_cfg=cfg.get("mock"), tokenizer=tok,
-                       model_name=cfg["model_name"])
+                       model_name=cfg["model_name"], runtime_cfg=cfg.get("runtime"))
+    plan = setup_runtime(cfg, model, device)
     ctx = RunContext(model=model, tok=tok, cfg=cfg, mock=mock, device=device, out_dir=out_dir, resume=resume,
-                     deadline=deadline)
+                     deadline=deadline, runtime_plan=plan)
     layers = set()
     if "exp1" in experiments:
         layers |= set(cfg["layers"])
     if "exp2" in experiments or "exp3" in experiments:
         layers |= set(cfg["geometry_layers"])
-    info = {"cfg": cfg, "mock": mock, "device": str(device), "dtype": str(dtype), "experiments": list(experiments)}
+    info = {"cfg": cfg, "mock": mock, "device": str(device), "dtype": str(dtype), "experiments": list(experiments),
+            "runtime": ctx.runtime_plan}
     if layers:
         ctx.prepare(sorted(layers))
         info.update(tasks_run=list(ctx.data), task_info=ctx.task_info)

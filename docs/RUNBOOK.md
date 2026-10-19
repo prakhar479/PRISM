@@ -15,7 +15,7 @@ Everything goes through `./run.sh <command>`.
 ./run.sh dryrun       # the whole overnight schedule with a fake model, about 90 s
 ```
 
-**GPU server** (24 GB):
+**GPU machine** (8 GB or more; memory settings adapt automatically, see section 6a):
 ```bash
 git clone <this repo> && cd prism_sae_dark_matter
 ./run.sh setup
@@ -187,12 +187,29 @@ Every NLDR in `SUMMARY.md` is written as `value [lo, hi]`, a 95% bootstrap CI. T
   ```
 - **Regenerate figures and summary only:** `run_full_suite.py ... --experiments plots --out <existing dir>`.
 
+## 6a. GPU memory and speed (8 GB and up)
+
+Nothing needs to be set by hand. At startup the run logs a `runtime plan` line, which is also saved in `run_info.json` under `runtime`.
+
+| Mechanism | What it does | Effect |
+|---|---|---|
+| Last-token logits | The model runs to its final residual, and the vocabulary projection is applied to the last token only | Removes the ~2 GB `[batch, tokens, 256k]` logits tensor: this was the 8 GB OOM |
+| `offload_embed` (auto on GPUs < 16 GB) | The 256k × 2304 embedding table stays in CPU RAM | Saves 1.2 GB VRAM, bit-identical results |
+| `max_batch_tokens` (auto) | Tokens per forward batch, computed from the VRAM left after loading the model | About 2–3k on 8 GB, 16k on 24 GB |
+| `sae_placement` (auto) | An SAE that does not fit next to the activations stays in CPU RAM; weight chunks are streamed to the GPU | Any width, up to 1m, runs on 8 GB. Same arithmetic, so the numbers do not depend on GPU size |
+| `resume_from_layer` | A patched run restarts at layer+1 from the cached residual instead of recomputing layers 0..layer | Roughly halves patching time. Checked against full forwards at startup and switched off if they differ (`resume_check_max_abs_diff` in `run_info.json`) |
+| `prefetch_saes` | The next SAE is read from disk on a background thread | Hides SAE load time |
+| `cpu_workers` | exp2 probe fitting runs on worker threads while the GPU continues | CPU and GPU busy at the same time |
+
+SAEs need CPU RAM: 1m is about 9.4 GB (bf16). If there is not enough free RAM, that width is skipped and listed in `failures.jsonl` (rule S1). To force a setting, use, e.g., `--set runtime='{max_batch_tokens: 1024}'`.
+
 ## 7. Troubleshooting
 
 | Symptom | Fix |
 |---|---|
 | `HF access ... failed` | Accept the gemma-2-2b licence on huggingface.co with the same account as the token |
-| CUDA OOM on the 1m width | Remove `"1m"` from `configs/tier2_widths.yaml`, or lower `batch_size` |
+| CUDA OOM | Check the `runtime plan` line in the log. Rerun with `--set runtime='{max_batch_tokens: 1024, sae_placement: stream}'`, then `./run.sh resume` |
+| `MemoryError: SAE ... needs N GiB RAM` | Not enough system RAM for that width (usually 1m): close other programs, or remove it from `configs/tier2_widths.yaml` |
 | `datasets` import warning | `pip install datasets`. Otherwise only `generic_text_svd` is skipped |
 | Run takes far longer than estimated | `./run.sh status`. Lower `n_train`/`n_test` or the number of layers in the tier configs, then `./run.sh resume` |
 | Plot error in the log | Metrics are still saved. Fix the plot, then use `--experiments plots` |

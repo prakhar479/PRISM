@@ -113,10 +113,10 @@ def env_section(out: Path) -> dict:
 
 # --------------------------------------------------------------------------- 2. tokenizer
 def tokenizer_section(tok) -> dict:
-    ids = tok.encode("Hello world")
+    ids = tok.encode("When Mary")
     bos = getattr(tok, "bos_token_id", None)
     check("tokenizer prepends BOS (Gemma is garbage without it)", bos is not None and ids[0] == bos,
-          f"encode('Hello world') = {ids[:6]}, bos_token_id = {bos}")
+          f"encode('When Mary') = {ids[:6]}, bos_token_id = {bos}")
     info = {"bos_token_id": bos, "pad_token_id": getattr(tok, "pad_token_id", None),
             "padding_side": getattr(tok, "padding_side", None), "examples": {}}
     for task in st.TASKS:
@@ -228,14 +228,14 @@ def tl_paths(model, probes: list, device: torch.device) -> dict:
     res = {"ours": [], "tl_plain": [], "ours_gpu": [], "nll": [], "resume": {}}
     for p in probes:
         t = torch.tensor([p["ids"]], device=device)
-        res["ours"].append(runtime.last_logits(model, t).cpu())
+        res["ours"].append(runtime.last_logits(model, t)[0].cpu())
     try:
         with embed_on_gpu(model, device):
             for p in probes:
                 t = torch.tensor([p["ids"]], device=device)
                 full = model(t, return_type="logits")[0].float()
                 res["tl_plain"].append(full[-1].cpu())
-                res["ours_gpu"].append(runtime.last_logits(model, t).cpu())
+                res["ours_gpu"].append(runtime.last_logits(model, t)[0].cpu())
                 lp = torch.log_softmax(full[:-1], -1)
                 ref = -float(lp.gather(-1, t[0, 1:, None]).sum())
                 res["nll"].append((ref, runtime.token_nll_sum(model, t)))
@@ -248,7 +248,7 @@ def tl_paths(model, probes: list, device: torch.device) -> dict:
         for p, ref in zip(probes, res["ours"]):
             t = torch.tensor([p["ids"]], device=device)
             r = runtime.resid_at(model, t, layer)
-            d.append(float((runtime.last_logits_from(model, r, layer, t).cpu() - ref).abs().max()))
+            d.append(float((runtime.last_logits_from(model, r, layer, t)[0].cpu() - ref).abs().max()))
         res["resume"][layer] = max(d)
     return res
 
@@ -387,97 +387,101 @@ def main() -> int:
     device = get_device()
     report = {"config": a.config, "overrides": str(ovp) if ovp else None}
 
-    log.info("== 1/6 environment")
-    report["env"] = env_section(out)
-    log.info("== 2/6 tokenizer")
-    tok = st.get_tokenizer(False, cfg.get("hf_tokenizer", "google/gemma-2-2b"))
-    report["tokenizer"] = tokenizer_section(tok)
-    log.info("== 3/6 prompt space (replays build_task_splits with the run's sizes)")
-    report["prompt_space"] = space_section(cfg)
+    try:
+        log.info("== 1/6 environment")
+        report["env"] = env_section(out)
+        log.info("== 2/6 tokenizer")
+        tok = st.get_tokenizer(False, cfg.get("hf_tokenizer", "google/gemma-2-2b"))
+        report["tokenizer"] = tokenizer_section(tok)
+        log.info("== 3/6 prompt space (replays build_task_splits with the run's sizes)")
+        report["prompt_space"] = space_section(cfg)
 
-    probes = build_probes(tok, a.n_probe)
-    log.info("%d probe prompts", len(probes))
-    hf = None
-    if a.skip_hf:
-        check("HF reference", None, "skipped (--skip-hf)")
-    else:
-        log.info("== 4/6 Hugging Face reference")
-        try:
-            hf = hf_logits(cfg.get("hf_tokenizer", "google/gemma-2-2b"), probes, torch.device(a.hf_device) if a.hf_device else device)
-            report["hf"] = {k: v for k, v in hf.items() if k != "logits"}
-            check("HF config final_logit_softcapping == 30", hf["final_logit_softcapping"] == SOFTCAP,
-                  str(hf["final_logit_softcapping"]))
-        except Exception as e:  # noqa: BLE001
-            check("HF reference loads", False, f"{type(e).__name__}: {e}"[:300])
-            free_memory()
+        probes = build_probes(tok, a.n_probe)
+        log.info("%d probe prompts", len(probes))
+        hf = None
+        if a.skip_hf:
+            check("HF reference", None, "skipped (--skip-hf)")
+        else:
+            log.info("== 4/6 Hugging Face reference")
+            try:
+                hf = hf_logits(cfg.get("hf_tokenizer", "google/gemma-2-2b"), probes, torch.device(a.hf_device) if a.hf_device else device)
+                report["hf"] = {k: v for k, v in hf.items() if k != "logits"}
+                check("HF config final_logit_softcapping == 30", hf["final_logit_softcapping"] == SOFTCAP,
+                      str(hf["final_logit_softcapping"]))
+            except Exception as e:  # noqa: BLE001
+                check("HF reference loads", False, f"{type(e).__name__}: {e}"[:300])
+                free_memory()
 
-    log.info("== 5/6 TransformerLens paths")
-    t0 = time.time()
-    model = load_model(device=device, dtype=get_dtype(device), model_name=cfg["model_name"], tokenizer=tok,
-                       runtime_cfg=cfg.get("runtime"))
-    runtime.setup_runtime(cfg, model, device)
-    mc = model.cfg
-    report["tl_cfg"] = {k: str(getattr(mc, k, None)) for k in (
-        "n_layers", "d_model", "d_vocab", "normalization_type", "output_logits_soft_cap", "attn_scores_soft_cap",
-        "positional_embedding_type", "default_prepend_bos", "use_normalization_before_and_after", "dtype", "device")}
-    report["tl_cfg"]["embed_on_cpu"] = bool(getattr(model, "_prism_embed_on_cpu", False))
-    log.info("TL loaded in %.0fs: %s", time.time() - t0, report["tl_cfg"])
-    check("TL output_logits_soft_cap == 30", float(getattr(mc, "output_logits_soft_cap", 0) or 0) == SOFTCAP,
-          report["tl_cfg"]["output_logits_soft_cap"])
-    w_scale = float(model.embed.W_E[:4096].float().norm(dim=-1).median().cpu()
-                    / model.unembed.W_U[:, :4096].float().norm(dim=0).median().cpu())
-    check("W_E carries Gemma's sqrt(d_model) embedding scale", abs(w_scale / mc.d_model ** 0.5 - 1) < 0.2,
-          f"median W_E row norm / W_U column norm = {w_scale:.1f} (sqrt(d_model) = {mc.d_model ** 0.5:.1f})", warn_only=True)
+        log.info("== 5/6 TransformerLens paths")
+        t0 = time.time()
+        model = load_model(device=device, dtype=get_dtype(device), model_name=cfg["model_name"], tokenizer=tok,
+                           runtime_cfg=cfg.get("runtime"))
+        runtime.setup_runtime(cfg, model, device)
+        mc = model.cfg
+        report["tl_cfg"] = {k: str(getattr(mc, k, None)) for k in (
+            "n_layers", "d_model", "d_vocab", "normalization_type", "output_logits_soft_cap", "attn_scores_soft_cap",
+            "positional_embedding_type", "default_prepend_bos", "use_normalization_before_and_after", "dtype", "device")}
+        report["tl_cfg"]["embed_on_cpu"] = bool(getattr(model, "_prism_embed_on_cpu", False))
+        log.info("TL loaded in %.0fs: %s", time.time() - t0, report["tl_cfg"])
+        check("TL output_logits_soft_cap == 30", float(getattr(mc, "output_logits_soft_cap", 0) or 0) == SOFTCAP,
+              report["tl_cfg"]["output_logits_soft_cap"])
+        w_scale = float(model.embed.W_E[:4096].float().norm(dim=-1).median().cpu()
+                        / model.unembed.W_U[:, :4096].float().norm(dim=0).median().cpu())
+        check("W_E carries Gemma's sqrt(d_model) embedding scale", abs(w_scale / mc.d_model ** 0.5 - 1) < 0.2,
+              f"median W_E row norm / W_U column norm = {w_scale:.1f} (sqrt(d_model) = {mc.d_model ** 0.5:.1f})", warn_only=True)
 
-    tl = tl_paths(model, probes, device)
-    cmp = {"ours vs tl_plain": compare(tl["ours"], tl["tl_plain"]), "ours vs ours_gpu": compare(tl["ours"], tl["ours_gpu"])}
-    if hf:
-        cmp["tl_plain vs hf"] = compare(tl["tl_plain"], hf["logits"])
-        cmp["ours vs hf"] = compare(tl["ours"], hf["logits"])
-    report["compare"] = cmp
-    for k, v in cmp.items():
-        if not v:
-            check(f"logits {k}", None, "not computed")
-            continue
-        tol = (0.1, 1.0) if "hf" not in k else (3.0, 0.9)    # same TL graph: ~exact; TL vs HF in bf16: small drift
-        check(f"logits {k}", v["median_max_abs_diff"] <= tol[0] and v["top1_agree"] >= tol[1],
-              f"max {v['max_abs_diff']:.3f}, median {v['median_max_abs_diff']:.3f}, top-1 agree {v['top1_agree']:.2f}")
-    allmax = max(float(x.abs().max()) for x in tl["ours"])
-    check(f"all logits within the softcap (+-{SOFTCAP:.0f})", allmax <= SOFTCAP + 0.01, f"largest abs logit {allmax:.2f}")
-    for layer, d in tl["resume"].items():
-        check(f"resume from layer {layer} == full forward", d < 0.1, f"max dlogit {d:.4f}")
-    if tl["nll"]:
-        d = max(abs(r - o) / max(abs(r), 1) for r, o in tl["nll"])
-        check("chunked token_nll_sum == full-logit NLL", d < 0.01, f"max relative diff {d:.4f}")
-
-    sanity = []
-    for i, p in enumerate(probes):
-        if p["group"] != "sanity":
-            continue
-        row = {"prompt": SANITY[i][0], "target": SANITY[i][1], "top5": {"ours": topk(tok, tl["ours"][i])}}
+        tl = tl_paths(model, probes, device)
+        cmp = {"ours vs tl_plain": compare(tl["ours"], tl["tl_plain"]), "ours vs ours_gpu": compare(tl["ours"], tl["ours_gpu"])}
         if hf:
-            row["top5"]["hf"] = topk(tok, hf["logits"][i])
-        row["ours_top1_ok"] = p["target"] is not None and int(tl["ours"][i].argmax()) == p["target"]
-        row["hf_top1_ok"] = bool(hf) and p["target"] is not None and int(hf["logits"][i].argmax()) == p["target"]
-        sanity.append(row)
-    report["sanity"] = sanity
-    n_ok = sum(r["ours_top1_ok"] for r in sanity)
-    check("sanity prompts: ours top-1 correct on >= 5/7", n_ok >= 5, f"{n_ok}/{len(sanity)} correct")
-    if hf:
-        n_hf = sum(r["hf_top1_ok"] for r in sanity)
-        check("sanity prompts: HF top-1 correct on >= 5/7", n_hf >= 5, f"{n_hf}/{len(sanity)} correct")
-        groups = sorted({p["group"] for p in probes if p["group"] != "sanity"})
-        acc = {}
-        for g in groups:
-            idx = [i for i, p in enumerate(probes) if p["group"] == g]
-            acc[g] = {path: float(np.mean([int(src[i].argmax()) == probes[i]["target"] for i in idx]))
-                      for path, src in (("hf", hf["logits"]), ("ours", tl["ours"]))}
-        report["task_top1_hf_vs_ours"] = acc
-        log.info("task top-1 on probe prompts, HF vs ours: %s", acc)
+            cmp["tl_plain vs hf"] = compare(tl["tl_plain"], hf["logits"])
+            cmp["ours vs hf"] = compare(tl["ours"], hf["logits"])
+        report["compare"] = cmp
+        for k, v in cmp.items():
+            if not v:
+                check(f"logits {k}", None, "not computed")
+                continue
+            tol = (0.1, 1.0) if "hf" not in k else (3.0, 0.9)    # same TL graph: ~exact; TL vs HF in bf16: small drift
+            check(f"logits {k}", v["median_max_abs_diff"] <= tol[0] and v["top1_agree"] >= tol[1],
+                  f"max {v['max_abs_diff']:.3f}, median {v['median_max_abs_diff']:.3f}, top-1 agree {v['top1_agree']:.2f}")
+        allmax = max(float(x.abs().max()) for x in tl["ours"])
+        check(f"all logits within the softcap (+-{SOFTCAP:.0f})", allmax <= SOFTCAP + 0.01, f"largest abs logit {allmax:.2f}")
+        for layer, d in tl["resume"].items():
+            check(f"resume from layer {layer} == full forward", d < 0.1, f"max dlogit {d:.4f}")
+        if tl["nll"]:
+            d = max(abs(r - o) / max(abs(r), 1) for r, o in tl["nll"])
+            check("chunked token_nll_sum == full-logit NLL", d < 0.01, f"max relative diff {d:.4f}")
 
-    log.info("== 6/6 batching + task behaviour")
-    batching_section(model, tok)
-    report["tasks"] = task_section(model, tok, a.n_task)
+        sanity = []
+        for i, p in enumerate(probes):
+            if p["group"] != "sanity":
+                continue
+            row = {"prompt": SANITY[i][0], "target": SANITY[i][1], "top5": {"ours": topk(tok, tl["ours"][i])}}
+            if hf:
+                row["top5"]["hf"] = topk(tok, hf["logits"][i])
+            row["ours_top1_ok"] = p["target"] is not None and int(tl["ours"][i].argmax()) == p["target"]
+            row["hf_top1_ok"] = bool(hf) and p["target"] is not None and int(hf["logits"][i].argmax()) == p["target"]
+            sanity.append(row)
+        report["sanity"] = sanity
+        n_ok = sum(r["ours_top1_ok"] for r in sanity)
+        check("sanity prompts: ours top-1 correct on >= 5/7", n_ok >= 5, f"{n_ok}/{len(sanity)} correct")
+        if hf:
+            n_hf = sum(r["hf_top1_ok"] for r in sanity)
+            check("sanity prompts: HF top-1 correct on >= 5/7", n_hf >= 5, f"{n_hf}/{len(sanity)} correct")
+            groups = sorted({p["group"] for p in probes if p["group"] != "sanity"})
+            acc = {}
+            for g in groups:
+                idx = [i for i, p in enumerate(probes) if p["group"] == g]
+                acc[g] = {path: float(np.mean([int(src[i].argmax()) == probes[i]["target"] for i in idx]))
+                          for path, src in (("hf", hf["logits"]), ("ours", tl["ours"]))}
+            report["task_top1_hf_vs_ours"] = acc
+            log.info("task top-1 on probe prompts, HF vs ours: %s", acc)
+
+        log.info("== 6/6 batching + task behaviour")
+        batching_section(model, tok)
+        report["tasks"] = task_section(model, tok, a.n_task)
+    except Exception as e:  # noqa: BLE001 - keep everything gathered so far
+        log.exception("check_forward crashed")
+        check("script ran to the end", False, f"{type(e).__name__}: {e}"[:300])
     return write_report(out, report)
 
 

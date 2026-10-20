@@ -22,7 +22,8 @@ of pairs the pipeline's filter would keep), and the Wilson 95% lower bound of ac
 trivial baseline (most frequent answer, or the best surface heuristic).
 
     python scripts/analyze_tasks.py                 # full grid (~15-25 min on an 8 GB GPU)
-    python scripts/analyze_tasks.py --quick         # n=48, shots 0/4, no probes (~4 min)
+    python scripts/analyze_tasks.py --quick         # n=48, shots 0/4, no probes (~2 min)
+    python scripts/analyze_tasks.py --probe-only    # probes only, 2 and 8 shots (~5-10 min)
     python scripts/analyze_tasks.py --tasks var_binding,entity_track --shots 0,2
 
 Writes <out>/report.md, cells.csv, cells.json, probes.json, recommendations.json and figures/*.png.
@@ -312,9 +313,11 @@ def residuals(model, items, layers):
     return {l: torch.cat(v).numpy()[inv] for l, v in store.items()}
 
 
-def probe(X, y, seed=0, C=0.1):
+def probe(X, y, seed=0, C=0.1, hard=None):
+    """5-fold CV logistic probe. `hard` (bool per item) marks items whose answer differs from the strongest
+    shortcut: accuracy there shows the probe reads the state, not the shortcut's answer."""
     from sklearn.linear_model import LogisticRegression
-    from sklearn.model_selection import StratifiedKFold, cross_val_score
+    from sklearn.model_selection import StratifiedKFold, cross_val_predict
     from sklearn.pipeline import make_pipeline
     from sklearn.preprocessing import StandardScaler
 
@@ -325,9 +328,17 @@ def probe(X, y, seed=0, C=0.1):
         return None
     cv = StratifiedKFold(5, shuffle=True, random_state=seed)
     clf = make_pipeline(StandardScaler(), LogisticRegression(max_iter=2000, C=C))
-    acc = float(cross_val_score(clf, X, y, cv=cv).mean())
-    ctrl = float(cross_val_score(clf, X, np.random.default_rng(seed).permutation(y), cv=cv).mean())
-    return {"acc": acc, "shuffled": ctrl, "majority": max(Counter(y).values()) / len(y), "n": int(len(y))}
+    pred = cross_val_predict(clf, X, y, cv=cv)
+    y_s = np.random.default_rng(seed).permutation(y)
+    pred_s = cross_val_predict(clf, X, y_s, cv=cv)
+    res = {"acc": float(np.mean(pred == y)), "shuffled": float(np.mean(pred_s == y_s)),
+           "majority": max(Counter(y).values()) / len(y), "n": int(len(y))}
+    if hard is not None:
+        h = np.asarray(hard)[keep]
+        if h.sum() >= 10:
+            res.update(acc_hard=float(np.mean(pred[h] == y[h])), shuffled_hard=float(np.mean(pred_s[h] == y_s[h])),
+                       majority_hard=max(Counter(y[h]).values()) / int(h.sum()), n_hard=int(h.sum()))
+    return res
 
 
 def surface_features(tok, items):
@@ -345,10 +356,81 @@ def surface_features(tok, items):
     return X[:, :len(vocab)], X
 
 
-def surface_probe(tok, items, y, seed=0):
+def surface_probe(tok, items, y, seed=0, hard=None):
     # best over feature sets and regularisation: a deliberately strong baseline (conservative for H4)
-    res = [p for X in surface_features(tok, items) for C in (0.1, 1.0, 10.0) for p in [probe(X, y, seed, C)] if p]
+    res = [p for X in surface_features(tok, items) for C in (0.1, 1.0, 10.0) for p in [probe(X, y, seed, C, hard)] if p]
     return max(res, key=lambda p: p["acc"]) if res else None
+
+
+def strongest_shortcut(task, items):
+    """(name, accuracy, hard mask) of the most accurate non-solution heuristic on these items, or (None, 0, None)."""
+    targets = [i.pair.clean_target_str.strip() for i in items]
+    best = (None, 0.0, None)
+    for name in heuristics(task, items[0].pair):
+        right = np.array([heuristics(task, i.pair)[name] == t for i, t in zip(items, targets)])
+        if best[1] < right.mean() < 0.95:
+            best = (name, float(right.mean()), ~right)
+    return best
+
+
+@torch.inference_mode()
+def probe_cell(model, tok, task, level, shots, n, layers, seed):
+    """Residual probes per layer + surface-token probe + the model's own accuracy, overall and on the
+    items the strongest shortcut gets wrong."""
+    _, items = make_items(tok, task, level, shots, n, seed)
+    if len(items) < 50:
+        log.warning("probe %s L%s %ds: only %d pairs, skipped", task, level, shots, len(items))
+        return None
+    y = np.array([i.pair.clean_state_id for i in items])
+    name, sc_acc, hard = strongest_shortcut(task, items)
+    sc = score(model, tok, items)
+    right = sc["pred_c"] == np.array([i.clean_ans for i in items])
+    R = residuals(model, items, layers)
+    res = {"task": task, "level": level, "shots": shots, "n": len(items), "shortcut": name, "shortcut_acc": sc_acc,
+           "output_acc": float(right.mean()),
+           "output_acc_hard": float(right[hard].mean()) if hard is not None and hard.sum() else None,
+           "layers": {l: probe(R[l], y, seed, hard=hard) for l in layers},
+           "surface": surface_probe(tok, items, y, seed, hard)}
+    del R
+    free_memory()
+    return res
+
+
+def probe_verdicts(probes_res):
+    """H4 (original tasks) and H4b (replacement tasks): state decodable beyond surface tokens AND beyond the
+    strongest shortcut; flags 'represented but not read out' when the probe beats the model's own output."""
+    by_task = defaultdict(list)
+    for key, r in probes_res.items():
+        if not r:
+            continue
+        surf = r["surface"] or {}
+        best_l, best = max(((l, p) for l, p in r["layers"].items() if p), key=lambda lp: lp[1]["acc"], default=(None, None))
+        if best is None:
+            continue
+        ok = best["acc"] - max(best["shuffled"], surf.get("acc", 0.0)) >= 0.15
+        txt = (f"{key}: L{best_l} probe {best['acc']:.2f} (shuffled {best['shuffled']:.2f}, surface {surf.get('acc', 0):.2f}, "
+               f"output {r['output_acc']:.2f})")
+        if "acc_hard" in best:
+            floor = max(best["majority_hard"], best["shuffled_hard"], surf.get("acc_hard", 0.0))
+            ok &= best["acc_hard"] - floor >= 0.15
+            out_h = r["output_acc_hard"]
+            txt += (f"; where '{r['shortcut']}' is wrong (n={best['n_hard']}): probe {best['acc_hard']:.2f} vs floor "
+                    f"{floor:.2f}, output {out_h:.2f}" if out_h is not None else "")
+        if not ok and surf.get("acc", 0) >= best["acc"] - 0.05:
+            txt += " -> confounded: surface tokens already decode it"
+        if ok and best["acc"] - r["output_acc"] >= 0.2:
+            txt += " -> represented but not read out"
+        by_task[r["task"]].append((ok, txt))
+    V = []
+    for vid, kind, label in (("H4", "original", "original tasks"), ("H4b", "new", "replacement tasks")):
+        ts = {t: v for t, v in by_task.items() if SPECS[t]["kind"] == kind}
+        if not ts:
+            continue
+        latent = [t for t, v in ts.items() if any(ok for ok, _ in v)]
+        V.append((vid, f"{label}: state in the residual beyond surface tokens and shortcuts",
+                  "; ".join(txt for v in ts.values() for _, txt in v),
+                  "CONFIRMED" if len(latent) == len(ts) else "PARTIAL" if latent else "REJECTED"))
+    return V
 
 
 # --------------------------------------------------------------------------- figures
@@ -385,6 +467,38 @@ def figures(rows, out: Path):
         fig.tight_layout()
         fig.savefig(out / fname, dpi=130)
         plt.close(fig)
+
+
+def probe_figure(probes_res, out: Path):
+    import matplotlib
+
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+
+    cells = [(k, r) for k, r in probes_res.items() if r]
+    if not cells:
+        return
+    out.mkdir(parents=True, exist_ok=True)
+    fig, axes = plt.subplots(1, len(cells), figsize=(3.2 * len(cells), 3.2), sharey=True, squeeze=False)
+    for ax, (key, r) in zip(axes[0], cells):
+        ls = [l for l, p in r["layers"].items() if p]
+        ax.plot(ls, [r["layers"][l]["acc"] for l in ls], marker="o", lw=2, label="probe")
+        if all("acc_hard" in r["layers"][l] for l in ls):
+            ax.plot(ls, [r["layers"][l]["acc_hard"] for l in ls], marker="o", lw=2, label="probe, shortcut wrong")
+        ax.plot(ls, [r["layers"][l]["shuffled"] for l in ls], color="0.6", lw=1, label="shuffled labels")
+        if r["surface"]:
+            ax.axhline(r["surface"]["acc"], color="k", ls="--", lw=1, label="surface tokens")
+        ax.axhline(r["output_acc"], color="C3", ls=":", lw=1.5, label="model output")
+        ax.set_xticks(ls)
+        ax.set_title(key, fontsize=9)
+        ax.set_xlabel("layer")
+        ax.set_ylim(0, 1.02)
+        ax.grid(alpha=0.25)
+    axes[0][0].set_ylabel("accuracy")
+    axes[0][-1].legend(fontsize=7, frameon=False)
+    fig.tight_layout()
+    fig.savefig(out / "probes_by_layer.png", dpi=130)
+    plt.close(fig)
 
 
 # --------------------------------------------------------------------------- verdicts & report
@@ -437,24 +551,7 @@ def verdicts(rows, sanity_ok, probes_res):
             h3.append(f"{t}: wrong answers match '{k}' {v:.2f} (chance {chance:.2f})")
     V.append(("H3", "wrong answers follow a surface heuristic", "; ".join(h3),
               "CONFIRMED" if orig and shortcut_tasks == len(orig) else "PARTIAL" if shortcut_tasks else "REJECTED"))
-    if probes_res:
-        h4, latent = [], 0
-        for t, layers in probes_res.items():
-            if SPECS[t]["kind"] != "original":
-                continue
-            surf = layers["surface"]["acc"] if layers.get("surface") else 0.0
-            best_l, best = max(((l, p) for l, p in layers["layers"].items() if p), key=lambda lp: lp[1]["acc"],
-                               default=(None, None))
-            if best is None:
-                continue
-            floor = max(best["shuffled"], surf)
-            ok = best["acc"] - floor >= 0.15
-            latent += ok
-            note = "" if ok else " -> confounded: surface tokens already decode it" if surf >= best["acc"] - 0.05 else ""
-            h4.append(f"{t}: best layer {best_l} probe {best['acc']:.2f} vs shuffled {best['shuffled']:.2f}, "
-                      f"surface-token probe {surf:.2f}{note}")
-        V.append(("H4", "state is represented in the residual beyond what the prompt tokens give", "; ".join(h4),
-                  "CONFIRMED" if latent and latent == len(h4) else "PARTIAL" if latent else "REJECTED"))
+    V += probe_verdicts(probes_res)
     new = [t for t in by if SPECS[t]["kind"] == "new"]
     if new:
         ok = {t: [r for r in by[t] if r["viable"]] for t in new}
@@ -465,14 +562,14 @@ def verdicts(rows, sanity_ok, probes_res):
 
 
 def recommendations(rows):
-    """Per task: the hardest viable level, then the fewest shots, then the highest keep rate."""
+    """Per task: the hardest viable level, then the most pairs kept (to 0.02), then the fewest shots."""
     rec = {}
     for t in SPECS:
         v = [r for r in rows if r["task"] == t and r["viable"]]
         if not v:
             rec[t] = {"viable": False}
             continue
-        b = max(v, key=lambda r: (r["level"], -r["shots"], r["keep_clean_only"]))
+        b = max(v, key=lambda r: (r["level"], round(r["keep_clean_only"] / 0.02), -r["shots"]))
         rec[t] = {"viable": True, SPECS[t]["kw"] or "level": b["level"], "n_shots": b["shots"], "filter_mode": "clean_only",
                   "expected_retention": round(b["keep_clean_only"], 3),
                   "candidate_multiplier": int(math.ceil(1.5 / max(b["keep_clean_only"], 0.05))),
@@ -519,18 +616,27 @@ def write_report(out, rows, V, sanity, probes_res, rec, meta):
     if probes_res:
         L += ["", "## Linear probes on the residual (last position, clean state, 5-fold CV)", "",
               "A residual probe only shows computation if it beats the surface-token probe (same classifier on token "
-              "counts + position one-hots of the prompt).", "",
-              "| task | level | shots | layer | probe acc | shuffled | surface tokens | majority | n |",
-              "|---|---|---|---|---|---|---|---|---|"]
-        for t, layers in probes_res.items():
-            m = meta["probe_cells"][t]
-            surf = layers["surface"]["acc"] if layers.get("surface") else float("nan")
-            for l, p in layers["layers"].items():
+              "counts + position one-hots of the prompt) and, on the items where the strongest shortcut is wrong, "
+              "beats the majority class there. 'output' = the model's own top-1 accuracy on the same prompts."]
+        for key, r in probes_res.items():
+            if not r:
+                continue
+            sf = r["surface"] or {}
+            fmt = lambda v: "-" if v is None else f"{v:.2f}"   # noqa: E731
+            sc_txt = ("no shortcut is ever right" if r["shortcut"] is None else
+                      f"strongest shortcut '{r['shortcut']}' right on {r['shortcut_acc']:.2f}, output where it is wrong "
+                      f"{fmt(r['output_acc_hard'])}")
+            L += ["", f"**{key}** (n={r['n']}): output {r['output_acc']:.2f}; {sc_txt}; "
+                  f"surface probe {fmt(sf.get('acc'))} (where shortcut wrong {fmt(sf.get('acc_hard'))})", "",
+                  "| layer | probe | shuffled | majority | probe where shortcut wrong | majority there | n there |",
+                  "|---|---|---|---|---|---|---|"]
+            for l, p in r["layers"].items():
                 if p:
-                    L.append(f"| {t} | {m[0]} | {m[1]} | {l} | {p['acc']:.2f} | {p['shuffled']:.2f} | {surf:.2f} | "
-                             f"{p['majority']:.2f} | {p['n']} |")
-    L += ["", "## Recommended settings (hardest viable level, fewest shots)", "", "```json", json.dumps(rec, indent=1), "```",
-          "", "Figures: `figures/accuracy_vs_difficulty.png`, `figures/keep_vs_difficulty.png` (dotted line = configured level)."]
+                    L.append(f"| {l} | {p['acc']:.2f} | {p['shuffled']:.2f} | {p['majority']:.2f} | {fmt(p.get('acc_hard'))} | "
+                             f"{fmt(p.get('majority_hard'))} | {p.get('n_hard', '-')} |")
+    L += ["", "## Recommended settings (hardest viable level, most pairs kept, fewest shots)", "", "```json", json.dumps(rec, indent=1), "```",
+          "", "Figures: `figures/accuracy_vs_difficulty.png`, `figures/keep_vs_difficulty.png` (dotted line = configured level), "
+          "`figures/probes_by_layer.png`."]
     (out / "report.md").write_text("\n".join(L) + "\n")
 
 
@@ -549,19 +655,22 @@ def sanity_prompts(model, tok):
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--config", default=None)
-    ap.add_argument("--out", default="results/task_analysis")
+    ap.add_argument("--out", default=None, help="default results/task_analysis (results/task_analysis_probes with --probe-only)")
     ap.add_argument("--tasks", default=",".join(SPECS))
     ap.add_argument("--shots", default="0,2,4,8")
     ap.add_argument("--n", type=int, default=128, help="pairs per cell")
     ap.add_argument("--probe-n", type=int, default=400, help="prompts per probed cell")
     ap.add_argument("--probe-layers", default="2,6,10,14,18,22")
+    ap.add_argument("--probe-shots", default="2,8", help="shots for each probed cell (one cell per value)")
+    ap.add_argument("--probe-level", type=int, default=None, help="difficulty for probes (default: configured / middle level)")
     ap.add_argument("--no-probes", action="store_true")
+    ap.add_argument("--probe-only", action="store_true", help="skip the accuracy grid; run only probes (~5-10 min)")
     ap.add_argument("--quick", action="store_true", help="n=48, shots 0,4, no probes")
     ap.add_argument("--seed", type=int, default=0)
     a = ap.parse_args()
     if a.quick:
         a.n, a.shots, a.no_probes = 48, "0,4", True
-    out = Path(a.out)
+    out = Path(a.out or ("results/task_analysis_probes" if a.probe_only else "results/task_analysis"))
     out.mkdir(parents=True, exist_ok=True)
     setup_logging(out / "analysis.log")
     cfg = load_config(a.config)
@@ -579,8 +688,9 @@ def main() -> int:
     log.info("sanity prompts %d/%d correct", *sanity_ok)
 
     rows = []
-    cells = [(t, lvl, s) for t in tasks for lvl in SPECS[t]["levels"] for s in (shots_list if SPECS[t]["kind"] != "control"
-                                                                                 else sorted({0, 2} | set(shots_list)))]
+    cells = [] if a.probe_only else [
+        (t, lvl, s) for t in tasks for lvl in SPECS[t]["levels"]
+        for s in (shots_list if SPECS[t]["kind"] != "control" else sorted({0, 2} | set(shots_list)))]
     for j, (task, level, shots) in enumerate(cells):
         pairs, items = make_items(tok, task, level, shots, a.n, a.seed + 1000 * level + shots)
         if len(items) < 8:
@@ -599,39 +709,40 @@ def main() -> int:
     except ImportError:
         pass
 
-    probes_res, probe_cells = {}, {}
+    probes_res = {}
     if not a.no_probes:
         layers = [l for l in (int(x) for x in a.probe_layers.split(",")) if l < model.cfg.n_layers]
         for task in tasks:
             spec = SPECS[task]
             if spec["kind"] == "control":
                 continue
-            level = spec["configured"] if spec["configured"] is not None else spec["levels"][len(spec["levels"]) // 2]
-            shots = 2 if 2 in shots_list else shots_list[0]
-            _, items = make_items(tok, task, level, shots, a.probe_n, a.seed + 555)
-            if len(items) < 50:
-                continue
-            R = residuals(model, items, layers)
-            y = np.array([i.pair.clean_state_id for i in items])
-            probes_res[task] = {"layers": {l: probe(R[l], y, a.seed) for l in layers},
-                                "surface": surface_probe(tok, items, y, a.seed)}
-            probe_cells[task] = (level, shots)
-            log.info("probe %s L%s %ds: layers %s, surface tokens %s", task, level, shots,
-                     {l: (round(p["acc"], 2), round(p["shuffled"], 2)) for l, p in probes_res[task]["layers"].items() if p},
-                     probes_res[task]["surface"] and round(probes_res[task]["surface"]["acc"], 2))
-            del R
-            free_memory()
-        save_json({t: {"layers": {str(l): p for l, p in v["layers"].items()}, "surface": v["surface"]}
-                   for t, v in probes_res.items()}, out / "probes.json")
+            level = a.probe_level if a.probe_level in spec["levels"] else (
+                spec["configured"] if spec["configured"] is not None else spec["levels"][len(spec["levels"]) // 2])
+            for shots in (int(x) for x in a.probe_shots.split(",")):
+                key = f"{task}/L{level}/{shots}shot"
+                r = probe_cell(model, tok, task, level, shots, a.probe_n, layers, a.seed + 555)
+                probes_res[key] = r
+                if r:
+                    log.info("probe %s: output %.2f, shortcut '%s' %.2f | layers %s | surface %s", key, r["output_acc"],
+                             r["shortcut"], r["shortcut_acc"],
+                             {l: (round(p["acc"], 2), round(p.get("acc_hard", float("nan")), 2))
+                              for l, p in r["layers"].items() if p},
+                             r["surface"] and round(r["surface"]["acc"], 2))
+        save_json({k: (None if r is None else {**r, "layers": {str(l): p for l, p in r["layers"].items()}})
+                   for k, r in probes_res.items()}, out / "probes.json")
+        probe_figure(probes_res, out / "figures")
 
-    V, per_task = verdicts(rows, sanity_ok, probes_res)
-    rec = recommendations(rows)
+    if a.probe_only:
+        V, per_task, rec = probe_verdicts(probes_res), {}, {}
+    else:
+        V, per_task = verdicts(rows, sanity_ok, probes_res)
+        rec = recommendations(rows)
+        save_json(rec, out / "recommendations.json")
+        figures(rows, out / "figures")
     save_json({"verdicts": [dict(zip(("id", "hypothesis", "evidence", "verdict"), v)) for v in V], "per_task": per_task,
                "sanity": sanity}, out / "verdicts.json")
-    save_json(rec, out / "recommendations.json")
-    figures(rows, out / "figures")
     write_report(out, rows, V, sanity, probes_res, rec,
-                 {"model": cfg["model_name"], "device": str(device), "n": a.n, "shots": shots_list, "probe_cells": probe_cells})
+                 {"model": cfg["model_name"], "device": str(device), "n": a.n, "shots": shots_list})
     for v in V:
         log.info("%s %-55s %s", v[0], v[1], v[3])
     log.info("done in %.1f min -> %s", (time.time() - t0) / 60, out / "report.md")

@@ -1,0 +1,179 @@
+{
+  "cfg": {
+    "run_name": "tier1_core",
+    "seed": 0,
+    "model_name": "gemma-2-2b",
+    "hf_tokenizer": "google/gemma-2-2b",
+    "sae_release": "gemma-scope-2b-pt-res-canonical",
+    "tasks": [
+      "mod_sum",
+      "dyck_depth",
+      "graph_reach"
+    ],
+    "layers": [
+      4,
+      8,
+      12,
+      16,
+      20,
+      24
+    ],
+    "widths": [
+      "16k",
+      "65k"
+    ],
+    "geometry_layers": [
+      12,
+      16,
+      20
+    ],
+    "geometry_widths": [
+      "16k",
+      "65k"
+    ],
+    "ranks": [
+      0,
+      1,
+      2,
+      4,
+      8,
+      16,
+      32,
+      64
+    ],
+    "n_train": 400,
+    "n_test": 200,
+    "candidate_multiplier": 3,
+    "min_pairs": 20,
+    "min_logit_diff": 2.0,
+    "n_shots": 0,
+    "batch_size": 128,
+    "noise_seeds": 3,
+    "mock": {
+      "d_model": 256,
+      "n_layers": 26,
+      "d_sae": {
+        "16k": 1024,
+        "65k": 4096
+      },
+      "noise_std": 0.05
+    },
+    "answer_format": "auto",
+    "filter_mode": "strict",
+    "task_overrides": {
+      "mod_sum": {
+        "n_shots": 2,
+        "answer_format": "space_prompt",
+        "filter_mode": "clean_only",
+        "candidate_multiplier": 14,
+        "expected_retention": 0.104
+      },
+      "dyck_depth": {
+        "n_shots": 2,
+        "answer_format": "space_prompt",
+        "filter_mode": "clean_only",
+        "candidate_multiplier": 7,
+        "expected_retention": 0.208
+      },
+      "graph_reach": {
+        "n_shots": 4,
+        "answer_format": "space_prompt",
+        "filter_mode": "clean_only",
+        "candidate_multiplier": 9,
+        "expected_retention": 0.156
+      }
+    },
+    "exp1_positions": [
+      "last",
+      "from_diff"
+    ],
+    "exp3_positions": [
+      "last",
+      "from_diff"
+    ],
+    "exp1_extras": [
+      "controls"
+    ],
+    "exp3_methods": [
+      "unsupervised_svd",
+      "supervised_centroid_svd",
+      "random_subspace",
+      "top_xhat_svd",
+      "span_svd",
+      "transfer"
+    ],
+    "random_seeds": 3,
+    "bootstrap": 1000,
+    "latent_probe": true,
+    "latent_probe_cols": 4096,
+    "generic_text": {
+      "dataset": "NeelNanda/pile-10k",
+      "n_docs": 200,
+      "seq_len": 128,
+      "skip_positions": 4,
+      "fidelity_batches": 4
+    },
+    "sae_fidelity": true,
+    "runtime": {
+      "offload_embed": "auto",
+      "max_batch_tokens": "auto",
+      "resume_from_layer": true,
+      "sae_placement": "auto",
+      "prefetch_saes": true,
+      "cpu_threads": "auto",
+      "cpu_workers": "auto"
+    }
+  },
+  "mock": false,
+  "device": "cuda",
+  "dtype": "torch.bfloat16",
+  "experiments": [
+    "exp1",
+    "exp2",
+    "exp3",
+    "plots"
+  ],
+  "runtime": {
+    "device": "cuda",
+    "total_vram_gb": 7.53,
+    "free_vram_after_model_gb": 2.47,
+    "embed_on_cpu": true,
+    "max_batch_tokens": 3584,
+    "batch_size_cap": 128,
+    "cpu_threads": 4,
+    "cpu_workers": 1,
+    "resume_from_layer": true,
+    "ram_available_gb": 14.4
+  },
+  "tasks_run": [],
+  "task_info": {
+    "mod_sum": {
+      "n_train": 0,
+      "n_test": 0,
+      "skipped": true,
+      "seconds": 109.8,
+      "n_shots": 2,
+      "answer_format": "space_prompt",
+      "filter_mode": "clean_only"
+    },
+    "dyck_depth": {
+      "n_train": 0,
+      "n_test": 0,
+      "skipped": true,
+      "seconds": 66.5,
+      "n_shots": 2,
+      "answer_format": "space_prompt",
+      "filter_mode": "clean_only"
+    },
+    "graph_reach": {
+      "n_train": 0,
+      "n_test": 0,
+      "skipped": true,
+      "seconds": 509.3,
+      "n_shots": 4,
+      "answer_format": "space_prompt",
+      "filter_mode": "clean_only"
+    }
+  },
+  "total_seconds": 707.2
+}

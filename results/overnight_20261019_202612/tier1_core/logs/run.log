@@ -1,0 +1,46 @@
+2026-10-20 03:19:20,218 INFO device=cuda dtype=torch.bfloat16 mock=False out=results/overnight_20261019_202612/tier1_core
+2026-10-20 03:19:22,085 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-10-20 03:19:22,699 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-10-20 03:19:23,020 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-10-20 03:19:24,025 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-10-20 03:19:24,823 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-10-20 03:19:28,056 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-10-20 03:19:28,570 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-10-20 03:19:28,831 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-10-20 03:19:29,767 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-10-20 03:19:42,464 WARNING mod_sum/shot: only 0/2 unique pairs available
+2026-10-20 03:22:25,541 INFO filter_valid_pairs[clean_only]: kept 331/5600
+2026-10-20 03:23:47,789 INFO filter_valid_pairs[clean_only]: kept 157/2800
+2026-10-20 03:24:34,850 WARNING dyck_depth/train: only 1140/2800 unique pairs available
+2026-10-20 03:24:48,765 WARNING dyck_depth/test: only 0/1400 unique pairs available
+2026-10-20 03:24:48,786 WARNING dyck_depth/shot: only 0/2 unique pairs available
+2026-10-20 03:25:30,328 INFO filter_valid_pairs[clean_only]: kept 19/1140
+2026-10-20 03:25:30,331 WARNING dyck_depth/train: only 19 valid pairs (< min_pairs) -> skipped
+2026-10-20 03:32:14,899 INFO filter_valid_pairs[clean_only]: kept 913/3600
+2026-10-20 03:35:37,250 INFO filter_valid_pairs[clean_only]: kept 433/1800
+2026-10-20 03:45:20,456 INFO device=cuda dtype=torch.bfloat16 mock=False out=results/overnight_20261019_202612/tier1_core
+2026-10-20 03:45:22,964 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-10-20 03:45:23,284 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-10-20 03:45:23,544 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-10-20 03:45:24,522 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-10-20 03:45:25,247 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-10-20 03:45:28,354 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-10-20 03:45:28,618 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-10-20 03:45:28,876 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-10-20 03:45:29,817 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-10-20 03:45:41,857 INFO model loaded: 4.92 GiB VRAM in use (embedding on CPU)
+2026-10-20 03:45:41,862 INFO runtime plan: {'device': 'cuda', 'total_vram_gb': 7.53, 'free_vram_after_model_gb': 2.47, 'embed_on_cpu': True, 'max_batch_tokens': 3584, 'batch_size_cap': 128, 'cpu_threads': 4, 'cpu_workers': 1, 'resume_from_layer': True, 'ram_available_gb': 14.4}
+2026-10-20 03:45:42,603 WARNING mod_sum/shot: only 0/2 unique pairs available
+2026-10-20 03:46:55,225 INFO filter_valid_pairs[clean_only]: kept 0/5600
+2026-10-20 03:47:31,683 INFO filter_valid_pairs[clean_only]: kept 0/2800
+2026-10-20 03:47:31,691 WARNING mod_sum/train: only 0 valid pairs (< min_pairs) -> skipped
+2026-10-20 03:47:59,604 WARNING dyck_depth/train: only 1140/2800 unique pairs available
+2026-10-20 03:48:13,275 WARNING dyck_depth/test: only 0/1400 unique pairs available
+2026-10-20 03:48:13,296 WARNING dyck_depth/shot: only 0/2 unique pairs available
+2026-10-20 03:48:38,191 INFO filter_valid_pairs[clean_only]: kept 0/1140
+2026-10-20 03:48:38,194 WARNING dyck_depth/train: only 0 valid pairs (< min_pairs) -> skipped
+2026-10-20 03:54:17,879 INFO filter_valid_pairs[clean_only]: kept 0/3600
+2026-10-20 03:57:07,457 INFO filter_valid_pairs[clean_only]: kept 0/1800
+2026-10-20 03:57:07,473 WARNING graph_reach/train: only 0 valid pairs (< min_pairs) -> skipped
+2026-10-20 03:57:07,473 INFO prepared tasks [] at layers [4, 8, 12, 16, 20, 24]
+2026-10-20 03:57:07,473 INFO task info: {'mod_sum': {'n_train': 0, 'n_test': 0, 'skipped': True, 'seconds': 109.8, 'n_shots': 2, 'answer_format': 'space_prompt', 'filter_mode': 'clean_only'}, 'dyck_depth': {'n_train': 0, 'n_test': 0, 'skipped': True, 'seconds': 66.5, 'n_shots': 2, 'answer_format': 'space_prompt', 'filter_mode': 'clean_only'}, 'graph_reach': {'n_train': 0, 'n_test': 0, 'skipped': True, 'seconds': 509.3, 'n_shots': 4, 'answer_format': 'space_prompt', 'filter_mode': 'clean_only'}}

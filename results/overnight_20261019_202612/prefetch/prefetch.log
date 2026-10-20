@@ -1,0 +1,209 @@
+2026-10-19 21:17:55,766 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/revision/main "HTTP/1.1 200 OK"
+2026-10-19 21:17:56,073 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/xet-read-token/c5ebcd40d208330abc697524c919956e692655cf "HTTP/1.1 200 OK"
+2026-10-19 21:18:01,746 INFO model gemma-2-2b downloaded
+2026-10-19 21:18:05,654 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-19 21:18:06,073 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/tree/fd571b47c1c64851e9b1989792367b9babb4af63?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-10-19 21:18:06,392 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/xet-read-token/fd571b47c1c64851e9b1989792367b9babb4af63 "HTTP/1.1 200 OK"
+2026-10-19 21:20:23,303 INFO SAE L0 16k -> google/gemma-scope-2b-pt-res/layer_0/width_16k/average_l0_105
+2026-10-19 21:20:23,625 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-19 21:20:24,002 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/xet-read-token/fd571b47c1c64851e9b1989792367b9babb4af63 "HTTP/1.1 200 OK"
+2026-10-19 21:22:43,020 INFO SAE L1 16k -> google/gemma-scope-2b-pt-res/layer_1/width_16k/average_l0_102
+2026-10-19 21:22:43,355 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-19 21:22:43,610 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/xet-read-token/fd571b47c1c64851e9b1989792367b9babb4af63 "HTTP/1.1 200 OK"
+2026-10-19 21:24:06,467 INFO SAE L2 16k -> google/gemma-scope-2b-pt-res/layer_2/width_16k/average_l0_141
+2026-10-19 21:24:06,795 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-19 21:24:07,051 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/xet-read-token/fd571b47c1c64851e9b1989792367b9babb4af63 "HTTP/1.1 200 OK"
+2026-10-19 21:27:31,124 INFO SAE L3 16k -> google/gemma-scope-2b-pt-res/layer_3/width_16k/average_l0_59
+2026-10-19 21:27:33,515 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-19 21:27:33,769 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/xet-read-token/fd571b47c1c64851e9b1989792367b9babb4af63 "HTTP/1.1 200 OK"
+2026-10-19 21:29:19,130 INFO SAE L4 16k -> google/gemma-scope-2b-pt-res/layer_4/width_16k/average_l0_124
+2026-10-19 21:29:19,455 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-19 21:29:19,981 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/xet-read-token/fd571b47c1c64851e9b1989792367b9babb4af63 "HTTP/1.1 200 OK"
+2026-10-19 21:34:13,297 ERROR SAE L4 65k unavailable: BrokenPipeError: [Errno 32] Broken pipe
+2026-10-19 21:34:13,662 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-19 21:34:13,665 ERROR SAE L5 16k unavailable: BrokenPipeError: [Errno 32] Broken pipe
+2026-10-19 21:35:24,401 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/revision/main "HTTP/1.1 200 OK"
+2026-10-19 21:35:24,426 INFO model gemma-2-2b downloaded
+2026-10-19 21:35:28,894 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-19 21:35:28,901 INFO SAE L0 16k -> google/gemma-scope-2b-pt-res/layer_0/width_16k/average_l0_105
+2026-10-19 21:35:29,154 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-19 21:35:29,159 INFO SAE L1 16k -> google/gemma-scope-2b-pt-res/layer_1/width_16k/average_l0_102
+2026-10-19 21:35:29,411 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-19 21:35:29,416 INFO SAE L2 16k -> google/gemma-scope-2b-pt-res/layer_2/width_16k/average_l0_141
+2026-10-19 21:35:29,670 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-19 21:35:29,676 INFO SAE L3 16k -> google/gemma-scope-2b-pt-res/layer_3/width_16k/average_l0_59
+2026-10-19 21:35:29,929 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-19 21:35:29,934 INFO SAE L4 16k -> google/gemma-scope-2b-pt-res/layer_4/width_16k/average_l0_124
+2026-10-19 21:35:30,199 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-19 21:35:30,460 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/xet-read-token/fd571b47c1c64851e9b1989792367b9babb4af63 "HTTP/1.1 200 OK"
+2026-10-19 21:44:59,887 INFO SAE L4 65k -> google/gemma-scope-2b-pt-res/layer_4/width_65k/average_l0_89
+2026-10-19 21:45:00,261 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-19 21:45:00,528 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/xet-read-token/fd571b47c1c64851e9b1989792367b9babb4af63 "HTTP/1.1 200 OK"
+2026-10-19 21:47:20,302 INFO SAE L5 16k -> google/gemma-scope-2b-pt-res/layer_5/width_16k/average_l0_68
+2026-10-19 21:47:20,648 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-19 21:47:20,907 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/xet-read-token/fd571b47c1c64851e9b1989792367b9babb4af63 "HTTP/1.1 200 OK"
+2026-10-19 21:49:35,572 INFO SAE L6 16k -> google/gemma-scope-2b-pt-res/layer_6/width_16k/average_l0_70
+2026-10-19 21:49:36,989 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-19 21:49:37,246 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/xet-read-token/fd571b47c1c64851e9b1989792367b9babb4af63 "HTTP/1.1 200 OK"
+2026-10-19 21:53:22,918 INFO SAE L7 16k -> google/gemma-scope-2b-pt-res/layer_7/width_16k/average_l0_69
+2026-10-19 21:53:23,556 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-19 21:53:24,098 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/xet-read-token/fd571b47c1c64851e9b1989792367b9babb4af63 "HTTP/1.1 200 OK"
+2026-10-19 21:58:32,127 INFO SAE L8 16k -> google/gemma-scope-2b-pt-res/layer_8/width_16k/average_l0_71
+2026-10-19 21:58:32,469 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-19 21:58:32,727 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/xet-read-token/fd571b47c1c64851e9b1989792367b9babb4af63 "HTTP/1.1 200 OK"
+2026-10-19 22:35:16,796 INFO SAE L8 65k -> google/gemma-scope-2b-pt-res/layer_8/width_65k/average_l0_111
+2026-10-19 22:35:17,415 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-19 22:35:17,975 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/xet-read-token/fd571b47c1c64851e9b1989792367b9babb4af63 "HTTP/1.1 200 OK"
+2026-10-19 22:41:03,817 INFO SAE L9 16k -> google/gemma-scope-2b-pt-res/layer_9/width_16k/average_l0_73
+2026-10-19 22:41:04,205 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-19 22:41:04,464 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/xet-read-token/fd571b47c1c64851e9b1989792367b9babb4af63 "HTTP/1.1 200 OK"
+2026-10-19 22:42:52,902 INFO SAE L10 16k -> google/gemma-scope-2b-pt-res/layer_10/width_16k/average_l0_77
+2026-10-19 22:42:55,901 ERROR SAE L11 16k unavailable: IncompleteSnapshotError: The cached snapshot for 'google/gemma-scope-2b-pt-res' (revision 'main', commit fd571b47c1c64851e9b1989792367b9babb4af63) is incomplete: 1 file(s) are missing (layer_11/width_16k/average_l0_80/params.npz). The Hub could not be reached (ConnectError: [Errno 101] Network is unreachable). Re-run the download with network access to complete the snapshot.
+2026-10-19 22:42:57,280 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-19 22:42:57,536 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/xet-read-token/fd571b47c1c64851e9b1989792367b9babb4af63 "HTTP/1.1 200 OK"
+2026-10-19 22:54:06,024 INFO SAE L12 131k -> google/gemma-scope-2b-pt-res/layer_12/width_131k/average_l0_129
+2026-10-19 22:54:09,022 ERROR SAE L12 16k unavailable: IncompleteSnapshotError: The cached snapshot for 'google/gemma-scope-2b-pt-res' (revision 'main', commit fd571b47c1c64851e9b1989792367b9babb4af63) is incomplete: 1 file(s) are missing (layer_12/width_16k/average_l0_82/params.npz). The Hub could not be reached (ConnectError: [Errno 101] Network is unreachable). Re-run the download with network access to complete the snapshot.
+2026-10-19 22:54:09,643 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-19 22:54:10,222 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/xet-read-token/fd571b47c1c64851e9b1989792367b9babb4af63 "HTTP/1.1 200 OK"
+2026-10-20 01:57:52,050 INFO SAE L12 1m -> google/gemma-scope-2b-pt-res/layer_12/width_1m/average_l0_107
+2026-10-20 01:57:52,374 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-20 01:57:52,641 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/xet-read-token/fd571b47c1c64851e9b1989792367b9babb4af63 "HTTP/1.1 200 OK"
+2026-10-20 02:12:36,020 INFO SAE L12 262k -> google/gemma-scope-2b-pt-res/layer_12/width_262k/average_l0_121
+2026-10-20 02:12:36,376 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-20 02:12:36,637 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/xet-read-token/fd571b47c1c64851e9b1989792367b9babb4af63 "HTTP/1.1 200 OK"
+2026-10-20 02:16:18,597 INFO SAE L12 32k -> google/gemma-scope-2b-pt-res/layer_12/width_32k/average_l0_76
+2026-10-20 02:16:18,962 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-20 02:16:19,216 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/xet-read-token/fd571b47c1c64851e9b1989792367b9babb4af63 "HTTP/1.1 200 OK"
+2026-10-20 02:49:12,471 INFO SAE L12 524k -> google/gemma-scope-2b-pt-res/layer_12/width_524k/average_l0_115
+2026-10-20 02:49:13,084 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-20 02:49:13,386 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/xet-read-token/fd571b47c1c64851e9b1989792367b9babb4af63 "HTTP/1.1 200 OK"
+2026-10-20 02:53:46,594 INFO SAE L12 65k -> google/gemma-scope-2b-pt-res/layer_12/width_65k/average_l0_72
+2026-10-20 02:53:46,931 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-20 02:53:47,189 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/xet-read-token/fd571b47c1c64851e9b1989792367b9babb4af63 "HTTP/1.1 200 OK"
+2026-10-20 02:54:47,487 INFO SAE L13 16k -> google/gemma-scope-2b-pt-res/layer_13/width_16k/average_l0_84
+2026-10-20 02:54:47,822 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-20 02:54:48,082 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/xet-read-token/fd571b47c1c64851e9b1989792367b9babb4af63 "HTTP/1.1 200 OK"
+2026-10-20 02:55:43,815 INFO SAE L14 16k -> google/gemma-scope-2b-pt-res/layer_14/width_16k/average_l0_84
+2026-10-20 02:55:44,785 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-20 02:55:45,037 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/xet-read-token/fd571b47c1c64851e9b1989792367b9babb4af63 "HTTP/1.1 200 OK"
+2026-10-20 02:56:46,310 INFO SAE L15 16k -> google/gemma-scope-2b-pt-res/layer_15/width_16k/average_l0_78
+2026-10-20 02:56:46,633 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-20 02:56:46,909 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/xet-read-token/fd571b47c1c64851e9b1989792367b9babb4af63 "HTTP/1.1 200 OK"
+2026-10-20 02:57:42,658 INFO SAE L16 16k -> google/gemma-scope-2b-pt-res/layer_16/width_16k/average_l0_78
+2026-10-20 02:57:42,985 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-20 02:57:43,247 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/xet-read-token/fd571b47c1c64851e9b1989792367b9babb4af63 "HTTP/1.1 200 OK"
+2026-10-20 03:01:21,756 INFO SAE L16 65k -> google/gemma-scope-2b-pt-res/layer_16/width_65k/average_l0_128
+2026-10-20 03:01:22,401 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-20 03:01:22,661 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/xet-read-token/fd571b47c1c64851e9b1989792367b9babb4af63 "HTTP/1.1 200 OK"
+2026-10-20 03:02:24,198 INFO SAE L17 16k -> google/gemma-scope-2b-pt-res/layer_17/width_16k/average_l0_77
+2026-10-20 03:02:24,638 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-20 03:02:24,911 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/xet-read-token/fd571b47c1c64851e9b1989792367b9babb4af63 "HTTP/1.1 200 OK"
+2026-10-20 03:03:24,133 INFO SAE L18 16k -> google/gemma-scope-2b-pt-res/layer_18/width_16k/average_l0_74
+2026-10-20 03:03:24,470 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-20 03:03:24,728 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/xet-read-token/fd571b47c1c64851e9b1989792367b9babb4af63 "HTTP/1.1 200 OK"
+2026-10-20 03:04:21,128 INFO SAE L19 16k -> google/gemma-scope-2b-pt-res/layer_19/width_16k/average_l0_73
+2026-10-20 03:04:21,597 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-20 03:04:21,876 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/xet-read-token/fd571b47c1c64851e9b1989792367b9babb4af63 "HTTP/1.1 200 OK"
+2026-10-20 03:05:45,146 INFO SAE L20 16k -> google/gemma-scope-2b-pt-res/layer_20/width_16k/average_l0_71
+2026-10-20 03:05:45,728 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-20 03:05:46,037 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/xet-read-token/fd571b47c1c64851e9b1989792367b9babb4af63 "HTTP/1.1 200 OK"
+2026-10-20 03:09:22,657 INFO SAE L20 65k -> google/gemma-scope-2b-pt-res/layer_20/width_65k/average_l0_114
+2026-10-20 03:09:23,003 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-20 03:09:23,274 INFO HTTP Request: HEAD https://huggingface.co/google/gemma-scope-2b-pt-res/resolve/fd571b47c1c64851e9b1989792367b9babb4af63/layer_21/width_16k/average_l0_70/README.md "HTTP/1.1 307 Temporary Redirect"
+2026-10-20 03:09:23,351 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/xet-read-token/fd571b47c1c64851e9b1989792367b9babb4af63 "HTTP/1.1 200 OK"
+2026-10-20 03:09:23,526 INFO HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/google/gemma-scope-2b-pt-res/fd571b47c1c64851e9b1989792367b9babb4af63/layer_21%2Fwidth_16k%2Faverage_l0_70%2FREADME.md?%2Fgoogle%2Fgemma-scope-2b-pt-res%2Fresolve%2Ffd571b47c1c64851e9b1989792367b9babb4af63%2Flayer_21%2Fwidth_16k%2Faverage_l0_70%2FREADME.md=&etag=%22a3523af0c98852351049480bd0591c651c4547c5%22 "HTTP/1.1 200 OK"
+2026-10-20 03:09:23,785 INFO HTTP Request: GET https://huggingface.co/api/resolve-cache/models/google/gemma-scope-2b-pt-res/fd571b47c1c64851e9b1989792367b9babb4af63/layer_21%2Fwidth_16k%2Faverage_l0_70%2FREADME.md?%2Fgoogle%2Fgemma-scope-2b-pt-res%2Fresolve%2Ffd571b47c1c64851e9b1989792367b9babb4af63%2Flayer_21%2Fwidth_16k%2Faverage_l0_70%2FREADME.md=&etag=%22a3523af0c98852351049480bd0591c651c4547c5%22 "HTTP/1.1 200 OK"
+2026-10-20 03:10:19,774 INFO SAE L21 16k -> google/gemma-scope-2b-pt-res/layer_21/width_16k/average_l0_70
+2026-10-20 03:10:25,145 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-20 03:10:25,458 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/xet-read-token/fd571b47c1c64851e9b1989792367b9babb4af63 "HTTP/1.1 200 OK"
+2026-10-20 03:11:19,965 INFO SAE L22 16k -> google/gemma-scope-2b-pt-res/layer_22/width_16k/average_l0_72
+2026-10-20 03:11:21,369 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-20 03:11:22,397 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/xet-read-token/fd571b47c1c64851e9b1989792367b9babb4af63 "HTTP/1.1 200 OK"
+2026-10-20 03:12:22,101 INFO SAE L23 16k -> google/gemma-scope-2b-pt-res/layer_23/width_16k/average_l0_75
+2026-10-20 03:12:22,445 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-20 03:12:22,703 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/xet-read-token/fd571b47c1c64851e9b1989792367b9babb4af63 "HTTP/1.1 200 OK"
+2026-10-20 03:13:46,987 INFO SAE L24 16k -> google/gemma-scope-2b-pt-res/layer_24/width_16k/average_l0_73
+2026-10-20 03:13:47,367 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-20 03:13:47,622 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/xet-read-token/fd571b47c1c64851e9b1989792367b9babb4af63 "HTTP/1.1 200 OK"
+2026-10-20 03:17:42,957 INFO SAE L24 65k -> google/gemma-scope-2b-pt-res/layer_24/width_65k/average_l0_124
+2026-10-20 03:17:43,286 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-20 03:17:43,546 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/xet-read-token/fd571b47c1c64851e9b1989792367b9babb4af63 "HTTP/1.1 200 OK"
+2026-10-20 03:19:13,451 INFO SAE L25 16k -> google/gemma-scope-2b-pt-res/layer_25/width_16k/average_l0_116
+2026-10-20 03:36:55,642 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/revision/main "HTTP/1.1 200 OK"
+2026-10-20 03:36:55,661 INFO model gemma-2-2b downloaded
+2026-10-20 03:36:58,763 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-20 03:36:58,922 INFO SAE L0 16k -> google/gemma-scope-2b-pt-res/layer_0/width_16k/average_l0_105
+2026-10-20 03:36:59,180 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-20 03:36:59,188 INFO SAE L1 16k -> google/gemma-scope-2b-pt-res/layer_1/width_16k/average_l0_102
+2026-10-20 03:36:59,450 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-20 03:36:59,511 INFO SAE L2 16k -> google/gemma-scope-2b-pt-res/layer_2/width_16k/average_l0_141
+2026-10-20 03:36:59,774 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-20 03:36:59,784 INFO SAE L3 16k -> google/gemma-scope-2b-pt-res/layer_3/width_16k/average_l0_59
+2026-10-20 03:37:00,047 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-20 03:37:00,056 INFO SAE L4 16k -> google/gemma-scope-2b-pt-res/layer_4/width_16k/average_l0_124
+2026-10-20 03:37:00,386 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-20 03:37:00,393 INFO SAE L4 65k -> google/gemma-scope-2b-pt-res/layer_4/width_65k/average_l0_89
+2026-10-20 03:37:00,658 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-20 03:37:00,665 INFO SAE L5 16k -> google/gemma-scope-2b-pt-res/layer_5/width_16k/average_l0_68
+2026-10-20 03:37:00,934 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-20 03:37:00,939 INFO SAE L6 16k -> google/gemma-scope-2b-pt-res/layer_6/width_16k/average_l0_70
+2026-10-20 03:37:01,199 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-20 03:37:01,525 INFO SAE L7 16k -> google/gemma-scope-2b-pt-res/layer_7/width_16k/average_l0_69
+2026-10-20 03:37:01,826 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-20 03:37:01,833 INFO SAE L8 16k -> google/gemma-scope-2b-pt-res/layer_8/width_16k/average_l0_71
+2026-10-20 03:37:02,127 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-20 03:37:02,133 INFO SAE L8 65k -> google/gemma-scope-2b-pt-res/layer_8/width_65k/average_l0_111
+2026-10-20 03:37:02,398 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-20 03:37:02,403 INFO SAE L9 16k -> google/gemma-scope-2b-pt-res/layer_9/width_16k/average_l0_73
+2026-10-20 03:37:02,669 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-20 03:37:02,675 INFO SAE L10 16k -> google/gemma-scope-2b-pt-res/layer_10/width_16k/average_l0_77
+2026-10-20 03:37:02,947 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-20 03:37:03,796 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/xet-read-token/fd571b47c1c64851e9b1989792367b9babb4af63 "HTTP/1.1 200 OK"
+2026-10-20 03:39:58,548 INFO SAE L11 16k -> google/gemma-scope-2b-pt-res/layer_11/width_16k/average_l0_80
+2026-10-20 03:39:58,902 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-20 03:39:58,908 INFO SAE L12 131k -> google/gemma-scope-2b-pt-res/layer_12/width_131k/average_l0_129
+2026-10-20 03:39:59,169 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-20 03:39:59,427 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/xet-read-token/fd571b47c1c64851e9b1989792367b9babb4af63 "HTTP/1.1 200 OK"
+2026-10-20 03:45:07,050 INFO SAE L12 16k -> google/gemma-scope-2b-pt-res/layer_12/width_16k/average_l0_82
+2026-10-20 03:45:07,436 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-20 03:45:07,443 INFO SAE L12 1m -> google/gemma-scope-2b-pt-res/layer_12/width_1m/average_l0_107
+2026-10-20 03:45:07,709 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-20 03:45:07,720 INFO SAE L12 262k -> google/gemma-scope-2b-pt-res/layer_12/width_262k/average_l0_121
+2026-10-20 03:45:07,990 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-20 03:45:08,000 INFO SAE L12 32k -> google/gemma-scope-2b-pt-res/layer_12/width_32k/average_l0_76
+2026-10-20 03:45:08,274 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-20 03:45:08,284 INFO SAE L12 524k -> google/gemma-scope-2b-pt-res/layer_12/width_524k/average_l0_115
+2026-10-20 03:45:08,549 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-20 03:45:08,560 INFO SAE L12 65k -> google/gemma-scope-2b-pt-res/layer_12/width_65k/average_l0_72
+2026-10-20 03:45:09,115 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-20 03:45:09,125 INFO SAE L13 16k -> google/gemma-scope-2b-pt-res/layer_13/width_16k/average_l0_84
+2026-10-20 03:45:09,421 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-20 03:45:09,432 INFO SAE L14 16k -> google/gemma-scope-2b-pt-res/layer_14/width_16k/average_l0_84
+2026-10-20 03:45:09,700 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-20 03:45:10,022 INFO SAE L15 16k -> google/gemma-scope-2b-pt-res/layer_15/width_16k/average_l0_78
+2026-10-20 03:45:10,292 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-20 03:45:10,301 INFO SAE L16 16k -> google/gemma-scope-2b-pt-res/layer_16/width_16k/average_l0_78
+2026-10-20 03:45:10,570 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-20 03:45:10,582 INFO SAE L16 65k -> google/gemma-scope-2b-pt-res/layer_16/width_65k/average_l0_128
+2026-10-20 03:45:10,849 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-20 03:45:10,859 INFO SAE L17 16k -> google/gemma-scope-2b-pt-res/layer_17/width_16k/average_l0_77
+2026-10-20 03:45:11,129 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-20 03:45:11,894 INFO SAE L18 16k -> google/gemma-scope-2b-pt-res/layer_18/width_16k/average_l0_74
+2026-10-20 03:45:12,162 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-20 03:45:12,172 INFO SAE L19 16k -> google/gemma-scope-2b-pt-res/layer_19/width_16k/average_l0_73
+2026-10-20 03:45:12,445 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-20 03:45:12,756 INFO SAE L20 16k -> google/gemma-scope-2b-pt-res/layer_20/width_16k/average_l0_71
+2026-10-20 03:45:13,023 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-20 03:45:13,034 INFO SAE L20 65k -> google/gemma-scope-2b-pt-res/layer_20/width_65k/average_l0_114
+2026-10-20 03:45:13,304 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-20 03:45:13,315 INFO SAE L21 16k -> google/gemma-scope-2b-pt-res/layer_21/width_16k/average_l0_70
+2026-10-20 03:45:13,582 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-20 03:45:13,593 INFO SAE L22 16k -> google/gemma-scope-2b-pt-res/layer_22/width_16k/average_l0_72
+2026-10-20 03:45:13,905 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-20 03:45:13,917 INFO SAE L23 16k -> google/gemma-scope-2b-pt-res/layer_23/width_16k/average_l0_75
+2026-10-20 03:45:14,185 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-20 03:45:14,244 INFO SAE L24 16k -> google/gemma-scope-2b-pt-res/layer_24/width_16k/average_l0_73
+2026-10-20 03:45:14,517 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-20 03:45:14,527 INFO SAE L24 65k -> google/gemma-scope-2b-pt-res/layer_24/width_65k/average_l0_124
+2026-10-20 03:45:14,798 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/revision/main "HTTP/1.1 200 OK"
+2026-10-20 03:45:14,862 INFO SAE L25 16k -> google/gemma-scope-2b-pt-res/layer_25/width_16k/average_l0_116

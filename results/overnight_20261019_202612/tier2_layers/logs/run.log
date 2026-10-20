@@ -1,0 +1,26 @@
+2026-10-20 03:57:13,709 INFO device=cuda dtype=torch.bfloat16 mock=False out=results/overnight_20261019_202612/tier2_layers
+2026-10-20 03:57:16,009 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-10-20 03:57:16,307 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-10-20 03:57:16,565 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-10-20 03:57:17,624 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-10-20 03:57:18,350 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-10-20 03:57:21,342 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-10-20 03:57:21,613 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-10-20 03:57:21,884 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-10-20 03:57:22,889 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-10-20 03:57:40,177 INFO model loaded: 4.92 GiB VRAM in use (embedding on CPU)
+2026-10-20 03:57:40,193 INFO runtime plan: {'device': 'cuda', 'total_vram_gb': 7.53, 'free_vram_after_model_gb': 2.47, 'embed_on_cpu': True, 'max_batch_tokens': 3584, 'batch_size_cap': 128, 'cpu_threads': 4, 'cpu_workers': 1, 'resume_from_layer': True, 'ram_available_gb': 16.4}
+2026-10-20 03:57:40,621 WARNING mod_sum/shot: only 0/2 unique pairs available
+2026-10-20 03:58:53,892 INFO filter_valid_pairs[clean_only]: kept 0/5600
+2026-10-20 03:59:30,568 INFO filter_valid_pairs[clean_only]: kept 0/2800
+2026-10-20 03:59:30,577 WARNING mod_sum/train: only 0 valid pairs (< min_pairs) -> skipped
+2026-10-20 03:59:59,482 WARNING dyck_depth/train: only 1140/2800 unique pairs available
+2026-10-20 04:00:14,079 WARNING dyck_depth/test: only 0/1400 unique pairs available
+2026-10-20 04:00:14,101 WARNING dyck_depth/shot: only 0/2 unique pairs available
+2026-10-20 04:00:39,087 INFO filter_valid_pairs[clean_only]: kept 0/1140
+2026-10-20 04:00:39,090 WARNING dyck_depth/train: only 0 valid pairs (< min_pairs) -> skipped
+2026-10-20 04:06:18,813 INFO filter_valid_pairs[clean_only]: kept 0/3600
+2026-10-20 04:09:08,842 INFO filter_valid_pairs[clean_only]: kept 0/1800
+2026-10-20 04:09:08,858 WARNING graph_reach/train: only 0 valid pairs (< min_pairs) -> skipped
+2026-10-20 04:09:08,858 INFO prepared tasks [] at layers [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]
+2026-10-20 04:09:08,859 INFO task info: {'mod_sum': {'n_train': 0, 'n_test': 0, 'skipped': True, 'seconds': 110.4, 'n_shots': 2, 'answer_format': 'space_prompt', 'filter_mode': 'clean_only'}, 'dyck_depth': {'n_train': 0, 'n_test': 0, 'skipped': True, 'seconds': 68.5, 'n_shots': 2, 'answer_format': 'space_prompt', 'filter_mode': 'clean_only'}, 'graph_reach': {'n_train': 0, 'n_test': 0, 'skipped': True, 'seconds': 509.8, 'n_shots': 4, 'answer_format': 'space_prompt', 'filter_mode': 'clean_only'}}

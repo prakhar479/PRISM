@@ -1,0 +1,5 @@
+preflight: reused
+tier1_core: exit 0 after 20 min
+tier2_layers: exit 0 after 32 min
+tier2_widths: exit 0 after 44 min
+tier3_expansions: exit 0 after 71 min

@@ -1,0 +1,265 @@
+{
+  "ok": [
+    {
+      "layer": 0,
+      "width": "16k",
+      "release": "gemma-scope-2b-pt-res-canonical",
+      "sae_id": "layer_0/width_16k/canonical",
+      "path": "layer_0/width_16k/average_l0_105"
+    },
+    {
+      "layer": 1,
+      "width": "16k",
+      "release": "gemma-scope-2b-pt-res-canonical",
+      "sae_id": "layer_1/width_16k/canonical",
+      "path": "layer_1/width_16k/average_l0_102"
+    },
+    {
+      "layer": 2,
+      "width": "16k",
+      "release": "gemma-scope-2b-pt-res-canonical",
+      "sae_id": "layer_2/width_16k/canonical",
+      "path": "layer_2/width_16k/average_l0_141"
+    },
+    {
+      "layer": 3,
+      "width": "16k",
+      "release": "gemma-scope-2b-pt-res-canonical",
+      "sae_id": "layer_3/width_16k/canonical",
+      "path": "layer_3/width_16k/average_l0_59"
+    },
+    {
+      "layer": 4,
+      "width": "16k",
+      "release": "gemma-scope-2b-pt-res-canonical",
+      "sae_id": "layer_4/width_16k/canonical",
+      "path": "layer_4/width_16k/average_l0_124"
+    },
+    {
+      "layer": 4,
+      "width": "65k",
+      "release": "gemma-scope-2b-pt-res-canonical",
+      "sae_id": "layer_4/width_65k/canonical",
+      "path": "layer_4/width_65k/average_l0_89"
+    },
+    {
+      "layer": 5,
+      "width": "16k",
+      "release": "gemma-scope-2b-pt-res-canonical",
+      "sae_id": "layer_5/width_16k/canonical",
+      "path": "layer_5/width_16k/average_l0_68"
+    },
+    {
+      "layer": 6,
+      "width": "16k",
+      "release": "gemma-scope-2b-pt-res-canonical",
+      "sae_id": "layer_6/width_16k/canonical",
+      "path": "layer_6/width_16k/average_l0_70"
+    },
+    {
+      "layer": 7,
+      "width": "16k",
+      "release": "gemma-scope-2b-pt-res-canonical",
+      "sae_id": "layer_7/width_16k/canonical",
+      "path": "layer_7/width_16k/average_l0_69"
+    },
+    {
+      "layer": 8,
+      "width": "16k",
+      "release": "gemma-scope-2b-pt-res-canonical",
+      "sae_id": "layer_8/width_16k/canonical",
+      "path": "layer_8/width_16k/average_l0_71"
+    },
+    {
+      "layer": 8,
+      "width": "65k",
+      "release": "gemma-scope-2b-pt-res-canonical",
+      "sae_id": "layer_8/width_65k/canonical",
+      "path": "layer_8/width_65k/average_l0_111"
+    },
+    {
+      "layer": 9,
+      "width": "16k",
+      "release": "gemma-scope-2b-pt-res-canonical",
+      "sae_id": "layer_9/width_16k/canonical",
+      "path": "layer_9/width_16k/average_l0_73"
+    },
+    {
+      "layer": 10,
+      "width": "16k",
+      "release": "gemma-scope-2b-pt-res-canonical",
+      "sae_id": "layer_10/width_16k/canonical",
+      "path": "layer_10/width_16k/average_l0_77"
+    },
+    {
+      "layer": 11,
+      "width": "16k",
+      "release": "gemma-scope-2b-pt-res-canonical",
+      "sae_id": "layer_11/width_16k/canonical",
+      "path": "layer_11/width_16k/average_l0_80"
+    },
+    {
+      "layer": 12,
+      "width": "131k",
+      "release": "gemma-scope-2b-pt-res",
+      "sae_id": "layer_12/width_131k/average_l0_129",
+      "path": "layer_12/width_131k/average_l0_129"
+    },
+    {
+      "layer": 12,
+      "width": "16k",
+      "release": "gemma-scope-2b-pt-res-canonical",
+      "sae_id": "layer_12/width_16k/canonical",
+      "path": "layer_12/width_16k/average_l0_82"
+    },
+    {
+      "layer": 12,
+      "width": "1m",
+      "release": "gemma-scope-2b-pt-res-canonical",
+      "sae_id": "layer_12/width_1m/canonical",
+      "path": "layer_12/width_1m/average_l0_107"
+    },
+    {
+      "layer": 12,
+      "width": "262k",
+      "release": "gemma-scope-2b-pt-res-canonical",
+      "sae_id": "layer_12/width_262k/canonical",
+      "path": "layer_12/width_262k/average_l0_121"
+    },
+    {
+      "layer": 12,
+      "width": "32k",
+      "release": "gemma-scope-2b-pt-res-canonical",
+      "sae_id": "layer_12/width_32k/canonical",
+      "path": "layer_12/width_32k/average_l0_76"
+    },
+    {
+      "layer": 12,
+      "width": "524k",
+      "release": "gemma-scope-2b-pt-res-canonical",
+      "sae_id": "layer_12/width_524k/canonical",
+      "path": "layer_12/width_524k/average_l0_115"
+    },
+    {
+      "layer": 12,
+      "width": "65k",
+      "release": "gemma-scope-2b-pt-res-canonical",
+      "sae_id": "layer_12/width_65k/canonical",
+      "path": "layer_12/width_65k/average_l0_72"
+    },
+    {
+      "layer": 13,
+      "width": "16k",
+      "release": "gemma-scope-2b-pt-res-canonical",
+      "sae_id": "layer_13/width_16k/canonical",
+      "path": "layer_13/width_16k/average_l0_84"
+    },
+    {
+      "layer": 14,
+      "width": "16k",
+      "release": "gemma-scope-2b-pt-res-canonical",
+      "sae_id": "layer_14/width_16k/canonical",
+      "path": "layer_14/width_16k/average_l0_84"
+    },
+    {
+      "layer": 15,
+      "width": "16k",
+      "release": "gemma-scope-2b-pt-res-canonical",
+      "sae_id": "layer_15/width_16k/canonical",
+      "path": "layer_15/width_16k/average_l0_78"
+    },
+    {
+      "layer": 16,
+      "width": "16k",
+      "release": "gemma-scope-2b-pt-res-canonical",
+      "sae_id": "layer_16/width_16k/canonical",
+      "path": "layer_16/width_16k/average_l0_78"
+    },
+    {
+      "layer": 16,
+      "width": "65k",
+      "release": "gemma-scope-2b-pt-res-canonical",
+      "sae_id": "layer_16/width_65k/canonical",
+      "path": "layer_16/width_65k/average_l0_128"
+    },
+    {
+      "layer": 17,
+      "width": "16k",
+      "release": "gemma-scope-2b-pt-res-canonical",
+      "sae_id": "layer_17/width_16k/canonical",
+      "path": "layer_17/width_16k/average_l0_77"
+    },
+    {
+      "layer": 18,
+      "width": "16k",
+      "release": "gemma-scope-2b-pt-res-canonical",
+      "sae_id": "layer_18/width_16k/canonical",
+      "path": "layer_18/width_16k/average_l0_74"
+    },
+    {
+      "layer": 19,
+      "width": "16k",
+      "release": "gemma-scope-2b-pt-res-canonical",
+      "sae_id": "layer_19/width_16k/canonical",
+      "path": "layer_19/width_16k/average_l0_73"
+    },
+    {
+      "layer": 20,
+      "width": "16k",
+      "release": "gemma-scope-2b-pt-res-canonical",
+      "sae_id": "layer_20/width_16k/canonical",
+      "path": "layer_20/width_16k/average_l0_71"
+    },
+    {
+      "layer": 20,
+      "width": "65k",
+      "release": "gemma-scope-2b-pt-res-canonical",
+      "sae_id": "layer_20/width_65k/canonical",
+      "path": "layer_20/width_65k/average_l0_114"
+    },
+    {
+      "layer": 21,
+      "width": "16k",
+      "release": "gemma-scope-2b-pt-res-canonical",
+      "sae_id": "layer_21/width_16k/canonical",
+      "path": "layer_21/width_16k/average_l0_70"
+    },
+    {
+      "layer": 22,
+      "width": "16k",
+      "release": "gemma-scope-2b-pt-res-canonical",
+      "sae_id": "layer_22/width_16k/canonical",
+      "path": "layer_22/width_16k/average_l0_72"
+    },
+    {
+      "layer": 23,
+      "width": "16k",
+      "release": "gemma-scope-2b-pt-res-canonical",
+      "sae_id": "layer_23/width_16k/canonical",
+      "path": "layer_23/width_16k/average_l0_75"
+    },
+    {
+      "layer": 24,
+      "width": "16k",
+      "release": "gemma-scope-2b-pt-res-canonical",
+      "sae_id": "layer_24/width_16k/canonical",
+      "path": "layer_24/width_16k/average_l0_73"
+    },
+    {
+      "layer": 24,
+      "width": "65k",
+      "release": "gemma-scope-2b-pt-res-canonical",
+      "sae_id": "layer_24/width_65k/canonical",
+      "path": "layer_24/width_65k/average_l0_124"
+    },
+    {
+      "layer": 25,
+      "width": "16k",
+      "release": "gemma-scope-2b-pt-res-canonical",
+      "sae_id": "layer_25/width_16k/canonical",
+      "path": "layer_25/width_16k/average_l0_116"
+    }
+  ],
+  "missing": [],
+  "model": "gemma-2-2b"
+}

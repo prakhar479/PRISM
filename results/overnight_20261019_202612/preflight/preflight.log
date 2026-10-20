@@ -1,0 +1,173 @@
+2026-10-19 20:26:25,632 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-10-19 20:26:25,901 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-10-19 20:26:26,160 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-10-19 20:26:27,102 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-10-19 20:26:27,772 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-10-19 20:54:42,700 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-10-19 20:54:42,978 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-10-19 20:54:43,240 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-10-19 20:54:44,191 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-10-19 20:54:44,835 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-10-19 20:54:47,907 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-10-19 20:54:48,166 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-10-19 20:54:48,426 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-10-19 20:54:49,422 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-10-19 20:54:59,684 INFO [mod_sum/space_target] prompt tail tokens ['ulo', ' ', '7', ',', ' State', ' ='] | target ' 6' -> [' ', '6']
+2026-10-19 20:54:59,685 INFO [mod_sum/space_prompt] prompt tail tokens [' ', '7', ',', ' State', ' =', ' '] | target '6' -> ['6']
+2026-10-19 20:54:59,712 WARNING tokenize_pairs dropped 0 misaligned and 96 non-single-token-answer pairs (of 96)
+2026-10-19 20:54:59,713 INFO preflight {'task': 'mod_sum', 'answer_format': 'space_target', 'n_shots': 0, 'n_pairs': 96, 'tokenized': 0.0, 'strict': 0.0, 'clean_only': 0.0}
+2026-10-19 20:54:59,765 WARNING tokenize_pairs dropped 0 misaligned and 96 non-single-token-answer pairs (of 96)
+2026-10-19 20:54:59,765 INFO preflight {'task': 'mod_sum', 'answer_format': 'space_target', 'n_shots': 2, 'n_pairs': 96, 'tokenized': 0.0, 'strict': 0.0, 'clean_only': 0.0}
+2026-10-19 20:54:59,843 WARNING tokenize_pairs dropped 0 misaligned and 96 non-single-token-answer pairs (of 96)
+2026-10-19 20:54:59,843 INFO preflight {'task': 'mod_sum', 'answer_format': 'space_target', 'n_shots': 4, 'n_pairs': 96, 'tokenized': 0.0, 'strict': 0.0, 'clean_only': 0.0}
+2026-10-19 20:54:59,976 WARNING tokenize_pairs dropped 0 misaligned and 96 non-single-token-answer pairs (of 96)
+2026-10-19 20:54:59,976 INFO preflight {'task': 'mod_sum', 'answer_format': 'space_target', 'n_shots': 8, 'n_pairs': 96, 'tokenized': 0.0, 'strict': 0.0, 'clean_only': 0.0}
+2026-10-19 20:59:22,876 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-10-19 20:59:23,149 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-10-19 20:59:23,412 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-10-19 20:59:24,354 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-10-19 20:59:25,041 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-10-19 20:59:27,371 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-10-19 20:59:27,639 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-10-19 20:59:27,914 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-10-19 20:59:28,775 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-10-19 20:59:46,194 INFO [mod_sum/space_target] prompt tail tokens ['ulo', ' ', '7', ',', ' State', ' ='] | target ' 6' -> [' ', '6']
+2026-10-19 20:59:46,202 INFO [mod_sum/space_prompt] prompt tail tokens [' ', '7', ',', ' State', ' =', ' '] | target '6' -> ['6']
+2026-10-19 20:59:46,225 WARNING tokenize_pairs dropped 0 misaligned and 96 non-single-token-answer pairs (of 96)
+2026-10-19 20:59:46,225 INFO preflight {'task': 'mod_sum', 'answer_format': 'space_target', 'n_shots': 0, 'n_pairs': 96, 'tokenized': 0.0, 'strict': 0.0, 'clean_only': 0.0}
+2026-10-19 20:59:46,250 WARNING tokenize_pairs dropped 0 misaligned and 96 non-single-token-answer pairs (of 96)
+2026-10-19 20:59:46,250 INFO preflight {'task': 'mod_sum', 'answer_format': 'space_target', 'n_shots': 2, 'n_pairs': 96, 'tokenized': 0.0, 'strict': 0.0, 'clean_only': 0.0}
+2026-10-19 20:59:46,287 WARNING tokenize_pairs dropped 0 misaligned and 96 non-single-token-answer pairs (of 96)
+2026-10-19 20:59:46,287 INFO preflight {'task': 'mod_sum', 'answer_format': 'space_target', 'n_shots': 4, 'n_pairs': 96, 'tokenized': 0.0, 'strict': 0.0, 'clean_only': 0.0}
+2026-10-19 20:59:46,351 WARNING tokenize_pairs dropped 0 misaligned and 96 non-single-token-answer pairs (of 96)
+2026-10-19 20:59:46,351 INFO preflight {'task': 'mod_sum', 'answer_format': 'space_target', 'n_shots': 8, 'n_pairs': 96, 'tokenized': 0.0, 'strict': 0.0, 'clean_only': 0.0}
+2026-10-19 21:01:44,976 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-10-19 21:01:45,279 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-10-19 21:01:45,543 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-10-19 21:01:46,533 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-10-19 21:01:47,228 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-10-19 21:01:49,212 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-10-19 21:01:49,488 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-10-19 21:01:49,742 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-10-19 21:01:50,616 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-10-19 21:02:03,151 INFO [mod_sum/space_target] prompt tail tokens ['ulo', ' ', '7', ',', ' State', ' ='] | target ' 6' -> [' ', '6']
+2026-10-19 21:02:03,151 INFO [mod_sum/space_prompt] prompt tail tokens [' ', '7', ',', ' State', ' =', ' '] | target '6' -> ['6']
+2026-10-19 21:02:03,178 WARNING tokenize_pairs dropped 0 misaligned and 96 non-single-token-answer pairs (of 96)
+2026-10-19 21:02:03,179 INFO preflight {'task': 'mod_sum', 'answer_format': 'space_target', 'n_shots': 0, 'n_pairs': 96, 'tokenized': 0.0, 'strict': 0.0, 'clean_only': 0.0}
+2026-10-19 21:02:03,230 WARNING tokenize_pairs dropped 0 misaligned and 96 non-single-token-answer pairs (of 96)
+2026-10-19 21:02:03,230 INFO preflight {'task': 'mod_sum', 'answer_format': 'space_target', 'n_shots': 2, 'n_pairs': 96, 'tokenized': 0.0, 'strict': 0.0, 'clean_only': 0.0}
+2026-10-19 21:02:03,308 WARNING tokenize_pairs dropped 0 misaligned and 96 non-single-token-answer pairs (of 96)
+2026-10-19 21:02:03,309 INFO preflight {'task': 'mod_sum', 'answer_format': 'space_target', 'n_shots': 4, 'n_pairs': 96, 'tokenized': 0.0, 'strict': 0.0, 'clean_only': 0.0}
+2026-10-19 21:02:03,443 WARNING tokenize_pairs dropped 0 misaligned and 96 non-single-token-answer pairs (of 96)
+2026-10-19 21:02:03,443 INFO preflight {'task': 'mod_sum', 'answer_format': 'space_target', 'n_shots': 8, 'n_pairs': 96, 'tokenized': 0.0, 'strict': 0.0, 'clean_only': 0.0}
+2026-10-19 21:02:07,210 INFO preflight {'task': 'mod_sum', 'answer_format': 'space_prompt', 'n_shots': 0, 'n_pairs': 96, 'tokenized': 1.0, 'clean_top1': 0.21, 'corrupt_top1': 0.18, 'dl_clean': 0.15, 'dl_corrupt': 0.13, 'strict': 0.0, 'clean_only': 0.0}
+2026-10-19 21:05:44,613 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-10-19 21:05:44,889 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-10-19 21:05:45,151 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-10-19 21:05:46,141 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-10-19 21:05:47,096 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-10-19 21:05:49,470 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-10-19 21:05:49,733 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-10-19 21:05:49,996 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-10-19 21:05:50,902 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-10-19 21:06:01,041 INFO [mod_sum/space_target] prompt tail tokens ['ulo', ' ', '7', ',', ' State', ' ='] | target ' 6' -> [' ', '6']
+2026-10-19 21:06:01,042 INFO [mod_sum/space_prompt] prompt tail tokens [' ', '7', ',', ' State', ' =', ' '] | target '6' -> ['6']
+2026-10-19 21:06:01,055 WARNING tokenize_pairs dropped 0 misaligned and 96 non-single-token-answer pairs (of 96)
+2026-10-19 21:06:01,056 INFO preflight {'task': 'mod_sum', 'answer_format': 'space_target', 'n_shots': 0, 'n_pairs': 96, 'tokenized': 0.0, 'strict': 0.0, 'clean_only': 0.0}
+2026-10-19 21:06:01,080 WARNING tokenize_pairs dropped 0 misaligned and 96 non-single-token-answer pairs (of 96)
+2026-10-19 21:06:01,080 INFO preflight {'task': 'mod_sum', 'answer_format': 'space_target', 'n_shots': 2, 'n_pairs': 96, 'tokenized': 0.0, 'strict': 0.0, 'clean_only': 0.0}
+2026-10-19 21:06:01,117 WARNING tokenize_pairs dropped 0 misaligned and 96 non-single-token-answer pairs (of 96)
+2026-10-19 21:06:01,117 INFO preflight {'task': 'mod_sum', 'answer_format': 'space_target', 'n_shots': 4, 'n_pairs': 96, 'tokenized': 0.0, 'strict': 0.0, 'clean_only': 0.0}
+2026-10-19 21:06:01,180 WARNING tokenize_pairs dropped 0 misaligned and 96 non-single-token-answer pairs (of 96)
+2026-10-19 21:06:01,180 INFO preflight {'task': 'mod_sum', 'answer_format': 'space_target', 'n_shots': 8, 'n_pairs': 96, 'tokenized': 0.0, 'strict': 0.0, 'clean_only': 0.0}
+2026-10-19 21:06:04,977 INFO preflight {'task': 'mod_sum', 'answer_format': 'space_prompt', 'n_shots': 0, 'n_pairs': 96, 'tokenized': 1.0, 'clean_top1': 0.21, 'corrupt_top1': 0.18, 'dl_clean': 0.15, 'dl_corrupt': 0.13, 'strict': 0.0, 'clean_only': 0.0}
+2026-10-19 21:07:06,816 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-10-19 21:07:07,354 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-10-19 21:07:07,620 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-10-19 21:07:08,552 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-10-19 21:07:09,320 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-10-19 21:07:11,647 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-10-19 21:07:11,908 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-10-19 21:07:12,167 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-10-19 21:07:13,085 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-10-19 21:07:24,671 INFO [mod_sum/space_target] prompt tail tokens ['ulo', ' ', '7', ',', ' State', ' ='] | target ' 6' -> [' ', '6']
+2026-10-19 21:07:24,672 INFO [mod_sum/space_prompt] prompt tail tokens [' ', '7', ',', ' State', ' =', ' '] | target '6' -> ['6']
+2026-10-19 21:07:24,699 WARNING tokenize_pairs dropped 0 misaligned and 96 non-single-token-answer pairs (of 96)
+2026-10-19 21:07:24,699 INFO preflight {'task': 'mod_sum', 'answer_format': 'space_target', 'n_shots': 0, 'n_pairs': 96, 'tokenized': 0.0, 'strict': 0.0, 'clean_only': 0.0}
+2026-10-19 21:07:24,751 WARNING tokenize_pairs dropped 0 misaligned and 96 non-single-token-answer pairs (of 96)
+2026-10-19 21:07:24,751 INFO preflight {'task': 'mod_sum', 'answer_format': 'space_target', 'n_shots': 2, 'n_pairs': 96, 'tokenized': 0.0, 'strict': 0.0, 'clean_only': 0.0}
+2026-10-19 21:07:24,829 WARNING tokenize_pairs dropped 0 misaligned and 96 non-single-token-answer pairs (of 96)
+2026-10-19 21:07:24,829 INFO preflight {'task': 'mod_sum', 'answer_format': 'space_target', 'n_shots': 4, 'n_pairs': 96, 'tokenized': 0.0, 'strict': 0.0, 'clean_only': 0.0}
+2026-10-19 21:07:24,963 WARNING tokenize_pairs dropped 0 misaligned and 96 non-single-token-answer pairs (of 96)
+2026-10-19 21:07:24,963 INFO preflight {'task': 'mod_sum', 'answer_format': 'space_target', 'n_shots': 8, 'n_pairs': 96, 'tokenized': 0.0, 'strict': 0.0, 'clean_only': 0.0}
+2026-10-19 21:07:30,926 INFO preflight {'task': 'mod_sum', 'answer_format': 'space_prompt', 'n_shots': 0, 'n_pairs': 96, 'tokenized': 1.0, 'clean_top1': 0.21, 'corrupt_top1': 0.18, 'dl_clean': 0.15, 'dl_corrupt': 0.13, 'strict': 0.0, 'clean_only': 0.0}
+2026-10-19 21:07:39,083 INFO preflight {'task': 'mod_sum', 'answer_format': 'space_prompt', 'n_shots': 2, 'n_pairs': 96, 'tokenized': 1.0, 'clean_top1': 0.18, 'corrupt_top1': 0.16, 'dl_clean': 0.14, 'dl_corrupt': 0.13, 'strict': 0.0, 'clean_only': 0.0}
+2026-10-19 21:15:01,064 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-10-19 21:15:01,379 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-10-19 21:15:01,644 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-10-19 21:15:02,633 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-10-19 21:15:03,335 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-10-19 21:15:05,674 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-10-19 21:15:05,936 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-10-19 21:15:06,193 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-10-19 21:15:07,125 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-10-19 21:15:18,913 INFO [mod_sum/space_target] prompt tail tokens ['ulo', ' ', '7', ',', ' State', ' ='] | target ' 6' -> [' ', '6']
+2026-10-19 21:15:18,913 INFO [mod_sum/space_prompt] prompt tail tokens [' ', '7', ',', ' State', ' =', ' '] | target '6' -> ['6']
+2026-10-19 21:15:18,940 WARNING tokenize_pairs dropped 0 misaligned and 96 non-single-token-answer pairs (of 96)
+2026-10-19 21:15:18,941 INFO preflight {'task': 'mod_sum', 'answer_format': 'space_target', 'n_shots': 0, 'n_pairs': 96, 'tokenized': 0.0, 'strict': 0.0, 'clean_only': 0.0}
+2026-10-19 21:15:18,991 WARNING tokenize_pairs dropped 0 misaligned and 96 non-single-token-answer pairs (of 96)
+2026-10-19 21:15:18,991 INFO preflight {'task': 'mod_sum', 'answer_format': 'space_target', 'n_shots': 2, 'n_pairs': 96, 'tokenized': 0.0, 'strict': 0.0, 'clean_only': 0.0}
+2026-10-19 21:15:19,070 WARNING tokenize_pairs dropped 0 misaligned and 96 non-single-token-answer pairs (of 96)
+2026-10-19 21:15:19,070 INFO preflight {'task': 'mod_sum', 'answer_format': 'space_target', 'n_shots': 4, 'n_pairs': 96, 'tokenized': 0.0, 'strict': 0.0, 'clean_only': 0.0}
+2026-10-19 21:15:19,203 WARNING tokenize_pairs dropped 0 misaligned and 96 non-single-token-answer pairs (of 96)
+2026-10-19 21:15:19,203 INFO preflight {'task': 'mod_sum', 'answer_format': 'space_target', 'n_shots': 8, 'n_pairs': 96, 'tokenized': 0.0, 'strict': 0.0, 'clean_only': 0.0}
+2026-10-19 21:15:24,079 INFO preflight {'task': 'mod_sum', 'answer_format': 'space_prompt', 'n_shots': 0, 'n_pairs': 96, 'tokenized': 1.0, 'clean_top1': 0.21, 'corrupt_top1': 0.18, 'dl_clean': 10.21, 'dl_corrupt': 9.51, 'strict': 0.0, 'clean_only': 0.07}
+2026-10-19 21:15:30,564 INFO preflight {'task': 'mod_sum', 'answer_format': 'space_prompt', 'n_shots': 2, 'n_pairs': 96, 'tokenized': 1.0, 'clean_top1': 0.2, 'corrupt_top1': 0.17, 'dl_clean': 9.06, 'dl_corrupt': 7.45, 'strict': 0.0, 'clean_only': 0.1}
+2026-10-19 21:15:39,051 INFO preflight {'task': 'mod_sum', 'answer_format': 'space_prompt', 'n_shots': 4, 'n_pairs': 96, 'tokenized': 1.0, 'clean_top1': 0.17, 'corrupt_top1': 0.16, 'dl_clean': 2.53, 'dl_corrupt': 3.59, 'strict': 0.02, 'clean_only': 0.09}
+2026-10-19 21:15:53,169 INFO preflight {'task': 'mod_sum', 'answer_format': 'space_prompt', 'n_shots': 8, 'n_pairs': 96, 'tokenized': 1.0, 'clean_top1': 0.08, 'corrupt_top1': 0.15, 'dl_clean': -6.61, 'dl_corrupt': -5.96, 'strict': 0.0, 'clean_only': 0.03}
+2026-10-19 21:15:53,169 INFO ==> mod_sum: {'n_shots': 2, 'answer_format': 'space_prompt', 'filter_mode': 'clean_only', 'candidate_multiplier': 14, 'expected_retention': 0.104}
+2026-10-19 21:15:53,170 INFO [dyck_depth/space_target] prompt tail tokens [' -', '1', '.', ' Current', ' Depth', ' ='] | target ' 3' -> [' ', '3']
+2026-10-19 21:15:53,170 INFO [dyck_depth/space_prompt] prompt tail tokens ['1', '.', ' Current', ' Depth', ' =', ' '] | target '3' -> ['3']
+2026-10-19 21:15:53,216 WARNING tokenize_pairs dropped 0 misaligned and 96 non-single-token-answer pairs (of 96)
+2026-10-19 21:15:53,216 INFO preflight {'task': 'dyck_depth', 'answer_format': 'space_target', 'n_shots': 0, 'n_pairs': 96, 'tokenized': 0.0, 'strict': 0.0, 'clean_only': 0.0}
+2026-10-19 21:15:53,300 WARNING tokenize_pairs dropped 0 misaligned and 96 non-single-token-answer pairs (of 96)
+2026-10-19 21:15:53,300 INFO preflight {'task': 'dyck_depth', 'answer_format': 'space_target', 'n_shots': 2, 'n_pairs': 96, 'tokenized': 0.0, 'strict': 0.0, 'clean_only': 0.0}
+2026-10-19 21:15:53,424 WARNING tokenize_pairs dropped 0 misaligned and 96 non-single-token-answer pairs (of 96)
+2026-10-19 21:15:53,424 INFO preflight {'task': 'dyck_depth', 'answer_format': 'space_target', 'n_shots': 4, 'n_pairs': 96, 'tokenized': 0.0, 'strict': 0.0, 'clean_only': 0.0}
+2026-10-19 21:15:53,616 WARNING tokenize_pairs dropped 0 misaligned and 96 non-single-token-answer pairs (of 96)
+2026-10-19 21:15:53,616 INFO preflight {'task': 'dyck_depth', 'answer_format': 'space_target', 'n_shots': 8, 'n_pairs': 96, 'tokenized': 0.0, 'strict': 0.0, 'clean_only': 0.0}
+2026-10-19 21:15:59,115 INFO preflight {'task': 'dyck_depth', 'answer_format': 'space_prompt', 'n_shots': 0, 'n_pairs': 96, 'tokenized': 1.0, 'clean_top1': 0.28, 'corrupt_top1': 0.29, 'dl_clean': 3.09, 'dl_corrupt': 2.94, 'strict': 0.0, 'clean_only': 0.02}
+2026-10-19 21:16:07,653 INFO preflight {'task': 'dyck_depth', 'answer_format': 'space_prompt', 'n_shots': 2, 'n_pairs': 96, 'tokenized': 1.0, 'clean_top1': 0.39, 'corrupt_top1': 0.33, 'dl_clean': 3.6, 'dl_corrupt': -4.88, 'strict': 0.05, 'clean_only': 0.21}
+2026-10-19 21:16:19,427 INFO preflight {'task': 'dyck_depth', 'answer_format': 'space_prompt', 'n_shots': 4, 'n_pairs': 96, 'tokenized': 1.0, 'clean_top1': 0.14, 'corrupt_top1': 0.12, 'dl_clean': 0.65, 'dl_corrupt': -5.1, 'strict': 0.0, 'clean_only': 0.1}
+2026-10-19 21:16:42,241 INFO preflight {'task': 'dyck_depth', 'answer_format': 'space_prompt', 'n_shots': 8, 'n_pairs': 96, 'tokenized': 1.0, 'clean_top1': 0.22, 'corrupt_top1': 0.29, 'dl_clean': 3.96, 'dl_corrupt': -7.56, 'strict': 0.04, 'clean_only': 0.18}
+2026-10-19 21:16:42,241 INFO ==> dyck_depth: {'n_shots': 2, 'answer_format': 'space_prompt', 'filter_mode': 'clean_only', 'candidate_multiplier': 7, 'expected_retention': 0.208}
+2026-10-19 21:16:42,244 INFO [graph_reach/space_target] prompt tail tokens [' component', ' with', ' node', ' ', '1', ' is'] | target ' 3' -> [' ', '3']
+2026-10-19 21:16:42,244 INFO [graph_reach/space_prompt] prompt tail tokens [' with', ' node', ' ', '1', ' is', ' '] | target '3' -> ['3']
+2026-10-19 21:16:42,284 WARNING tokenize_pairs dropped 0 misaligned and 96 non-single-token-answer pairs (of 96)
+2026-10-19 21:16:42,285 INFO preflight {'task': 'graph_reach', 'answer_format': 'space_target', 'n_shots': 0, 'n_pairs': 96, 'tokenized': 0.0, 'strict': 0.0, 'clean_only': 0.0}
+2026-10-19 21:16:42,358 WARNING tokenize_pairs dropped 0 misaligned and 96 non-single-token-answer pairs (of 96)
+2026-10-19 21:16:42,358 INFO preflight {'task': 'graph_reach', 'answer_format': 'space_target', 'n_shots': 2, 'n_pairs': 96, 'tokenized': 0.0, 'strict': 0.0, 'clean_only': 0.0}
+2026-10-19 21:16:42,469 WARNING tokenize_pairs dropped 0 misaligned and 96 non-single-token-answer pairs (of 96)
+2026-10-19 21:16:42,469 INFO preflight {'task': 'graph_reach', 'answer_format': 'space_target', 'n_shots': 4, 'n_pairs': 96, 'tokenized': 0.0, 'strict': 0.0, 'clean_only': 0.0}
+2026-10-19 21:16:42,561 WARNING tokenize_pairs dropped 0 misaligned and 96 non-single-token-answer pairs (of 96)
+2026-10-19 21:16:42,562 INFO preflight {'task': 'graph_reach', 'answer_format': 'space_target', 'n_shots': 8, 'n_pairs': 96, 'tokenized': 0.0, 'strict': 0.0, 'clean_only': 0.0}
+2026-10-19 21:16:47,673 INFO preflight {'task': 'graph_reach', 'answer_format': 'space_prompt', 'n_shots': 0, 'n_pairs': 96, 'tokenized': 1.0, 'clean_top1': 0.18, 'corrupt_top1': 0.14, 'dl_clean': 4.02, 'dl_corrupt': 0.44, 'strict': 0.01, 'clean_only': 0.14}
+2026-10-19 21:16:55,414 INFO preflight {'task': 'graph_reach', 'answer_format': 'space_prompt', 'n_shots': 2, 'n_pairs': 96, 'tokenized': 1.0, 'clean_top1': 0.07, 'corrupt_top1': 0.07, 'dl_clean': -4.28, 'dl_corrupt': -4.53, 'strict': 0.0, 'clean_only': 0.03}
+2026-10-19 21:17:06,138 INFO preflight {'task': 'graph_reach', 'answer_format': 'space_prompt', 'n_shots': 4, 'n_pairs': 96, 'tokenized': 1.0, 'clean_top1': 0.32, 'corrupt_top1': 0.35, 'dl_clean': -14.58, 'dl_corrupt': -14.95, 'strict': 0.03, 'clean_only': 0.16}
+2026-10-19 21:17:26,706 INFO preflight {'task': 'graph_reach', 'answer_format': 'space_prompt', 'n_shots': 8, 'n_pairs': 96, 'tokenized': 1.0, 'clean_top1': 0.25, 'corrupt_top1': 0.36, 'dl_clean': -11.5, 'dl_corrupt': -15.19, 'strict': 0.0, 'clean_only': 0.12}
+2026-10-19 21:17:26,706 INFO ==> graph_reach: {'n_shots': 4, 'answer_format': 'space_prompt', 'filter_mode': 'clean_only', 'candidate_multiplier': 9, 'expected_retention': 0.156}
+2026-10-19 21:17:26,707 INFO [ioi_control/space_target] prompt tail tokens [',', ' Mike', ' gave', ' a', ' drink', ' to'] | target ' Bob' -> [' Bob']
+2026-10-19 21:17:26,707 INFO [ioi_control/space_prompt] prompt tail tokens [' Mike', ' gave', ' a', ' drink', ' to', ' '] | target 'Bob' -> []
+2026-10-19 21:17:30,898 INFO preflight {'task': 'ioi_control', 'answer_format': 'space_target', 'n_shots': 0, 'n_pairs': 96, 'tokenized': 1.0, 'clean_top1': 0.0, 'corrupt_top1': 0.0, 'dl_clean': 69.38, 'dl_corrupt': -51.96, 'strict': 0.0, 'clean_only': 0.0}
+2026-10-19 21:17:36,046 INFO preflight {'task': 'ioi_control', 'answer_format': 'space_target', 'n_shots': 2, 'n_pairs': 96, 'tokenized': 1.0, 'clean_top1': 0.0, 'corrupt_top1': 0.0, 'dl_clean': 83.02, 'dl_corrupt': -58.27, 'strict': 0.0, 'clean_only': 0.0}
+2026-10-19 21:17:42,236 INFO preflight {'task': 'ioi_control', 'answer_format': 'space_target', 'n_shots': 4, 'n_pairs': 96, 'tokenized': 1.0, 'clean_top1': 0.0, 'corrupt_top1': 0.0, 'dl_clean': 98.07, 'dl_corrupt': -40.84, 'strict': 0.0, 'clean_only': 0.0}
+2026-10-19 21:17:50,492 INFO preflight {'task': 'ioi_control', 'answer_format': 'space_target', 'n_shots': 8, 'n_pairs': 96, 'tokenized': 1.0, 'clean_top1': 0.0, 'corrupt_top1': 0.0, 'dl_clean': 99.84, 'dl_corrupt': -26.81, 'strict': 0.0, 'clean_only': 0.0}
+2026-10-19 21:17:50,520 WARNING tokenize_pairs dropped 0 misaligned and 96 non-single-token-answer pairs (of 96)
+2026-10-19 21:17:50,521 INFO preflight {'task': 'ioi_control', 'answer_format': 'space_prompt', 'n_shots': 0, 'n_pairs': 96, 'tokenized': 0.0, 'strict': 0.0, 'clean_only': 0.0}
+2026-10-19 21:17:50,566 WARNING tokenize_pairs dropped 0 misaligned and 96 non-single-token-answer pairs (of 96)
+2026-10-19 21:17:50,566 INFO preflight {'task': 'ioi_control', 'answer_format': 'space_prompt', 'n_shots': 2, 'n_pairs': 96, 'tokenized': 0.0, 'strict': 0.0, 'clean_only': 0.0}
+2026-10-19 21:17:50,629 WARNING tokenize_pairs dropped 0 misaligned and 96 non-single-token-answer pairs (of 96)
+2026-10-19 21:17:50,630 INFO preflight {'task': 'ioi_control', 'answer_format': 'space_prompt', 'n_shots': 4, 'n_pairs': 96, 'tokenized': 0.0, 'strict': 0.0, 'clean_only': 0.0}
+2026-10-19 21:17:50,734 WARNING tokenize_pairs dropped 0 misaligned and 96 non-single-token-answer pairs (of 96)
+2026-10-19 21:17:50,734 INFO preflight {'task': 'ioi_control', 'answer_format': 'space_prompt', 'n_shots': 8, 'n_pairs': 96, 'tokenized': 0.0, 'strict': 0.0, 'clean_only': 0.0}
+2026-10-19 21:17:50,735 WARNING ioi_control: model fails the task under every setting (best retention 0.00) -> dropped

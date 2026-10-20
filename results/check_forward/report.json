@@ -1,0 +1,1526 @@
+{
+  "config": "/home/raveeshvyas/Coding_folder/interpretability/PRISM/configs/tier1_core.yaml",
+  "overrides": "results/overnight_20261019_202612/preflight/preflight.json",
+  "env": {
+    "python": "3.14.4",
+    "torch": "2.14.1+cu130",
+    "cuda": "13.0",
+    "transformers": "5.20.1",
+    "transformer_lens": null,
+    "sae_lens": "6.54.5",
+    "numpy": "2.5.4",
+    "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+    "vram_gb": 7.53,
+    "ram_available_gb": 16.7,
+    "torch_threads": 4,
+    "git_head": "7a54256",
+    "git_branch": "main",
+    "git_dirty_files": [
+      "?? .env"
+    ]
+  },
+  "tokenizer": {
+    "bos_token_id": 2,
+    "pad_token_id": 0,
+    "padding_side": "left",
+    "examples": {
+      "mod_sum": {
+        "prompt": "State = 3. Add 5. Add 6. Add 5. Add 1. Modulo 7, State = ",
+        "target": "6",
+        "tail_tokens": [
+          " ",
+          "7",
+          ",",
+          " State",
+          " =",
+          " "
+        ],
+        "answer_token": "6",
+        "aligned": true
+      },
+      "dyck_depth": {
+        "prompt": "Depth = 3. Op: -1. Op: -1. Op: +1. Op: -1. Op: +1. Op: +1. Op: +1. Op: -1. Current Depth = ",
+        "target": "3",
+        "tail_tokens": [
+          "1",
+          ".",
+          " Current",
+          " Depth",
+          " =",
+          " "
+        ],
+        "answer_token": "3",
+        "aligned": true
+      },
+      "graph_reach": {
+        "prompt": "Graph nodes 1 to 6. Edge 3-5. Edge 1-4. Edge 4-2. Edge 1-2. Size of component with node 1 is ",
+        "target": "3",
+        "tail_tokens": [
+          " with",
+          " node",
+          " ",
+          "1",
+          " is",
+          " "
+        ],
+        "answer_token": "3",
+        "aligned": true
+      },
+      "ioi_control": {
+        "prompt": "When Bob and Mike went to the market, Mike gave a drink to",
+        "target": " Bob",
+        "tail_tokens": [
+          ",",
+          " Mike",
+          " gave",
+          " a",
+          " drink",
+          " to"
+        ],
+        "answer_token": " Bob",
+        "aligned": true
+      }
+    }
+  },
+  "prompt_space": {
+    "mod_sum": {
+      "candidate_multiplier": 14,
+      "n_shots_wanted": 2,
+      "n_shots_got": 0,
+      "train_got/wanted": [
+        5600,
+        5600
+      ],
+      "test_got/wanted": [
+        2800,
+        2800
+      ],
+      "seconds": 0.4
+    },
+    "dyck_depth": {
+      "candidate_multiplier": 7,
+      "n_shots_wanted": 2,
+      "n_shots_got": 0,
+      "train_got/wanted": [
+        1140,
+        2800
+      ],
+      "test_got/wanted": [
+        0,
+        1400
+      ],
+      "seconds": 34.0
+    },
+    "graph_reach": {
+      "candidate_multiplier": 9,
+      "n_shots_wanted": 4,
+      "n_shots_got": 4,
+      "train_got/wanted": [
+        3600,
+        3600
+      ],
+      "test_got/wanted": [
+        1800,
+        1800
+      ],
+      "seconds": 0.2
+    },
+    "ioi_control": {
+      "candidate_multiplier": 3,
+      "n_shots_wanted": 0,
+      "n_shots_got": 0,
+      "train_got/wanted": [
+        1200,
+        1200
+      ],
+      "test_got/wanted": [
+        144,
+        600
+      ],
+      "seconds": 1.3
+    }
+  },
+  "hf": {
+    "final_logit_softcapping": 30.0,
+    "hidden_size": 2304,
+    "vocab_size": 256000
+  },
+  "tl_cfg": {
+    "n_layers": "26",
+    "d_model": "2304",
+    "d_vocab": "256000",
+    "normalization_type": "RMS",
+    "output_logits_soft_cap": "30.0",
+    "attn_scores_soft_cap": "50.0",
+    "positional_embedding_type": "rotary",
+    "default_prepend_bos": "True",
+    "use_normalization_before_and_after": "True",
+    "dtype": "torch.bfloat16",
+    "device": "cuda",
+    "embed_on_cpu": true
+  },
+  "compare": {
+    "ours vs tl_plain": {},
+    "ours vs ours_gpu": {},
+    "tl_plain vs hf": {},
+    "ours vs hf": {
+      "max_abs_diff": 4.717096328735352,
+      "median_max_abs_diff": 0.4928007125854492,
+      "top1_agree": 0.9514563106796117
+    }
+  },
+  "sanity": [
+    {
+      "prompt": "The capital of France is",
+      "target": " Paris",
+      "top5": {
+        "ours": [
+          [
+            "' a'",
+            0.207
+          ],
+          [
+            "' the'",
+            0.1
+          ],
+          [
+            "' one'",
+            0.079
+          ],
+          [
+            "' also'",
+            0.079
+          ],
+          [
+            "' home'",
+            0.053
+          ]
+        ],
+        "hf": [
+          [
+            "' a'",
+            0.201
+          ],
+          [
+            "' the'",
+            0.095
+          ],
+          [
+            "' one'",
+            0.074
+          ],
+          [
+            "' also'",
+            0.074
+          ],
+          [
+            "' home'",
+            0.058
+          ]
+        ]
+      },
+      "ours_top1_ok": false,
+      "hf_top1_ok": false
+    },
+    {
+      "prompt": "When Mary and John went to the store, John gave a drink to",
+      "target": " Mary",
+      "top5": {
+        "ours": [
+          [
+            "' Mary'",
+            0.273
+          ],
+          [
+            "' the'",
+            0.202
+          ],
+          [
+            "' each'",
+            0.114
+          ],
+          [
+            "' a'",
+            0.093
+          ],
+          [
+            "' his'",
+            0.067
+          ]
+        ],
+        "hf": [
+          [
+            "' Mary'",
+            0.266
+          ],
+          [
+            "' the'",
+            0.207
+          ],
+          [
+            "' each'",
+            0.126
+          ],
+          [
+            "' a'",
+            0.086
+          ],
+          [
+            "' his'",
+            0.067
+          ]
+        ]
+      },
+      "ours_top1_ok": true,
+      "hf_top1_ok": true
+    },
+    {
+      "prompt": "When Tom and Anna went to the park, Anna gave a book to",
+      "target": " Tom",
+      "top5": {
+        "ours": [
+          [
+            "' Tom'",
+            0.628
+          ],
+          [
+            "' her'",
+            0.104
+          ],
+          [
+            "' the'",
+            0.076
+          ],
+          [
+            "' a'",
+            0.062
+          ],
+          [
+            "' Tommy'",
+            0.009
+          ]
+        ],
+        "hf": [
+          [
+            "' Tom'",
+            0.627
+          ],
+          [
+            "' her'",
+            0.109
+          ],
+          [
+            "' the'",
+            0.075
+          ],
+          [
+            "' a'",
+            0.058
+          ],
+          [
+            "' each'",
+            0.008
+          ]
+        ]
+      },
+      "ours_top1_ok": true,
+      "hf_top1_ok": true
+    },
+    {
+      "prompt": "Monday, Tuesday, Wednesday,",
+      "target": " Thursday",
+      "top5": {
+        "ours": [
+          [
+            "' Thursday'",
+            0.723
+          ],
+          [
+            "' and'",
+            0.129
+          ],
+          [
+            "' '",
+            0.022
+          ],
+          [
+            "' Friday'",
+            0.021
+          ],
+          [
+            "'\\n'",
+            0.01
+          ]
+        ],
+        "hf": [
+          [
+            "' Thursday'",
+            0.705
+          ],
+          [
+            "' and'",
+            0.139
+          ],
+          [
+            "' Friday'",
+            0.021
+          ],
+          [
+            "' '",
+            0.021
+          ],
+          [
+            "'\\n'",
+            0.011
+          ]
+        ]
+      },
+      "ours_top1_ok": true,
+      "hf_top1_ok": true
+    },
+    {
+      "prompt": "The opposite of hot is",
+      "target": " cold",
+      "top5": {
+        "ours": [
+          [
+            "' cold'",
+            0.572
+          ],
+          [
+            "' not'",
+            0.059
+          ],
+          [
+            "' cool'",
+            0.039
+          ],
+          [
+            "' what'",
+            0.023
+          ],
+          [
+            "' '",
+            0.022
+          ]
+        ],
+        "hf": [
+          [
+            "' cold'",
+            0.557
+          ],
+          [
+            "' not'",
+            0.059
+          ],
+          [
+            "' cool'",
+            0.04
+          ],
+          [
+            "' '",
+            0.024
+          ],
+          [
+            "' what'",
+            0.024
+          ]
+        ]
+      },
+      "ours_top1_ok": true,
+      "hf_top1_ok": true
+    },
+    {
+      "prompt": "1, 2, 3, 4,",
+      "target": " ",
+      "top5": {
+        "ours": [
+          [
+            "' '",
+            0.93
+          ],
+          [
+            "' and'",
+            0.01
+          ],
+          [
+            "' ...'",
+            0.008
+          ],
+          [
+            "'\\n'",
+            0.006
+          ],
+          [
+            "' \u2026'",
+            0.005
+          ]
+        ],
+        "hf": [
+          [
+            "' '",
+            0.934
+          ],
+          [
+            "' and'",
+            0.009
+          ],
+          [
+            "' ...'",
+            0.008
+          ],
+          [
+            "'\\n'",
+            0.005
+          ],
+          [
+            "' \u2026'",
+            0.004
+          ]
+        ]
+      },
+      "ours_top1_ok": true,
+      "hf_top1_ok": true
+    },
+    {
+      "prompt": "1, 2, 3, 4, ",
+      "target": "5",
+      "top5": {
+        "ours": [
+          [
+            "'5'",
+            0.938
+          ],
+          [
+            "'6'",
+            0.013
+          ],
+          [
+            "'1'",
+            0.012
+          ],
+          [
+            "'4'",
+            0.007
+          ],
+          [
+            "'2'",
+            0.005
+          ]
+        ],
+        "hf": [
+          [
+            "'5'",
+            0.937
+          ],
+          [
+            "'6'",
+            0.015
+          ],
+          [
+            "'1'",
+            0.012
+          ],
+          [
+            "'4'",
+            0.007
+          ],
+          [
+            "'2'",
+            0.005
+          ]
+        ]
+      },
+      "ours_top1_ok": true,
+      "hf_top1_ok": true
+    }
+  ],
+  "task_top1_hf_vs_ours": {
+    "dyck_depth/0shot": {
+      "hf": 0.5,
+      "ours": 0.5
+    },
+    "dyck_depth/2shot": {
+      "hf": 0.5833333333333334,
+      "ours": 0.5833333333333334
+    },
+    "graph_reach/0shot": {
+      "hf": 0.08333333333333333,
+      "ours": 0.16666666666666666
+    },
+    "graph_reach/2shot": {
+      "hf": 0.0,
+      "ours": 0.0
+    },
+    "ioi_control/0shot": {
+      "hf": 0.75,
+      "ours": 0.75
+    },
+    "ioi_control/2shot": {
+      "hf": 1.0,
+      "ours": 1.0
+    },
+    "mod_sum/0shot": {
+      "hf": 0.16666666666666666,
+      "ours": 0.16666666666666666
+    },
+    "mod_sum/2shot": {
+      "hf": 0.16666666666666666,
+      "ours": 0.16666666666666666
+    }
+  },
+  "tasks": {
+    "mod_sum/space_target/0shot": {
+      "tokenized": 0.0
+    },
+    "mod_sum/space_target/2shot": {
+      "tokenized": 0.0
+    },
+    "mod_sum/space_target/4shot": {
+      "tokenized": 0.0
+    },
+    "mod_sum/space_prompt/0shot": {
+      "tokenized": 1.0,
+      "n": 64,
+      "chance": 0.143,
+      "clean_top1": 0.15625,
+      "corrupt_top1": 0.0625,
+      "dl_clean_mean": 0.05689644813537598,
+      "dl_corrupt_mean": 0.07240232825279236,
+      "dl_abs_max": 2.585542678833008,
+      "clean_only_kept": 0.0,
+      "strict_kept": 0.0,
+      "top_predictions": [
+        [
+          "1",
+          54
+        ],
+        [
+          "2",
+          10
+        ]
+      ],
+      "examples": [
+        {
+          "prompt_tail": "State = 1. Add 6. Add 6. Add 5. Add 2. Modulo 7, State = ",
+          "target": "6",
+          "top5": [
+            [
+              "'2'",
+              0.261
+            ],
+            [
+              "'1'",
+              0.245
+            ],
+            [
+              "'0'",
+              0.18
+            ],
+            [
+              "'3'",
+              0.096
+            ],
+            [
+              "'6'",
+              0.058
+            ]
+          ]
+        }
+      ]
+    },
+    "mod_sum/space_prompt/2shot": {
+      "tokenized": 1.0,
+      "n": 64,
+      "chance": 0.143,
+      "clean_top1": 0.171875,
+      "corrupt_top1": 0.234375,
+      "dl_clean_mean": -0.026899218559265137,
+      "dl_corrupt_mean": -0.08738774061203003,
+      "dl_abs_max": 2.108987808227539,
+      "clean_only_kept": 0.0,
+      "strict_kept": 0.0,
+      "top_predictions": [
+        [
+          "2",
+          16
+        ],
+        [
+          "3",
+          12
+        ],
+        [
+          "1",
+          11
+        ],
+        [
+          "4",
+          10
+        ],
+        [
+          "5",
+          10
+        ]
+      ],
+      "examples": [
+        {
+          "prompt_tail": " 2\nState = 2. Add 3. Add 2. Add 4. Add 3. Modulo 7, State = ",
+          "target": "0",
+          "top5": [
+            [
+              "'2'",
+              0.261
+            ],
+            [
+              "'3'",
+              0.189
+            ],
+            [
+              "'1'",
+              0.168
+            ],
+            [
+              "'4'",
+              0.144
+            ],
+            [
+              "'5'",
+              0.085
+            ]
+          ]
+        },
+        {
+          "prompt_tail": " 2\nState = 3. Add 4. Add 4. Add 5. Add 3. Modulo 7, State = ",
+          "target": "5",
+          "top5": [
+            [
+              "'3'",
+              0.237
+            ],
+            [
+              "'4'",
+              0.167
+            ],
+            [
+              "'2'",
+              0.16
+            ],
+            [
+              "'1'",
+              0.145
+            ],
+            [
+              "'5'",
+              0.134
+            ]
+          ]
+        }
+      ]
+    },
+    "mod_sum/space_prompt/4shot": {
+      "tokenized": 1.0,
+      "n": 64,
+      "chance": 0.143,
+      "clean_top1": 0.125,
+      "corrupt_top1": 0.171875,
+      "dl_clean_mean": 0.013064056634902954,
+      "dl_corrupt_mean": -0.0013684630393981934,
+      "dl_abs_max": 1.2875728607177734,
+      "clean_only_kept": 0.0,
+      "strict_kept": 0.0,
+      "top_predictions": [
+        [
+          "5",
+          22
+        ],
+        [
+          "4",
+          12
+        ],
+        [
+          "3",
+          9
+        ],
+        [
+          "2",
+          9
+        ],
+        [
+          "1",
+          7
+        ]
+      ],
+      "examples": [
+        {
+          "prompt_tail": " 0\nState = 3. Add 3. Add 3. Add 2. Add 5. Modulo 7, State = ",
+          "target": "2",
+          "top5": [
+            [
+              "'3'",
+              0.198
+            ],
+            [
+              "'5'",
+              0.192
+            ],
+            [
+              "'2'",
+              0.168
+            ],
+            [
+              "'4'",
+              0.138
+            ],
+            [
+              "'1'",
+              0.128
+            ]
+          ]
+        },
+        {
+          "prompt_tail": " 0\nState = 0. Add 5. Add 6. Add 5. Add 6. Modulo 7, State = ",
+          "target": "1",
+          "top5": [
+            [
+              "'0'",
+              0.186
+            ],
+            [
+              "'5'",
+              0.169
+            ],
+            [
+              "'1'",
+              0.144
+            ],
+            [
+              "'2'",
+              0.141
+            ],
+            [
+              "'3'",
+              0.126
+            ]
+          ]
+        }
+      ]
+    },
+    "dyck_depth/space_target/0shot": {
+      "tokenized": 0.0
+    },
+    "dyck_depth/space_target/2shot": {
+      "tokenized": 0.0
+    },
+    "dyck_depth/space_target/4shot": {
+      "tokenized": 0.0
+    },
+    "dyck_depth/space_prompt/0shot": {
+      "tokenized": 1.0,
+      "n": 64,
+      "chance": 0.167,
+      "clean_top1": 0.375,
+      "corrupt_top1": 0.390625,
+      "dl_clean_mean": -0.10457718372344971,
+      "dl_corrupt_mean": -0.12160903215408325,
+      "dl_abs_max": 2.2382774353027344,
+      "clean_only_kept": 0.0,
+      "strict_kept": 0.0,
+      "top_predictions": [
+        [
+          "3",
+          14
+        ],
+        [
+          "5",
+          13
+        ],
+        [
+          "4",
+          12
+        ],
+        [
+          "2",
+          10
+        ],
+        [
+          "1",
+          9
+        ]
+      ],
+      "examples": [
+        {
+          "prompt_tail": "+1. Op: +1. Op: +1. Op: -1. Op: -1. Op: +1. Current Depth = ",
+          "target": "4",
+          "top5": [
+            [
+              "'2'",
+              0.404
+            ],
+            [
+              "'1'",
+              0.204
+            ],
+            [
+              "'3'",
+              0.153
+            ],
+            [
+              "'0'",
+              0.092
+            ],
+            [
+              "'4'",
+              0.06
+            ]
+          ]
+        },
+        {
+          "prompt_tail": "+1. Op: +1. Op: +1. Op: -1. Op: +1. Op: +1. Current Depth = ",
+          "target": "6",
+          "top5": [
+            [
+              "'2'",
+              0.414
+            ],
+            [
+              "'1'",
+              0.199
+            ],
+            [
+              "'3'",
+              0.155
+            ],
+            [
+              "'0'",
+              0.083
+            ],
+            [
+              "'4'",
+              0.06
+            ]
+          ]
+        }
+      ]
+    },
+    "dyck_depth/space_prompt/2shot": {
+      "tokenized": 1.0,
+      "n": 64,
+      "chance": 0.167,
+      "clean_top1": 0.359375,
+      "corrupt_top1": 0.328125,
+      "dl_clean_mean": 0.07807287573814392,
+      "dl_corrupt_mean": 0.00594252347946167,
+      "dl_abs_max": 2.180814743041992,
+      "clean_only_kept": 0.0,
+      "strict_kept": 0.0,
+      "top_predictions": [
+        [
+          "5",
+          16
+        ],
+        [
+          "4",
+          13
+        ],
+        [
+          "3",
+          11
+        ],
+        [
+          "6",
+          11
+        ],
+        [
+          "2",
+          10
+        ]
+      ],
+      "examples": [
+        {
+          "prompt_tail": "-1. Op: +1. Op: -1. Op: -1. Op: -1. Op: +1. Current Depth = ",
+          "target": "2",
+          "top5": [
+            [
+              "'2'",
+              0.306
+            ],
+            [
+              "'3'",
+              0.163
+            ],
+            [
+              "'4'",
+              0.145
+            ],
+            [
+              "'6'",
+              0.119
+            ],
+            [
+              "'5'",
+              0.079
+            ]
+          ]
+        },
+        {
+          "prompt_tail": "+1. Op: +1. Op: +1. Op: -1. Op: +1. Op: -1. Current Depth = ",
+          "target": "5",
+          "top5": [
+            [
+              "'1'",
+              0.272
+            ],
+            [
+              "'2'",
+              0.161
+            ],
+            [
+              "'3'",
+              0.136
+            ],
+            [
+              "'6'",
+              0.109
+            ],
+            [
+              "'4'",
+              0.099
+            ]
+          ]
+        }
+      ]
+    },
+    "dyck_depth/space_prompt/4shot": {
+      "tokenized": 1.0,
+      "n": 64,
+      "chance": 0.167,
+      "clean_top1": 0.390625,
+      "corrupt_top1": 0.390625,
+      "dl_clean_mean": 0.08116653561592102,
+      "dl_corrupt_mean": -0.04754287004470825,
+      "dl_abs_max": 3.2862548828125,
+      "clean_only_kept": 0.0,
+      "strict_kept": 0.0,
+      "top_predictions": [
+        [
+          "3",
+          20
+        ],
+        [
+          "4",
+          19
+        ],
+        [
+          "1",
+          9
+        ],
+        [
+          "6",
+          8
+        ],
+        [
+          "2",
+          8
+        ]
+      ],
+      "examples": [
+        {
+          "prompt_tail": "+1. Op: -1. Op: -1. Op: +1. Op: +1. Op: -1. Current Depth = ",
+          "target": "5",
+          "top5": [
+            [
+              "'3'",
+              0.508
+            ],
+            [
+              "'4'",
+              0.125
+            ],
+            [
+              "'5'",
+              0.118
+            ],
+            [
+              "'6'",
+              0.096
+            ],
+            [
+              "'2'",
+              0.077
+            ]
+          ]
+        },
+        {
+          "prompt_tail": "+1. Op: +1. Op: +1. Op: -1. Op: -1. Op: +1. Current Depth = ",
+          "target": "5",
+          "top5": [
+            [
+              "'3'",
+              0.436
+            ],
+            [
+              "'5'",
+              0.28
+            ],
+            [
+              "'4'",
+              0.12
+            ],
+            [
+              "'6'",
+              0.08
+            ],
+            [
+              "'2'",
+              0.045
+            ]
+          ]
+        }
+      ]
+    },
+    "graph_reach/space_target/0shot": {
+      "tokenized": 0.0
+    },
+    "graph_reach/space_target/2shot": {
+      "tokenized": 0.0
+    },
+    "graph_reach/space_target/4shot": {
+      "tokenized": 0.0
+    },
+    "graph_reach/space_prompt/0shot": {
+      "tokenized": 1.0,
+      "n": 64,
+      "chance": 0.167,
+      "clean_top1": 0.171875,
+      "corrupt_top1": 0.171875,
+      "dl_clean_mean": 0.06792294979095459,
+      "dl_corrupt_mean": 0.04085811972618103,
+      "dl_abs_max": 0.7213783264160156,
+      "clean_only_kept": 0.0,
+      "strict_kept": 0.0,
+      "top_predictions": [
+        [
+          "3",
+          22
+        ],
+        [
+          "1",
+          20
+        ],
+        [
+          "2",
+          17
+        ],
+        [
+          "4",
+          3
+        ],
+        [
+          "5",
+          2
+        ]
+      ],
+      "examples": [
+        {
+          "prompt_tail": "e 2-4. Edge 4-2. Edge 6-1. Size of component with node 1 is ",
+          "target": "4",
+          "top5": [
+            [
+              "'2'",
+              0.179
+            ],
+            [
+              "'1'",
+              0.179
+            ],
+            [
+              "'3'",
+              0.168
+            ],
+            [
+              "'4'",
+              0.148
+            ],
+            [
+              "'5'",
+              0.136
+            ]
+          ]
+        }
+      ]
+    },
+    "graph_reach/space_prompt/2shot": {
+      "tokenized": 1.0,
+      "n": 64,
+      "chance": 0.167,
+      "clean_top1": 0.140625,
+      "corrupt_top1": 0.203125,
+      "dl_clean_mean": -0.20242810249328613,
+      "dl_corrupt_mean": -0.256877601146698,
+      "dl_abs_max": 2.7304344177246094,
+      "clean_only_kept": 0.0,
+      "strict_kept": 0.0,
+      "top_predictions": [
+        [
+          "2",
+          57
+        ],
+        [
+          "3",
+          7
+        ]
+      ],
+      "examples": [
+        {
+          "prompt_tail": "e 4-3. Edge 4-6. Edge 3-5. Size of component with node 1 is ",
+          "target": "1",
+          "top5": [
+            [
+              "'2'",
+              0.438
+            ],
+            [
+              "'3'",
+              0.276
+            ],
+            [
+              "'4'",
+              0.158
+            ],
+            [
+              "'5'",
+              0.058
+            ],
+            [
+              "'1'",
+              0.04
+            ]
+          ]
+        },
+        {
+          "prompt_tail": "e 3-4. Edge 5-6. Edge 4-1. Size of component with node 1 is ",
+          "target": "4",
+          "top5": [
+            [
+              "'2'",
+              0.388
+            ],
+            [
+              "'3'",
+              0.286
+            ],
+            [
+              "'4'",
+              0.19
+            ],
+            [
+              "'5'",
+              0.07
+            ],
+            [
+              "'1'",
+              0.036
+            ]
+          ]
+        }
+      ]
+    },
+    "graph_reach/space_prompt/4shot": {
+      "tokenized": 1.0,
+      "n": 64,
+      "chance": 0.167,
+      "clean_top1": 0.3125,
+      "corrupt_top1": 0.21875,
+      "dl_clean_mean": -0.05250087380409241,
+      "dl_corrupt_mean": -0.16512832045555115,
+      "dl_abs_max": 3.5345630645751953,
+      "clean_only_kept": 0.0,
+      "strict_kept": 0.0,
+      "top_predictions": [
+        [
+          "4",
+          57
+        ],
+        [
+          "5",
+          7
+        ]
+      ],
+      "examples": [
+        {
+          "prompt_tail": "e 5-2. Edge 4-2. Edge 1-2. Size of component with node 1 is ",
+          "target": "4",
+          "top5": [
+            [
+              "'4'",
+              0.316
+            ],
+            [
+              "'5'",
+              0.295
+            ],
+            [
+              "'6'",
+              0.163
+            ],
+            [
+              "'3'",
+              0.117
+            ],
+            [
+              "'7'",
+              0.05
+            ]
+          ]
+        },
+        {
+          "prompt_tail": "e 4-1. Edge 2-6. Edge 5-2. Size of component with node 1 is ",
+          "target": "2",
+          "top5": [
+            [
+              "'5'",
+              0.32
+            ],
+            [
+              "'4'",
+              0.32
+            ],
+            [
+              "'6'",
+              0.149
+            ],
+            [
+              "'3'",
+              0.124
+            ],
+            [
+              "'7'",
+              0.039
+            ]
+          ]
+        }
+      ]
+    },
+    "ioi_control/space_target/0shot": {
+      "tokenized": 1.0,
+      "n": 64,
+      "chance": 0.125,
+      "clean_top1": 0.6875,
+      "corrupt_top1": 0.71875,
+      "dl_clean_mean": 3.8046646118164062,
+      "dl_corrupt_mean": -3.413618505001068,
+      "dl_abs_max": 6.985097885131836,
+      "clean_only_kept": 0.6875,
+      "strict_kept": 0.640625,
+      "top_predictions": [
+        [
+          " the",
+          19
+        ],
+        [
+          " Alice",
+          10
+        ],
+        [
+          " Bob",
+          8
+        ],
+        [
+          " Mary",
+          7
+        ],
+        [
+          " Lucy",
+          6
+        ]
+      ],
+      "examples": [
+        {
+          "prompt_tail": "When John and Mike went to the market, Mike gave a book to",
+          "target": " John",
+          "top5": [
+            [
+              "' John'",
+              0.508
+            ],
+            [
+              "' his'",
+              0.139
+            ],
+            [
+              "' the'",
+              0.11
+            ],
+            [
+              "' each'",
+              0.042
+            ],
+            [
+              "' a'",
+              0.039
+            ]
+          ]
+        }
+      ]
+    },
+    "ioi_control/space_target/2shot": {
+      "tokenized": 1.0,
+      "n": 64,
+      "chance": 0.125,
+      "clean_top1": 1.0,
+      "corrupt_top1": 1.0,
+      "dl_clean_mean": 5.26824788749218,
+      "dl_corrupt_mean": -4.678542584180832,
+      "dl_abs_max": 8.317875862121582,
+      "clean_only_kept": 1.0,
+      "strict_kept": 1.0,
+      "top_predictions": [
+        [
+          " Mike",
+          13
+        ],
+        [
+          " Bob",
+          12
+        ],
+        [
+          " Tom",
+          10
+        ],
+        [
+          " John",
+          8
+        ],
+        [
+          " Anna",
+          7
+        ]
+      ],
+      "examples": [
+        {
+          "prompt_tail": "e\nWhen Bob and Alice went to the beach, Alice gave a book to",
+          "target": " Bob",
+          "top5": [
+            [
+              "' Bob'",
+              0.957
+            ],
+            [
+              "' Alice'",
+              0.01
+            ],
+            [
+              "' John'",
+              0.006
+            ],
+            [
+              "' Mary'",
+              0.005
+            ],
+            [
+              "' Mike'",
+              0.005
+            ]
+          ]
+        }
+      ]
+    },
+    "ioi_control/space_target/4shot": {
+      "tokenized": 1.0,
+      "n": 64,
+      "chance": 0.125,
+      "clean_top1": 1.0,
+      "corrupt_top1": 1.0,
+      "dl_clean_mean": 7.7258220836520195,
+      "dl_corrupt_mean": -7.20450983196497,
+      "dl_abs_max": 9.30720043182373,
+      "clean_only_kept": 1.0,
+      "strict_kept": 1.0,
+      "top_predictions": [
+        [
+          " Alice",
+          13
+        ],
+        [
+          " Lucy",
+          9
+        ],
+        [
+          " John",
+          9
+        ],
+        [
+          " Tom",
+          9
+        ],
+        [
+          " Anna",
+          8
+        ]
+      ],
+      "examples": [
+        {
+          "prompt_tail": "Anna\nWhen Lucy and Bob went to the store, Bob gave a gift to",
+          "target": " Lucy",
+          "top5": [
+            [
+              "' Lucy'",
+              0.942
+            ],
+            [
+              "' Anna'",
+              0.033
+            ],
+            [
+              "' Mary'",
+              0.007
+            ],
+            [
+              "' Alice'",
+              0.004
+            ],
+            [
+              "' the'",
+              0.001
+            ]
+          ]
+        },
+        {
+          "prompt_tail": "Anna\nWhen Bob and John went to the park, John gave a gift to",
+          "target": " Bob",
+          "top5": [
+            [
+              "' Bob'",
+              0.985
+            ],
+            [
+              "' Anna'",
+              0.002
+            ],
+            [
+              "' Mary'",
+              0.001
+            ],
+            [
+              "' Mike'",
+              0.001
+            ],
+            [
+              "' John'",
+              0.001
+            ]
+          ]
+        }
+      ]
+    },
+    "ioi_control/space_prompt/0shot": {
+      "tokenized": 0.0
+    },
+    "ioi_control/space_prompt/2shot": {
+      "tokenized": 0.0
+    },
+    "ioi_control/space_prompt/4shot": {
+      "tokenized": 0.0
+    }
+  }
+}

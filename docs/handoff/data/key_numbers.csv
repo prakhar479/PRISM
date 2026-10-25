@@ -1,0 +1,7 @@
+claim,value,source
+full clean copy (from first changed token) restores,100% at every task and layer,paper_audit exp1 clean_full from_diff
+"SAE parts alone restore (3 state tasks, layers 4-20)",74% to 100%,paper_audit exp1 sae_only from_diff
+"leftover error alone restores (3 state tasks, layers 4-20)","0% to 62%; above 15% only for object tracking at layers 8-16, where replacing the error with noise alone already restores 28-58%",paper_audit exp1 error_only and noise_control from_diff
+"SAE CE-loss recovered on web text (16k, layers 10-18)",98.0% to 99.1%,paper_residue sae_fidelity
+test pairs per setting,150 (train 300),run_info.json
+compute,"one 8 GB laptop GPU (RTX 5060), ~6.3 h for the three paper runs",STATUS

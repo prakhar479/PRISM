@@ -1,0 +1,13 @@
+task,layer,rank,source,method,gap,share_closed
+entity_track,12,2,ordinary web text,generic_text_svd,0.2587,0.014
+entity_track,12,2,random,random_subspace,0.2587,0.0008
+entity_track,12,2,"own task, supervised",supervised_centroid_svd,0.2587,0.3927
+entity_track,12,2,other task: Running sum,transfer_from_add_chain,0.2587,-0.0055
+entity_track,12,2,other task: Names (IOI control),transfer_from_ioi_control,0.2587,0.016
+entity_track,12,2,"own task, unsupervised",unsupervised_svd,0.2587,0.5317
+add_chain,18,2,ordinary web text,generic_text_svd,0.1256,0.0012
+add_chain,18,2,random,random_subspace,0.1256,0.007
+add_chain,18,2,"own task, supervised",supervised_centroid_svd,0.1256,0.5841
+add_chain,18,2,other task: Object tracking,transfer_from_entity_track,0.1256,0.0121
+add_chain,18,2,other task: Names (IOI control),transfer_from_ioi_control,0.1256,0.0021
+add_chain,18,2,"own task, unsupervised",unsupervised_svd,0.1256,0.2458

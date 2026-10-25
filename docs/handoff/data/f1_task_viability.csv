@@ -1,0 +1,8 @@
+task,label,level,shots,top1,keep,group
+mod_sum,Sum with remainder,2,0,0.07,0.0,dropped
+dyck_depth,Bracket depth,2,0,0.5,0.0,dropped
+graph_reach,Graph size,2,8,0.52,0.01,dropped
+entity_track,Object tracking,2,8,0.98,0.84,used
+var_binding,Variable copying,1,8,0.95,0.95,used
+add_chain,Running sum,3,2,0.99,0.99,used
+ioi_control,Names (IOI control),0,2,1.0,1.0,used

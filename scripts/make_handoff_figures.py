@@ -7,6 +7,7 @@ Every number is read from the results folders, never typed:
 
     python scripts/make_handoff_figures.py                      # -> docs/handoff/figures/*.pdf|png, docs/handoff/data/*.csv
     python scripts/make_handoff_figures.py --paper results/paper_XXXX --out docs/handoff
+    python scripts/make_handoff_figures.py --out proposal/appendix --no-titles   # captions carry the message
 
 Style: one accent (blue) on what each title is about, everything else grey; the title states the finding.
 """
@@ -41,9 +42,19 @@ def load(p: Path):
     return json.loads(p.read_text())
 
 
+TITLES = True   # --no-titles: drop the title band (the document's caption states the message instead)
+
+
 def save(fig, out: Path, name: str, title: str, sub: str = ""):
     """Title + wrapped subtitle in a band reserved above the plots (fixed size in inches, any figure height)."""
     import textwrap
+
+    if not TITLES:
+        fig.tight_layout()
+        for ext in ("pdf", "png"):
+            fig.savefig(out / "figures" / f"{name}.{ext}", dpi=200)
+        plt.close(fig)
+        return
 
     w_in, h_in = fig.get_size_inches()
     lines = textwrap.wrap(sub, width=int(w_in * 15.5)) if sub else []
@@ -368,7 +379,17 @@ def main():
     ap.add_argument("--paper", default=str(ROOT / "results" / "paper_20261026_001341"))
     ap.add_argument("--analysis", default=str(ROOT / "results" / "task_analysis"))
     ap.add_argument("--out", default=str(ROOT / "docs" / "handoff"))
+    ap.add_argument("--no-titles", action="store_true", help="omit the title and subtitle drawn above each figure")
+    ap.add_argument("--font-dir", default=None, help="register extra fonts (e.g. Fira Sans) and use Fira if present")
     a = ap.parse_args()
+    global TITLES
+    TITLES = not a.no_titles
+    if a.font_dir:
+        from matplotlib import font_manager
+        for f in Path(a.font_dir).glob("*.[ot]tf"):
+            font_manager.fontManager.addfont(str(f))
+    if "Fira Sans" in {f.name for f in matplotlib.font_manager.fontManager.ttflist}:
+        plt.rcParams["font.family"] = "Fira Sans"
     out, paper = Path(a.out), Path(a.paper)
     (out / "figures").mkdir(parents=True, exist_ok=True)
     (out / "data").mkdir(parents=True, exist_ok=True)

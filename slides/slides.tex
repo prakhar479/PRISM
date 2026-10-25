@@ -1,10 +1,14 @@
-% PRISM course project presentation (10 to 12 minutes). Build: latexmk -xelatex slides.tex
-% Numbers come from docs/handoff/data/*.csv; the charts in figures/ are made by scripts/make_slide_figures.py.
-\documentclass[aspectratio=169,11pt]{beamer}
+% "Hidden in the Leftovers": course project proposal talk (10 to 12 minutes). Build: latexmk -xelatex slides.tex
+% Numbers come from docs/handoff/data/*.csv and results/; the charts in figures/ are made by
+% scripts/make_slide_figures.py. Colour rule: blue = the thing the slide is about, grey = context.
+\documentclass[aspectratio=169,10pt]{beamer}
 
 \IfFileExists{beamerthememetropolis.sty}{%
   \usetheme{metropolis}
   \metroset{progressbar=frametitle,numbering=fraction,sectionpage=none}
+  % Fira Sans Light (the theme default) washes out on projectors; use a heavier cut when available.
+  \IfFontExistsTF{Fira Sans Book}{\setsansfont[BoldFont={Fira Sans SemiBold}]{Fira Sans Book}}{%
+    \IfFontExistsTF{Fira Sans SemiBold}{\setsansfont[BoldFont={Fira Sans SemiBold}]{Fira Sans}}{}}
 }{%
   \usetheme{default}
   \setbeamertemplate{navigation symbols}{}
@@ -26,6 +30,8 @@
 \definecolor{ink}{HTML}{1c1b19}
 \definecolor{ink2}{HTML}{5f5d58}
 \definecolor{paper}{HTML}{f6f5f2}
+\colorlet{focusfill}{accent!15}
+\colorlet{ctxfill}{light!50}
 \setbeamercolor{background canvas}{bg=white}
 \setbeamercolor{normal text}{fg=ink}
 \setbeamercolor{frametitle}{bg=white,fg=ink}
@@ -35,7 +41,9 @@
 \setbeamercolor{footline}{fg=muted}
 \setbeamerfont{frametitle}{size=\Large}
 \setbeamertemplate{itemize item}{\color{accent}\textbullet}
-\graphicspath{{figures/}{../docs/handoff/figures/}}
+\setbeamertemplate{frametitle continuation}{}
+\urlstyle{same}
+\graphicspath{{figures/}}
 
 % Hindi examples: Devanagari if the font is installed, else a transliteration.
 \IfFontExistsTF{Noto Sans Devanagari}{%
@@ -44,23 +52,22 @@
 }{%
   \newcommand{\hindi}[2]{\textit{#2}}%
 }
-\newcommand{\lat}[1]{{\normalfont #1}} % Latin letters inside Devanagari text
-\newcommand{\prompt}[1]{{\ttfamily\footnotesize #1}}
-\newcommand{\aside}[1]{{\small\color{ink2} #1}}
-\newcommand{\define}[2]{{\small\textbf{#1}\;\color{ink2}#2}}
+\newcommand{\lat}[1]{{\normalfont #1}} % Latin letters and digits inside Devanagari text
+\newcommand{\prompt}[1]{{\ttfamily\small #1}}
+\newcommand{\aside}[1]{{\color{ink2} #1}}
+\newcommand{\define}[2]{{\textbf{#1}\;\color{ink2}#2}}
+\newcommand{\stage}[1]{{\color{accent}#1}\;\textperiodcentered\;} % What / Why / How / When tag in a frame title
 
-% Card styles for the puzzle and trap rows (one tikzpicture per row, so cards line up).
 \tikzset{card/.style={fill=paper, rounded corners=5pt, inner sep=8pt, anchor=north west},
-  stat/.style={fill=paper, rounded corners=5pt, inner sep=9pt, anchor=north west}}
-\newcommand{\cardtext}[1]{\parbox[t][4.2cm][t]{2.85cm}{\raggedright #1}}
-\newcommand{\stattext}[1]{\parbox[t][4.2cm][t]{3.75cm}{\centering #1}}
+  q/.style={fill=paper, rounded corners=5pt, inner sep=9pt, anchor=north west}}
+\newcommand{\cardtext}[1]{\parbox[t][3.9cm][t]{2.85cm}{\raggedright #1}}
 % One timeline row: \plan{start week}{end week}{row}{colour}{label}
 \newcommand{\plan}[5]{%
   \fill[#4, rounded corners=2pt] (#1+0.06, -#3+0.3) rectangle (#2-0.06, -#3-0.3);
-  \node[anchor=east, color=ink, font=\footnotesize] at (-0.1, -#3) {#5};}
+  \node[anchor=east, color=ink, font=\small] at (-0.1, -#3) {#5};}
 
 \title{Hidden in the Leftovers}
-\subtitle{Mapping the task-specific blind spots of sparse autoencoders\\in English and Indian languages}
+\subtitle{Task-specific blind spots of SAEs, in English and Indian languages}
 \author{[Student name]}   % student: fill in
 \institute{[Course name]} % student: fill in
 \date{October 2026}
@@ -70,297 +77,349 @@
 %------------------------------------------------------------------------------
 \maketitle
 
-%============================================================================== 1. Stakes
-\begin{frame}{We read language models with sparse autoencoders}
+%============================================================================== Why
+\begin{frame}{\stage{Why}We read language models with sparse autoencoders}
   \centering
-  \begin{tikzpicture}[>=Stealth,
-      box/.style={rounded corners=5pt, align=center, minimum height=1.5cm, text width=4.2cm, inner sep=6pt}]
-    \node[box, fill=paper] (x) {\textbf{internal signal}\\[2pt]\aside{what the model holds\\in mind at one step}};
-    \node[box, fill=accent!12, right=2.6cm of x, yshift=1.15cm] (f)
-      {\textbf{\color{accent}readable features}\\[2pt]\aside{a few concepts a person\\can name}};
-    \node[box, fill=light!45, right=2.6cm of x, yshift=-1.15cm] (e)
-      {\textbf{leftovers}\\[2pt]\aside{what the tool cannot explain\\(``error'', ``dark matter'')}};
+  \begin{tikzpicture}[>=Stealth, box/.style={rounded corners=5pt, align=center, minimum height=1.9cm,
+      text width=4.3cm, inner sep=6pt, font=\small}]
+    \node[box, fill=paper] (x) {\textbf{internal signal}\\[2pt]{\color{ink2}what the model holds for one word,\\at one
+      layer (one of 26 stages)}};
+    \node[box, fill=focusfill, right=2.2cm of x, yshift=1.15cm] (f)
+      {\textbf{\color{accent}readable features}\\[2pt]{\color{ink2}a few concepts\\a person can name}};
+    \node[box, fill=ctxfill, right=2.2cm of x, yshift=-1.15cm] (e)
+      {\textbf{leftovers}\\[2pt]{\color{ink2}what the tool cannot explain\\(``error'', ``dark matter'')}};
     \draw[->, very thick, accent] (x.east) -- (f.west);
     \draw[->, very thick, muted] (x.east) -- (e.west);
-    \node[font=\small\bfseries, color=ink2] at ($(x.east) + (1.45,0)$) {SAE};
+    \node[font=\small\bfseries, color=ink2] at ($(x.east) + (1.05,0)$) {SAE};
   \end{tikzpicture}
 
-  \vspace{6pt}
-  \define{Sparse autoencoder (SAE):}{the main tool for reading a model's internal signal; used to explain, audit
-    and steer models~\citep{bricken2023monosemanticity,cunningham2023sparse}.}\\[6pt]
-  {\color{accent}\Large\bfseries 98--99\%}\;\; {\small of the model's language ability survives the SAE on ordinary
-    text, so we trust it.}
-\end{frame}
-
-%============================================================================== 2. The worry
-\begin{frame}{The worry: does the real work hide in the leftovers?}
-  \vfill
-  \centering
-  {\Large\bfseries An average can hide what matters.}\\[14pt]
-  \begin{minipage}{0.78\textwidth}
-    \begin{itemize}\setlength{\itemsep}{6pt}
-      \item A popular idea: the part SAEs cannot explain, their ``dark matter''~\citep{engels2025dark}, is where the
-        model's real computation lives.
-      \item If true, explanations built from SAEs miss exactly the part an audit cares about.
-      \item We tested it directly, on puzzles where the model must keep track of something.
-    \end{itemize}
-  \end{minipage}
-  \vfill
-\end{frame}
-
-%============================================================================== 3. What we did
-\begin{frame}{The swap test: does the right answer come back?}
-  \centering
-  \begin{tikzpicture}[>=Stealth, font=\small,
-      story/.style={fill=paper, rounded corners=4pt, align=left, text width=5.4cm, inner sep=7pt},
-      blk/.style={draw=light, rounded corners=3pt, minimum height=0.85cm, align=center, text width=1.3cm},
-      part/.style={minimum width=0.9cm, minimum height=0.85cm}]
-    \node[story] (s1) at (0,0) {Start with 2. Add 3. \textbf{Add 1}. Add 2. Total =};
-    \node[blk, right=0.35cm of s1] (m1) {model};
-    \node[part, fill=accent!25, right=0.3cm of m1] (f1) {\color{accent}\bfseries F};
-    \node[part, fill=light!60, right=0pt of f1] (e1) {\bfseries L};
-    \node[blk, right=0.3cm of e1] (n1) {model};
-    \node[right=0.3cm of n1, font=\Large\bfseries] (a1) {8};
-    \node[story] (s2) at (0,-2.4) {Start with 2. Add 3. \textbf{Add 3}. Add 2. Total =};
-    \node[blk, right=0.35cm of s2] (m2) {model};
-    \node[part, fill=accent!25, right=0.3cm of m2] (f2) {\color{accent}\bfseries F};
-    \node[part, fill=light!60, right=0pt of f2] (e2) {\bfseries L};
-    \node[blk, right=0.3cm of e2] (n2) {model};
-    \node[right=0.3cm of n2, font=\Large\bfseries, align=left] (a2) {10\\[-3pt]{\small\mdseries\color{accent}$\to$ 8?}};
-    \foreach \a/\b in {s1/m1, m1/f1, e1/n1, n1/a1, s2/m2, m2/f2, e2/n2, n2/a2} \draw[->, ink2] (\a) -- (\b);
-    \draw[->, line width=2pt, accent] (f1.south) -- (f2.north);
-    \node[anchor=east, align=right, font=\footnotesize, color=ink2] at ($(f1.south)!0.5!(f2.north) + (-0.6,0)$)
-      {swap in one part\\from story A};
-    \node[font=\footnotesize, color=ink2, anchor=south west] at (s1.north west) {story A: right answer 8};
-    \node[font=\footnotesize, color=ink2, anchor=south west] at (s2.north west) {story B: one step changed, answer 10};
-  \end{tikzpicture}
-
-  \vspace{10pt}
-  \aside{\textbf{F} = readable features, \textbf{L} = leftovers. \;Score: \textbf{how much of the right answer comes back},
-    from 0\% (still 10) to 100\% (back to 8). Swapping everything gives 100\%.}
+  \vspace{8pt}
+  \define{Sparse autoencoder (SAE):}{a leading tool to read a model's internal signal; used to explain, audit and steer
+    models~\citep{bricken2023monosemanticity,huben2024sparse}.}\\[6pt]
+  \textbf{Standard check:} next-word prediction with the SAE swapped in stays
+  {\color{accent}\large\bfseries 98--99\%} as good.
 \end{frame}
 
 %------------------------------------------------------------------------------
-\begin{frame}{Pilot: four puzzles the model can solve}
-  \centering
-  \begin{tikzpicture}[every node/.append style={font=\small}]
-    \node[card] at (0,0) {\cardtext{\textbf{Running sum}\\[5pt]\prompt{Start with 2. Add 3. Add 1. Add 2. Total =}
-      \textbf{8}\\[6pt]\aside{keeps a total}}};
-    \node[card] at (3.55,0) {\cardtext{\textbf{Object tracking}\\[5pt]\prompt{The key is in box B. \dots{} The key moves to box C.
-      \dots{} The key is in box} \textbf{C}\\[6pt]\aside{links objects to boxes}}};
-    \node[card] at (7.1,0) {\cardtext{\textbf{Variable copying}\\[5pt]\prompt{t = 7. q = 4. x = q. q = 2. x =}
-      \textbf{4}\\[6pt]\aside{follows an assignment}}};
-    \node[card] at (10.65,0) {\cardtext{\textbf{Names} \aside{(control)}\\[5pt]\prompt{When Mary and John went to the store, John
-      gave a drink to} \textbf{Mary}\\[6pt]\aside{a well-studied case~\citep{wang2023interpretability}}}};
-  \end{tikzpicture}
-
-  \vspace{10pt}
-  \aside{Model: gemma-2-2b (Google) \;$\cdot$\; SAEs: Gemma Scope~\citep{lieberum2024gemmascope} \;$\cdot$\; 150 test
-    pairs per puzzle \;$\cdot$\; three harder puzzles were dropped: the model could not solve them.}
-\end{frame}
-
-%============================================================================== 4. What we found
-\begin{frame}{Mostly no: the readable features carry most of the answer}
-  \centering
-  \includegraphics[width=\textwidth]{s_split.pdf}
-
-  \vspace{6pt}
-  \aside{The leftovers alone bring back little. One exception stands out: object tracking, middle layers.}
-\end{frame}
-
-%------------------------------------------------------------------------------
-\begin{frame}{Near-perfect on average, yet 26\% missed on one task}
-  \centering
-  \includegraphics{s_gap.pdf}
-
-  \vspace{6pt}
-  \aside{The same SAE keeps 98--99\% on ordinary text. Here it misses 26\%, and half of that comes back with
-    \textbf{one} hidden signal from the leftovers. A random signal adds nothing.}
-\end{frame}
-
-%------------------------------------------------------------------------------
-\begin{frame}{The hidden signal belongs to the task}
-  \centering
-  \includegraphics[width=\textwidth]{s_specific.pdf}
-
-  \vspace{6pt}
-  \aside{Signals learned from the same task fill the gap. Signals from other tasks or ordinary web text do almost nothing.}
-\end{frame}
-
-%------------------------------------------------------------------------------
-\begin{frame}{A 16$\times$ bigger SAE shrinks the gap but does not close it}
-  \centering
-  \includegraphics{s_width.pdf}
-
-  \vspace{6pt}
-  \aside{At every size, one hidden signal still recovers about half of what is missed.}
-\end{frame}
-
-%------------------------------------------------------------------------------
-\begin{frame}{Three ways these tests fool you (we hit all three)}
-  \centering
-  \begin{tikzpicture}
-    \node[stat] at (0,0) {\stattext{\textbf{Swap the whole sentence, not just the last word}\\[10pt]{\LARGE\color{accent}47\% vs 100\%}\\[8pt]{\footnotesize\color{ink2}object tracking, layer 12: last word only vs from the first changed
-      word}}};
-    \node[stat] at (4.75,0) {\stattext{\textbf{Check the words don't give the answer away}\\[10pt]{\LARGE\color{accent}100\%}\\[8pt]
-      {\footnotesize\color{ink2}a reader that sees only the words, no model, already gets variable copying and names
-      right}}};
-    \node[stat] at (9.5,0) {\stattext{\textbf{Readable is not the same as used}\\[10pt]{\LARGE\color{accent}84\% vs 47\%}\\[8pt]
-      {\footnotesize\color{ink2}the box can be read from the leftovers, yet swapping there brings back at most
-      47\%}}};
-  \end{tikzpicture}
-\end{frame}
-
-%============================================================================== 5. What we propose
-\begin{frame}{So: SAEs have task-specific blind spots}
-  \centering
-  {\Large\bfseries Averages cannot see them.}\\[4pt]
-  {\color{ink2}They have to be checked task by task, and language by language.}\\[14pt]
-  \begin{tikzpicture}[q/.style={fill=paper, rounded corners=5pt, inner sep=10pt, anchor=north west}]
-    \node[q] at (0,0) {\parbox[t][2.4cm][t]{3.75cm}{\centering{\color{accent}\Large\bfseries Q1}\\[6pt]
-      \textbf{Which tasks have blind spots?}\\[4pt]{\small\color{ink2}more kinds of tasks; how big, how specific}}};
-    \node[q] at (4.75,0) {\parbox[t][2.4cm][t]{3.75cm}{\centering{\color{accent}\Large\bfseries Q2}\\[6pt]
-      \textbf{What is the hidden signal?}\\[4pt]{\small\color{ink2}is it how the model links ``what goes with
-      what''?}}};
-    \node[q] at (9.5,0) {\parbox[t][2.4cm][t]{3.75cm}{\centering{\color{accent}\Large\bfseries Q3}\\[6pt]
-      \textbf{Are they bigger in Indian languages?}\\[4pt]{\small\color{ink2}Hindi and Hinglish first}}};
-  \end{tikzpicture}
-\end{frame}
-
-%------------------------------------------------------------------------------
-\begin{frame}{Q1 and Q2: which tasks, and what is the hidden signal?}
-  \small
-  \renewcommand{\arraystretch}{1.35}
-  \begin{tabularx}{\textwidth}{@{}l X l@{}}
-    \toprule
-    \textbf{Kind of task} & \textbf{Examples} & \textbf{Status} \\
-    \midrule
-    Linking things & objects in boxes; people and their cities\, \aside{(new)} & pilot + new \\
-    Keeping a count & running sum; longer chains\, \aside{(new)} & pilot + new \\
-    Following references & variable copying & pilot \\
-    Control & names & pilot \\
-    \bottomrule
-  \end{tabularx}
-
-  \vspace{10pt}
-  \textbf{Q1:} for every task, how much does the SAE miss, is it task-specific, does a bigger SAE fix it? Do two linking
-  tasks share the same hidden signal?\\[4pt]
-  \textbf{Q2, binding test:} models link objects to attributes with dedicated signals~\citep{feng2024bind}. Change only
-  the hidden signal: does the model now name the other box?
-\end{frame}
-
-%------------------------------------------------------------------------------
-\begin{frame}{Q3: are the blind spots bigger in Indian languages?}
-  \begin{columns}[T]
-    \begin{column}{0.44\textwidth}
-      \centering
-      \begin{tikzpicture}[lang/.style={fill=paper, rounded corners=3pt, minimum width=4.6cm, minimum height=0.62cm,
-          font=\small}]
-        \node[lang] at (0,0) {English \aside{(pilot baseline)}};
-        \node[lang, fill=accent!15] at (0,-0.8) {\textbf{Hindi}};
-        \node[lang, fill=accent!15] at (0,-1.6) {\textbf{Hinglish} \aside{(Hindi, Latin script)}};
-        \node[lang] at (0,-2.4) {Tamil or Bengali};
-        \node[lang] at (0,-3.2) {French \aside{(non-Indian control)}};
-      \end{tikzpicture}
-
-      \vspace{8pt}
-      \raggedright\aside{The SAEs were trained on mostly English text~\citep{lieberum2024gemmascope}.}
+\begin{frame}{\stage{Why}The worry: the real work may hide in the leftovers}
+  \begin{columns}[c]
+    \begin{column}{0.56\textwidth}
+      \begin{itemize}\setlength{\itemsep}{8pt}
+        \item What SAEs miss, their ``dark matter''~\citep{engels2025dark}, may hold the computation that matters.
+        \item Then explanations built from features miss the important part.
+        \item The standard check averages over ordinary text: \textbf{it cannot tell}.
+      \end{itemize}
+      \vspace{10pt}
+      \textbf{Pilot question:} when a model keeps track of something, is it in the features or the leftovers?
     \end{column}
-    \begin{column}{0.54\textwidth}
-      \small
-      \textbf{Three checks per language}
-      \begin{enumerate}\setlength{\itemsep}{2pt}
-        \item Does the SAE explain Hindi text as well as English?
-        \item Is the blind spot bigger in Hindi?
-        \item Is it the same hidden signal? \aside{(learn it in English, test it in Hindi)}
-      \end{enumerate}
-      \vspace{6pt}
-      \textbf{Same puzzles, translated} \aside{(illustrative, to be checked)}\\[3pt]
-      \hindi{शुरुआत 2 से करें। 3 जोड़ें। 1 जोड़ें। 2 जोड़ें। कुल =}{shuruaat 2 se karen. 3 joden. 1 joden. 2 joden. kul =}
-      \textbf{8}\\[2pt]
-      \prompt{Jab Rahul aur Priya market gaye, Priya ne ek book di. Book kisko mili? Answer:} \textbf{Rahul}
+    \begin{column}{0.40\textwidth}
+      \centering
+      \begin{tikzpicture}[box/.style={rounded corners=5pt, align=center, minimum height=1.3cm, text width=3.6cm,
+          font=\small}]
+        \node[box, fill=focusfill] (f) {\textbf{\color{accent}features}\\{\color{ink2}98--99\% on average}};
+        \node[box, fill=ctxfill, below=0.35cm of f] (e) {\textbf{leftovers}\\{\color{ink2}ignored by the check}};
+        \node[circle, fill=accent, text=white, font=\Large\bfseries, minimum size=0.8cm, anchor=west]
+          at ($(e.east)+(0.15,0)$) {?};
+      \end{tikzpicture}
     \end{column}
   \end{columns}
 \end{frame}
 
 %------------------------------------------------------------------------------
-\begin{frame}{Plan: six weeks, two deliverables}
+\begin{frame}{\stage{Pilot}The swap test: does the right answer come back?}
   \centering
-  \begin{tikzpicture}[x=0.8cm, y=0.58cm, font=\small]
-    \foreach \w/\l in {0/Pilot, 1/Wk 1, 2/Wk 2, 3/Wk 3, 4/Wk 4, 5/Wk 5, 6/Wk 6}
-      \node[color=ink2, font=\footnotesize] at (\w+0.5, 0.9) {\l};
-    \foreach \w in {0,...,7} \draw[light!70] (\w, 0.45) -- (\w, -6.45);
-    \plan{0}{1}{0}{muted}{Pilot study (Oct 19--26, done)}
-    \plan{1}{2}{1}{accent}{Q2: binding test; sparsity check}
-    \plan{1}{3}{2}{accent!70}{Q1: new linking and counting tasks}
-    \plan{2}{3}{3}{accent!70}{Q3: Hindi, Hinglish puzzles; can the model solve them?}
-    \plan{3}{5}{4}{accent!70}{Q3: blind spots per language}
-    \plan{5}{6}{5}{accent!45}{More test pairs; final numbers}
-    \plan{6}{7}{6}{accent!45}{Report and presentation}
+  \begin{tikzpicture}[>=Stealth, font=\small,
+      story/.style={fill=paper, rounded corners=4pt, align=left, text width=5.2cm, inner sep=7pt},
+      blk/.style={fill=ctxfill, rounded corners=3pt, minimum height=0.85cm, align=center, text width=1.3cm},
+      part/.style={minimum width=0.9cm, minimum height=0.85cm}]
+    \node[story] (s1) at (0,0) {Start with 2. Add 3. \textbf{Add 1}. Add 2. Total~=};
+    \node[blk, right=0.35cm of s1] (m1) {model};
+    \node[part, fill=focusfill, right=0.3cm of m1] (f1) {\color{accent}\bfseries F};
+    \node[part, fill=ctxfill, right=0pt of f1] (e1) {\bfseries L};
+    \node[blk, right=0.3cm of e1] (n1) {model};
+    \node[right=0.3cm of n1, font=\Large\bfseries] (a1) {8};
+    \node[story] (s2) at (0,-2.4) {Start with 2. Add 3. \textbf{Add 3}. Add 2. Total~=};
+    \node[blk, right=0.35cm of s2] (m2) {model};
+    \node[part, fill=focusfill, right=0.3cm of m2] (f2) {\color{accent}\bfseries F};
+    \node[part, fill=ctxfill, right=0pt of f2] (e2) {\bfseries L};
+    \node[blk, right=0.3cm of e2] (n2) {model};
+    \node[right=0.3cm of n2, font=\Large\bfseries, align=left] (a2) {10\\[-3pt]{\small\mdseries\color{accent}$\to$ 8?}};
+    \foreach \a/\b in {s1/m1, m1/f1, e1/n1, n1/a1, s2/m2, m2/f2, e2/n2, n2/a2} \draw[->, ink2] (\a) -- (\b);
+    \draw[->, line width=2pt, accent] (f1.south) -- (f2.north);
+    \node[anchor=west, align=left, color=ink2] at ($(f1.south)!0.5!(f2.north) + (0.25,0)$)
+      {copy F (or L)\\from story A};
+    \node[color=ink2, anchor=south west] at (s1.north west) {story A: answer 8};
+    \node[color=ink2, anchor=south west] at (s2.north west) {story B: one step changed, answer 10};
   \end{tikzpicture}
 
-  \vspace{8pt}
-  {\small\textbf{Deliverables:} \textcolor{accent}{\textbf{a blind-spot map}} (tasks $\times$ layers $\times$ SAE sizes
-    $\times$ languages) and \textcolor{accent}{\textbf{the swap test}} as a cheap check before trusting an SAE explanation.}
+  \vspace{10pt}
+  \aside{\textbf{F} = readable features, \textbf{L} = leftovers, copied at one layer.
+    \textbf{Score:} share of the answer brought back, 0\% (still 10) to 100\% (back to 8). Copying everything: 100\%.}
 \end{frame}
 
 %------------------------------------------------------------------------------
-\begin{frame}{In one line}
+\begin{frame}{\stage{Pilot}Four tasks the model can solve}
+  \centering
+  \begin{tikzpicture}
+    \node[card] at (0,0) {\cardtext{\textbf{Running sum}\\[5pt]\prompt{Start with 2. Add 3. Add 1. Add 2. Total~=}
+      \textbf{\color{accent}8}\\[6pt]\aside{keeps a total}}};
+    \node[card] at (3.55,0) {\cardtext{\textbf{Object tracking}\\[5pt]\prompt{The key is in box B. \dots{} The key moves to
+      box C. \dots{} The key is in box} \textbf{\color{accent}C}\\[6pt]\aside{links objects to boxes}}};
+    \node[card] at (7.1,0) {\cardtext{\textbf{Variable copying}\\[5pt]\prompt{t~=~7. q~=~4. x~=~q. q~=~2. x~=}
+      \textbf{\color{accent}4}\\[6pt]\aside{follows an assignment}}};
+    \node[card] at (10.65,0) {\cardtext{\textbf{Names} \aside{(control)}\\[5pt]\prompt{When Mary and John went to the
+      store, John gave a drink to} \textbf{\color{accent}Mary}\\[6pt]\aside{a well-understood case~\citep{wang2023interpretability}}}};
+  \end{tikzpicture}
+
+  \vspace{8pt}
+  \aside{gemma-2-2b (Google's open 2-billion-parameter model) \;$\cdot$\; Gemma Scope SAEs~\citep{lieberum2024gemmascope}\\
+    150 test pairs per task \;$\cdot$\; the 3 tasks first planned were too hard for the model}
+\end{frame}
+
+%------------------------------------------------------------------------------
+\begin{frame}{\stage{Pilot}Finding 1: on tracking tasks the features carry 74--100\%}
+  \centering
+  \includegraphics{s_split.pdf}
+
+  \vspace{6pt}
+  \aside{Leftovers alone: little. Object tracking's grey bump: mostly a noise effect (dashed).}
+\end{frame}
+
+%------------------------------------------------------------------------------
+\begin{frame}{\stage{Pilot}Finding 2: passes the standard check, yet misses 26\% here}
+  \centering
+  \includegraphics{s_gap.pdf}
+
+  \vspace{6pt}
+  \define{Hidden signal:}{top pattern in the leftovers, learned on 300 pairs, tested on 150 new ones.}
+\end{frame}
+
+%------------------------------------------------------------------------------
+\begin{frame}{\stage{Pilot}Finding 3: the hidden signal belongs to the task}
+  \centering
+  \includegraphics{s_specific.pdf}
+
+  \vspace{6pt}
+  \aside{Same task: a real share. Other tasks or ordinary text: almost nothing.}
+\end{frame}
+
+%------------------------------------------------------------------------------
+\begin{frame}{\stage{Pilot}Finding 4: a 16$\times$ bigger SAE shrinks the gap, but 15\% remains}
+  \centering
+  \includegraphics{s_width.pdf}
+
+  \vspace{6pt}
+  \aside{One hidden signal still closes 51--69\% of what is left.\\
+    Caveat: bigger SAEs also switch on more features per word; Q1 separates the two.}
+\end{frame}
+
+%============================================================================== What
+\begin{frame}{\stage{What}One blind spot found. How many more?}
+  \centering
+  {\Large\bfseries SAEs can have blind spots that averages cannot see.}\\[14pt]
+  \begin{tikzpicture}
+    \node[q] at (0,0) {\parbox[t][2.6cm][t]{3.8cm}{\centering{\color{accent}\Large\bfseries Q1}\\[6pt]
+      \textbf{Which tasks have them?}\\[4pt]{\small\color{ink2}more tasks; how big; how specific\par}}};
+    \node[q] at (4.75,0) {\parbox[t][2.6cm][t]{3.8cm}{\centering{\color{accent}\Large\bfseries Q2}\\[6pt]
+      \textbf{What is the hidden signal?}\\[4pt]{\small\color{ink2}binding: how the model links an object to its box?\par}}};
+    \node[q] at (9.5,0) {\parbox[t][2.6cm][t]{3.8cm}{\centering{\color{accent}\Large\bfseries Q3}\\[6pt]
+      \textbf{Bigger in Indian languages?}\\[4pt]{\small\color{ink2}Hindi and Hinglish first\par}}};
+  \end{tikzpicture}
+\end{frame}
+
+%============================================================================== How
+\begin{frame}{\stage{How}Q1 and Q2: which tasks, and is the signal binding?}
+  \vspace{4pt}
+  \begin{center}\small
+  \renewcommand{\arraystretch}{1.3}
+  \begin{tabularx}{0.92\textwidth}{@{}l X c@{}}
+    \toprule
+    \textbf{Kind of task} & \textbf{Examples} & \textbf{Status} \\
+    \midrule
+    Linking things & objects in boxes; \textcolor{accent}{people and their cities} & pilot + new \\
+    Keeping a count & running sum; \textcolor{accent}{longer chains} & pilot + new \\
+    Following references & variable copying & pilot \\
+    Control & names & pilot \\
+    \bottomrule
+  \end{tabularx}
+  \end{center}
+  \vspace{4pt}
+  {\small
+  \textbf{Q1:} per task: how big is the gap, is it task-specific, does size or sparsity fix it?\\
+  \hspace*{1.5em}\aside{Success: gap $\geq$ 10\%, and same-task signals close $\geq$ 30 points more than any other source.}\\[4pt]
+  \textbf{Q2:} binding signals exist in other models~\citep{feng2024bind}. Edit only the hidden signal: other box named?\\
+  \hspace*{1.5em}\aside{Success: $\geq$ 50\% of pairs switch box, against $\leq$ 5\% for a random signal.}}
+\end{frame}
+
+%------------------------------------------------------------------------------
+\begin{frame}{\stage{How}Q3: are the blind spots bigger in Indian languages?}
+  \begin{columns}[T]
+    \begin{column}{0.42\textwidth}
+      \centering
+      \begin{tikzpicture}[lang/.style={rounded corners=3pt, minimum width=4.6cm, minimum height=0.6cm, font=\small}]
+        \node[lang, fill=paper] at (0,0) {English \aside{(pilot baseline)}};
+        \node[lang, fill=focusfill] at (0,-0.75) {\textbf{Hindi}};
+        \node[lang, fill=focusfill] at (0,-1.5) {\textbf{Hinglish} \aside{(Latin script)}};
+        \node[lang, fill=paper] at (0,-2.25) {Tamil or Bengali \aside{(if time)}};
+        \node[lang, fill=paper] at (0,-3.0) {French \aside{(non-Indian control)}};
+      \end{tikzpicture}
+
+      \vspace{8pt}
+      \raggedright\aside{SAEs trained on mostly English text~\citep{lieberum2024gemmascope}. Prior work: language-specific
+        features~\citep{deng2025unveiling}, not what is lost.}
+    \end{column}
+    \begin{column}{0.56\textwidth}
+      \small
+      \textbf{Why:} SAE audits are used for Hindi speakers too; if SAEs miss more there, those audits mean less.\\[6pt]
+      \textbf{Three checks per language}
+      \begin{enumerate}\setlength{\itemsep}{1pt}
+        \item Standard check on Hindi text vs English
+        \item Swap test: is the gap bigger?
+        \item Does the English hidden signal work in Hindi?
+      \end{enumerate}
+      \aside{Success: larger Hindi gap, non-overlapping 95\% intervals.}\\[6pt]
+      \textbf{Translated tasks} \aside{(draft, to be checked)}\\[2pt]
+      \hindi{शुरुआत \lat{2} से करें। \lat{3} जोड़ें। \lat{1} जोड़ें। \lat{2} जोड़ें। कुल \lat{=}}{shuruaat 2 se karen. 3 joden. 1 joden. 2 joden. kul =}
+      \textbf{\color{accent}8}\\
+      Rahul aur Priya market gaye; Priya ne book di. Book kisko mili? \textbf{\color{accent}Rahul}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+%============================================================================== When
+\begin{frame}{\stage{When}Six weeks, three deliverables}
+  \centering
+  \begin{tikzpicture}[x=0.85cm, y=0.55cm]
+    \foreach \w/\l in {0/Pilot, 1/Wk 1, 2/Wk 2, 3/Wk 3, 4/Wk 4, 5/Wk 5, 6/Wk 6}
+      \node[color=ink2, font=\small] at (\w+0.5, 0.95) {\l};
+    \foreach \w in {0,...,7} \draw[light!70] (\w, 0.45) -- (\w, -6.45);
+    \plan{0}{1}{0}{muted}{Pilot study (done)}
+    \plan{1}{2}{1}{accent!70}{Q2: binding test}
+    \plan{1}{3}{2}{accent!70}{Q1: new tasks; sparsity-matched sizes}
+    \plan{2}{3}{3}{accent!70}{Q3: can the model solve Hindi tasks?}
+    \plan{3}{5}{4}{accent!70}{Q3: blind spots per language}
+    \plan{5}{6}{5}{accent!70}{Buffer; final numbers}
+    \plan{6}{7}{6}{accent!70}{Report and presentation}
+  \end{tikzpicture}
+
+  \vspace{8pt}
+  \textbf{Deliverables:} \textcolor{accent}{\textbf{blind-spot map}} \;$\cdot$\; \textcolor{accent}{\textbf{swap-test
+    script}} \;$\cdot$\; \textcolor{accent}{\textbf{binding verdict}}\\[3pt]
+  \aside{Feasible: the pilot ran on one 8\,GB laptop GPU in about 6\,h.}
+\end{frame}
+
+%------------------------------------------------------------------------------
+\begin{frame}{Hidden in the leftovers}
   \vfill
   \centering
-  \begin{minipage}{0.86\textwidth}\raggedright\hyphenpenalty=10000
-    {\Large\bfseries Sparse autoencoders look near-perfect on average, but they hide \textcolor{accent}{task-specific
-    blind spots} in their leftovers.}\\[16pt]
+  \begin{minipage}{0.9\textwidth}\raggedright\hyphenpenalty=10000
+    {\Large\bfseries SAEs look near-perfect on average, but can hide \textcolor{accent}{task-specific blind spots}.}\\[16pt]
+    \setlength{\leftmargini}{1.2em}
     \begin{itemize}\setlength{\itemsep}{6pt}
-      \item \textbf{Found:} object tracking loses 26\%; half is one hidden signal that only that task recovers, and a
-        16$\times$ bigger SAE does not remove it.
-      \item \textbf{Proposed:} map these blind spots across tasks and in Hindi and Hinglish, and test what the hidden
-        signal is.
+      \item \textbf{Found:} object tracking misses 26\%; one hidden signal from that task brings back half.
+      \item \textbf{Proposed:} map blind spots across tasks and in Hindi and Hinglish; test if the signal is binding.
+      \item \textbf{Takeaway:} before trusting an SAE explanation, run the swap test, task by task.
     \end{itemize}
   \end{minipage}
+  \vfill
+\end{frame}
+
+%------------------------------------------------------------------------------
+\begin{frame}{References}
+  \scriptsize
+  \renewcommand{\bibsection}{}
+  \setlength{\bibsep}{3pt}
+  \bibliographystyle{../proposal/compact}
+  \bibliography{../refs}
+\end{frame}
+
+%------------------------------------------------------------------------------
+\begin{frame}[plain]
+  \vfill
+  \centering
+  {\Huge\bfseries Thank you}\\[10pt]
+  {\Large\color{accent} Questions?}\\[18pt]
+  \aside{[Student name] \;$\cdot$\; [email]}
   \vfill
 \end{frame}
 
 %==============================================================================
 \appendix
 
-\begin{frame}{Backup: the original claims and what the pilot found}
+\begin{frame}[plain]
+  \vfill\centering{\Large\bfseries Backup slides}\vfill
+\end{frame}
+
+\begin{frame}{B1 \textperiodcentered\ Setup and how we measure}
   \small
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \textbf{Setup}
+      \begin{itemize}\setlength{\itemsep}{2pt}
+        \item gemma-2-2b, 26 layers, 2304 numbers per word
+        \item Gemma Scope SAEs, 16k to 262k features
+        \item 300 training / 150 test pairs per task; no prompt shared
+        \item 95\% bootstrap confidence intervals
+        \item Code: 78 unit tests; matches Hugging Face (same top answer on 95\% of prompts)
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \textbf{Measures}
+      \begin{itemize}\setlength{\itemsep}{2pt}
+        \item Score = share of the answer brought back (0 to 1)
+        \item Gap = 1 $-$ score of copying the features only
+        \item Hidden signal: top pattern of the leftovers on training pairs
+        \item Controls: random signals; leftovers replaced by noise
+        \item Standard check: 16k SAEs, layers 10--18, ordinary text (the Pile)
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{B2 \textperiodcentered\ Three pitfalls that would each have misled us}
+  \centering
+  \begin{tikzpicture}
+    \node[q] at (0,0) {\parbox[t][3.9cm][t]{3.8cm}{\centering\parbox[t][1.0cm][t]{3.8cm}{\centering\textbf{Copy the whole sentence}}\\[4pt]{\LARGE\color{accent}47\%\;\textcolor{ink2}{vs}\;100\%}\\[6pt]
+      {\small\color{ink2}object tracking, layer 12: last word only vs from the first changed word\par}}};
+    \node[q] at (4.75,0) {\parbox[t][3.9cm][t]{3.8cm}{\centering\parbox[t][1.0cm][t]{3.8cm}{\centering\textbf{Rule out
+      word shortcuts}}\\[4pt]{\LARGE\color{accent}100\%}\\[6pt]{\small\color{ink2}a reader of the words alone (no model)
+      solves variable copying and names~\citep{hewitt2019designing}\par}}};
+    \node[q] at (9.5,0) {\parbox[t][3.9cm][t]{3.8cm}{\centering\parbox[t][1.0cm][t]{3.8cm}{\centering\textbf{Readable
+      $\neq$ used}}\\[4pt]{\LARGE\color{accent}84\%\;\textcolor{ink2}{vs}\;47\%}\\[6pt]{\small\color{ink2}box read from the
+      leftovers (chance 18\%), yet copying that word brings back 47\%\par}}};
+  \end{tikzpicture}
+\end{frame}
+
+\begin{frame}{B3 \textperiodcentered\ The original claims and what the pilot found}
+  \small
+  \vspace{4pt}
+  \begin{center}
   \renewcommand{\arraystretch}{1.3}
-  \begin{tabularx}{\textwidth}{@{}X X@{}}
+  \begin{tabularx}{\textwidth}{@{}p{0.36\textwidth} X@{}}
     \toprule
     \textbf{Original claim} & \textbf{Pilot verdict} \\
     \midrule
-    The leftovers carry what the model tracks & \textbf{Mostly no:} readable features bring back 74\% to 100\%;
-      leftovers 0\% to 13\% (object tracking up to 62\%) \\
-    The tracked state sits in the leftovers in a simple, readable shape & \textbf{Readable, not used:} a reader decodes it
-      there (84\%), but the model does not use it at that spot yet \\
-    A few hidden signals in the leftovers fill the gap & \textbf{Yes, narrowly:} one signal recovers about half of
-      object tracking's 26\% gap; only for that task \\
+    The leftovers carry what the model tracks & \textbf{Rejected:} on the three tracking tasks, features bring back
+      74--100\%; leftovers 0--13\% (object tracking up to 62\%, mostly a noise effect) \\
+    The state sits in the leftovers in a simple shape & \textbf{Readable, not used:} object tracking's box is read from
+      the leftovers (84\%), but the model does not use it at the last word \\
+    A few signals in the leftovers fill the gap & \textbf{Yes, narrowly:} one signal closes half of object tracking's
+      26\% gap at layer 12, and it is specific to that task \\
     \bottomrule
   \end{tabularx}
+  \end{center}
 \end{frame}
 
-\begin{frame}{Backup: caveats}
+\begin{frame}{B4 \textperiodcentered\ Caveats}
   \small
   \begin{itemize}\setlength{\itemsep}{4pt}
-    \item One model (gemma-2-2b), one SAE family (Gemma Scope), made-up puzzles.
-    \item The names control also loses 24\% to 36\% in late layers, but that loss is spread over about 32 signals, so
-      part of the late-layer loss is a general SAE weakness.
-    \item Object tracking's ``leftovers only'' score (62\% at layer 12) is inflated: replacing the leftovers with noise
-      already gives 51\%.
-    \item The 131k and 262k SAEs also use more features per word (124 to 139 vs 75 to 89 at 16k), so part of the
-      shrinking gap may come from that, not from size.
-    \item The binding explanation and everything multilingual are plans, not results.
+    \item One model, one SAE family, synthetic tasks; size tested at layer 12 only.
+    \item Two kinds of gap: names loses 24--36\% at layers 18--20, spread over about 32 signals (layer 18).
+    \item Object tracking's ``leftovers only'' 62\% is inflated: leftovers replaced by noise already give 51\%.
+    \item Bigger SAEs use more features per word (124--139 vs 78--89 at 16k): size and sparsity are confounded.
+    \item Our pre-set rule (widest SAE keeps $\geq$ 60\% of the gap) is narrowly missed: 15.2\% vs 15.5\%.
+    \item Binding and everything multilingual are plans, not results.
   \end{itemize}
-\end{frame}
-
-\begin{frame}[allowframebreaks]{References}
-  \tiny
-  \renewcommand{\bibsection}{}
-  \setlength{\bibsep}{2pt}
-  \bibliographystyle{plainnat}
-  \bibliography{../refs}
 \end{frame}
 
 \end{document}

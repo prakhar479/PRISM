@@ -15,21 +15,41 @@ Everything goes through `./run.sh <command>`.
 ./run.sh dryrun       # the whole overnight schedule with a fake model, about 90 s
 ```
 
-**GPU machine** (8 GB or more; memory settings adapt automatically, see section 6a):
+**GPU machine** (8 GB or more; memory settings adapt automatically, see section 6a). Start with the pilot:
 ```bash
 git clone <this repo> && cd prism_sae_dark_matter
 ./run.sh setup
 export HF_TOKEN=hf_...          # needs accepted access to google/gemma-2-2b
-./run.sh start                  # runs in the background; 6.5 h budget (--hours N to change)
+./run.sh pilot --foreground     # ~20-40 min: is the project viable? ends with a GO / MAYBE / NO-GO verdict
+./run.sh decide                 # re-print the verdict and the per-hypothesis checks (DECISIONS.md)
+./run.sh start                  # after a GO: the full overnight run in the background (6.5 h, --hours N to change)
 ./run.sh status                 # any time: stage, last log lines, GPU usage
 ```
+
+**The pilot** (`configs/pilot.yaml`, results in `results/pilot_<time>/`) runs the same four tasks with their
+validated settings, but only layers 6/12/18, the 16k SAE (already cached), 160/80 train/test pairs and the
+essential controls (clean-patch sanity, same/different-state error resampling, random-subspace null, prompt-token
+probe). Preflight is the quick version (48 pairs, 2 and 8 shots) and still aborts on a failed IOI gate.
+`DECISIONS.md` opens with the verdict:
+
+| Verdict | Rule | Next |
+|---|---|---|
+| ⛔ BLOCKED | IOI gate, SAE CE fidelity < 0.7, clean-patch sanity < 0.9, or no task kept enough pairs | fix that first (section 7, `scripts/check_forward.py`) |
+| 🟢 GO | for ≥ 1 state task `error_only` > `sae_only` with separate CIs and NLDR > 0.5, and IOI stays in x̂ | `./run.sh start` |
+| 🟡 MAYBE | `error_only` > `sae_only` but CIs overlap, or IOI also lives in the error | `./run.sh start --tiers tier1_core --hours 2`: 400/200 pairs at 6 layers x {16k, 65k} for tighter CIs |
+| 🔴 NO-GO | `sae_only` ≥ `error_only` for every task | negative H1; check the other layers in `pilot/SUMMARY.md` first |
+
+The per-task table under the verdict also shows H2 (does ε decode the state better than x̂ *and* than the prompt
+tokens alone) and H3 (smallest rank whose error subspace restores 90%, against a random subspace).
+`./run.sh resume` on a pilot folder continues the pilot only.
 
 **After about 10 minutes, check that tasks survived:**
 ```bash
 ./run.sh status
 cat results/overnight_*/preflight/preflight.json | head -40
 ```
-If an algorithmic task is listed under `drop_tasks`, read section 5 (Decision rules, rule S2) before going to sleep.
+If `STATUS` says **IOI GATE FAILED**, the model or pipeline is broken: stop and run `scripts/check_forward.py`
+(rule S0). If a task is listed under `drop_tasks`, read rule S2 before going to sleep.
 
 **In the morning:**
 ```bash
@@ -47,7 +67,7 @@ If an algorithmic task is listed under `drop_tasks`, read section 5 (Decision ru
 |---|---|---|---|---|
 | 0a | Environment checks | 1 min | log | GPU, HF access, library versions |
 | 0b | GPU smoke test | 2 min | `smoke/` | One layer and one SAE end to end on the real model |
-| 0c | **Preflight** | 5–10 min | `preflight/preflight.json` | Per task: Gemma tokenization, prompt format × few-shot grid, and which setting the model solves |
+| 0c | **Preflight** | 5–10 min | `preflight/preflight.json` | Per task: Gemma tokenization, few-shot grid, and the setting that keeps the most pairs. **Aborts the run if the IOI control fails** (exit 3). Reused on `--resume` only if its fingerprint matches the current task code and config |
 | 0d | Prefetch | 10–30 min | `prefetch/prefetch.json` | Downloads the model and every SAE up front |
 | 1 | `tier1_core` | ~1 h | `tier1_core/` | **H1–H3 first answer**: exp1 at 6 layers × {16k, 65k}; exp2 and exp3 at L12/16/20 |
 | 2a | `tier2_layers` | ~30 min | `tier2_layers/` | exp1 at all 26 layers (16k) |
@@ -75,6 +95,26 @@ logs/prism_<stamp>.log   full console log
 ---
 
 ## 3. The experiments in one paragraph each
+
+**Tasks** (validated with `scripts/analyze_tasks.py`; settings in `configs/default_config.yaml`)
+
+| Task | Example (clean) | State | Setting | gemma-2-2b top-1 / kept |
+|---|---|---|---|---|
+| `add_chain` | `Start with 2. Add 3. Add 1. Add 2. Total =` → 8 | running sum | depth 3, 2 shots | 0.99 / 0.99 |
+| `entity_track` | `The key is in box B. The cup is in box E. The key moves to box C. … The key is in box` → C | object location | depth 2, 8 shots | 0.98 / 0.84 |
+| `var_binding` | `t = 7. q = 4. x = q. q = 2. x =` → 4 | bound value | depth 1, 8 shots | 0.95 / 0.95 |
+| `ioi_control` | `When Mary and John went to the store, John gave a drink to` → Mary | indirect object | 2 shots | 1.00 / 1.00 |
+
+The corrupt prompt changes one step (an increment, which object moved, the source value, the subject), so the answer
+changes. `add_chain` also has a story wording (`Tom has 2 apples. Tom gets 3 more. … Tom now has`) to fill the splits;
+`gen_kwargs: {templates: [calc]}` turns it off. The legacy `mod_sum` / `dyck_depth` / `graph_reach` are beyond
+gemma-2-2b at every difficulty (results/task_analysis/report.md).
+
+Probe caveat: a linear probe on the prompt's tokens alone (exp2 source `surface`, no model at all) decodes
+`var_binding` and `ioi_control` perfectly and the `add_chain` total with R² = 1, so for those tasks a probe cannot
+show that the model computed the state. `entity_track` is the clean case (prompt tokens: 0.36 vs 0.89 for the
+layer-18 residual on gemma-2-2b). Base probe (exp2) claims on `entity_track`, and only where ε beats `surface`;
+exp1/exp3 are causal and unaffected.
 
 **Notation**
 - x is the residual stream at a layer.
@@ -130,7 +170,7 @@ There are two patch modes:
 |---|---|---|
 | fig1_causal_split | Where does each part carry the state, by layer? | Algorithmic tasks: orange (`error_only`) ≫ blue (`sae_only`). IOI: the reverse |
 | fig6_positions | Is the state hidden at earlier tokens? | `from_diff` curves lie above `last` at early layers. `clean_full` (from_diff) ≈ 1 everywhere |
-| fig2_error_manifolds | Does ε have shape? | The ε panel shows ordered states (a ring for mod_sum); the x̂ panel is a blob |
+| fig2_error_manifolds | Does ε have shape? | The ε panel shows ordered states (an ordered arc for add_chain); the x̂ panel is a blob |
 | fig3_spectrum_and_probes | Low-rank and decodable? | ε reaches high cumulative variance in few directions; the ε probe bars beat x̂ |
 | fig4_hybrid_pareto | How small a subspace repairs it? | Curves reach the dotted line by r ≈ 4–16, far above the grey random line |
 | fig7_subspace_methods | Which subspace works? | Supervised and unsupervised SVD ≫ random. Interesting either way: generic ≈ task-specific? Does transfer work? |
@@ -150,8 +190,9 @@ Every NLDR in `SUMMARY.md` is written as `value [lo, hi]`, a 95% bootstrap CI. T
 | ID | Observation | Meaning | Action |
 |---|---|---|---|
 | S1 | `STATUS` shows a non-zero exit, or `failures.jsonl` lists OOM or other errors | Part of a tier did not run | `./run.sh resume`. Missing-SAE errors for some widths are normal and can be ignored |
-| S2 | A task is in `drop_tasks` | gemma-2-2b cannot solve it | Make it easier in `src/data/synthetic_tasks.py`: mod_sum `n_steps` 4→2, graph `n_edges` 4→3, dyck `n_ops` 8→6. Then rerun |
-| S3 | Retention < 0.3 or `filter_mode: clean_only` | Few clean pairs, so wide CIs | Results are still valid but noisy. Tier 3 (larger n) helps |
+| S0 | `STATUS`: **IOI GATE FAILED** (preflight exit 3) | gemma-2-2b solves IOI, so the model or pipeline is broken | Run `scripts/check_forward.py` (compares our forward pass with Hugging Face's) and fix that first |
+| S2 | A task is in `drop_tasks` | gemma-2-2b fails it at this difficulty under every shot count | `scripts/analyze_tasks.py --tasks <task>` finds a difficulty it can do; set `task_overrides.<task>.gen_kwargs` and rerun |
+| S3 | Retention < 0.3 | Few clean pairs, so wide CIs | Results are still valid but noisy. Tier 3 (larger n) helps |
 | S4 | `clean_full` with `from_diff` < 0.9 | **Patching is broken** | Stop and interpret nothing. Check the hook name and dtype in `run_patched` |
 | S5 | `sae_fidelity`: CE recovered < 0.7 for an SAE (Gemma Scope normally gives > 0.8) | That SAE was loaded or encoded wrongly | Ignore its rows. Check `resolve_sae_id` / `RealSAE.encode` |
 
@@ -186,6 +227,11 @@ Every NLDR in `SUMMARY.md` is written as `value [lo, hi]`, a 95% bootstrap CI. T
       --overrides results/overnight_X/preflight/preflight.json --out results/my_run --set n_test=500
   ```
 - **Regenerate figures and summary only:** `run_full_suite.py ... --experiments plots --out <existing dir>`.
+- **Change a task's difficulty or shots:** `task_overrides.<task>` in `configs/default_config.yaml` (`gen_kwargs:
+  {depth: N}`, `n_shots`). Check it first with `scripts/analyze_tasks.py --tasks <task>` (~5 min): a setting is
+  usable when it is *viable* there (top-1 ≥ 0.6, ≥ 30% of pairs kept, beats the shortcut baselines).
+- **Something looks wrong with the model itself:** `scripts/check_forward.py` (~5 min) checks the forward pass against
+  Hugging Face, the tokenizer, prompt-space sizes and few-shot prefixes.
 
 ## 6a. GPU memory and speed (8 GB and up)
 

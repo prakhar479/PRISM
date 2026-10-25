@@ -4,6 +4,7 @@
 #   setup      create .venv and install requirements
 #   test       CPU unit tests + mock smoke test (no GPU, ~15 s)
 #   dryrun     whole overnight schedule on CPU with the mock model (~90 s)
+#   pilot      quick GPU pilot (~20-40 min): 3 layers, 16k, small n -> GO / MAYBE / NO-GO verdict  [--foreground]
 #   start      launch the overnight GPU run in the background   [--hours 6.5] [--tiers a,b]
 #   status     progress of the latest run
 #   resume     continue the latest (crashed / stopped) run, finished work is skipped
@@ -13,7 +14,7 @@ set -euo pipefail
 cd "$(dirname "$0")"
 PY="${PYTHON:-$( [[ -x .venv/bin/python ]] && echo .venv/bin/python || { [[ -x ../.venv/bin/python ]] && echo ../.venv/bin/python; } || echo python )}"
 export PYTHON="$PY"
-latest() { ls -d results/overnight_* 2>/dev/null | grep -v mock | tail -1; }
+latest() { ls -d results/overnight_2* results/pilot_2* 2>/dev/null | grep -v mock | awk -F/ '{split($2,a,"_"); print a[2]"_"a[3]" "$0}' | sort | tail -1 | cut -d" " -f2; }
 cmd="${1:-help}"; shift || true
 
 case "$cmd" in
@@ -28,6 +29,9 @@ case "$cmd" in
     bash scripts/run_server_gpu.sh --mock --foreground "$@"
     d=$(ls -d results/overnight_* | tail -1); mv "$d" "${d}_mock"
     $PY scripts/decide.py "${d}_mock" >/dev/null; echo "dry run ok -> ${d}_mock (mock numbers are NOT real results)" ;;
+  pilot)
+    : "${HF_TOKEN:?set HF_TOKEN first: export HF_TOKEN=hf_...}"
+    bash scripts/run_server_gpu.sh --name pilot --tiers pilot --quick-preflight --skip-smoke --hours 1.5 "$@" ;;
   start)
     : "${HF_TOKEN:?set HF_TOKEN first: export HF_TOKEN=hf_...}"
     bash scripts/run_server_gpu.sh "$@" ;;
@@ -44,5 +48,5 @@ case "$cmd" in
   results)
     d="${1:-$(latest)}"; echo "run: $d"
     for f in "$d/INDEX.md" "$d/DECISIONS.md" "$d"/*/SUMMARY.md "$d"/*/figures; do [[ -e "$f" ]] && echo "  $f"; done ;;
-  *) sed -n '2,11p' "$0" ;;
+  *) sed -n '2,12p' "$0" ;;
 esac

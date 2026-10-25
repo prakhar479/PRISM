@@ -10,7 +10,7 @@ from src.experiments.common import (RunContext, cache_baseline, decompose_batche
 from src.experiments.exp1_causal_split import build_vectors
 from src.experiments.exp2_geometry import centered_svd, fit_probes, _stack
 from src.experiments.exp3_hybrid_repair import fit_supervised, fit_unsupervised
-from src.models.sae_loader import MockConfig, load_model, load_sae
+from src.models.sae_loader import _PLANES, MockConfig, load_model, load_sae
 from src.utils import get_device, get_dtype, load_config
 
 LAYER = 12
@@ -169,7 +169,8 @@ def test_svd_concentrates_on_mock_manifold(model, data):
     S, Vt = centered_svd(E)
     assert (S[:2] ** 2).sum() / (S ** 2).sum() > 0.35 and S[1] > 2 * S[2]   # clear 2-D spectral gap
     # the top-2 subspace should lie inside the mod_sum dark plane
-    plane = model.world.D[:, :2].numpy()
+    i, j = _PLANES["mod_sum"]
+    plane = model.world.D[:, [i, j]].numpy()
     assert np.linalg.norm(plane.T @ Vt[:2].T) ** 2 / 2 > 0.9
 
 
@@ -388,3 +389,134 @@ def test_token_budget_is_runtime_configurable(tok):
         assert max(len(b) for b in st.batch_by_length(items, 128)) == 3
     finally:
         st.MAX_BATCH_TOKENS = old
+
+
+# ------------------------------------------------------------------ state-tracking suite (2026-10-20 task analysis)
+def _independent_var(program: str) -> int:
+    env = {}
+    for stmt in program.split(".")[:-1]:
+        k, v = (t.strip() for t in stmt.split("="))
+        env[k] = int(v) if v.isdigit() else env[v]
+    return env[program.split(".")[-1].split("=")[0].strip()]
+
+
+@pytest.mark.parametrize("task", ["add_chain", "entity_track", "var_binding"])
+def test_state_task_answers_and_alignment(task, tok):
+    import re
+    pairs = generate_pairs(task, 300, seed=3)
+    for p in pairs:
+        assert p.clean_target_str != p.corrupt_target_str
+        for prompt, tgt, state in ((p.clean_prompt, p.clean_target_str, p.clean_state_id),
+                                   (p.corrupt_prompt, p.corrupt_target_str, p.corrupt_state_id)):
+            assert parse_state(prompt) == (task, state)
+            if task == "add_chain":   # independent re-derivation from the text
+                nums = [int(x) for x in re.findall(r"(\d)", prompt)]
+                assert int(tgt) == sum(nums)
+            elif task == "var_binding":
+                assert int(tgt) == _independent_var(prompt)
+    assert len(tokenize_pairs(tok, pairs)) == len(pairs)          # token-aligned, single-token answers
+
+
+def test_prompt_spaces_fill_the_tier_splits():
+    from src.data import synthetic_tasks as st
+    for task, kw in (("add_chain", {"depth": 3}), ("entity_track", {"depth": 2}), ("var_binding", {"depth": 1}),
+                     ("ioi_control", None)):
+        assert len(st.generate_pairs(task, 2500, 0, gen_kwargs=kw)) == 2500, task
+    # the validated wording alone still fills a tier (~9.4k pairs) if the 'story' template must be turned off
+    assert len(st.generate_pairs("add_chain", 3000, 0, gen_kwargs={"templates": ["calc"]})) == 3000
+
+
+def test_few_shot_prefix_is_never_starved(tok):
+    # dyck_depth with 2 ops has only 12 pairs: shots are drawn first, so they always come out complete
+    s = build_task_splits("dyck_depth", tok, 4, 2, 0, n_shots=2, gen_kwargs={"n_ops": 2})
+    p = s["train"][0].pair
+    assert p.meta["n_shots"] == 2 and p.clean_prompt.count("\n") == 2
+    shots = set(p.clean_prompt.split("\n")[:2])
+    for split in s.values():
+        for it in split:
+            assert it.pair.clean_prompt.split("\n")[-1] + it.pair.clean_target_str not in shots
+
+
+def test_fallback_tokenizer_keeps_newlines_for_few_shot(tok):
+    from src.data.synthetic_tasks import generate_with_shots
+    p = generate_with_shots("ioi_control", 4, 2, 0, 77)[0]
+    decoded = tok.decode(tok.encode(p.clean_prompt))
+    assert decoded == p.clean_prompt and parse_state(decoded) == ("ioi_control", p.clean_state_id)
+
+
+def test_task_override_merge_keeps_gen_kwargs():
+    from src.experiments.common import merge_task_overrides
+    cfg = {"add_chain": {"gen_kwargs": {"depth": 3}, "n_shots": 2}}
+    pre = {"add_chain": {"n_shots": 4, "filter_mode": "strict"}, "var_binding": {"n_shots": 8}}
+    m = merge_task_overrides(cfg, pre)
+    assert m["add_chain"] == {"gen_kwargs": {"depth": 3}, "n_shots": 4, "filter_mode": "strict"}
+    assert m["var_binding"] == {"n_shots": 8} and cfg["add_chain"]["n_shots"] == 2
+
+
+def test_preflight_choice_and_fingerprint():
+    import importlib
+    import sys
+    sys.path.insert(0, "scripts")
+    pf = importlib.import_module("preflight")
+    rows = [dict(n_shots=0, clean_only=0.50, strict=0.10), dict(n_shots=2, clean_only=0.99, strict=0.90),
+            dict(n_shots=8, clean_only=1.00, strict=0.95)]
+    best, mode, ret = pf.choose(rows, 0.3)
+    assert best["n_shots"] == 2 and mode == "strict" and ret == 0.90     # 0.99 ~ 1.00 -> fewer shots
+    best, mode, _ = pf.choose([dict(n_shots=4, clean_only=0.6, strict=0.1)], 0.3)
+    assert mode == "clean_only"
+    cfg = load_config(None)
+    a = pf.fingerprint(cfg, mock=True)
+    assert a == pf.fingerprint(load_config(None), mock=True) != pf.fingerprint(cfg, mock=False)
+    cfg["task_overrides"]["add_chain"]["gen_kwargs"] = {"depth": 2}
+    assert pf.fingerprint(cfg, mock=True) != a
+
+
+def test_default_config_uses_the_validated_suite():
+    from src.data.synthetic_tasks import LEGACY_TASKS
+    cfg = load_config(None)
+    assert set(cfg["tasks"]) == {"add_chain", "entity_track", "var_binding", "ioi_control"}
+    assert not set(cfg["tasks"]) & set(LEGACY_TASKS)
+    assert all(t in cfg["task_overrides"] for t in cfg["tasks"])
+
+
+def test_surface_token_baseline(data):
+    from src.experiments.exp2_geometry import surface_features
+    tr, te = data["add_chain"]["train"].items, data["add_chain"]["test"].items
+    Xtr, Xte = surface_features(tr, te)
+    assert Xtr.shape[0] == 2 * len(tr) and Xte.shape == (2 * len(te), Xtr.shape[1])
+    ytr = np.concatenate([data["add_chain"]["train"].states_clean, data["add_chain"]["train"].states_corrupt])
+    yte = np.concatenate([data["add_chain"]["test"].states_clean, data["add_chain"]["test"].states_corrupt])
+    # the running sum is linear in token counts: the prompt-token probe gets a high ordinal R^2 with no model at all
+    assert fit_probes(Xtr, ytr, Xte, yte, None)["r2_ordinal"] > 0.8
+    # entity_track needs binding (which object moved where): the prompt-token probe stays far from solving it
+    b_tr, b_te = data["entity_track"]["train"], data["entity_track"]["test"]
+    Xe, Xet = surface_features(b_tr.items, b_te.items)
+    ye = np.concatenate([b_tr.states_clean, b_tr.states_corrupt])
+    yet = np.concatenate([b_te.states_clean, b_te.states_corrupt])
+    assert fit_probes(Xe, ye, Xet, yet, None)["acc"] < 0.6
+
+
+def test_pilot_config_is_small_and_complete():
+    pilot, full = load_config("configs/pilot.yaml"), load_config("configs/tier1_core.yaml")
+    assert pilot["tasks"] == full["tasks"] and pilot["task_overrides"] == full["task_overrides"]
+    assert pilot["widths"] == ["16k"] and len(pilot["layers"]) <= 3 and 12 in pilot["geometry_layers"]
+    assert pilot["n_train"] + pilot["n_test"] < full["n_train"] + full["n_test"]
+    assert "controls" in pilot["exp1_extras"] and "random_subspace" in pilot["exp3_methods"]
+
+
+@pytest.mark.parametrize("facts,expected", [
+    (dict(blockers=["IOI gate failed"], h1={"add_chain": ("supported", 12, 0.9, 0.1)}, ioi_ok=True), "BLOCKED"),
+    (dict(blockers=[], h1={"add_chain": ("supported", 12, 0.9, 0.1)}, ioi_ok=True), "GO"),
+    (dict(blockers=[], h1={"add_chain": ("supported", 12, 0.9, 0.1)}, ioi_ok=False), "MAYBE"),   # SAE lossy everywhere
+    (dict(blockers=[], h1={"add_chain": ("weak", 12, 0.4, 0.3)}, ioi_ok=True), "MAYBE"),
+    (dict(blockers=[], h1={"add_chain": ("rejected", 12, 0.1, 0.8)}, ioi_ok=True), "NO-GO"),
+    (dict(blockers=[], h1={}, ioi_ok=None), "BLOCKED"),
+])
+def test_decide_viability_verdict(facts, expected):
+    import importlib
+    import sys
+    sys.path.insert(0, "scripts")
+    decide = importlib.import_module("decide")
+    decide.FACTS.clear()
+    decide.FACTS.update(dict(h2={}, h3={}, **facts))
+    assert f"**{expected}**" in decide.verdict(mock=False)[1]

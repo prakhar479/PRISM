@@ -4,6 +4,7 @@ import argparse
 from pathlib import Path
 
 import _bootstrap  # noqa: F401
+from src.experiments.common import merge_task_overrides
 from src.pipeline import run_suite
 from src.utils import load_config, setup_logging
 
@@ -36,7 +37,7 @@ def main() -> None:
         cfg[k] = yaml.safe_load(v)
     if a.overrides and Path(a.overrides).exists():
         ov = load_json(Path(a.overrides))
-        cfg["task_overrides"] = {**(cfg.get("task_overrides") or {}), **ov.get("task_overrides", {})}
+        cfg["task_overrides"] = merge_task_overrides(cfg.get("task_overrides"), ov.get("task_overrides"))
         if ov.get("drop_tasks"):
             cfg["tasks"] = [t for t in cfg["tasks"] if t not in ov["drop_tasks"]]
     out = Path(a.out or f"results/{'mock_' if a.mock else ''}{cfg['run_name']}")

@@ -29,7 +29,6 @@ trivial baseline (most frequent answer, or the best surface heuristic).
 Writes <out>/report.md, cells.csv, cells.json, probes.json, recommendations.json and figures/*.png.
 """
 import argparse
-import contextlib
 import functools
 import json
 import logging
@@ -62,94 +61,6 @@ SANITY = [("The capital of France is", " Paris"),
           ("A, B, C, D,", " E")]
 
 
-# --------------------------------------------------------------------------- candidate replacement tasks
-VARS = ["x", "y", "z", "p", "q", "r", "s", "t"]
-OBJS = ["coin", "key", "ring", "book", "cup", "pen", "ball", "card"]
-BOXES = list("ABCDEFG")
-
-
-def _gen_var(rng, depth: int = 2):
-    """Variable binding with copy semantics; depth = copy hops = distractor assignments.
-    depth 1: 't = 7. q = 4. x = q. q = 2. x =' -> 4 (x copied q before q was overwritten)."""
-    names = [VARS[i] for i in rng.permutation(len(VARS))[: 2 * depth + 1]]
-    chain, distract = names[: depth + 1], names[depth + 1:]
-    n, nc, r = (int(v) for v in rng.choice(np.arange(1, 10), size=3, replace=False))
-    seq = ["{N}"] + [f"{chain[i]} = {chain[i - 1]}." for i in range(1, depth + 1)]
-    for j, d in enumerate(distract):    # independent assignments; the first one opens the program so that
-        pos = 0 if j == 0 else int(rng.integers(0, len(seq) + 1))   # "first number" is not a free shortcut
-        seq.insert(pos, f"{d} = {int(rng.integers(1, 10))}.")
-    seq.append(f"{chain[0]} = {r}.")                     # the source is overwritten after the copies
-
-    def prompt(v):
-        return " ".join(f"{chain[0]} = {v}." if s == "{N}" else s for s in seq) + f" {chain[-1]} ="
-
-    nums = re.findall(r"= (\d)\.", prompt(n))
-    heur = {"last_number": nums[-1], "first_number": nums[0]}   # last_number = the overwrite of the source
-    return CounterfactualPair("var_binding", "", prompt(n), prompt(nc), f" {n}", f" {nc}", n, nc, [n],
-                              {"heur": heur, "corrupt_step": seq.index("{N}")})
-
-
-def _gen_entity(rng, depth: int = 2):
-    """Entity tracking: depth+1 objects in boxes, depth moves; the corrupt run moves the queried object instead."""
-    n_obj = depth + 1
-    objs = [OBJS[i] for i in rng.permutation(len(OBJS))[:n_obj]]
-    loc0 = dict(zip(objs, (BOXES[i] for i in rng.permutation(len(BOXES))[:n_obj])))
-    q = objs[int(rng.integers(0, n_obj))]
-    loc, moves = dict(loc0), []
-    for _ in range(depth):
-        o = objs[int(rng.integers(0, n_obj))]
-        b = str(rng.choice([x for x in BOXES if x != loc[o]]))
-        moves.append((o, b))
-        loc[o] = b
-    ks = [k for k, (o, _) in enumerate(moves) if o != q and all(o2 != q for o2, _ in moves[k + 1:])]
-    if not ks:
-        return None
-    k = int(rng.choice(ks))
-    cmoves = list(moves)
-    cmoves[k] = (q, moves[k][1])
-
-    def final(ms):
-        lc = dict(loc0)
-        for o, b in ms:
-            lc[o] = b
-        return lc[q]
-
-    a, ca = final(moves), final(cmoves)
-    if a == ca:
-        return None
-
-    def prompt(ms):
-        return (" ".join(f"The {o} is in box {loc0[o]}." for o in objs) + " "
-                + " ".join(f"The {o} moves to box {b}." for o, b in ms) + f" The {q} is in box")
-
-    heur = {"initial_box": loc0[q], "last_box_mentioned": moves[-1][1], "first_box": loc0[objs[0]]}
-    return CounterfactualPair("entity_track", "", prompt(moves), prompt(cmoves), f" {a}", f" {ca}",
-                              BOXES.index(a), BOXES.index(ca), [], {"heur": heur, "corrupt_step": k})
-
-
-def _gen_add(rng, depth: int = 2):
-    """Short addition without modulo (totals <= 9 so the answer is one digit token)."""
-    for _ in range(50):
-        start = int(rng.integers(0, 5))
-        incs = [int(x) for x in rng.integers(1, 4, size=depth)]
-        total = start + sum(incs)
-        k = int(rng.integers(0, depth))
-        opts = [v for v in range(1, 5) if v != incs[k] and total - incs[k] + v <= 9]
-        if total > 9 or not opts:
-            continue
-        cinc = list(incs)
-        cinc[k] = int(rng.choice(opts))
-        ctotal = start + sum(cinc)
-
-        def prompt(xs):
-            return f"Start with {start}. " + " ".join(f"Add {a}." for a in xs) + " Total ="
-
-        heur = {"start": str(start), "last_add": str(incs[-1]), "start_plus_last": str(start + incs[-1])}
-        return CounterfactualPair("add_chain", "", prompt(incs), prompt(cinc), f" {total}", f" {ctotal}",
-                                  total, ctotal, [], {"heur": heur, "corrupt_step": k})
-    return None
-
-
 def _last_line(p: str) -> str:
     return p.split("\n")[-1]
 
@@ -175,42 +86,25 @@ def heuristics(task: str, pair: CounterfactualPair) -> dict:
     return {}
 
 
-# task -> generator, difficulty kwarg, levels, configured level (the one the overnight run used)
+# task -> difficulty kwarg of its generator in src/data/synthetic_tasks.py, levels, configured level (the one
+# the 2026-10-19 overnight run used for the legacy tasks); the generators are the harness's own
 SPECS = {
-    "mod_sum": dict(gen=st._gen_mod_sum, kw="n_steps", levels=[2, 3, 4], configured=4, kind="original"),
-    "dyck_depth": dict(gen=st._gen_dyck, kw="n_ops", levels=[2, 4, 6, 8], configured=8, kind="original"),
-    "graph_reach": dict(gen=st._gen_graph, kw="n_edges", levels=[1, 2, 3, 4], configured=4, kind="original"),
-    "ioi_control": dict(gen=st._gen_ioi, kw=None, levels=[0], configured=0, kind="control"),
-    "var_binding": dict(gen=_gen_var, kw="depth", levels=[1, 2, 3], configured=None, kind="new"),
-    "entity_track": dict(gen=_gen_entity, kw="depth", levels=[1, 2, 3], configured=None, kind="new"),
-    "add_chain": dict(gen=_gen_add, kw="depth", levels=[1, 2, 3], configured=None, kind="new"),
+    "mod_sum": dict(kw="n_steps", levels=[2, 3, 4], configured=4, kind="original"),
+    "dyck_depth": dict(kw="n_ops", levels=[2, 4, 6, 8], configured=8, kind="original"),
+    "graph_reach": dict(kw="n_edges", levels=[1, 2, 3, 4], configured=4, kind="original"),
+    "ioi_control": dict(kw=None, levels=[0], configured=0, kind="control"),
+    "var_binding": dict(kw="depth", levels=[1, 2, 3], configured=None, kind="new"),
+    "entity_track": dict(kw="depth", levels=[1, 2, 3], configured=None, kind="new"),
+    "add_chain": dict(kw="depth", levels=[1, 2, 3], configured=None, kind="new"),
 }
-
-
-@contextlib.contextmanager
-def task_level(task: str, level: int):
-    """Route st.generate_pairs / add_few_shot_prefix for `task` to the generator at this difficulty."""
-    spec, old = SPECS[task], st._GENERATORS.get(task)
-    st._GENERATORS[task] = functools.partial(spec["gen"], **{spec["kw"]: level}) if spec["kw"] else spec["gen"]
-    try:
-        yield
-    finally:
-        if old is None:
-            st._GENERATORS.pop(task, None)
-        else:
-            st._GENERATORS[task] = old
 
 
 def make_items(tok, task: str, level: int, shots: int, n: int, seed: int):
     """Shots are drawn FIRST and excluded from the pairs, so small prompt spaces cannot starve the prefix."""
-    with task_level(task, level):
-        ex = st.generate_pairs(task, shots, seed + 77, split="shot") if shots else []
-        exclude = {p.clean_prompt for p in ex} | {p.corrupt_prompt for p in ex}
-        pairs = st.generate_pairs(task, n, seed, exclude=exclude, split="study")
-    prefix = "".join(f"{q.clean_prompt}{q.clean_target_str}\n" for q in ex)
+    gk = {SPECS[task]["kw"]: level} if SPECS[task]["kw"] else None
+    pairs = st.generate_with_shots(task, n, shots, seed, seed + 77, split="study", gen_kwargs=gk)
     for p in pairs:
-        p.clean_prompt, p.corrupt_prompt = prefix + p.clean_prompt, prefix + p.corrupt_prompt
-        p.meta["shots_got"] = len(ex)
+        p.meta["shots_got"] = p.meta.get("n_shots", 0)
     return pairs, st.tokenize_pairs(tok, pairs, "auto")
 
 
@@ -291,6 +185,11 @@ def cell_metrics(task, level, shots, pairs, items, sc, tok) -> dict:
                top_predictions=Counter(preds).most_common(4),
                delta_by_corrupt_step={str(s): round(float(np.mean(v)), 3) for s, v in sorted(by_step.items())},
                configured=(level == SPECS[task]["configured"]))
+    by_tpl = defaultdict(list)
+    for i, c in zip(items, correct):
+        if "template" in i.pair.meta:
+            by_tpl[i.pair.meta["template"]].append(bool(c))
+    row["acc_by_template"] = {k: round(float(np.mean(v)), 3) for k, v in sorted(by_tpl.items())}
     row["viable"] = bool(row["acc"] >= VIABLE["acc"] and row["keep_clean_only"] >= VIABLE["keep"] and lo > baseline)
     return row
 
@@ -597,6 +496,10 @@ def write_report(out, rows, V, sanity, probes_res, rec, meta):
                  f"{r['baseline']:.2f} ({which}) | {r['keep_clean_only']:.2f} | {r['keep_strict']:.2f} | {r['delta_median']:.2f} | "
                  f"{r['answer_mass']:.2f} | {', '.join(f'{p!r}:{c}' for p, c in r['top_predictions'])} | "
                  f"{'**yes**' if r['viable'] else 'no'} |")
+    tpl_rows = [r for r in rows if r.get("acc_by_template")]
+    if tpl_rows:
+        L += ["", "## Accuracy by prompt template", "", "| task | level | shots | accuracy by template |", "|---|---|---|---|"]
+        L += [f"| {r['task']} | {r['level']} | {r['shots']} | {r['acc_by_template']} |" for r in tpl_rows]
     L += ["", "## Which shortcut do wrong answers follow? (configured level, mean over shots)", "",
           "Heuristics with accuracy >= 0.95 equal the true solution at that level and are not used as baselines.", "",
           "| task | heuristic | heuristic accuracy | share of wrong answers matching it |", "|---|---|---|---|"]
@@ -698,9 +601,10 @@ def main() -> int:
             continue
         r = cell_metrics(task, level, shots, pairs, items, score(model, tok, items), tok)
         rows.append(r)
-        log.info("[%d/%d] %s L%s %ds: acc %.2f [%.2f,%.2f] baseline %.2f keep %.2f delta~%.2f %s (%.0fs)", j + 1, len(cells),
-                 task, level, shots, r["acc"], r["acc_lo"], r["acc_hi"], r["baseline"], r["keep_clean_only"],
-                 r["delta_median"], "VIABLE" if r["viable"] else "", time.time() - t0)
+        log.info("[%d/%d] %s L%s %ds: acc %.2f [%.2f,%.2f] baseline %.2f keep %.2f delta~%.2f %s%s (%.0fs)", j + 1,
+                 len(cells), task, level, shots, r["acc"], r["acc_lo"], r["acc_hi"], r["baseline"], r["keep_clean_only"],
+                 r["delta_median"], "VIABLE" if r["viable"] else "",
+                 f" by template {r['acc_by_template']}" if r["acc_by_template"] else "", time.time() - t0)
     save_json(rows, out / "cells.json")
     try:
         import pandas as pd

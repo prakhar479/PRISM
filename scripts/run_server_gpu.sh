@@ -7,13 +7,14 @@
 #   bash scripts/run_server_gpu.sh --resume results/overnight_XXXX # continue a crashed run (finished units skipped)
 #   bash scripts/run_server_gpu.sh --mock --foreground             # CPU dry run of the whole schedule (~2 min)
 #   bash scripts/run_server_gpu.sh --tiers tier1_core,tier2_widths
+#   bash scripts/run_server_gpu.sh --name pilot --tiers pilot --quick-preflight --skip-smoke --hours 1.5   # ./run.sh pilot
 #
 # Stages: env checks -> GPU smoke test -> preflight (prompt format / few-shot per task) -> prefetch SAEs
 #         -> tier1_core -> tier2_layers -> tier2_widths -> tier3_expansions -> INDEX.md
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-FOREGROUND=0; SKIP_SMOKE=0; MOCK=0; HOURS=6.5; OUT=""; RESUME=0
+FOREGROUND=0; SKIP_SMOKE=0; MOCK=0; HOURS=6.5; OUT=""; RESUME=0; NAME="overnight"; PREFLIGHT_ARGS=()
 TIERS="tier1_core,tier2_layers,tier2_widths,tier3_expansions"
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -23,13 +24,20 @@ while [[ $# -gt 0 ]]; do
     --hours) HOURS="$2"; shift ;;
     --tiers) TIERS="$2"; shift ;;
     --resume) OUT="$2"; RESUME=1; shift ;;
+    --name) NAME="$2"; shift ;;
+    --quick-preflight) PREFLIGHT_ARGS=(--n-probe 48 --shots 2,8) ;;   # ~1-2 min: the IOI gate + the shot choice
     *) echo "unknown arg $1" >&2; exit 2 ;;
   esac; shift
 done
 
+# resuming a pilot run continues the pilot, not the full schedule
+if [[ $RESUME -eq 1 && "$(basename "$OUT")" == pilot_* && "$TIERS" == "tier1_core,tier2_layers,tier2_widths,tier3_expansions" ]]; then
+  TIERS="pilot"; PREFLIGHT_ARGS=(--n-probe 48 --shots 2,8)
+fi
+
 PY="${PYTHON:-python}"
 STAMP="$(date +%Y%m%d_%H%M%S)"
-OUT="${OUT:-results/overnight_${STAMP}}"
+OUT="${OUT:-results/${NAME}_${STAMP}}"
 mkdir -p "$OUT" logs
 LOG="logs/prism_${STAMP}.log"
 export PYTORCH_CUDA_ALLOC_CONF="${PYTORCH_CUDA_ALLOC_CONF:-expandable_segments:True}"
@@ -79,11 +87,18 @@ run_all() {
   fi
 
   echo "== [0/4] preflight: prompt format and few-shot per task =="
-  if [[ $RESUME -eq 1 && -f "$OUT/preflight/preflight.json" ]]; then
-    echo "preflight: reused" >> "$OUT/STATUS"
-  elif ! $PY scripts/preflight.py $MOCKF --out "$OUT/preflight"; then
-    echo "preflight: NO usable task -> abort" | tee -a "$OUT/STATUS"; return 1
+  # reuse only a preflight that matches the current task code + config (a stale one chose the 2026-10-19 tasks)
+  if [[ $RESUME -eq 1 ]] && $PY scripts/preflight.py $MOCKF --check "$OUT/preflight/preflight.json"; then
+    echo "preflight: reused (fingerprint matches)" >> "$OUT/STATUS"
   else
+    $PY scripts/preflight.py $MOCKF ${PREFLIGHT_ARGS[@]+"${PREFLIGHT_ARGS[@]}"} --out "$OUT/preflight"
+    status=$?
+    if [[ $status -eq 3 ]]; then
+      echo "preflight: IOI GATE FAILED (model/pipeline broken: run scripts/check_forward.py) -> abort" | tee -a "$OUT/STATUS"
+      return 1
+    elif [[ $status -ne 0 ]]; then
+      echo "preflight: NO usable task -> abort" | tee -a "$OUT/STATUS"; return 1
+    fi
     echo "preflight: ok" >> "$OUT/STATUS"
   fi
 
@@ -107,6 +122,7 @@ run_all() {
     echo "# PRISM overnight run $(basename "$OUT")"; echo; echo '```'; cat "$OUT/STATUS"; echo '```'; echo
     for t in "${TL[@]}"; do [[ -f "$OUT/$t/SUMMARY.md" ]] && echo "- [$t]($t/SUMMARY.md)"; done
   } > "$OUT/INDEX.md"
+  $PY scripts/decide.py "$OUT" > /dev/null 2>&1 && echo "verdict: $(grep -m1 '^## Verdict' "$OUT/DECISIONS.md")" || true
   echo "== DONE: $OUT/INDEX.md =="
 }
 

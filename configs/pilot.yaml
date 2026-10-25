@@ -1,0 +1,22 @@
+# Pilot (~20-40 min on an 8 GB GPU; its 16k SAEs are already cached): a first look at H1-H3 before
+# committing a night. Same tasks and validated per-task settings as the full run, but 3 layers, the 16k SAE
+# only, smaller samples and the essential controls. `./run.sh pilot` runs it and ends with a GO / MAYBE / NO-GO
+# verdict in DECISIONS.md.
+base: default_config.yaml
+run_name: pilot
+n_train: 160                       # 80 test pairs -> NLDR CIs of roughly +-0.1: enough to tell the hypotheses apart
+n_test: 80
+min_pairs: 20
+layers: [6, 12, 18]                # early / middle / late; L18 is where the entity_track probe peaked (0.89)
+widths: ["16k"]
+geometry_layers: [12, 18]          # exp2 / exp3
+geometry_widths: ["16k"]
+exp1_positions: [last, from_diff]
+exp3_positions: [from_diff]
+exp1_extras: [controls]            # same/diff-state error resampling, mean error, clean_full sanity
+exp3_methods: [unsupervised_svd, supervised_centroid_svd, random_subspace]
+random_seeds: 1
+noise_seeds: 1
+bootstrap: 300
+latent_probe_cols: 2048
+generic_text: {dataset: NeelNanda/pile-10k, n_docs: 40, seq_len: 128, skip_positions: 4, fidelity_batches: 2}

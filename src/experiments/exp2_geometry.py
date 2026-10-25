@@ -84,6 +84,31 @@ def _stack(base, layer: int) -> Tuple[torch.Tensor, np.ndarray]:
     return X, y
 
 
+def surface_features(train_items, test_items) -> Tuple[np.ndarray, np.ndarray]:
+    """Prompt-token baseline in _stack order (clean rows, then corrupt rows): token counts plus (position, token)
+    indicators, vocabulary from the train split only. A residual probe only shows that the model computed the
+    state if it beats this: e.g. the add_chain total is a linear function of the prompt's tokens."""
+    def seqs(items):
+        return [it.clean_ids for it in items] + [it.corrupt_ids for it in items]
+
+    tr, te = seqs(train_items), seqs(test_items)
+    vocab = {t: j for j, t in enumerate(sorted({t for q in tr for t in q}))}
+    slots = {pt: j for j, pt in enumerate(sorted({(k, t) for q in tr for k, t in enumerate(q)}))}
+
+    def encode(qs):
+        X = np.zeros((len(qs), len(vocab) + len(slots)), np.float32)
+        for r, q in enumerate(qs):
+            for k, t in enumerate(q):
+                if t in vocab:
+                    X[r, vocab[t]] += 1
+                j = slots.get((k, t))
+                if j is not None:
+                    X[r, len(vocab) + j] = 1
+        return X
+
+    return encode(tr), encode(te)
+
+
 def _features(ctx: RunContext, sae, task: str, layer: int) -> dict:
     """GPU part of a unit: decompose train/test residuals and gather SAE latents -> CPU arrays."""
     splits = ctx.data[task]
@@ -94,6 +119,7 @@ def _features(ctx: RunContext, sae, task: str, layer: int) -> dict:
     feats = {"x": (Xtr.numpy(), Xte.numpy()), "x_hat": (xh_tr.numpy(), xh_te.numpy()), "eps": (e_tr.numpy(), e_te.numpy())}
     if ctx.cfg.get("latent_probe", True):
         feats["latents"] = latent_features(sae, Xtr, Xte, ctx.cfg.get("latent_probe_cols", 4096))
+    feats["surface"] = surface_features(splits["train"].items, splits["test"].items)
     return {"feats": feats, "ytr": ytr, "yte": yte}
 
 

@@ -28,7 +28,8 @@ METHOD_COLOR = {"supervised_centroid_svd": "#eb6834", "unsupervised_svd": "#2a78
                 "generic_text_svd": "#c4508f", "random_subspace": "#8a8985", "top_xhat_svd": "#b38f2a"}
 SRC_COLOR = {"eps": "#eb6834", "x_hat": "#2a78d6", "x": "#8a8985"}
 SRC_LABEL = {"eps": r"error $\epsilon$", "x_hat": r"SAE recon $\hat{x}$", "x": "full $x$"}
-TASK_TITLE = {"mod_sum": "Modular sum", "dyck_depth": "Stack depth", "graph_reach": "Graph reach", "ioi_control": "IOI (control)"}
+TASK_TITLE = {"add_chain": "Running sum", "entity_track": "Entity tracking", "var_binding": "Variable binding",
+              "mod_sum": "Modular sum", "dyck_depth": "Stack depth", "graph_reach": "Graph reach", "ioi_control": "IOI (control)"}
 
 plt.rcParams.update({
     "font.size": 9, "axes.titlesize": 10, "axes.labelsize": 9, "legend.fontsize": 8, "legend.frameon": False,
@@ -134,7 +135,7 @@ def fig3_spectrum_and_probes(tensor_dir: Path, exp2: Dict, out_dir: Path, layer=
     tasks = [t for t in TASK_TITLE if any(r["task"] == t for r in probes)]
     fig, (a1, a2, a3) = plt.subplots(1, 3, figsize=(11, 3.2), gridspec_kw={"width_ratios": [1.1, 1, 1]})
     # (a) cumulative explained variance of the error spectrum
-    tcol = {t: c for t, c in zip(TASK_TITLE, ["#2a78d6", "#eb6834", "#1baf7a", "#8a8985"])}
+    tcol = {t: c for t, c in zip(TASK_TITLE, ["#2a78d6", "#eb6834", "#1baf7a", "#a35ccf", "#d4a72c", "#3fb8c4", "#8a8985"])}
     for task in tasks:
         f = tensor_dir / f"exp2_{task}_L{layer}_{width}.npz"
         if not f.exists():
@@ -164,14 +165,21 @@ def fig3_spectrum_and_probes(tensor_dir: Path, exp2: Dict, out_dir: Path, layer=
                 else:
                     vals.append(r[0].get("r2_circular", r[0]["r2_ordinal"]) if task == "mod_sum" else r[0]["r2_ordinal"])
             ax.bar(xs + (k - 1) * w, vals, w * 0.9, color=SRC_COLOR[src], label=SRC_LABEL[src])
+        surf = []      # prompt-token baseline: a black tick across each task's bars
+        for task in tasks:
+            r = [q for q in probes if (q["task"], q["layer"], q["width"], q["source"]) == (task, layer, width, "surface")]
+            surf.append(np.nan if not r else r[0]["acc"] if key == "acc" else
+                        (r[0].get("r2_circular", r[0]["r2_ordinal"]) if task == "mod_sum" else r[0]["r2_ordinal"]))
+        if not np.all(np.isnan(surf)):
+            ax.hlines(surf, xs - 1.5 * w, xs + 1.5 * w, colors=INK, lw=1.4, label="prompt tokens only")
         ax.set_xticks(xs)
-        ax.set_xticklabels([TASK_TITLE[t].replace(" (control)", "") for t in tasks], rotation=15)
+        ax.set_xticklabels([TASK_TITLE[t].replace(" (control)", "") for t in tasks], rotation=30, ha="right")
         ax.set_title(title)
         ax.grid(axis="x", visible=False)
     a3.set_ylabel(r"$R^2$ (circular for mod. sum)")
-    a2.legend(loc="upper center", bbox_to_anchor=(0.5, -0.28), ncol=3, fontsize=7)
+    fig.legend(*a2.get_legend_handles_labels(), loc="lower center", ncol=4, fontsize=7, frameon=False)
     fig.suptitle(f"Error geometry and state probes (layer {layer}, width {width})", y=1.03)
-    fig.tight_layout()
+    fig.tight_layout(rect=(0, 0.07, 1, 1))     # bottom strip reserved for the shared legend
     _save(fig, out_dir, "fig3_spectrum_and_probes")
 
 

@@ -267,6 +267,14 @@ def rescaled_noise(eps_ref: torch.Tensor, gen: torch.Generator) -> torch.Tensor:
     return eta * (eps_ref.norm(dim=-1, keepdim=True) / (eta.norm(dim=-1, keepdim=True) + EPS))
 
 
+def merge_task_overrides(base: Optional[dict], extra: Optional[dict]) -> dict:
+    """Per-task, per-key merge: preflight's {n_shots, filter_mode, ...} must not erase the config's gen_kwargs."""
+    out = {t: dict(v) for t, v in (base or {}).items()}
+    for t, v in (extra or {}).items():
+        out[t] = {**out.get(t, {}), **v}
+    return out
+
+
 def task_cfg(cfg: dict, task: str) -> dict:
     """Global config merged with cfg['task_overrides'][task] (e.g. written by scripts/preflight.py)."""
     return {**cfg, **(cfg.get("task_overrides") or {}).get(task, {})}
@@ -282,7 +290,7 @@ def prepare_task(task: str, model, tok, cfg: dict, mock: bool, layers: Sequence[
                                candidate_multiplier=c.get("candidate_multiplier", 3),
                                min_logit_diff=c.get("min_logit_diff", 2.0), n_shots=c.get("n_shots", 0),
                                batch_size=c["batch_size"], answer_format=c.get("answer_format", "auto"),
-                               filter_mode=c.get("filter_mode", "strict"))
+                               filter_mode=c.get("filter_mode", "strict"), gen_kwargs=c.get("gen_kwargs"))
     out = {}
     for split, items in splits.items():
         if len(items) < c.get("min_pairs", 20):

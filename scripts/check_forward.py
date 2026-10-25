@@ -34,6 +34,7 @@ import numpy as np
 import torch
 
 from src.data import synthetic_tasks as st
+from src.experiments.common import merge_task_overrides, task_cfg
 from src.models import runtime
 from src.models.sae_loader import load_model
 from src.utils import free_memory, get_device, get_dtype, load_config, load_json, model_device, save_json, setup_logging
@@ -50,8 +51,11 @@ SANITY = [
     ("1, 2, 3, 4,", " "),          # Gemma splits digits: ' 5' is '▁' + '5'
     ("1, 2, 3, 4, ", "5"),
 ]
-TASK_FORMAT = {"mod_sum": "space_prompt", "dyck_depth": "space_prompt", "graph_reach": "space_prompt",
-               "ioi_control": "space_target"}
+TASK_FORMAT = {"add_chain": "space_prompt", "entity_track": "space_target", "var_binding": "space_prompt",
+               "ioi_control": "space_target", "mod_sum": "space_prompt", "dyck_depth": "space_prompt",
+               "graph_reach": "space_prompt"}
+SUITE = st.STATE_TASKS + ["ioi_control"]      # the configured task suite (legacy tasks: see analyze_tasks.py)
+GEN_KW = {}                                   # task -> generator difficulty, filled from the config in main()
 
 log = logging.getLogger("prism")
 CHECKS = []
@@ -119,8 +123,9 @@ def tokenizer_section(tok) -> dict:
           f"encode('When Mary') = {ids[:6]}, bos_token_id = {bos}")
     info = {"bos_token_id": bos, "pad_token_id": getattr(tok, "pad_token_id", None),
             "padding_side": getattr(tok, "padding_side", None), "examples": {}}
-    for task in st.TASKS:
-        p = st._with_format(st.generate_pairs(task, 1, 4242, split="check")[0], TASK_FORMAT[task])
+    for task in SUITE:
+        p = st._with_format(st.generate_pairs(task, 1, 4242, split="check", gen_kwargs=GEN_KW.get(task))[0],
+                            TASK_FORMAT[task])
         c, k = tok.encode(p.clean_prompt), tok.encode(p.corrupt_prompt)
         ca = st.answer_token_id(tok, p.clean_prompt, p.clean_target_str)
         info["examples"][task] = {"prompt": p.clean_prompt, "target": p.clean_target_str,
@@ -135,23 +140,23 @@ def tokenizer_section(tok) -> dict:
 
 # --------------------------------------------------------------------------- 3. prompt space (no model)
 def space_section(cfg: dict) -> dict:
-    """Re-plays build_task_splits' generation: train, test, then the shared few-shot prefix from what is left."""
+    """Re-plays build_task_splits' generation: the shared few-shot prefix first, then train and test."""
     out = {}
     level = log.level
     log.setLevel(logging.ERROR)       # generate_pairs warns on every short split; the checks below report it
     try:
         for task in [t for t in st.TASKS if t in cfg["tasks"] or t == "ioi_control"]:
-            ov = (cfg.get("task_overrides") or {}).get(task, {})
-            mult = int(ov.get("candidate_multiplier", cfg.get("candidate_multiplier", 3)))
-            shots = int(ov.get("n_shots", cfg.get("n_shots", 0)))
+            ov = task_cfg(cfg, task)
+            mult = int(ov.get("candidate_multiplier", 3))
+            shots = int(ov.get("n_shots", 0))
+            gk = ov.get("gen_kwargs")
             t0 = time.time()
-            exclude, got = set(), {}
+            shot_pairs = st.draw_shots(task, shots, cfg["seed"] + 77, gen_kwargs=gk)
+            n_shot, exclude, got = len(shot_pairs), st.shot_prompts(shot_pairs), {}
             for split, n, s in (("train", cfg["n_train"], cfg["seed"]), ("test", cfg["n_test"], cfg["seed"] + 10_000)):
-                pairs = st.generate_pairs(task, n * mult, s, exclude=exclude, split=split)
+                pairs = st.generate_pairs(task, n * mult, s, exclude=exclude, split=split, gen_kwargs=gk)
                 got[split] = (len(pairs), n * mult)
-                for p in pairs:
-                    exclude.update((p.clean_prompt, p.corrupt_prompt))
-            n_shot = len(st.generate_pairs(task, shots, cfg["seed"] + 77, exclude=exclude, split="shot")) if shots else 0
+                exclude |= st.shot_prompts(pairs)
             out[task] = {"candidate_multiplier": mult, "n_shots_wanted": shots, "n_shots_got": n_shot,
                          "train_got/wanted": got["train"], "test_got/wanted": got["test"],
                          "seconds": round(time.time() - t0, 1)}
@@ -159,7 +164,7 @@ def space_section(cfg: dict) -> dict:
                   all(g >= w for g, w in got.values()), f"train {got['train'][0]}/{got['train'][1]}, "
                   f"test {got['test'][0]}/{got['test'][1]} (n_train={cfg['n_train']}, n_test={cfg['n_test']}, x{mult})")
             check(f"{task}: few-shot prefix actually gets its {shots} shots", n_shot == shots,
-                  f"got {n_shot}/{shots} (shots are drawn after train/test have used up the prompt space)")
+                  f"got {n_shot}/{shots}")
     finally:
         log.setLevel(level)
     return out
@@ -173,10 +178,9 @@ def build_probes(tok, n_task: int) -> list:
         tid = st.answer_token_id(tok, prompt, target)
         probes.append({"name": f"sanity:{prompt[-25:]}", "group": "sanity", "ids": tok.encode(prompt), "target": tid,
                        "target_str": target})
-    for task in st.TASKS:
+    for task in SUITE:
         for shots in (0, 2):
-            pairs = st.generate_pairs(task, n_task, 9000 + shots, split="probe")
-            st.add_few_shot_prefix(pairs, shots, 77)
+            pairs = st.generate_with_shots(task, n_task, shots, 9000 + shots, 77, gen_kwargs=GEN_KW.get(task))
             for it in st.tokenize_pairs(tok, pairs, TASK_FORMAT[task]):
                 probes.append({"name": f"{task}/{shots}shot:{it.pair.pair_id}", "group": f"{task}/{shots}shot",
                                "ids": it.clean_ids, "target": it.clean_ans, "foil": it.corrupt_ans,
@@ -276,12 +280,11 @@ def batching_section(model, tok) -> None:
 @torch.inference_mode()
 def task_section(model, tok, n: int) -> dict:
     out = {}
-    for task in st.TASKS:
+    for task in SUITE:
         chance = 1.0 / len(st.TASK_STATES[task])
-        for fmt in ("space_target", "space_prompt"):
-            for shots in (0, 2, 4):
-                pairs = st.generate_pairs(task, n, 5150 + shots, split="behav")
-                st.add_few_shot_prefix(pairs, shots, 77)
+        for fmt in ("auto",):
+            for shots in (0, 2, 8):
+                pairs = st.generate_with_shots(task, n, shots, 5150 + shots, 77, split="behav", gen_kwargs=GEN_KW.get(task))
                 items = st.tokenize_pairs(tok, pairs, fmt)
                 key = f"{task}/{fmt}/{shots}shot"
                 if not items:
@@ -309,10 +312,10 @@ def task_section(model, tok, n: int) -> dict:
     worst = max(((v["dl_abs_max"], k) for k, v in out.items() if "dl_abs_max" in v), default=(0.0, "-"))
     check(f"task logit gaps within +-{2 * SOFTCAP:.0f} (softcap bound)", worst[0] <= 2 * SOFTCAP + 0.5,
           f"largest gap {worst[0]:.1f} at {worst[1]}")
-    ioi = out.get("ioi_control/space_target/0shot", {})
-    check("IOI zero-shot clean top-1 >= 0.7 (gemma-2-2b normally ~0.9+)", ioi.get("clean_top1", 0) >= 0.7,
-          f"clean top-1 {ioi.get('clean_top1', 0):.2f}")
-    for task in ("mod_sum", "dyck_depth", "graph_reach"):
+    ioi = max((v.get("clean_top1", 0), k) for k, v in out.items() if k.startswith("ioi_control"))
+    check("IOI clean top-1 >= 0.7 at its best shot count (gemma-2-2b: ~1.0 with 2 shots)", ioi[0] >= 0.7,
+          f"clean top-1 {ioi[0]:.2f} at {ioi[1]}")
+    for task in st.STATE_TASKS:
         best = max((v.get("clean_top1", 0), k) for k, v in out.items() if k.startswith(task))
         check(f"{task}: best setting beats chance by 1.5x", best[0] >= 1.5 / len(st.TASK_STATES[task]),
               f"best clean top-1 {best[0]:.2f} at {best[1]} (chance {1 / len(st.TASK_STATES[task]):.2f})", warn_only=True)
@@ -369,7 +372,7 @@ def write_report(out: Path, report: dict) -> int:
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--config", default=str(ROOT / "configs" / "tier1_core.yaml"))
-    ap.add_argument("--overrides", default=None, help="preflight.json with task_overrides (default: newest under results/)")
+    ap.add_argument("--overrides", default=None, help="preflight.json with task_overrides (default: config only)")
     ap.add_argument("--out", default="results/check_forward")
     ap.add_argument("--skip-hf", action="store_true", help="skip the Hugging Face reference model")
     ap.add_argument("--hf-device", default=None, help="device for the HF reference (default: same as TL)")
@@ -380,10 +383,11 @@ def main() -> int:
     out.mkdir(parents=True, exist_ok=True)
     setup_logging(out / "check.log")
     cfg = load_config(a.config)
-    ovp = a.overrides or next(iter(sorted(ROOT.glob("results/*/preflight/preflight.json"), reverse=True)), None)
+    ovp = a.overrides
     if ovp and Path(ovp).exists():
-        cfg["task_overrides"] = {**(cfg.get("task_overrides") or {}), **load_json(Path(ovp)).get("task_overrides", {})}
+        cfg["task_overrides"] = merge_task_overrides(cfg.get("task_overrides"), load_json(Path(ovp)).get("task_overrides"))
         log.info("task_overrides from %s", ovp)
+    GEN_KW.update({t: task_cfg(cfg, t).get("gen_kwargs") for t in st.TASKS})
     device = get_device()
     report = {"config": a.config, "overrides": str(ovp) if ovp else None}
 

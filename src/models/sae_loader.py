@@ -6,9 +6,10 @@ Common interface used by all experiments
     model.cfg.d_model, model.cfg.n_layers, model.cfg.d_vocab, model.tokenizer
     sae.decompose(x) -> (x_hat, epsilon, l0)   (float32, epsilon = x - x_hat; l0 = active latents per row)
 
-Mock world design (see README): a reserved "dark" subspace holds the algorithmic state. Every SAE atom is
-orthogonal to it, so for mod_sum / dyck_depth / graph_reach the state lands entirely in epsilon, while the
-ioi_control signal is a dictionary atom and lands in x_hat.
+Mock world design (see README): a reserved "dark" subspace holds the algorithmic state (one 2-d plane per
+state-tracking task). Every SAE atom is orthogonal to it, so for add_chain / entity_track / var_binding (and the
+legacy mod_sum / dyck_depth / graph_reach) the state lands entirely in epsilon, while the ioi_control signal is a
+dictionary atom and lands in x_hat.
 """
 from __future__ import annotations
 
@@ -22,15 +23,18 @@ from typing import Any, Callable, Dict, List, Optional, Sequence, Tuple
 import numpy as np
 import torch
 
-from src.data.synthetic_tasks import NAMES, parse_state
+from src.data.synthetic_tasks import BOXES, NAMES, TASK_STATES, parse_state
 
 log = logging.getLogger("prism")
 
 HOOK_FMT = "blocks.{layer}.hook_resid_post"
-N_DARK = 6          # 3 algorithmic tasks x 2-dim plane
-N_IOI = len(NAMES)  # reserved dictionary atoms 0..7 carry the IOI signal
+_DARK_TASKS = ["add_chain", "entity_track", "var_binding", "mod_sum", "dyck_depth", "graph_reach"]
+N_DARK = 2 * len(_DARK_TASKS)   # one 2-d state plane per algorithmic task
+N_IOI = len(NAMES)  # reserved dictionary atoms 0..N_IOI-1 carry the IOI signal
 MOCK_D_SAE = {"16k": 1024, "32k": 2048, "65k": 4096, "131k": 8192, "262k": 16384, "524k": 32768, "1m": 65536}
-_PLANES = {"mod_sum": (0, 1), "dyck_depth": (2, 3), "graph_reach": (4, 5)}
+_PLANES = {t: (2 * i, 2 * i + 1) for i, t in enumerate(_DARK_TASKS)}
+_ANSWER_TOKENS = {t: [f" {d}" for d in range(10)] for t in _DARK_TASKS}
+_ANSWER_TOKENS["entity_track"] = [f" {b}" for b in BOXES]   # state = box index
 
 
 def hook_name(layer: int) -> str:
@@ -58,11 +62,13 @@ class MockConfig:
 
 
 def _phi(task: str, s: int) -> Tuple[float, float]:
-    """Ground-truth state manifold: circle for mod_sum, monotone half-circle arc for the counters."""
+    """Ground-truth state manifold: circle for mod_sum, monotone arc otherwise (>= 0.5 rad between neighbouring
+    states so the readout separates them; the legacy 6-state counters keep their original 0.8*pi arc)."""
     if task == "mod_sum":
         a = 2 * math.pi * s / 7
     else:
-        a = (s - 1) / 5 * 0.8 * math.pi
+        lo, hi = min(TASK_STATES[task]), max(TASK_STATES[task])
+        a = (s - lo) * max(0.8 * math.pi / (hi - lo), 0.5)
     return math.cos(a), math.sin(a)
 
 
@@ -75,7 +81,7 @@ class MockWorld:
         self.cfg, self.tok = cfg, tokenizer
         g = torch.Generator().manual_seed(cfg.seed)
         Q, _ = torch.linalg.qr(torch.randn(d, N_DARK + cfg.n_true, generator=g))
-        self.D = Q[:, :N_DARK].contiguous()                  # [d, 6] dark basis
+        self.D = Q[:, :N_DARK].contiguous()                  # [d, N_DARK] dark basis
         self.T = Q[:, N_DARK:].T.contiguous()                # [n_true, d] orthonormal true atoms
         self.T_np = self.T.numpy()
         V = tokenizer.vocab_size
@@ -88,10 +94,10 @@ class MockWorld:
         self.noise_table = torch.randn(4096, d, generator=g) * cfg.noise_std
         # unembedding: answer-token columns read the task state planes / IOI atoms
         W_U = torch.zeros(d, V)
-        for digit in range(10):
-            tid = tokenizer.encode(f" {digit}", add_special_tokens=False)[0]
-            for task, (i, j) in _PLANES.items():
-                c1, c2 = _phi(task, digit)
+        for task, (i, j) in _PLANES.items():
+            for value, tok_str in enumerate(_ANSWER_TOKENS[task]):
+                tid = tokenizer.encode(tok_str, add_special_tokens=False)[0]
+                c1, c2 = _phi(task, value)
                 W_U[:, tid] += cfg.scale * (c1 * self.D[:, i] + c2 * self.D[:, j])
         for idx, name in enumerate(NAMES):
             tid = tokenizer.encode(f" {name}", add_special_tokens=False)[0]

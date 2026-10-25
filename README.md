@@ -10,7 +10,11 @@ state, which then lives in the reconstruction error `ε = x − x̂`:
 * **Exp 2** — geometry of ε: SVD spectra, ridge/circular state probes, PCA/LDA coordinates (train-fit, test-eval).
 * **Exp 3** — hybrid repair `x̂ + U_r U_rᵀ ε`, `r ∈ {0..64}`, `U_r` fit on train errors only.
 
-Tasks: `mod_sum`, `dyck_depth`, `graph_reach` (algorithmic) and `ioi_control` (control).
+Tasks: `add_chain` (running sum), `entity_track` (object locations after moves), `var_binding` (value copied through
+variables) and `ioi_control` (control). All four were validated on gemma-2-2b with `scripts/analyze_tasks.py`
+(results/task_analysis/report.md). The first suite (`mod_sum`, `dyck_depth`, `graph_reach`) is kept for the mock world
+and tests only: gemma-2-2b is at chance on it at every difficulty and shot count, which is why the 2026-10-19 run
+kept 0 pairs.
 
 ## Local CPU (no GPU, no weights, no HF token)
 ```bash
@@ -21,7 +25,7 @@ python scripts/run_smoke_test.py --mock --mock-d-model 2304
 python scripts/run_full_suite.py --mock --n-train 400 --n-test 200      # full-size mock run
 ```
 The mock world puts the algorithmic state in a reserved low-rank "dark" plane that every mock SAE atom is
-orthogonal to (state → ε only; ring for `mod_sum`, arc for the counters), while the IOI signal is a dictionary atom
+orthogonal to (state → ε only; one 2-d plane per algorithmic task), while the IOI signal is a dictionary atom
 (state → x̂). The state is written progressively across layers, so patching layer *l* recovers ≈ sigmoid((l−8)/2) of
 the logit difference. Mock numbers verify the plumbing only — they say nothing about Gemma.
 
@@ -36,8 +40,11 @@ Outputs: `results/full_<timestamp>/{metrics,tensors,figures,logs}`; logs in `log
 Production details: bf16 on CUDA (fp32 on CPU/MPS), one SAE resident at a time (freed + `empty_cache()` between
 loads), all forwards in `inference_mode`, SAE math in fp32. The model is loaded with
 `HookedTransformer.from_pretrained_no_processing` so the residual stream matches what Gemma Scope was trained on.
-Candidate pairs are filtered by the base model (`filter_valid_pairs`: both targets predicted, clean ΔL > 2).
-Tasks with fewer than `min_pairs` survivors are skipped with a warning; `n_shots` in the config adds a few-shot prefix.
+Candidate pairs are filtered by the base model (`filter_valid_pairs`; `strict`: both targets predicted and clean
+ΔL > 2, `clean_only`: clean target predicted and ΔL_clean − ΔL_corrupt > 2). Tasks with fewer than `min_pairs`
+survivors are skipped with a warning. Per-task settings (`task_overrides`: `n_shots`, `filter_mode`, `gen_kwargs` =
+difficulty) live in the config; preflight refines them. The few-shot prefix is drawn before the splits, so it is
+never starved by a small prompt space.
 
 ## Notes on definitions
 * `noise_control` = `x̂_corrupt + η` replaces ε_corrupt with norm-matched noise, so it *erases* the corrupt state
@@ -46,6 +53,12 @@ Tasks with fewer than `min_pairs` survivors are skipped with a warning; `n_shots
 * Pair counts / graph size: `graph_reach` uses 6 nodes and 4 edges (the 4-node template yields too few unique prompts
   for disjoint 400/200 splits).
 * Train/test splits are prompt-disjoint (clean and corrupt prompts); all SVD/PCA/LDA/probe fits use train only.
+
+## Pilot run (any 8 GB+ GPU, ~20–40 min)
+```bash
+HF_TOKEN=hf_... ./run.sh pilot --foreground    # 3 layers x 16k, 160/80 pairs -> results/pilot_<time>/DECISIONS.md
+```
+Ends with a GO / MAYBE / NO-GO / BLOCKED verdict on whether the full run is worth it (docs/RUNBOOK.md, section 1).
 
 ## Overnight run (one 24 GB GPU, ~4–5 h of a 6.5 h budget)
 ```bash

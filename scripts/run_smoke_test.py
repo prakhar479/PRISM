@@ -6,6 +6,7 @@ import time
 from pathlib import Path
 
 import _bootstrap  # noqa: F401
+from src.data.synthetic_tasks import STATE_TASKS
 from src.pipeline import run_suite
 from src.utils import load_config, load_json, setup_logging
 
@@ -48,17 +49,17 @@ def main() -> int:
     check(ok_rows, "exp1 NLDR finite everywhere", f)
     if a.mock:
         g = lambda t, l, w, iv: next(r["nldr"] for r in rows if (r["task"], r["layer"], r["width"], r["intervention"]) == (t, l, w, iv))
-        for t in ("mod_sum", "dyck_depth", "graph_reach"):
+        for t in STATE_TASKS:
             check(g(t, 12, "16k", "error_only") > 0.6 and g(t, 12, "16k", "sae_only") < 0.2,
                   f"{t}: error_only >> sae_only at L12 ({g(t, 12, '16k', 'error_only'):.2f} vs {g(t, 12, '16k', 'sae_only'):.2f})", f)
         check(g("ioi_control", 12, "16k", "sae_only") > 0.6 and g("ioi_control", 12, "16k", "error_only") < 0.3,
               f"ioi_control: sae_only >> error_only at L12 ({g('ioi_control', 12, '16k', 'sae_only'):.2f} vs {g('ioi_control', 12, '16k', 'error_only'):.2f})", f)
         e3 = load_json(out / "metrics" / "exp3_results.json")["rows"]
-        h = lambda r: next(x["nldr"] for x in e3 if (x["task"], x["layer"], x["width"], x["method"], x["kind"], x["rank"]) == ("mod_sum", 12, "16k", "supervised_centroid_svd", "hybrid_patch", r))
-        check(h(0) < 0.2 and h(16) > 0.6, f"mod_sum hybrid repair: r=0 {h(0):.2f} -> r=16 {h(16):.2f}", f)
+        h = lambda r: next(x["nldr"] for x in e3 if (x["task"], x["layer"], x["width"], x["method"], x["kind"], x["rank"]) == ("add_chain", 12, "16k", "supervised_centroid_svd", "hybrid_patch", r))
+        check(h(0) < 0.2 and h(16) > 0.6, f"add_chain hybrid repair: r=0 {h(0):.2f} -> r=16 {h(16):.2f}", f)
         pr = load_json(out / "metrics" / "exp2_results.json")["probes"]
-        c = lambda s: next(x["r2_circular"] for x in pr if (x["task"], x["layer"], x["width"], x["source"]) == ("mod_sum", 12, "16k", s))
-        check(c("eps") > 0.6 and c("x_hat") < 0.3, f"mod_sum circular R2: eps {c('eps'):.2f} vs x_hat {c('x_hat'):.2f}", f)
+        c = lambda s: next(x["r2_ordinal"] for x in pr if (x["task"], x["layer"], x["width"], x["source"]) == ("add_chain", 12, "16k", s))
+        check(c("eps") > 0.6 and c("x_hat") < 0.3, f"add_chain ordinal R2: eps {c('eps'):.2f} vs x_hat {c('x_hat'):.2f}", f)
     if not a.mock:   # real-model gates: hook correctness and SAE loading/encoding
         cf = [r["nldr"] for r in rows if r["intervention"] == "clean_full" and r.get("positions") == "from_diff"]
         check(bool(cf) and min(cf) > 0.9, f"full clean patch (from_diff) restores clean answer: {cf}", f)

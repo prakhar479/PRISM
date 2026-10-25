@@ -60,7 +60,8 @@ def write_summary(results_dir: Path) -> Path:
     if (m / "exp2_results.json").exists():
         pr = load_json(m / "exp2_results.json")["probes"]
         L += ["## Exp2: test probe accuracy (selectivity) / R^2 (circular for mod_sum)", "",
-              "| task | layer | width | x | x_hat | eps | latents | chance |", "|---|---|---|---|---|---|---|---|"]
+              "`surface` = the same probe on the prompt's tokens only: eps must beat it for a state claim.", "",
+              "| task | layer | width | x | x_hat | eps | latents | surface | chance |", "|---|---|---|---|---|---|---|---|---|"]
         for k in sorted({(r["task"], r["layer"], r["width"]) for r in pr}):
             g = {r["source"]: r for r in pr if (r["task"], r["layer"], r["width"]) == k}
 
@@ -72,7 +73,7 @@ def write_summary(results_dir: Path) -> Path:
                 return f"{r['acc']:.2f} ({_fmt(r.get('selectivity'))}) / {_fmt(r2)}"
 
             ch = next(iter(g.values()))["chance_acc"]
-            L.append(f"| {k[0]} | {k[1]} | {k[2]} | " + " | ".join(cell(s) for s in ("x", "x_hat", "eps", "latents"))
+            L.append(f"| {k[0]} | {k[1]} | {k[2]} | " + " | ".join(cell(s) for s in ("x", "x_hat", "eps", "latents", "surface"))
                      + f" | {ch:.2f} |")
         L.append("")
     if (m / "exp3_results.json").exists():

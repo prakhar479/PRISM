@@ -1,0 +1,244 @@
+% refs.bib -- every field below was checked on a primary page on 2026-10-25
+% (arxiv.org abs/API, aclanthology.org .bib, openreview.net, transformer-circuits.pub).
+% Venue versions are cited where one exists; the arXiv ID is kept in `eprint`.
+
+% ---------------------------------------------------------------------------
+% A. Core references
+% ---------------------------------------------------------------------------
+
+@misc{bricken2023monosemanticity,
+  title        = {Towards Monosemanticity: Decomposing Language Models With Dictionary Learning},
+  author       = {Bricken, Trenton and Templeton, Adly and Batson, Joshua and Chen, Brian and Jermyn, Adam and Conerly, Tom and Turner, Nick and Anil, Cem and Denison, Carson and Askell, Amanda and Lasenby, Robert and Wu, Yifan and Kravec, Shauna and Schiefer, Nicholas and Maxwell, Tim and Joseph, Nicholas and Hatfield-Dodds, Zac and Tamkin, Alex and Nguyen, Karina and McLean, Brayden and Burke, Josiah E. and Hume, Tristan and Carter, Shan and Henighan, Tom and Olah, Christopher},
+  year         = {2023},
+  howpublished = {Transformer Circuits Thread},
+  url          = {https://transformer-circuits.pub/2023/monosemantic-features/index.html},
+  note         = {Published October 4, 2023}
+}
+
+% NOTE: the ICLR 2024 version lists Huben as first author (OpenReview + proceedings.iclr.cc);
+% the arXiv version lists Cunningham first. Cite exactly ONE of the two entries below.
+@inproceedings{huben2024sparse,
+  title         = {Sparse Autoencoders Find Highly Interpretable Features in Language Models},
+  author        = {Huben, Robert and Cunningham, Hoagy and Smith, Logan Riggs and Ewart, Aidan and Sharkey, Lee},
+  booktitle     = {The Twelfth International Conference on Learning Representations ({ICLR})},
+  year          = {2024},
+  url           = {https://openreview.net/forum?id=F76bwRSLeK},
+  eprint        = {2309.08600},
+  archiveprefix = {arXiv}
+}
+
+@article{cunningham2023sparse,
+  title   = {Sparse Autoencoders Find Highly Interpretable Features in Language Models},
+  author  = {Cunningham, Hoagy and Ewart, Aidan and Riggs, Logan and Huben, Robert and Sharkey, Lee},
+  journal = {arXiv preprint arXiv:2309.08600},
+  year    = {2023},
+  url     = {https://arxiv.org/abs/2309.08600}
+}
+
+@inproceedings{lieberum2024gemmascope,
+  title         = {{Gemma Scope}: Open Sparse Autoencoders Everywhere All At Once on {Gemma} 2},
+  author        = {Lieberum, Tom and Rajamanoharan, Senthooran and Conmy, Arthur and Smith, Lewis and Sonnerat, Nicolas and Varma, Vikrant and Kram{\'a}r, J{\'a}nos and Dragan, Anca and Shah, Rohin and Nanda, Neel},
+  booktitle     = {Proceedings of the 7th {BlackboxNLP} Workshop: Analyzing and Interpreting Neural Networks for {NLP}},
+  pages         = {278--300},
+  year          = {2024},
+  month         = nov,
+  address       = {Miami, Florida, US},
+  publisher     = {Association for Computational Linguistics},
+  doi           = {10.18653/v1/2024.blackboxnlp-1.19},
+  url           = {https://aclanthology.org/2024.blackboxnlp-1.19/},
+  eprint        = {2408.05147},
+  archiveprefix = {arXiv}
+}
+
+@inproceedings{marks2025sparse,
+  title         = {Sparse Feature Circuits: Discovering and Editing Interpretable Causal Graphs in Language Models},
+  author        = {Marks, Samuel and Rager, Can and Michaud, Eric J. and Belinkov, Yonatan and Bau, David and Mueller, Aaron},
+  booktitle     = {The Thirteenth International Conference on Learning Representations ({ICLR})},
+  year          = {2025},
+  url           = {https://openreview.net/forum?id=I4e82CIDxv},
+  eprint        = {2403.19647},
+  archiveprefix = {arXiv}
+}
+
+@article{engels2025dark,
+  title         = {Decomposing The Dark Matter of Sparse Autoencoders},
+  author        = {Engels, Joshua and Smith, Logan Riggs and Tegmark, Max},
+  journal       = {Transactions on Machine Learning Research},
+  issn          = {2835-8856},
+  year          = {2025},
+  url           = {https://openreview.net/forum?id=sXq3Wb3vef},
+  eprint        = {2410.14670},
+  archiveprefix = {arXiv}
+}
+
+@inproceedings{feng2024bind,
+  title         = {How do Language Models Bind Entities in Context?},
+  author        = {Feng, Jiahai and Steinhardt, Jacob},
+  booktitle     = {The Twelfth International Conference on Learning Representations ({ICLR})},
+  year          = {2024},
+  url           = {https://openreview.net/forum?id=zb3b6oKO77},
+  eprint        = {2310.17191},
+  archiveprefix = {arXiv}
+}
+
+@inproceedings{wang2023interpretability,
+  title         = {Interpretability in the Wild: a Circuit for Indirect Object Identification in {GPT-2} Small},
+  author        = {Wang, Kevin Ro and Variengien, Alexandre and Conmy, Arthur and Shlegeris, Buck and Steinhardt, Jacob},
+  booktitle     = {The Eleventh International Conference on Learning Representations ({ICLR})},
+  year          = {2023},
+  url           = {https://openreview.net/forum?id=NpsVSN6o4ul},
+  eprint        = {2211.00593},
+  archiveprefix = {arXiv}
+}
+
+% ---------------------------------------------------------------------------
+% B. Optional extras
+% ---------------------------------------------------------------------------
+
+@article{rajamanoharan2024jumping,
+  title   = {Jumping Ahead: Improving Reconstruction Fidelity with {JumpReLU} Sparse Autoencoders},
+  author  = {Rajamanoharan, Senthooran and Lieberum, Tom and Sonnerat, Nicolas and Conmy, Arthur and Varma, Vikrant and Kram{\'a}r, J{\'a}nos and Nanda, Neel},
+  journal = {arXiv preprint arXiv:2407.14435},
+  year    = {2024},
+  url     = {https://arxiv.org/abs/2407.14435}
+}
+
+@article{gemmateam2024gemma2,
+  title   = {{Gemma} 2: Improving Open Language Models at a Practical Size},
+  author  = {{Gemma Team} and Riviere, Morgane and Pathak, Shreya and Sessa, Pier Giuseppe and Hardin, Cassidy and Bhupatiraju, Surya and Hussenot, L{\'e}onard and Mesnard, Thomas and Shahriari, Bobak and Ram{\'e}, Alexandre and others},
+  journal = {arXiv preprint arXiv:2408.00118},
+  year    = {2024},
+  url     = {https://arxiv.org/abs/2408.00118}
+}
+
+@inproceedings{kim2023entity,
+  title         = {Entity Tracking in Language Models},
+  author        = {Kim, Najoung and Schuster, Sebastian},
+  booktitle     = {Proceedings of the 61st Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)},
+  pages         = {3835--3855},
+  year          = {2023},
+  month         = jul,
+  address       = {Toronto, Canada},
+  publisher     = {Association for Computational Linguistics},
+  doi           = {10.18653/v1/2023.acl-long.213},
+  url           = {https://aclanthology.org/2023.acl-long.213/},
+  eprint        = {2305.02363},
+  archiveprefix = {arXiv}
+}
+
+@inproceedings{hewitt2019designing,
+  title         = {Designing and Interpreting Probes with Control Tasks},
+  author        = {Hewitt, John and Liang, Percy},
+  booktitle     = {Proceedings of the 2019 Conference on Empirical Methods in Natural Language Processing and the 9th International Joint Conference on Natural Language Processing ({EMNLP-IJCNLP})},
+  pages         = {2733--2743},
+  year          = {2019},
+  month         = nov,
+  address       = {Hong Kong, China},
+  publisher     = {Association for Computational Linguistics},
+  doi           = {10.18653/v1/D19-1275},
+  url           = {https://aclanthology.org/D19-1275/},
+  eprint        = {1909.03368},
+  archiveprefix = {arXiv}
+}
+
+@inproceedings{zhang2024towards,
+  title         = {Towards Best Practices of Activation Patching in Language Models: Metrics and Methods},
+  author        = {Zhang, Fred and Nanda, Neel},
+  booktitle     = {The Twelfth International Conference on Learning Representations ({ICLR})},
+  year          = {2024},
+  url           = {https://openreview.net/forum?id=Hf17y6u9BC},
+  eprint        = {2309.16042},
+  archiveprefix = {arXiv}
+}
+
+@inproceedings{makelov2024subspace,
+  title         = {Is This the Subspace You Are Looking for? An Interpretability Illusion for Subspace Activation Patching},
+  author        = {Makelov, Aleksandar and Lange, Georg and Geiger, Atticus and Nanda, Neel},
+  booktitle     = {The Twelfth International Conference on Learning Representations ({ICLR})},
+  year          = {2024},
+  url           = {https://openreview.net/forum?id=Ebt7JgMHv1},
+  eprint        = {2311.17030},
+  archiveprefix = {arXiv}
+}
+
+@inproceedings{doddapaneni2023towards,
+  title         = {Towards Leaving No {Indic} Language Behind: Building Monolingual Corpora, Benchmark and Models for {Indic} Languages},
+  author        = {Doddapaneni, Sumanth and Aralikatte, Rahul and Ramesh, Gowtham and Goyal, Shreya and Khapra, Mitesh M. and Kunchukuttan, Anoop and Kumar, Pratyush},
+  booktitle     = {Proceedings of the 61st Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)},
+  pages         = {12402--12426},
+  year          = {2023},
+  month         = jul,
+  address       = {Toronto, Canada},
+  publisher     = {Association for Computational Linguistics},
+  doi           = {10.18653/v1/2023.acl-long.693},
+  url           = {https://aclanthology.org/2023.acl-long.693/},
+  eprint        = {2212.05409},
+  archiveprefix = {arXiv}
+}
+
+@inproceedings{penedo2025fineweb2,
+  title         = {{FineWeb2}: One Pipeline to Scale Them All --- Adapting Pre-Training Data Processing to Every Language},
+  author        = {Penedo, Guilherme and Kydl{\'\i}{\v{c}}ek, Hynek and Sabol{\v{c}}ec, Vinko and Messmer, Bettina and Foroutan, Negar and Kargaran, Amir Hossein and Raffel, Colin and Jaggi, Martin and {Von Werra}, Leandro and Wolf, Thomas},
+  booktitle     = {Second Conference on Language Modeling ({COLM})},
+  year          = {2025},
+  url           = {https://openreview.net/forum?id=jnRBe6zatP},
+  eprint        = {2506.20920},
+  archiveprefix = {arXiv}
+}
+
+% ---------------------------------------------------------------------------
+% C. Multilingual SAE literature (from literature search)
+% ---------------------------------------------------------------------------
+
+@inproceedings{deng2025unveiling,
+  title         = {Unveiling Language-Specific Features in Large Language Models via Sparse Autoencoders},
+  author        = {Deng, Boyi and Wan, Yu and Yang, Baosong and Zhang, Yidan and Feng, Fuli},
+  booktitle     = {Proceedings of the 63rd Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)},
+  pages         = {4563--4608},
+  year          = {2025},
+  month         = jul,
+  address       = {Vienna, Austria},
+  publisher     = {Association for Computational Linguistics},
+  doi           = {10.18653/v1/2025.acl-long.229},
+  url           = {https://aclanthology.org/2025.acl-long.229/},
+  eprint        = {2505.05111},
+  archiveprefix = {arXiv}
+}
+
+@inproceedings{brinkmann2025large,
+  title         = {Large Language Models Share Representations of Latent Grammatical Concepts Across Typologically Diverse Languages},
+  author        = {Brinkmann, Jannik and Wendler, Chris and Bartelt, Christian and Mueller, Aaron},
+  booktitle     = {Proceedings of the 2025 Conference of the Nations of the Americas Chapter of the Association for Computational Linguistics: Human Language Technologies (Volume 1: Long Papers)},
+  pages         = {6131--6150},
+  year          = {2025},
+  month         = apr,
+  address       = {Albuquerque, New Mexico},
+  publisher     = {Association for Computational Linguistics},
+  doi           = {10.18653/v1/2025.naacl-long.312},
+  url           = {https://aclanthology.org/2025.naacl-long.312/},
+  eprint        = {2501.06346},
+  archiveprefix = {arXiv}
+}
+
+@article{xuan2025uncovering,
+  title   = {Uncovering Cross-Linguistic Disparities in {LLMs} using Sparse Autoencoders},
+  author  = {Xuan, Richmond Sin Jing and Huseynov, Jalil and Zhang, Yang},
+  journal = {arXiv preprint arXiv:2507.18918},
+  year    = {2025},
+  url     = {https://arxiv.org/abs/2507.18918}
+}
+
+@inproceedings{alghussin2026multilingual,
+  title         = {Multilingual Steering by Design: Multilingual Sparse Autoencoders and Principled Layer Selection},
+  author        = {{Al Ghussin}, Yusser and Gurgurov, Daniil and Baeumel, Tanja and {van Genabith}, Josef and Schramowski, Patrick and Ostermann, Simon},
+  booktitle     = {Proceedings of the 6th Workshop on Trustworthy {NLP} ({TrustNLP} 2026)},
+  pages         = {364--401},
+  year          = {2026},
+  month         = jul,
+  address       = {San Diego, California},
+  publisher     = {Association for Computational Linguistics},
+  doi           = {10.18653/v1/2026.trustnlp-main.24},
+  url           = {https://aclanthology.org/2026.trustnlp-main.24/},
+  eprint        = {2605.23036},
+  archiveprefix = {arXiv}
+}

@@ -47,7 +47,7 @@
 \renewcommand\subsection{\@startsection{subsection}{2}{\z@}{-1.1ex plus -.3ex}{0.4ex}{\normalsize\bfseries}}
 \renewcommand\maketitle{{\centering
   {\LARGE\bfseries \@title\par}\vspace{3pt}
-  {\large Mapping the blind spot across tasks and Indian languages\par}\vspace{4pt}
+  {\large Mapping the Task-Specific Blind Spots of Sparse Autoencoders\\in English and Indian Languages\par}\vspace{4pt}
   {\color{muted} PRISM: course project proposal\ifx\@author\@empty\else\;$\cdot$\; \@author\fi\;$\cdot$\; \@date\par}}
   \vspace{4pt}}
 \makeatother
@@ -55,32 +55,39 @@
 % The one-paragraph summary box.
 \newcommand{\inshort}[1]{\par\noindent\colorbox{paper}{\parbox{\dimexpr\linewidth-2\fboxsep}{\vspace{3pt}#1\vspace{3pt}}}\par}
 
-\title{What Sparse Autoencoders Miss Is Task-Specific}
+\title{Hidden in the Leftovers}
 \author{} % student: fill in your name
 \date{October 2026}
 
 \begin{document}
 \maketitle
 
-\inshort{\textbf{In short.} Researchers read a language model's internal signal with \emph{sparse autoencoders}
-(SAEs), which split it into a few readable features plus leftovers they cannot explain. We started from the popular
-idea that what a model keeps track of hides in those leftovers. A pilot study on gemma-2-2b says: mostly not, since
-the readable features carry 74\% to 100\% of it. But where an SAE \emph{does} miss something, the missing piece is
-\textbf{specific to the task}: a few hidden signals in the leftovers that signals from other tasks, ordinary text or
-a 16$\times$ bigger SAE do not recover. We propose to map this effect \textbf{across more tasks} and \textbf{across
-Indian languages}.}
+\inshort{\textbf{In one line:} \emph{sparse autoencoders look near-perfect on average, but they hide task-specific blind
+spots in their leftovers.} Sparse autoencoders (SAEs) are the main tool for reading what a language model computes,
+and we trust them because on ordinary text they keep 98\% to 99\% of the model's language ability. A popular worry
+says the model's real computation hides in what they cannot explain. Our pilot on gemma-2-2b finds that worry mostly
+wrong: the readable features carry 74\% to 100\% of what the model tracks. But on one task, object tracking, the same
+SAE misses 26\%; half of that is a single hidden signal that only that task recovers, and a 16$\times$ bigger SAE does
+not remove it. Average scores cannot see blind spots like this. We propose to map them across tasks and in Indian
+languages, and to find out what the hidden signal is.}
 
 %==============================================================================
 \section{What: the problem and our claim}
 
-Language models keep track of things while they read: a running total, which object is in which box, which value a
-variable holds. To see this internal state, researchers use \term{sparse autoencoders}
-(SAEs)~\citep{bricken2023monosemanticity,cunningham2023sparse}. An SAE rewrites the model's internal signal $x$ at
-one layer as $x = \hat{x} + \varepsilon$: $\hat{x}$ is built from a few human-readable \term{features}, and
-$\varepsilon$ is the \term{error}, the leftovers it cannot explain (sometimes called ``dark
-matter''~\citep{engels2025dark}).
+\textbf{Stakes.} Sparse autoencoders (SAEs) are the main tool for reading what a language model
+computes~\citep{bricken2023monosemanticity,cunningham2023sparse}. An SAE rewrites the model's internal signal $x$ at one
+layer as $x = \hat{x} + \varepsilon$: $\hat{x}$ is built from a few human-readable \term{features}, and $\varepsilon$
+is the \term{error}, the leftovers it cannot explain. SAEs are used to explain, audit and steer models, and they are
+trusted largely because of one average score: on ordinary text, the SAEs we study keep 98\% to 99\% of the model's
+language-modelling ability.
 
-\textbf{Our claim.} \emph{When an SAE misses part of what a model is tracking, the missing piece is task-specific}: it
+\textbf{The worry.} An average over ordinary text says little about any one computation. A popular idea goes further:
+the model's real computation lives in the leftovers, the SAE's ``dark matter''~\citep{engels2025dark}. If so,
+explanations built from SAE features miss exactly the part an audit cares about. We asked directly: when a model keeps
+track of something while reading (a running total, which object is in which box), does that information survive in
+the SAE's readable features, and if not, what is lost?
+
+\textbf{Our claim, from the pilot.} \emph{When an SAE misses part of what a model is tracking, the missing piece is task-specific}: it
 lives in a few directions of the error that belong to that task and are not recovered by signals learned from other
 tasks, from ordinary text, or by a much bigger SAE. The pilot (Section~\ref{sec:pilot}, Appendix~\ref{app:pilot})
 supports this for two of four tasks. This project tests how far it reaches.
@@ -92,10 +99,10 @@ supports this for two of four tasks. This project tests how far it reaches.
   \item \textbf{Across languages.} Do SAEs miss more in Hindi and Hinglish than in English, and is it the same
     missing piece?
 \end{enumerate}
-\textbf{Expected outcomes:} a map of where SAEs lose task information (which tasks, layers, SAE sizes and
-languages); a causal test of whether the lost piece is binding; to our knowledge, the first per-language causal audit
-of how much task information lies in SAE features versus SAE error; and a testing protocol that avoids three traps we
-found.
+\textbf{Expected outcomes:} a \textbf{blind-spot map} of where SAEs lose task information (tasks, layers, SAE
+sizes, languages); the \textbf{swap test} as a cheap check anyone can run before trusting an SAE explanation, with
+guards against three traps we found; a causal test of whether the lost piece is binding; and, to our knowledge, the
+first per-language causal audit of how much task information lies in SAE features versus SAE error.
 
 %==============================================================================
 \section{Why it matters}
@@ -112,7 +119,7 @@ languages~\citep{deng2025unveiling,brinkmann2025large}, but does not measure wha
 Users of Hindi and other Indian languages are the people for whom SAE-based safety claims are least tested.
 
 %==============================================================================
-\section{Pilot study: what we found so far}\label{sec:pilot}
+\section{What we have done: the pilot study}\label{sec:pilot}
 
 \textbf{Setup} (details in Appendix~\ref{app:pilot}). Model: gemma-2-2b~\citep{gemmateam2024gemma2}. SAEs: Gemma Scope,
 16k to 262k features. Four puzzles: a running sum, object tracking (``The key is in box B \dots{} The key moves to box C
@@ -142,7 +149,8 @@ and the hypothesis did not survive.
   \item \textbf{Readable features carry most of it.} Swapping $\hat{x}$ brings back 74\% to 100\% of the answer for
     the three tracking puzzles at every layer tested (4 to 20); the leftovers alone bring back 0\% to 13\%, except
     object tracking at layers 8 to 16 (Figure~\ref{fig:core}a).
-  \item \textbf{One clear gap.} For object tracking at layer 12 the SAE misses 26\% of the answer. A single direction
+  \item \textbf{Near-perfect on average, blind on one task.} For object tracking at layer 12 the same SAE that keeps
+    98\% to 99\% on ordinary text misses 26\% of the answer. A single direction
     taken from the leftovers brings it from 74\% to 88\%, about half the gap; a random direction adds nothing.
   \item \textbf{The gap is task-specific.} Directions learned from the same task recover 39\% to 53\% of it; directions
     from other tasks 0\% to 2\%, from ordinary web text 1\% (Figure~\ref{fig:core}b). The running sum shows the same
@@ -182,6 +190,10 @@ Priya ne ek book di. Book kisko mili? Answer:} $\to$ Rahul. Per language we meas
 ordinary text, from IndicCorp~v2~\citep{doddapaneni2023towards} and FineWeb-2~\citep{penedo2025fineweb2}; (M2) the gap
 and its specificity on the puzzles; (M3) whether the direction learned in English recovers the Hindi gap. A language
 the model cannot solve is reported as such. Full design in Appendix~\ref{app:multi}.
+
+\textbf{Deliverables.} (1) The blind-spot map: gap and specificity for every task, layer, SAE size and language
+tested. (2) The swap test as a reusable check, with the three traps built in. (3) An answer to whether the hidden
+signal is binding.
 
 \textbf{Resources and risks.} Everything runs on one 8\,GB laptop GPU with the tested pipeline from the pilot (the
 three main pilot runs took 6.3 hours). Risks: the model may fail the puzzles in Tamil or Bengali (we keep Hindi and

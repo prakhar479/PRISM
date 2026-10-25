@@ -510,6 +510,11 @@ def test_pilot_config_is_small_and_complete():
     (dict(blockers=[], h1={"add_chain": ("supported", 12, 0.9, 0.1)}, ioi_ok=False), "MAYBE"),   # SAE lossy everywhere
     (dict(blockers=[], h1={"add_chain": ("weak", 12, 0.4, 0.3)}, ioi_ok=True), "MAYBE"),
     (dict(blockers=[], h1={"add_chain": ("rejected", 12, 0.1, 0.8)}, ioi_ok=True), "NO-GO"),
+    # SAE carries most of the state but a rank-1 error direction closes half of a 0.25 gap: refine, not reject
+    (dict(blockers=[], h1={"entity_track": ("rejected", 12, 0.61, 0.75)}, ioi_ok=True,
+          h3={"entity_track": (1, 12, 0.25, 0.51)}), "REFINE"),
+    (dict(blockers=[], h1={"entity_track": ("rejected", 12, 0.61, 0.75)}, ioi_ok=True,
+          h3={"entity_track": (32, 12, 0.25, 0.51)}), "NO-GO"),                # high-rank residue: not a finding
     (dict(blockers=[], h1={}, ioi_ok=None), "BLOCKED"),
 ])
 def test_decide_viability_verdict(facts, expected):
@@ -518,5 +523,5 @@ def test_decide_viability_verdict(facts, expected):
     sys.path.insert(0, "scripts")
     decide = importlib.import_module("decide")
     decide.FACTS.clear()
-    decide.FACTS.update(dict(h2={}, h3={}, **facts))
+    decide.FACTS.update({"h2": {}, "h3": {}, **facts})
     assert f"**{expected}**" in decide.verdict(mock=False)[1]

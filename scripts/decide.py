@@ -107,19 +107,28 @@ def check_h1(root: Path) -> None:
             FACTS["blockers"].append(f"clean-patch sanity {m:.2f} < 0.9 (patching broken)")
         say("OK" if m > 0.9 else "FAIL", f"sanity: full clean patch (from_diff) recovers NLDR {m:.2f} (should be ~1)",
             "" if m > 0.9 else "patching is broken: do NOT interpret anything; check hook name/dtype in run_patched")
+    # judge on from_diff rows (patch every token from the first differing one): only there does the full clean patch
+    # restore the answer at every layer. Layers where clean_full < 0.8 cannot show where the state is.
+    pos = "from_diff" if pick(rows, positions="from_diff") else "last"
+    OUT.append(f"(judged on `{pos}` patching, at layers where the full clean patch restores >= 0.8)")
     for t in ALGO + ["ioi_control"]:
         best = None
         for L in sorted({r["layer"] for r in rows}):
-            e, s = pick(rows, task=t, layer=L, width="16k", intervention="error_only"), pick(rows, task=t, layer=L, width="16k", intervention="sae_only")
-            if e and s:
+            q = dict(task=t, layer=L, width="16k", positions=pos)
+            e, s, cf, nz = (pick(rows, intervention=iv, **q) for iv in ("error_only", "sae_only", "clean_full", "noise_control"))
+            if e and s and (not cf or cf[0]["nldr"] >= 0.8 or info.get("mock")):
                 score = (s[0]["nldr"] - e[0]["nldr"]) if t == "ioi_control" else (e[0]["nldr"] - s[0]["nldr"])
                 if best is None or score > best[0]:
-                    best = (score, L, e[0], s[0])
+                    best = (score, L, e[0], s[0], nz[0]["nldr"] if nz else float("nan"))
         if best is None:
             continue
-        _, L, e, s = best
+        _, L, e, s, nz = best
         sep = e.get("nldr_lo", e["nldr"]) > s.get("nldr_hi", s["nldr"])
-        txt = f"`{t}` best layer L{L}: error_only {e['nldr']:.2f} vs sae_only {s['nldr']:.2f} (CIs {'separate' if sep else 'overlap'})"
+        sae_higher = s.get("nldr_lo", s["nldr"]) > e.get("nldr_hi", e["nldr"])
+        ci = "error_only clearly higher" if sep else "sae_only clearly higher" if sae_higher else "CIs overlap"
+        txt = (f"`{t}` most error-favourable layer L{L}: error_only {e['nldr']:.2f} vs sae_only {s['nldr']:.2f} "
+               f"({ci}); noise_control {nz:.2f} "
+               f"(clean error adds {e['nldr'] - nz:+.2f} over erasing the corrupt error)")
         if t == "ioi_control":
             ok = s["nldr"] > e["nldr"]
             FACTS["ioi_ok"] = ok
@@ -128,13 +137,14 @@ def check_h1(root: Path) -> None:
         elif sep and e["nldr"] > 0.5:
             FACTS["h1"][t] = ("supported", L, e["nldr"], s["nldr"])
             say("OK", "H1 supported: " + txt, "go to H2/H3; write up the layer curve (fig1, fig6)")
-        elif e["nldr"] > s["nldr"]:
+        elif e["nldr"] > s["nldr"] or (s.get("nldr_lo", s["nldr"]) <= e.get("nldr_hi", e["nldr"])):
             FACTS["h1"][t] = ("weak", L, e["nldr"], s["nldr"])
             say("WARN", "H1 weak: " + txt, "more data: rerun tier3 (n=1000/500) for tighter CIs")
         else:
             FACTS["h1"][t] = ("rejected", L, e["nldr"], s["nldr"])
             say("FAIL", "H1 rejected: " + txt, "the SAE reconstruction carries this state; report as a negative result")
-        same, diff = pick(rows, task=t, layer=L, width="16k", intervention="error_resample_same_state"), pick(rows, task=t, layer=L, width="16k", intervention="error_resample_diff_state")
+        same, diff = (pick(rows, task=t, layer=L, width="16k", intervention=iv, positions=pos)
+                      for iv in ("error_resample_same_state", "error_resample_diff_state"))
         if same and diff and t != "ioi_control":
             ok = same[0]["nldr"] > diff[0]["nldr"] + 0.2
             say("OK" if ok else "WARN", f"`{t}` L{L}: error from another prompt with the SAME state {same[0]['nldr']:.2f} vs DIFFERENT state {diff[0]['nldr']:.2f}",
@@ -162,7 +172,14 @@ def check_h2(root: Path) -> None:
                f"prompt tokens only {sf.get(key, float('nan')):.2f} (R^2 eps {e.get(r2, float('nan')):.2f} vs tokens "
                f"{sf.get(r2, float('nan')):.2f}), eps selectivity {e.get('selectivity', float('nan')):.2f}")
         FACTS["h2"][t] = "clean" if beats_xhat and beats_tokens else "confounded" if beats_xhat else "no"
-        if beats_xhat and beats_tokens:
+        e1 = load(root / CORE / "metrics" / "exp1_results.json") or []
+        cf_last = pick(e1, task=t, layer=12, width="16k", intervention="clean_full", positions="last")
+        if beats_xhat and cf_last and cf_last[0]["nldr"] < 0.5:
+            FACTS["h2"][t] = "decodable, not used here"
+            say("WARN", txt, f"the probes read the final token, but patching the final token at L12 restores only "
+                f"{cf_last[0]['nldr']:.2f}: the state is linearly present in eps there but not yet causally used "
+                f"(the model reads it from earlier positions). Interesting, but not evidence for H1")
+        elif beats_xhat and beats_tokens:
             say("OK", txt)
         elif beats_xhat:
             say("WARN", txt, "the prompt's tokens alone decode the state as well: the probe cannot show the model "
@@ -178,20 +195,39 @@ def check_h3(root: Path) -> None:
         say("FAIL", "no exp3 results", f"check {CORE} failures")
         return
     rows = e3["rows"]
-    for t in ALGO:
-        ref = pick(rows, task=t, layer=12, width="16k", method="reference")
-        sup = sorted(pick(rows, task=t, layer=12, width="16k", method="supervised_centroid_svd", kind="hybrid_patch"), key=lambda r: r["rank"])
-        rnd = {r["rank"]: r["nldr"] for r in pick(rows, task=t, layer=12, width="16k", method="random_subspace", kind="hybrid_patch")}
-        if not ref or not sup:
+    # hybrid patch x_hat_clean + U_r U_r^T eps_clean: rank 0 = sae_only. Score = share of the SAE's gap
+    # (1 - sae_only) that the rank-r error subspace closes, against a random rank-r subspace.
+    OUT.append("(score: share of the gap 1 - sae_only closed by a rank-r error subspace; random subspace as the null)")
+    pos = "from_diff" if pick(rows, positions="from_diff") else "last"
+    for t in [t for t in ALGO + ["ioi_control"] if any(r["task"] == t for r in rows)]:
+        best = None
+        for L in sorted({r["layer"] for r in rows if r["task"] == t}):
+            q = dict(task=t, layer=L, width="16k", kind="hybrid_patch", positions=pos)
+            rnd = {r["rank"]: r["nldr"] for r in pick(rows, method="random_subspace", **q)}
+            for m in ("supervised_centroid_svd", "unsupervised_svd"):
+                cur = {r["rank"]: r["nldr"] for r in pick(rows, method=m, **q)}
+                if 0 not in cur:
+                    continue
+                gap = 1.0 - cur[0]
+                if gap < 0.05:
+                    continue
+                for k in sorted(cur):
+                    closed, rclosed = (cur[k] - cur[0]) / gap, (rnd.get(k, cur[0]) - cur[0]) / gap
+                    if k > 0 and closed >= 0.5 and rclosed < 0.2:
+                        if best is None or (k, -gap) < (best[0], -best[2]):
+                            best = (k, L, gap, closed, rclosed, m)
+                        break
+        if best is None:
+            FACTS["h3"][t] = None
+            say("INFO", f"`{t}`: no layer where a rank <= 64 error subspace closes half of a >= 0.05 SAE gap",
+                "the SAE (x_hat) already carries the causal state here; nothing low-rank is missing")
             continue
-        hit = next((r for r in sup if r["nldr"] >= 0.9 * ref[0]["nldr"]), None)
-        FACTS["h3"][t] = hit["rank"] if hit and rnd.get(hit["rank"], 0) < 0.5 * hit["nldr"] else None
-        if hit and rnd.get(hit["rank"], 0) < 0.5 * hit["nldr"]:
-            say("OK", f"`{t}` L12: rank {hit['rank']} recovers {hit['nldr']:.2f} (90% of full error {ref[0]['nldr']:.2f}); random rank-{hit['rank']}: {rnd.get(hit['rank'], float('nan')):.2f}",
-                "H3 supported; check generic_text_svd in tier3 to see whether the subspace is task-specific")
-        else:
-            say("WARN", f"`{t}` L12: no rank <= {sup[-1]['rank']} reaches 90% of full error, or random does as well",
-                f"the state is spread out (high-rank) at this layer; look at other layers in {CORE}/SUMMARY.md")
+        k, L, gap, closed, rclosed, m = best
+        FACTS["h3"][t] = (k, L, gap, closed)
+        say("OK", f"`{t}` L{L}: the SAE misses {gap:.2f} of the effect; a rank-{k} error subspace ({m}) closes "
+            f"{closed:.0%} of that gap (random rank-{k}: {rclosed:.0%})",
+            "a small, low-rank, task-relevant residue: test width scaling (does it shrink with 65k-1m?) and whether "
+            "it is task-specific (generic_text_svd / transfer)")
     g = load(root / "tier3_expansions" / "metrics" / "exp3_results.json")
     if g and g["rows"]:
         for t in ALGO:
@@ -210,13 +246,17 @@ def check_width(root: Path) -> None:
         say("INFO", "no width-sweep results (tier not run or deadline)")
         return
     from src.models.sae_loader import parse_width
-    for t in ALGO:
-        pts = sorted([(parse_width(r["width"]), r["width"], r["nldr"]) for r in pick(rows, task=t, intervention="error_only")])
+    pos = "from_diff" if pick(rows, positions="from_diff") else "last"
+    for t in ALGO + ["ioi_control"]:
+        # the SAE's causal gap 1 - sae_only at each width: a blind spot stays, a capacity limit shrinks
+        pts = sorted((parse_width(r["width"]), r["width"], 1.0 - r["nldr"])
+                     for r in pick(rows, task=t, intervention="sae_only", positions=pos))
         if len(pts) >= 3:
-            drop = pts[0][2] - pts[-1][2]
-            say("OK" if drop < 0.2 else "WARN", f"`{t}`: error_only NLDR {pts[0][1]} {pts[0][2]:.2f} -> {pts[-1][1]} {pts[-1][2]:.2f}",
-                "state stays dark as width grows (supports 'SAEs systematically miss it')" if drop < 0.2 else
-                "wider SAEs absorb the state: the effect is a capacity limit, not a blind spot")
+            curve = ", ".join(f"{w} {g:.2f}" for _, w, g in pts)
+            stays = pts[-1][2] >= 0.1 and pts[-1][2] >= 0.6 * pts[0][2]
+            say("OK" if stays else "INFO", f"`{t}`: SAE gap (1 - sae_only, {pos}) by width: {curve}",
+                "the missed state persists at the widest SAE: a systematic blind spot (the refined claim holds)" if stays
+                else "wider SAEs absorb it: a capacity limit, not a blind spot (the refined claim fails here)")
 
 
 def verdict(mock: bool) -> list:
@@ -231,25 +271,38 @@ def verdict(mock: bool) -> list:
         v, why = "GO", (f"the SAE error carries the state for {', '.join(sup)} (error_only > sae_only, CIs separate)"
                         + ("" if FACTS["ioi_ok"] is None else "; the IOI control sits in the SAE features as expected"))
         nxt = "run the full schedule: ./run.sh start (H1 at 6 layers x 2 widths, width scaling to 1m, larger n)"
-    elif sup or weak:
+    elif sup or [t for t in weak if h1[t][2] > h1[t][3]]:
         v = "MAYBE"
-        why = (f"error_only beats sae_only for {', '.join(sup + weak)} but " +
+        why = (f"error_only beats sae_only for {', '.join(sup + [t for t in weak if h1[t][2] > h1[t][3]])} but " +
                ("the CIs overlap" if not sup else "the IOI control also lives in the error (the SAE is lossy in general)"))
         nxt = ("tighten the CIs before committing a night: ./run.sh start --tiers tier1_core --hours 2 "
                "(400/200 pairs, 6 layers x {16k, 65k})")
+    elif h1 and any(FACTS["h3"].get(t) and FACTS["h3"][t][2] >= 0.1 and FACTS["h3"][t][0] <= 8 for t in h1):
+        res = [f"{t} (L{FACTS['h3'][t][1]}: gap {FACTS['h3'][t][2]:.2f}, rank {FACTS['h3'][t][0]} closes {FACTS['h3'][t][3]:.0%})"
+               for t in h1 if FACTS["h3"].get(t) and FACTS["h3"][t][2] >= 0.1 and FACTS["h3"][t][0] <= 8]
+        v = "REFINE"
+        why = ("the strong H1 is rejected (the SAE reconstruction carries most of the causal state), but the SAE misses "
+               "a small low-rank, task-relevant part: " + "; ".join(res))
+        ioi = FACTS["h3"].get("ioi_control")
+        if ioi:
+            why += (f". Caveat: the IOI control shows a residue too (L{ioi[1]}: gap {ioi[2]:.2f}, rank {ioi[0]}), so this "
+                    "is partly a general SAE loss, not specific to state tracking")
+        nxt = ("reframe as 'how much causal state do SAEs miss, where, and does it shrink with width': run width scaling "
+               "on those layers (./run.sh start --tiers tier2_widths) with from_diff patching")
     elif h1:
-        v, why = "NO-GO", "sae_only >= error_only for every task: the SAE reconstruction carries the state"
-        nxt = "a negative H1 result; before giving up, check other layers in the pilot SUMMARY.md and a wider SAE (65k)"
+        v, why = "NO-GO", "sae_only >= error_only for every task and no low-rank error residue: the SAE carries the state"
+        nxt = "a negative H1 result; before giving up, check a wider SAE (65k) and other layers in the SUMMARY.md"
     else:
         v, why, nxt = "BLOCKED", "no exp1 results to judge", "see '0. Did the run work?'"
-    icon = {"GO": "🟢", "MAYBE": "🟡", "NO-GO": "🔴", "BLOCKED": "⛔"}[v]
+    icon = {"GO": "🟢", "MAYBE": "🟡", "REFINE": "🔵", "NO-GO": "🔴", "BLOCKED": "⛔"}[v]
     L = ["", f"## Verdict: {icon} **{v}**" + ("  (mock run: plumbing check only, not a result)" if mock else ""), "",
          f"- Why: {why}", f"- Next: {nxt}"]
     rows = [f"| `{t}` | {s} | L{L_} | {e:.2f} | {x:.2f} | {FACTS['h2'].get(t, '-')} | "
-            f"{'-' if FACTS['h3'].get(t) is None else 'rank ' + str(FACTS['h3'][t])} |" for t, (s, L_, e, x) in h1.items()]
+            f"{'-' if not FACTS['h3'].get(t) else 'L%d: rank %d closes %.0f%% of a %.2f gap' % (FACTS['h3'][t][1], FACTS['h3'][t][0], 100 * FACTS['h3'][t][3], FACTS['h3'][t][2])} |"
+            for t, (s, L_, e, x) in h1.items()]
     if rows:
-        L += ["", "| task | H1 | best layer | error_only | sae_only | H2 probe (clean = beats x_hat and prompt tokens) | "
-              "H3 (smallest rank with 90% repair) |", "|---|---|---|---|---|---|---|"] + rows
+        L += ["", "| task | H1 | layer | error_only | sae_only | H2 probe (clean = beats x_hat and prompt tokens) | "
+              "H3 (error subspace vs the SAE gap) |", "|---|---|---|---|---|---|---|"] + rows
     return L
 
 
@@ -264,8 +317,7 @@ def main() -> int:
         root = cands[-1]
     else:
         root = Path(sys.argv[1])
-    if not (root / "tier1_core").exists() and (root / "pilot").exists():
-        CORE = "pilot"
+    CORE = next((t for t in ("tier1_core", "pilot", "refine_layers") if (root / t).exists()), "tier1_core")
     OUT.append(f"# Decisions for `{root.name}`")
     for fn in (check_setup, check_h1, check_h2, check_h3, check_width):
         try:

@@ -7,7 +7,7 @@ layers: [12]
 widths: ["16k", "32k", "65k", "131k", "262k", "524k", "1m"]
 geometry_layers: [12]
 geometry_widths: ["16k", "32k", "65k", "131k", "262k", "524k", "1m"]
-exp1_positions: [last]
-exp3_positions: [last]
+exp1_positions: [from_diff]       # last-token patching restores ~nothing at L12 (pilot: clean_full 0.00-0.45)
+exp3_positions: [from_diff]
 exp3_methods: [unsupervised_svd, supervised_centroid_svd, random_subspace]
 latent_probe_cols: 4096

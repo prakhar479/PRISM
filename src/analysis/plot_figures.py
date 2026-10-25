@@ -62,19 +62,23 @@ def _width_key(w: str) -> int:
 
 
 def fig1_causal_split(rows: List[dict], out_dir: Path) -> None:
-    rows = _pos(rows, "last")
+    # from_diff (every token from the first differing one) is the valid test at every layer: patching only the last
+    # token at early/middle layers misses the state, which still sits at earlier positions (clean_full ~ 0 there)
+    mode = "from_diff" if _pos(rows, "from_diff") else "last"
+    rows = _pos(rows, mode)
     if not rows:
         return
     tasks = _tasks(rows)
     fig, axes = plt.subplots(1, len(tasks), figsize=(3.0 * len(tasks), 3.0), sharey=True, squeeze=False)
     for ax, task in zip(axes[0], tasks):
-        for iv in ("sae_only", "error_only", "noise_control"):
+        for iv in ("clean_full", "sae_only", "error_only", "noise_control"):
             for w in sorted({r["width"] for r in rows}, key=_width_key):
                 sel = sorted([r for r in rows if r["task"] == task and r["intervention"] == iv and r["width"] == w],
                              key=lambda r: r["layer"])
                 if sel:
                     xs = [r["layer"] for r in sel]
-                    ax.plot(xs, [r["nldr"] for r in sel], color=SERIES[iv], ls=WIDTH_LS.get(w, "-"), marker="o")
+                    ax.plot(xs, [r["nldr"] for r in sel], color=SERIES[iv], ls=WIDTH_LS.get(w, "-"), marker="o",
+                            lw=1.0 if iv == "clean_full" else 2.0, ms=3 if iv == "clean_full" else 6)
                     if "nldr_lo" in sel[0]:
                         ax.fill_between(xs, [r["nldr_lo"] for r in sel], [r["nldr_hi"] for r in sel],
                                         color=SERIES[iv], alpha=0.12, lw=0)
@@ -83,10 +87,11 @@ def fig1_causal_split(rows: List[dict], out_dir: Path) -> None:
         ax.set_title(TASK_TITLE[task])
         ax.set_xlabel("layer")
     axes[0][0].set_ylabel("NLDR")
-    handles = [plt.Line2D([], [], color=SERIES[k], marker="o", label=k) for k in ("sae_only", "error_only", "noise_control")]
+    handles = [plt.Line2D([], [], color=SERIES[k], marker="o", label=k)
+               for k in ("clean_full", "sae_only", "error_only", "noise_control")]
     handles += [plt.Line2D([], [], color=INK2, ls=WIDTH_LS.get(w, "-"), label=f"width {w}") for w in sorted({r["width"] for r in rows})]
     fig.legend(handles=handles, loc="lower center", ncol=len(handles), bbox_to_anchor=(0.5, -0.14))
-    fig.suptitle("Causal split: which part of the residual carries the state?", y=1.02)
+    fig.suptitle(f"Causal split: which part of the residual carries the state? (patch: {mode})", y=1.02)
     _save(fig, out_dir, "fig1_causal_split")
 
 

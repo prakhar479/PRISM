@@ -43,6 +43,19 @@ The per-task table under the verdict also shows H2 (does ε decode the state bet
 tokens alone) and H3 (smallest rank whose error subspace restores 90%, against a random subspace).
 `./run.sh resume` on a pilot folder continues the pilot only.
 
+**The paper runs** (`./run.sh paper --foreground`, ~3-4 h on 8 GB, an estimate; results in `results/paper_<time>/`).
+The pilot rejected the original claim (the SAE reconstruction carries 75-100% of the causal state), so the paper is
+*"Where do SAEs lose task state? A causal audit"*. Three tiers, most decisive first:
+
+| Tier | Question | Read it in DECISIONS.md |
+|---|---|---|
+| `paper_residue` | Where does the SAE miss part of the state, and is that piece low-rank and task-specific? (L10-18; error subspace vs random, ordinary-text and other-task subspaces) | H3 |
+| `paper_widths` | Does the missed piece survive in wider SAEs (16k to 262k at L12)? Stays >= 0.10: a blind spot. Shrinks: capacity | Width scaling |
+| `paper_audit` | Full-size H1/H2 and the three pitfalls: last-token vs from_diff patching, probes vs prompt tokens, readable-but-unused state | H1, H2 |
+
+All three cap the token budget at 2048 and leave out the 1m SAE (needs ~9.4 GB free RAM). A CUDA out-of-memory
+error now halves the token budget and retries (up to 3 times) instead of failing the step.
+
 **After about 10 minutes, check that tasks survived:**
 ```bash
 ./run.sh status

@@ -31,8 +31,11 @@ while [[ $# -gt 0 ]]; do
 done
 
 # resuming a pilot run continues the pilot, not the full schedule
-if [[ $RESUME -eq 1 && "$(basename "$OUT")" == pilot_* && "$TIERS" == "tier1_core,tier2_layers,tier2_widths,tier3_expansions" ]]; then
-  TIERS="pilot"; PREFLIGHT_ARGS=(--n-probe 48 --shots 2,8)
+if [[ $RESUME -eq 1 && "$TIERS" == "tier1_core,tier2_layers,tier2_widths,tier3_expansions" ]]; then
+  case "$(basename "$OUT")" in
+    pilot_*) TIERS="pilot"; PREFLIGHT_ARGS=(--n-probe 48 --shots 2,8) ;;
+    paper_*) TIERS="paper_residue,paper_widths,paper_audit"; PREFLIGHT_ARGS=(--n-probe 48 --shots 2,8) ;;
+  esac
 fi
 
 PY="${PYTHON:-python}"

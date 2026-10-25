@@ -19,7 +19,9 @@ from src.data.synthetic_tasks import LEGACY_TASKS, STATE_TASKS
 
 ALGO = STATE_TASKS + LEGACY_TASKS     # tasks absent from a run are skipped
 OUT: list = []
-CORE = "tier1_core"                   # the tier H1-H3 are judged on ("pilot" for a pilot run)
+CORE = "tier1_core"                   # the tier H1/H2 are judged on ("pilot", "paper_audit", ...)
+RESIDUE = "tier1_core"                # the tier H3 (the low-rank residue) is judged on
+WIDTHS = "tier2_widths"               # the width-scaling tier
 FACTS = {"blockers": [], "h1": {}, "ioi_ok": None, "h2": {}, "h3": {}}
 
 
@@ -190,9 +192,9 @@ def check_h2(root: Path) -> None:
 
 def check_h3(root: Path) -> None:
     OUT.append("\n## H3. Does a small error subspace repair the state? (exp3)")
-    e3 = load(root / CORE / "metrics" / "exp3_results.json")
+    e3 = load(root / RESIDUE / "metrics" / "exp3_results.json")
     if not e3 or not e3["rows"]:
-        say("FAIL", "no exp3 results", f"check {CORE} failures")
+        say("FAIL", "no exp3 results", f"check {RESIDUE} failures")
         return
     rows = e3["rows"]
     # hybrid patch x_hat_clean + U_r U_r^T eps_clean: rank 0 = sae_only. Score = share of the SAE's gap
@@ -240,8 +242,8 @@ def check_h3(root: Path) -> None:
 
 
 def check_width(root: Path) -> None:
-    OUT.append("\n## Width scaling (tier2_widths)")
-    rows = load(root / "tier2_widths" / "metrics" / "exp1_results.json")
+    OUT.append(f"\n## Width scaling ({WIDTHS})")
+    rows = load(root / WIDTHS / "metrics" / "exp1_results.json")
     if not rows:
         say("INFO", "no width-sweep results (tier not run or deadline)")
         return
@@ -307,9 +309,9 @@ def verdict(mock: bool) -> list:
 
 
 def main() -> int:
-    global CORE
+    global CORE, RESIDUE, WIDTHS
     if len(sys.argv) < 2:
-        cands = sorted((p for p in Path("results").glob("*_2*") if p.name.split("_")[0] in ("overnight", "pilot")
+        cands = sorted((p for p in Path("results").glob("*_2*") if p.name.split("_")[0] in ("overnight", "pilot", "paper")
                         and not p.name.endswith("_mock")), key=lambda p: p.name.split("_", 1)[1])
         if not cands:
             print("usage: decide.py results/overnight_XXXX | results/pilot_XXXX")
@@ -317,7 +319,10 @@ def main() -> int:
         root = cands[-1]
     else:
         root = Path(sys.argv[1])
-    CORE = next((t for t in ("tier1_core", "pilot", "refine_layers") if (root / t).exists()), "tier1_core")
+    CORE = next((t for t in ("tier1_core", "pilot", "paper_audit", "paper_residue", "refine_layers")
+                 if (root / t).exists()), "tier1_core")
+    RESIDUE = next((t for t in ("paper_residue", "refine_layers") if (root / t).exists()), CORE)
+    WIDTHS = next((t for t in ("paper_widths", "tier2_widths") if (root / t).exists()), "tier2_widths")
     OUT.append(f"# Decisions for `{root.name}`")
     for fn in (check_setup, check_h1, check_h2, check_h3, check_width):
         try:

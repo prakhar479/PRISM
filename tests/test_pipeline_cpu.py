@@ -525,3 +525,40 @@ def test_decide_viability_verdict(facts, expected):
     decide.FACTS.clear()
     decide.FACTS.update({"h2": {}, "h3": {}, **facts})
     assert f"**{expected}**" in decide.verdict(mock=False)[1]
+
+
+def test_oom_retry_halves_the_token_budget():
+    from src.data import synthetic_tasks as st
+    from src.models import runtime
+    old = (runtime._STATE["max_batch_tokens"], st.MAX_BATCH_TOKENS)
+    calls = []
+
+    def flaky():
+        calls.append(st.MAX_BATCH_TOKENS)
+        if len(calls) < 3:
+            raise torch.cuda.OutOfMemoryError("CUDA out of memory. Tried to allocate 1.10 GiB")
+        return "ok"
+    try:
+        runtime._STATE["max_batch_tokens"] = st.MAX_BATCH_TOKENS = 4096
+        assert runtime.oom_retry(flaky, "test") == "ok" and calls == [4096, 2048, 1024]
+        with pytest.raises(ValueError):                          # non-OOM errors are never retried
+            runtime.oom_retry(lambda: (_ for _ in ()).throw(ValueError("bug")))
+        runtime._STATE["max_batch_tokens"] = st.MAX_BATCH_TOKENS = 256
+        with pytest.raises(torch.cuda.OutOfMemoryError):          # at the floor: give up, the unit records it
+            runtime.oom_retry(lambda: (_ for _ in ()).throw(torch.cuda.OutOfMemoryError("oom")))
+    finally:
+        runtime._STATE["max_batch_tokens"], st.MAX_BATCH_TOKENS = old
+
+
+@pytest.mark.parametrize("name", ["paper_residue", "paper_widths", "paper_audit"])
+def test_paper_configs_fit_8gb_and_answer_their_question(name):
+    c = load_config(f"configs/{name}.yaml")
+    assert c["runtime"]["max_batch_tokens"] <= 2048 and c["runtime"]["offload_embed"] == "auto"   # merged, not replaced
+    assert "1m" not in c["widths"] and "from_diff" in c["exp1_positions"]
+    assert "random_subspace" in c["exp3_methods"] and "ioi_control" in c["tasks"]
+    if name == "paper_residue":
+        assert {"generic_text_svd", "transfer"} <= set(c["exp3_methods"]) and 12 in c["layers"]
+    if name == "paper_widths":
+        assert c["layers"] == [12] and len(c["widths"]) >= 4
+    if name == "paper_audit":
+        assert {"last", "from_diff"} <= set(c["exp1_positions"]) and len(c["tasks"]) == 4

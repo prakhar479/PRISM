@@ -1,0 +1,25 @@
+# Paper tier 2/3 (~1-1.5 h on 8 GB, estimate): does the residue survive in wider SAEs? Layer 12, every width
+# already cached up to 262k (>= 131k are streamed from CPU RAM automatically). 1m is left out by default: it
+# needs ~9.4 GB of free RAM next to the model; add it to widths/geometry_widths on a machine with >= 24 GB RAM.
+# Reading: a gap (1 - sae_only) that stays >= 0.10 at 262k = a blind spot; one that shrinks = capacity.
+base: default_config.yaml
+run_name: paper_widths
+tasks: [entity_track, add_chain, ioi_control]
+n_train: 300
+n_test: 150
+layers: [12]
+widths: ["16k", "32k", "65k", "131k", "262k"]
+geometry_layers: [12]
+geometry_widths: ["16k", "32k", "65k", "131k", "262k"]
+exp1_positions: [from_diff]
+exp3_positions: [from_diff]
+exp1_extras: [controls]
+exp3_methods: [unsupervised_svd, supervised_centroid_svd, random_subspace]
+ranks: [0, 1, 2, 4, 8, 16, 32]
+random_seeds: 2
+noise_seeds: 1
+bootstrap: 1000
+latent_probe: false                # probing 262k latents is slow and not needed for the width question
+sae_fidelity: true
+generic_text: {dataset: NeelNanda/pile-10k, n_docs: 40, seq_len: 128, skip_positions: 4, fidelity_batches: 2}
+runtime: {max_batch_tokens: 2048}

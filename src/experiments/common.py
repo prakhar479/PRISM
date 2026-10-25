@@ -375,8 +375,9 @@ class RunContext:
         self.data = {}
         for task in self.cfg["tasks"]:
             t0 = time.time()
-            d = prepare_task(task, self.model, self.tok, self.cfg, self.mock, layers, self.device,
-                             cache_spans=self.cache_spans)
+            d = runtime.oom_retry(lambda: prepare_task(task, self.model, self.tok, self.cfg, self.mock, layers,
+                                                       self.device, cache_spans=self.cache_spans),
+                                  f"prepare {task}")
             info = {"n_train": len(d["train"]) if d else 0, "n_test": len(d["test"]) if d else 0,
                     "skipped": not d, "seconds": round(time.time() - t0, 1),
                     **{k: task_cfg(self.cfg, task).get(k) for k in ("n_shots", "answer_format", "filter_mode")}}
@@ -473,7 +474,7 @@ class RunContext:
         if torch.cuda.is_available():
             torch.cuda.reset_peak_memory_stats()
         try:
-            rows = fn()
+            rows = runtime.oom_retry(fn, f"unit {exp}/{key}")   # OOM: halve the token budget, retry
         except Exception as e:  # noqa: BLE001 - one failed unit must not kill an overnight run
             log.error("unit %s/%s FAILED: %s: %s", exp, key, type(e).__name__, e)
             self.record_failure(exp, key, e)

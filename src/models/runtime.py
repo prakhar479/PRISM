@@ -88,6 +88,45 @@ def setup_runtime(cfg: dict, model, device: torch.device) -> dict:
     return plan
 
 
+def is_oom(e: BaseException) -> bool:
+    """CUDA out-of-memory, including the cuBLAS / cuDNN allocation failures that surface as RuntimeError."""
+    if isinstance(e, torch.cuda.OutOfMemoryError):
+        return True
+    msg = str(e)
+    return isinstance(e, RuntimeError) and ("out of memory" in msg or "CUBLAS_STATUS_ALLOC_FAILED" in msg)
+
+
+def shrink_batches(floor: int = 256) -> bool:
+    """Halve the per-forward token budget (after a CUDA OOM). False once it is already at the floor."""
+    cur = _STATE["max_batch_tokens"]
+    if cur <= floor:
+        return False
+    new = max(floor, cur // 2)
+    _STATE["max_batch_tokens"] = new
+    from src.data import synthetic_tasks
+    synthetic_tasks.MAX_BATCH_TOKENS = new
+    log.warning("CUDA out of memory: max_batch_tokens %d -> %d, retrying", cur, new)
+    return True
+
+
+def oom_retry(fn: Callable, what: str = "", tries: int = 3):
+    """Run fn(); on a CUDA OOM free the cache, halve the token budget and retry (the smaller budget is kept)."""
+    import gc
+
+    for attempt in range(tries + 1):
+        try:
+            return fn()
+        except Exception as e:  # noqa: BLE001 - re-raised unless it is an OOM we can back off from
+            if not is_oom(e) or attempt == tries:
+                raise
+            gc.collect()
+            if torch.cuda.is_available():
+                torch.cuda.empty_cache()
+            if not shrink_batches():
+                raise
+            log.warning("retrying %s after OOM (attempt %d/%d)", what or "step", attempt + 1, tries)
+
+
 def cpu_workers() -> int:
     return _STATE["cpu_workers"]
 

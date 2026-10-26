@@ -68,8 +68,8 @@
 
 \title{Hidden in the Leftovers}
 \subtitle{Task-specific reconstruction gaps of sparse autoencoders, in English and Indian languages}
-\author{[Student name]}   % student: fill in
-\institute{[Course name]} % student: fill in
+\author{Prakhar Singhal (2022111025) \and Raveesh Vyas (2022114007)\\[2pt]{\small Team IpCp-{}-}}
+\institute{Mechanistic Interpretability of Language Models (CL3.412)}
 \date{October 2026}
 
 \begin{document}
@@ -182,8 +182,7 @@
   \includegraphics{s_split.pdf}
 
   \vspace{6pt}
-  \aside{Error alone: 0--13\%, except object tracking at layers 8--16, where noise in place of $\varepsilon$ gives a
-    similar value (dashed).}
+  \aside{Error alone: 0--13\%; object tracking's bump matches a noise control (dashed).}
 \end{frame}
 
 %------------------------------------------------------------------------------
@@ -192,7 +191,7 @@
   \includegraphics{s_gap.pdf}
 
   \vspace{6pt}
-  \define{Error direction:}{top principal direction of $\varepsilon$ on training pairs; evaluated on held-out pairs.}
+  \aside{+14 points = 52\% of the gap.} \define{Error direction:}{top principal direction of $\varepsilon$.}
 \end{frame}
 
 %------------------------------------------------------------------------------
@@ -207,10 +206,10 @@
 %------------------------------------------------------------------------------
 \begin{frame}{\stage{Result 4}A 16$\times$ wider SAE reduces the gap from 26\% to 15\%}
   \centering
-  \includegraphics[height=0.66\textheight]{s_width.pdf}
+  \includegraphics{s_width.pdf}
 
   \vspace{6pt}
-  \aside{One error direction still closes 51--69\% of what remains. Width and sparsity are confounded (B4).}
+  \aside{One error direction closes 51--69\% of the remainder; width and sparsity confounded.}
 \end{frame}
 
 %============================================================================== What
@@ -346,7 +345,9 @@
   \vfill
   \centering
   {\Large\bfseries Questions}\\[14pt]
-  \aside{[Student name] \;$\cdot$\; [email]}
+  \aside{Prakhar Singhal \;$\cdot$\; \texttt{prakhar.singhal@research.iiit.ac.in}}\\[3pt]
+  \aside{Raveesh Vyas \;$\cdot$\; \texttt{raveesh.vyas@research.iiit.ac.in}}\\[8pt]
+  \aside{Team IpCp-{}- \;$\cdot$\; CL3.412}
   \vfill
 \end{frame}
 

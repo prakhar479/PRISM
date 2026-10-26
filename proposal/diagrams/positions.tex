@@ -1,0 +1,17 @@
+% Patch positions: last token only vs every token from the first one that differs.
+\begin{tikzpicture}[font=\footnotesize,
+  tok/.style={draw=light, minimum height=0.5cm, minimum width=0.9cm, inner sep=1pt, font=\scriptsize\ttfamily},
+  lab/.style={color=ink2, anchor=east}]
+  \foreach \row/\y/\lbl in {1/0/last token only, 2/-0.75/from first change} {
+    \node[lab] at (-0.15,\y) {\lbl};
+    \foreach \t [count=\i] in {Start,with,2.,Add,3.,Add,3.,Add,2.,Total,=} {
+      \pgfmathsetmacro{\hl}{(\row==1 && \i==11) || (\row==2 && \i>=7) ? 1 : 0}
+      \ifdim\hl pt>0.5pt
+        \node[tok, fill=accent!30, anchor=west] at ({(\i-1)*0.98},\y) {\t};
+      \else
+        \node[tok, fill=white, anchor=west] at ({(\i-1)*0.98},\y) {\t};
+      \fi
+    }
+  }
+  \node[color=accent, anchor=west] at (10.9,-0.375) {= patched};
+\end{tikzpicture}

@@ -1,0 +1,15 @@
+% Repair: features plus A's error along r directions, B's error elsewhere.
+\begin{tikzpicture}[font=\footnotesize, >=Stealth,
+  term/.style={rounded corners=2pt, minimum height=0.9cm, align=center, inner sep=4pt},
+  lab/.style={color=ink2, align=center}]
+  \node[term, fill=accent!20] (t1) {$\hat{x}_A$\\[1pt]{\scriptsize A's features}};
+  \node[right=0.15cm of t1] (p1) {$+$};
+  \node[term, fill=accent!45, right=0.15cm of p1] (t2) {$U_rU_r^{\top}\varepsilon_A$\\[1pt]{\scriptsize A's error along $r$ directions}};
+  \node[right=0.15cm of t2] (p2) {$+$};
+  \node[term, fill=light!70, right=0.15cm of p2] (t3) {$(I - U_rU_r^{\top})\,\varepsilon_B$\\[1pt]{\scriptsize B's error elsewhere}};
+  \node[left=0.25cm of t1, font=\small] {patched $=$};
+  \node[lab, below=0.55cm of t2, text width=9.2cm] (src) {$U_r$ ($r$ orthonormal directions) is fitted on training pairs from one
+    source: \textbf{same task} (top principal directions of $\varepsilon$, or directions separating the answers),
+    \textbf{another task}, \textbf{generic text} (the Pile), or \textbf{random}. $r = 0$ gives ``features only''.};
+  \draw[->, ink2] (src.north) -- (t2.south);
+\end{tikzpicture}

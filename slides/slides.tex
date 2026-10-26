@@ -78,7 +78,7 @@
 \maketitle
 
 %============================================================================== Why
-\begin{frame}{\stage{Background}Sparse autoencoders split activations into features and error}
+\begin{frame}{\stage{Background}SAEs split activations into features and error}
   \centering
   \begin{tikzpicture}[>=Stealth, box/.style={rounded corners=5pt, align=center, minimum height=1.9cm,
       text width=4.3cm, inner sep=6pt, font=\small}]
@@ -96,8 +96,8 @@
   \vspace{8pt}
   \define{Sparse autoencoder (SAE):}{the standard tool for decomposing activations into interpretable
     features~\citep{bricken2023monosemanticity,huben2024sparse}.}\\[6pt]
-  \textbf{Reconstruction fidelity:} replacing $x$ by $\hat{x}$ keeps {\color{accent}\bfseries 98--99\%} of next-token
-  performance \aside{(Gemma Scope 16k, layers 10--18)}.
+  \textbf{Reconstruction fidelity:} $\hat{x}$ in place of $x$ keeps {\color{accent}\bfseries 98--99\%} of next-token
+  performance.
 \end{frame}
 
 %------------------------------------------------------------------------------
@@ -173,12 +173,11 @@
 
   \vspace{8pt}
   \aside{gemma-2-2b~\citep{gemmateam2024gemma2} \;$\cdot$\; Gemma Scope residual SAEs~\citep{lieberum2024gemmascope}
-    \;$\cdot$\; 300 train / 150 test pairs per task\\
-    The three algorithmic tasks first planned were dropped: the model performs at shortcut level on them.}
+    \;$\cdot$\; 150 test pairs per task\\ Three planned algorithmic tasks were dropped (shortcut-level accuracy).}
 \end{frame}
 
 %------------------------------------------------------------------------------
-\begin{frame}{\stage{Result 1}On tracking tasks, SAE features carry 74--100\% of the effect}
+\begin{frame}{\stage{Result 1}SAE features carry 74--100\% on tracking tasks}
   \centering
   \includegraphics{s_split.pdf}
 
@@ -188,7 +187,7 @@
 \end{frame}
 
 %------------------------------------------------------------------------------
-\begin{frame}{\stage{Result 2}Object tracking, layer 12: one error direction recovers half the gap}
+\begin{frame}{\stage{Result 2}One error direction closes half the gap (L12)}
   \centering
   \includegraphics{s_gap.pdf}
 
@@ -208,11 +207,10 @@
 %------------------------------------------------------------------------------
 \begin{frame}{\stage{Result 4}A 16$\times$ wider SAE reduces the gap from 26\% to 15\%}
   \centering
-  \includegraphics{s_width.pdf}
+  \includegraphics[height=0.66\textheight]{s_width.pdf}
 
   \vspace{6pt}
-  \aside{One error direction still closes 51--69\% of the remaining gap.\\
-    Wider SAEs here also have more active features per token, so width and sparsity are confounded.}
+  \aside{One error direction still closes 51--69\% of what remains. Width and sparsity are confounded (B4).}
 \end{frame}
 
 %============================================================================== What
@@ -335,10 +333,10 @@
 \end{frame}
 
 %------------------------------------------------------------------------------
-\begin{frame}[allowframebreaks]{References}
-  \footnotesize
+\begin{frame}[allowframebreaks,t]{References}
+  \scriptsize
   \renewcommand{\bibsection}{}
-  \setlength{\bibsep}{3pt}
+  \setlength{\bibsep}{1pt}
   \bibliographystyle{../proposal/compact}
   \bibliography{../refs}
 \end{frame}
@@ -375,7 +373,7 @@
     \begin{column}{0.48\textwidth}
       \textbf{Measures}
       \begin{itemize}\setlength{\itemsep}{2pt}
-        \item NLDR $= (D_{\text{patched}} - D_B)/(D_A - D_B)$, $D$ = logit difference
+        \item NLDR $= \frac{D_{\text{patched}} - D_B}{D_A - D_B}$, $D$: logit difference
         \item Gap $= 1 - \text{NLDR}(\hat{x}\ \text{only})$
         \item Repair: $\hat{x} + U_rU_r^{\top}\varepsilon$, $U_r$ fitted on training pairs
         \item Controls: random directions; $\varepsilon$ replaced by noise

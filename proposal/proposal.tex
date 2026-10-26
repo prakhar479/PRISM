@@ -54,7 +54,7 @@
 \renewcommand\subsection{\@startsection{subsection}{2}{\z@}{-1.1ex plus -.3ex}{0.4ex}{\normalsize\bfseries}}
 \renewcommand\maketitle{{\centering
   {\LARGE\bfseries \@title\par}\vspace{3pt}
-  {\large Mapping the Task-Specific Blind Spots of Sparse Autoencoders\\in English and Indian Languages\par}\vspace{4pt}
+  {\large Task-Specific Reconstruction Gaps of Sparse Autoencoders\\in English and Indian Languages\par}\vspace{4pt}
   {\color{muted} Course project proposal\ifx\@author\@empty\else\;$\cdot$\; \@author\fi\;$\cdot$\; \@date\par}}
   \vspace{4pt}}
 \makeatother
@@ -69,156 +69,156 @@
 \begin{document}
 \maketitle
 
-\inshort{\textbf{In short.} Sparse autoencoders (SAEs) are a leading tool for reading what a language model
-computes, and they pass the standard quality check almost perfectly. A pilot study on gemma-2-2b shows that this check
-can hide a blind spot: on an object-tracking task the SAE's features bring back only 74\% of the model's answer, and
-half of the missing quarter is a single hidden signal that only directions learned from that task recover. We propose
-to map such task-specific blind spots across more tasks and in Hindi and Hinglish, and to test whether the hidden
-signal is how the model links each object to its box.}
+\inshort{\textbf{Summary.} Sparse autoencoders (SAEs) are widely used to interpret language-model activations and are
+usually evaluated by average reconstruction fidelity, on which the Gemma Scope SAEs score 98--99\%. In a pilot study on
+gemma-2-2b, we measure with activation patching how much of a task's causal effect the SAE features carry. On
+object tracking at layer 12 they recover 74\% of the effect; one direction of the SAE error, fitted on that task,
+recovers about half of the remainder, while directions from other tasks or generic text recover almost none. We propose
+to test how general such task-specific gaps are across task families, whether they reflect the model's binding
+mechanism, and whether they are larger in Hindi and Hinglish.}
 
 %==============================================================================
-\section{What: the question and our claim}
+\section{What: research question and hypothesis}
 
-A language model turns text into \term{tokens} (words or word pieces) and processes them through a stack of
-\term{layers}; at each layer it holds an internal signal $x$ of 2304 numbers per token. A \term{sparse autoencoder}
-(SAE) rewrites that signal as $x = \hat{x} + \varepsilon$: $\hat{x}$ is built from a few human-readable
-\term{features}, and $\varepsilon$, the \term{leftovers} (the SAE's error, sometimes called ``dark
-matter''~\citep{engels2025dark}), is what it cannot explain. A \term{direction} is one fixed pattern across those 2304
-numbers. All terms are collected in Appendix~\ref{app:glossary}.
+A language model processes text as \term{tokens} (words or word pieces) through a stack of \term{layers}; at each
+layer it holds an activation vector $x$ (2304 numbers per token for gemma-2-2b). A \term{sparse autoencoder} (SAE)
+writes $x = \hat{x} + \varepsilon$, where $\hat{x}$ is reconstructed from a small number of interpretable
+\term{features} and $\varepsilon$ is the \term{SAE error}, the part it does not explain (also called ``dark
+matter''~\citep{engels2025dark}; informally, the leftovers). A \term{direction} is a fixed vector in this 2304-dimensional
+space. Appendix~\ref{app:glossary} defines all terms.
 
-\textbf{Research question.} \emph{When an SAE's features miss information a model is tracking, is the missing piece
-specific to the task, and is more of it missed in Indian languages?}
+\textbf{Research question.} \emph{When SAE features fail to carry information a model is using for a task, is the
+missing part specific to that task, and is more of it missed in Indian languages?}
 
-\textbf{Our claim, from the pilot.} SAE misses come in two kinds. Some are \emph{concentrated and task-specific}: one
-or two directions in the leftovers, learned only from that task, bring back about half of what is missed (object
-tracking at layer 12; the running sum at layer 18). Others are \emph{spread out} over dozens of directions (the names
-task at late layers). The standard average check sees neither. We propose to find out how common the first kind is and
-what it is:
+\textbf{Hypothesis.} SAE reconstruction gaps are of two kinds. Some are \emph{concentrated and task-specific}: one or two
+directions of the error, fitted on that task, recover about half of the gap (object tracking at layer 12; the running
+sum at layer 18). Others are \emph{diffuse}, spread over many directions (the names task at late layers). Average
+fidelity measures neither. We ask:
 \begin{enumerate}[label=\textbf{Q\arabic*.},leftmargin=2.6em]
-  \item \textbf{Across tasks.} Which tasks have a concentrated, task-specific gap, and is it tied to one prompt
-    template or to a kind of computation?
-  \item \textbf{Mechanism.} In linking tasks, is the hidden signal the model's \emph{binding} signal, which ties an
-    object to its box~\citep{feng2024bind}?
-  \item \textbf{Across languages.} Do SAEs miss more in Hindi and Hinglish than in English, and is it the same
-    hidden signal?
+  \item \textbf{Generality.} Which task families show a concentrated, task-specific gap, and is it tied to a prompt
+    template or to a type of computation?
+  \item \textbf{Mechanism.} In entity-tracking tasks, is the error direction part of the model's \emph{binding}
+    mechanism, which associates an entity with its attribute~\citep{feng2024bind}?
+  \item \textbf{Language.} Are the gaps larger in Hindi and Hinglish than in English, and do the same directions recover
+    them?
 \end{enumerate}
 
 %==============================================================================
-\section{Why it matters}
+\section{Why: motivation}
 
 SAEs are used to explain, audit and steer models, and public suites such as Gemma Scope~\citep{lieberum2024gemmascope}
-are judged by a standard check: replace the model's signal with the SAE's version and see how much worse next-word
-prediction gets. On ordinary text the 16k Gemma Scope SAEs at layers 10 to 18 keep 98\% to 99\% of the model's
-performance. That number averages over ordinary text and says nothing about any one computation. Meanwhile the
-leftovers are known to matter: they are large and partly structured~\citep{engels2025dark} and carry weight inside
-circuits~\citep{marks2025sparse}. If what SAEs miss were generic, one general fix (a better SAE, or a correction learned
-on ordinary text) would cover every task. If it is task-specific, an explanation of task $T$ built only from features
-can be incomplete in exactly the way that matters, so every such explanation needs a per-task check; our deliverable is
-that check. Language raises the same question: the Gemma Scope SAEs were trained on predominantly English
-text~\citep{lieberum2024gemmascope}. Recent work finds language-specific and shared SAE
-features~\citep{deng2025unveiling,brinkmann2025large}, but does not measure what the leftovers carry in each language.
-Hindi speakers are among the users for whom SAE-based safety claims are least tested.
+are evaluated mainly by reconstruction fidelity: the fraction of next-token performance retained when $\hat{x}$ replaces
+$x$. For the 16k Gemma Scope SAEs at layers 10 to 18 this is 98\% to 99\% on generic text. Fidelity is an average and
+does not test any particular computation. The SAE error is known to be large and partly
+structured~\citep{engels2025dark} and to matter in feature circuits~\citep{marks2025sparse}. If the information SAEs
+miss were generic, a general remedy (wider SAEs, or a correction fitted on generic text) would address all tasks. If it
+is task-specific, a feature-based explanation of a task can be incomplete in ways that fidelity does not reveal, and a
+per-task causal check is needed. The question extends to language: the Gemma Scope SAEs were trained on predominantly
+English text~\citep{lieberum2024gemmascope}. Prior work identifies language-specific and shared SAE
+features~\citep{deng2025unveiling,brinkmann2025large} but does not measure the causal role of the error per language.
 
 %==============================================================================
-\section{What we have done: the pilot study}\label{sec:pilot}
+\section{What has been done: pilot study}\label{sec:pilot}
 
-\textbf{Setup} (Appendix~\ref{app:pilot}). Model: gemma-2-2b, Google's open 2-billion-parameter
-model~\citep{gemmateam2024gemma2}. SAEs: Gemma Scope, from 16k (16{,}384) to 262k features. Four tasks: a running sum
-(``Start with 2. Add 3. Add 1. Add 2. Total ='' $\to$ 8), object tracking (``The key is in box B \dots{} The key moves
-to box C \dots{} The key is in box'' $\to$ C), variable copying (``t = 7. q = 4. x = q. q = 2. x ='' $\to$ 4), and a
-well-studied names task as a control~\citep{wang2023interpretability}. The three tasks we first planned failed: the
-model could not solve them (Appendix~\ref{app:original}). \textbf{The swap test} (a form of activation
-patching~\citep{zhang2024towards}): take prompts A and B that differ in one step, so their answers differ. Run the model
-on B, but at one layer copy in part of A's signal, either its features $\hat{x}$ or its leftovers $\varepsilon$, and
-measure how far the answer moves from B's to A's (0\% = not at all, 100\% = fully, as when the whole signal is copied).
-Directions are learned on 300 training pairs and every score is measured on 150 different test pairs.
+\textbf{Setup} (Appendix~\ref{app:pilot}). Model: gemma-2-2b, an open 2-billion-parameter
+model~\citep{gemmateam2024gemma2}. SAEs: Gemma Scope residual-stream SAEs, 16k (16{,}384) to 262k features. Tasks: a
+running sum (``Start with 2. Add 3. Add 1. Add 2. Total ='' $\to$ 8), object tracking~\citep{kim2023entity} (``The key is
+in box B \dots{} The key moves to box C \dots{} The key is in box'' $\to$ C), variable copying (``t = 7. q = 4. x = q. q = 2.
+x ='' $\to$ 4), and the indirect-object (names) task as a control~\citep{wang2023interpretability}. Three algorithmic tasks
+planned originally were dropped because the model performed at shortcut level on them (Appendix~\ref{app:original}).
+\textbf{Activation patching}~\citep{zhang2024towards}: prompts A and B differ in one step, so their answers differ. We run
+the model on B and, at one layer, replace part of B's activation with A's, either $\hat{x}$ or $\varepsilon$; the
+\term{effect recovered} (NLDR) is the resulting shift of the output from B's answer towards A's (0 = none, 1 = full, as
+when all of $x$ is patched). Directions are fitted on 300 training pairs; all scores use 150 held-out test pairs.
 
 \begin{figure}[t]
   \centering
   \begin{subfigure}{\linewidth}\centering
     \includegraphics[width=0.78\linewidth]{s_split.pdf}
-    \caption{Copying the features brings back most of the answer; the leftovers alone bring back little (dashed: the
-      leftovers replaced by noise, for object tracking).}
+    \caption{Patching $\hat{x}$ recovers most of the effect; patching $\varepsilon$ recovers little (dashed: $\varepsilon$
+      replaced by noise, object tracking).}
   \end{subfigure}\\[4pt]
   \begin{subfigure}{\linewidth}\centering
     \includegraphics[width=0.78\linewidth]{s_specific.pdf}
-    \caption{Where the gap is concentrated, two directions learned from the same task close a real share of it;
-      directions from other tasks or ordinary text close almost none.}
+    \caption{Two error directions fitted on the same task close a substantial share of the gap; directions from other
+      tasks, generic text or random directions close almost none.}
   \end{subfigure}
-  \caption{The two pilot results behind the claim (16k SAEs, 150 test pairs). Details in Appendix~\ref{app:results}.}
+  \caption{Pilot results (16k SAEs, 150 test pairs). Full results in Appendix~\ref{app:results}.}
   \label{fig:core}
 \end{figure}
 
 \begin{enumerate}[label=\textbf{\arabic*.}]
-  \item \textbf{Features carry most of it.} On the three tracking tasks, copying $\hat{x}$ brings back 74\% to 100\% at
-    every layer tested (4 to 20); the leftovers alone 0\% to 13\%, except object tracking at layers 8 to 16 (25\% to
-    62\%), which is mostly an artefact: replacing the leftovers with noise already gives 28\% to 58\%
-    (Figure~\ref{fig:core}a). The names control loses more late on (24\% to 36\% at layers 18 to 20).
-  \item \textbf{A concentrated gap.} For object tracking at layer 12 the features bring back 74\% (95\% CI 73\% to
-    76\%). Adding \emph{one} direction from the leftovers, the most common pattern in them on training pairs, lifts
-    this to 88\%, about half of the gap; a random direction adds nothing, and even 32 directions learned on ordinary
-    text add at most 1 point.
-  \item \textbf{Task-specific.} Two directions learned from the same task close 39\% to 53\% of that gap (two fitting
-    methods); from other tasks $-1\%$ to 2\%; from ordinary text 1\% (Figure~\ref{fig:core}b). The running sum at
-    layer 18 (gap 13\%) behaves the same (25\% to 58\% vs at most 1\%). The names loss is the other kind: about 32
-    directions are needed to close half of it at layer 18.
-  \item \textbf{Width shrinks it but does not close it.} From 16k to 262k features the object-tracking gap goes
-    26\%\,$\to$\,20\%\,$\to$\,24\%\,$\to$\,23\%\,$\to$\,15\%, and one direction still closes 51\% to 69\% of what is
-    left. Wider SAEs here also use more active features per token (78 vs 124), and the drop narrowly misses the bar we
-    set before the run for a persistent gap (Appendix~\ref{app:results}), so width is an open question for Q1.
-  \item \textbf{Three known pitfalls} would each have given a false result: copying only the last token, probes that
-    the prompt's words alone can fool~\citep{hewitt2019designing}, and treating ``readable'' as ``used''
-    (Appendix~\ref{app:traps}). The swap test we deliver guards against all three.
+  \item \textbf{Features carry most of the effect.} On the three tracking tasks, patching $\hat{x}$ recovers 74\% to
+    100\% at every layer tested (4 to 20); patching $\varepsilon$ recovers 0\% to 13\%, except object tracking at layers 8
+    to 16 (25\% to 62\%), which is largely explained by a noise control that gives 28\% to 58\% (Figure~\ref{fig:core}a).
+    The names control loses more at late layers (24\% to 36\% at layers 18 to 20).
+  \item \textbf{A concentrated gap.} For object tracking at layer 12, $\hat{x}$ recovers 74\% (95\% CI 73\% to 76\%).
+    Adding the top principal direction of the training-set error raises this to 88\%, about half of the gap; a random
+    direction adds nothing, and 32 directions fitted on generic text add at most 1 point.
+  \item \textbf{Task specificity.} Two directions fitted on the same task close 39\% to 53\% of that gap (two fitting
+    methods); directions from other tasks close $-1\%$ to 2\%, and from generic text 1\% (Figure~\ref{fig:core}b). The
+    running sum at layer 18 (gap 13\%) shows the same pattern (25\% to 58\% vs at most 1\%). The names gap is diffuse:
+    about 32 directions are needed to close half of it at layer 18.
+  \item \textbf{Width.} From 16k to 262k features the object-tracking gap is 26\%, 20\%, 24\%, 23\% and 15\%; one error
+    direction closes 51\% to 69\% of the remainder at every width. The wider SAEs also have more active features per
+    token (78 vs 124), and the reduction narrowly misses a persistence criterion fixed before the run
+    (Appendix~\ref{app:results}); width therefore remains an open question for Q1.
+  \item \textbf{Methodological pitfalls.} Three known pitfalls would each have produced a misleading result: patching
+    only the last token, probe accuracy without a prompt-only baseline~\citep{hewitt2019designing}, and equating
+    decodability with causal use (Appendix~\ref{app:traps}).
 \end{enumerate}
-\textbf{Limits.} One model, one SAE family, synthetic tasks; width tested at one layer only.
+\textbf{Limitations.} One model, one SAE family and synthetic tasks; width was tested at one layer; low-rank
+interventions can produce interpretability illusions~\citep{makelov2024subspace}, which our random, generic-text and
+held-out controls address only in part.
 
 %==============================================================================
 \section{How: plan and success criteria}
 
-\textbf{Q1, across tasks.} New tasks grouped by the computation they need: \emph{linking} (objects in boxes; people and
-cities, e.g.\ ``Asha lives in Pune. Ravi lives in Delhi. Asha lives in''), \emph{counting} (longer running sums),
-\emph{following references} (variable copying), plus the names control. For each task, layer and SAE width we measure
-the gap ($100\%$ minus what $\hat{x}$ brings back), how many directions close half of it, and a \textbf{specificity
-score} (share closed by same-task directions minus the best share from any other source). Three decisive tests: transfer
-between the two linking tasks (template or computation?), the ordinary-text control, and SAEs compared at matched
-numbers of active features (width or sparsity?).
+\textbf{Q1, generality.} Tasks grouped by computation: \emph{entity binding} (objects in boxes; people and cities, e.g.\
+``Asha lives in Pune. Ravi lives in Delhi. Asha lives in''), \emph{counting} (longer running sums), \emph{reference
+following} (variable copying) and the names control. For each task, layer and width we measure the gap ($1 -
+\text{NLDR}(\hat{x})$), the number of error directions needed to close half of it, and a \textbf{specificity score} (share
+closed by same-task directions minus the largest share from any other source). Transfer between the two binding tasks
+distinguishes a template-specific from a computation-specific gap; comparing SAEs at matched numbers of active features
+separates width from sparsity.
 
-\textbf{Q2, binding test.} Binding signals were found in other model families (LLaMA, Pythia)~\citep{feng2024bind}, so
-we first re-derive them on gemma-2-2b, compare them with the hidden direction, then edit the signal only along that
-direction and check whether the model names the other object's box.
+\textbf{Q2, mechanism.} Binding-ID vectors were reported for LLaMA and Pythia models~\citep{feng2024bind}. We re-derive
+them for gemma-2-2b, compare them with the error direction, and intervene along that direction to test whether the model's
+answer moves to the other entity's box.
 
-\textbf{Q3, across languages.} The same tasks in Hindi (Devanagari), Hinglish (Latin script, code-mixed), Tamil or
-Bengali if the model can solve them, and French as a non-Indian control; since Hinglish also mixes in English words, we
-add the same Hindi sentences in Latin script without English words. Example, \emph{illustrative and to be checked by a
-native speaker}: \hindi{शुरुआत \lat{2} से करें। \lat{3} जोड़ें। \lat{1} जोड़ें। \lat{2} जोड़ें। कुल \lat{=}}{shuruaat 2 se karen. 3
-joden. 1 joden. 2 joden. kul =} $\to$ 8. Ordinary text for the standard check comes from
-IndicCorp~v2~\citep{doddapaneni2023towards} and FineWeb-2~\citep{penedo2025fineweb2}. Design in Appendix~\ref{app:multi}.
+\textbf{Q3, language.} The same tasks in Hindi (Devanagari), Hinglish (Latin script, code-mixed), Tamil or Bengali where
+the model can perform them, and French as a non-Indian control. Because Hinglish also introduces English words, we add
+Hindi sentences in Latin script without English words. Example (\emph{draft, to be validated by a native speaker}):
+\hindi{शुरुआत \lat{2} से करें। \lat{3} जोड़ें। \lat{1} जोड़ें। \lat{2} जोड़ें। कुल \lat{=}}{shuruaat 2 se karen. 3 joden. 1
+joden. 2 joden. kul =} $\to$ 8. Fidelity per language uses IndicCorp~v2~\citep{doddapaneni2023towards} and
+FineWeb-2~\citep{penedo2025fineweb2}. Design in Appendix~\ref{app:multi}.
 
 \begin{table}[H]
 \centering\small
-\caption{Success criteria, fixed before running (95\% confidence intervals throughout).}
+\caption{Success criteria, fixed in advance (95\% confidence intervals throughout).}
 \label{tab:criteria}
 \begin{tabularx}{\linewidth}{@{}l Y Y@{}}
 \toprule
-& Supported if & We change our mind if \\
+& Supported if & Not supported if \\
 \midrule
 Q1 & gap $\geq$ 10\%, and same-task directions close $\geq$ 30 points more of it than any other source & on $\geq$ 2 new
   tasks with a gap, other sources close as much as same-task directions \\
-Q1 transfer & boxes$\to$cities directions close $\geq$ half as much as the cities' own (a computation) & transfer near zero
-  (a template) \\
-Q2 & editing along the direction sends $\geq$ 50\% of pairs to the other box; a random direction $\leq$ 5\% & the edit does
-  no better than a random direction \\
-Q3 & Hindi: standard check $\geq$ 3 points lower, larger gap; English direction closes $\geq$ half as much as Hindi's own &
-  Hindi's gap is no larger than English's \\
+Q1 transfer & directions from one binding task close $\geq$ half as much of the other's gap as its own directions &
+  transfer near zero (template-specific) \\
+Q2 & intervening along the direction moves $\geq$ 50\% of pairs to the other box; a random direction $\leq$ 5\% & the
+  intervention is no more effective than a random direction \\
+Q3 & Hindi fidelity $\geq$ 3 points lower and a larger gap; the English direction closes $\geq$ half as much as Hindi's own
+  & Hindi's gap is not larger than English's \\
+\bottomrule
 \end{tabularx}
 \end{table}
 
-\textbf{Deliverables.} (1) A \textbf{blind-spot map}: gap, its kind and its specificity for every task, layer, width and
-language tested. (2) The \textbf{swap test} as a released script with a rule of thumb: if a task's gap exceeds 10\%,
-keep the leftovers in its explanation. (3) A verdict on the binding hypothesis. \textbf{Resources and risks.} One 8\,GB
-laptop GPU with the tested pilot pipeline (the three main pilot runs took about 6.3 hours). If binding signals cannot be
-re-derived on gemma-2-2b, Q2 keeps only the editing test; if the model fails Tamil or Bengali, we report that and keep
-Hindi and Hinglish; answers must be one token, so we fall back to letters or digits where names split.
+\textbf{Deliverables.} (1) Gap size, type and specificity for each task, layer, width and language tested. (2) The
+patching code, with the three pitfalls handled. (3) A result on the binding hypothesis. \textbf{Resources and risks.}
+One 8\,GB GPU and the tested pilot pipeline (the three main pilot runs took about 6.3 hours). If binding vectors cannot be
+re-derived for gemma-2-2b, Q2 is limited to the intervention test; if the model cannot perform the tasks in Tamil or
+Bengali, we report this and keep Hindi and Hinglish; answers must be single tokens, so letters or digits replace names
+where needed.
 
 %==============================================================================
 \section{When: timeline}
@@ -228,13 +228,13 @@ Hindi and Hinglish; answers must be one token, so we fall back to letters or dig
 \toprule
 When & Step & Output \\
 \midrule
-Oct 19--26 (done) & Pilot study, four stages (Appendix~\ref{app:stages}) & Concentrated gap found \\
-Week 1 (Oct 27--Nov 2) & Q2: binding signals on gemma-2-2b, editing test; Q1 starts: new tasks, sparsity-matched widths
-  & Binding verdict \\
-Week 2 (Nov 3--9) & Q1: gap and specificity per task; Q3: Hindi and Hinglish tasks, can the model solve them? & Task
-  map; usable languages \\
-Weeks 3--4 (Nov 10--23) & Q3: standard check, gap, transfer per language; Tamil or Bengali if usable & Language map \\
-Week 5 (Nov 24--30) & Buffer; more test pairs; robustness checks & Final figures \\
+Oct 19--26 (done) & Pilot study, four stages (Appendix~\ref{app:stages}) & Concentrated gap identified \\
+Week 1 (Oct 27--Nov 2) & Q2: binding vectors for gemma-2-2b, intervention; Q1: new tasks, matched-sparsity widths
+  & Q2 result \\
+Week 2 (Nov 3--9) & Q1: gap and specificity per task; Q3: task performance in Hindi and Hinglish & Q1 table; usable
+  languages \\
+Weeks 3--4 (Nov 10--23) & Q3: fidelity, gap and transfer per language; Tamil or Bengali if feasible & Q3 table \\
+Week 5 (Nov 24--30) & Buffer; additional test pairs; robustness checks & Final figures \\
 Week 6 (Dec 1--7) & Report and final presentation & Submission \\
 \bottomrule
 \end{tabularx}
@@ -257,8 +257,8 @@ study: setup, stages, measures, all results, pitfalls, verdict on the original h
 \section{The original position}\label{app:original}
 
 The project began as \emph{PRISM} (Probing Residual Information and State Manifolds), a test of a strong version of the
-``dark matter'' worry: that SAEs are blind to the step-by-step state a model computes, so that this state lives in the
-leftovers. It made three hypotheses, each tied to one experiment (Table~\ref{tab:hyp}).
+``dark matter'' hypothesis: that SAEs fail to represent the step-by-step state a model computes, so that this state
+resides in the SAE error. It made three hypotheses, each tied to one experiment (Table~\ref{tab:hyp}).
 
 \begin{table}[H]
 \centering\small
@@ -268,12 +268,12 @@ leftovers. It made three hypotheses, each tied to one experiment (Table~\ref{tab
 \toprule
 & Hypothesis & Experiment & Prediction if true \\
 \midrule
-H1 & The leftovers carry the task state & \emph{Causal split:} copy $\hat{x}$ or $\varepsilon$ from prompt A into a run
+H1 & The SAE error carries the task state & \emph{Causal split:} copy $\hat{x}$ or $\varepsilon$ from prompt A into a run
   on prompt B & copying $\varepsilon$ brings back more of the answer than copying $\hat{x}$ \\
-H2 & The state forms a simple, low-dimensional shape inside the leftovers & \emph{Geometry:} the spread of
+H2 & The state forms a low-dimensional structure in the error & \emph{Geometry:} the spread of
   $\varepsilon$ across directions, probes for the state, low-dimensional projections & a probe reads the state from
   $\varepsilon$ better than from $\hat{x}$ and better than from the prompt's words \\
-H3 & A few directions in the leftovers repair the SAE & \emph{Repair:} $\hat{x}$ plus A's leftovers along their top $r$
+H3 & A few error directions repair the SAE & \emph{Repair:} $\hat{x}$ plus A's error along its top $r$
   directions & a small $r$ closes most of the gap; random directions do not \\
 \bottomrule
 \end{tabularx}
@@ -312,7 +312,7 @@ examples, so the pipeline was sound. Three replacement tasks passed, alongside t
 Model & gemma-2-2b: 26 layers, internal signal of 2304 numbers per token, 16-bit (bf16) precision \\
 SAEs & Gemma Scope residual-stream SAEs with a JumpReLU activation~\citep{lieberum2024gemmascope,rajamanoharan2024jumping}
   (\texttt{gemma-scope-2b-pt-res-canonical}), widths 16k, 32k, 65k, 131k, 262k \\
-Standard check & 16k SAEs at layers 10, 12, 14, 18 keep 99.1\%, 98.7\%, 98.5\%, 98.0\% of next-word performance on
+Fidelity & 16k SAEs at layers 10, 12, 14, 18 keep 99.1\%, 98.7\%, 98.5\%, 98.0\% of next-word performance on
   ordinary text (the Pile), measured against replacing the signal with its average \\
 Pairs & 300 training and 150 test pairs per task and setting, no prompt shared; all fitting on training pairs only \\
 Pair filter & running sum, variable copying, names: the model must give both answers correctly and with a clear margin;
@@ -339,24 +339,24 @@ Oct 20 & 1. Checks & code checked against Hugging Face; capability study of 7 ta
   replacements chosen \\
 Oct 25 & 2. Quick pilot & 24 min; 160 training / 80 test pairs; layers 6, 12, 18; 16k SAEs & H1 rejected; a small,
   concentrated gap in object tracking and the running sum \\
-Oct 26 & 3. Main pilot & three runs, about 6.3\,h: swap test at layers 4 to 20; repair and specificity at layers 12 to
+Oct 26 & 3. Main pilot & three runs, about 6.3\,h: patching at layers 4 to 20; repair and specificity at layers 12 to
   18; widths 16k to 262k at layer 12 & results below \\
 \bottomrule
 \end{tabularx}
 \end{table}
 The quick pilot and the main runs agree: object tracking at layer 12 gave 75\% vs 74\% (features) and 61\% vs 62\%
-(leftovers), and one direction closed 51\% vs 52\% of the gap; the running sum's gap at layer 18 was 12\% vs 13\%.
+(error), and one direction closed 51\% vs 52\% of the gap; the running sum's gap at layer 18 was 12\% vs 13\%.
 
 \subsection{Measures}
-\textbf{Share of the answer brought back} (NLDR, normalized logit-difference recovery). A \emph{logit} is the model's raw
+\textbf{Effect recovered} (NLDR, normalized logit-difference recovery). A \emph{logit} is the model's raw
 score for a possible next token. With $D$ = logit of A's answer minus logit of B's answer,
-$\mathrm{NLDR} = (D_{\text{copied}} - D_{B})/(D_{A} - D_{B})$, averaged over test pairs: 0 = nothing brought back, 1 =
+$\mathrm{NLDR} = (D_{\text{copied}} - D_{B})/(D_{A} - D_{B})$, averaged over test pairs: 0 = nothing recovered, 1 =
 fully. \textbf{Copy conditions:} the whole signal (control, must give 1); $\hat{x}$ only (A's $\hat{x}$, B's
 $\varepsilon$); $\varepsilon$ only (A's $\varepsilon$, B's $\hat{x}$); noise (B's $\hat{x}$ plus random noise of the same
-size as $\varepsilon$, which erases B's leftovers). \textbf{Positions:} copying every token from the first one that
-differs (used everywhere except pitfall 1) or the last token only. \textbf{Repair:} $\hat{x}$ plus A's leftovers
+size as $\varepsilon$, which erases B's error). \textbf{Positions:} copying every token from the first one that
+differs (used everywhere except pitfall 1) or the last token only. \textbf{Repair:} $\hat{x}$ plus A's error
 projected on $r$ directions $U_r$, i.e.\ $\hat{x} + U_rU_r^{\top}\varepsilon$. Directions come from the task's own
-training leftovers (\emph{unsupervised}: the most common patterns; \emph{supervised}: the patterns that best separate
+training errors (\emph{unsupervised}: top principal directions; \emph{supervised}: directions that best separate
 the answers), from ordinary text, from another task (\emph{transfer}), or at random. \textbf{Gap} $= 1 -
 \text{NLDR}(\hat{x}\text{ only})$; \textbf{share of the gap closed} $=$ (repair $-$ $\hat{x}$ only)/gap.
 \textbf{Probes:} simple linear classifiers trained to read the answer from the signal at the last token, compared with
@@ -367,14 +367,14 @@ a probe that sees only the prompt's words.
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{f2_causal_split.pdf}
-  \caption{Features (``SAE parts'', blue) bring back most of the answer at every layer; the leftovers (``error'',
-    grey) little, except object tracking in the middle layers (copy from the first changed token; 95\% intervals).}
+  \caption{Patching the features (``SAE parts'', blue) recovers most of the effect at every layer; patching the error
+    (grey) little, except object tracking in the middle layers (copy from the first changed token; 95\% intervals).}
   \label{fig:f2}
 \end{figure}
 
 \begin{table}[H]
 \centering\small
-\caption{Share of the answer brought back (\%) by copying the features / the leftovers, per layer.}
+\caption{Effect recovered (\%) by patching the features / the error, per layer.}
 \label{tab:split}
 \begin{tabular}{@{}l c c c c c@{}}
 \toprule
@@ -387,25 +387,25 @@ Names (control) & 100 / 0 & 97 / 5 & 96 / 13 & 89 / 16 & 64 / 35 \\
 \bottomrule
 \end{tabular}
 \end{table}
-Object tracking's leftovers score is inflated: replacing the leftovers with noise alone gives 28\% to 58\% at layers 8
-to 16 (51\% at layer 12), because it erases B's leftovers; A's leftovers add about 11 points at layer 12.
+Object tracking's error-only score is inflated: replacing the error with noise alone gives 28\% to 58\% at layers 8
+to 16 (51\% at layer 12), because it erases B's error; A's error adds about 11 points at layer 12.
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.62\linewidth]{f7_repair_curve.pdf}
-  \caption{Object tracking at layer 12: one direction from the leftovers lifts 74\% to 88\%; directions learned on
+  \caption{Object tracking at layer 12: one error direction lifts 74\% to 88\%; directions learned on
     ordinary text (``web text'') or at random add nothing, even 32 of them.}
   \label{fig:f7}
 \end{figure}
 \begin{table}[H]
 \centering\small
-\caption{Object tracking, layer 12: share brought back (\%) by $\hat{x}$ plus $N$ directions.}
+\caption{Object tracking, layer 12: effect recovered (\%) by $\hat{x}$ plus $N$ directions.}
 \label{tab:repair}
 \begin{tabular}{@{}l c c c c c c c@{}}
 \toprule
 $N$ & 0 & 1 & 2 & 4 & 8 & 16 & 32 \\
 \midrule
-top directions of the leftovers & 74 & 88 & 88 & 88 & 88 & 89 & 91 \\
+top error directions & 74 & 88 & 88 & 88 & 88 & 89 & 91 \\
 ordinary-text directions & 74 & 74 & 74 & 75 & 75 & 74 & 75 \\
 random directions & 74 & 74 & 74 & 74 & 74 & 74 & 74 \\
 \bottomrule
@@ -443,8 +443,8 @@ directions are needed to close half of it at layer 18.
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.9\linewidth]{f5_widths.pdf}
-  \caption{Wider SAEs at layer 12. Left: object tracking with the features alone (grey) and with one direction from the
-    leftovers (blue). Right: the gap for three tasks.}
+  \caption{Wider SAEs at layer 12. Left: object tracking with the features alone (grey) and with one error direction
+    (blue). Right: the gap for three tasks.}
   \label{fig:f5}
 \end{figure}
 \begin{table}[H]
@@ -453,7 +453,7 @@ directions are needed to close half of it at layer 18.
 \label{tab:width}
 \begin{tabular}{@{}l l c c c c c@{}}
 \toprule
-Task & Width & $\hat{x}$ only [95\% CI] & gap & +1 leftover dir. & +1 random dir. & active \\
+Task & Width & $\hat{x}$ only [95\% CI] & gap & +1 error dir. & +1 random dir. & active \\
 \midrule
 Object tracking & 16k & 74 [73, 76] & 26 & 88 & 74 & 78 \\
  & 32k & 80 [79, 82] & 20 & 94 & 80 & 75 \\
@@ -488,7 +488,7 @@ changed token brings back 100\% at every task and layer~\citep[cf.][]{zhang2024t
 \begin{figure}[H]
   \centering
   \includegraphics[width=\linewidth]{f4_trap_probes.pdf}
-  \caption{Pitfalls 2 and 3 at layer 12: probes read the state from the leftovers better than from the features, but
+  \caption{Pitfalls 2 and 3 at layer 12: probes read the state from the error better than from the features, but
     the prompt's words alone often do as well, and copying that token brings back little.}
   \label{fig:f4}
 \end{figure}
@@ -519,8 +519,8 @@ used:} for object tracking and names, probes read the state far better from $\va
 \label{tab:verdict}
 \begin{tabularx}{\linewidth}{@{}l Y@{}}
 \toprule
-H1 (leftovers carry the state) & \textbf{Rejected} for every task: $\hat{x}$ beats $\varepsilon$ at every layer. \\
-H2 (simple shape in the leftovers) & \textbf{Not supported as stated}: the state can be read from $\varepsilon$ but is not
+H1 (error carries the state) & \textbf{Rejected} for every task: $\hat{x}$ beats $\varepsilon$ at every layer. \\
+H2 (low-dimensional structure in the error) & \textbf{Not supported as stated}: the state can be read from $\varepsilon$ but is not
   used there, and for two tasks the prompt's words alone give it away. \\
 H3 (a few directions repair) & \textbf{Supported, narrowly}: one direction closes about half of object tracking's gap,
   two close 58\% of the running sum's; the directions are task-specific. This became the project's claim. \\
@@ -551,11 +551,11 @@ H3 (a few directions repair) & \textbf{Supported, narrowly}: one direction close
 \toprule
 ID & Hypothesis & Measure & Supported if \\
 \midrule
-M1 & SAEs explain Hindi text worse & standard check on ordinary text, per language & at least 3 points below English
+M1 & Lower fidelity on Hindi text & fidelity on generic text, per language & at least 3 points below English
   (98\% to 99\%) \\
 M2 & SAEs miss more task state in Hindi & gap and specificity per language & larger gap than English, non-overlapping
   intervals \\
-M3 & The hidden signal is shared across languages & direction learned in English, used on Hindi & closes at least half as
+M3 & The error direction transfers across languages & direction learned in English, used on Hindi & closes at least half as
   much as Hindi's own \\
 \bottomrule
 \end{tabularx}
@@ -580,7 +580,7 @@ examples are \emph{illustrative, to be checked by a native speaker and against t
 \textbf{Constraints:} prompts A and B need the same number of tokens and a one-token answer; many Hindi names split into
 several tokens, so names are picked from single-token ones (the pipeline already drops and counts pairs that break
 this). \textbf{Steps:} (1) capability check per language (at least 30\% usable pairs; failing is itself a finding);
-(2) the standard check on IndicCorp~v2 and FineWeb-2 text (M1); (3) swap test, gap, repair and specificity (M2);
+(2) fidelity on IndicCorp~v2 and FineWeb-2 text (M1); (3) patching, gap, repair and specificity (M2);
 (4) the English direction used on Hindi (M3).
 
 \section{Glossary}\label{app:glossary}
@@ -593,16 +593,16 @@ Layer & one of gemma-2-2b's 26 processing stages \\
 Internal signal (residual stream) & the model's running representation at one layer: 2304 numbers per token \\
 Sparse autoencoder (SAE) & a tool that rewrites the internal signal as a few active, human-readable features \\
 Features, $\hat{x}$ & the SAE's reconstruction from its active features (``SAE parts'' in the appendix figures) \\
-Leftovers, $\varepsilon$ & $x - \hat{x}$: what the SAE cannot explain (its ``error'', or ``dark matter'') \\
+SAE error, $\varepsilon$ & $x - \hat{x}$: what the SAE does not explain (``dark matter'', informally the leftovers) \\
 Width & how many features an SAE can choose from (16k = 16{,}384 up to 262k) \\
 Active features (L0) & how many features are switched on for one token \\
-Standard check & how much next-word performance survives when the SAE's version replaces the signal \\
+Reconstruction fidelity & fraction of next-token performance retained when $\hat{x}$ replaces $x$ (CE loss recovered) \\
 Prompts A and B & two prompts that differ in one step, so the right answer differs (``clean'' and ``corrupt'') \\
-Swap test (activation patching) & run on B but copy part of A's signal at one layer \\
-Logit, NLDR & a logit is the model's raw score for a next token; NLDR is the share of the answer brought back (0 to 1) \\
+Activation patching & run on B but replace part of its activation with A's at one layer \\
+Logit, NLDR & a logit is the model's raw score for a next token; NLDR is the effect recovered (0 to 1) \\
 Gap & the share the features miss: one minus NLDR of copying $\hat{x}$ only \\
 Direction & one fixed pattern in the 2304 numbers; ``$N$ directions'' = an $N$-dimensional slice of the signal \\
-Unsupervised / supervised directions & the most common patterns in the leftovers / the patterns that best separate the
+Unsupervised / supervised directions & top principal directions of the error / directions that best separate the
   answers \\
 Specificity score & share closed by same-task directions minus the best share from any other source \\
 Probe & a simple classifier trained to read a value (e.g.\ the box) from the signal \\

@@ -64,9 +64,9 @@ def hgrid(ax):
 
 
 def fig_split(out):
-    """Readable features vs leftovers, per task, across layers."""
+    """SAE features vs SAE error, per task, across layers."""
     rows = read("f2_causal_split")
-    noise = {}    # object tracking, swap from the first changed token: leftovers replaced by noise of the same size
+    noise = {}    # object tracking, patch from the first changed token: SAE error replaced by noise of the same size
     if EXP1.exists():
         with open(EXP1) as f:
             for r in csv.DictReader(f):
@@ -75,7 +75,7 @@ def fig_split(out):
                     noise[int(r["layer"])] = 100 * float(r["nldr"])
     fig, axes = plt.subplots(1, 4, figsize=(5.6, 2.25), sharey=True)   # drawn at slide size
     for ax, t in zip(axes, TASKS):
-        for part, color, label in (("sae_only", ACCENT, "readable features"), ("error_only", GREY, "leftovers")):
+        for part, color, label in (("sae_only", ACCENT, "SAE features"), ("error_only", GREY, "SAE error")):
             pts = sorted((int(r["layer"]), 100 * float(r["nldr"])) for r in rows if r["task"] == t and r["part"] == part)
             ax.plot([p[0] for p in pts], [p[1] for p in pts], color=color, lw=2, marker="o", ms=4.5,
                     markeredgecolor="white", markeredgewidth=0.8, label=label)
@@ -93,21 +93,21 @@ def fig_split(out):
         ax.set_yticklabels(["0%", "50%", "100%"])
         ax.set_xlabel("layer", fontsize=10)
         hgrid(ax)
-    axes[0].set_ylabel("answer brought back", fontsize=10)
-    axes[0].text(12, 80, "readable\nfeatures", color=ACCENT, fontsize=9, va="top", ha="center", fontweight="medium")
-    axes[0].text(12, 16, "leftovers", color=GREY, fontsize=9, va="bottom", ha="center", fontweight="medium")
+    axes[0].set_ylabel("effect recovered", fontsize=10)
+    axes[0].text(12, 80, "SAE\nfeatures", color=ACCENT, fontsize=9, va="top", ha="center", fontweight="medium")
+    axes[0].text(12, 16, "SAE error", color=GREY, fontsize=9, va="bottom", ha="center", fontweight="medium")
     fig.tight_layout(w_pad=0.6)
     save(fig, out, "s_split")
 
 
 def fig_gap(out):
-    """Object tracking, layer 12: readable features alone vs + one hidden signal."""
+    """Object tracking, layer 12: SAE features alone vs + one direction from the SAE error."""
     rows = read("f7_repair_curve")
     get = lambda m, r: float(next(x["nldr"] for x in rows if x["method"] == m and x["rank"] == str(r)))
-    bars = [("Readable features only", get("unsupervised_svd", 0), GREY),
-            ("+ 1 random signal", get("random_subspace", 1), LIGHT),
-            ("+ 1 hidden signal from the leftovers", get("unsupervised_svd", 1), ACCENT),
-            ("Everything (full swap)", 1.0, None)]
+    bars = [("SAE features only", get("unsupervised_svd", 0), GREY),
+            ("+ 1 random direction", get("random_subspace", 1), LIGHT),
+            ("+ 1 direction from the SAE error", get("unsupervised_svd", 1), ACCENT),
+            ("Full activation (control)", 1.0, None)]
     fig, ax = plt.subplots(figsize=(5.2, 2.0))
     ys = range(len(bars))[::-1]
     for y, (label, v, c) in zip(ys, bars):
@@ -121,7 +121,7 @@ def fig_gap(out):
     ax.set_xlim(0, 114)
     ax.set_xticks([0, 25, 50, 75, 100])
     ax.set_xticklabels(["0%", "25%", "50%", "75%", "100%"])
-    ax.set_xlabel("answer brought back (object tracking, layer 12)", fontsize=10)
+    ax.set_xlabel("effect recovered (object tracking, layer 12)", fontsize=10)
     ax.xaxis.grid(True, color=GRID, linewidth=0.8)
     ax.set_axisbelow(True)
     ax.spines["left"].set_visible(False)
@@ -156,14 +156,14 @@ def fig_specific(out):
         ax.set_axisbelow(True)
         ax.spines["left"].set_visible(False)
         ax.tick_params(axis="y", length=0)
-        ax.set_xlabel("share of gap recovered by 2 signals", fontsize=10)
+        ax.set_xlabel("share of gap closed by 2 directions", fontsize=10)
     axes[1].tick_params(axis="y", labelleft=False)
     fig.tight_layout(w_pad=1.5)
     save(fig, out, "s_specific")
 
 
 def fig_width(out):
-    """Object tracking: what the SAE misses as it gets 16x bigger, with and without one hidden signal."""
+    """Object tracking: the gap as the SAE gets 16x wider, with and without one error direction."""
     rows = [r for r in read("f5_widths") if r["task"] == "entity_track"]
     widths = [r["width"] for r in rows]
     gap = [100 * float(r["gap"]) for r in rows]
@@ -172,9 +172,9 @@ def fig_width(out):
     fig, ax = plt.subplots(figsize=(5.2, 2.2))
     ax.plot(x, gap, color=ACCENT, lw=2, marker="o", ms=5, markeredgecolor="white", markeredgewidth=0.8)
     ax.plot(x, left, color=GREY, lw=2, marker="o", ms=5, markeredgecolor="white", markeredgewidth=0.8)
-    ax.text(len(widths) - 0.65, gap[-1], "missed by the SAE", color=ACCENT, va="center", fontsize=10,
+    ax.text(len(widths) - 0.65, gap[-1], "gap, features only", color=ACCENT, va="center", fontsize=10,
             fontweight="medium")
-    ax.text(len(widths) - 0.65, left[-1], "still missed after\nadding 1 hidden signal", color=GREY, va="center",
+    ax.text(len(widths) - 0.65, left[-1], "gap after adding\n1 error direction", color=GREY, va="center",
             fontsize=10, fontweight="medium")
     for i in (0, len(widths) - 1):
         ax.annotate(f"{round(gap[i])}%", (i, gap[i]), textcoords="offset points", xytext=(0, 7), ha="center",
@@ -185,8 +185,8 @@ def fig_width(out):
     ax.set_ylim(0, 32)
     ax.set_yticks([0, 10, 20, 30])
     ax.set_yticklabels(["0%", "10%", "20%", "30%"])
-    ax.set_ylabel("answer missed", fontsize=10)
-    ax.set_xlabel("SAE size (number of features)", fontsize=10)
+    ax.set_ylabel("gap", fontsize=10)
+    ax.set_xlabel("SAE width (number of features)", fontsize=10)
     ax.spines["bottom"].set_bounds(0, len(widths) - 1)
     hgrid(ax)
     fig.tight_layout()

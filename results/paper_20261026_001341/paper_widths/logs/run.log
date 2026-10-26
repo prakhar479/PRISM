@@ -1,0 +1,198 @@
+2026-10-26 01:11:53,539 INFO device=cuda dtype=torch.bfloat16 mock=False out=results/paper_20261026_001341/paper_widths
+2026-10-26 01:11:54,935 WARNING Could not reach the Hub ([Errno -3] Temporary failure in name resolution). Using cached commit hash for 'google/gemma-2-2b'.
+2026-10-26 01:11:54,940 WARNING '[Errno -3] Temporary failure in name resolution' thrown while requesting GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates
+2026-10-26 01:11:54,940 WARNING Retrying in 1s [Retry 1/5].
+2026-10-26 01:11:55,943 WARNING '[Errno -3] Temporary failure in name resolution' thrown while requesting GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates
+2026-10-26 01:11:55,943 WARNING Retrying in 2s [Retry 2/5].
+2026-10-26 01:11:57,946 WARNING '[Errno -3] Temporary failure in name resolution' thrown while requesting GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates
+2026-10-26 01:11:57,946 WARNING Retrying in 4s [Retry 3/5].
+2026-10-26 01:12:01,948 WARNING '[Errno -3] Temporary failure in name resolution' thrown while requesting GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates
+2026-10-26 01:12:01,948 WARNING Retrying in 8s [Retry 4/5].
+2026-10-26 01:12:09,950 WARNING '[Errno -3] Temporary failure in name resolution' thrown while requesting GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates
+2026-10-26 01:12:09,950 WARNING Retrying in 8s [Retry 5/5].
+2026-10-26 01:12:17,952 WARNING '[Errno -3] Temporary failure in name resolution' thrown while requesting GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates
+2026-10-26 01:12:17,957 WARNING '[Errno -3] Temporary failure in name resolution' thrown while requesting GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main
+2026-10-26 01:12:17,957 WARNING Retrying in 1s [Retry 1/5].
+2026-10-26 01:12:18,958 WARNING '[Errno -3] Temporary failure in name resolution' thrown while requesting GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main
+2026-10-26 01:12:18,958 WARNING Retrying in 2s [Retry 2/5].
+2026-10-26 01:12:20,961 WARNING '[Errno -3] Temporary failure in name resolution' thrown while requesting GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main
+2026-10-26 01:12:20,961 WARNING Retrying in 4s [Retry 3/5].
+2026-10-26 01:12:24,963 WARNING '[Errno -3] Temporary failure in name resolution' thrown while requesting GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main
+2026-10-26 01:12:24,963 WARNING Retrying in 8s [Retry 4/5].
+2026-10-26 01:12:32,965 WARNING '[Errno -3] Temporary failure in name resolution' thrown while requesting GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main
+2026-10-26 01:12:32,965 WARNING Retrying in 8s [Retry 5/5].
+2026-10-26 01:12:40,968 WARNING '[Errno -3] Temporary failure in name resolution' thrown while requesting GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main
+2026-10-26 01:12:41,780 WARNING Could not reach the Hub ([Errno -3] Temporary failure in name resolution). Using cached commit hash for 'google/gemma-2-2b'.
+2026-10-26 01:12:44,033 WARNING Could not reach the Hub ([Errno -3] Temporary failure in name resolution). Using cached commit hash for 'google/gemma-2-2b'.
+2026-10-26 01:12:44,035 WARNING '[Errno -3] Temporary failure in name resolution' thrown while requesting GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates
+2026-10-26 01:12:44,035 WARNING Retrying in 1s [Retry 1/5].
+2026-10-26 01:12:45,037 WARNING '[Errno -3] Temporary failure in name resolution' thrown while requesting GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates
+2026-10-26 01:12:45,037 WARNING Retrying in 2s [Retry 2/5].
+2026-10-26 01:12:47,040 WARNING '[Errno -3] Temporary failure in name resolution' thrown while requesting GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates
+2026-10-26 01:12:47,040 WARNING Retrying in 4s [Retry 3/5].
+2026-10-26 01:12:51,042 WARNING '[Errno -3] Temporary failure in name resolution' thrown while requesting GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates
+2026-10-26 01:12:51,042 WARNING Retrying in 8s [Retry 4/5].
+2026-10-26 01:12:59,044 WARNING '[Errno -3] Temporary failure in name resolution' thrown while requesting GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates
+2026-10-26 01:12:59,044 WARNING Retrying in 8s [Retry 5/5].
+2026-10-26 01:13:07,046 WARNING '[Errno -3] Temporary failure in name resolution' thrown while requesting GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates
+2026-10-26 01:13:07,049 WARNING '[Errno -3] Temporary failure in name resolution' thrown while requesting GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main
+2026-10-26 01:13:07,049 WARNING Retrying in 1s [Retry 1/5].
+2026-10-26 01:13:08,051 WARNING '[Errno -3] Temporary failure in name resolution' thrown while requesting GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main
+2026-10-26 01:13:08,051 WARNING Retrying in 2s [Retry 2/5].
+2026-10-26 01:13:10,054 WARNING '[Errno -3] Temporary failure in name resolution' thrown while requesting GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main
+2026-10-26 01:13:10,054 WARNING Retrying in 4s [Retry 3/5].
+2026-10-26 01:13:14,056 WARNING '[Errno -3] Temporary failure in name resolution' thrown while requesting GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main
+2026-10-26 01:13:14,056 WARNING Retrying in 8s [Retry 4/5].
+2026-10-26 01:13:22,059 WARNING '[Errno -3] Temporary failure in name resolution' thrown while requesting GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main
+2026-10-26 01:13:22,059 WARNING Retrying in 8s [Retry 5/5].
+2026-10-26 01:13:30,062 WARNING '[Errno -3] Temporary failure in name resolution' thrown while requesting GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main
+2026-10-26 01:13:46,445 INFO model loaded: 4.92 GiB VRAM in use (embedding on CPU)
+2026-10-26 01:13:46,454 INFO runtime plan: {'device': 'cuda', 'total_vram_gb': 7.53, 'free_vram_after_model_gb': 2.47, 'embed_on_cpu': True, 'max_batch_tokens': 2048, 'batch_size_cap': 128, 'cpu_threads': 4, 'cpu_workers': 1, 'resume_from_layer': True, 'ram_available_gb': 12.8}
+2026-10-26 01:19:03,173 INFO filter_valid_pairs[clean_only]: kept 690/1800
+2026-10-26 01:21:42,287 INFO filter_valid_pairs[clean_only]: kept 342/900
+2026-10-26 01:24:38,754 INFO filter_valid_pairs[strict]: kept 628/900
+2026-10-26 01:25:28,131 INFO filter_valid_pairs[strict]: kept 276/450
+2026-10-26 01:26:29,273 INFO filter_valid_pairs[strict]: kept 600/600
+2026-10-26 01:26:35,653 INFO filter_valid_pairs[strict]: kept 300/300
+2026-10-26 01:26:45,227 INFO prepared tasks ['entity_track', 'add_chain', 'ioi_control'] at layers [12]
+2026-10-26 01:27:11,698 INFO resume_from_layer check at L12: max |dLogit| 0 -> enabled
+2026-10-26 01:27:11,698 INFO task info: {'entity_track': {'n_train': 300, 'n_test': 150, 'skipped': False, 'seconds': 554.8, 'n_shots': 8, 'answer_format': 'auto', 'filter_mode': 'clean_only', 'dl_clean': 2.7662665843963623, 'dl_corrupt': -0.15415722131729126, 'clean_top1': 1.0, 'mean_len': 377.0, 'mean_span': 13.426666666666666}, 'add_chain': {'n_train': 300, 'n_test': 150, 'skipped': False, 'seconds': 195.0, 'n_shots': 8, 'answer_format': 'auto', 'filter_mode': 'strict', 'dl_clean': 3.4764716625213623, 'dl_corrupt': -3.016946315765381, 'clean_top1': 1.0, 'mean_len': 234.65333333333334, 'mean_span': 11.493333333333334}, 'ioi_control': {'n_train': 300, 'n_test': 150, 'skipped': False, 'seconds': 28.9, 'n_shots': 2, 'answer_format': 'auto', 'filter_mode': 'strict', 'dl_clean': 6.748236179351807, 'dl_corrupt': -6.388719081878662, 'clean_top1': 1.0, 'mean_len': 47.0, 'mean_span': 5.0}}
+2026-10-26 01:27:15,433 INFO SAE gemma-scope-2b-pt-res-canonical/layer_12/width_16k/canonical: GPU-resident (0.28 GiB float32, 1.09 GiB VRAM free)
+2026-10-26 01:27:15,438 WARNING '[Errno -3] Temporary failure in name resolution' thrown while requesting HEAD https://huggingface.co/datasets/NeelNanda/pile-10k/resolve/127bfedcd5047750df5ccf3a12979a47bfa0bafa/pile-10k.py
+2026-10-26 01:27:15,438 WARNING Retrying in 1s [Retry 1/5].
+2026-10-26 01:27:16,441 WARNING '[Errno -3] Temporary failure in name resolution' thrown while requesting HEAD https://huggingface.co/datasets/NeelNanda/pile-10k/resolve/127bfedcd5047750df5ccf3a12979a47bfa0bafa/pile-10k.py
+2026-10-26 01:27:16,441 WARNING Retrying in 2s [Retry 2/5].
+2026-10-26 01:27:18,443 WARNING '[Errno -3] Temporary failure in name resolution' thrown while requesting HEAD https://huggingface.co/datasets/NeelNanda/pile-10k/resolve/127bfedcd5047750df5ccf3a12979a47bfa0bafa/pile-10k.py
+2026-10-26 01:27:18,443 WARNING Retrying in 4s [Retry 3/5].
+2026-10-26 01:27:22,446 WARNING '[Errno -3] Temporary failure in name resolution' thrown while requesting HEAD https://huggingface.co/datasets/NeelNanda/pile-10k/resolve/127bfedcd5047750df5ccf3a12979a47bfa0bafa/pile-10k.py
+2026-10-26 01:27:22,446 WARNING Retrying in 8s [Retry 4/5].
+2026-10-26 01:27:30,448 WARNING '[Errno -3] Temporary failure in name resolution' thrown while requesting HEAD https://huggingface.co/datasets/NeelNanda/pile-10k/resolve/127bfedcd5047750df5ccf3a12979a47bfa0bafa/pile-10k.py
+2026-10-26 01:27:30,448 WARNING Retrying in 8s [Retry 5/5].
+2026-10-26 01:27:38,451 WARNING '[Errno -3] Temporary failure in name resolution' thrown while requesting HEAD https://huggingface.co/datasets/NeelNanda/pile-10k/resolve/127bfedcd5047750df5ccf3a12979a47bfa0bafa/pile-10k.py
+2026-10-26 01:27:38,508 WARNING datasets.load_dataset(NeelNanda/pile-10k) failed ([Errno -3] Temporary failure in name resolution); trying parquet via huggingface_hub
+2026-10-26 01:27:38,509 WARNING '[Errno -3] Temporary failure in name resolution' thrown while requesting GET https://huggingface.co/api/datasets/NeelNanda/pile-10k/tree/main
+2026-10-26 01:27:38,510 WARNING Retrying in 1s [Retry 1/5].
+2026-10-26 01:27:39,511 WARNING '[Errno -3] Temporary failure in name resolution' thrown while requesting GET https://huggingface.co/api/datasets/NeelNanda/pile-10k/tree/main
+2026-10-26 01:27:39,511 WARNING Retrying in 2s [Retry 2/5].
+2026-10-26 01:27:41,514 WARNING '[Errno -3] Temporary failure in name resolution' thrown while requesting GET https://huggingface.co/api/datasets/NeelNanda/pile-10k/tree/main
+2026-10-26 01:27:41,514 WARNING Retrying in 4s [Retry 3/5].
+2026-10-26 01:27:45,516 WARNING '[Errno -3] Temporary failure in name resolution' thrown while requesting GET https://huggingface.co/api/datasets/NeelNanda/pile-10k/tree/main
+2026-10-26 01:27:45,516 WARNING Retrying in 8s [Retry 4/5].
+2026-10-26 01:27:53,518 WARNING '[Errno -3] Temporary failure in name resolution' thrown while requesting GET https://huggingface.co/api/datasets/NeelNanda/pile-10k/tree/main
+2026-10-26 01:27:53,518 WARNING Retrying in 8s [Retry 5/5].
+2026-10-26 01:28:01,520 WARNING '[Errno -3] Temporary failure in name resolution' thrown while requesting GET https://huggingface.co/api/datasets/NeelNanda/pile-10k/tree/main
+2026-10-26 01:28:01,520 WARNING generic text corpus unavailable ([Errno -3] Temporary failure in name resolution): generic_text_svd will be skipped
+2026-10-26 01:28:01,521 INFO unit exp1/__fidelity__|12|16k done in 46.1s (0 rows, peak VRAM 5.2 GiB)
+2026-10-26 01:28:36,482 INFO exp1 entity_track L12 16k [from_diff]: {'sae_only': 0.74, 'error_only': 0.62, 'sae_splice': 1.09, 'noise_control': 0.51, 'clean_full': 1.0}
+2026-10-26 01:28:36,482 INFO unit exp1/entity_track|12|16k|from_diff done in 35.0s (5 rows, peak VRAM 6.4 GiB)
+2026-10-26 01:29:02,042 INFO exp1 add_chain L12 16k [from_diff]: {'sae_only': 0.94, 'error_only': 0.06, 'sae_splice': 1.02, 'noise_control': 0.07, 'clean_full': 1.0}
+2026-10-26 01:29:02,045 INFO unit exp1/add_chain|12|16k|from_diff done in 25.6s (5 rows, peak VRAM 6.4 GiB)
+2026-10-26 01:29:07,177 INFO exp1 ioi_control L12 16k [from_diff]: {'sae_only': 0.96, 'error_only': 0.13, 'sae_splice': 0.97, 'noise_control': 0.1, 'clean_full': 1.0}
+2026-10-26 01:29:07,178 INFO unit exp1/ioi_control|12|16k|from_diff done in 5.1s (5 rows, peak VRAM 6.4 GiB)
+2026-10-26 01:29:07,522 INFO SAE gemma-scope-2b-pt-res-canonical/layer_12/width_32k/canonical: GPU-resident (0.56 GiB float32, 2.38 GiB VRAM free)
+2026-10-26 01:29:07,522 INFO unit exp1/__fidelity__|12|32k done in 0.0s (0 rows, peak VRAM 5.5 GiB)
+2026-10-26 01:29:42,741 INFO exp1 entity_track L12 32k [from_diff]: {'sae_only': 0.8, 'error_only': 0.52, 'sae_splice': 1.13, 'noise_control': 0.6, 'clean_full': 1.0}
+2026-10-26 01:29:42,750 INFO unit exp1/entity_track|12|32k|from_diff done in 35.2s (5 rows, peak VRAM 6.6 GiB)
+2026-10-26 01:30:04,552 INFO exp1 add_chain L12 32k [from_diff]: {'sae_only': 0.94, 'error_only': 0.05, 'sae_splice': 1.03, 'noise_control': 0.05, 'clean_full': 1.0}
+2026-10-26 01:30:04,556 INFO unit exp1/add_chain|12|32k|from_diff done in 21.8s (5 rows, peak VRAM 6.6 GiB)
+2026-10-26 01:30:08,959 INFO exp1 ioi_control L12 32k [from_diff]: {'sae_only': 0.97, 'error_only': 0.09, 'sae_splice': 0.97, 'noise_control': 0.09, 'clean_full': 1.0}
+2026-10-26 01:30:08,959 INFO unit exp1/ioi_control|12|32k|from_diff done in 4.4s (5 rows, peak VRAM 6.7 GiB)
+2026-10-26 01:30:09,469 INFO SAE gemma-scope-2b-pt-res-canonical/layer_12/width_65k/canonical: GPU-resident (1.13 GiB float32, 2.38 GiB VRAM free)
+2026-10-26 01:30:09,469 INFO unit exp1/__fidelity__|12|65k done in 0.0s (0 rows, peak VRAM 6.1 GiB)
+2026-10-26 01:30:44,985 INFO exp1 entity_track L12 65k [from_diff]: {'sae_only': 0.76, 'error_only': 0.59, 'sae_splice': 0.98, 'noise_control': 0.45, 'clean_full': 1.0}
+2026-10-26 01:30:44,995 INFO unit exp1/entity_track|12|65k|from_diff done in 35.5s (5 rows, peak VRAM 7.2 GiB)
+2026-10-26 01:31:06,999 INFO exp1 add_chain L12 65k [from_diff]: {'sae_only': 0.93, 'error_only': 0.07, 'sae_splice': 1.05, 'noise_control': 0.03, 'clean_full': 1.0}
+2026-10-26 01:31:06,999 INFO unit exp1/add_chain|12|65k|from_diff done in 22.0s (5 rows, peak VRAM 7.2 GiB)
+2026-10-26 01:31:11,475 INFO exp1 ioi_control L12 65k [from_diff]: {'sae_only': 0.98, 'error_only': 0.06, 'sae_splice': 0.98, 'noise_control': 0.07, 'clean_full': 1.0}
+2026-10-26 01:31:11,476 INFO unit exp1/ioi_control|12|65k|from_diff done in 4.5s (5 rows, peak VRAM 7.3 GiB)
+2026-10-26 01:31:13,142 INFO SAE gemma-scope-2b-pt-res/layer_12/width_131k/average_l0_129: streamed from CPU (2.25 GiB float32, 2.38 GiB VRAM free)
+2026-10-26 01:31:13,143 INFO unit exp1/__fidelity__|12|131k done in 0.0s (0 rows, peak VRAM 5.0 GiB)
+2026-10-26 01:31:48,952 INFO exp1 entity_track L12 131k [from_diff]: {'sae_only': 0.77, 'error_only': 0.54, 'sae_splice': 0.92, 'noise_control': 0.49, 'clean_full': 1.0}
+2026-10-26 01:31:48,960 INFO unit exp1/entity_track|12|131k|from_diff done in 35.8s (5 rows, peak VRAM 6.1 GiB)
+2026-10-26 01:32:11,325 INFO exp1 add_chain L12 131k [from_diff]: {'sae_only': 0.95, 'error_only': 0.04, 'sae_splice': 1.03, 'noise_control': 0.05, 'clean_full': 1.0}
+2026-10-26 01:32:11,326 INFO unit exp1/add_chain|12|131k|from_diff done in 22.4s (5 rows, peak VRAM 6.1 GiB)
+2026-10-26 01:32:16,286 INFO exp1 ioi_control L12 131k [from_diff]: {'sae_only': 0.98, 'error_only': 0.04, 'sae_splice': 0.98, 'noise_control': 0.06, 'clean_full': 1.0}
+2026-10-26 01:32:16,287 INFO unit exp1/ioi_control|12|131k|from_diff done in 5.0s (5 rows, peak VRAM 6.1 GiB)
+2026-10-26 01:32:21,577 INFO SAE gemma-scope-2b-pt-res-canonical/layer_12/width_262k/canonical: streamed from CPU (4.50 GiB float32, 2.31 GiB VRAM free)
+2026-10-26 01:32:21,579 INFO unit exp1/__fidelity__|12|262k done in 0.0s (0 rows, peak VRAM 5.0 GiB)
+2026-10-26 01:32:58,385 INFO exp1 entity_track L12 262k [from_diff]: {'sae_only': 0.85, 'error_only': 0.46, 'sae_splice': 0.99, 'noise_control': 0.48, 'clean_full': 1.0}
+2026-10-26 01:32:58,389 INFO unit exp1/entity_track|12|262k|from_diff done in 36.8s (5 rows, peak VRAM 6.1 GiB)
+2026-10-26 01:33:21,616 INFO exp1 add_chain L12 262k [from_diff]: {'sae_only': 0.95, 'error_only': 0.05, 'sae_splice': 1.01, 'noise_control': 0.05, 'clean_full': 1.0}
+2026-10-26 01:33:21,616 INFO unit exp1/add_chain|12|262k|from_diff done in 23.2s (5 rows, peak VRAM 6.1 GiB)
+2026-10-26 01:33:27,439 INFO exp1 ioi_control L12 262k [from_diff]: {'sae_only': 1.0, 'error_only': 0.05, 'sae_splice': 0.99, 'noise_control': 0.04, 'clean_full': 1.0}
+2026-10-26 01:33:27,440 INFO unit exp1/ioi_control|12|262k|from_diff done in 5.8s (5 rows, peak VRAM 6.1 GiB)
+2026-10-26 01:33:28,667 INFO SAE gemma-scope-2b-pt-res-canonical/layer_12/width_16k/canonical: GPU-resident (0.28 GiB float32, 2.31 GiB VRAM free)
+2026-10-26 01:33:29,796 INFO SAE gemma-scope-2b-pt-res-canonical/layer_12/width_32k/canonical: GPU-resident (0.56 GiB float32, 2.31 GiB VRAM free)
+2026-10-26 01:33:35,555 INFO exp2 entity_track L12 16k: probe acc {'x': 0.91, 'x_hat': 0.48, 'eps': 0.84, 'surface': 0.33}
+2026-10-26 01:33:35,558 INFO unit exp2/entity_track|12|16k done in 5.2s (6 rows, peak VRAM 5.5 GiB)
+2026-10-26 01:33:39,976 INFO exp2 add_chain L12 16k: probe acc {'x': 0.57, 'x_hat': 0.42, 'eps': 0.53, 'surface': 0.45}
+2026-10-26 01:33:39,981 INFO unit exp2/add_chain|12|16k done in 4.4s (6 rows, peak VRAM 5.5 GiB)
+2026-10-26 01:33:40,577 INFO SAE gemma-scope-2b-pt-res-canonical/layer_12/width_65k/canonical: GPU-resident (1.13 GiB float32, 2.31 GiB VRAM free)
+2026-10-26 01:33:49,577 INFO exp2 ioi_control L12 16k: probe acc {'x': 1.0, 'x_hat': 0.2, 'eps': 0.97, 'surface': 1.0}
+2026-10-26 01:33:49,578 INFO unit exp2/ioi_control|12|16k done in 8.5s (6 rows, peak VRAM 6.1 GiB)
+2026-10-26 01:33:54,284 INFO exp2 entity_track L12 32k: probe acc {'x': 0.91, 'x_hat': 0.44, 'eps': 0.85, 'surface': 0.33}
+2026-10-26 01:33:54,286 INFO unit exp2/entity_track|12|32k done in 4.7s (6 rows, peak VRAM 6.1 GiB)
+2026-10-26 01:33:58,108 INFO exp2 add_chain L12 32k: probe acc {'x': 0.57, 'x_hat': 0.4, 'eps': 0.5, 'surface': 0.45}
+2026-10-26 01:33:58,109 INFO unit exp2/add_chain|12|32k done in 3.8s (6 rows, peak VRAM 6.1 GiB)
+2026-10-26 01:33:58,926 INFO SAE gemma-scope-2b-pt-res/layer_12/width_131k/average_l0_129: streamed from CPU (2.25 GiB float32, 2.31 GiB VRAM free)
+2026-10-26 01:34:03,814 INFO exp2 ioi_control L12 32k: probe acc {'x': 1.0, 'x_hat': 0.19, 'eps': 0.96, 'surface': 1.0}
+2026-10-26 01:34:03,816 INFO unit exp2/ioi_control|12|32k done in 1.1s (6 rows, peak VRAM 5.0 GiB)
+2026-10-26 01:34:07,128 INFO exp2 entity_track L12 65k: probe acc {'x': 0.91, 'x_hat': 0.47, 'eps': 0.81, 'surface': 0.33}
+2026-10-26 01:34:07,129 INFO unit exp2/entity_track|12|65k done in 3.3s (6 rows, peak VRAM 5.0 GiB)
+2026-10-26 01:34:10,118 INFO exp2 add_chain L12 65k: probe acc {'x': 0.57, 'x_hat': 0.4, 'eps': 0.49, 'surface': 0.45}
+2026-10-26 01:34:10,120 INFO unit exp2/add_chain|12|65k done in 3.0s (6 rows, peak VRAM 5.0 GiB)
+2026-10-26 01:34:15,189 INFO exp2 ioi_control L12 65k: probe acc {'x': 1.0, 'x_hat': 0.18, 'eps': 0.98, 'surface': 1.0}
+2026-10-26 01:34:24,908 INFO SAE gemma-scope-2b-pt-res-canonical/layer_12/width_262k/canonical: streamed from CPU (4.50 GiB float32, 2.31 GiB VRAM free)
+2026-10-26 01:34:28,050 INFO exp2 entity_track L12 131k: probe acc {'x': 0.91, 'x_hat': 0.55, 'eps': 0.81, 'surface': 0.33}
+2026-10-26 01:34:32,383 INFO unit exp2/ioi_control|12|65k done in 0.0s (6 rows, peak VRAM 5.0 GiB)
+2026-10-26 01:34:32,383 INFO unit exp2/entity_track|12|131k done in 0.0s (6 rows, peak VRAM 5.0 GiB)
+2026-10-26 01:34:34,591 INFO exp2 add_chain L12 131k: probe acc {'x': 0.57, 'x_hat': 0.44, 'eps': 0.52, 'surface': 0.45}
+2026-10-26 01:34:34,592 INFO unit exp2/add_chain|12|131k done in 2.2s (6 rows, peak VRAM 5.0 GiB)
+2026-10-26 01:34:39,581 INFO exp2 ioi_control L12 131k: probe acc {'x': 1.0, 'x_hat': 0.29, 'eps': 0.88, 'surface': 1.0}
+2026-10-26 01:34:39,582 INFO unit exp2/ioi_control|12|131k done in 4.6s (6 rows, peak VRAM 5.0 GiB)
+2026-10-26 01:34:42,564 INFO exp2 entity_track L12 262k: probe acc {'x': 0.91, 'x_hat': 0.55, 'eps': 0.82, 'surface': 0.33}
+2026-10-26 01:34:42,565 INFO unit exp2/entity_track|12|262k done in 3.0s (6 rows, peak VRAM 5.0 GiB)
+2026-10-26 01:34:45,529 INFO exp2 add_chain L12 262k: probe acc {'x': 0.57, 'x_hat': 0.46, 'eps': 0.53, 'surface': 0.45}
+2026-10-26 01:34:45,531 INFO unit exp2/add_chain|12|262k done in 3.0s (6 rows, peak VRAM 5.0 GiB)
+2026-10-26 01:34:49,265 INFO exp2 ioi_control L12 262k: probe acc {'x': 1.0, 'x_hat': 0.31, 'eps': 0.9, 'surface': 1.0}
+2026-10-26 01:34:49,266 INFO unit exp2/ioi_control|12|262k done in 3.7s (6 rows, peak VRAM 5.0 GiB)
+2026-10-26 01:34:49,724 INFO SAE gemma-scope-2b-pt-res-canonical/layer_12/width_16k/canonical: GPU-resident (0.28 GiB float32, 2.31 GiB VRAM free)
+2026-10-26 01:39:50,390 INFO exp3 entity_track L12 16k [from_diff]: supervised patch NLDR by rank {0: 0.74, 1: 0.84, 2: 0.84, 4: 0.84, 8: 0.89, 16: 0.89, 32: 0.9}
+2026-10-26 01:39:50,400 INFO unit exp3/entity_track|12|16k|from_diff done in 299.7s (36 rows, peak VRAM 6.4 GiB)
+2026-10-26 01:42:56,821 INFO exp3 add_chain L12 16k [from_diff]: supervised patch NLDR by rank {0: 0.94, 1: 0.95, 2: 0.95, 4: 0.95, 8: 0.95, 16: 0.95, 32: 0.95}
+2026-10-26 01:42:56,827 INFO unit exp3/add_chain|12|16k|from_diff done in 186.4s (36 rows, peak VRAM 6.4 GiB)
+2026-10-26 01:43:34,161 INFO exp3 ioi_control L12 16k [from_diff]: supervised patch NLDR by rank {0: 0.96, 1: 0.96, 2: 0.96, 4: 0.96, 8: 0.95, 16: 0.96, 32: 0.95}
+2026-10-26 01:43:34,163 INFO unit exp3/ioi_control|12|16k|from_diff done in 37.3s (36 rows, peak VRAM 6.4 GiB)
+2026-10-26 01:43:34,545 INFO SAE gemma-scope-2b-pt-res-canonical/layer_12/width_32k/canonical: GPU-resident (0.56 GiB float32, 2.31 GiB VRAM free)
+2026-10-26 01:48:35,477 INFO exp3 entity_track L12 32k [from_diff]: supervised patch NLDR by rank {0: 0.8, 1: 0.9, 2: 0.9, 4: 0.89, 8: 0.95, 16: 0.95, 32: 0.95}
+2026-10-26 01:48:35,486 INFO unit exp3/entity_track|12|32k|from_diff done in 300.0s (36 rows, peak VRAM 6.6 GiB)
+2026-10-26 01:51:42,105 INFO exp3 add_chain L12 32k [from_diff]: supervised patch NLDR by rank {0: 0.94, 1: 0.94, 2: 0.95, 4: 0.95, 8: 0.95, 16: 0.95, 32: 0.95}
+2026-10-26 01:51:42,112 INFO unit exp3/add_chain|12|32k|from_diff done in 186.6s (36 rows, peak VRAM 6.6 GiB)
+2026-10-26 01:52:19,467 INFO exp3 ioi_control L12 32k [from_diff]: supervised patch NLDR by rank {0: 0.97, 1: 0.97, 2: 0.97, 4: 0.97, 8: 0.96, 16: 0.97, 32: 0.96}
+2026-10-26 01:52:19,469 INFO unit exp3/ioi_control|12|32k|from_diff done in 37.4s (36 rows, peak VRAM 6.7 GiB)
+2026-10-26 01:52:19,957 INFO SAE gemma-scope-2b-pt-res-canonical/layer_12/width_65k/canonical: GPU-resident (1.13 GiB float32, 2.31 GiB VRAM free)
+2026-10-26 01:57:21,197 INFO exp3 entity_track L12 65k [from_diff]: supervised patch NLDR by rank {0: 0.76, 1: 0.85, 2: 0.85, 4: 0.85, 8: 0.92, 16: 0.94, 32: 0.94}
+2026-10-26 01:57:21,204 INFO unit exp3/entity_track|12|65k|from_diff done in 300.2s (36 rows, peak VRAM 7.2 GiB)
+2026-10-26 02:00:27,991 INFO exp3 add_chain L12 65k [from_diff]: supervised patch NLDR by rank {0: 0.93, 1: 0.94, 2: 0.94, 4: 0.94, 8: 0.94, 16: 0.94, 32: 0.94}
+2026-10-26 02:00:28,000 INFO unit exp3/add_chain|12|65k|from_diff done in 186.8s (36 rows, peak VRAM 7.2 GiB)
+2026-10-26 02:00:28,897 WARNING CUDA out of memory: max_batch_tokens 2048 -> 1024, retrying
+2026-10-26 02:00:28,897 WARNING retrying unit exp3/ioi_control|12|65k|from_diff after OOM (attempt 1/3)
+2026-10-26 02:00:29,743 WARNING CUDA out of memory: max_batch_tokens 1024 -> 512, retrying
+2026-10-26 02:00:29,744 WARNING retrying unit exp3/ioi_control|12|65k|from_diff after OOM (attempt 2/3)
+2026-10-26 02:00:30,573 WARNING CUDA out of memory: max_batch_tokens 512 -> 256, retrying
+2026-10-26 02:00:30,573 WARNING retrying unit exp3/ioi_control|12|65k|from_diff after OOM (attempt 3/3)
+2026-10-26 02:00:31,151 ERROR unit exp3/ioi_control|12|65k|from_diff FAILED: OutOfMemoryError: CUDA out of memory. Tried to allocate 22.00 MiB. GPU 0 has a total capacity of 7.53 GiB of which 23.75 MiB is free. Including non-PyTorch memory, this process has 7.48 GiB memory in use. Of the allocated memory 7.24 GiB is allocated by PyTorch, and 44.77 MiB is reserved by PyTorch but unallocated.
+2026-10-26 02:00:31,946 INFO SAE gemma-scope-2b-pt-res/layer_12/width_131k/average_l0_129: streamed from CPU (2.25 GiB float32, 2.31 GiB VRAM free)
+2026-10-26 02:05:34,471 INFO exp3 entity_track L12 131k [from_diff]: supervised patch NLDR by rank {0: 0.77, 1: 0.86, 2: 0.86, 4: 0.86, 8: 0.92, 16: 0.92, 32: 0.93}
+2026-10-26 02:05:34,476 INFO unit exp3/entity_track|12|131k|from_diff done in 300.8s (36 rows, peak VRAM 6.1 GiB)
+2026-10-26 02:08:41,647 INFO exp3 add_chain L12 131k [from_diff]: supervised patch NLDR by rank {0: 0.95, 1: 0.96, 2: 0.96, 4: 0.96, 8: 0.96, 16: 0.96, 32: 0.96}
+2026-10-26 02:08:41,651 INFO unit exp3/add_chain|12|131k|from_diff done in 187.2s (36 rows, peak VRAM 6.1 GiB)
+2026-10-26 02:09:19,558 INFO exp3 ioi_control L12 131k [from_diff]: supervised patch NLDR by rank {0: 0.98, 1: 0.98, 2: 0.98, 4: 0.98, 8: 0.98, 16: 0.98, 32: 0.98}
+2026-10-26 02:09:19,559 INFO unit exp3/ioi_control|12|131k|from_diff done in 37.9s (36 rows, peak VRAM 6.1 GiB)
+2026-10-26 02:09:22,282 INFO SAE gemma-scope-2b-pt-res-canonical/layer_12/width_262k/canonical: streamed from CPU (4.50 GiB float32, 2.31 GiB VRAM free)
+2026-10-26 02:14:26,526 INFO exp3 entity_track L12 262k [from_diff]: supervised patch NLDR by rank {0: 0.85, 1: 0.9, 2: 0.9, 4: 0.89, 8: 0.93, 16: 0.94, 32: 0.95}
+2026-10-26 02:14:26,532 INFO unit exp3/entity_track|12|262k|from_diff done in 301.2s (36 rows, peak VRAM 6.1 GiB)
+2026-10-26 02:17:34,550 INFO exp3 add_chain L12 262k [from_diff]: supervised patch NLDR by rank {0: 0.95, 1: 0.95, 2: 0.95, 4: 0.95, 8: 0.95, 16: 0.95, 32: 0.95}
+2026-10-26 02:17:34,554 INFO unit exp3/add_chain|12|262k|from_diff done in 188.0s (36 rows, peak VRAM 6.1 GiB)
+2026-10-26 02:18:13,331 INFO exp3 ioi_control L12 262k [from_diff]: supervised patch NLDR by rank {0: 1.0, 1: 0.99, 2: 1.0, 4: 0.99, 8: 0.99, 16: 0.99, 32: 0.99}
+2026-10-26 02:18:13,331 INFO unit exp3/ioi_control|12|262k|from_diff done in 38.8s (36 rows, peak VRAM 6.1 GiB)

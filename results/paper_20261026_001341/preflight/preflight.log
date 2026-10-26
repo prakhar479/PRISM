@@ -1,0 +1,31 @@
+2026-10-26 00:13:52,695 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-10-26 00:13:52,989 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-10-26 00:13:53,304 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-10-26 00:13:54,170 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-10-26 00:13:54,808 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-10-26 00:13:57,448 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-10-26 00:13:57,757 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-10-26 00:13:58,033 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-10-26 00:13:59,047 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-10-26 00:14:07,459 INFO model loaded: 4.92 GiB VRAM in use (embedding on CPU)
+2026-10-26 00:14:07,467 INFO runtime plan: {'device': 'cuda', 'total_vram_gb': 7.53, 'free_vram_after_model_gb': 2.47, 'embed_on_cpu': True, 'max_batch_tokens': 3584, 'batch_size_cap': 128, 'cpu_threads': 4, 'cpu_workers': 1, 'resume_from_layer': True, 'ram_available_gb': 15.7}
+2026-10-26 00:14:07,492 INFO [add_chain/space_target] prompt tail tokens ['4', ' more', '.', ' Anna', ' now', ' has'] | target ' 8' -> [' ', '8']
+2026-10-26 00:14:07,493 INFO [add_chain/space_prompt] prompt tail tokens [' more', '.', ' Anna', ' now', ' has', ' '] | target '8' -> ['8']
+2026-10-26 00:14:09,506 INFO preflight {'task': 'add_chain', 'answer_format': 'auto', 'n_shots': 2, 'n_pairs': 48, 'tokenized': 1.0, 'clean_top1': 0.58, 'corrupt_top1': 0.56, 'dl_clean': 1.64, 'dl_corrupt': -1.76, 'strict': 0.21, 'clean_only': 0.4}
+2026-10-26 00:14:14,669 INFO preflight {'task': 'add_chain', 'answer_format': 'auto', 'n_shots': 8, 'n_pairs': 48, 'tokenized': 1.0, 'clean_top1': 0.96, 'corrupt_top1': 0.92, 'dl_clean': 3.08, 'dl_corrupt': -2.78, 'strict': 0.62, 'clean_only': 0.9}
+2026-10-26 00:14:14,670 INFO ==> add_chain: {'n_shots': 8, 'answer_format': 'auto', 'filter_mode': 'strict', 'candidate_multiplier': 3, 'expected_retention': 0.625}
+2026-10-26 00:14:14,676 INFO [entity_track/space_target] prompt tail tokens ['.', ' The', ' cup', ' is', ' in', ' box'] | target ' A' -> [' A']
+2026-10-26 00:14:14,677 INFO [entity_track/space_prompt] prompt tail tokens [' The', ' cup', ' is', ' in', ' box', ' '] | target 'A' -> []
+2026-10-26 00:14:17,312 INFO preflight {'task': 'entity_track', 'answer_format': 'auto', 'n_shots': 2, 'n_pairs': 48, 'tokenized': 1.0, 'clean_top1': 0.12, 'corrupt_top1': 0.08, 'dl_clean': 0.22, 'dl_corrupt': 0.4, 'strict': 0.0, 'clean_only': 0.0}
+2026-10-26 00:14:25,492 INFO preflight {'task': 'entity_track', 'answer_format': 'auto', 'n_shots': 8, 'n_pairs': 48, 'tokenized': 1.0, 'clean_top1': 0.71, 'corrupt_top1': 0.25, 'dl_clean': 2.09, 'dl_corrupt': 0.3, 'strict': 0.08, 'clean_only': 0.27}
+2026-10-26 00:14:25,493 INFO ==> entity_track: {'n_shots': 8, 'answer_format': 'auto', 'filter_mode': 'clean_only', 'candidate_multiplier': 6, 'expected_retention': 0.271}
+2026-10-26 00:14:25,496 INFO [var_binding/space_target] prompt tail tokens [' =', ' ', '3', '.', ' q', ' ='] | target ' 1' -> [' ', '1']
+2026-10-26 00:14:25,496 INFO [var_binding/space_prompt] prompt tail tokens [' ', '3', '.', ' q', ' =', ' '] | target '1' -> ['1']
+2026-10-26 00:14:26,972 INFO preflight {'task': 'var_binding', 'answer_format': 'auto', 'n_shots': 2, 'n_pairs': 48, 'tokenized': 1.0, 'clean_top1': 0.67, 'corrupt_top1': 0.56, 'dl_clean': 2.37, 'dl_corrupt': -2.27, 'strict': 0.4, 'clean_only': 0.65}
+2026-10-26 00:14:31,463 INFO preflight {'task': 'var_binding', 'answer_format': 'auto', 'n_shots': 8, 'n_pairs': 48, 'tokenized': 1.0, 'clean_top1': 0.42, 'corrupt_top1': 0.4, 'dl_clean': 3.72, 'dl_corrupt': -3.43, 'strict': 0.27, 'clean_only': 0.42}
+2026-10-26 00:14:31,463 INFO ==> var_binding: {'n_shots': 2, 'answer_format': 'auto', 'filter_mode': 'strict', 'candidate_multiplier': 4, 'expected_retention': 0.396}
+2026-10-26 00:14:31,470 INFO [ioi_control/space_target] prompt tail tokens [',', ' Paul', ' gave', ' a', ' drink', ' to'] | target ' Lucy' -> [' Lucy']
+2026-10-26 00:14:31,470 INFO [ioi_control/space_prompt] prompt tail tokens [' Paul', ' gave', ' a', ' drink', ' to', ' '] | target 'Lucy' -> []
+2026-10-26 00:14:32,469 INFO preflight {'task': 'ioi_control', 'answer_format': 'auto', 'n_shots': 2, 'n_pairs': 48, 'tokenized': 1.0, 'clean_top1': 1.0, 'corrupt_top1': 1.0, 'dl_clean': 6.66, 'dl_corrupt': -6.18, 'strict': 1.0, 'clean_only': 1.0}
+2026-10-26 00:14:35,423 INFO preflight {'task': 'ioi_control', 'answer_format': 'auto', 'n_shots': 8, 'n_pairs': 48, 'tokenized': 1.0, 'clean_top1': 1.0, 'corrupt_top1': 1.0, 'dl_clean': 8.04, 'dl_corrupt': -7.85, 'strict': 1.0, 'clean_only': 1.0}
+2026-10-26 00:14:35,423 INFO ==> ioi_control: {'n_shots': 2, 'answer_format': 'auto', 'filter_mode': 'strict', 'candidate_multiplier': 2, 'expected_retention': 1.0}

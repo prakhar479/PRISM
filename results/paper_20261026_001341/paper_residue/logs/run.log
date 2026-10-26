@@ -1,0 +1,133 @@
+2026-10-26 00:14:53,064 INFO device=cuda dtype=torch.bfloat16 mock=False out=results/paper_20261026_001341/paper_residue
+2026-10-26 00:14:55,197 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-10-26 00:14:55,626 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-10-26 00:14:56,019 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-10-26 00:14:56,791 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-10-26 00:14:57,453 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-10-26 00:14:59,705 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-10-26 00:15:00,028 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-10-26 00:15:00,525 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-10-26 00:15:01,345 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-10-26 00:15:08,423 INFO model loaded: 4.92 GiB VRAM in use (embedding on CPU)
+2026-10-26 00:15:08,425 INFO runtime plan: {'device': 'cuda', 'total_vram_gb': 7.53, 'free_vram_after_model_gb': 2.47, 'embed_on_cpu': True, 'max_batch_tokens': 2048, 'batch_size_cap': 128, 'cpu_threads': 4, 'cpu_workers': 1, 'resume_from_layer': True, 'ram_available_gb': 15.7}
+2026-10-26 00:20:25,492 INFO filter_valid_pairs[clean_only]: kept 690/1800
+2026-10-26 00:23:04,957 INFO filter_valid_pairs[clean_only]: kept 342/900
+2026-10-26 00:26:02,237 INFO filter_valid_pairs[strict]: kept 628/900
+2026-10-26 00:26:52,030 INFO filter_valid_pairs[strict]: kept 276/450
+2026-10-26 00:27:53,442 INFO filter_valid_pairs[strict]: kept 600/600
+2026-10-26 00:27:59,850 INFO filter_valid_pairs[strict]: kept 300/300
+2026-10-26 00:28:09,464 INFO prepared tasks ['entity_track', 'add_chain', 'ioi_control'] at layers [10, 12, 14, 18]
+2026-10-26 00:28:35,972 INFO resume_from_layer check at L14: max |dLogit| 0 -> enabled
+2026-10-26 00:28:35,972 INFO task info: {'entity_track': {'n_train': 300, 'n_test': 150, 'skipped': False, 'seconds': 555.8, 'n_shots': 8, 'answer_format': 'auto', 'filter_mode': 'clean_only', 'dl_clean': 2.7662665843963623, 'dl_corrupt': -0.15415722131729126, 'clean_top1': 1.0, 'mean_len': 377.0, 'mean_span': 13.426666666666666}, 'add_chain': {'n_train': 300, 'n_test': 150, 'skipped': False, 'seconds': 196.2, 'n_shots': 8, 'answer_format': 'auto', 'filter_mode': 'strict', 'dl_clean': 3.4764716625213623, 'dl_corrupt': -3.016946315765381, 'clean_top1': 1.0, 'mean_len': 234.65333333333334, 'mean_span': 11.493333333333334}, 'ioi_control': {'n_train': 300, 'n_test': 150, 'skipped': False, 'seconds': 29.0, 'n_shots': 2, 'answer_format': 'auto', 'filter_mode': 'strict', 'dl_clean': 6.748236179351807, 'dl_corrupt': -6.388719081878662, 'clean_top1': 1.0, 'mean_len': 47.0, 'mean_span': 5.0}}
+2026-10-26 00:28:37,473 INFO HTTP Request: HEAD https://huggingface.co/google/gemma-scope-2b-pt-res/resolve/main/layer_10/width_16k/average_l0_77/params.npz "HTTP/1.1 302 Found"
+2026-10-26 00:28:37,864 INFO SAE gemma-scope-2b-pt-res-canonical/layer_10/width_16k/canonical: GPU-resident (0.28 GiB float32, 1.09 GiB VRAM free)
+2026-10-26 00:28:38,100 INFO HTTP Request: HEAD https://huggingface.co/google/gemma-scope-2b-pt-res/resolve/main/layer_12/width_16k/average_l0_82/params.npz "HTTP/1.1 302 Found"
+2026-10-26 00:28:38,701 INFO HTTP Request: HEAD https://huggingface.co/datasets/NeelNanda/pile-10k/resolve/main/README.md "HTTP/1.1 307 Temporary Redirect"
+2026-10-26 00:28:38,906 INFO HTTP Request: HEAD https://huggingface.co/api/resolve-cache/datasets/NeelNanda/pile-10k/127bfedcd5047750df5ccf3a12979a47bfa0bafa/README.md?%2Fdatasets%2FNeelNanda%2Fpile-10k%2Fresolve%2Fmain%2FREADME.md=&etag=%22dd43b44200df267377169ac61319fb4ae9185ea5%22 "HTTP/1.1 200 OK"
+2026-10-26 00:28:39,316 INFO HTTP Request: HEAD https://huggingface.co/datasets/NeelNanda/pile-10k/resolve/127bfedcd5047750df5ccf3a12979a47bfa0bafa/pile-10k.py "HTTP/1.1 404 Not Found"
+2026-10-26 00:28:40,749 INFO HTTP Request: HEAD https://s3.amazonaws.com/datasets.huggingface.co/datasets/datasets/NeelNanda/pile-10k/NeelNanda/pile-10k.py "HTTP/1.1 404 Not Found"
+2026-10-26 00:28:41,364 INFO HTTP Request: GET https://huggingface.co/api/datasets/NeelNanda/pile-10k/revision/127bfedcd5047750df5ccf3a12979a47bfa0bafa "HTTP/1.1 200 OK"
+2026-10-26 00:28:41,773 INFO HTTP Request: HEAD https://huggingface.co/datasets/NeelNanda/pile-10k/resolve/127bfedcd5047750df5ccf3a12979a47bfa0bafa/.huggingface.yaml "HTTP/1.1 404 Not Found"
+2026-10-26 00:28:42,798 INFO HTTP Request: GET https://datasets-server.huggingface.co/info?dataset=NeelNanda/pile-10k "HTTP/1.1 200 OK"
+2026-10-26 00:28:43,157 INFO HTTP Request: GET https://huggingface.co/api/datasets/NeelNanda/pile-10k/tree/127bfedcd5047750df5ccf3a12979a47bfa0bafa/data?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-10-26 00:28:43,617 INFO HTTP Request: GET https://huggingface.co/api/datasets/NeelNanda/pile-10k/tree/127bfedcd5047750df5ccf3a12979a47bfa0bafa?recursive=false&expand=false "HTTP/1.1 200 OK"
+2026-10-26 00:28:43,929 INFO HTTP Request: GET https://huggingface.co/datasets/NeelNanda/pile-10k/resolve/127bfedcd5047750df5ccf3a12979a47bfa0bafa/data/train-00000-of-00001-4746b8785c874cc7.parquet "HTTP/1.1 302 Found"
+2026-10-26 00:28:44,640 INFO HTTP Request: GET https://us.aws.cdn.hf.co/xet-bridge-us/6339fbaec0b7fd23493c796e/04ee344e211696e307bc8caa423e5b6a1f0b406038b625e369002651793be3ce?X-Xet-Cas-Uid=67caf46200a8a1b497b1dce4&response-content-disposition=inline%3B+filename*%3DUTF-8%27%27train-00000-of-00001-4746b8785c874cc7.parquet%3B+filename%3D%22train-00000-of-00001-4746b8785c874cc7.parquet%22%3B&xip=1pECe4NXY-k&user_id=67caf46200a8a1b497b1dce4&Expires=1792938524&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly91cy5hd3MuY2RuLmhmLmNvL3hldC1icmlkZ2UtdXMvNjMzOWZiYWVjMGI3ZmQyMzQ5M2M3OTZlLzA0ZWUzNDRlMjExNjk2ZTMwN2JjOGNhYTQyM2U1YjZhMWYwYjQwNjAzOGI2MjVlMzY5MDAyNjUxNzkzYmUzY2VcXD9YLVhldC1DYXMtVWlkPTY3Y2FmNDYyMDBhOGExYjQ5N2IxZGNlNCZyZXNwb25zZS1jb250ZW50LWRpc3Bvc2l0aW9uPWlubGluZSUzQitmaWxlbmFtZSUyQSUzRFVURi04JTI3JTI3dHJhaW4tMDAwMDAtb2YtMDAwMDEtNDc0NmI4Nzg1Yzg3NGNjNy5wYXJxdWV0JTNCK2ZpbGVuYW1lJTNEJTIydHJhaW4tMDAwMDAtb2YtMDAwMDEtNDc0NmI4Nzg1Yzg3NGNjNy5wYXJxdWV0JTIyJTNCJnhpcD0xcEVDZTROWFktayZ1c2VyX2lkPTY3Y2FmNDYyMDBhOGExYjQ5N2IxZGNlNCIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiRXBvY2hUaW1lIjoxNzkyOTM4NTI0fX19XX0_&Signature=MEUCICQVJM78vzx8RzSh4orvBdYcTVMJ0b0VboBBDy2mt4hvAiEAoAcSKMqxJkss9tITJ2EN2niHn0JxmWDHpQIeqH6uhA0_&Key-Pair-Id=01KXEF4KZ1B6FV465MAWR4M21F&Hash-Algorithm=SHA256 "HTTP/1.1 206 Partial Content"
+2026-10-26 00:28:45,869 INFO HTTP Request: GET https://huggingface.co/datasets/NeelNanda/pile-10k/resolve/127bfedcd5047750df5ccf3a12979a47bfa0bafa/data/train-00000-of-00001-4746b8785c874cc7.parquet "HTTP/1.1 302 Found"
+2026-10-26 00:28:46,689 INFO HTTP Request: GET https://us.aws.cdn.hf.co/xet-bridge-us/6339fbaec0b7fd23493c796e/04ee344e211696e307bc8caa423e5b6a1f0b406038b625e369002651793be3ce?user_id=67caf46200a8a1b497b1dce4&X-Xet-Cas-Uid=67caf46200a8a1b497b1dce4&xip=1pECe4NXY-k&response-content-disposition=inline%3B+filename*%3DUTF-8%27%27train-00000-of-00001-4746b8785c874cc7.parquet%3B+filename%3D%22train-00000-of-00001-4746b8785c874cc7.parquet%22%3B&Expires=1792938526&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly91cy5hd3MuY2RuLmhmLmNvL3hldC1icmlkZ2UtdXMvNjMzOWZiYWVjMGI3ZmQyMzQ5M2M3OTZlLzA0ZWUzNDRlMjExNjk2ZTMwN2JjOGNhYTQyM2U1YjZhMWYwYjQwNjAzOGI2MjVlMzY5MDAyNjUxNzkzYmUzY2VcXD91c2VyX2lkPTY3Y2FmNDYyMDBhOGExYjQ5N2IxZGNlNCZYLVhldC1DYXMtVWlkPTY3Y2FmNDYyMDBhOGExYjQ5N2IxZGNlNCZ4aXA9MXBFQ2U0TlhZLWsmcmVzcG9uc2UtY29udGVudC1kaXNwb3NpdGlvbj1pbmxpbmUlM0IrZmlsZW5hbWUlMkElM0RVVEYtOCUyNyUyN3RyYWluLTAwMDAwLW9mLTAwMDAxLTQ3NDZiODc4NWM4NzRjYzcucGFycXVldCUzQitmaWxlbmFtZSUzRCUyMnRyYWluLTAwMDAwLW9mLTAwMDAxLTQ3NDZiODc4NWM4NzRjYzcucGFycXVldCUyMiUzQiIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiRXBvY2hUaW1lIjoxNzkyOTM4NTI2fX19XX0_&Signature=MEUCIQCw6uFrOdhMWyXA8kb%7EYdo73VouLm1aKqCnPpfIlQbJGAIgYQWKL-muPOdXT2B5fVAju5Jdw95Ra%7E1H5UVSyMxa2ok_&Key-Pair-Id=01KXEF4KZ1B6FV465MAWR4M21F&Hash-Algorithm=SHA256 "HTTP/1.1 206 Partial Content"
+2026-10-26 00:29:04,783 INFO generic text: 12400 residual rows at layer 10
+2026-10-26 00:29:10,795 INFO unit exp1/__fidelity__|10|16k done in 32.9s (1 rows, peak VRAM 6.5 GiB)
+2026-10-26 00:30:03,654 INFO exp1 entity_track L10 16k [from_diff]: {'sae_only': 0.96, 'error_only': 0.3, 'sae_splice': 1.02, 'noise_control': 0.45, 'clean_full': 1.0}
+2026-10-26 00:30:03,654 INFO unit exp1/entity_track|10|16k|from_diff done in 52.9s (5 rows, peak VRAM 6.4 GiB)
+2026-10-26 00:30:36,666 INFO exp1 add_chain L10 16k [from_diff]: {'sae_only': 0.95, 'error_only': 0.06, 'sae_splice': 1.03, 'noise_control': 0.06, 'clean_full': 1.0}
+2026-10-26 00:30:36,671 INFO unit exp1/add_chain|10|16k|from_diff done in 33.0s (5 rows, peak VRAM 6.4 GiB)
+2026-10-26 00:30:43,280 INFO exp1 ioi_control L10 16k [from_diff]: {'sae_only': 0.96, 'error_only': 0.07, 'sae_splice': 0.99, 'noise_control': 0.03, 'clean_full': 1.0}
+2026-10-26 00:30:43,280 INFO unit exp1/ioi_control|10|16k|from_diff done in 6.6s (5 rows, peak VRAM 6.4 GiB)
+2026-10-26 00:30:43,587 INFO SAE gemma-scope-2b-pt-res-canonical/layer_12/width_16k/canonical: GPU-resident (0.28 GiB float32, 2.38 GiB VRAM free)
+2026-10-26 00:30:44,653 INFO HTTP Request: HEAD https://huggingface.co/google/gemma-scope-2b-pt-res/resolve/main/layer_14/width_16k/average_l0_84/params.npz "HTTP/1.1 302 Found"
+2026-10-26 00:30:44,979 INFO generic text: 12400 residual rows at layer 12
+2026-10-26 00:30:50,815 INFO unit exp1/__fidelity__|12|16k done in 7.2s (1 rows, peak VRAM 6.5 GiB)
+2026-10-26 00:31:39,003 INFO exp1 entity_track L12 16k [from_diff]: {'sae_only': 0.74, 'error_only': 0.62, 'sae_splice': 1.09, 'noise_control': 0.51, 'clean_full': 1.0}
+2026-10-26 00:31:39,004 INFO unit exp1/entity_track|12|16k|from_diff done in 48.2s (5 rows, peak VRAM 6.4 GiB)
+2026-10-26 00:32:08,994 INFO exp1 add_chain L12 16k [from_diff]: {'sae_only': 0.94, 'error_only': 0.06, 'sae_splice': 1.02, 'noise_control': 0.07, 'clean_full': 1.0}
+2026-10-26 00:32:08,994 INFO unit exp1/add_chain|12|16k|from_diff done in 30.0s (5 rows, peak VRAM 6.4 GiB)
+2026-10-26 00:32:15,008 INFO exp1 ioi_control L12 16k [from_diff]: {'sae_only': 0.96, 'error_only': 0.13, 'sae_splice': 0.97, 'noise_control': 0.09, 'clean_full': 1.0}
+2026-10-26 00:32:15,013 INFO unit exp1/ioi_control|12|16k|from_diff done in 6.0s (5 rows, peak VRAM 6.4 GiB)
+2026-10-26 00:32:15,340 INFO SAE gemma-scope-2b-pt-res-canonical/layer_14/width_16k/canonical: GPU-resident (0.28 GiB float32, 2.38 GiB VRAM free)
+2026-10-26 00:32:16,403 INFO HTTP Request: HEAD https://huggingface.co/google/gemma-scope-2b-pt-res/resolve/main/layer_18/width_16k/average_l0_74/params.npz "HTTP/1.1 302 Found"
+2026-10-26 00:32:16,938 INFO generic text: 12400 residual rows at layer 14
+2026-10-26 00:32:22,773 INFO unit exp1/__fidelity__|14|16k done in 7.4s (1 rows, peak VRAM 6.5 GiB)
+2026-10-26 00:33:06,202 INFO exp1 entity_track L14 16k [from_diff]: {'sae_only': 0.96, 'error_only': 0.41, 'sae_splice': 0.98, 'noise_control': 0.28, 'clean_full': 1.0}
+2026-10-26 00:33:06,208 INFO unit exp1/entity_track|14|16k|from_diff done in 43.4s (5 rows, peak VRAM 6.4 GiB)
+2026-10-26 00:33:33,272 INFO exp1 add_chain L14 16k [from_diff]: {'sae_only': 0.94, 'error_only': 0.06, 'sae_splice': 0.94, 'noise_control': 0.16, 'clean_full': 1.0}
+2026-10-26 00:33:33,277 INFO unit exp1/add_chain|14|16k|from_diff done in 27.1s (5 rows, peak VRAM 6.4 GiB)
+2026-10-26 00:33:38,704 INFO exp1 ioi_control L14 16k [from_diff]: {'sae_only': 0.9, 'error_only': 0.18, 'sae_splice': 0.84, 'noise_control': 0.18, 'clean_full': 1.0}
+2026-10-26 00:33:38,704 INFO unit exp1/ioi_control|14|16k|from_diff done in 5.4s (5 rows, peak VRAM 6.4 GiB)
+2026-10-26 00:33:39,036 INFO SAE gemma-scope-2b-pt-res-canonical/layer_18/width_16k/canonical: GPU-resident (0.28 GiB float32, 2.38 GiB VRAM free)
+2026-10-26 00:33:41,086 INFO generic text: 12400 residual rows at layer 18
+2026-10-26 00:33:46,916 INFO unit exp1/__fidelity__|18|16k done in 7.9s (1 rows, peak VRAM 6.5 GiB)
+2026-10-26 00:34:20,975 INFO exp1 entity_track L18 16k [from_diff]: {'sae_only': 0.86, 'error_only': 0.17, 'sae_splice': 1.06, 'noise_control': 0.14, 'clean_full': 1.0}
+2026-10-26 00:34:20,980 INFO unit exp1/entity_track|18|16k|from_diff done in 34.1s (5 rows, peak VRAM 6.4 GiB)
+2026-10-26 00:34:42,185 INFO exp1 add_chain L18 16k [from_diff]: {'sae_only': 0.87, 'error_only': 0.14, 'sae_splice': 0.81, 'noise_control': 0.21, 'clean_full': 1.0}
+2026-10-26 00:34:42,190 INFO unit exp1/add_chain|18|16k|from_diff done in 21.2s (5 rows, peak VRAM 6.4 GiB)
+2026-10-26 00:34:46,454 INFO exp1 ioi_control L18 16k [from_diff]: {'sae_only': 0.76, 'error_only': 0.26, 'sae_splice': 0.82, 'noise_control': 0.21, 'clean_full': 1.0}
+2026-10-26 00:34:46,455 INFO unit exp1/ioi_control|18|16k|from_diff done in 4.3s (5 rows, peak VRAM 6.4 GiB)
+2026-10-26 00:34:47,546 INFO HTTP Request: HEAD https://huggingface.co/google/gemma-scope-2b-pt-res/resolve/main/layer_10/width_16k/average_l0_77/params.npz "HTTP/1.1 302 Found"
+2026-10-26 00:34:47,780 INFO SAE gemma-scope-2b-pt-res-canonical/layer_10/width_16k/canonical: GPU-resident (0.28 GiB float32, 2.38 GiB VRAM free)
+2026-10-26 00:34:48,366 INFO HTTP Request: HEAD https://huggingface.co/google/gemma-scope-2b-pt-res/resolve/main/layer_12/width_16k/average_l0_82/params.npz "HTTP/1.1 302 Found"
+2026-10-26 00:34:48,654 INFO SAE gemma-scope-2b-pt-res-canonical/layer_12/width_16k/canonical: GPU-resident (0.28 GiB float32, 2.38 GiB VRAM free)
+2026-10-26 00:34:48,980 INFO HTTP Request: HEAD https://huggingface.co/google/gemma-scope-2b-pt-res/resolve/main/layer_14/width_16k/average_l0_84/params.npz "HTTP/1.1 302 Found"
+2026-10-26 00:34:52,331 INFO exp2 entity_track L10 16k: probe acc {'x': 0.78, 'x_hat': 0.37, 'eps': 0.67, 'latents': 0.36, 'surface': 0.33}
+2026-10-26 00:34:52,332 INFO unit exp2/entity_track|10|16k done in 3.4s (7 rows, peak VRAM 5.2 GiB)
+2026-10-26 00:34:55,824 INFO exp2 add_chain L10 16k: probe acc {'x': 0.52, 'x_hat': 0.33, 'eps': 0.47, 'latents': 0.34, 'surface': 0.45}
+2026-10-26 00:34:55,825 INFO unit exp2/add_chain|10|16k done in 3.5s (7 rows, peak VRAM 5.2 GiB)
+2026-10-26 00:34:56,165 INFO SAE gemma-scope-2b-pt-res-canonical/layer_14/width_16k/canonical: GPU-resident (0.28 GiB float32, 2.38 GiB VRAM free)
+2026-10-26 00:34:57,172 INFO HTTP Request: HEAD https://huggingface.co/google/gemma-scope-2b-pt-res/resolve/main/layer_18/width_16k/average_l0_74/params.npz "HTTP/1.1 302 Found"
+2026-10-26 00:35:00,458 INFO exp2 ioi_control L10 16k: probe acc {'x': 1.0, 'x_hat': 0.15, 'eps': 0.98, 'latents': 0.16, 'surface': 1.0}
+2026-10-26 00:35:00,459 INFO unit exp2/ioi_control|10|16k done in 4.0s (7 rows, peak VRAM 5.2 GiB)
+2026-10-26 00:35:03,771 INFO exp2 entity_track L12 16k: probe acc {'x': 0.91, 'x_hat': 0.48, 'eps': 0.84, 'latents': 0.45, 'surface': 0.33}
+2026-10-26 00:35:03,772 INFO unit exp2/entity_track|12|16k done in 3.3s (7 rows, peak VRAM 5.2 GiB)
+2026-10-26 00:35:07,019 INFO exp2 add_chain L12 16k: probe acc {'x': 0.57, 'x_hat': 0.42, 'eps': 0.53, 'latents': 0.38, 'surface': 0.45}
+2026-10-26 00:35:07,020 INFO unit exp2/add_chain|12|16k done in 3.2s (7 rows, peak VRAM 5.2 GiB)
+2026-10-26 00:35:07,363 INFO SAE gemma-scope-2b-pt-res-canonical/layer_18/width_16k/canonical: GPU-resident (0.28 GiB float32, 2.38 GiB VRAM free)
+2026-10-26 00:35:11,768 INFO exp2 ioi_control L12 16k: probe acc {'x': 1.0, 'x_hat': 0.2, 'eps': 0.97, 'latents': 0.19, 'surface': 1.0}
+2026-10-26 00:35:11,768 INFO unit exp2/ioi_control|12|16k done in 4.1s (7 rows, peak VRAM 5.2 GiB)
+2026-10-26 00:35:15,151 INFO exp2 entity_track L14 16k: probe acc {'x': 0.97, 'x_hat': 0.59, 'eps': 0.94, 'latents': 0.45, 'surface': 0.33}
+2026-10-26 00:35:15,152 INFO unit exp2/entity_track|14|16k done in 3.4s (7 rows, peak VRAM 5.2 GiB)
+2026-10-26 00:35:18,411 INFO exp2 add_chain L14 16k: probe acc {'x': 0.69, 'x_hat': 0.5, 'eps': 0.57, 'latents': 0.49, 'surface': 0.45}
+2026-10-26 00:35:18,412 INFO unit exp2/add_chain|14|16k done in 3.3s (7 rows, peak VRAM 5.2 GiB)
+2026-10-26 00:35:22,943 INFO exp2 ioi_control L14 16k: probe acc {'x': 1.0, 'x_hat': 0.52, 'eps': 0.99, 'latents': 0.41, 'surface': 1.0}
+2026-10-26 00:35:22,944 INFO unit exp2/ioi_control|14|16k done in 4.2s (7 rows, peak VRAM 5.0 GiB)
+2026-10-26 00:35:26,325 INFO exp2 entity_track L18 16k: probe acc {'x': 0.99, 'x_hat': 0.88, 'eps': 0.99, 'latents': 0.89, 'surface': 0.33}
+2026-10-26 00:35:26,325 INFO unit exp2/entity_track|18|16k done in 3.4s (7 rows, peak VRAM 5.0 GiB)
+2026-10-26 00:35:29,668 INFO exp2 add_chain L18 16k: probe acc {'x': 0.92, 'x_hat': 0.87, 'eps': 0.91, 'latents': 0.83, 'surface': 0.45}
+2026-10-26 00:35:29,669 INFO unit exp2/add_chain|18|16k done in 3.3s (7 rows, peak VRAM 5.0 GiB)
+2026-10-26 00:35:33,859 INFO exp2 ioi_control L18 16k: probe acc {'x': 1.0, 'x_hat': 1.0, 'eps': 1.0, 'latents': 1.0, 'surface': 1.0}
+2026-10-26 00:35:33,860 INFO unit exp2/ioi_control|18|16k done in 4.2s (7 rows, peak VRAM 5.0 GiB)
+2026-10-26 00:35:34,855 INFO HTTP Request: HEAD https://huggingface.co/google/gemma-scope-2b-pt-res/resolve/main/layer_10/width_16k/average_l0_77/params.npz "HTTP/1.1 302 Found"
+2026-10-26 00:35:35,077 INFO SAE gemma-scope-2b-pt-res-canonical/layer_10/width_16k/canonical: GPU-resident (0.28 GiB float32, 2.38 GiB VRAM free)
+2026-10-26 00:35:35,469 INFO HTTP Request: HEAD https://huggingface.co/google/gemma-scope-2b-pt-res/resolve/main/layer_12/width_16k/average_l0_82/params.npz "HTTP/1.1 302 Found"
+2026-10-26 00:35:35,936 ERROR exp3: subspace fitting failed L10 16k: SVD did not converge
+2026-10-26 00:35:36,259 INFO SAE gemma-scope-2b-pt-res-canonical/layer_12/width_16k/canonical: GPU-resident (0.28 GiB float32, 2.38 GiB VRAM free)
+2026-10-26 00:35:36,495 INFO HTTP Request: HEAD https://huggingface.co/google/gemma-scope-2b-pt-res/resolve/main/layer_14/width_16k/average_l0_84/params.npz "HTTP/1.1 302 Found"
+2026-10-26 00:44:00,169 INFO exp3 entity_track L12 16k [from_diff]: supervised patch NLDR by rank {0: 0.74, 1: 0.84, 2: 0.84, 4: 0.84, 8: 0.89, 16: 0.89, 32: 0.9}
+2026-10-26 00:44:00,174 INFO unit exp3/entity_track|12|16k|from_diff done in 501.4s (57 rows, peak VRAM 6.4 GiB)
+2026-10-26 00:49:12,390 INFO exp3 add_chain L12 16k [from_diff]: supervised patch NLDR by rank {0: 0.94, 1: 0.95, 2: 0.95, 4: 0.95, 8: 0.95, 16: 0.95, 32: 0.95}
+2026-10-26 00:49:12,396 INFO unit exp3/add_chain|12|16k|from_diff done in 312.2s (57 rows, peak VRAM 6.4 GiB)
+2026-10-26 00:50:14,906 INFO exp3 ioi_control L12 16k [from_diff]: supervised patch NLDR by rank {0: 0.96, 1: 0.96, 2: 0.96, 4: 0.96, 8: 0.95, 16: 0.96, 32: 0.95}
+2026-10-26 00:50:14,906 INFO unit exp3/ioi_control|12|16k|from_diff done in 62.5s (57 rows, peak VRAM 6.4 GiB)
+2026-10-26 00:50:15,264 INFO SAE gemma-scope-2b-pt-res-canonical/layer_14/width_16k/canonical: GPU-resident (0.28 GiB float32, 2.38 GiB VRAM free)
+2026-10-26 00:50:17,068 INFO HTTP Request: HEAD https://huggingface.co/google/gemma-scope-2b-pt-res/resolve/main/layer_18/width_16k/average_l0_74/params.npz "HTTP/1.1 302 Found"
+2026-10-26 00:57:32,620 INFO exp3 entity_track L14 16k [from_diff]: supervised patch NLDR by rank {0: 0.96, 1: 0.96, 2: 0.97, 4: 0.96, 8: 1.01, 16: 1.01, 32: 1.01}
+2026-10-26 00:57:32,630 INFO unit exp3/entity_track|14|16k|from_diff done in 434.7s (57 rows, peak VRAM 6.4 GiB)
+2026-10-26 01:02:03,329 INFO exp3 add_chain L14 16k [from_diff]: supervised patch NLDR by rank {0: 0.94, 1: 0.95, 2: 0.96, 4: 0.95, 8: 0.96, 16: 0.96, 32: 0.97}
+2026-10-26 01:02:03,335 INFO unit exp3/add_chain|14|16k|from_diff done in 270.7s (57 rows, peak VRAM 6.4 GiB)
+2026-10-26 01:02:57,564 INFO exp3 ioi_control L14 16k [from_diff]: supervised patch NLDR by rank {0: 0.9, 1: 0.9, 2: 0.9, 4: 0.91, 8: 0.91, 16: 0.91, 32: 0.91}
+2026-10-26 01:02:57,565 INFO unit exp3/ioi_control|14|16k|from_diff done in 54.2s (57 rows, peak VRAM 6.4 GiB)
+2026-10-26 01:02:57,883 INFO SAE gemma-scope-2b-pt-res-canonical/layer_18/width_16k/canonical: GPU-resident (0.28 GiB float32, 2.38 GiB VRAM free)
+2026-10-26 01:08:01,557 INFO exp3 entity_track L18 16k [from_diff]: supervised patch NLDR by rank {0: 0.86, 1: 0.9, 2: 0.91, 4: 0.95, 8: 0.94, 16: 0.95, 32: 0.96}
+2026-10-26 01:08:01,562 INFO unit exp3/entity_track|18|16k|from_diff done in 301.4s (57 rows, peak VRAM 6.4 GiB)
+2026-10-26 01:11:10,010 INFO exp3 add_chain L18 16k [from_diff]: supervised patch NLDR by rank {0: 0.87, 1: 0.93, 2: 0.95, 4: 0.97, 8: 0.97, 16: 0.98, 32: 0.98}
+2026-10-26 01:11:10,015 INFO unit exp3/add_chain|18|16k|from_diff done in 188.5s (57 rows, peak VRAM 6.4 GiB)
+2026-10-26 01:11:47,942 INFO exp3 ioi_control L18 16k [from_diff]: supervised patch NLDR by rank {0: 0.76, 1: 0.77, 2: 0.78, 4: 0.8, 8: 0.82, 16: 0.87, 32: 0.89}
+2026-10-26 01:11:47,943 INFO unit exp3/ioi_control|18|16k|from_diff done in 37.9s (57 rows, peak VRAM 6.4 GiB)

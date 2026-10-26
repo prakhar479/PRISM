@@ -67,43 +67,52 @@ W, H = 5.5, 2.3   # inches: the usable area of a 16:9 beamer slide below the tit
 
 
 def fig_split(out):
-    """SAE features vs SAE error, per task, across layers; the object-tracking dip is annotated."""
+    """Patch only the SAE features (blue) or only the SAE error (grey), per task and layer. The object-tracking gap at
+    layer 12 is shaded; the noise control (error replaced by noise of the same size) is the dotted line."""
+    from matplotlib.lines import Line2D
     rows = read("f2_causal_split")
-    noise = {}    # object tracking, patch from the first changed token: SAE error replaced by noise of the same size
+    noise = {}
     if EXP1.exists():
         with open(EXP1) as f:
             for r in csv.DictReader(f):
                 if (r["task"], r["width"], r["positions"], r["intervention"]) == \
                         ("entity_track", "16k", "from_diff", "noise_control"):
                     noise[int(r["layer"])] = 100 * float(r["nldr"])
-    fig, axes = plt.subplots(1, 4, figsize=(W, H), sharey=True)
+    fig, axes = plt.subplots(1, 4, figsize=(W, 2.25), sharey=True)
     for ax, t in zip(axes, TASKS):
         series = {}
         for part, color in (("sae_only", ACCENT), ("error_only", GREY)):
             pts = sorted((int(r["layer"]), 100 * float(r["nldr"])) for r in rows if r["task"] == t and r["part"] == part)
             series[part] = dict(pts)
-            ax.plot([p[0] for p in pts], [p[1] for p in pts], color=color, lw=2.2, marker="o", ms=5,
-                    markeredgecolor="white", markeredgewidth=0.9, zorder=3)
+            ax.plot([p[0] for p in pts], [p[1] for p in pts], color=color, lw=2.2, marker="o", ms=4.5,
+                    markeredgecolor="white", markeredgewidth=0.8, zorder=3)
         if t == "entity_track":
             if noise:
                 pts = sorted(noise.items())
-                ax.plot([p[0] for p in pts], [p[1] for p in pts], color=LIGHT, lw=1.6, ls=(0, (2, 2)), zorder=2)
-                ax.text(20.6, noise.get(16, 28) + 4, "noise\nonly", color=INK2, fontsize=8.5, ha="right",
-                        va="bottom", linespacing=1.0)
+                ax.plot([p[0] for p in pts], [p[1] for p in pts], color=GREY, lw=1.3, ls=(0, (1, 1.6)), zorder=2)
             dip = series["sae_only"][12]
-            ax.annotate(f"{round(dip)}%", (12, dip), xytext=(15.2, 70), ha="left", va="center", fontsize=10,
-                        fontweight="bold", color=ACCENT, arrowprops=dict(arrowstyle="-", color=ACCENT, lw=0.8))
-        ax.set_title(TASK[t], loc="left", color=ACCENT if t == "entity_track" else INK)
-        ax.set_xticks([4, 12, 20])
-        ax.set_ylim(-5, 110)
-        ax.set_yticks([0, 50, 100])
-        ax.set_yticklabels(["0%", "50%", "100%"])
-        ax.set_xlabel("layer", fontsize=10)
+            ax.add_patch(plt.Rectangle((10.6, dip), 2.8, 100 - dip, color=ACCENT, alpha=0.15, lw=0, zorder=1))
+            ax.annotate(f"gap {round(100 - dip)}%", xy=(13.4, (dip + 100) / 2), xytext=(17.8, 66), color=ACCENT,
+                        fontsize=9, fontweight="bold", ha="center", va="center",
+                        arrowprops=dict(arrowstyle="-", color=ACCENT, lw=0.8))
+        ax.set_title(TASK[t], loc="left", color=ACCENT if t == "entity_track" else INK,
+                     fontweight="bold" if t == "entity_track" else "medium")
+        ax.set_xticks([4, 8, 12, 16, 20])
+        ax.tick_params(axis="x", labelsize=8.5)
+        ax.set_xlim(2.5, 21.5)
+        ax.set_ylim(-5, 108)
+        ax.set_yticks([0, 25, 50, 75, 100])
+        ax.set_yticklabels(["0%", "", "50%", "", "100%"])
+        ax.set_xlabel("layer", fontsize=9.5)
         hgrid(ax)
     axes[0].set_ylabel("effect recovered", fontsize=10)
-    axes[0].text(12, 82, "SAE\nfeatures", color=ACCENT, fontsize=9.5, va="top", ha="center", fontweight="bold")
-    axes[0].text(12, 16, "SAE error", color=GREY, fontsize=9.5, va="bottom", ha="center", fontweight="bold")
-    fig.tight_layout(w_pad=0.5)
+    handles = [Line2D([], [], color=ACCENT, lw=2.2, marker="o", ms=4.5, markeredgecolor="white"),
+               Line2D([], [], color=GREY, lw=2.2, marker="o", ms=4.5, markeredgecolor="white"),
+               Line2D([], [], color=GREY, lw=1.3, ls=(0, (1, 1.6)))]
+    fig.legend(handles, ["patch features $\\hat{x}$ only", "patch error $\\varepsilon$ only", "noise control"],
+               loc="upper center", ncol=3, frameon=False, fontsize=9.5, handlelength=1.8, columnspacing=1.2,
+               bbox_to_anchor=(0.55, 1.02))
+    fig.tight_layout(w_pad=0.4, rect=(0, 0, 1, 0.9))
     save(fig, out, "s_split")
 
 

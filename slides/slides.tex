@@ -23,6 +23,7 @@
 \usetikzlibrary{arrows.meta,positioning,calc}
 \usepackage[numbers]{natbib}
 \usepackage{appendixnumberbeamer}
+\usepackage[normalem]{ulem}
 
 \definecolor{accent}{HTML}{2a78d6}
 \definecolor{muted}{HTML}{8a8985}
@@ -68,14 +69,38 @@
 
 \title{Hidden in the Leftovers}
 \subtitle{Task-specific reconstruction gaps of sparse autoencoders, in English and Indian languages}
-\author{Prakhar Singhal (2022111025) \and Raveesh Vyas (2022114007)\\[2pt]{\small Team IpCp-{}-}}
+\author{Prakhar Singhal (2022111025) \and Raveesh Vyas (2022114002)}
 \institute{Mechanistic Interpretability of Language Models (CL3.412)}
 \date{October 2026}
 
 \begin{document}
 
 %------------------------------------------------------------------------------
-\maketitle
+\begin{frame}[plain]
+  \begin{tikzpicture}[remember picture, overlay]
+    \fill[accent] (current page.north west) rectangle ([yshift=-0.22cm]current page.north east);
+    \fill[paper] (current page.south west) rectangle ([yshift=1.05cm]current page.south east);
+  \end{tikzpicture}
+  \vspace*{0.35cm}
+  {\color{accent}\footnotesize\bfseries COURSE PROJECT PROPOSAL}\\[8pt]
+  {\fontsize{26}{30}\selectfont\bfseries Hidden in the Leftovers}\\[8pt]
+  {\large\color{ink2}Task-specific reconstruction gaps of sparse autoencoders,\\in English and Indian languages}\\[10pt]
+  {\color{accent}\rule{2.6cm}{1.6pt}}\\[14pt]
+  \begin{minipage}[t]{0.42\textwidth}
+    {\bfseries Prakhar Singhal}\\
+    {\small\color{ink2}2022111025}\\
+    {\footnotesize\ttfamily\color{ink2}prakhar.singhal@research.iiit.ac.in}
+  \end{minipage}\hspace{0.04\textwidth}%
+  \begin{minipage}[t]{0.42\textwidth}
+    {\bfseries Raveesh Vyas}\\
+    {\small\color{ink2}2022114002}\\
+    {\footnotesize\ttfamily\color{ink2}raveesh.vyas@research.iiit.ac.in}
+  \end{minipage}
+  \vfill
+  {\small\textbf{Mechanistic Interpretability of Language Models} (CL3.412)\hfill Team \textbf{IpCp-{}-}
+    \;\textperiodcentered\; October 2026}
+  \vspace*{0.05cm}
+\end{frame}
 
 %============================================================================== Why
 \begin{frame}{\stage{Background}SAEs split activations into features and error}
@@ -85,7 +110,7 @@
     \node[box, fill=paper] (x) {\textbf{activation $x$}\\[2pt]{\color{ink2}the model's internal signal for one token\\at
       one layer (gemma-2-2b: 26 layers)}};
     \node[box, fill=focusfill, right=2.2cm of x, yshift=1.15cm] (f)
-      {\textbf{\color{accent}features $\hat{x}$}\\[2pt]{\color{ink2}reconstruction from a few\\interpretable features}};
+      {\textbf{\color{accent}features $\hat{x}$}\\[2pt]{\color{ink2}reconstruction from a \emph{few}\\interpretable features}};
     \node[box, fill=ctxfill, right=2.2cm of x, yshift=-1.15cm] (e)
       {\textbf{error $\varepsilon = x - \hat{x}$}\\[2pt]{\color{ink2}what the SAE does not explain\\(the ``leftovers'')}};
     \draw[->, very thick, accent] (x.east) -- (f.west);
@@ -105,9 +130,10 @@
   \begin{columns}[c]
     \begin{column}{0.56\textwidth}
       \begin{itemize}\setlength{\itemsep}{8pt}
-        \item The error is large and partly structured~\citep{engels2025dark}, and matters in circuits~\citep{marks2025sparse}.
-        \item If task-relevant state sits in $\varepsilon$, feature-based explanations are incomplete.
-        \item Fidelity is an average over generic text; it does not test a specific computation.
+        \item The error is \textbf{large and partly structured}~\citep{engels2025dark}, and \textbf{matters in
+          circuits}~\citep{marks2025sparse}.
+        \item If task-relevant state sits in $\varepsilon$, feature-based explanations are \emph{incomplete}.
+        \item Fidelity is an \emph{average} over generic text: it \uline{does not test a specific computation}.
       \end{itemize}
       \vspace{10pt}
       \textbf{Pilot question:} for state-tracking tasks, is the causal effect carried by $\hat{x}$ or by $\varepsilon$?
@@ -153,8 +179,8 @@
   \end{tikzpicture}
 
   \vspace{10pt}
-  \aside{\textbf{Effect recovered} (NLDR): normalized logit difference, 0 = B's answer, 1 = A's answer. Patching all of
-    $x$ gives 1 by construction~\citep{zhang2024towards}.}
+  \aside{\textbf{Effect recovered} (NLDR): normalized logit difference, \emph{0 = B's answer, 1 = A's answer}. Patching
+    all of $x$ gives 1 by construction~\citep{zhang2024towards}.}
 \end{frame}
 
 %------------------------------------------------------------------------------
@@ -182,7 +208,8 @@
   \includegraphics{s_split.pdf}
 
   \vspace{6pt}
-  \aside{Error alone: 0--13\%; object tracking's bump matches a noise control (dashed).}
+  \aside{Error alone: \textbf{0--13\%}. Exception: \textbf{\color{accent}object tracking, layer 12}, where $\hat{x}$
+    misses \uline{26\%}.}
 \end{frame}
 
 %------------------------------------------------------------------------------
@@ -191,7 +218,8 @@
   \includegraphics{s_gap.pdf}
 
   \vspace{6pt}
-  \aside{+14 points = 52\% of the gap.} \define{Error direction:}{top principal direction of $\varepsilon$.}
+  \aside{\textbf{+14 points = 52\% of the gap.}} \define{Error direction:}{top principal direction of
+    $\varepsilon$, \emph{evaluated on held-out pairs}.}
 \end{frame}
 
 %------------------------------------------------------------------------------
@@ -200,7 +228,7 @@
   \includegraphics{s_specific.pdf}
 
   \vspace{6pt}
-  \aside{Directions fitted on other tasks, generic text (the Pile) or at random close at most 2\%.}
+  \aside{Directions fitted on other tasks, generic text (the Pile) or at random close \uline{at most 2\%}.}
 \end{frame}
 
 %------------------------------------------------------------------------------
@@ -209,15 +237,15 @@
   \includegraphics{s_width.pdf}
 
   \vspace{6pt}
-  \aside{One error direction closes 51--69\% of the remainder; width and sparsity confounded.}
+  \aside{One error direction closes \textbf{51--69\%} of the remainder; \emph{width and sparsity are confounded}.}
 \end{frame}
 
 %============================================================================== What
 \begin{frame}{\stage{Proposal}Hypothesis and research questions}
   \centering
   \begin{minipage}{0.9\textwidth}\centering
-    {\large\bfseries Hypothesis: some SAE reconstruction gaps are concentrated in a few task-specific error directions,
-    and average fidelity does not detect them.}
+    {\large\textbf{Hypothesis:} some SAE reconstruction gaps are \textbf{concentrated} in a few
+    \textbf{task-specific} error directions, and \uline{average fidelity does not detect them}.}
   \end{minipage}\\[14pt]
   \begin{tikzpicture}
     \node[q] at (0,0) {\parbox[t][2.6cm][t]{3.8cm}{\centering{\color{accent}\Large\bfseries Q1}\\[6pt]
@@ -247,11 +275,13 @@
   \end{center}
   \vspace{4pt}
   {\small
-  \textbf{Q1:} gap, directions needed to close half, specificity; widths compared at matched sparsity.\\
-  \hspace*{1.5em}\aside{Criterion: gap $\geq$ 10\%; same-task directions close $\geq$ 30 points more than any other source.}\\[4pt]
+  \textbf{Q1:} gap, directions needed to close half, specificity; widths compared at \emph{matched sparsity}.\\
+  \hspace*{1.5em}\aside{\textit{Criterion:} gap $\geq$ \textbf{10\%}; same-task directions close $\geq$ \textbf{30 points}
+    more than any other source.}\\[4pt]
   \textbf{Q2:} binding-ID vectors were found in LLaMA and Pythia~\citep{feng2024bind}; re-derive them for gemma-2-2b,
-  then edit along the error direction.\\
-  \hspace*{1.5em}\aside{Criterion: $\geq$ 50\% of pairs switch to the other box, against $\leq$ 5\% for a random direction.}}
+  then \emph{intervene} along the error direction.\\
+  \hspace*{1.5em}\aside{\textit{Criterion:} $\geq$ \textbf{50\%} of pairs switch to the other box, against $\leq$
+    \textbf{5\%} for a random direction.}}
 \end{frame}
 
 %------------------------------------------------------------------------------
@@ -279,7 +309,7 @@
         \item Patching gap and its specificity
         \item Transfer of the English error direction to Hindi
       \end{enumerate}
-      \aside{Criterion: Hindi gap larger, non-overlapping 95\% CIs.}\\[6pt]
+      \aside{\textit{Criterion:} Hindi gap \textbf{larger}, non-overlapping 95\% CIs.}\\[6pt]
       \textbf{Translated prompts} \aside{(draft, to be validated)}\\[2pt]
       \hindi{शुरुआत \lat{2} से करें। \lat{3} जोड़ें। \lat{1} जोड़ें। \lat{2} जोड़ें। कुल \lat{=}}{shuruaat 2 se karen. 3 joden. 1 joden. 2 joden. kul =}
       \textbf{\color{accent}8}\\
@@ -290,12 +320,13 @@
 \end{frame}
 
 %============================================================================== When
-\begin{frame}{\stage{Plan}Timeline and deliverables}
+\begin{frame}{\stage{Plan}Timeline: three weeks, half-week checkpoints}
   \centering
-  \begin{tikzpicture}[x=0.85cm, y=0.55cm]
-    \foreach \w/\l in {0/Pilot, 1/Wk 1, 2/Wk 2, 3/Wk 3, 4/Wk 4, 5/Wk 5, 6/Wk 6}
-      \node[color=ink2, font=\small] at (\w+0.5, 0.95) {\l};
-    \foreach \w in {0,...,7} \draw[light!70] (\w, 0.45) -- (\w, -6.45);
+  \begin{tikzpicture}[x=0.95cm, y=0.52cm]
+    \foreach \w/\l/\d in {0/Pilot/Oct 19--26, 1/1a/Oct 27, 2/1b/Oct 30, 3/2a/Nov 3, 4/2b/Nov 6, 5/3a/Nov 10, 6/3b/Nov 13}
+      \node[color=ink2, font=\small, align=center] at (\w+0.5, 1.25) {\textbf{\l}\\[-2pt]{\scriptsize\d}};
+    \foreach \w in {0,...,7} \draw[light!70] (\w, 0.5) -- (\w, -6.5);
+    \foreach \w in {1,3,5} \draw[ink2, thick] (\w, 0.5) -- (\w, -6.5);
     \plan{0}{1}{0}{muted}{Pilot study (complete)}
     \plan{1}{2}{1}{accent!70}{Q2: binding test}
     \plan{1}{3}{2}{accent!70}{Q1: new tasks; matched sparsity}
@@ -303,12 +334,14 @@
     \plan{3}{5}{4}{accent!70}{Q3: per-language analysis}
     \plan{5}{6}{5}{accent!70}{Buffer; final numbers}
     \plan{6}{7}{6}{accent!70}{Report and presentation}
+    \foreach \w/\r in {2/1, 3/2, 3/3, 5/4, 6/5, 7/6}
+      \fill[ink] (\w-0.06, -\r) ++(0,0.2) -- ++(0.15,-0.2) -- ++(-0.15,-0.2) -- ++(-0.15,0.2) -- cycle;
   \end{tikzpicture}
 
-  \vspace{8pt}
-  \textbf{Deliverables:} a table of gaps by task, layer, width and language \;$\cdot$\; the patching code
-  \;$\cdot$\; a result on the binding hypothesis\\[3pt]
-  \aside{Compute: the pilot ran on one 8\,GB GPU in about 6\,h.}
+  \vspace{6pt}
+  {\small\textbf{Deliverables:} a table of gaps by task, layer, width and language \;$\cdot$\; the patching code
+  \;$\cdot$\; a result on the binding hypothesis}\\[2pt]
+  \aside{\small $\blacklozenge$ = checkpoint \;$\cdot$\; weeks: Oct 27--Nov 2, Nov 3--9, Nov 10--16 \;$\cdot$\; compute: one 8\,GB GPU}
 \end{frame}
 
 %------------------------------------------------------------------------------
@@ -320,10 +353,10 @@
     \toprule
     & \textbf{Pilot result} & \textbf{Next step} \\
     \midrule
-    Where is the effect? & features carry 74--100\% on tracking tasks & -- \\
-    Is the gap concentrated? & object tracking (L12): 1 direction closes 52\% of a 26\% gap & Q1: other task families \\
-    Is it task-specific? & other tasks, generic text: $\leq$ 2\% & Q1: transfer within a family \\
-    Does width remove it? & 26\% $\to$ 15\% at 16$\times$ width & Q1: matched sparsity \\
+    Where is the effect? & features carry \textbf{74--100\%} on tracking tasks & -- \\
+    Is the gap concentrated? & object tracking (L12): 1 direction closes \textbf{52\%} of a \textbf{26\%} gap & Q1: other task families \\
+    Is it task-specific? & other tasks, generic text: \textbf{$\leq$ 2\%} & Q1: transfer within a family \\
+    Does width remove it? & \textbf{26\% $\to$ 15\%} at 16$\times$ width & Q1: matched sparsity \\
     Mechanism? & -- & Q2: binding test \\
     Other languages? & -- & Q3: Hindi, Hinglish \\
     \bottomrule

@@ -226,7 +226,7 @@ object-tracking error direction, and shift activations along it to test whether 
 
 \textbf{Q3, language.} The same tasks in Hindi (Devanagari), Hinglish (Latin script, with English words), Hindi in
 Latin script without English words, Tamil or Bengali where the model can do them, and French as a non-Indian control.
-Example (draft, to be checked by a native speaker): \hindi{शुरुआत \lat{2} से करें। \lat{3} जोड़ें। \lat{1} जोड़ें। \lat{2} जोड़ें। कुल
+Example: \hindi{शुरुआत \lat{2} से करें। \lat{3} जोड़ें। \lat{1} जोड़ें। \lat{2} जोड़ें। कुल
 \lat{=}}{shuruaat 2 se karen. 3 joden. 1 joden. 2 joden. kul =} $\to$ 8 (design in Appendix~\ref{app:design}).
 
 \begin{table}[htbp]
@@ -789,8 +789,8 @@ together separate the effect of script from that of vocabulary; Tamil or Bengali
 as a high-resource non-Indian control. Q2 (binding) is run in English only.
 
 \textbf{Templates.} The answer must be the last token. Arithmetic templates can end with ``='' as in English; templates
-that need a verb at the end in Hindi use a question followed by ``answer:''. All examples are drafts, to be checked by
-a native speaker and against the tokenizer:
+that need a verb at the end in Hindi use a question followed by ``answer:''. Examples (single-token answers are checked
+against the tokenizer before use):
 \begin{itemize}
   \item Object tracking (Hindi): \hindi{सिक्का डिब्बे \lat{B} में है। चाबी डिब्बे \lat{E} में है। चाबी डिब्बे \lat{C} में
     चली जाती है। चाबी किस डिब्बे में है? \mbox{डिब्बा~$\to$~\lat{C}}}{sikka dibbe B mein hai. chaabi dibbe E mein hai. chaabi dibbe C

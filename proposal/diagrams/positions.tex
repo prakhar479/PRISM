@@ -1,17 +1,21 @@
 % Patch positions: last token only vs every token from the first one that differs.
 \begin{tikzpicture}[font=\footnotesize,
   tok/.style={draw=light, minimum height=0.5cm, minimum width=0.9cm, inner sep=1pt, font=\scriptsize\ttfamily},
-  lab/.style={color=ink2, anchor=east}]
-  \foreach \row/\y/\lbl in {1/0/last token only, 2/-0.75/from first change} {
+  lab/.style={color=ink2, anchor=east, align=right}]
+  \foreach \row/\y/\lbl in {1/0/{last token only\\(misleading)}, 2/-0.85/{from the first change\\(used)}} {
     \node[lab] at (-0.15,\y) {\lbl};
     \foreach \t [count=\i] in {Start,with,2.,Add,3.,Add,3.,Add,2.,Total,=} {
       \pgfmathsetmacro{\hl}{(\row==1 && \i==11) || (\row==2 && \i>=7) ? 1 : 0}
       \ifdim\hl pt>0.5pt
-        \node[tok, fill=accent!30, anchor=west] at ({(\i-1)*0.98},\y) {\t};
+        \node[tok, fill=accent!30, anchor=west] (t\row-\i) at ({(\i-1)*0.98},\y) {\t};
       \else
-        \node[tok, fill=white, anchor=west] at ({(\i-1)*0.98},\y) {\t};
+        \node[tok, fill=white, anchor=west] (t\row-\i) at ({(\i-1)*0.98},\y) {\t};
       \fi
     }
   }
-  \node[color=accent, anchor=west] at (10.9,-0.375) {= patched};
+  \draw[accent!80!black, thick] (t2-7.north west) rectangle (t2-7.south east);
+  \node[font=\scriptsize, color=accent!80!black, anchor=north] at (t2-7.south) {first token where B differs from A};
+  \node[font=\scriptsize, color=ink2, anchor=south] at ($(t1-1.north)!0.5!(t1-6.north)$) {identical in A and B};
+  \draw[ink2, |-|] ($(t1-1.north west)+(0,0.03)$) -- ($(t1-6.north east)+(0,0.03)$);
+  \node[color=accent!80!black, anchor=west, font=\scriptsize] at (10.9,-0.425) {\rule{0.25cm}{0.25cm}\, patched};
 \end{tikzpicture}

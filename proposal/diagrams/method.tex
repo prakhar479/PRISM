@@ -1,26 +1,42 @@
-% Activation patching with an SAE split (core Figure 1). Needs: tikz with arrows.meta, positioning, calc,
-% decorations.pathreplacing; colours accent, ink2, paper, light.
+% Activation patching with an SAE split (a), and how the gap is read off (b) (core Figure 1). Needs: tikz with
+% arrows.meta, positioning, calc, decorations.pathreplacing; colours accent, ink2, paper, light.
 \begin{tikzpicture}[>=Stealth, font=\footnotesize,
-  prompt/.style={draw=light, fill=paper, rounded corners=2pt, align=left, text width=5.3cm, inner sep=4pt},
-  blk/.style={draw=light, fill=white, rounded corners=2pt, minimum height=0.8cm, align=center, text width=1.8cm},
-  part/.style={minimum width=0.72cm, minimum height=0.8cm, inner sep=0pt},
-  lab/.style={color=ink2}]
+  prompt/.style={draw=light, fill=paper, rounded corners=2pt, align=left, text width=4.6cm, inner sep=4pt},
+  blk/.style={draw=light, fill=white, rounded corners=2pt, minimum height=0.8cm, align=center, text width=1.75cm},
+  feat/.style={fill=accent!25, minimum width=1.0cm, minimum height=0.8cm, inner sep=0pt},
+  err/.style={fill=light!80, minimum width=0.6cm, minimum height=0.8cm, inner sep=0pt},
+  lab/.style={color=ink2, font=\scriptsize},
+  panel/.style={font=\footnotesize\bfseries, anchor=west}]
+  % (a) the swap
   \node[prompt] (pa) at (0,0) {\textbf{Prompt A}\\Start with 2. Add 3. \textbf{Add 1}. Add 2. Total~=};
-  \node[blk, right=0.3cm of pa] (la) {layers\\$1,\dots,L$};
-  \node[part, fill=accent!20, right=0.3cm of la] (fa) {\color{accent}$\hat{x}_A$};
-  \node[part, fill=light!70, right=0pt of fa] (ea) {$\varepsilon_A$};
-  \node[blk, right=0.3cm of ea] (ra) {layers\\$L{+}1,\dots,26$};
-  \node[right=0.25cm of ra] (oa) {\textbf{8}};
-  \node[prompt, below=1.05cm of pa] (pb) {\textbf{Prompt B}\\Start with 2. Add 3. \textbf{Add 3}. Add 2. Total~=};
-  \node[blk, right=0.3cm of pb] (lb) {layers\\$1,\dots,L$};
-  \node[part, fill=accent!20, right=0.3cm of lb] (fb) {\color{accent}$\hat{x}_A$};
-  \node[part, fill=light!70, right=0pt of fb] (eb) {$\varepsilon_B$};
-  \node[blk, right=0.3cm of eb] (rb) {layers\\$L{+}1,\dots,26$};
-  \node[right=0.25cm of rb, align=left] (ob) {\textbf{10} or \textbf{\color{accent}8}?};
+  \node[blk, right=0.35cm of pa] (la) {layers\\$1$ to $L$};
+  \node[feat, right=0.35cm of la] (fa) {$\hat{x}_A$};
+  \node[err, right=0pt of fa] (ea) {$\varepsilon_A$};
+  \node[blk, right=0.35cm of ea] (ra) {layers\\$L{+}1$ to $26$};
+  \node[right=0.3cm of ra, align=left] (oa) {answer \textbf{8}};
+  \node[prompt, below=1.3cm of pa] (pb) {\textbf{Prompt B}\\Start with 2. Add 3. \textbf{Add 3}. Add 2. Total~=};
+  \node[blk, right=0.35cm of pb] (lb) {layers\\$1$ to $L$};
+  \node[feat, right=0.35cm of lb, draw=accent, thick] (fb) {$\hat{x}_A$};
+  \node[err, right=0pt of fb] (eb) {$\varepsilon_B$};
+  \node[blk, right=0.35cm of eb] (rb) {layers\\$L{+}1$ to $26$};
+  \node[right=0.3cm of rb, align=left] (ob) {answer \textbf{10} or \textbf{\color{accent}8}\,?};
   \foreach \a/\b in {pa/la, la/fa, ea/ra, ra/oa, pb/lb, lb/fb, eb/rb, rb/ob} \draw[->, ink2] (\a) -- (\b);
-  \draw[->, very thick, accent] (fa.south) -- (fb.north);
-  \draw[decorate, decoration={brace, amplitude=3pt}, ink2] ([yshift=2pt]fa.north west) -- ([yshift=2pt]ea.north east)
-    node[midway, above=4pt, lab] {SAE: $x = \hat{x} + \varepsilon$};
-  \node[lab, anchor=west, align=left] at ($(ea.south)!0.5!(eb.north) + (0.1,0)$)
-    {patch A's features into the run on B\\(other condition: patch A's error $\varepsilon_A$)};
+  \node[lab, anchor=south] at ($(fa.north west)!0.5!(ea.north east)$) {SAE: features $\hat{x}$ + error $\varepsilon$};
+  \draw[->, very thick, accent] (fa.south) -- (fb.north)
+    node[midway, left=3pt, align=right, font=\scriptsize, color=accent!80!black] {swap in A's features};
+  \node[lab, anchor=north, align=center] at (eb.south) {B keeps its own error};
+  \node[panel] at ($(pa.north west)+(0,0.35)$) {(a) Swap the features at layer $L$};
+  % (b) reading the result
+  \coordinate (yb) at (0,-4.75);
+  \coordinate (s0) at (pb.west |- yb);
+  \coordinate (s1) at (ob.east |- yb);
+  \coordinate (sf) at ($(s0)!0.74!(s1)$);
+  \node[panel] at ($(s0)+(0,0.5)$) {(b) Read off the result \normalfont\color{ink2}(object tracking, layer 12)};
+  \fill[accent!25] ($(s0)+(0,-0.15)$) rectangle ($(sf)+(0,0.15)$);
+  \fill[light!80] ($(sf)+(0,-0.15)$) rectangle ($(s1)+(0,0.15)$);
+  \draw[ink2] ($(s0)+(0,-0.15)$) rectangle ($(s1)+(0,0.15)$);
+  \node[font=\scriptsize, color=accent!80!black] at ($(s0)!0.5!(sf)$) {effect recovered by the features: 74\%};
+  \node[font=\scriptsize\bfseries] at ($(sf)!0.5!(s1)$) {gap: 26\%};
+  \node[lab, anchor=north west] at ($(s0)+(0,-0.17)$) {0\%: answer unchanged};
+  \node[lab, anchor=north east] at ($(s1)+(0,-0.17)$) {100\%: as if the whole activation were swapped};
 \end{tikzpicture}

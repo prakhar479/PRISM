@@ -106,7 +106,7 @@ Hinglish.}
 \term{activation} $x$. In gemma-2-2b this is a vector of 2304 numbers. A \term{sparse autoencoder} (SAE) writes it as
 $x = \hat{x} + \varepsilon$. The \term{features} $\hat{x}$ are built from a few interpretable components. The
 \term{SAE error} $\varepsilon$ is what is left over, often called ``dark matter''~\citep{engels2025dark}. A
-\term{direction} is a fixed vector in this space. Appendix~\ref{app:glossary} defines all terms.
+\term{direction} is a fixed vector in this space.
 
 \textbf{The gap.} Take two prompts whose answers differ. If the features captured everything the model uses, swapping
 only the features between the prompts would change the answer as much as swapping the whole activation. The share of
@@ -175,9 +175,10 @@ as far as swapping the whole activation. The gap is 100\% minus the effect recov
 
 \begin{figure}[t]
   \centering
-  \scalebox{0.86}{\input{diagrams/method}}
-  \caption{Activation patching with an SAE. At layer $L$ the SAE splits the activation into features $\hat{x}$ and
-    error $\varepsilon$. If A's features alone move B's answer from 10 to 8, the features carry the task's information.}
+  \input{diagrams/method}
+  \caption{Activation patching with an SAE. (a) We run the model on prompt B, but at layer $L$ we swap in A's
+    features. If the answer moves all the way from 10 to 8, the features carry everything the model needs. (b) How far
+    it moves is the effect recovered; the shortfall is the gap.}
   \label{fig:method}
 \end{figure}
 
@@ -231,7 +232,8 @@ answer should move to the other box.
 words) and Hindi in Latin script without English words. We add Tamil or Bengali if the model can do the tasks in them,
 and French as a non-Indian control. Example, the running sum in Hindi:~\hindi{शुरुआत \lat{2} से करें। \lat{3} जोड़ें।
 \lat{1} जोड़ें। \lat{2} जोड़ें। कुल \lat{=}}{shuruaat 2 se karen. 3 joden. 1 joden. 2 joden. kul =}~$\to$~8.
-Appendix~\ref{app:design} gives the design.
+For each language we first check that the model can do the tasks. We then measure fidelity on generic text, the gap on
+each task, and whether English directions also close the Hindi gaps.
 
 \begin{table}[htbp]
 \centering\small
@@ -246,16 +248,16 @@ Q1 & gap $\geq$ 10\%, and same-task directions close $\geq$ 30 points more than 
   directions \\
 Q2 & shifting along the direction moves $\geq$ 50\% of pairs to the other box; a random direction $\leq$ 5\% & the
   shift is no more effective than a random direction \\
-Q3 & Hindi gap larger than English, with non-overlapping intervals (further criteria in Table~\ref{tab:multi}) &
-  Hindi gap not larger \\
+Q3 & Hindi gap larger than English, with non-overlapping intervals & Hindi gap not larger \\
 \bottomrule
 \end{tabularx}
 \end{table}
 
 \textbf{Deliverables.} (1) A map of gap size, type and specificity across tasks, layers, widths and languages.
 (2) The patching code, with the three measurement pitfalls handled. (3) A tested answer to the binding hypothesis.
-\textbf{Resources.} One 8\,GB GPU and the pilot pipeline, which already runs end to end. Risks and fallbacks are in
-Appendix~\ref{app:design}.
+\textbf{Resources.} One 8\,GB GPU and the pilot pipeline, which already runs end to end. \textbf{Risks.} If binding
+vectors cannot be estimated in gemma-2-2b, Q2 keeps only the shifting test. If the model cannot do the tasks in Tamil
+or Bengali, we report this and keep Hindi and Hinglish.
 
 {\small
 \setlength{\bibsep}{1.5pt}
@@ -278,8 +280,6 @@ Appendix~\ref{app:design}.
 \begin{tabular}{@{}l l@{}}
 \ref{app:methods} & Pilot methods: model, SAEs, tasks, patching, repair \\
 \ref{app:results} & Pilot results: features vs error, repair, specificity, width, pitfalls, robustness \\
-\ref{app:design} & Design of the planned study \\
-\ref{app:glossary} & Glossary \\
 \end{tabular}
 \end{center}
 
@@ -356,7 +356,8 @@ Patching only the last token gives misleading results (Appendix~\ref{app:traps})
   \centering
   \input{diagrams/repair}
   \caption{Repair. The run on B receives A's features, A's error along $r$ chosen directions, and B's own error in all
-    other directions.}
+    other directions. With $r = 0$ this is the features-only condition. If a few same-task directions close much of the
+    gap, while the control sources do not, the gap is concentrated and task-specific.}
   \label{fig:repairdiag}
 \end{figure}
 
@@ -545,96 +546,5 @@ object tracking at layer 12, the features recover 75\% (main run: 74\%) and one 
   \item The names task's late-layer loss is spread over many directions. Part of what SAEs miss is therefore a general
     weakness, not a task-specific gap.
 \end{itemize}
-
-%------------------------------------------------------------------------------
-\section{Design of the planned study}\label{app:design}
-
-\begin{figure}[H]
-  \centering
-  \input{diagrams/design}
-  \caption{Steps for each language. A language goes on to the next step only if the model can do the tasks in it.}
-  \label{fig:design}
-\end{figure}
-
-\begin{table}[H]
-\centering\small
-\caption{Multilingual measures and criteria (95\% intervals; otherwise inconclusive).}
-\label{tab:multi}
-\begin{tabularx}{\linewidth}{@{}l Y Y Y@{}}
-\toprule
-ID & Measure & Supported if & Not supported if \\
-\midrule
-M1 & fidelity on generic text, per language & Hindi $\geq$ 3 points below English & within 1 point of English \\
-M2 & gap and specificity on the tasks & Hindi gap larger, non-overlapping intervals & Hindi gap not larger \\
-M3 & English direction applied to Hindi pairs & closes $\geq$ half as much as Hindi's own direction & closes under a
-  quarter as much \\
-\bottomrule
-\end{tabularx}
-\end{table}
-
-\textbf{Languages.} English is the baseline. Hindi in Devanagari is the best-resourced Indian language and the most
-likely to work. Hindi in Latin script without English words and Hinglish (Latin script mixed with English words)
-together separate the effect of script from that of vocabulary. Tamil or Bengali are added if the model can do the
-tasks. French is a high-resource, non-Indian control. Q2 (binding) is run in English only.
-
-\textbf{Templates.} The answer must be the last token. Arithmetic templates end with ``='', as in English. Where Hindi
-puts the verb last, the template ends with a question followed by ``answer:''. Examples:
-\begin{itemize}
-  \item Object tracking (Hindi): \hindi{सिक्का डिब्बे \lat{B} में है। चाबी डिब्बे \lat{E} में है। चाबी डिब्बे \lat{C} में
-    चली जाती है। चाबी किस डिब्बे में है? \mbox{डिब्बा~$\to$~\lat{C}}}{sikka dibbe B mein hai. chaabi dibbe E mein hai. chaabi dibbe C
-    mein chali jaati hai. chaabi kis dibbe mein hai? dibba $\to$ C}
-  \item \raggedright Names (Hinglish): \prompt{Jab Rahul aur Priya market gaye, Priya ne ek book di. Book kisko mili?
-    Answer:} $\to$ Rahul
-  \item Variable copying is code-like and identical in every language. It serves as a language-neutral control.
-\end{itemize}
-\textbf{Data.} Fidelity per language uses generic text from IndicCorp~v2~\citep{doddapaneni2023towards} and
-FineWeb2~\citep{penedo2025fineweb2}.
-
-\textbf{Risks and fallbacks.}
-\begin{itemize}
-  \item Binding vectors may not be estimable in gemma-2-2b. Q2 then keeps only the shifting test.
-  \item The model may not do the tasks in Tamil or Bengali. We then report this and keep Hindi and Hinglish.
-  \item Many Hindi names split into several tokens. We use single-token names, or letters and digits as answers.
-  \item Width results at one layer may not generalise. Q1 repeats them at a second layer if time allows.
-\end{itemize}
-
-%------------------------------------------------------------------------------
-\section{Glossary}\label{app:glossary}
-
-\begin{table}[H]
-\centering\small
-\caption{Terms used in this proposal.}
-\label{tab:glossary}
-\footnotesize\renewcommand{\arraystretch}{1.05}
-\begin{tabularx}{\linewidth}{@{}l Y@{}}
-\toprule
-Term & Meaning \\
-\midrule
-Token & a word or word piece; the unit the model reads \\
-Layer & one of gemma-2-2b's 26 processing stages \\
-Activation $x$ & the model's internal vector for one token at one layer (2304 numbers) \\
-Sparse autoencoder (SAE) & a tool that rewrites an activation using a few interpretable features \\
-Features $\hat{x}$ & the SAE's reconstruction of $x$ \\
-SAE error $\varepsilon$ & $x - \hat{x}$: what the SAE does not explain (``dark matter'', the leftovers) \\
-Width & how many features an SAE can choose from (16k = 16{,}384, up to 262k) \\
-Active features & the number of features in use for one token \\
-Reconstruction fidelity & share of next-token performance kept when $\hat{x}$ replaces $x$ \\
-Prompts A and B & two prompts that differ in one step, so the right answer differs \\
-Activation patching & running the model on B while replacing part of its activation with A's at one layer \\
-Effect recovered & how far patching moves the model's answer from B's towards A's, from 0 to 100\% \\
-Gap & the share of the effect the features miss: 100\% minus the effect recovered by the features \\
-Direction & a fixed vector in the activation space \\
-Top principal directions & the directions in which a set of errors varies most \\
-Answer-separating directions & the directions that best separate the average errors for different answers \\
-Specificity score & share of the gap closed by same-task directions minus the largest share from any other source \\
-Probe & a simple linear classifier trained to read a value, such as the box, from an activation \\
-Binding & how a model links an entity to its attribute, such as an object to its box \\
-IOI & ``indirect object identification'', the names task~\citep{wang2023interpretability} \\
-Generic text & ordinary text from the Pile \\
-Hinglish & Hindi written in Latin script and mixed with English words \\
-95\% CI & bootstrap confidence interval: the range the result would likely fall in on new test pairs \\
-\bottomrule
-\end{tabularx}
-\end{table}
 
 \end{document}

@@ -279,6 +279,10 @@ No absolute paths, usernames or hostnames appear in code or configs.
 
 ## 12. Gap analysis vs handoff Sections 5–9
 
+Status 2026-10-30 (Phase 1): everything in this table up to and including 8.1 / 4.4 is implemented in `harness/`
+and `scripts/`, except multilingual templates, fresh families, people–cities (release 2) and 7.9 (Phase 3). See
+`releases/release1.md` and `DECISIONS.md` (Phase 1).
+
 | component | status | proposed change |
 |---|---|---|
 | 5.1 lockfile / `check_env.py` | missing (loose `requirements.txt`; RUN violates its transformers pin) | uv `pyproject.toml` + `uv.lock` pinned to **RUN's actual stack** (pip freeze requested, R1); CPU and cu130 torch via uv index markers; `check_env.py` |

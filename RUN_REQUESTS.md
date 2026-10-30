@@ -101,6 +101,14 @@ logs).
 
 ---
 
+## R4: release 1 queue, `open` (can run in the same sitting as R1-R3)
+
+- **Purpose:** E0, E1, E2, E7, E6 (handoff §11, RT1).
+- **Commands:** `releases/release1.md` (separate `.venv-harness`, then `scripts/run_queue.py --queue
+  queue/release1.yaml`). Preflight uses R2's `golden/R2` on RUN, so no DEV round trip is needed in between.
+- **Duration:** ≈ 7 h unattended (rough; preflight measures throughput).
+- **Return:** `bundles/release1_<stamp>.tar.gz` + `.sha256` → DEV `incoming/RT1/`.
+
 ## Not needed from RUN (resolved on DEV)
 
 | handoff item | status | how |

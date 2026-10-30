@@ -6,3 +6,14 @@ results/
 logs/
 *.egg-info/
 .ipynb_checkpoints/
+# harness: cross-machine artefacts (never committed)
+incoming/
+golden/
+hf_agreement/
+probe/
+bundles/
+runs/
+cache/
+profiles/local.yaml
+*.tar
+*.tar.sha256

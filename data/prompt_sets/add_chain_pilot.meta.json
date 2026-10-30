@@ -1,0 +1,26 @@
+{
+ "task": "add_chain",
+ "kind": "pilot_candidates",
+ "settings": {
+  "n_train": 300,
+  "n_test": 150,
+  "seed": 0,
+  "candidate_multiplier": 3,
+  "n_shots": 8,
+  "answer_format": "auto",
+  "filter_mode": "strict",
+  "min_logit_diff": 2.0,
+  "gen_kwargs": {
+   "depth": 3
+  }
+ },
+ "tokenizer": {
+  "name": "google/gemma-2-2b",
+  "revision": "c5ebcd40d208330abc697524c919956e692655cf"
+ },
+ "source": "harness.tasks.build_pilot_candidates (pilot generators, unfiltered, pilot order)",
+ "created": "2026-10-30 04:08:01 UTC",
+ "n": 1350,
+ "hash": "ae62178213dffbfc",
+ "file": "add_chain_pilot.jsonl.gz"
+}

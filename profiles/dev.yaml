@@ -1,0 +1,20 @@
+# Development machine (CPU; may have no GPU). Everything here can be overridden by profiles/local.yaml (git-ignored)
+# and by the environment: HL_CACHE_ROOT, HL_DATA_ROOT, HF_HOME, HL_DEVICE.
+name: dev
+device: auto                 # auto | cpu | cuda | cuda:N | mps
+model_dtype: float32         # dtype of model weights / forwards
+sae_dtype: float32           # SAE weights below sae_bf16_min_width
+sae_bf16_min_width: 524k
+sae_placement: cpu           # gpu | blockwise-gpu | cpu | auto (by width, using gpu_mem_cap_gb)
+cache_root: cache            # relative paths resolve against the repo root
+data_root: data
+runs_root: runs
+hf_home: null                # null = leave HF_HOME / default alone
+offline: false               # true sets HF_HUB_OFFLINE=1
+batch_size: 8
+max_batch_size: 64
+max_batch_tokens: 4096
+gpu_mem_cap_gb: null         # null = no cap (no GPU here)
+cpu_workers: 4
+allowed_experiments: [E0, E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14]
+allow_real_model: false      # dev: real-model runs only with --smoke unless overridden in local.yaml

@@ -1,6 +1,6 @@
-# Release 1 (DRAFT, not tagged yet): E0, E1, E2, E6, E7
+# Release 1 (run-20261030-1): E0, E1, E2, E6, E7
 
-Tag on approval: `run-YYYYMMDD-1`. Status: all DEV tests pass (T0: 130). T1 golden tests skip until R2's golden
+Tag: `run-20261030-1`. Status: all DEV tests pass (T0: 130). T1 golden tests skip until R2's golden
 export is returned. Every config dry-runs on the `run` profile and fits the 7.3 GB cap.
 
 ## What changed since the pilot

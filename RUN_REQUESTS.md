@@ -4,7 +4,7 @@ Each request lists: id, status, purpose, exact commands (scripts in this repo), 
 and where to put them on DEV (`incoming/<id>/`, git-ignored). Status is one of `open / sent / returned / resolved`.
 
 **Batching:** R1–R3 are meant to run in one sitting (~1–1.5 h total, mostly unattended) from one commit. The humans
-tag that commit once they approve Phase 0 (proposed tag: `run-20261030-0`). Nothing here modifies code, configs or
+tag that commit once they approve Phase 0 (tag: `run-20261030-1` (R1-R4 run from this one commit)). Nothing here modifies code, configs or
 pilot outputs on RUN. Outputs go to new directories (`golden/`, `hf_agreement/`, `probe/`).
 
 ## Common setup (RUN)

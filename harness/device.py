@@ -110,3 +110,13 @@ def is_oom(e: BaseException) -> bool:
 
 class FakeOOM(RuntimeError):
     """Raised by tests to exercise OOM backoff on machines without a GPU."""
+
+
+def sync(device: torch.device) -> None:
+    """Wait for queued accelerator work (for timing)."""
+    if is_cuda(device):
+        torch.cuda.synchronize(device)
+
+
+def allocated_bytes(device: torch.device) -> int:
+    return torch.cuda.memory_allocated(device) if is_cuda(device) else 0

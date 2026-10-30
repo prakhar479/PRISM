@@ -108,4 +108,4 @@ logs).
 | pilot output files behind Tables B.1–B.6 | `resolved` | committed in `results/paper_20261026_001341/` (REPO_MAP §4). R1 checks that RUN has nothing extra |
 | SAE inventory | `resolved` (Phase 1 script) | `google/gemma-scope-2b-pt-res` is reachable from DEV (not gated) |
 | 16k SAE `params.npz` for T1 tests | `resolved` | DEV can download it directly (0.28 GiB each, L12 and L18) |
-| gemma-2-2b tokenizer on DEV (T2 tests) | **blocked: needs a human**, not RUN | the DEV HF account `legend479` gets 403 on the gated repo. Please accept the Gemma licence for that account |
+| gemma-2-2b tokenizer on DEV (T2 tests) | `resolved` 2026-10-30 | Gemma licence accepted for `legend479`; config + tokenizer load on DEV (revision `c5ebcd40`) |

@@ -80,10 +80,9 @@ Rough size: steps 1–9 ≈ 2–3 days of work on DEV. Step 10 depends on R2.
 
 ## Decisions that belong to the humans
 
-1. **Gemma access on DEV.** Accept the Gemma licence for HF account `legend479`. Otherwise T2 tests (real tokenizer)
-   are skipped.
-2. **Reference stack.** Should the lockfile follow RUN's actual packages (Python 3.14, transformers 5.20.1, …) or
-   `requirements.txt` (transformers < 5)? I recommend RUN's actual stack, because the pilot numbers came from it.
+1. ~~Gemma access on DEV~~: resolved 2026-10-30.
+2. **Reference stack**: decided 2026-10-30. DEV and RUN use the same environment; the lockfile is pinned to
+   RUN's freeze from R1, and `check_env.py` verifies both machines against it.
 3. **Tag and run R1–R3** on RUN once this Phase 0 is approved (`run-20261030-0`).
 4. **Pushing.** Phase-0 work is committed on local branch `harness` and not pushed. RUN gets code via git, so it has
    to be pushed before RUN can check it out. OK to push `harness` and the tag to `origin`?

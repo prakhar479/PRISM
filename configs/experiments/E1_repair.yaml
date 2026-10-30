@@ -1,0 +1,37 @@
+# E1 (P0): metric re-scoring of the pilot repair grid (proposal Tables B.2/B.3): cells with a pilot gap >= 5%.
+exp_id: E1
+name: rescoring_repair
+description: Pilot repair conditions and sources on the pilot repair cells, scored with the full metric set.
+model_revision: c5ebcd40d208330abc697524c919956e692655cf
+prompt_sets:
+  entity_track: prompt_sets/entity_track_pilot.jsonl.gz
+  add_chain: prompt_sets/add_chain_pilot.jsonl.gz
+  ioi_control: prompt_sets/ioi_control_pilot.jsonl.gz
+cells:
+  - {task: add_chain, layer: 12, sae: {width: 16k}}
+  - {task: add_chain, layer: 14, sae: {width: 16k}}
+  - {task: add_chain, layer: 16, sae: {width: 16k}}
+  - {task: add_chain, layer: 18, sae: {width: 16k}}
+  - {task: add_chain, layer: 20, sae: {width: 16k}}
+  - {task: entity_track, layer: 8, sae: {width: 16k}}
+  - {task: entity_track, layer: 12, sae: {width: 16k}}
+  - {task: entity_track, layer: 18, sae: {width: 16k}}
+  - {task: entity_track, layer: 20, sae: {width: 16k}}
+  - {task: ioi_control, layer: 14, sae: {width: 16k}}
+  - {task: ioi_control, layer: 16, sae: {width: 16k}}
+  - {task: ioi_control, layer: 18, sae: {width: 16k}}
+  - {task: ioi_control, layer: 20, sae: {width: 16k}}
+filters: [f_pilot, f_none, f_A_correct]
+fit_filter: f_pilot
+conditions: [feat_A_errB]
+directions:
+  conditions: [repair]
+  ranks: [0, 1, 2, 4, 8, 16, 32]
+  estimators: [pca_pooled, answer_sep]
+  sources: [same_task, other_task, generic]
+  random_seeds: 3
+  r_max: 32
+generic: {set: generic/pile10k_100x128.json}
+bootstrap: 1000
+seed: 0
+pilot_reference: results/paper_20261026_001341

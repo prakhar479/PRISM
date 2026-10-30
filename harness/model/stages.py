@@ -82,9 +82,12 @@ def stage1(model, spec: ModelSpec, rows: Sequence[dict], set_hash: str, layers: 
                     pi = torch.cat([torch.arange(rows[i]["first_diff"], T) for i in b]).to(device)
                     cand = _tok(rows, b, "cand_ids", device)
                     aA, aB = _tok(rows, b, "ans_A", device), _tok(rows, b, "ans_B", device)
+                    done = {}                              # committed only when both prompts succeeded
                     for k, key in (("A", "clean_ids"), ("B", "corrupt_ids")):
                         lg, got = _forward_capture(model, _tok(rows, b, key, device), layers, bi, pi)
-                        res[k].append(final_outputs(lg, aA, aB, cand))
+                        done[k] = (final_outputs(lg, aA, aB, cand), got)
+                    for k, (fo, got) in done.items():
+                        res[k].append(fo)
                         for L in layers:
                             caps[k][L].append(got[L])
                 except Exception as e:  # noqa: BLE001
@@ -241,3 +244,59 @@ def _run_chunk(model, rows, pidx, kb, chunk, conds, ptr, layer, T, tB, R, device
             X[r, fd:T] = v.to(X.device, X.dtype)
         lg = runtime.last_logits_from(model, X, layer, tokens)
     return [lg[j * b:(j + 1) * b] for j in range(len(chunk))]
+
+
+@torch.inference_mode()
+def stage1_generic(model, spec: ModelSpec, ids: Sequence[Sequence[int]], corpus_hash: str, layers: Sequence[int],
+                   skip: int, cache: Cache, budget: Budget, device, shard_docs: int = 16) -> Dict[int, Entry]:
+    """Residuals of generic text at positions >= skip (pilot: BOS / attention-sink positions excluded) per layer."""
+    ents = {L: cache.entry("generic_resid", model=spec.key(), corpus=corpus_hash, layer=int(L), skip=skip, site=spec.site).open()
+            for L in layers}
+    T = len(ids[0])
+    for si, a in enumerate(range(0, len(ids), shard_docs)):
+        need = [L for L, e in ents.items() if not e.shard_done(si)]
+        if not need:
+            continue
+        docs = ids[a:a + shard_docs]
+        got = {L: [] for L in need}
+        b0 = 0
+        while b0 < len(docs):
+            n = budget.rows_for(T)
+            t = torch.tensor(docs[b0:b0 + n], dtype=torch.long, device=device)
+            part: Dict[int, torch.Tensor] = {}                 # merged only after the forward succeeded
+            try:
+                hooks = [(hook_name(L), (lambda act, hook, L=L: part.__setitem__(L, act[:, skip:].reshape(-1, act.shape[-1]).detach().cpu())))
+                         for L in need]
+                runtime.final_resid(model, t, hooks)
+            except Exception as e:  # noqa: BLE001
+                if is_oom(e):
+                    empty_cache()
+                    if budget.shrink():
+                        continue
+                raise
+            for L in need:
+                got[L].append(part[L])
+            b0 += n
+        for L in need:
+            ents[L].write_shard(si, {"x": torch.cat(got[L])})
+    for e in ents.values():
+        if not e.complete:
+            e.mark_complete({"n_docs": len(ids), "seq_len": T, "skip": skip})
+    return ents
+
+
+@torch.inference_mode()
+def stage2_generic(cache: Cache, ent: Entry, sae, sae_key: dict, device, block_latents: Optional[int] = None) -> Entry:
+    from harness.sae import decompose
+
+    ent.require_complete()
+    e = cache.entry("generic_sae", resid=ent.key, sae=sae_key).open()
+    for si in ent.shards():
+        if e.shard_done(si):
+            continue
+        x = ent.read_shard(si)["x"]
+        xh, eps, l0 = decompose(sae, x, block_latents=block_latents, device=device)
+        e.write_shard(si, {"eps": eps.cpu(), "l0": l0.cpu(), "x_norm": x.float().norm(dim=-1)})
+    if not e.complete:
+        e.mark_complete({"sae": sae_key})
+    return e

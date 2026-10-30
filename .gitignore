@@ -17,3 +17,5 @@ cache/
 profiles/local.yaml
 *.tar
 *.tar.sha256
+tests/_tiny_runs/
+tests/_tiny_cache/

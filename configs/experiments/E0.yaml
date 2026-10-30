@@ -1,0 +1,29 @@
+# E0 (P0): pilot regression through the new harness. Acceptance: NLDR within +-1 point of the pilot
+# (results/paper_20261026_001341/paper_residue, from_diff, 16k canonical) for every condition below.
+exp_id: E0
+name: pilot_regression
+description: Pilot conditions for object tracking L12 and running sum L18 (16k) through the harness.
+model_revision: c5ebcd40d208330abc697524c919956e692655cf
+prompt_sets: {entity_track: prompt_sets/entity_track_pilot.jsonl.gz, add_chain: prompt_sets/add_chain_pilot.jsonl.gz}
+cells:
+  - {task: entity_track, layer: 12, sae: {width: 16k}, role: confirmatory}
+  - {task: add_chain, layer: 18, sae: {width: 16k}, role: confirmatory}
+n_train: 300
+n_test: 150
+filters: [f_pilot]
+fit_filter: f_pilot
+conditions: [feat_A_errB, feat_B_errA, feat_B_noise, feat_A_zero]
+noise_seeds: [0, 1]                 # pilot: noise_seeds = 2, generator seed = seed + 1000*s + layer
+directions:
+  conditions: [repair]
+  ranks: [0, 1, 2]
+  estimators: [pca_pooled, answer_sep]
+  sources: [same_task]
+  random_seeds: 3                   # pilot: random_seeds = 3, seed + 101*s + layer
+  r_max: 32
+bootstrap: 1000                     # the pilot's paper tiers used 1000
+seed: 0
+pilot_reference: results/paper_20261026_001341/paper_residue
+notes:
+  - Noise rows are drawn over this run's test rows; the pilot drew them over its own Baseline order, so noise is
+    statistically but not bitwise identical.

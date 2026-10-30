@@ -25,6 +25,7 @@ class ModelSpec:
     site: str = "resid_post"
     tiny_seed: int = 0
     tiny_vocab: int = 0
+    tiny_layers: int = 4
 
     def key(self) -> dict:
         return asdict(self)
@@ -83,7 +84,7 @@ def load_gemma(spec: ModelSpec, device: torch.device, offload_embed: bool = Fals
 
 def build_model(spec: ModelSpec, device: torch.device, offload_embed: bool = False, tokenizer=None):
     if spec.name == "tiny":
-        return tiny_gemma2(spec.tiny_vocab, seed=spec.tiny_seed, dtype=spec.dtype, device=device)
+        return tiny_gemma2(spec.tiny_vocab, n_layers=spec.tiny_layers, seed=spec.tiny_seed, dtype=spec.dtype, device=device)
     return load_gemma(spec, device, offload_embed, tokenizer)
 
 

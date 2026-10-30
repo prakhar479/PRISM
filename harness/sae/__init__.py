@@ -214,3 +214,12 @@ def canonical_l0(variants: Sequence[int], target: float = 100.0) -> int:
     """Gemma Scope's 'canonical' SAE = the variant with average L0 closest to 100 (checked against every SAE the pilot
     resolved through sae_lens; tests/harness/test_sae.py)."""
     return min(variants, key=lambda x: (abs(x - target), x))
+
+
+def params_path(sid: SAEId) -> Path:
+    """Local path of params.npz at the pinned revision (downloads once; honours HF_HUB_OFFLINE)."""
+    from huggingface_hub import hf_hub_download
+
+    if not sid.revision:
+        raise ValueError(f"{sid.key}: SAE revision must be pinned")
+    return Path(hf_hub_download(sid.repo, sid.path_in_repo, revision=sid.revision))

@@ -533,7 +533,8 @@ def main() -> int:
     model = load_model(mock=a.mock, device=device, dtype=get_dtype(device), mock_cfg=cfg.get("mock"), tokenizer=tok,
                        model_name=cfg["model_name"], runtime_cfg=cfg.get("runtime"))
     plan = runtime.setup_runtime(cfg, model, device)
-    ctx_model_params.extend(list(model.parameters()) + list(model.buffers()))
+    if isinstance(model, torch.nn.Module):
+        ctx_model_params.extend(list(model.parameters()) + list(model.buffers()))
     ctx = RunContext(model=model, tok=tok, cfg=cfg, mock=a.mock, device=device, out_dir=out, runtime_plan=plan)
     checks, repro, golden_ids, cells, dumps = [], [], {}, {}, {}
     cell_list = [(c.split(":")[0], int(c.split(":")[1])) for c in a.cells.split(",") if c]

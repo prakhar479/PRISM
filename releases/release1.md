@@ -20,6 +20,14 @@ provenance. The pilot code (`src/`) is unchanged.
 | E7 | E7.yaml | four direction estimators; PC1 variance and cosines in `directions/*.json` | OT L12, RS L18 |
 | E6 | E6.yaml | OT every layer 8–16; L12 directions applied at every layer | 9 cells |
 
+## Patch tag `run-20261031-1` (run this one, not `run-20261030-1`)
+
+`run-20261030-1` + one fix: `scripts/export_golden.py` (R2) OOMed on the 8 GB GPU at the first golden-pair forward,
+because `run_cell` ran `runtime.resid_at` with grad enabled (~2.2 GiB of autograd state through L12). `run_cell` is
+now under `torch.inference_mode()`; outputs are unchanged. R2 also logs VRAM at stage boundaries and dumps live CUDA
+tensors on an OOM. Harness code, configs and the queue are identical to `run-20261030-1`. DEV: 130 T0 tests pass;
+mock R2 export: 0 FAIL.
+
 ## Run machine: exact steps
 
 Do steps 1–2 first, in the **existing pilot environment**, if RUN_REQUESTS R1–R3 have not been run yet. The golden

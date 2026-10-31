@@ -4,7 +4,7 @@ Each request lists: id, status, purpose, exact commands (scripts in this repo), 
 and where to put them on DEV (`incoming/<id>/`, git-ignored). Status is one of `open / sent / returned / resolved`.
 
 **Batching:** R1–R3 are meant to run in one sitting (~1–1.5 h total, mostly unattended) from one commit. The humans
-tag that commit once they approve Phase 0 (tag: `run-20261030-1` (R1-R4 run from this one commit)). Nothing here modifies code, configs or
+tag that commit once they approve Phase 0 (tag: `run-20261031-1`; R1-R4 run from this one commit. `run-20261030-1` is superseded: its R2 OOMs on 8 GB). Nothing here modifies code, configs or
 pilot outputs on RUN. Outputs go to new directories (`golden/`, `hf_agreement/`, `probe/`).
 
 ## Common setup (RUN)
@@ -41,7 +41,7 @@ The same Python environment the pilot used must be active (no package changes be
 - **Duration:** ~1 min (the probe downloads only gemma-2-2b config and tokenizer files, already cached).
 - **Return:** `probe_R1.tar` + `.sha256` → DEV `incoming/R1/`.
 
-## R2: golden-fixture export + pilot reproduction through the pilot code, `open`
+## R2: golden-fixture export + pilot reproduction through the pilot code, `open` (first attempt on `run-20261030-1` OOMed 2026-10-31; fixed in `run-20261031-1`)
 
 - **Purpose:**
   1. Rebuild the exact pilot pairs and verify them against the committed per-pair outputs.

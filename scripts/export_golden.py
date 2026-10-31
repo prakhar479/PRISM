@@ -267,6 +267,7 @@ def col_abs_cos(A: np.ndarray, B: np.ndarray) -> np.ndarray:
     return np.abs((A * B).sum(0) / (np.linalg.norm(A, axis=0) * np.linalg.norm(B, axis=0) + 1e-30))
 
 
+@torch.inference_mode()   # the golden-pair resid_at forwards otherwise build an autograd graph (~2.2 GiB at L12)
 def run_cell(a, ctx: RunContext, task: str, layer: int, out: Path, checks: list, repro: list, golden_ids_out: dict):
     cfg, model, tok = ctx.cfg, ctx.model, ctx.tok
     t0 = time.time()

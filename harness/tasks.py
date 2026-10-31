@@ -21,6 +21,7 @@ from typing import Dict, List, Optional, Sequence, Tuple
 
 import numpy as np
 
+from harness import families as F
 from src.data import synthetic_tasks as st
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -57,10 +58,12 @@ def _last_line_offset(prompt: str) -> int:
     return prompt.rfind("\n") + 1
 
 
-def slot_spans(task: str, prompt: str) -> List[Tuple[str, int, int]]:
+def slot_spans(task: str, prompt: str, family: str = "pilot") -> List[Tuple[str, int, int]]:
     """(slot, char_start, char_end) for the semantic slots of the query (last) line of `prompt`."""
     base = _last_line_offset(prompt)
     line = prompt[base:]
+    if not F.is_pilot(family):
+        return [(n, base + a, base + b) for n, a, b in F.slot_spans(task, family, line)]
     out: List[Tuple[str, int, int]] = []
 
     def add(name, m, g):
@@ -106,13 +109,13 @@ def token_offsets(tok, text: str) -> List[Tuple[int, int]]:
     return [tuple(o) for o in enc["offset_mapping"]]
 
 
-def token_slots(task: str, tok, prompt: str, n_tokens: int) -> List[str]:
+def token_slots(task: str, tok, prompt: str, n_tokens: int, family: str = "pilot") -> List[str]:
     """Slot label per token: semantic slot of the query line if the token overlaps one, 'final' for the last token,
     else 'off:<k>' (offset from the final token)."""
     offs = token_offsets(tok, prompt)
     if len(offs) != n_tokens:
         raise ValueError(f"offset mapping has {len(offs)} tokens, encode() gave {n_tokens}")
-    spans = slot_spans(task, prompt)
+    spans = slot_spans(task, prompt, family)
     labels = []
     for p, (a, b) in enumerate(offs):
         lab = next((name for name, s, e in spans if b > s and a < e and b > a), None)
@@ -128,10 +131,10 @@ def family_of(task: str, pair: st.CounterfactualPair) -> str:
 
 
 # --------------------------------------------------------------------------- building
-def candidate_ids(tok, prompt: str, target_str: str, task: str) -> List[int]:
+def candidate_ids(tok, prompt: str, target_str: str, task: str, family: str = "pilot") -> List[int]:
     lead = target_str.startswith(" ")
     out = []
-    for c in CANDIDATE_STRINGS[task]:
+    for c in F.candidates(task, family):
         i = st.answer_token_id(tok, prompt, c if lead else c.lstrip())
         out.append(-1 if i is None else int(i))
     return out
@@ -165,6 +168,42 @@ def build_pilot_candidates(task: str, tok, cfg: Optional[dict] = None, n_train: 
                  "meta": {k: v for k, v in p.meta.items() if k != "heur"}}
             if with_slots:
                 r["slots"] = token_slots(task, tok, p.clean_prompt, len(it.clean_ids))
+            rows.append(r)
+    return rows
+
+
+def build_family_candidates(task: str, family: str, tok, cfg: Optional[dict] = None, n_train: Optional[int] = None,
+                            n_test: Optional[int] = None, with_slots: bool = True) -> List[dict]:
+    """Candidate pools of one fresh family (E3), built exactly like the pilot's: the pilot task's settings
+    (n_train/n_test x candidate_multiplier, n_shots, gen_kwargs, answer_format), a per-family seed, the family's own
+    few-shot examples drawn first, then prompt-disjoint train and test pools. Rank = order within (family, split)."""
+    cfg = cfg or pilot_cfg()
+    s = task_settings(cfg, task)
+    n_tr, n_te = n_train or s["n_train"], n_test or s["n_test"]
+    mult = s["candidate_multiplier"] or 3
+    seed = F.family_seed(s["seed"], family)
+    shots = F.generate_pairs(task, family, s["n_shots"] or 0, seed + 77, split="shot", gen_kwargs=s["gen_kwargs"])
+    exclude = st.shot_prompts(shots)
+    raw = {}
+    for split, n, sd in (("train", n_tr, seed), ("test", n_te, seed + 10_000)):
+        raw[split] = F.generate_pairs(task, family, int(n * mult), sd, exclude=exclude, split=split,
+                                      gen_kwargs=s["gen_kwargs"])
+        exclude |= st.shot_prompts(raw[split])
+    rows = []
+    for split in ("train", "test"):
+        toks = st.tokenize_pairs(tok, st.apply_prefix(raw[split], shots), s["answer_format"] or "auto")
+        for rank, it in enumerate(toks):
+            p = it.pair
+            r = {"pair_id": p.pair_id, "task": task, "split": split, "rank": rank, "family": family,
+                 "clean_prompt": p.clean_prompt, "corrupt_prompt": p.corrupt_prompt,
+                 "clean_target": p.clean_target_str, "corrupt_target": p.corrupt_target_str,
+                 "state_clean": int(p.clean_state_id), "state_corrupt": int(p.corrupt_state_id),
+                 "clean_ids": list(map(int, it.clean_ids)), "corrupt_ids": list(map(int, it.corrupt_ids)),
+                 "ans_A": int(it.clean_ans), "ans_B": int(it.corrupt_ans), "first_diff": int(it.diff_pos),
+                 "T": len(it.clean_ids), "cand_ids": candidate_ids(tok, p.clean_prompt, p.clean_target_str, task, family),
+                 "meta": {k: v for k, v in p.meta.items() if k != "heur"}}
+            if with_slots:
+                r["slots"] = token_slots(task, tok, p.clean_prompt, len(it.clean_ids), family)
             rows.append(r)
     return rows
 
@@ -235,8 +274,23 @@ def filter_flags(rows: Sequence[dict], top1_A: np.ndarray, top1_B: np.ndarray, D
             "f_pilot": st.valid_mask(sc, pilot_mode, min_logit_diff)}
 
 
-def select(rows: Sequence[dict], flags: Dict[str, np.ndarray], split: str, flt: str, n: int) -> List[int]:
-    """Indices of the first n candidates of `split` (in pilot rank order) that pass filter `flt`."""
+def select(rows: Sequence[dict], flags: Dict[str, np.ndarray], split: str, flt: str, n: int,
+           groups: Optional[Sequence[str]] = None, per_group: bool = False) -> List[int]:
+    """Indices of the first n candidates of `split` (in rank order) that pass filter `flt`.
+
+    groups (family groups, see families.group_of; None = every row, the release-1 behaviour): restrict to these.
+    per_group=False takes n in total, round-robin over the groups by rank (balanced fit sets); per_group=True takes n
+    from each group (evaluation: n test pairs per family). The pilot group keeps the pilot's own rank order, so
+    groups=['pilot'] selects exactly the pilot pairs."""
     idx = [i for i, r in enumerate(rows) if r["split"] == split and flags[flt][i]]
     idx.sort(key=lambda i: rows[i]["rank"])
-    return idx[:n]
+    if groups is None:
+        return idx[:n]
+    by = {g: [i for i in idx if F.group_of(rows[i].get("family", "pilot")) == g] for g in groups}
+    if per_group:
+        return sorted((i for g in groups for i in by[g][:n]), key=lambda i: (list(groups).index(F.group_of(rows[i].get("family", "pilot"))), rows[i]["rank"]))
+    out, k = [], 0
+    while len(out) < n and any(k < len(v) for v in by.values()):
+        out += [by[g][k] for g in groups if k < len(by[g])][: n - len(out)]
+        k += 1
+    return out

@@ -11,7 +11,16 @@ from harness import metrics as M
 from harness import stats as St
 
 KEY = ["task", "layer", "sae", "condition", "estimator", "source", "r", "seed"]
-CELL = ["task", "layer", "sae"]
+CELL = ["task", "layer", "sae", "fit_families"]   # fit_families: E3 (absent in release-1 outputs -> 'pilot')
+
+
+def with_defaults(pp: pd.DataFrame) -> pd.DataFrame:
+    from harness.schema import OPTIONAL_PER_PAIR
+
+    for col, (_, default) in OPTIONAL_PER_PAIR.items():
+        if col not in pp:
+            pp = pp.assign(**{col: default})
+    return pp
 BOOT_METRICS = ("nldr", "nldr_pair_mean", "prob_recovery", "flip_rate", "top1_is_A", "cand_entropy")
 
 
@@ -24,6 +33,7 @@ def summarize(pp: pd.DataFrame, filters: List[str], n_boot: int = 1000, seed: in
     """One row per (cell, filter, condition key): metrics with paired-bootstrap 95% intervals over pairs.
     Baselines: clean_A from stage 1 ('clean_A'), clean B from the same stage-3 path ('clean_B')."""
     rows = []
+    pp = with_defaults(pp)
     for cell, g in pp.groupby(CELL, sort=False):
         for flt in filters:
             sel = g[g[flt]] if flt in g else g

@@ -16,7 +16,12 @@ from harness.schema import PER_PAIR, validate_per_pair
 ROOT = Path(__file__).resolve().parents[2]
 
 
-def fake_run(runs_root: Path, exp="E0", h="abc123def456", tiny=False):
+def root_commit() -> str:
+    """Never tagged (HEAD is tagged right after a release, so HEAD cannot stand in for 'untagged')."""
+    return provenance.git("rev-list", "--max-parents=0", "HEAD").split()[0]
+
+
+def fake_run(runs_root: Path, exp="E0", h="abc123def456", tiny=False, commit=None):
     d = runs_root / exp / h
     d.mkdir(parents=True)
     rows = []
@@ -31,7 +36,7 @@ def fake_run(runs_root: Path, exp="E0", h="abc123def456", tiny=False):
     assert validate_per_pair(df) == []
     df.to_parquet(d / "per_pair.parquet")
     m = {"exp_id": exp, "run_hash": h, "status": "complete", "config": {"name": "fake"}, "profile": {}, "machine": {},
-         "git": {"commit": provenance.git_state()["commit"]}, "packages": {}, "model": {}, "sae_revision": "x",
+         "git": {"commit": commit or provenance.git_state()["commit"]}, "packages": {}, "model": {}, "sae_revision": "x",
          "prompt_sets": {}, "seeds": {}, "timings": {}, "smoke": False, "tiny": tiny, "wall_time_s": 1.0}
     (d / "manifest.json").write_text(json.dumps(m))
     return d
@@ -54,7 +59,15 @@ def test_bundle_ingest_round_trip(tmp_path):
     assert (dst / "E0" / "abc123def456" / "per_pair.parquet").exists() and (dst / "RESULTS_INDEX.md").exists()
     r = run("ingest_results.py", [str(tar), "--allow-untagged"], env2)          # same bundle again: no-op
     assert r.returncode == 0 and "already present 1" in r.stdout
-    r = run("ingest_results.py", [str(tar)], {**env2, "HL_RUNS_ROOT": str(tmp_path / "dev3")})
+    old = tmp_path / "run_side_old"
+    fake_run(old, h="0dd0dd0dd0dd", commit=root_commit())
+    r = run("bundle_results.py", ["--tag", "t2", "--out-dir", str(tmp_path / "b2")], {**os.environ, "HL_RUNS_ROOT": str(old)})
+    assert r.returncode == 0 and "0 runs" in r.stdout                           # default: only runs made at HEAD
+    r = run("bundle_results.py", ["--tag", "t2", "--out-dir", str(tmp_path / "b3"), "--all-commits"],
+            {**os.environ, "HL_RUNS_ROOT": str(old)})
+    assert r.returncode == 0, r.stderr
+    tar2 = next((tmp_path / "b3").glob("*.tar.gz"))
+    r = run("ingest_results.py", [str(tar2)], {**env2, "HL_RUNS_ROOT": str(tmp_path / "dev3")})
     assert r.returncode == 1 and "no run-* tag" in r.stdout                     # untagged commits are refused
 
 

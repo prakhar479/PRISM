@@ -12,6 +12,8 @@ PER_PAIR = {
     "f_none": "bool", "f_A_correct": "bool", "f_both_correct": "bool", "f_pilot": "bool",
     "logit_A": "float", "logit_B": "float", "lse": "float", "top1_id": "int", "cand_logits": "list",
 }
+# optional columns (absent from release-1 outputs; readers fill the default)
+OPTIONAL_PER_PAIR = {"fit_families": ("str", "pilot")}
 MANIFEST_KEYS = ("exp_id", "run_hash", "status", "config", "profile", "git", "packages", "machine", "model",
                  "sae_revision", "prompt_sets", "seeds", "timings", "smoke", "tiny", "wall_time_s")
 
@@ -30,7 +32,12 @@ def validate_per_pair(df: pd.DataFrame) -> List[str]:
               "list": lambda s: s.map(lambda v: hasattr(v, "__len__")).all()}[kind](s)
         if not ok:
             errs.append(f"column {col} is not {kind}")
-    if not errs and df.duplicated(["pair_id", "task", "layer", "sae", "condition", "estimator", "source", "r", "seed"]).any():
+    for col, (kind, _) in OPTIONAL_PER_PAIR.items():
+        if col in df and not df[col].map(lambda v: isinstance(v, str)).all():
+            errs.append(f"column {col} is not {kind}")
+    key = ["pair_id", "task", "layer", "sae", "condition", "estimator", "source", "r", "seed"]
+    key += [c for c in OPTIONAL_PER_PAIR if c in df]
+    if not errs and df.duplicated(key).any():
         errs.append("duplicate (pair, condition key) rows")
     return errs
 

@@ -1,0 +1,37 @@
+# E3 (P1): fresh template families (handoff 7.3, 9). The RQ1 gate is evaluated on fresh families.
+# Three fresh families per task (harness/families.py): new nouns / box labels / frames / few-shot examples for object
+# tracking; new phrasings / story frame / few-shot examples for the running sum. Same pair construction, difficulty
+# and filters as the pilot. Each cell names the families its fitted objects come from (fit_families: directions,
+# mean errors, covariance noise; n_train pairs in total, round-robin over families) and the families it is evaluated
+# on (eval_families: n_test pairs per family; 'pilot' = the pilot's own 150 test pairs).
+exp_id: E3
+name: fresh_templates
+description: E2 conditions on fresh template families; fit on pilot -> eval fresh, fit fresh -> eval fresh, fit fresh -> eval pilot.
+model_revision: c5ebcd40d208330abc697524c919956e692655cf
+prompt_sets: {entity_track: prompt_sets/entity_track_e3.jsonl.gz, add_chain: prompt_sets/add_chain_e3.jsonl.gz}
+cells:
+  - {task: entity_track, layer: 12, sae: {width: 16k}, role: confirmatory, fit_families: [pilot], eval_families: [fresh]}
+  - {task: entity_track, layer: 12, sae: {width: 16k}, role: confirmatory, fit_families: [fresh], eval_families: [fresh]}
+  - {task: entity_track, layer: 12, sae: {width: 16k}, role: exploratory, fit_families: [fresh], eval_families: [pilot]}
+  - {task: add_chain, layer: 18, sae: {width: 16k}, role: confirmatory, fit_families: [pilot], eval_families: [fresh]}
+  - {task: add_chain, layer: 18, sae: {width: 16k}, role: confirmatory, fit_families: [fresh], eval_families: [fresh]}
+  - {task: add_chain, layer: 18, sae: {width: 16k}, role: exploratory, fit_families: [fresh], eval_families: [pilot]}
+n_train: 300
+n_test: 150                         # per evaluated family
+filters: [f_none, f_A_correct, f_pilot]
+fit_filter: f_pilot
+conditions: [feat_A_errB, feat_B_errA, feat_B_noise, feat_A_zero, feat_A_meanTask, feat_A_meanPos,
+             feat_A_resampC_sameAns, feat_A_resampC_diffAns, feat_A_noise, feat_A_covnoise]
+noise_seeds: [0, 1]
+directions:
+  conditions: [repair, repair_mean]
+  ranks: [0, 1, 2, 4, 8]
+  estimators: [pca_pooled, answer_sep]
+  sources: [same_task]
+  random_seeds: 20
+  r_max: 32
+bootstrap: 1000                     # DEV analysis: 10 000, paired and clustered by family
+seed: 0
+notes:
+  - "Confirmatory per PREREGISTRATION.md: OT L12 and RS L18 evaluated on fresh families. Which fit source the RQ1 gate uses (pilot or fresh families) is the humans' call; both are produced."
+  - "Cross-family feat_A_meanPos: slot names match across families, other patched tokens fall back to the offset from the final token (coverage in summary.json checks)."

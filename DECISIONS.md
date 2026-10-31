@@ -66,3 +66,34 @@ Dated log of non-trivial choices. Pilot run verdicts live in `results/*/DECISION
   dependency.
 - **Memory estimates** use the pilot's 256 KiB/token activation heuristic plus fp32 final-position logits. Stage 2
   runs without the model, so ≤ 262k fp32 and 524k bf16 SAEs are planned as GPU-resident. 1m is planned block-wise.
+
+## 2026-10-31: E3 fresh template families (release 2)
+
+- **Families** (`harness/families.py`): three per task, generated in place of the pilot's surface only.
+  - Object tracking: `ot_placed` (hat, shoe, …; boxes H–P; "is placed in box" / "goes to box"), `ot_bin` (spoon,
+    sock, …; bins Q–W; "sits in bin" / "is moved into bin" / "is now in bin"), `ot_drawer` (shell, stone, …; drawers
+    A–G; "There is a … in drawer" / "Someone puts the … into drawer" / "So the … is in drawer"). No pilot nouns. Labels
+    are single letters because Gemma tokenizes " 3" as two tokens. `ot_drawer` reuses the pilot's labels A–G (only
+    X–Z are left unused); its nouns, frames and container word are new.
+  - Running sum: `rs_plus` ("Begin at / Starting value / Initially … Plus … Answer: / Final value: / We get:"),
+    `rs_symbolic` ("[Compute: | Evaluate:] 3 + 2 + 1 + 1 = | equals | gives"), `rs_story` (new names and items,
+    "had … Then … found … more. In the end … had").
+  - A single fixed phrasing has only a few hundred distinct running-sum prompts, which is too few for prompt-disjoint
+    900/450 pools (the first build had 0 test pairs). So, like the pilot's calc template (3 × 3), each family varies
+    its opener and closer.
+  - Unchanged from the pilot: pair construction, difficulty (gen_kwargs), n_shots (8, drawn from the family's own
+    generator, so prefixes differ from the pilot's), answer format, candidate multiplier, filter mode. The seed per
+    family is `seed + 1000·(crc32(family) mod 997 + 1)`.
+- **Sets**: `<task>_e3.jsonl.gz` = the pilot set's rows, byte-identical (tested), plus the family rows. A run refuses a
+  set with fresh rows unless every cell names `fit_families` and `eval_families`.
+- **Selection**: all pilot families form one group in the pilot's own rank order, so `[pilot]` selects exactly the
+  pilot pairs. Fit sets take `n_train` in total, round-robin over the families (100 per fresh family). Evaluation takes
+  `n_test` per family (450 fresh test pairs and 150 pilot pairs).
+- **Cross-family mean errors**: slot names match across families. Patched tokens outside a slot (frame words) fall
+  back to the offset from the final token, which is approximate across frames of different lengths. Coverage is
+  recorded per cell.
+- **Open for the humans**: the preregistration does not say whether the RQ1 gate's `feat_A_meanPos` uses mean errors
+  fitted on pilot or on fresh families. E3 produces both (`fit_families` pilot → fresh, fresh → fresh). Three families
+  per task make a cluster bootstrap coarse; DEV reports pair-level and family-clustered CIs side by side.
+- **`fit_families` column**: optional in `per_pair.parquet` (absent in release-1 outputs; readers default it to
+  `pilot`). It is part of the cell key in analysis and of the duplicate check.

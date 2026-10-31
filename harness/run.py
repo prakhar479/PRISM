@@ -25,6 +25,7 @@ import torch
 from harness import conditions as C
 from harness import directions as Dr
 from harness import memory, provenance
+from harness import families as F
 from harness import tasks as T
 from harness.batching import Budget
 from harness.cache import Cache
@@ -76,6 +77,11 @@ class Runner:
                 rows = [r for r in rows if r["split"] == "train" and r["rank"] < k] + \
                        [r for r in rows if r["split"] == "test" and r["rank"] < k]
             self.rows[task], self.set_meta[task] = rows, {**meta, "hash": T.set_hash(rows), "file": rel}
+            if any(not F.is_pilot(r.get("family", "pilot")) for r in rows):
+                for c in cfg.cells:
+                    if c.task == task and not c.eval_families:
+                        raise ValueError(f"{rel} contains fresh-family rows: cell {task} L{c.layer} must set "
+                                         "fit_families and eval_families")
         self.generic = None
         if cfg.generic:
             g = json.loads((prof.root("data_root") / cfg.generic["set"]).read_text())
@@ -251,15 +257,18 @@ class Runner:
             fl = {k: np.ones(len(rows), bool) for k in fl}
         return cl, fl
 
-    def bundle(self, task, layer, sid) -> Bundle:
-        key = (task, layer, sid.key)
+    def bundle(self, task, layer, sid, fit_families=None) -> Bundle:
+        """Fitted objects for (task, layer, SAE) from the train pairs of `fit_families` (None = every row)."""
+        groups = F.expand(task, fit_families) if fit_families else None
+        key = (task, layer, sid.key, tuple(groups) if groups else None)
         if key in self.bundles:
             return self.bundles[key]
         rows = self.rows[task]
         _, fl = self.flags(task)
-        tr = T.select(rows, fl, "train", self.cfg.fit_filter, self.n_train)
+        tr = T.select(rows, fl, "train", self.cfg.fit_filter, self.n_train, groups=groups)
         if len(tr) < 2:
-            raise RuntimeError(f"{task} L{layer}: only {len(tr)} train pairs pass {self.cfg.fit_filter}")
+            raise RuntimeError(f"{task} L{layer}: only {len(tr)} train pairs pass {self.cfg.fit_filter}"
+                               + (f" in families {groups}" if groups else ""))
         sp = S.load_spans(self.spans_entry(task, layer), rows, tr, self.sae_entry(task, layer, sid))
         fs = Dr.FitSet(tuple(sp.pair_ids))
         b = Bundle(fs, tr, sp, C.MeanError.fit(fs, sp), C.CovNoise.fit(fs, torch.cat([sp.e_A, sp.e_B]), sp.pair_ids))
@@ -278,14 +287,15 @@ class Runner:
                     b.dirs[est] = Dr.pca_pos_centered(fs, sp.pair_ids, torch.cat([sp.e_A, sp.e_B]), keys * 2, d.r_max)
                 elif est == "pca_slot_centered_pairdiff":
                     b.dirs[est] = Dr.pca_slot_centered_pairdiff(fs, sp.pair_ids, sp.e_A - sp.e_B, keys, d.r_max)
-            self.save_dirs(task, layer, sid, b)
+            self.save_dirs(task, layer, sid, b, "+".join(fit_families) if fit_families else "")
         self.bundles[key] = b
         return b
 
-    def save_dirs(self, task, layer, sid, b: Bundle):
+    def save_dirs(self, task, layer, sid, b: Bundle, fit_tag: str = ""):
         out = self.run_dir / "directions"
         out.mkdir(parents=True, exist_ok=True)
-        np.savez_compressed(out / f"{task}_L{layer}_{sid.key}.npz", **{k: v.U.astype(np.float32) for k, v in b.dirs.items()})
+        stem = f"{task}_L{layer}_{sid.key}" + (f"__fit-{fit_tag}" if fit_tag else "")
+        np.savez_compressed(out / f"{stem}.npz", **{k: v.U.astype(np.float32) for k, v in b.dirs.items()})
         info = {k: {"estimator": v.estimator, "fit_digest": v.fit_digest, "n_fit_rows": v.n_fit_rows,
                     "evr": None if v.evr is None else [float(x) for x in v.evr[:8]], "meta": v.meta} for k, v in b.dirs.items()}
         ests = list(b.dirs)
@@ -293,7 +303,7 @@ class Runner:
                             for i, a in enumerate(ests) for c in ests[i + 1:] for r in (1, 2, 4)
                             if r <= min(b.dirs[a].U.shape[1], b.dirs[c].U.shape[1])}
         info["_fitset"] = {"digest": b.fitset.digest, "n_pairs": len(b.train_idx), "filter": self.cfg.fit_filter}
-        (out / f"{task}_L{layer}_{sid.key}.json").write_text(json.dumps(info, indent=1))
+        (out / f"{stem}.json").write_text(json.dumps(info, indent=1))
 
     def generic_dir(self, layer, sid) -> Optional[Dr.Direction]:
         _, ge = self.generic_entries(layer, sid)
@@ -330,7 +340,7 @@ class Runner:
                     L2 = int(s.split(":")[1])
                     if L2 != cell.layer:
                         c2 = next(c for c in self.cfg.cells if c.task == cell.task and c.layer == L2)
-                        ob = self.bundle(cell.task, L2, self.sae_id(L2, c2.sae))
+                        ob = self.bundle(cell.task, L2, self.sae_id(L2, c2.sae), cell.fit_families)
                         sources += [(e, s, ob.dirs[e]) for e in d.estimators]
             for n in d.conditions:
                 for e, src, D in sources:
@@ -378,14 +388,15 @@ class Runner:
             sid = self.sae_id(cell.layer, cell.sae)
             rows = self.rows[cell.task]
             cl, fl = self.flags(cell.task)
-            sel = {f: T.select(rows, fl, "test", f, self.n_test) for f in self.cfg.filters}
-            te = sorted(set().union(*sel.values()), key=lambda i: rows[i]["rank"])
-            bun = self.bundle(cell.task, cell.layer, sid)
+            groups = F.expand(cell.task, cell.eval_families) if cell.eval_families else None
+            sel = {f: T.select(rows, fl, "test", f, self.n_test, groups=groups, per_group=True) for f in self.cfg.filters}
+            te = sorted(set().union(*sel.values()), key=lambda i: (rows[i].get("family", "pilot"), rows[i]["rank"]))
+            bun = self.bundle(cell.task, cell.layer, sid, cell.fit_families)
             bun.fitset.assert_disjoint([rows[i]["pair_id"] for i in te])
             test = S.load_spans(self.spans_entry(cell.task, cell.layer), rows, te, self.sae_entry(cell.task, cell.layer, sid))
             donors = {"same": C.select_donors(test.meta, True, self.cfg.seed), "diff": C.select_donors(test.meta, False, self.cfg.seed)}
             specs = self.cell_specs(cell, sid, test, bun)
-            cell_key = f"{cell.task}_{sid.key}"
+            cell_key = f"{cell.task}_{sid.key}{cell.tag()}"
             self.record_cell(cell, sid, rows, fl, sel, te, bun, test)
             base = self.base_rows(cell, sid, rows, fl, te, cl, test)
             pq = parts / f"{cell_key}__clean.parquet"
@@ -419,7 +430,7 @@ class Runner:
         rec = {"pair_id": r["pair_id"], "split": r["split"], "family": r.get("family", "pilot"), "task": cell.task,
                "layer": cell.layer, "sae": sid.key, "condition": sp["condition"], "estimator": sp["estimator"],
                "source": sp["source"], "r": int(sp["r"]), "seed": int(sp["seed"]), "ans_A_id": r["ans_A"],
-               "ans_B_id": r["ans_B"], "donor_status": donor_status}
+               "ans_B_id": r["ans_B"], "donor_status": donor_status, "fit_families": cell.fit_tag()}
         rec.update({f: bool(fl[f][pi]) for f in T.FILTERS})
         for f in S.OUT_FIELDS:
             v = o[f][k]
@@ -439,7 +450,13 @@ class Runner:
         for split in ("train", "test"):
             idx = [i for i, r in enumerate(rows) if r["split"] == split]
             keep[split] = {f: round(float(fl[f][idx].mean()), 4) for f in T.FILTERS}
-        self.checks.append({"cell": f"{cell.task}_{sid.key}", "role": cell.role, "sae": sid.to_dict(),
+            fams = sorted({F.group_of(rows[i].get("family", "pilot")) for i in idx})
+            if len(fams) > 1:
+                for g in fams:
+                    gi = [i for i in idx if F.group_of(rows[i].get("family", "pilot")) == g]
+                    keep[f"{split}:{g}"] = {f: round(float(fl[f][gi].mean()), 4) for f in T.FILTERS}
+        self.checks.append({"cell": f"{cell.task}_{sid.key}{cell.tag()}", "role": cell.role, "sae": sid.to_dict(),
+                            "fit_families": cell.fit_families, "eval_families": cell.eval_families,
                             "n_test_by_filter": {f: len(v) for f, v in sel.items()}, "n_test_union": len(te),
                             "n_train": len(bun.train_idx), "fitset_digest": bun.fitset.digest, "keep_rates": keep,
                             "mean_l0_test": [float(test.l0_A.float().mean()), float(test.l0_B.float().mean())],
@@ -458,7 +475,8 @@ class Runner:
         summ = add_gaps(summarize(pp, self.cfg.filters, n_boot=self.cfg.bootstrap, seed=self.cfg.seed))
         summ.to_csv(self.run_dir / "summary.csv", index=False)
         hooks = []
-        for cell, g in pp.groupby(["task", "layer", "sae"]):
+        from harness.analysis import with_defaults
+        for cell, g in with_defaults(pp).groupby(["task", "layer", "sae", "fit_families"]):
             a = g[g.condition == "clean_A"].set_index("pair_id")
             for name in ("full_B", "full_A"):
                 p = g[g.condition == name].set_index("pair_id")

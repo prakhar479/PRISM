@@ -40,6 +40,20 @@ class Cell:
     layer: int
     sae: SAESpec = field(default_factory=SAESpec)
     role: str = "exploratory"
+    # E3 (fresh templates): family groups ('pilot', 'fresh' or family ids from harness.families). fit_families: what
+    # train pairs fitted objects (directions, mean errors, covariance noise) use; eval_families: the test pairs
+    # (n_test per family). None = every row of the prompt set (release-1 behaviour; refused for sets with fresh rows).
+    fit_families: Optional[List[str]] = None
+    eval_families: Optional[List[str]] = None
+
+    def fit_tag(self) -> str:
+        return "+".join(self.fit_families) if self.fit_families else "pilot"
+
+    def tag(self) -> str:
+        """'' for release-1 cells; else a suffix that keeps cells over the same (task, layer, SAE) apart."""
+        if not (self.fit_families or self.eval_families):
+            return ""
+        return f"__fit-{self.fit_tag()}__eval-{'+'.join(self.eval_families or ['all'])}"
 
 
 @dataclass
@@ -94,6 +108,18 @@ class ExpConfig:
                 errs.append(f"cell task {c.task} has no prompt set")
             if c.role not in ROLES:
                 errs.append(f"cell role {c.role}")
+            if bool(c.fit_families) != bool(c.eval_families):
+                errs.append(f"cell {c.task} L{c.layer}: set both fit_families and eval_families, or neither")
+            for fams in (c.fit_families, c.eval_families):
+                if fams:
+                    from harness.families import expand
+                    try:
+                        expand(c.task, fams)
+                    except ValueError as e:
+                        errs.append(str(e))
+        tags = [(c.task, c.layer, c.sae.width, c.sae.l0, c.tag()) for c in self.cells]
+        if len(set(tags)) != len(tags):
+            errs.append("two cells share (task, layer, SAE, fit/eval families)")
         for f in [*self.filters, self.fit_filter]:
             if f not in FILTERS:
                 errs.append(f"unknown filter {f}")

@@ -226,6 +226,38 @@ def stored(a, task: str, layer: int):
     return out
 
 
+def vram(tag: str) -> None:
+    """Log allocated/reserved VRAM at a stage boundary (OOM diagnosis)."""
+    if torch.cuda.is_available():
+        log.info("VRAM %s: %.2f GiB allocated, %.2f GiB reserved", tag, torch.cuda.memory_allocated() / 2 ** 30,
+                 torch.cuda.memory_reserved() / 2 ** 30)
+
+
+def dump_cuda_tensors(top: int = 25) -> None:
+    """Log the largest live CUDA tensors (excluding model parameters) and who refers to them."""
+    import gc
+
+    if not torch.cuda.is_available():
+        return
+    params = {id(p) for p in ctx_model_params}
+    rows = []
+    for o in gc.get_objects():
+        try:
+            if torch.is_tensor(o) and o.is_cuda and id(o) not in params:
+                refs = [type(r).__name__ for r in gc.get_referrers(o)[:4] if r is not rows]
+                rows.append((o.numel() * o.element_size(), tuple(o.shape), str(o.dtype), refs))
+        except Exception:  # noqa: BLE001
+            continue
+    rows.sort(key=lambda r: -r[0])
+    log.error("live non-parameter CUDA tensors: %d, %.2f GiB total", len(rows), sum(r[0] for r in rows) / 2 ** 30)
+    for b, shape, dt, refs in rows[:top]:
+        log.error("  %8.1f MiB %s %s <- %s", b / 2 ** 20, shape, dt, refs)
+    log.error("%s", torch.cuda.memory_summary(abbreviated=True))
+
+
+ctx_model_params: list = []
+
+
 def check(checks: list, name: str, ok, detail: str) -> None:
     checks.append({"check": name, "status": "SKIP" if ok is None else ("PASS" if ok else "FAIL"), "detail": detail})
     log.info("[%s] %s: %s", checks[-1]["status"], name, detail)
@@ -249,7 +281,9 @@ def run_cell(a, ctx: RunContext, task: str, layer: int, out: Path, checks: list,
     ctx.data = {task: d}
     ctx.cached_layers = (layer,)
     ctx.runtime_plan.pop("resume_check_max_abs_diff", None)
+    vram("after prepare_task")
     ctx._check_resume()
+    vram("after resume check")
     ref = stored(a, task, layer) if not a.mock else {}
 
     # ---- pair identity / order vs the stored pilot per-pair tensors
@@ -286,6 +320,7 @@ def run_cell(a, ctx: RunContext, task: str, layer: int, out: Path, checks: list,
     etas = [rescaled_noise(e_c, torch.Generator().manual_seed(cfg["seed"] + 1000 * s + layer)) for s in range(noise_seeds)]
 
     # ---- pilot U (refit through the pilot function) vs stored
+    vram("after SAE load + test decompose")
     U_all = _fit_subspaces(ctx, sae, task, layer, max(cfg["ranks"]), ["unsupervised_svd", "supervised_centroid_svd", "random_subspace"])
     if "U" in ref:
         for k, v in U_all.items():
@@ -340,6 +375,10 @@ def run_cell(a, ctx: RunContext, task: str, layer: int, out: Path, checks: list,
                   row["abs_diff_points"] <= 1.0, f"{100 * row['nldr']:.1f} vs pilot {100 * row['pilot_nldr']:.1f}")
 
     # ---- golden pairs
+    vram("after pilot conditions")
+    from src.utils import free_memory
+    free_memory()
+    vram("after gc + empty_cache")
     rng = np.random.default_rng(a.golden_seed)
     gi = np.sort(rng.choice(len(te), size=min(a.n_pairs, len(te)), replace=False))
     golden_ids_out[f"{task}_L{layer}"] = [te.items[i].pair.pair_id for i in gi]
@@ -493,12 +532,17 @@ def main() -> int:
     model = load_model(mock=a.mock, device=device, dtype=get_dtype(device), mock_cfg=cfg.get("mock"), tokenizer=tok,
                        model_name=cfg["model_name"], runtime_cfg=cfg.get("runtime"))
     plan = runtime.setup_runtime(cfg, model, device)
+    ctx_model_params.extend(list(model.parameters()) + list(model.buffers()))
     ctx = RunContext(model=model, tok=tok, cfg=cfg, mock=a.mock, device=device, out_dir=out, runtime_plan=plan)
     checks, repro, golden_ids, cells, dumps = [], [], {}, {}, {}
     cell_list = [(c.split(":")[0], int(c.split(":")[1])) for c in a.cells.split(",") if c]
     scores_by_task = {}
     for task, layer in cell_list:
-        info, sc, scored = run_cell(a, ctx, task, layer, out, checks, repro, golden_ids)
+        try:
+            info, sc, scored = run_cell(a, ctx, task, layer, out, checks, repro, golden_ids)
+        except torch.OutOfMemoryError:
+            dump_cuda_tensors()
+            raise
         cells[f"{task}_L{layer}"] = info
         scores_by_task[task] = sc
         if task in a.dump_tasks.split(","):

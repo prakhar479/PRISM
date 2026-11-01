@@ -21,3 +21,4 @@ tests/_tiny_runs/
 tests/_tiny_cache/
 preflight/
 RESULTS_INDEX.md.bak
+.env

@@ -346,8 +346,9 @@ def run_cell(a, ctx: RunContext, task: str, layer: int, out: Path, checks: list,
                                       "and intervention == @name")
             elif kind == "exp3" and "exp3" in ref:
                 m, r = name.split("@")
+                rank_r = int(r)
                 q = ref["exp3"].query("task == @task and layer == @layer and width == '16k' and positions == 'from_diff' "
-                                      "and kind == 'hybrid_patch' and method == @m and rank == @int(r)")
+                                      "and kind == 'hybrid_patch' and method == @m and rank == @rank_r")
             else:
                 q = []
             if len(q):

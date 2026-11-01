@@ -29,7 +29,7 @@ def resolve_device(spec: Optional[str] = "auto") -> torch.device:
     spec = (spec or "auto").lower()
     if spec == "auto":
         if torch.cuda.is_available():
-            return torch.device("cuda")
+            return torch.device("cuda", torch.cuda.current_device())      # indexed: some CUDA APIs reject "cuda"
         mps = getattr(torch.backends, "mps", None)
         if mps is not None and mps.is_available():
             return torch.device("mps")
@@ -37,6 +37,8 @@ def resolve_device(spec: Optional[str] = "auto") -> torch.device:
     dev = torch.device(spec)
     if dev.type == "cuda" and not torch.cuda.is_available():
         raise RuntimeError(f"profile asks for {spec} but CUDA is not available")
+    if dev.type == "cuda" and dev.index is None:
+        dev = torch.device("cuda", torch.cuda.current_device())
     if dev.type == "mps" and not (getattr(torch.backends, "mps", None) and torch.backends.mps.is_available()):
         raise RuntimeError(f"profile asks for {spec} but MPS is not available")
     return dev
@@ -81,8 +83,11 @@ def total_bytes(device: torch.device) -> Optional[int]:
 def cap_memory(device: torch.device, cap_gb: Optional[float]) -> None:
     """Limit this process's CUDA allocator to cap_gb (no-op on CPU / without a cap)."""
     if cap_gb and is_cuda(device):
-        total = torch.cuda.get_device_properties(device).total_memory
-        torch.cuda.set_per_process_memory_fraction(min(1.0, cap_gb * GiB / total), device)
+        device = torch.device(device)
+        # set_per_process_memory_fraction needs an index: torch.device("cuda") raises ValueError (RUN, 2026-11-01)
+        idx = device.index if device.index is not None else torch.cuda.current_device()
+        total = torch.cuda.get_device_properties(idx).total_memory
+        torch.cuda.set_per_process_memory_fraction(min(1.0, cap_gb * GiB / total), idx)
 
 
 def empty_cache() -> None:

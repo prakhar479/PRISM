@@ -34,7 +34,7 @@ from harness.model import ModelSpec, build_model
 from harness.model import stages as S
 from harness.profile import REPO_ROOT, load_profile
 from harness.queue import Queue
-from harness.tolerances import D_BATCHING, HOOK_IDENTITY_D
+from harness.tolerances import D_BATCHING, HEAD_VS_FULL_ULPS, HOOK_IDENTITY_D, SPAN_RESID_REL, head_vs_full_atol
 
 GiB = 2 ** 30
 CHECKS = []
@@ -97,8 +97,12 @@ def c3_model(prof, dev, revision):
         inp, kw = runtime._input(model, toks)
         full = model.run_with_hooks(inp, fwd_hooks=[], tokens=toks, **kw)[:, -1].float()
     d = float((a - full).abs().max())
+    tol = head_vs_full_atol(float(full.abs().max()), prof.model_dtype)
+    same_top = bool((a.argmax(-1) == full.argmax(-1)).all())
     check(3, "model load", True, f"{secs:.0f} s, {mem:.2f} GB allocated", seconds=secs, gpu_gb=mem)
-    check(3, "last-position head == full forward last logits", d < 1e-2, f"max |dlogit| {d:.3g}")
+    check(3, "last-position head == full forward last logits", d <= tol and same_top,
+          f"max |dlogit| {d:.3g} (tol {tol:.3g} = {HEAD_VS_FULL_ULPS} {prof.model_dtype} ulp at max |logit| "
+          f"{float(full.abs().max()):.1f}); argmax equal {same_top}")
     return model, spec
 
 
@@ -145,8 +149,14 @@ def c5_golden(model, spec, prof, dev, golden):
         ent = S.stage1(model, spec, sub, T.set_hash(sub), [layer], cache, b, dev)
         sp = S.load_spans(ent["spans"][layer], sub, list(range(len(sub))))
         gA = torch.cat([torch.from_numpy(z[f"p{k:02d}/span_A_pilot"]) for k in range(len(sub))])
-        rel = float(((sp.x_A - gA).norm(dim=-1) / gA.norm(dim=-1)).max())
-        check(5, f"{cell}: span residuals vs golden (relative)", rel < 2e-2, f"max relative row error {rel:.3g}")
+        relrows = (sp.x_A - gA).norm(dim=-1) / gA.norm(dim=-1)
+        rel = float(relrows.max())
+        # the pilot's own batching spread: its batch-1 forward (resid_A, all positions) vs its batched cached rows
+        g1 = torch.cat([torch.from_numpy(z[f"p{k:02d}/resid_A"])[gp[k]["first_diff"]:] for k in range(len(sub))])
+        pil = float(((g1 - gA).norm(dim=-1) / gA.norm(dim=-1)).max())
+        check(5, f"{cell}: span residuals vs golden (relative)", rel <= SPAN_RESID_REL,
+              f"max relative row error {rel:.3g} (median {float(relrows.median()):.3g}; tol {SPAN_RESID_REL}); "
+              f"pilot's own batch-1 vs batched: max {pil:.3g}", rel_max=rel, pilot_batch_spread=pil)
         from harness.sae import canonical_l0
         sid = SAEId(layer, "16k", canonical_l0(inv["inventory"][str(layer)]["16k"]), revision=inv["revision"])
         tail = info["sae"].get("params_path_tail", "")

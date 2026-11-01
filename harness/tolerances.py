@@ -23,5 +23,24 @@ D_SAME_MACHINE = Tol(0.0, 0.05, "same machine/stack, batched bf16")
 D_BATCHING = Tol(0.0, 0.25, "bf16 kernels differ with batch composition")
 # cross-machine / bf16 NLDR regression (handoff: +-1 point)
 NLDR_POINTS = 1.0
+# head() (ln_final + unembed + fp32 soft-cap on the last position) vs TransformerLens' full forward (soft-cap in the
+# model dtype). Identical in fp32 (tested on DEV); in bf16 they differ by rounding: allow 2 units in the last place of
+# bf16 at the largest |logit| (RUN 2026-11-01: 0.19 at |logit| ~ 20, where one bf16 ulp = 0.125). DECISIONS 2026-11-01.
+HEAD_VS_FULL_ULPS = 2
+
+
+def head_vs_full_atol(max_abs_logit: float, dtype_name: str) -> float:
+    import math
+    if dtype_name in ("float32", "fp32"):
+        return 1e-3
+    mant = {"bfloat16": 7, "bf16": 7, "float16": 10, "fp16": 10}[dtype_name]
+    return HEAD_VS_FULL_ULPS * 2.0 ** (math.floor(math.log2(max(max_abs_logit, 1e-6))) - mant)
+
+
+# harness stage-1 span residuals vs the pilot's cached span rows (golden), relative row error. Different batch
+# composition changes bf16 kernels; a hook-site or position error is O(10-100%). RUN 2026-11-01: 0.0201, against the
+# pilot's own batch-1 vs batched spread (reported next to it). DECISIONS 2026-11-01.
+SPAN_RESID_REL = 0.05
+
 # hook identity on the real model (writing x_B back must reproduce clean B)
 HOOK_IDENTITY_D = Tol(0.0, 1e-3, "writing the cached bf16 residual back is exact up to kernel nondeterminism")

@@ -20,7 +20,16 @@ provenance. The pilot code (`src/`) is unchanged.
 | E7 | E7.yaml | four direction estimators; PC1 variance and cosines in `directions/*.json` | OT L12, RS L18 |
 | E6 | E6.yaml | OT every layer 8–16; L12 directions applied at every layer | 9 cells |
 
-## Patch tag `run-20261031-1` (run this one, not `run-20261030-1`)
+## Patch tag `run-20261101-1` (run this one)
+
+`run-20261031-1`'s preflight failed on RUN (2026-11-01):
+- the smoke runs crashed on an index-less CUDA device in `cap_memory` (this would have failed every E job too);
+- checks 3 and 5 used tolerances too tight for bf16.
+
+All three are fixed (DECISIONS 2026-11-01). The queue, configs and experiment code paths are unchanged. This tag also
+contains the E3 code (release 2, not in this queue); DEV tests: 145 passed.
+
+## Patch tag `run-20261031-1` (superseded)
 
 `run-20261030-1` + one fix: `scripts/export_golden.py` (R2) OOMed on the 8 GB GPU at the first golden-pair forward,
 because `run_cell` ran `runtime.resid_at` with grad enabled (~2.2 GiB of autograd state through L12). `run_cell` is

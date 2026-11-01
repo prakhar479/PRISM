@@ -72,3 +72,22 @@ def test_check_env_parses_lock(tmp_path):
     assert pins == {"torch": "0.1.0+cpu", "numpy": "99.0", "foo-bar": "1.0"}
     res = m.check(pins)
     assert any("torch" in e for e in res["errors"]) and any("foo-bar" in w for w in res["warnings"])
+
+
+def test_cap_memory_passes_a_device_index(monkeypatch):
+    """set_per_process_memory_fraction rejects an index-less CUDA device (preflight smoke on RUN, 2026-11-01)."""
+    got = {}
+
+    class Props:
+        total_memory = 8 * 2 ** 30
+
+    monkeypatch.setattr(torch.cuda, "current_device", lambda: 0)
+    monkeypatch.setattr(torch.cuda, "get_device_properties", lambda i: Props())
+
+    def frac(f, i):
+        got["args"] = (f, i)
+
+    monkeypatch.setattr(torch.cuda, "set_per_process_memory_fraction", frac)
+    for spec, want in (("cuda", 0), ("cuda:1", 1)):
+        dv.cap_memory(torch.device(spec), 4.0)
+        assert isinstance(got["args"][1], int) and got["args"][1] == want and got["args"][0] == 0.5

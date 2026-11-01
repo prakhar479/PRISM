@@ -97,3 +97,22 @@ Dated log of non-trivial choices. Pilot run verdicts live in `results/*/DECISION
   per task make a cluster bootstrap coarse; DEV reports pair-level and family-clustered CIs side by side.
 - **`fit_families` column**: optional in `per_pair.parquet` (absent in release-1 outputs; readers default it to
   `pilot`). It is part of the cell key in analysis and of the duplicate check.
+
+## 2026-11-01: preflight fixes after the first RUN attempt (run-20261031-1)
+
+- **CUDA device index.** `torch.cuda.set_per_process_memory_fraction` rejects an index-less `cuda` device, so both
+  preflight smoke runs (and every E job) crashed in `cap_memory`. `resolve_device` now returns `cuda:<current>`, and
+  `cap_memory` resolves an index itself. A regression test stubs the CUDA calls.
+- **Check 3 tolerance (loosened, with evidence).** "head == full forward last logits" failed at 0.19 against 1e-2.
+  `runtime.head` applies the soft-cap in fp32 on the last position; TransformerLens' full forward applies it in the
+  model dtype. On DEV with the tiny Gemma-2 at Gemma-like logit magnitudes, they agree to ~1e-5 in fp32 and differ by
+  0.122 in bf16, where one bf16 ulp at |logit| 16–32 is 0.125. New tolerance: 2 ulp of the model dtype at the largest
+  |logit|, plus equal argmax. fp32 is still held to 1e-3 on RUN and 1e-4 in the DEV test.
+- **Check 5 tolerance (loosened, with evidence).** Span residuals vs the golden export failed at 0.0201 (max relative
+  row error) against 0.02. The harness batches the 16 golden pairs together; the pilot cached those rows from a
+  different batch, and bf16 kernels round differently by batch shape. A hook-site or position error would be O(10–100%).
+  All functional checks passed on RUN (hook identity exact, x_hat 1e-4, per-condition D vs golden 0). New tolerance:
+  0.05. Preflight now also reports the pilot's own batch-1 vs batched spread on the same rows, as context.
+- **Seen on RUN, not fixed yet.** During check 5, ~1126 MiB allocations hit OOM and the token budget backed off
+  (2048 → 512). The size equals a bf16 copy of the 256000 × 2304 unembedding, so something makes a transient copy of
+  W_U. The run recovered; it should be found before larger SAEs share the GPU (E4).

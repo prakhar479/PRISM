@@ -133,3 +133,27 @@ def test_stage3_invariant_to_batching(world):
     for n in conds:
         assert np.allclose(big[n]["logit_A"], small[n]["logit_A"], atol=1e-4)
         assert np.array_equal(big[n]["top1_id"], small[n]["top1_id"])
+
+
+def test_head_equals_full_forward_in_fp32_and_bf16_within_ulps():
+    """runtime.head (last position, fp32 soft-cap) computes the full forward's last logits: exactly in fp32; within
+    the preflight's bf16 ulp tolerance in bf16 (preflight check 3, RUN 2026-11-01)."""
+    from harness.model import build_model
+    from harness.tolerances import head_vs_full_atol
+    from src.models import runtime
+
+    for dt in ("float32", "bfloat16"):
+        m = build_model(ModelSpec(name="tiny", dtype=dt, tiny_vocab=4096, tiny_layers=3), torch.device("cpu"))
+        with torch.no_grad():
+            for p in m.unembed.parameters():
+                p.mul_(20)                                    # Gemma-like logit magnitudes under the 30 soft-cap
+        toks = torch.randint(0, 4096, (3, 10), generator=torch.Generator().manual_seed(0))
+        with torch.inference_mode():
+            a = runtime.last_logits(m, toks)
+            inp, kw = runtime._input(m, toks)
+            full = m.run_with_hooks(inp, fwd_hooks=[], tokens=toks, **kw)[:, -1].float()
+        d = float((a - full).abs().max())
+        if dt == "float32":
+            assert d < 1e-4                                   # fp32 ulp at |30| is 1.9e-6; a wrong head is O(1) off
+        else:
+            assert 0 < d <= head_vs_full_atol(float(full.abs().max()), dt)

@@ -22,11 +22,14 @@ from harness.profile import REPO_ROOT, load_profile
 from harness.queue import Queue
 
 
-def command(job, profile: str) -> list:
+def command(job, profile: str, allow_dirty: bool = False) -> list:
     py = sys.executable
     if job.kind == "experiment":
-        return [py, "-m", "harness.run", "--config", job.config, "--profile", job.profile or profile, "--stage", job.stage,
+        cmd = [py, "-m", "harness.run", "--config", job.config, "--profile", job.profile or profile, "--stage", job.stage,
                 *job.args]
+        if allow_dirty and "--allow-dirty" not in cmd:
+            cmd.append("--allow-dirty")
+        return cmd
     return [py, job.script, *job.args]
 
 
@@ -50,6 +53,8 @@ def main() -> int:
     ap.add_argument("--profile", default=None)
     ap.add_argument("--only", default=None, help="comma list of job ids")
     ap.add_argument("--dry-run", action="store_true", help="print the commands only")
+    ap.add_argument("--allow-dirty", action="store_true", help="pass --allow-dirty to experiment runs")
+    ap.add_argument("--retry-failed", action="store_true", help="retry failed jobs (reset failure state)")
     a = ap.parse_args()
     q = Queue.load(a.queue)
     prof_name = a.profile or q.profile
@@ -58,6 +63,14 @@ def main() -> int:
     state.mkdir(parents=True, exist_ok=True)
     status = json.loads((state / "status.json").read_text()) if (state / "status.json").exists() else {}
     only = set(a.only.split(",")) if a.only else None
+    if a.retry_failed:
+        for j in q.jobs:
+            if only and j.id not in only:
+                continue
+            if not (state / f"{j.id}.done").exists():
+                status.pop(j.id, None)
+                (state / f"{j.id}.failed").unlink(missing_ok=True)
+        (state / "status.json").write_text(json.dumps(status, indent=1))
     stop = threading.Event()
     threading.Thread(target=heartbeat, args=(state / "heartbeat", stop), daemon=True).start()
     failed = {j for j, s in status.items() if s.get("status") == "failed"}
@@ -68,16 +81,21 @@ def main() -> int:
             if (state / f"{job.id}.done").exists():
                 status.setdefault(job.id, {})["status"] = "done"
                 continue
+            s = status.setdefault(job.id, {"attempts": 0})
+            if s.get("status") == "failed" and (a.retry_failed or (only and job.id in only)):
+                s["attempts"] = 0
+                s["status"] = "pending"
+                (state / f"{job.id}.failed").unlink(missing_ok=True)
+                failed.discard(job.id)
             blocked = [d for d in job.depends_on if d in failed]
             if blocked:
                 status[job.id] = {"status": "skipped", "note": f"depends on failed {blocked}"}
                 failed.add(job.id)
                 continue
-            cmd = command(job, prof_name)
+            cmd = command(job, prof_name, allow_dirty=a.allow_dirty)
             if a.dry_run:
                 print(job.id, " ".join(cmd))
                 continue
-            s = status.setdefault(job.id, {"attempts": 0})
             ok = False
             while s["attempts"] < 2 and not ok:
                 s["attempts"] += 1

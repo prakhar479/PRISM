@@ -116,3 +116,15 @@ Dated log of non-trivial choices. Pilot run verdicts live in `results/*/DECISION
 - **Seen on RUN, not fixed yet.** During check 5, ~1126 MiB allocations hit OOM and the token budget backed off
   (2048 → 512). The size equals a bf16 copy of the 256000 × 2304 unembedding, so something makes a transient copy of
   W_U. The run recovered; it should be found before larger SAEs share the GPU (E4).
+
+## 2026-11-02: preflight Check 4 bf16 tolerance fix (run-20261102)
+
+- **Check 4 tolerance (loosened, with evidence).** "hook identity (full_B == clean_B, resumed clean_B == stage 1)"
+  and "full_A reproduces clean A" failed on RUN at max |dD| full_B 0.081, resumed clean_B 0.12, full_A 0.18 against
+  1e-3. The 1e-3 tolerance was a holdover from fp32 CPU testing (where atol=1e-4 passes). On GPU in bf16, Gemma-2-2b
+  last logits reach magnitudes ~28, where 1 bf16 ulp is 0.125 and 2 ulps is 0.25. Stage 1 executes an unbroken 26-layer
+  forward pass, while stage 3 breaks execution at layer 12 and resumes layers 13..25. GPU non-determinism and kernel
+  rounding across 13 bf16 transformer layers accumulate 0.5 to 1.5 ulps difference (0.08–0.18). The golden export
+  itself (`scripts/export_golden.py:451,455`) and Check 5 use 0.25 (`D_BATCHING.atol`) for the exact same checks.
+  New tolerance: `HOOK_IDENTITY_D` atol is loosened from 1e-3 to 0.25 (2 bf16 ulps, matching `D_BATCHING.atol`); fp32
+  remains at 1e-3 (`hook_identity_atol`).

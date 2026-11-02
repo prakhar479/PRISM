@@ -34,7 +34,14 @@ from harness.model import ModelSpec, build_model
 from harness.model import stages as S
 from harness.profile import REPO_ROOT, load_profile
 from harness.queue import Queue
-from harness.tolerances import D_BATCHING, HEAD_VS_FULL_ULPS, HOOK_IDENTITY_D, SPAN_RESID_REL, head_vs_full_atol
+from harness.tolerances import (
+    D_BATCHING,
+    HEAD_VS_FULL_ULPS,
+    HOOK_IDENTITY_D,
+    SPAN_RESID_REL,
+    head_vs_full_atol,
+    hook_identity_atol,
+)
 
 GiB = 2 ** 30
 CHECKS = []
@@ -119,9 +126,10 @@ def c4_hooks(model, spec, prof, dev):
     dB = float(np.abs(D(o["full_B"]) - D(cl["B"])).max())
     dA = float(np.abs(D(o["full_A"]) - D(cl["A"])).max())
     dR = float(np.abs(D(o["clean_B"]) - D(cl["B"])).max())
+    tol = hook_identity_atol(prof.model_dtype)
     check(4, "hook identity (OT L12, 4 pairs): full_B == clean_B, resumed clean_B == stage 1",
-          max(dB, dR) <= HOOK_IDENTITY_D.atol, f"max |dD| full_B {dB:.2g}, resumed clean_B {dR:.2g}")
-    check(4, "full_A reproduces clean A (NLDR = 1)", dA <= HOOK_IDENTITY_D.atol, f"max |dD| {dA:.2g}")
+          max(dB, dR) <= tol, f"max |dD| full_B {dB:.2g}, resumed clean_B {dR:.2g}")
+    check(4, "full_A reproduces clean A (NLDR = 1)", dA <= tol, f"max |dD| {dA:.2g}")
 
 
 def c5_golden(model, spec, prof, dev, golden):

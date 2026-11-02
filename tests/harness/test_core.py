@@ -91,3 +91,12 @@ def test_cap_memory_passes_a_device_index(monkeypatch):
     for spec, want in (("cuda", 0), ("cuda:1", 1)):
         dv.cap_memory(torch.device(spec), 4.0)
         assert isinstance(got["args"][1], int) and got["args"][1] == want and got["args"][0] == 0.5
+
+
+def test_hook_identity_atol_dtypes():
+    from harness.tolerances import HOOK_IDENTITY_D, hook_identity_atol
+    assert hook_identity_atol("float32") == 1e-3
+    assert hook_identity_atol("fp32") == 1e-3
+    assert hook_identity_atol("bfloat16") == HOOK_IDENTITY_D.atol
+    assert hook_identity_atol("bf16") == HOOK_IDENTITY_D.atol
+    assert HOOK_IDENTITY_D.atol == 0.25

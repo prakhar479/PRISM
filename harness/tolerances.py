@@ -42,5 +42,13 @@ def head_vs_full_atol(max_abs_logit: float, dtype_name: str) -> float:
 # pilot's own batch-1 vs batched spread (reported next to it). DECISIONS 2026-11-01.
 SPAN_RESID_REL = 0.05
 
-# hook identity on the real model (writing x_B back must reproduce clean B)
-HOOK_IDENTITY_D = Tol(0.0, 1e-3, "writing the cached bf16 residual back is exact up to kernel nondeterminism")
+# hook identity on the real model (writing x_B back must reproduce clean B, resumed clean_B == stage 1, full_A reproduces clean A).
+# In fp32 this is exact (atol 1e-3); in bf16, breaking and resuming across 13 layers accumulates 1-2 ulps (0.25 at |logit| ~ 28).
+# RUN 2026-11-02: max |dD| full_B 0.081, resumed clean_B 0.12, full_A 0.18. Matches D_BATCHING.atol. DECISIONS 2026-11-02.
+HOOK_IDENTITY_D = Tol(0.0, 0.25, "writing the cached bf16 residual back or resuming matches clean within 2 bf16 ulps")
+
+
+def hook_identity_atol(dtype_name: str) -> float:
+    if dtype_name in ("float32", "fp32"):
+        return 1e-3
+    return HOOK_IDENTITY_D.atol

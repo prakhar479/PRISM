@@ -189,3 +189,55 @@ def test_ram_budget_makes_a_second_reservation_wait(tmp_path, monkeypatch):
     ev = [l.split()[0] for l in log.read_text().splitlines()]
     assert ev == ["in", "out", "in", "out"]                     # 70 + 70 > 100: never held together
     assert not list((tmp_path / ".ram").glob("*.json"))
+
+
+# --------------------------------------------------------------------------- scheduler (plan step 6)
+def test_scheduler_pick_respects_deps_priority_and_slots():
+    from harness.queue import Job, Queue
+    from harness.scheduler import Scheduler, expand
+
+    q = Queue("t", "dev", [Job("pre", kind="script", script="x", gpu="all"),
+                           Job("lo", config="a.yaml", priority=1, depends_on=["pre"], workers="auto"),
+                           Job("hi", config="b.yaml", priority=5, depends_on=["pre"], workers=2),
+                           Job("cpu", kind="script", script="y", depends_on=["lo", "hi"], after_failed=True)], parallel=True)
+    units = expand(q, 3)
+    assert [u.id for u in units] == ["pre", "lo[0]", "lo[1]", "lo[2]", "hi[0]", "hi[1]", "cpu"]
+    s = Scheduler(q, units, ["0", "1", "2"], Path("."), lambda u: [], {}, {}, Path("."))
+    assert s.pick().id == "pre"
+    units[0].status = "running"
+    s.free = []
+    assert s.pick() is None                                     # nothing can start while preflight holds all GPUs
+    units[0].status, s.free = "done", ["0", "1", "2"]
+    assert s.pick().id == "hi[0]"                               # higher priority first
+    for u in units[1:6]:
+        u.status = "failed" if u.job.id == "hi" else "done"
+    assert s.pick().id == "cpu"                                 # after_failed: runs once deps have finished
+
+
+def test_scheduler_runs_a_tiny_parallel_queue_on_fake_gpus(tmp_path):
+    cfg = _cfg(tmp_path, "par_test_queue")
+    marker = tmp_path / "bundle_ran.txt"
+    bad = tmp_path / "missing.yaml"
+    q = {"tag": "partest", "profile": "dev", "parallel": True, "jobs": [
+        {"id": "s1", "config": str(cfg), "stage": "1", "args": ["--tiny", "--smoke"]},
+        {"id": "s2", "config": str(cfg), "stage": "2", "slices": "auto", "args": ["--tiny", "--smoke"], "depends_on": ["s1"]},
+        {"id": "s3", "config": str(cfg), "stage": "3", "workers": "auto", "args": ["--tiny", "--smoke"], "depends_on": ["s2"]},
+        {"id": "broken", "config": str(bad), "stage": "1", "depends_on": ["s1"]},
+        {"id": "fin", "config": str(cfg), "stage": "3", "gpu": "none", "args": ["--tiny", "--smoke", "--finalize-only"],
+         "depends_on": ["s3"]},
+        {"id": "bundle", "kind": "script", "script": str(tmp_path / "touch.py"), "args": [str(marker)],
+         "after_failed": True, "depends_on": ["fin", "broken"]}]}
+    (tmp_path / "touch.py").write_text("import sys, pathlib; pathlib.Path(sys.argv[1]).write_text('ok')\n")
+    qp = tmp_path / "q.yaml"
+    qp.write_text(yaml.safe_dump(q))
+    env = {**__import__("os").environ, "HL_RUNS_ROOT": str(tmp_path / "runs")}
+    r = subprocess.run([sys.executable, "scripts/run_queue.py", "--queue", str(qp), "--gpus", "0,1,2", "--poll", "0.2"],
+                       cwd=ROOT, env=env, capture_output=True, text=True, timeout=900)
+    st = _json.loads((tmp_path / "runs" / "_queue" / "partest" / "status.json").read_text())
+    assert r.returncode == 1, r.stdout + r.stderr                           # 'broken' failed
+    assert st["broken"]["status"] == "failed" and marker.read_text() == "ok"
+    assert all(st[k]["status"] == "done" for k in ("s1", "s2[0]", "s2[1]", "s2[2]", "s3[0]", "s3[1]", "s3[2]", "fin"))
+    assert {tuple(st[f"s3[{k}]"]["slots"]) for k in range(3)} == {("0",), ("1",), ("2",)}
+    rd = _run_dir("par_test_queue")
+    m = _json.loads((rd / "manifest.json").read_text())
+    assert m["status"] == "complete" and len(pd.read_parquet(rd / "per_pair.parquet"))

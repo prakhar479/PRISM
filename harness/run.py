@@ -714,7 +714,9 @@ def main(argv=None) -> int:
     if R.git["dirty"] and not (a.allow_dirty or a.smoke or a.tiny):
         raise SystemExit("working tree is dirty: commit, or pass --allow-dirty (recorded in the manifest)")
     R.run_dir.mkdir(parents=True, exist_ok=True)
-    tag = f".w{R.worker}" if R.worker else ""            # one log / manifest per worker; only finalize writes the run's
+    # one log / manifest per partial process; only a full run or --finalize-only writes the run's manifest.json
+    tag = (f".w{R.worker}" if R.worker else f".s2-{a.stage2_slice.replace('/', 'of')}" if a.stage2_slice
+           else f".stage{a.stage}" if a.stage != "all" else "")
     fh = logging.FileHandler(R.run_dir / f"log{tag}.txt")
     fh.setFormatter(logging.Formatter("%(asctime)s %(levelname)s %(message)s"))
     logging.getLogger().addHandler(fh)
@@ -753,10 +755,7 @@ def main(argv=None) -> int:
         log.exception("run failed")
         return 1
     finally:
-        name = f"manifest{tag}.json" if (R.worker or a.stage2_slice or a.stage != "all") else "manifest.json"
-        if a.stage != "all" and not R.worker and not a.stage2_slice and (R.run_dir / "manifest.json").exists():
-            name = f"manifest.stage{a.stage}.json"     # a partial-stage process never overwrites a complete manifest
-        atomic_write_text(R.run_dir / name, json.dumps(R.manifest(status, t0, stages), indent=1, default=str))
+        atomic_write_text(R.run_dir / f"manifest{tag}.json", json.dumps(R.manifest(status, t0, stages), indent=1, default=str))
         log.info("%s -> %s (%s)", cfg.exp_id, R.run_dir, status)
 
 

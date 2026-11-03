@@ -32,9 +32,9 @@ def load_runs(runs_root: Path, only=None):
         if only and m["exp_id"] not in only:
             continue
         pp = pd.read_parquet(man.parent / "per_pair.parquet")
-        if not (pp.condition == "repair").any():
-            continue                                              # E8 needs repair conditions
-        out.append((m, pp))
+        if not {"full_A", "feat_A_errB"} <= set(pp.condition):
+            continue                                              # gaps need full_A and feat_A_errB
+        out.append((m, pp))                                       # runs without repair still give gap rows
     return out
 
 
@@ -66,7 +66,7 @@ def main() -> int:
     prof = load_profile(a.profile or "dev")
     runs = load_runs(prof.root("runs_root"), set(a.only.split(",")) if a.only else None)
     if not runs:
-        print("no complete runs with repair conditions under", prof.root("runs_root"))
+        print("no complete runs with full_A and feat_A_errB under", prof.root("runs_root"))
         return 1
     frames = e8.analyse_runs(runs, a.filters.split(",") if a.filters else None, n_boot=a.n_boot)
     out = Path(a.out) if a.out else REPO_ROOT / "tables"

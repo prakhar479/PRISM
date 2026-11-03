@@ -252,6 +252,59 @@ def subthreshold_addback(codes, sae, alpha: float, latents: Optional[torch.Tenso
     return decode_entries(sae, codes, m)
 
 
+@dataclass
+class GreedyLatents:
+    latents: List[int]                 # in selection order
+    objective: List[float]             # sum of squared residuals after 0, 1, ..., k picks
+    alpha: float
+    fitset: FitSet
+    n_candidates: int
+
+    def first(self, k: int) -> torch.Tensor:
+        return torch.tensor(self.latents[:k], dtype=torch.long)
+
+
+def greedy_subthreshold(fitset: FitSet, pair_ids: Sequence[str], codes, dec, target: torch.Tensor, alpha: float,
+                        k_max: int = 10, chunk: int = 65536) -> GreedyLatents:
+    """Greedy forward selection of <= k_max latents whose sub-threshold add-back (entries alpha*theta <= z < theta,
+    z > 0 of A) best explains `target` on TRAIN span rows, in least squares:
+
+        minimise  sum_rows || target - sum_{i in L} s_i ||^2,   s_i = z_i W_dec[i] on the rows where i qualifies.
+
+    With target = eps_A - eps_B this picks the latents that move feat_A_errB (x_hat_A + eps_B) closest to x_A.
+    A latent occurs at most once per row, so the gain of adding i is 2 <R, s_i> - ||s_i||^2 with ||s_i||^2 =
+    sum z^2 ||W_i||^2. Model-free; uses train pairs only (fitset.require_train)."""
+    fitset.require_train(pair_ids)
+    m = (codes.z >= alpha * codes.threshold) & (codes.z < codes.threshold) & (codes.z > 0)
+    r, c, z = codes.row[m], codes.col[m], codes.z[m]
+    R = target.float().clone()
+    if not len(c):
+        return GreedyLatents([], [float((R ** 2).sum())], alpha, fitset, 0)
+    cand, inv = torch.unique(c, return_inverse=True)
+    W = dec.rows(cand)                                         # [n_cand, d]
+    wn2 = (W ** 2).sum(1)
+    self_term = torch.zeros(len(cand)).index_add_(0, inv, (z ** 2) * wn2[inv])
+    chosen: List[int] = []
+    obj = [float((R ** 2).sum())]
+    alive = torch.ones(len(cand), dtype=torch.bool)
+    for _ in range(min(k_max, len(cand))):
+        dots = torch.zeros(len(cand))
+        for a in range(0, len(r), chunk):
+            rr, ii, zz = r[a:a + chunk], inv[a:a + chunk], z[a:a + chunk]
+            dots.index_add_(0, ii, zz * (R[rr] * W[ii]).sum(1))
+        gain = 2 * dots - self_term
+        gain[~alive] = -float("inf")
+        j = int(torch.argmax(gain))
+        if gain[j] <= 0:
+            break
+        sel = inv == j
+        R.index_add_(0, r[sel], -(z[sel][:, None] * W[j][None, :]))
+        alive[j] = False
+        chosen.append(int(cand[j]))
+        obj.append(float((R ** 2).sum()))
+    return GreedyLatents(chosen, obj, alpha, fitset, int(len(cand)))
+
+
 CONDITIONS = ["clean_B", "full_A", "full_B", "feat_A_errB", "feat_B_errA", "feat_B_noise", "feat_A_zero",
               "feat_A_meanTask", "feat_A_meanPos", "feat_A_resampC_sameAns", "feat_A_resampC_diffAns", "feat_A_noise",
               "feat_A_covnoise", "repair", "repair_mean", "feat_A_along_U", "full_along_U", "subthresh"]

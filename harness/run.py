@@ -16,7 +16,7 @@ import sys
 import time
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Sequence
 import os
 
 os.environ.setdefault("PYTORCH_CUDA_ALLOC_CONF", "expandable_segments:True")
@@ -42,6 +42,7 @@ from harness.sae import SAEId, load_params, params_path, write_random_params
 log = logging.getLogger("harness")
 UNIT_SIZE = 8                      # conditions per resumable stage-3 unit
 TINY_D, TINY_SAE = 64, 512
+RAM_MARGIN = 1.25                  # an SAE is loaded only if 1.25 x its weights fit in available host RAM
 
 
 def _none_key(**kw) -> dict:
@@ -57,6 +58,13 @@ class Bundle:
     mean_err: C.MeanError
     cov: C.CovNoise
     dirs: Dict[str, Dr.Direction] = field(default_factory=dict)
+    greedy: Optional[C.GreedyLatents] = None            # E5: latents picked on train pairs
+
+
+def subthresh_key(alpha: float, slot: str, k: int) -> dict:
+    """Per-pair key of an E5 condition: estimator all|greedy, source 'alpha=<a>|slot=<B|meanPos>', r = greedy k."""
+    return dict(condition="subthresh", estimator="greedy" if k else "all", source=f"alpha={alpha:.2f}|slot={slot}",
+                r=int(k), seed=-1)
 
 
 class Runner:
@@ -117,10 +125,15 @@ class Runner:
         """(source kind, task or 'generic', layer, SAEId) needed by the cells and their direction sources."""
         jobs = []
         d = self.cfg.directions
-        cell_sae = {(c.task, c.layer): self.sae_id(c.layer, c.sae) for c in self.cfg.cells}
+        # several SAEs per (task, layer) are allowed (E4 widths); `layer:<L>` sources use the first cell at layer L
+        cell_sae = {}
         for c in self.cfg.cells:
-            sid = cell_sae[(c.task, c.layer)]
+            cell_sae.setdefault((c.task, c.layer), self.sae_id(c.layer, c.sae))
+        for c in self.cfg.cells:
+            sid = self.sae_id(c.layer, c.sae)
             jobs.append(("task", c.task, c.layer, sid))
+            if self.cfg.generic_l0:
+                jobs.append(("generic", "generic", c.layer, sid))
             if d and "other_task" in d.sources:
                 jobs += [("task", t, c.layer, sid) for t in self.cfg.prompt_sets if t != c.task]
             if d and "generic" in d.sources:
@@ -153,10 +166,12 @@ class Runner:
         for kind, t, L, sid in self.stage2_jobs():
             e2 = memory.stage2(self.prof, sid.width, cap)
             jobs.append({"stage": 2, "what": f"{t} L{L} {sid.key}", "placement": e2.placement,
-                         "block_latents": e2.block_latents, "peak_gb": round(e2.peak_gb, 2), "fits": memory.fits(e2, cap)})
+                         "block_latents": e2.block_latents, "peak_gb": round(e2.peak_gb, 2), "fits": memory.fits(e2, cap),
+                         "sae_dtype": memory.sae_dtype_for(sid.width, self.prof),
+                         "host_ram_gb": round(memory.sae_bytes(sid.width, memory.sae_dtype_for(sid.width, self.prof)) / 2 ** 30, 2)})
         for c in self.cfg.cells:
             n_cond = len(self.condition_specs_count(c))
-            jobs.append({"stage": 3, "what": f"{c.task} L{c.layer} {c.sae.width}: {n_cond} conditions x <= "
+            jobs.append({"stage": 3, "what": f"{c.task} L{c.layer} {self.sae_id(c.layer, c.sae).key}{c.tag()}: {n_cond} conditions x <= "
                          f"{self.n_test * len(self.cfg.filters)} test pairs", "peak_gb": round(s3.peak_gb, 2),
                          "fits": memory.fits(s3, cap), "n_conditions": n_cond})
         return {"exp_id": self.cfg.exp_id, "run_hash": self.run_hash, "cap_gb": self.prof.gpu_mem_cap_gb, "jobs": jobs,
@@ -176,6 +191,9 @@ class Runner:
             for n in d.conditions:
                 keys += [(n, e, s, r) for e in d.estimators for s in range(n_src) for r in d.ranks]
                 keys += [(n, "random", s, r) for s in range(d.random_seeds) for r in d.ranks if r > 0]
+        st_ = self.cfg.subthresh
+        if st_:
+            keys += [("subthresh", k, a, s) for k in [0] + list(st_.greedy_ks) for a in st_.alphas for s in st_.slot_errors]
         return keys
 
     # ------------------------------------------------------------------ stage 1
@@ -218,6 +236,13 @@ class Runner:
     def sae_entry(self, task, layer, sid):
         return self.cache.entry("sae_out", spans=self.spans_entry(task, layer).key, sae=self.sae_key(sid))
 
+    def codes_entry(self, task, layer, sid):
+        return self.cache.entry("sae_codes", spans=self.spans_entry(task, layer).key, sae=self.sae_key(sid),
+                                alpha_min=float(self.cfg.subthresh.alpha_min))
+
+    def dec_entry(self, task, layer, sid):
+        return self.cache.entry("sae_codes_dec", codes=self.codes_entry(task, layer, sid).key)
+
     def generic_entries(self, layer, sid):
         r = self.cache.entry("generic_resid", model=self.spec.key(), corpus=self.generic["hash"], layer=int(layer),
                              skip=self.generic["skip"], site=self.spec.site)
@@ -228,9 +253,23 @@ class Runner:
         by_sae: Dict[str, list] = {}
         for j in self.stage2_jobs():
             by_sae.setdefault(j[3].key, []).append(j)
+        if self.model is not None:                          # stage 2 never shares the GPU with the model
+            self.free_model()
+        skipped = self.skipped_saes()
         for _, jobs in by_sae.items():                     # one SAE resident at a time
             sid = jobs[0][3]
             est = memory.stage2(self.prof, sid.width, cap)
+            if all(self.stage2_done(j) for j in jobs):
+                continue
+            need = memory.sae_bytes(sid.width, memory.sae_dtype_for(sid.width, self.prof))
+            from src.models.runtime import available_ram
+            avail = available_ram()
+            if not self.tiny and need * RAM_MARGIN > avail:
+                skipped[sid.key] = (f"needs {need / 2 ** 30:.1f} GiB host RAM (x{RAM_MARGIN} margin), "
+                                    f"{avail / 2 ** 30:.1f} GiB available")
+                log.warning("skipping SAE %s: %s", sid.key, skipped[sid.key])
+                self.write_skipped(skipped)
+                continue
             sae = self.get_sae(sid)
             dev = self.device if est.placement in ("gpu", "blockwise-gpu") else torch.device("cpu")
             if est.placement == "gpu" and not self.tiny:
@@ -239,12 +278,28 @@ class Runner:
             for kind, t, L, _ in jobs:
                 if kind == "task":
                     S.stage2(self.cache, self.spans_entry(t, L), sae, self.sae_key(sid), dev, est.block_latents)
+                    if self.cfg.subthresh:
+                        S.stage2_codes(self.cache, self.spans_entry(t, L), sae, self.sae_key(sid), dev,
+                                       self.cfg.subthresh.alpha_min, est.block_latents)
                 else:
                     r, _ = self.generic_entries(L, sid)
                     S.stage2_generic(self.cache, r, sae, self.sae_key(sid), dev, est.block_latents)
             self.timings[f"stage2_{sid.key}_s"] = round(time.time() - t0, 1)
             del sae
             empty_cache()
+
+    def stage2_done(self, job) -> bool:
+        kind, t, L, sid = job
+        e = self.sae_entry(t, L, sid) if kind == "task" else self.generic_entries(L, sid)[1]
+        return e.complete and (kind != "task" or not self.cfg.subthresh or self.codes_entry(t, L, sid).complete)
+
+    def skipped_saes(self) -> Dict[str, str]:
+        p = self.run_dir / "skipped_saes.json"
+        return json.loads(p.read_text()) if p.exists() else {}
+
+    def write_skipped(self, skipped: Dict[str, str]) -> None:
+        self.run_dir.mkdir(parents=True, exist_ok=True)
+        (self.run_dir / "skipped_saes.json").write_text(json.dumps(skipped, indent=1))
 
     # ------------------------------------------------------------------ selection / fitting
     def flags(self, task):
@@ -291,6 +346,19 @@ class Runner:
                 elif est == "pca_slot_centered_pairdiff":
                     b.dirs[est] = Dr.pca_slot_centered_pairdiff(fs, sp.pair_ids, sp.e_A - sp.e_B, keys, d.r_max)
             self.save_dirs(task, layer, sid, b, "+".join(fit_families) if fit_families else "")
+        st_ = self.cfg.subthresh
+        if st_ and st_.greedy_ks:
+            codes = S.load_codes(self.codes_entry(task, layer, sid), self.spans_entry(task, layer), tr)
+            dec = S.load_decoder(self.dec_entry(task, layer, sid))
+            b.greedy = C.greedy_subthreshold(fs, sp.pair_ids, codes, dec, sp.e_A - sp.e_B, st_.g_alpha, max(st_.greedy_ks))
+            out = self.run_dir / "subthresh"
+            out.mkdir(parents=True, exist_ok=True)
+            stem = f"{task}_L{layer}_{sid.key}" + (f"__fit-{'+'.join(fit_families)}" if fit_families else "")
+            (out / f"{stem}.json").write_text(json.dumps(
+                {"latents": b.greedy.latents, "objective": b.greedy.objective, "alpha": b.greedy.alpha,
+                 "n_candidates": b.greedy.n_candidates, "fitset": {"digest": fs.digest, "n_pairs": len(tr),
+                 "filter": self.cfg.fit_filter}, "target": "eps_A - eps_B on train span rows",
+                 "objective_def": "sum of squared residuals of the target after each pick"}, indent=1))
         self.bundles[key] = b
         return b
 
@@ -314,7 +382,7 @@ class Runner:
         return Dr.generic(Dr.FitSet.generic(self.generic["file"]), E, self.cfg.directions.r_max)
 
     # ------------------------------------------------------------------ stage 3
-    def cell_specs(self, cell, sid, test: C.Spans, bun: Bundle) -> List[dict]:
+    def cell_specs(self, cell, sid, test: C.Spans, bun: Bundle, te_idx: Sequence[int] = ()) -> List[dict]:
         """Condition specs (keys + how to build the tensor) for one cell, in a fixed order."""
         specs = [dict(_none_key(condition=n), kind="plain") for n in ("clean_B", "full_A", "full_B")]
         noise = {"feat_B_noise", "feat_A_noise", "feat_A_covnoise"}
@@ -354,10 +422,27 @@ class Runner:
                     for r in d.ranks:
                         if r > 0:
                             specs.append(dict(condition=n, estimator="random", source="random", r=r, seed=s, kind="dir", D=D))
+        st_ = self.cfg.subthresh
+        if st_:
+            codes = S.load_codes(self.codes_entry(cell.task, cell.layer, sid), self.spans_entry(cell.task, cell.layer),
+                                 te_idx)
+            dec = S.load_decoder(self.dec_entry(cell.task, cell.layer, sid))
+            ks = [0] + ([k for k in st_.greedy_ks if bun.greedy and k <= len(bun.greedy.latents)])
+            for k in ks:
+                lat = bun.greedy.first(k) if k else None
+                for a in st_.alphas:
+                    for slot in st_.slot_errors:
+                        specs.append(dict(subthresh_key(a, slot, k), kind="sub", alpha=a, slot=slot, latents=lat,
+                                          codes=codes, dec=dec))
         return specs
 
     def materialize(self, spec, test: C.Spans, bun: Bundle, cell, donors) -> Optional[torch.Tensor]:
         n = spec["condition"]
+        if spec["kind"] == "sub":
+            mean_pos = bun.mean_err.per_row(test) if spec["slot"] == "meanPos" else None
+            return C.build("subthresh", test, codes_A=spec["codes"], sae=spec["dec"], alpha=spec["alpha"],
+                           slot_error="B" if spec["slot"] == "B" else "meanPos", eps_mean_pos=mean_pos,
+                           latents=spec["latents"])
         if spec["kind"] == "dir":
             U = spec["D"].r(spec["r"])
             mean_pos = bun.mean_err.per_row(test) if n == "repair_mean" else None
@@ -387,8 +472,13 @@ class Runner:
         model = None
         parts = self.run_dir / "parts"
         parts.mkdir(parents=True, exist_ok=True)
+        skipped = self.skipped_saes()
         for cell in self.cfg.cells:
             sid = self.sae_id(cell.layer, cell.sae)
+            if sid.key in skipped:
+                log.warning("cell %s %s skipped: %s", cell.task, sid.key, skipped[sid.key])
+                self.checks.append({"cell": f"{cell.task}_{sid.key}{cell.tag()}", "role": cell.role, "skipped": skipped[sid.key]})
+                continue
             rows = self.rows[cell.task]
             cl, fl = self.flags(cell.task)
             groups = F.expand(cell.task, cell.eval_families) if cell.eval_families else None
@@ -398,7 +488,7 @@ class Runner:
             bun.fitset.assert_disjoint([rows[i]["pair_id"] for i in te])
             test = S.load_spans(self.spans_entry(cell.task, cell.layer), rows, te, self.sae_entry(cell.task, cell.layer, sid))
             donors = {"same": C.select_donors(test.meta, True, self.cfg.seed), "diff": C.select_donors(test.meta, False, self.cfg.seed)}
-            specs = self.cell_specs(cell, sid, test, bun)
+            specs = self.cell_specs(cell, sid, test, bun, te)
             cell_key = f"{cell.task}_{sid.key}{cell.tag()}"
             self.record_cell(cell, sid, rows, fl, sel, te, bun, test)
             base = self.base_rows(cell, sid, rows, fl, te, cl, test)
@@ -464,7 +554,16 @@ class Runner:
                             "n_train": len(bun.train_idx), "fitset_digest": bun.fitset.digest, "keep_rates": keep,
                             "mean_l0_test": [float(test.l0_A.float().mean()), float(test.l0_B.float().mean())],
                             "rel_err_norm_test": float((test.e_A.norm(dim=-1) / test.x_A.norm(dim=-1)).mean()),
-                            "mean_pos_coverage": (bun.mean_err.per_row(test), bun.mean_err.last_coverage)[1]})
+                            "mean_pos_coverage": (bun.mean_err.per_row(test), bun.mean_err.last_coverage)[1],
+                            **({"generic": self.generic_stats(cell.layer, sid)} if self.cfg.generic_l0 else {})})
+
+    def generic_stats(self, layer, sid) -> dict:
+        """Realized L0 and error energy sum||eps||^2 / sum||x||^2 of the cell's SAE on the generic set (E4)."""
+        _, ge = self.generic_entries(layer, sid)
+        t = ge.require_complete().read_all(["eps", "l0", "x_norm"])
+        return {"rows": int(len(t["l0"])), "mean_l0": float(t["l0"].float().mean()),
+                "err_energy_ratio": float((t["eps"].float() ** 2).sum() / (t["x_norm"].float() ** 2).sum()),
+                "corpus": self.generic["file"]}
 
     # ------------------------------------------------------------------ finalize
     def finalize(self) -> None:

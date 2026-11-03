@@ -12,7 +12,7 @@ from __future__ import annotations
 import hashlib
 import json
 import logging
-from typing import Dict, List, Optional, Sequence
+from typing import Dict, List, Optional, Sequence, Tuple
 
 import numpy as np
 import torch
@@ -179,6 +179,65 @@ def stage2(cache: Cache, spans_entry: Entry, sae, sae_key: dict, device, block_l
     if not e.complete:
         e.mark_complete({"sae": sae_key})
     return e
+
+
+@torch.inference_mode()
+def stage2_codes(cache: Cache, spans_entry: Entry, sae, sae_key: dict, device, alpha_min: float,
+                 block_latents: Optional[int] = None) -> Tuple[Entry, Entry]:
+    """E5: sparse sub-threshold codes of the clean prompt A (entries alpha_min*theta <= z <= theta, z > 0; rows local
+    to each spans shard) and a DecoderTable with the W_dec rows of every latent that occurs. No model involved."""
+    from harness.sae import DecoderTable, encode_sparse, subthreshold_only
+
+    spans_entry.require_complete()
+    e = cache.entry("sae_codes", spans=spans_entry.key, sae=sae_key, alpha_min=float(alpha_min)).open()
+    for si in spans_entry.shards():
+        if e.shard_done(si):
+            continue
+        s = spans_entry.read_shard(si)
+        c = subthreshold_only(encode_sparse(sae, s["x_A"], alpha_min=alpha_min, block_latents=block_latents, device=device))
+        e.write_shard(si, {"pair_index": s["pair_index"], "n_rows": torch.tensor([c.n_rows]), "row": c.row,
+                           "col": c.col, "z": c.z, "threshold": c.threshold})
+    if not e.complete:
+        e.mark_complete({"sae": sae_key, "alpha_min": float(alpha_min), "prompt": "A", "entries": "subthreshold"})
+    d = cache.entry("sae_codes_dec", codes=e.key).open()
+    if not d.complete:
+        cols = torch.unique(torch.cat([e.read_shard(si)["col"] for si in e.shards()] or [torch.zeros(0, dtype=torch.long)]))
+        tab = DecoderTable.from_sae(sae, cols)
+        d.write_shard(0, {"cols": tab.cols, "W": tab.W})
+        d.mark_complete({"n_latents": int(len(tab.cols))})
+    return e, d
+
+
+def load_codes(codes_entry: Entry, spans_entry: Entry, pair_idx: Sequence[int]):
+    """SparseCodes of A for pairs `pair_idx`, rows numbered like load_spans (same pair order)."""
+    from harness.sae import SparseCodes
+
+    codes_entry.require_complete()
+    t = spans_entry.require_complete().read_all(["pair_index", "span_len"])
+    ptr_all = np.concatenate([[0], np.cumsum(t["span_len"].numpy())])
+    where = {int(p): k for k, p in enumerate(t["pair_index"].tolist())}
+    rows, cols, zs, ths, off = [], [], [], [], 0
+    for si in codes_entry.shards():
+        s = codes_entry.read_shard(si)
+        rows.append(s["row"] + off)
+        cols.append(s["col"])
+        zs.append(s["z"])
+        ths.append(s["threshold"])
+        off += int(s["n_rows"][0])
+    if off != int(ptr_all[-1]):
+        raise ValueError("code rows are not aligned with the span cache")
+    full = SparseCodes(torch.cat(rows), torch.cat(cols), torch.cat(zs), torch.cat(ths), off,
+                       float(codes_entry.parts["alpha_min"]))
+    sel = [where[int(i)] for i in pair_idx]
+    take = torch.cat([torch.arange(ptr_all[k], ptr_all[k + 1]) for k in sel]) if sel else torch.zeros(0, dtype=torch.long)
+    return full.subset_rows(take)
+
+
+def load_decoder(dec_entry: Entry):
+    from harness.sae import DecoderTable
+
+    t = dec_entry.require_complete().read_shard(0)
+    return DecoderTable(t["cols"], t["W"])
 
 
 @torch.inference_mode()

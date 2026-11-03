@@ -157,3 +157,26 @@ def test_head_equals_full_forward_in_fp32_and_bf16_within_ulps():
             assert d < 1e-4                                   # fp32 ulp at |30| is 1.9e-6; a wrong head is O(1) off
         else:
             assert 0 < d <= head_vs_full_atol(float(full.abs().max()), dt)
+
+
+def test_vocab_major_unembed_avoids_the_per_call_copy_and_is_bitwise_identical():
+    """TL's Unembed does F.linear(x, W_U.T.contiguous(), b): with W_U stored vocab-major that is a no-op instead of a
+    full copy of the unembedding per call (the ~1126 MiB transient allocations seen on RUN)."""
+    from harness.model import build_model, vocab_major_unembed
+    from src.models import runtime
+
+    for dt in ("float32", "bfloat16"):
+        m = build_model(ModelSpec(name="tiny", dtype=dt, tiny_vocab=4096, tiny_layers=2), torch.device("cpu"))
+        u = m.unembed
+        assert u.W_U.shape == (m.cfg.d_model, 4096) and u.W_U.T.is_contiguous()
+        assert u.W_U.T.contiguous().data_ptr() == u.W_U.data_ptr()             # no copy
+        ref = build_model(ModelSpec(name="tiny", dtype=dt, tiny_vocab=4096, tiny_layers=2), torch.device("cpu"))
+        ref.unembed.W_U = torch.nn.Parameter(ref.unembed.W_U.detach().contiguous(), requires_grad=False)  # TL default
+        assert not ref.unembed.W_U.T.is_contiguous() and torch.equal(ref.unembed.W_U, u.W_U)
+        toks = torch.randint(0, 4096, (3, 9), generator=torch.Generator().manual_seed(1))
+        with torch.inference_mode():
+            assert torch.equal(runtime.last_logits(m, toks), runtime.last_logits(ref, toks))
+        vocab_major_unembed(m)                                                  # idempotent
+        assert u.W_U.T.is_contiguous()
+    m.unembed.to(torch.float64)                                                 # Module.to keeps the strides
+    assert m.unembed.W_U.T.is_contiguous()

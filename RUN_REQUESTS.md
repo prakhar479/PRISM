@@ -22,7 +22,7 @@ The same Python environment the pilot used must be active (no package changes be
 
 ---
 
-## R1: RUN environment probe and package freeze, `open`
+## R1: RUN environment probe and package freeze, `open` (not in runs.zip; see R5)
 
 - **Purpose:** pin the lockfile to the stack that produced the pilot numbers. The pilot environment's
   transformer_lens version was never recorded, and transformers 5.20.1 violates `requirements.txt`. Also confirm
@@ -69,7 +69,7 @@ The same Python environment the pilot used must be active (no package changes be
   information for DEV (e.g. pairs not reproducible on today's stack), not something to fix on RUN.
 - **Return:** `golden/R2.tar` + `.sha256` → DEV `incoming/R2/`.
 
-## R3: HF top-1 agreement on the pilot task prompts, `open` (needs R2's output on RUN)
+## R3: HF top-1 agreement on the pilot task prompts, `open` (summary pasted in chat 2026-11-01: 0.9819 overall, all disagreements near-ties; archive not returned, see R5)
 
 - **Purpose:** investigate the "95% top-1 agreement with HF" figure (REPO_MAP §10). It was measured on the legacy
   tasks at an older commit. This request measures, on the pilot tasks' kept test pairs plus rejected candidates:
@@ -101,7 +101,7 @@ logs).
 
 ---
 
-## R4: release 1 queue, `open` (can run in the same sitting as R1-R3)
+## R4: release 1 queue, `returned` 2026-11-03 (runs.zip; 6 full runs at 1efeff6, tagged run-20261102-1, ingested; E0 26/26 within 1 point)
 
 - **Purpose:** E0, E1, E2, E7, E6 (handoff §11, RT1).
 - **Commands:** `releases/release1.md` (separate `.venv-harness`, then `scripts/run_queue.py --queue
@@ -117,3 +117,22 @@ logs).
 | SAE inventory | `resolved` (Phase 1 script) | `google/gemma-scope-2b-pt-res` is reachable from DEV (not gated) |
 | 16k SAE `params.npz` for T1 tests | `resolved` | DEV can download it directly (0.28 GiB each, L12 and L18) |
 | gemma-2-2b tokenizer on DEV (T2 tests) | `resolved` 2026-10-30 | Gemma licence accepted for `legend479`; config + tokenizer load on DEV (revision `c5ebcd40`) |
+
+---
+
+## R5: files the release-1 results did not include, `open` (2026-11-03)
+
+- **Purpose:** `runs.zip` held only `runs/`. These outputs are still missing on DEV:
+  - R1's environment record, so the lockfile can be checked against the stack that produced the numbers.
+  - R2's golden fixtures, for the T1 tests (13 tests skip without them).
+  - R3's per-prompt archive.
+  - The preflight reports and throughput measurements, so `plan_runs.py` can estimate wall time for release 2.
+- **Commands** (on RUN, repo root, no code changes):
+  ```bash
+  ls probe_R1.tar golden/R2.tar hf_agreement_R3.tar 2>&1     # make any that are missing with the R1-R3 tar lines above
+  tar cf preflight_R5.tar preflight/                         # reports + throughput_*.json + *_hf/ folders
+  sha256sum probe_R1.tar golden/R2.tar hf_agreement_R3.tar preflight_R5.tar > R5.sha256
+  ```
+  Then send these with the same `results/...` branch recipe as before (`incoming/R1`, `incoming/R2`, `incoming/R3`,
+  `incoming/R5`), splitting anything over 95 MB.
+- **Duration:** ~2 min. **Return:** the four tars + `R5.sha256` → DEV `incoming/<id>/`.

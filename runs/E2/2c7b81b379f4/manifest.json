@@ -1,0 +1,320 @@
+{
+ "exp_id": "E2",
+ "run_hash": "2c7b81b379f4",
+ "status": "complete",
+ "stages": [
+  "1",
+  "2",
+  "3"
+ ],
+ "smoke": true,
+ "tiny": false,
+ "created": "2026-11-02T00:49:33+0530",
+ "wall_time_s": 101.3,
+ "config": {
+  "exp_id": "E2",
+  "name": "error_slot_baselines",
+  "description": "All error-slot conditions plus repair / repair_mean for OT L12 and RS L18 (16k) under three filters.",
+  "kind": "patch_grid",
+  "model_revision": "c5ebcd40d208330abc697524c919956e692655cf",
+  "prompt_sets": {
+   "entity_track": "prompt_sets/entity_track_pilot.jsonl.gz",
+   "add_chain": "prompt_sets/add_chain_pilot.jsonl.gz"
+  },
+  "cells": [
+   {
+    "task": "entity_track",
+    "layer": 12,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical"
+    },
+    "role": "confirmatory",
+    "fit_families": null,
+    "eval_families": null
+   },
+   {
+    "task": "add_chain",
+    "layer": 18,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical"
+    },
+    "role": "confirmatory",
+    "fit_families": null,
+    "eval_families": null
+   }
+  ],
+  "n_train": 300,
+  "n_test": 150,
+  "filters": [
+   "f_none",
+   "f_A_correct",
+   "f_pilot"
+  ],
+  "fit_filter": "f_pilot",
+  "conditions": [
+   "feat_A_errB",
+   "feat_B_errA",
+   "feat_B_noise",
+   "feat_A_zero",
+   "feat_A_meanTask",
+   "feat_A_meanPos",
+   "feat_A_resampC_sameAns",
+   "feat_A_resampC_diffAns",
+   "feat_A_noise",
+   "feat_A_covnoise"
+  ],
+  "noise_seeds": [
+   0,
+   1
+  ],
+  "directions": {
+   "conditions": [
+    "repair",
+    "repair_mean"
+   ],
+   "ranks": [
+    0,
+    1,
+    2,
+    4,
+    8
+   ],
+   "estimators": [
+    "pca_pooled",
+    "answer_sep"
+   ],
+   "sources": [
+    "same_task"
+   ],
+   "random_seeds": 20,
+   "r_max": 32
+  },
+  "generic": null,
+  "bootstrap": 1000,
+  "seed": 0,
+  "smoke_pairs": 10,
+  "pilot_reference": null,
+  "notes": []
+ },
+ "config_file": "configs/experiments/E2.yaml",
+ "profile": {
+  "name": "run",
+  "device": "cuda",
+  "model_dtype": "bfloat16",
+  "sae_dtype": "float32",
+  "sae_bf16_min_width": "524k",
+  "sae_placement": "auto",
+  "cache_root": "cache",
+  "data_root": "data",
+  "runs_root": "runs",
+  "hf_home": null,
+  "offline": false,
+  "batch_size": 16,
+  "max_batch_size": 64,
+  "max_batch_tokens": 2048,
+  "gpu_mem_cap_gb": 7.3,
+  "cpu_workers": 2,
+  "offload_embed": true,
+  "allowed_experiments": [
+   "E0",
+   "E1",
+   "E2",
+   "E3",
+   "E4",
+   "E5",
+   "E6",
+   "E7",
+   "E8",
+   "E9",
+   "E10",
+   "E11",
+   "E12",
+   "E13",
+   "E14"
+  ],
+  "allow_real_model": true,
+  "sources": [
+   "profiles/run.yaml"
+  ]
+ },
+ "git": {
+  "commit": "f0c41753e5ffb351b02947abb344dcc35d24ae3f",
+  "branch": "HEAD",
+  "tags": [
+   "run-20261101-1"
+  ],
+  "dirty": true,
+  "dirty_files": [
+   "?? .env"
+  ]
+ },
+ "packages": {
+  "torch": "2.14.1+cu130",
+  "transformers": "5.19.0",
+  "transformer-lens": "3.9.0",
+  "numpy": "2.5.4",
+  "pandas": "3.0.6",
+  "pyarrow": "26.0.0",
+  "safetensors": "0.8.0",
+  "huggingface-hub": "2.2.0",
+  "scipy": "1.18.1"
+ },
+ "machine": {
+  "hostname": "raveeshvyas-OMEN-Gaming-Laptop-16-am0xxx",
+  "os": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+  "python": "3.12.16",
+  "device": "cuda:0",
+  "torch": "2.14.1+cu130",
+  "torch_cuda": "13.0",
+  "gpu_name": "NVIDIA GeForce RTX 5060 Laptop GPU",
+  "gpu_total_gb": 7.53,
+  "gpu_free_gb": 7.22,
+  "capability": "12.0",
+  "cudnn": 92400,
+  "nvidia_driver": "595.99.02"
+ },
+ "model": {
+  "name": "gemma-2-2b",
+  "revision": "c5ebcd40d208330abc697524c919956e692655cf",
+  "dtype": "bfloat16",
+  "site": "resid_post",
+  "tiny_seed": 0,
+  "tiny_vocab": 0,
+  "tiny_layers": 4
+ },
+ "sae_revision": "fd571b47c1c64851e9b1989792367b9babb4af63",
+ "prompt_sets": {
+  "entity_track": {
+   "hash": "7b6eba838f2b39ee",
+   "file": "prompt_sets/entity_track_pilot.jsonl.gz",
+   "n": 2700
+  },
+  "add_chain": {
+   "hash": "7898d66b8416e363",
+   "file": "prompt_sets/add_chain_pilot.jsonl.gz",
+   "n": 1350
+  }
+ },
+ "generic": null,
+ "seeds": {
+  "seed": 0,
+  "noise_seeds": [
+   0,
+   1
+  ],
+  "random_seeds": 20
+ },
+ "timings": {
+  "model_load_s": 26.0,
+  "stage1_entity_track_s": 0.0,
+  "stage1_add_chain_s": 0.0,
+  "stage1_total_s": 26.0,
+  "stage2_L12_16k_l082_s": 0.0,
+  "stage2_L18_16k_l074_s": 0.0,
+  "stage2_total_s": 0.9,
+  "stage3_total_s": 0.9
+ },
+ "budget": {
+  "max_tokens": 2048,
+  "backoffs": 0
+ },
+ "peak_gpu_gb": 4.92,
+ "cells": [
+  {
+   "cell": "entity_track_L12_16k_l082",
+   "role": "confirmatory",
+   "sae": {
+    "layer": 12,
+    "width": "16k",
+    "l0": 82,
+    "repo": "google/gemma-scope-2b-pt-res",
+    "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_none": 10,
+    "f_A_correct": 10,
+    "f_pilot": 10
+   },
+   "n_test_union": 18,
+   "n_train": 10,
+   "fitset_digest": "c0cb844461639f5b",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 0.6667,
+     "f_both_correct": 0.2333,
+     "f_pilot": 0.4
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 0.7333,
+     "f_both_correct": 0.1333,
+     "f_pilot": 0.3333
+    }
+   },
+   "mean_l0_test": [
+    80.01532745361328,
+    77.43678283691406
+   ],
+   "rel_err_norm_test": 0.42356133460998535,
+   "mean_pos_coverage": {
+    "slot": 90,
+    "offset": 171,
+    "task": 0
+   }
+  },
+  {
+   "cell": "add_chain_L18_16k_l074",
+   "role": "confirmatory",
+   "sae": {
+    "layer": 18,
+    "width": "16k",
+    "l0": 74,
+    "repo": "google/gemma-scope-2b-pt-res",
+    "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_none": 10,
+    "f_A_correct": 10,
+    "f_pilot": 10
+   },
+   "n_test_union": 12,
+   "n_train": 10,
+   "fitset_digest": "0041f59273a696cb",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9667,
+     "f_both_correct": 0.8667,
+     "f_pilot": 0.7333
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9667,
+     "f_both_correct": 0.9333,
+     "f_pilot": 0.5333
+    }
+   },
+   "mean_l0_test": [
+    66.1148681640625,
+    67.17567443847656
+   ],
+   "rel_err_norm_test": 0.39401018619537354,
+   "mean_pos_coverage": {
+    "slot": 60,
+    "offset": 73,
+    "task": 15
+   }
+  }
+ ],
+ "allow_dirty": false,
+ "filters_overridden": null
+}

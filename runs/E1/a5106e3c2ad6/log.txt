@@ -1,0 +1,56 @@
+2026-11-02 20:25:15,343 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-02 20:25:15,650 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-02 20:25:16,058 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-02 20:25:16,879 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-02 20:25:34,286 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-02 20:25:34,695 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-02 20:25:35,105 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-02 20:25:36,130 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-02 20:25:58,547 INFO entity_track_L4_16k_l0124 unit 1/1 (8 conditions, 15.1s)
+2026-11-02 20:26:11,430 INFO entity_track_L8_16k_l071 unit 1/1 (8 conditions, 12.5s)
+2026-11-02 20:26:23,272 INFO entity_track_L10_16k_l077 unit 1/1 (8 conditions, 11.5s)
+2026-11-02 20:26:34,201 INFO entity_track_L12_16k_l082 unit 1/1 (8 conditions, 10.6s)
+2026-11-02 20:26:44,132 INFO entity_track_L14_16k_l084 unit 1/1 (8 conditions, 9.6s)
+2026-11-02 20:26:53,069 INFO entity_track_L16_16k_l078 unit 1/1 (8 conditions, 8.5s)
+2026-11-02 20:27:00,845 INFO entity_track_L18_16k_l074 unit 1/1 (8 conditions, 7.4s)
+2026-11-02 20:27:07,555 INFO entity_track_L20_16k_l071 unit 1/1 (8 conditions, 6.4s)
+2026-11-02 20:27:13,429 INFO add_chain_L4_16k_l0124 unit 1/1 (8 conditions, 5.6s)
+2026-11-02 20:27:18,505 INFO add_chain_L8_16k_l071 unit 1/1 (8 conditions, 4.8s)
+2026-11-02 20:27:23,226 INFO add_chain_L10_16k_l077 unit 1/1 (8 conditions, 4.4s)
+2026-11-02 20:27:27,542 INFO add_chain_L12_16k_l082 unit 1/1 (8 conditions, 4.0s)
+2026-11-02 20:27:31,543 INFO add_chain_L14_16k_l084 unit 1/1 (8 conditions, 3.7s)
+2026-11-02 20:27:35,108 INFO add_chain_L16_16k_l078 unit 1/1 (8 conditions, 3.2s)
+2026-11-02 20:27:38,243 INFO add_chain_L18_16k_l074 unit 1/1 (8 conditions, 2.8s)
+2026-11-02 20:27:40,976 INFO add_chain_L20_16k_l071 unit 1/1 (8 conditions, 2.4s)
+2026-11-02 20:27:44,064 INFO var_binding_L4_16k_l0124 unit 1/1 (8 conditions, 2.7s)
+2026-11-02 20:27:46,730 INFO var_binding_L8_16k_l071 unit 1/1 (8 conditions, 2.4s)
+2026-11-02 20:27:49,168 INFO var_binding_L10_16k_l077 unit 1/1 (8 conditions, 2.1s)
+2026-11-02 20:27:51,450 INFO var_binding_L12_16k_l082 unit 1/1 (8 conditions, 1.9s)
+2026-11-02 20:27:53,535 INFO var_binding_L14_16k_l084 unit 1/1 (8 conditions, 1.7s)
+2026-11-02 20:27:55,374 INFO var_binding_L16_16k_l078 unit 1/1 (8 conditions, 1.5s)
+2026-11-02 20:27:57,085 INFO var_binding_L18_16k_l074 unit 1/1 (8 conditions, 1.4s)
+2026-11-02 20:27:58,639 INFO var_binding_L20_16k_l071 unit 1/1 (8 conditions, 1.2s)
+2026-11-02 20:27:59,855 INFO ioi_control_L4_16k_l0124 unit 1/1 (8 conditions, 0.9s)
+2026-11-02 20:28:00,946 INFO ioi_control_L8_16k_l071 unit 1/1 (8 conditions, 0.7s)
+2026-11-02 20:28:02,001 INFO ioi_control_L10_16k_l077 unit 1/1 (8 conditions, 0.7s)
+2026-11-02 20:28:02,940 INFO ioi_control_L12_16k_l082 unit 1/1 (8 conditions, 0.6s)
+2026-11-02 20:28:03,832 INFO ioi_control_L14_16k_l084 unit 1/1 (8 conditions, 0.6s)
+2026-11-02 20:28:04,694 INFO ioi_control_L16_16k_l078 unit 1/1 (8 conditions, 0.5s)
+2026-11-02 20:28:05,465 INFO ioi_control_L18_16k_l074 unit 1/1 (8 conditions, 0.5s)
+2026-11-02 20:28:06,199 INFO ioi_control_L20_16k_l071 unit 1/1 (8 conditions, 0.4s)
+2026-11-02 20:28:55,993 INFO E1 -> /home/raveeshvyas/Coding_folder/interpretability/PRISM/runs/E1/a5106e3c2ad6 (complete)
+2026-11-02 20:59:42,742 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-02 20:59:43,113 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-02 20:59:43,561 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-02 20:59:44,381 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-02 21:00:55,352 INFO E1 -> /home/raveeshvyas/Coding_folder/interpretability/PRISM/runs/E1/a5106e3c2ad6 (complete)
+2026-11-02 21:04:22,301 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-02 21:04:22,709 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-02 21:04:23,114 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-02 21:04:23,939 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-02 21:05:32,904 INFO E1 -> /home/raveeshvyas/Coding_folder/interpretability/PRISM/runs/E1/a5106e3c2ad6 (complete)
+2026-11-03 09:13:27,221 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-03 09:13:27,527 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-03 09:13:27,937 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-03 09:13:28,756 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-03 09:14:42,797 INFO E1 -> /home/raveeshvyas/Coding_folder/interpretability/PRISM/runs/E1/a5106e3c2ad6 (complete)

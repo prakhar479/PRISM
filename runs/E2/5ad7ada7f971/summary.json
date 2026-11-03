@@ -1,0 +1,119 @@
+{
+ "exp_id": "E2",
+ "run_hash": "5ad7ada7f971",
+ "n_rows": 91408,
+ "hook_checks": [
+  {
+   "cell": "add_chain_18_L18_16k_l074_pilot",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "add_chain_18_L18_16k_l074_pilot",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "entity_track_12_L12_16k_l082_pilot",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "entity_track_12_L12_16k_l082_pilot",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  }
+ ],
+ "cells": [
+  {
+   "cell": "entity_track_L12_16k_l082",
+   "role": "confirmatory",
+   "sae": {
+    "layer": 12,
+    "width": "16k",
+    "l0": 82,
+    "repo": "google/gemma-scope-2b-pt-res",
+    "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_none": 150,
+    "f_A_correct": 150,
+    "f_pilot": 150
+   },
+   "n_test_union": 250,
+   "n_train": 300,
+   "fitset_digest": "fdc4d7475d574657",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 0.7461,
+     "f_both_correct": 0.3028,
+     "f_pilot": 0.3833
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 0.7522,
+     "f_both_correct": 0.31,
+     "f_pilot": 0.38
+    }
+   },
+   "mean_l0_test": [
+    78.52525329589844,
+    77.66250610351562
+   ],
+   "rel_err_norm_test": 0.42505621910095215,
+   "mean_pos_coverage": {
+    "slot": 1176,
+    "offset": 2190,
+    "task": 0
+   }
+  },
+  {
+   "cell": "add_chain_L18_16k_l074",
+   "role": "confirmatory",
+   "sae": {
+    "layer": 18,
+    "width": "16k",
+    "l0": 74,
+    "repo": "google/gemma-scope-2b-pt-res",
+    "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_none": 150,
+    "f_A_correct": 150,
+    "f_pilot": 150
+   },
+   "n_test_union": 214,
+   "n_train": 300,
+   "fitset_digest": "3124e012431d5e76",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9744,
+     "f_both_correct": 0.9489,
+     "f_pilot": 0.6978
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9689,
+     "f_both_correct": 0.9444,
+     "f_pilot": 0.6133
+    }
+   },
+   "mean_l0_test": [
+    66.8829345703125,
+    66.62619018554688
+   ],
+   "rel_err_norm_test": 0.39037519693374634,
+   "mean_pos_coverage": {
+    "slot": 1061,
+    "offset": 1459,
+    "task": 0
+   }
+  }
+ ]
+}

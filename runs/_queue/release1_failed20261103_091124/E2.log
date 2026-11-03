@@ -1,0 +1,65 @@
+
+=== attempt 1 2026-11-03 00:18:43: /home/raveeshvyas/Coding_folder/interpretability/PRISM/.venv-harness/bin/python -m harness.run --config configs/experiments/E2.yaml --profile run --stage all --allow-dirty
+Loading weights:   0%|          | 0/288 [00:00<?, ?it/s]Loading weights:   0%|          | 1/288 [00:01<07:37,  1.59s/it]Loading weights:  62%|██████▏   | 179/288 [00:01<00:00, 140.79it/s]Loading weights:  86%|████████▌ | 248/288 [00:02<00:00, 148.99it/s]Loading weights: 100%|██████████| 288/288 [00:02<00:00, 122.81it/s]
+2026-11-03 00:18:51,956 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-03 00:18:52,365 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-03 00:18:52,774 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-03 00:18:53,595 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+Loaded pretrained model gemma-2-2b into HookedTransformer
+Loading weights:   0%|          | 0/288 [00:00<?, ?it/s]Loading weights:   0%|          | 1/288 [00:01<07:07,  1.49s/it]Loading weights:  62%|██████▏   | 179/288 [00:01<00:00, 156.15it/s]Loading weights:  98%|█████████▊| 281/288 [00:02<00:00, 165.58it/s]Loading weights: 100%|██████████| 288/288 [00:02<00:00, 133.23it/s]
+2026-11-03 00:19:08,444 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-03 00:19:09,129 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-03 00:19:09,568 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-03 00:19:10,389 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-03 00:21:35,723 INFO entity_track_L12_16k_l082 unit 1/25 (8 conditions, 138.2s)
+2026-11-03 00:23:54,928 INFO entity_track_L12_16k_l082 unit 2/25 (8 conditions, 138.9s)
+2026-11-03 00:26:13,820 INFO entity_track_L12_16k_l082 unit 3/25 (8 conditions, 138.8s)
+2026-11-03 00:28:32,445 INFO entity_track_L12_16k_l082 unit 4/25 (8 conditions, 138.5s)
+2026-11-03 00:30:51,087 INFO entity_track_L12_16k_l082 unit 5/25 (8 conditions, 138.5s)
+2026-11-03 00:33:09,712 INFO entity_track_L12_16k_l082 unit 6/25 (8 conditions, 138.5s)
+2026-11-03 00:35:28,454 INFO entity_track_L12_16k_l082 unit 7/25 (8 conditions, 138.6s)
+2026-11-03 00:37:46,907 INFO entity_track_L12_16k_l082 unit 8/25 (8 conditions, 138.3s)
+2026-11-03 00:40:05,509 INFO entity_track_L12_16k_l082 unit 9/25 (8 conditions, 138.5s)
+2026-11-03 00:42:24,079 INFO entity_track_L12_16k_l082 unit 10/25 (8 conditions, 138.5s)
+2026-11-03 00:44:42,612 INFO entity_track_L12_16k_l082 unit 11/25 (8 conditions, 138.4s)
+2026-11-03 00:47:01,134 INFO entity_track_L12_16k_l082 unit 12/25 (8 conditions, 138.4s)
+2026-11-03 00:49:19,647 INFO entity_track_L12_16k_l082 unit 13/25 (8 conditions, 138.4s)
+2026-11-03 00:51:38,229 INFO entity_track_L12_16k_l082 unit 14/25 (8 conditions, 138.4s)
+2026-11-03 00:53:57,038 INFO entity_track_L12_16k_l082 unit 15/25 (8 conditions, 138.6s)
+2026-11-03 00:56:15,929 INFO entity_track_L12_16k_l082 unit 16/25 (8 conditions, 138.7s)
+2026-11-03 00:58:34,751 INFO entity_track_L12_16k_l082 unit 17/25 (8 conditions, 138.6s)
+2026-11-03 01:00:53,443 INFO entity_track_L12_16k_l082 unit 18/25 (8 conditions, 138.5s)
+2026-11-03 01:03:12,261 INFO entity_track_L12_16k_l082 unit 19/25 (8 conditions, 138.6s)
+2026-11-03 01:05:30,939 INFO entity_track_L12_16k_l082 unit 20/25 (8 conditions, 138.5s)
+2026-11-03 01:07:49,626 INFO entity_track_L12_16k_l082 unit 21/25 (8 conditions, 138.5s)
+2026-11-03 01:10:08,716 INFO entity_track_L12_16k_l082 unit 22/25 (8 conditions, 138.9s)
+2026-11-03 01:12:27,697 INFO entity_track_L12_16k_l082 unit 23/25 (8 conditions, 138.8s)
+2026-11-03 01:14:46,557 INFO entity_track_L12_16k_l082 unit 24/25 (8 conditions, 138.7s)
+2026-11-03 01:16:02,333 INFO entity_track_L12_16k_l082 unit 25/25 (4 conditions, 75.7s)
+2026-11-03 01:16:51,162 INFO add_chain_L18_16k_l074 unit 1/25 (8 conditions, 47.4s)
+2026-11-03 01:17:38,248 INFO add_chain_L18_16k_l074 unit 2/25 (8 conditions, 46.9s)
+2026-11-03 01:18:25,135 INFO add_chain_L18_16k_l074 unit 3/25 (8 conditions, 46.8s)
+2026-11-03 01:19:12,073 INFO add_chain_L18_16k_l074 unit 4/25 (8 conditions, 46.9s)
+2026-11-03 01:19:59,021 INFO add_chain_L18_16k_l074 unit 5/25 (8 conditions, 46.9s)
+2026-11-03 01:20:45,935 INFO add_chain_L18_16k_l074 unit 6/25 (8 conditions, 46.8s)
+2026-11-03 01:21:32,883 INFO add_chain_L18_16k_l074 unit 7/25 (8 conditions, 46.9s)
+2026-11-03 01:22:19,777 INFO add_chain_L18_16k_l074 unit 8/25 (8 conditions, 46.8s)
+2026-11-03 01:23:06,668 INFO add_chain_L18_16k_l074 unit 9/25 (8 conditions, 46.8s)
+2026-11-03 01:23:53,595 INFO add_chain_L18_16k_l074 unit 10/25 (8 conditions, 46.9s)
+2026-11-03 01:24:40,520 INFO add_chain_L18_16k_l074 unit 11/25 (8 conditions, 46.8s)
+2026-11-03 01:25:27,384 INFO add_chain_L18_16k_l074 unit 12/25 (8 conditions, 46.8s)
+2026-11-03 01:26:14,309 INFO add_chain_L18_16k_l074 unit 13/25 (8 conditions, 46.8s)
+2026-11-03 01:27:01,299 INFO add_chain_L18_16k_l074 unit 14/25 (8 conditions, 46.9s)
+2026-11-03 01:27:48,253 INFO add_chain_L18_16k_l074 unit 15/25 (8 conditions, 46.8s)
+2026-11-03 01:28:35,169 INFO add_chain_L18_16k_l074 unit 16/25 (8 conditions, 46.8s)
+2026-11-03 01:29:22,121 INFO add_chain_L18_16k_l074 unit 17/25 (8 conditions, 46.8s)
+2026-11-03 01:30:09,112 INFO add_chain_L18_16k_l074 unit 18/25 (8 conditions, 46.9s)
+2026-11-03 01:30:56,072 INFO add_chain_L18_16k_l074 unit 19/25 (8 conditions, 46.8s)
+2026-11-03 01:31:43,109 INFO add_chain_L18_16k_l074 unit 20/25 (8 conditions, 46.9s)
+2026-11-03 01:32:30,105 INFO add_chain_L18_16k_l074 unit 21/25 (8 conditions, 46.9s)
+2026-11-03 01:33:17,026 INFO add_chain_L18_16k_l074 unit 22/25 (8 conditions, 46.8s)
+2026-11-03 01:34:04,014 INFO add_chain_L18_16k_l074 unit 23/25 (8 conditions, 46.9s)
+2026-11-03 01:34:51,017 INFO add_chain_L18_16k_l074 unit 24/25 (8 conditions, 46.9s)
+2026-11-03 01:35:19,113 INFO add_chain_L18_16k_l074 unit 25/25 (4 conditions, 28.0s)
+2026-11-03 01:37:38,388 INFO E2 -> /home/raveeshvyas/Coding_folder/interpretability/PRISM/runs/E2/5ad7ada7f971 (complete)
+Loaded pretrained model gemma-2-2b into HookedTransformer

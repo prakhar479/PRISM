@@ -141,6 +141,6 @@ logs).
 ## R6: release 2 queue, `open` (2026-11-03)
 
 - **Purpose:** E3 (the RQ1 gate), E4, E5, E8 fill (handoff 11, RT2).
-- **Commands:** `releases/release2.md` (tag `run-20261103-1`; check disk first: ~35 GiB of new SAE downloads).
+- **Commands:** `releases/release2.md` (tag `run-20261103-2`; check disk first: ~35 GiB of new SAE downloads).
 - **Duration:** roughly 20-28 h unattended (preflight re-measures throughput; `plan_runs.py` prints estimates).
 - **Return:** `bundles/release2_<stamp>.tar.gz` + `.sha256` → DEV `incoming/RT2/`.

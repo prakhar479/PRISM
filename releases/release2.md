@@ -1,6 +1,6 @@
-# Release 2 (run-20261103-1): E3 (RQ1 gate), E4, E5, E8 fill
+# Release 2 (run-20261103-2): E3 (RQ1 gate), E4, E5, E8 fill
 
-Tag: `run-20261103-1`. DEV status: 165 tests pass (1 skipped). Every queued config dry-runs on the `run` profile within
+Tag: `run-20261103-2`. It has the same code as `run-20261103-1` and also contains the release-1 `runs/` that the GPU machine committed (`ef95eaa`). Check out -2: checking out -1 would delete those tracked run directories from the working tree. DEV status: 165 tests pass (1 skipped). Every queued config dry-runs on the `run` profile within
 the 7.0 GB cap (max stage peak 5.87 GB). Nothing in this release has run on the GPU box yet.
 
 ## What changed since release 1
@@ -47,7 +47,7 @@ families, and is reported with the noise-control flip rate alongside.
 ```bash
 cd ~/Coding_folder/interpretability/PRISM
 git status --short                               # clean; send it to DEV if not
-git fetch origin --tags && git checkout run-20261103-1
+git fetch origin --tags && git checkout run-20261103-2
 H=.venv-harness/bin/python
 export HL_PROFILE=run HF_TOKEN=hf_...
 $H scripts/check_env.py                          # 0 errors (lockfile unchanged since release 1)

@@ -140,11 +140,15 @@ def test_gate_rows_only_fresh_families_are_the_gate():
     fresh = pd.concat([rows("clean_A", 1.0), rows("clean_B", 0.0), rows("full_A", 1.0), rows("feat_A_errB", 0.9),
                        rows("feat_A_meanPos", 0.8)]).assign(fit_families="pilot", family=lambda d: d.pair_id.map(fam))
     pilot = fresh.assign(fit_families="fresh", family="pilot", pair_id=lambda d: "q" + d.pair_id)
-    m = {"exp_id": "E3", "run_hash": "h3", "config": {"filters": ["f_pilot"]}}
+    fresh = fresh.assign(f_A_correct=True)
+    pilot = pilot.assign(f_A_correct=True)
+    m = {"exp_id": "E3", "run_hash": "h3", "config": {"filters": ["f_pilot", "f_A_correct"]}}
     df = pd.DataFrame(G.gate_rows(m, pd.concat([fresh, pilot]), n_boot=300))
     prim = df[(df.metric == "flip_rate") & (df.condition == "feat_A_meanPos")]
+    assert len(prim[prim.use == "gate"]) == 1 and set(prim[prim.use == "gate"]["filter"]) == {"f_pilot"}
+    assert set(prim[prim.use.str.startswith("sensitivity")]["filter"]) == {"f_A_correct"}
     gate = prim[prim.use == "gate"].iloc[0]
     assert gate.eval_group == "fresh" and gate.shortfall == pytest.approx(0.2) and gate.criterion_met_pairs
     assert pd.notna(gate.lo_family_cluster) and gate.families == "ot_bin,ot_drawer,ot_placed"
-    ref = prim[prim.use != "gate"].iloc[0]
+    ref = prim[prim.use.str.startswith("reference")].iloc[0]
     assert ref.eval_group == "pilot" and pd.isna(ref.lo_family_cluster) and ref.criterion_met_family_cluster is None

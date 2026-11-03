@@ -128,3 +128,14 @@ Dated log of non-trivial choices. Pilot run verdicts live in `results/*/DECISION
   itself (`scripts/export_golden.py:451,455`) and Check 5 use 0.25 (`D_BATCHING.atol`) for the exact same checks.
   New tolerance: `HOOK_IDENTITY_D` atol is loosened from 1e-3 to 0.25 (2 bf16 ulps, matching `D_BATCHING.atol`); fp32
   remains at 1e-3 (`hook_identity_atol`).
+
+## 2026-11-03: RQ1 gate filter (humans' decision)
+
+- **The RQ1 gate uses filter `f_pilot`** (decided by the humans on 2026-11-03, before any E3 result). The preregistration
+  names the metric, condition, threshold and fresh families but not the filter. On the pilot templates the RS L18
+  quantity met the criterion under `f_A_correct` (11.8 points [7.4, 16.4]) but not under `f_pilot` (8.7 [4.0, 13.3]), so
+  the choice had to be fixed before E3. `scripts/make_gate.py` marks `f_pilot` rows on fresh families as the gate and
+  reports `f_A_correct` / `f_none` as sensitivity rows. `PREREGISTRATION.md` is not frozen yet (placeholder date); adding
+  this line there is the humans' edit.
+- **Still open:** whether the gate's `feat_A_meanPos` uses mean errors fitted on pilot or on fresh families (E3 runs
+  both: `fit_families` pilot -> fresh and fresh -> fresh).

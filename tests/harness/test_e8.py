@@ -138,7 +138,8 @@ def test_gate_rows_only_fresh_families_are_the_gate():
 
     fam = {f"p{i:03d}": ["ot_placed", "ot_bin", "ot_drawer", "ot_placed"][i % 4] for i in range(N)}
     fresh = pd.concat([rows("clean_A", 1.0), rows("clean_B", 0.0), rows("full_A", 1.0), rows("feat_A_errB", 0.9),
-                       rows("feat_A_meanPos", 0.8)]).assign(fit_families="fresh", family=lambda d: d.pair_id.map(fam))
+                       rows("feat_A_meanPos", 0.8), rows("feat_B_noise", 0.6, seed=0), rows("feat_B_noise", 0.7, seed=1)]
+                      ).assign(fit_families="fresh", family=lambda d: d.pair_id.map(fam))
     pilot = fresh.assign(fit_families="fresh", family="pilot", pair_id=lambda d: "q" + d.pair_id)
     fresh = fresh.assign(f_A_correct=True)
     pilot = pilot.assign(f_A_correct=True)
@@ -154,5 +155,6 @@ def test_gate_rows_only_fresh_families_are_the_gate():
     gate = prim[prim.use == "gate"].iloc[0]
     assert gate.eval_group == "fresh" and gate.shortfall == pytest.approx(0.2) and gate.criterion_met_pairs
     assert pd.notna(gate.lo_family_cluster) and gate.families == "ot_bin,ot_drawer,ot_placed"
+    assert gate.noise_control == pytest.approx(0.65) and gate.n_noise_seeds == 2          # mean over noise seeds
     ref = prim[prim.use.str.startswith("reference")].iloc[0]
     assert ref.eval_group == "pilot" and pd.isna(ref.lo_family_cluster) and ref.criterion_met_family_cluster is None

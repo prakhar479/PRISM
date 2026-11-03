@@ -140,3 +140,7 @@ Dated log of non-trivial choices. Pilot run verdicts live in `results/*/DECISION
 - **The gate's `feat_A_meanPos` uses mean errors fitted on fresh families** (decided by the humans on 2026-11-03,
   before any E3 result): the E3 cells `fit_families: [fresh], eval_families: [fresh]`. The pilot-fitted cells evaluated
   on fresh families are reported as sensitivity rows.
+- **The gate table reports the noise control alongside every row** (decided by the humans on 2026-11-03): the flip rate of
+  `feat_B_noise` (x̂_B + η) in the same cell and filter, averaged over the noise seeds. On the OT L12 pilot templates it
+  is 88% (99% at L8): destroying B's information alone often gives A's answer, so the OT flip rate is read next to it.
+  The gate criterion itself is unchanged.

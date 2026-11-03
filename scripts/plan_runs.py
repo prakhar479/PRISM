@@ -53,8 +53,17 @@ def main() -> int:
 
     q = Queue.load(a.queue)
     prof = load_profile(a.profile)
+    from harness.device import probe_machine
+    from harness.memory import resolve_resources
+    probe = probe_machine(prof.root("cache_root"))
+    gpus = probe.get("gpus") or []
+    prof, res = resolve_resources(prof, probe)              # `auto` values from the first GPU (all are planned alike)
     tp = latest_throughput(a.throughput)
     ok, total = True, 0.0
+    print(f"machine: {len(gpus)} GPU(s) " + ", ".join(f"{g['index']}:{g['name']} {g['total_bytes'] / 2**30:.0f} GiB" for g in gpus)
+          + f"; RAM {(probe.get('ram_available_bytes') or 0) / 2**30:.0f} GiB free; {probe.get('cpu_physical')} cores")
+    if res.get("resolved"):
+        print(f"resolved: {res['resolved']}")
     print(f"queue {q.tag} on profile {prof.name} (GPU cap {prof.gpu_mem_cap_gb} GB); throughput: "
           f"{tp.get('forward_tokens_per_s') if tp else 'none (no time estimates)'}")
     for job in q.jobs:
@@ -76,7 +85,9 @@ def main() -> int:
                       f"{'' if j['fits'] else '  <-- exceeds cap'}")
         ok &= p["all_fit"]
     if tp:
-        print(f"estimated total (model stages only): ~{total / 60:.1f} h")
+        n = max(1, len(gpus)) if q.parallel else 1
+        print(f"estimated total (model stages only): ~{total / 60:.1f} GPU-h" +
+              (f", ~{total / 60 / n:.1f} h wall on {n} GPUs if perfectly spread" if n > 1 else ""))
     return 0 if ok else 2
 
 

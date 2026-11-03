@@ -245,3 +245,26 @@ def test_scheduler_runs_a_tiny_parallel_queue_on_fake_gpus(tmp_path):
     rd = _run_dir("par_test_queue")
     m = _json.loads((rd / "manifest.json").read_text())
     assert m["status"] == "complete" and len(pd.read_parquet(rd / "per_pair.parquet"))
+
+
+def test_preflight_budget_probe_halves_until_a_forward_fits(monkeypatch):
+    sys.path.insert(0, str(ROOT / "scripts"))
+    import run_preflight as RP
+    from harness import device as dv
+    from harness.profile import load_profile
+    from src.models import runtime
+
+    def fake_last_logits(model, t, *a, **k):
+        if t.numel() > 4096:                       # "this GPU" fits at most 4096 tokens per forward
+            raise dv.FakeOOM("CUDA out of memory (fake)")
+        return torch.zeros(t.shape[0], 8)
+
+    monkeypatch.setattr(runtime, "last_logits", fake_last_logits)
+    import dataclasses
+    prof = dataclasses.replace(load_profile("dev"), max_batch_tokens=16384, max_batch_size=256)
+    rows = [{"T": 404, "clean_ids": [2] * 404}]
+    r = RP.budget_probe(None, prof, torch.device("cpu"), rows)
+    assert r["budget_ok"] == 4096 and r["rows"] == 10
+    assert [x["ok"] for x in r["tried"]] == [False, False, True]
+    monkeypatch.setattr(runtime, "last_logits", lambda m, t, *a, **k: (_ for _ in ()).throw(dv.FakeOOM("always")))
+    assert RP.budget_probe(None, prof, torch.device("cpu"), rows)["budget_ok"] is None

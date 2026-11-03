@@ -12,6 +12,9 @@ preflight/throughput_<tag>_<stamp>.json (used by plan_runs.py). Exit 1 if any of
  6 HF top-1 agreement on golden-dump pairs (informational; R3 is the full study)
  7 throughput: forward tokens/s at several batch sizes, SAE pass rate
  8 --smoke runs of E1 (split) and E2
+ 9 --per-gpu: every visible GPU in its own process: model load, hook identity, the largest token budget that really
+   fits (one forward at the planned budget, halved on OOM) and throughput -> <runs_root>/_queue/<tag>/gpus.json,
+   which the multi-GPU scheduler reads (budget pinning, failing GPUs dropped). At least one GPU must pass.
 (The pilot's scripts/preflight.py, a prompt-format search, is unchanged.)
 """
 import argparse
@@ -216,6 +219,84 @@ def c7_throughput(model, prof, dev, tag, stamp):
     return res
 
 
+def budget_probe(model, prof, dev, rows) -> dict:
+    """Largest max_batch_tokens (from the profile's, halving on OOM, floor 1024) whose forward fits on this GPU."""
+    from src.models import runtime
+    T = rows[0]["T"]
+    tokens, tried = int(prof.max_batch_tokens), []
+    while tokens >= 1024:
+        n = max(1, min(int(prof.max_batch_size), tokens // T))
+        t = torch.tensor([rows[i % len(rows)]["clean_ids"] for i in range(n)], device=dev)
+        dv.empty_cache()
+        dv.reset_peak(dev)
+        try:
+            with torch.inference_mode():
+                runtime.last_logits(model, t)
+                dv.sync(dev)
+                t0 = time.time()
+                for _ in range(3):
+                    runtime.last_logits(model, t)
+                dv.sync(dev)
+            peak = dv.peak_bytes(dev)
+            tried.append({"tokens": tokens, "rows": n, "ok": True, "peak_gb": round(peak / GiB, 2)})
+            return {"budget_ok": tokens, "rows": n, "tokens_per_s": round(3 * n * T / (time.time() - t0), 1),
+                    "peak_gb": round(peak / GiB, 2), "tried": tried}
+        except Exception as e:  # noqa: BLE001
+            if not dv.is_oom(e):
+                raise
+            tried.append({"tokens": tokens, "rows": n, "ok": False})
+            tokens //= 2
+    return {"budget_ok": None, "tried": tried}
+
+
+def gpu_probe(a, prof, revision) -> int:
+    """One GPU (CUDA_VISIBLE_DEVICES set by the parent): prints one 'GPUPROBE {json}' line."""
+    out = {"cuda_visible_devices": __import__("os").environ.get("CUDA_VISIBLE_DEVICES")}
+    try:
+        dev = dv.resolve_device(prof.device)
+        out["memory"] = dv.device_memory(dev)
+        dv.cap_memory(dev, prof.gpu_mem_cap_gb)
+        spec = ModelSpec(revision=revision, dtype=prof.model_dtype)
+        t0 = time.time()
+        model = build_model(spec, dev, offload_embed=prof.offload_embed)
+        out["load_s"] = round(time.time() - t0, 1)
+        c4_hooks(model, spec, prof, dev)
+        out["hooks_ok"] = all(c["status"] == "PASS" for c in CHECKS if c["n"] == 4)
+        rows, _ = T.load_set(prof.root("data_root") / "prompt_sets" / "entity_track_pilot.jsonl.gz")
+        out.update(budget_probe(model, prof, dev, rows))
+        out["ok"] = bool(out["hooks_ok"] and out.get("budget_ok"))
+    except Exception as e:  # noqa: BLE001
+        out.update(ok=False, error=f"{type(e).__name__}: {e}")
+    print("GPUPROBE " + json.dumps(out, default=str), flush=True)
+    return 0 if out["ok"] else 1
+
+
+def per_gpu(a, prof, q, probe) -> dict:
+    import os
+    gpus = [str(g["index"]) for g in probe.get("gpus") or []]
+    vis = os.environ.get("CUDA_VISIBLE_DEVICES")
+    if vis is not None and vis.strip():
+        gpus = [v.strip() for v in vis.split(",") if v.strip()]
+    res = {}
+    for g in gpus:
+        env = {**os.environ, "CUDA_VISIBLE_DEVICES": g, "HL_CONCURRENT_WORKERS": "1"}
+        r = subprocess.run([sys.executable, "scripts/run_preflight.py", "--queue", a.queue, "--profile", prof.name,
+                            "--gpu-probe"], cwd=REPO_ROOT, env=env, capture_output=True, text=True)
+        line = [l for l in r.stdout.splitlines() if l.startswith("GPUPROBE ")]
+        res[g] = json.loads(line[-1][9:]) if line else {"ok": False, "error": (r.stdout + r.stderr)[-400:]}
+        d = res[g]
+        check(9, f"GPU {g}", d.get("ok"), f"budget {d.get('budget_ok')} tokens x {d.get('rows')} rows, peak "
+              f"{d.get('peak_gb')} GB, {d.get('tokens_per_s')} tok/s" if d.get("ok") else d.get("error", "hook check failed"))
+    ok = {g: d["budget_ok"] for g, d in res.items() if d.get("ok")}
+    state = prof.root("runs_root") / "_queue" / q.tag
+    state.mkdir(parents=True, exist_ok=True)
+    (state / "gpus.json").write_text(json.dumps({"budget_ok": ok, "gpus_failed": sorted(set(res) - set(ok)),
+                                                 "per_gpu": res}, indent=1, default=str))
+    check(3, "per-GPU checks: at least one GPU usable", bool(ok) if res else None,
+          f"{len(ok)}/{len(res)} GPUs passed -> {state.relative_to(REPO_ROOT) if state.is_relative_to(REPO_ROOT) else state}/gpus.json")
+    return res
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--queue", required=True)
@@ -223,15 +304,27 @@ def main() -> int:
     ap.add_argument("--golden", default=None)
     ap.add_argument("--skip-smoke", action="store_true")
     ap.add_argument("--hf-pairs", type=int, default=24)
+    ap.add_argument("--per-gpu", action="store_true", help="check every visible GPU in its own process (check 9)")
+    ap.add_argument("--gpu-probe", action="store_true", help=argparse.SUPPRESS)
     a = ap.parse_args()
     q = Queue.load(a.queue)
     prof = load_profile(a.profile or q.profile)
     prof.apply_env()
+    from harness.memory import resolve_resources
+    probe = dv.probe_machine(prof.root("cache_root"))
+    try:
+        dev_mem = dv.device_memory(dv.resolve_device(prof.device))
+    except RuntimeError:
+        dev_mem = None
+    prof, resources = resolve_resources(prof, probe, dev_mem)          # `auto` values -> measured numbers
     stamp = time.strftime("%Y%m%d_%H%M%S")
     (REPO_ROOT / "preflight").mkdir(exist_ok=True)
     t0 = time.time()
     from harness.config import ExpConfig
     revision = ExpConfig.load(REPO_ROOT / q.configs()[0]).model_revision
+    if a.gpu_probe:
+        return gpu_probe(a, prof, revision)
+    print(f"resources: {json.dumps(resources.get('resolved'))} ({resources.get('rules')})", flush=True)
     model = None
     try:
         dev = c1_env(prof)
@@ -253,6 +346,8 @@ def main() -> int:
         check(6, "HF top-1 agreement (informational)", None if rc == 0 else False, f"{agree} (see {out.name}/report.md)")
     else:
         check(6, "HF top-1 agreement", None, "needs the golden pair dumps")
+    if a.per_gpu:
+        per_gpu(a, prof, q, probe)
     if not a.skip_smoke:
         for cfg in ("configs/experiments/E1_split.yaml", "configs/experiments/E2.yaml"):
             rc = subprocess.run([sys.executable, "-m", "harness.run", "--config", cfg, "--profile", prof.name, "--smoke"],

@@ -173,14 +173,48 @@ def encode_sparse(sae, X: torch.Tensor, alpha_min: float = 0.5, block_latents: O
                        len(xw), alpha_min)
 
 
+@dataclass
+class DecoderTable:
+    """W_dec rows of a subset of latents (float32, CPU): lets stage 3 decode sparse codes without the SAE (E5)."""
+    cols: torch.Tensor             # [k] sorted latent ids
+    W: torch.Tensor                # [k, d] float32
+
+    @property
+    def d_model(self) -> int:
+        return int(self.W.shape[1])
+
+    def rows(self, c: torch.Tensor) -> torch.Tensor:
+        i = torch.searchsorted(self.cols, c)
+        if len(c) and (i.max() >= len(self.cols) or not torch.equal(self.cols[i], c)):
+            raise KeyError("latent ids missing from the decoder table")
+        return self.W[i]
+
+    @classmethod
+    def from_sae(cls, sae, cols: torch.Tensor) -> "DecoderTable":
+        cols = torch.unique(torch.as_tensor(cols, dtype=torch.long))
+        Wd = sae.W_dec
+        return cls(cols, Wd[cols.to(Wd.device)].float().cpu() if len(cols) else torch.zeros(0, Wd.shape[1]))
+
+
 def decode_entries(sae, codes: SparseCodes, mask: torch.Tensor) -> torch.Tensor:
-    """sum over selected entries of z * W_dec[col], per row -> [n_rows, d] float32 (no bias)."""
-    Wd = sae.W_dec
-    out = torch.zeros(codes.n_rows, Wd.shape[1], dtype=torch.float32)
+    """sum over selected entries of z * W_dec[col], per row -> [n_rows, d] float32 (no bias). `sae` may be a
+    JumpReLUSAE or a DecoderTable holding the needed rows."""
+    if isinstance(sae, DecoderTable):
+        d, gather = sae.d_model, sae.rows
+    else:
+        Wd = sae.W_dec
+        d, gather = Wd.shape[1], (lambda c: Wd[c.to(Wd.device)].float().cpu())
+    out = torch.zeros(codes.n_rows, d, dtype=torch.float32)
     if mask.any():
         r, c, z = codes.row[mask], codes.col[mask], codes.z[mask]
-        out.index_add_(0, r, z[:, None] * Wd[c.to(Wd.device)].float().cpu())
+        out.index_add_(0, r, z[:, None] * gather(c).float())
     return out
+
+
+def subthreshold_only(codes: SparseCodes) -> SparseCodes:
+    """Keep only the inactive entries (z <= threshold): what E5 adds back. Active ones are already in x_hat."""
+    m = codes.z <= codes.threshold
+    return SparseCodes(codes.row[m], codes.col[m], codes.z[m], codes.threshold[m], codes.n_rows, codes.alpha_min)
 
 
 # --------------------------------------------------------------------------- inventory / L0 matching

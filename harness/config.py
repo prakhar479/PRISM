@@ -67,6 +67,28 @@ class DirSpec:
 
 
 @dataclass
+class SubthreshSpec:
+    """E5: add back A's JumpReLU sub-threshold features (entries with alpha*theta <= z < theta, z > 0).
+
+    alphas: grid; each alpha gives `subthresh` with every slot error. slot_errors: 'B' (x_hat_A + add-back + eps_B)
+    and/or 'meanPos' (x_hat_A + add-back + eps_bar_pos). greedy_ks: sizes of a greedily selected latent set, fitted on
+    train pairs at greedy_alpha (default min(alphas)) and evaluated at every alpha; [] = off."""
+    alphas: List[float] = field(default_factory=lambda: [0.5, 0.7, 0.8, 0.9, 0.95])
+    slot_errors: List[str] = field(default_factory=lambda: ["B", "meanPos"])
+    greedy_ks: List[int] = field(default_factory=list)
+    greedy_alpha: Optional[float] = None
+
+    @property
+    def g_alpha(self) -> float:
+        return self.greedy_alpha if self.greedy_alpha is not None else min(self.alphas)
+
+    @property
+    def alpha_min(self) -> float:
+        """Smallest alpha any condition needs: stage 2 keeps sparse entries down to it."""
+        return min(self.alphas + [self.g_alpha])
+
+
+@dataclass
 class ExpConfig:
     exp_id: str
     name: str
@@ -83,7 +105,9 @@ class ExpConfig:
     noise_seeds: List[int] = field(default_factory=lambda: [0])
     directions: Optional[DirSpec] = None
     generic: Optional[dict] = None    # {set: path relative to data_root, skip_positions: 4}
-    bootstrap: int = 1000             # run-side quick summary; DEV analysis uses 10 000
+    generic_l0: bool = False          # E4: report every cell SAE's realized L0 / FVU on the generic set
+    subthresh: Optional[SubthreshSpec] = None
+    bootstrap: int = 1000            # run-side quick summary; DEV analysis uses 10 000
     seed: int = 0
     smoke_pairs: int = 10
     pilot_reference: Optional[str] = None
@@ -95,7 +119,9 @@ class ExpConfig:
         d = yaml.safe_load(Path(path).read_text())
         cells = [Cell(**{**c, "sae": SAESpec(**c.get("sae", {}))}) for c in d.pop("cells", [])]
         dirs = d.pop("directions", None)
-        cfg = cls(**d, cells=cells, directions=DirSpec(**dirs) if dirs else None)
+        sub = d.pop("subthresh", None)
+        cfg = cls(**d, cells=cells, directions=DirSpec(**dirs) if dirs else None,
+                  subthresh=SubthreshSpec(**sub) if sub else None)
         cfg.validate()
         return cfg
 
@@ -140,6 +166,16 @@ class ExpConfig:
                 errs.append("source generic needs a `generic:` block")
             if max(self.directions.ranks) > self.directions.r_max:
                 errs.append("rank above r_max")
+        if self.generic_l0 and not self.generic:
+            errs.append("generic_l0 needs a `generic:` block")
+        if self.subthresh:
+            sp = self.subthresh
+            if not sp.alphas or any(not 0 < a <= 1 for a in sp.alphas + [sp.g_alpha]):
+                errs.append("subthresh alphas must lie in (0, 1]")
+            if not sp.slot_errors or not set(sp.slot_errors) <= {"B", "meanPos"}:
+                errs.append("subthresh slot_errors must be a non-empty subset of [B, meanPos]")
+            if any(k < 1 or k > 10 for k in sp.greedy_ks):
+                errs.append("subthresh greedy_ks must lie in 1..10")
         if errs:
             raise ValueError(f"{self.exp_id}: " + "; ".join(errs))
 

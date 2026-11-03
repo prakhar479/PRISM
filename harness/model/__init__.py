@@ -35,6 +35,21 @@ def hook_name(layer: int) -> str:
     return HOOK_FMT.format(layer=layer)
 
 
+def vocab_major_unembed(model) -> None:
+    """Store W_U [d_model, d_vocab] as the transpose view of a contiguous [d_vocab, d_model] tensor (in place).
+
+    TransformerLens' Unembed.forward calls F.linear(x, W_U.T.contiguous(), b_U). With the default layout that copies the
+    whole unembedding on every call (256000 x 2304 bf16 = 1125 MiB, the transient allocation that made preflight back
+    off on RUN, 2026-11-01). In this layout W_U.T is already contiguous, so .contiguous() returns it without copying and
+    F.linear sees the same values in the same layout as before: logits are bitwise identical (tests/harness/
+    test_model.py). The relayout itself needs one extra copy once, at load time, on CPU."""
+    u = model.unembed
+    if u.W_U.T.is_contiguous():
+        return
+    vm = u.W_U.detach().T.contiguous()                       # [d_vocab, d_model]
+    u.W_U = torch.nn.Parameter(vm.T, requires_grad=False)    # same values, transposed strides
+
+
 def tiny_gemma2(d_vocab: int, n_layers: int = 4, d_model: int = 64, seed: int = 0, dtype="float32", device="cpu"):
     """Random Gemma-2-shaped HookedTransformer: RMS pre+post norms, attention/logit soft-caps, rotary, GQA, gated MLP,
     alternating local/global attention. For tests only; its numbers are never results."""
@@ -50,6 +65,7 @@ def tiny_gemma2(d_vocab: int, n_layers: int = 4, d_model: int = 64, seed: int = 
     m = HookedTransformer(cfg).eval()
     for p in m.parameters():
         p.requires_grad_(False)
+    vocab_major_unembed(m)
     m._prism_embed_on_cpu = False
     return m
 
@@ -71,10 +87,13 @@ def load_gemma(spec: ModelSpec, device: torch.device, offload_embed: bool = Fals
     model = HookedTransformer.from_pretrained_no_processing(spec.name, hf_model=hf, dtype=dt, device=str(device),
                                                             move_to_device=False, tokenizer=tokenizer)
     del hf
+    vocab_major_unembed(model)                               # on CPU, before the move: no per-call W_U copy on the GPU
     offload = bool(offload_embed and is_cuda(device))
     for name, child in model.named_children():
         if not (offload and name in ("embed", "hook_embed")):
             child.to(device)
+    if not model.unembed.W_U.T.is_contiguous():              # .to() keeps strides of dense tensors; check anyway
+        log.warning("unembedding lost its vocab-major layout on %s: every unembed call will copy W_U", device)
     model.cfg.device = str(device)
     model._prism_embed_on_cpu = offload
     for p in model.parameters():

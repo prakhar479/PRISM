@@ -1,0 +1,146 @@
+
+=== attempt 1 2026-11-01 21:17:18: /home/raveeshvyas/Coding_folder/interpretability/PRISM/.venv-harness/bin/python scripts/run_preflight.py --queue queue/release1.yaml --golden golden/R2
+[PASS] 1. packages match requirements/harness.lock: 0 errors, 0 warnings
+[PASS] 1. accelerator: NVIDIA GeForce RTX 5060 Laptop GPU, free 7.41 / 7.53 GB
+[PASS] 1. RAM and disk: RAM available 17.7 GB; disk free at cache root 52 GB
+[PASS] 2. prefetch targets cached with matching sha256: 22 files, 13.14 GB, 0 errors
+Loading weights:   0%|          | 0/288 [00:00<?, ?it/s]Loading weights:   0%|          | 1/288 [00:01<07:05,  1.48s/it]Loading weights:  81%|████████▏ | 234/288 [00:01<00:00, 205.05it/s]Loading weights: 100%|██████████| 288/288 [00:01<00:00, 153.86it/s]
+Loaded pretrained model gemma-2-2b into HookedTransformer
+[PASS] 3. model load: 24 s, 4.92 GB allocated
+[FAIL] 3. last-position head == full forward last logits: max |dlogit| 0.19
+[PASS] 4. hook identity (OT L12, 4 pairs): full_B == clean_B, resumed clean_B == stage 1: max |dD| full_B 0, resumed clean_B 0
+[PASS] 4. full_A reproduces clean A (NLDR = 1): max |dD| 0
+[PASS] 5. entity_track_L12: golden pair ids and token ids == harness prompt set: 16 pairs
+[FAIL] 5. entity_track_L12: span residuals vs golden (relative): max relative row error 0.0201
+[PASS] 5. entity_track_L12: SAE variant == the one the golden export loaded: harness layer_12/width_16k/average_l0_82/params.npz; golden layer_12/width_16k/average_l0_82/params.npz
+[PASS] 5. entity_track_L12: SAE x_hat on golden residuals: max |dx_hat| 0.000114 (GPU fp32 vs golden)
+[W1101 21:18:09.242925326 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 1180696576 bytes (free: 1144782848, total: 8082096128).
+[W1101 21:18:09.382014946 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 1180696576 bytes (free: 1172045824, total: 8082096128).
+OOM: token budget -> 1024
+[W1101 21:18:11.578530294 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 1180696576 bytes (free: 1172045824, total: 8082096128).
+[W1101 21:18:11.578626085 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 1180696576 bytes (free: 1172045824, total: 8082096128).
+OOM: token budget -> 512
+[W1101 21:18:11.850224191 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 1180696576 bytes (free: 1167851520, total: 8082096128).
+[PASS] 5. entity_track_L12: per-condition D vs golden: max |dD| feat_A_errB 0, feat_B_errA 0, feat_A_zero 0, full_A 0, repair_pca_pooled_r1 0.0696, repair_pca_pooled_r2 0
+[PASS] 7. throughput: forward tokens/s by rows {1: 2552.6, 2: 3277.9, 4: 4156.3, 5: 4404.2} -> throughput_release1_20261101_211719.json
+[SKIP] 6. HF top-1 agreement (informational): {'add_chain/A': 1.0, 'add_chain/B': 1.0, 'entity_track/A': 1.0, 'entity_track/B': 0.917, 'ioi_control/A': 1.0, 'ioi_control/B': 1.0, 'var_binding/A': 1.0, 'var_binding/B': 1.0} (see release1_20261101_211719_hf/report.md)
+[FAIL] 8. smoke E1_split: e_index
+    return _torch_get_device_index(device, optional, allow_cpu)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/raveeshvyas/Coding_folder/interpretability/PRISM/.venv-harness/lib/python3.12/site-packages/torch/_utils.py", line 919, in _get_device_index
+    raise ValueError(
+ValueError: Expected a torch.device with a specified index or an integer, but got:cuda
+
+[FAIL] 8. smoke E2: e_index
+    return _torch_get_device_index(device, optional, allow_cpu)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/raveeshvyas/Coding_folder/interpretability/PRISM/.venv-harness/lib/python3.12/site-packages/torch/_utils.py", line 919, in _get_device_index
+    raise ValueError(
+ValueError: Expected a torch.device with a specified index or an integer, but got:cuda
+
+# Preflight release1 20261101_211719: FAILED
+
+| # | status | check | detail |
+|---|---|---|---|
+| 1 | PASS | packages match requirements/harness.lock | 0 errors, 0 warnings |
+| 1 | PASS | accelerator | NVIDIA GeForce RTX 5060 Laptop GPU, free 7.41 / 7.53 GB |
+| 1 | PASS | RAM and disk | RAM available 17.7 GB; disk free at cache root 52 GB |
+| 2 | PASS | prefetch targets cached with matching sha256 | 22 files, 13.14 GB, 0 errors |
+| 3 | PASS | model load | 24 s, 4.92 GB allocated |
+| 3 | FAIL | last-position head == full forward last logits | max /dlogit/ 0.19 |
+| 4 | PASS | hook identity (OT L12, 4 pairs): full_B == clean_B, resumed clean_B == stage 1 | max /dD/ full_B 0, resumed clean_B 0 |
+| 4 | PASS | full_A reproduces clean A (NLDR = 1) | max /dD/ 0 |
+| 5 | PASS | entity_track_L12: golden pair ids and token ids == harness prompt set | 16 pairs |
+| 5 | FAIL | entity_track_L12: span residuals vs golden (relative) | max relative row error 0.0201 |
+| 5 | PASS | entity_track_L12: SAE variant == the one the golden export loaded | harness layer_12/width_16k/average_l0_82/params.npz; golden layer_12/width_16k/average_l0_82/params.npz |
+| 5 | PASS | entity_track_L12: SAE x_hat on golden residuals | max /dx_hat/ 0.000114 (GPU fp32 vs golden) |
+| 5 | PASS | entity_track_L12: per-condition D vs golden | max /dD/ feat_A_errB 0, feat_B_errA 0, feat_A_zero 0, full_A 0, repair_pca_pooled_r1 0.0696, repair_pca_pooled_r2 0 |
+| 7 | PASS | throughput | forward tokens/s by rows {1: 2552.6, 2: 3277.9, 4: 4156.3, 5: 4404.2} -> throughput_release1_20261101_211719.json |
+| 6 | SKIP | HF top-1 agreement (informational) | {'add_chain/A': 1.0, 'add_chain/B': 1.0, 'entity_track/A': 1.0, 'entity_track/B': 0.917, 'ioi_control/A': 1.0, 'ioi_control/B': 1.0, 'var_binding/A': 1.0, 'var_binding/B': 1.0} (see release1_20261101_211719_hf/report.md) |
+| 8 | FAIL | smoke E1_split | e_index
+    return _torch_get_device_index(device, optional, allow_cpu)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/raveeshvyas/Coding_folder/interpretability/PRISM/.venv-harness/lib/python3.12/site-packages/torch/_utils.py", line 919, in _get_device_index
+    raise ValueError(
+ValueError: Expected a torch.device with a specified index or an integer, but got:cuda
+ |
+| 8 | FAIL | smoke E2 | e_index
+    return _torch_get_device_index(device, optional, allow_cpu)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/raveeshvyas/Coding_folder/interpretability/PRISM/.venv-harness/lib/python3.12/site-packages/torch/_utils.py", line 919, in _get_device_index
+    raise ValueError(
+ValueError: Expected a torch.device with a specified index or an integer, but got:cuda
+ |
+
+=== attempt 2 2026-11-01 21:19:20: /home/raveeshvyas/Coding_folder/interpretability/PRISM/.venv-harness/bin/python scripts/run_preflight.py --queue queue/release1.yaml --golden golden/R2
+[PASS] 1. packages match requirements/harness.lock: 0 errors, 0 warnings
+[PASS] 1. accelerator: NVIDIA GeForce RTX 5060 Laptop GPU, free 7.41 / 7.53 GB
+[PASS] 1. RAM and disk: RAM available 18.6 GB; disk free at cache root 52 GB
+[PASS] 2. prefetch targets cached with matching sha256: 22 files, 13.14 GB, 0 errors
+Loading weights:   0%|          | 0/288 [00:00<?, ?it/s]Loading weights:   0%|          | 1/288 [00:01<06:32,  1.37s/it]Loading weights:  74%|███████▎  | 212/288 [00:01<00:00, 195.73it/s]Loading weights: 100%|██████████| 288/288 [00:01<00:00, 162.07it/s]
+Loaded pretrained model gemma-2-2b into HookedTransformer
+[PASS] 3. model load: 18 s, 4.92 GB allocated
+[FAIL] 3. last-position head == full forward last logits: max |dlogit| 0.19
+[PASS] 4. hook identity (OT L12, 4 pairs): full_B == clean_B, resumed clean_B == stage 1: max |dD| full_B 0, resumed clean_B 0
+[PASS] 4. full_A reproduces clean A (NLDR = 1): max |dD| 0
+[PASS] 5. entity_track_L12: golden pair ids and token ids == harness prompt set: 16 pairs
+[FAIL] 5. entity_track_L12: span residuals vs golden (relative): max relative row error 0.0201
+[PASS] 5. entity_track_L12: SAE variant == the one the golden export loaded: harness layer_12/width_16k/average_l0_82/params.npz; golden layer_12/width_16k/average_l0_82/params.npz
+[PASS] 5. entity_track_L12: SAE x_hat on golden residuals: max |dx_hat| 0.000114 (GPU fp32 vs golden)
+[W1101 21:19:59.410029749 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 1180696576 bytes (free: 1148977152, total: 8082096128).
+[W1101 21:19:59.549976381 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 1180696576 bytes (free: 1172045824, total: 8082096128).
+OOM: token budget -> 1024
+[W1101 21:20:01.059679478 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 1180696576 bytes (free: 1172045824, total: 8082096128).
+[W1101 21:20:01.059779816 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 1180696576 bytes (free: 1172045824, total: 8082096128).
+OOM: token budget -> 512
+[W1101 21:20:01.321260074 CUDACachingAllocator.cpp:3934] memory allocation failed with OOM on device 0 while trying to allocate 1180696576 bytes (free: 1167851520, total: 8082096128).
+[PASS] 5. entity_track_L12: per-condition D vs golden: max |dD| feat_A_errB 0, feat_B_errA 0, feat_A_zero 0, full_A 0, repair_pca_pooled_r1 0.0696, repair_pca_pooled_r2 0
+[PASS] 7. throughput: forward tokens/s by rows {1: 2540.3, 2: 3268.1, 4: 4124.0, 5: 4379.3} -> throughput_release1_20261101_211921.json
+[SKIP] 6. HF top-1 agreement (informational): {'add_chain/A': 1.0, 'add_chain/B': 1.0, 'entity_track/A': 1.0, 'entity_track/B': 0.917, 'ioi_control/A': 1.0, 'ioi_control/B': 1.0, 'var_binding/A': 1.0, 'var_binding/B': 1.0} (see release1_20261101_211921_hf/report.md)
+[FAIL] 8. smoke E1_split: e_index
+    return _torch_get_device_index(device, optional, allow_cpu)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/raveeshvyas/Coding_folder/interpretability/PRISM/.venv-harness/lib/python3.12/site-packages/torch/_utils.py", line 919, in _get_device_index
+    raise ValueError(
+ValueError: Expected a torch.device with a specified index or an integer, but got:cuda
+
+[FAIL] 8. smoke E2: e_index
+    return _torch_get_device_index(device, optional, allow_cpu)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/raveeshvyas/Coding_folder/interpretability/PRISM/.venv-harness/lib/python3.12/site-packages/torch/_utils.py", line 919, in _get_device_index
+    raise ValueError(
+ValueError: Expected a torch.device with a specified index or an integer, but got:cuda
+
+# Preflight release1 20261101_211921: FAILED
+
+| # | status | check | detail |
+|---|---|---|---|
+| 1 | PASS | packages match requirements/harness.lock | 0 errors, 0 warnings |
+| 1 | PASS | accelerator | NVIDIA GeForce RTX 5060 Laptop GPU, free 7.41 / 7.53 GB |
+| 1 | PASS | RAM and disk | RAM available 18.6 GB; disk free at cache root 52 GB |
+| 2 | PASS | prefetch targets cached with matching sha256 | 22 files, 13.14 GB, 0 errors |
+| 3 | PASS | model load | 18 s, 4.92 GB allocated |
+| 3 | FAIL | last-position head == full forward last logits | max /dlogit/ 0.19 |
+| 4 | PASS | hook identity (OT L12, 4 pairs): full_B == clean_B, resumed clean_B == stage 1 | max /dD/ full_B 0, resumed clean_B 0 |
+| 4 | PASS | full_A reproduces clean A (NLDR = 1) | max /dD/ 0 |
+| 5 | PASS | entity_track_L12: golden pair ids and token ids == harness prompt set | 16 pairs |
+| 5 | FAIL | entity_track_L12: span residuals vs golden (relative) | max relative row error 0.0201 |
+| 5 | PASS | entity_track_L12: SAE variant == the one the golden export loaded | harness layer_12/width_16k/average_l0_82/params.npz; golden layer_12/width_16k/average_l0_82/params.npz |
+| 5 | PASS | entity_track_L12: SAE x_hat on golden residuals | max /dx_hat/ 0.000114 (GPU fp32 vs golden) |
+| 5 | PASS | entity_track_L12: per-condition D vs golden | max /dD/ feat_A_errB 0, feat_B_errA 0, feat_A_zero 0, full_A 0, repair_pca_pooled_r1 0.0696, repair_pca_pooled_r2 0 |
+| 7 | PASS | throughput | forward tokens/s by rows {1: 2540.3, 2: 3268.1, 4: 4124.0, 5: 4379.3} -> throughput_release1_20261101_211921.json |
+| 6 | SKIP | HF top-1 agreement (informational) | {'add_chain/A': 1.0, 'add_chain/B': 1.0, 'entity_track/A': 1.0, 'entity_track/B': 0.917, 'ioi_control/A': 1.0, 'ioi_control/B': 1.0, 'var_binding/A': 1.0, 'var_binding/B': 1.0} (see release1_20261101_211921_hf/report.md) |
+| 8 | FAIL | smoke E1_split | e_index
+    return _torch_get_device_index(device, optional, allow_cpu)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/raveeshvyas/Coding_folder/interpretability/PRISM/.venv-harness/lib/python3.12/site-packages/torch/_utils.py", line 919, in _get_device_index
+    raise ValueError(
+ValueError: Expected a torch.device with a specified index or an integer, but got:cuda
+ |
+| 8 | FAIL | smoke E2 | e_index
+    return _torch_get_device_index(device, optional, allow_cpu)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/raveeshvyas/Coding_folder/interpretability/PRISM/.venv-harness/lib/python3.12/site-packages/torch/_utils.py", line 919, in _get_device_index
+    raise ValueError(
+ValueError: Expected a torch.device with a specified index or an integer, but got:cuda
+ |

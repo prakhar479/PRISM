@@ -1,0 +1,64 @@
+2026-11-02 00:21:47,728 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-02 00:21:47,951 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-02 00:21:48,818 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-02 00:21:50,097 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-02 00:22:02,965 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-02 00:22:03,186 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-02 00:22:04,062 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-02 00:22:06,161 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-02 00:22:29,572 INFO entity_track_L12_16k_l082 unit 1/25 (8 conditions, 8.4s)
+2026-11-02 00:22:37,216 INFO entity_track_L12_16k_l082 unit 2/25 (8 conditions, 7.6s)
+2026-11-02 00:22:44,751 INFO entity_track_L12_16k_l082 unit 3/25 (8 conditions, 7.5s)
+2026-11-02 00:22:52,328 INFO entity_track_L12_16k_l082 unit 4/25 (8 conditions, 7.6s)
+2026-11-02 00:22:59,911 INFO entity_track_L12_16k_l082 unit 5/25 (8 conditions, 7.6s)
+2026-11-02 00:23:07,486 INFO entity_track_L12_16k_l082 unit 6/25 (8 conditions, 7.6s)
+2026-11-02 00:23:15,055 INFO entity_track_L12_16k_l082 unit 7/25 (8 conditions, 7.6s)
+2026-11-02 00:23:22,649 INFO entity_track_L12_16k_l082 unit 8/25 (8 conditions, 7.6s)
+2026-11-02 00:23:30,254 INFO entity_track_L12_16k_l082 unit 9/25 (8 conditions, 7.6s)
+2026-11-02 00:23:37,855 INFO entity_track_L12_16k_l082 unit 10/25 (8 conditions, 7.6s)
+2026-11-02 00:23:45,483 INFO entity_track_L12_16k_l082 unit 11/25 (8 conditions, 7.6s)
+2026-11-02 00:23:53,103 INFO entity_track_L12_16k_l082 unit 12/25 (8 conditions, 7.6s)
+2026-11-02 00:24:00,733 INFO entity_track_L12_16k_l082 unit 13/25 (8 conditions, 7.6s)
+2026-11-02 00:24:08,359 INFO entity_track_L12_16k_l082 unit 14/25 (8 conditions, 7.6s)
+2026-11-02 00:24:15,962 INFO entity_track_L12_16k_l082 unit 15/25 (8 conditions, 7.6s)
+2026-11-02 00:24:23,602 INFO entity_track_L12_16k_l082 unit 16/25 (8 conditions, 7.6s)
+2026-11-02 00:24:31,235 INFO entity_track_L12_16k_l082 unit 17/25 (8 conditions, 7.6s)
+2026-11-02 00:24:38,864 INFO entity_track_L12_16k_l082 unit 18/25 (8 conditions, 7.6s)
+2026-11-02 00:24:46,477 INFO entity_track_L12_16k_l082 unit 19/25 (8 conditions, 7.6s)
+2026-11-02 00:24:54,106 INFO entity_track_L12_16k_l082 unit 20/25 (8 conditions, 7.6s)
+2026-11-02 00:25:01,712 INFO entity_track_L12_16k_l082 unit 21/25 (8 conditions, 7.6s)
+2026-11-02 00:25:09,348 INFO entity_track_L12_16k_l082 unit 22/25 (8 conditions, 7.6s)
+2026-11-02 00:25:16,999 INFO entity_track_L12_16k_l082 unit 23/25 (8 conditions, 7.6s)
+2026-11-02 00:25:24,767 INFO entity_track_L12_16k_l082 unit 24/25 (8 conditions, 7.8s)
+2026-11-02 00:25:28,990 INFO entity_track_L12_16k_l082 unit 25/25 (4 conditions, 4.2s)
+2026-11-02 00:25:32,058 INFO add_chain_L18_16k_l074 unit 1/25 (8 conditions, 2.2s)
+2026-11-02 00:25:34,342 INFO add_chain_L18_16k_l074 unit 2/25 (8 conditions, 2.2s)
+2026-11-02 00:25:36,614 INFO add_chain_L18_16k_l074 unit 3/25 (8 conditions, 2.3s)
+2026-11-02 00:25:38,890 INFO add_chain_L18_16k_l074 unit 4/25 (8 conditions, 2.3s)
+2026-11-02 00:25:41,105 INFO add_chain_L18_16k_l074 unit 5/25 (8 conditions, 2.2s)
+2026-11-02 00:25:43,263 INFO add_chain_L18_16k_l074 unit 6/25 (8 conditions, 2.2s)
+2026-11-02 00:25:45,403 INFO add_chain_L18_16k_l074 unit 7/25 (8 conditions, 2.1s)
+2026-11-02 00:25:47,543 INFO add_chain_L18_16k_l074 unit 8/25 (8 conditions, 2.1s)
+2026-11-02 00:25:49,709 INFO add_chain_L18_16k_l074 unit 9/25 (8 conditions, 2.2s)
+2026-11-02 00:25:51,854 INFO add_chain_L18_16k_l074 unit 10/25 (8 conditions, 2.1s)
+2026-11-02 00:25:53,994 INFO add_chain_L18_16k_l074 unit 11/25 (8 conditions, 2.1s)
+2026-11-02 00:25:56,160 INFO add_chain_L18_16k_l074 unit 12/25 (8 conditions, 2.2s)
+2026-11-02 00:25:58,299 INFO add_chain_L18_16k_l074 unit 13/25 (8 conditions, 2.1s)
+2026-11-02 00:26:00,446 INFO add_chain_L18_16k_l074 unit 14/25 (8 conditions, 2.1s)
+2026-11-02 00:26:02,615 INFO add_chain_L18_16k_l074 unit 15/25 (8 conditions, 2.2s)
+2026-11-02 00:26:04,779 INFO add_chain_L18_16k_l074 unit 16/25 (8 conditions, 2.2s)
+2026-11-02 00:26:06,923 INFO add_chain_L18_16k_l074 unit 17/25 (8 conditions, 2.1s)
+2026-11-02 00:26:09,063 INFO add_chain_L18_16k_l074 unit 18/25 (8 conditions, 2.1s)
+2026-11-02 00:26:11,217 INFO add_chain_L18_16k_l074 unit 19/25 (8 conditions, 2.1s)
+2026-11-02 00:26:13,386 INFO add_chain_L18_16k_l074 unit 20/25 (8 conditions, 2.2s)
+2026-11-02 00:26:15,557 INFO add_chain_L18_16k_l074 unit 21/25 (8 conditions, 2.2s)
+2026-11-02 00:26:17,731 INFO add_chain_L18_16k_l074 unit 22/25 (8 conditions, 2.2s)
+2026-11-02 00:26:19,880 INFO add_chain_L18_16k_l074 unit 23/25 (8 conditions, 2.1s)
+2026-11-02 00:26:22,022 INFO add_chain_L18_16k_l074 unit 24/25 (8 conditions, 2.1s)
+2026-11-02 00:26:23,359 INFO add_chain_L18_16k_l074 unit 25/25 (4 conditions, 1.3s)
+2026-11-02 00:27:38,174 INFO E2 -> /home/raveeshvyas/Coding_folder/interpretability/PRISM/runs/E2/2c7b81b379f4 (complete)
+2026-11-02 00:47:59,363 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-02 00:47:59,862 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-02 00:48:00,335 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-02 00:48:02,113 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-02 00:49:33,589 INFO E2 -> /home/raveeshvyas/Coding_folder/interpretability/PRISM/runs/E2/2c7b81b379f4 (complete)

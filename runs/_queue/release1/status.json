@@ -1,0 +1,12 @@
+{
+ "prefetch": {
+  "attempts": 1,
+  "status": "done",
+  "minutes": 0.3,
+  "note": ""
+ },
+ "preflight": {
+  "attempts": 1,
+  "status": "running"
+ }
+}

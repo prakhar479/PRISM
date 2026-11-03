@@ -1,0 +1,44 @@
+{
+ "prefetch": {
+  "attempts": 1,
+  "status": "done",
+  "minutes": 0.3,
+  "note": ""
+ },
+ "preflight": {
+  "attempts": 2,
+  "status": "failed",
+  "minutes": 2.1,
+  "note": "exit 1"
+ },
+ "E0": {
+  "status": "skipped",
+  "note": "depends on failed ['preflight']"
+ },
+ "E1_split": {
+  "status": "skipped",
+  "note": "depends on failed ['E0']"
+ },
+ "E1_repair": {
+  "status": "skipped",
+  "note": "depends on failed ['E0']"
+ },
+ "E2": {
+  "status": "skipped",
+  "note": "depends on failed ['E0']"
+ },
+ "E7": {
+  "status": "skipped",
+  "note": "depends on failed ['E0']"
+ },
+ "E6": {
+  "status": "skipped",
+  "note": "depends on failed ['E0']"
+ },
+ "bundle": {
+  "attempts": 1,
+  "status": "done",
+  "minutes": 0.0,
+  "note": ""
+ }
+}

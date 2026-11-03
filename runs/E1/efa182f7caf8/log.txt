@@ -1,0 +1,85 @@
+2026-11-02 00:20:55,114 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-02 00:20:55,359 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-02 00:20:55,587 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-02 00:20:56,447 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-02 00:21:23,569 INFO stage1 shard 1/1 (60 pairs)
+2026-11-02 00:21:30,025 INFO stage1 shard 1/1 (60 pairs)
+2026-11-02 00:21:32,132 INFO stage1 shard 1/1 (60 pairs)
+2026-11-02 00:21:34,992 WARNING OOM: token budget -> 1024
+2026-11-02 00:21:35,313 WARNING OOM: token budget -> 512
+2026-11-02 00:21:35,592 WARNING OOM: token budget -> 256
+2026-11-02 00:21:35,832 WARNING OOM: token budget -> 128
+2026-11-02 00:21:36,053 ERROR run failed
+Traceback (most recent call last):
+  File "/home/raveeshvyas/Coding_folder/interpretability/PRISM/harness/run.py", line 555, in main
+    {"1": R.run_stage1, "2": R.run_stage2, "3": R.run_stage3}[s]()
+  File "/home/raveeshvyas/Coding_folder/interpretability/PRISM/harness/run.py", line 195, in run_stage1
+    S.stage1(model, self.spec, self.rows[task], self.set_meta[task]["hash"], layers, self.cache, self.budget, self.device)
+  File "/home/raveeshvyas/Coding_folder/interpretability/PRISM/.venv-harness/lib/python3.12/site-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/raveeshvyas/Coding_folder/interpretability/PRISM/harness/model/stages.py", line 87, in stage1
+    lg, got = _forward_capture(model, _tok(rows, b, key, device), layers, bi, pi)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/raveeshvyas/Coding_folder/interpretability/PRISM/harness/model/stages.py", line 55, in _forward_capture
+    logits = runtime.last_logits(model, tokens, hooks)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/raveeshvyas/Coding_folder/interpretability/PRISM/src/models/runtime.py", line 171, in last_logits
+    return head(model, final_resid(model, tokens, fwd_hooks)[:, -1:])[:, 0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/raveeshvyas/Coding_folder/interpretability/PRISM/src/models/runtime.py", line 156, in head
+    logits = model.unembed(resid).float()
+             ^^^^^^^^^^^^^^^^^^^^
+  File "/home/raveeshvyas/Coding_folder/interpretability/PRISM/.venv-harness/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1783, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/raveeshvyas/Coding_folder/interpretability/PRISM/.venv-harness/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1794, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/raveeshvyas/Coding_folder/interpretability/PRISM/.venv-harness/lib/python3.12/site-packages/transformer_lens/components/unembed.py", line 39, in forward
+    result = F.linear(residual, self.W_U.T.contiguous(), self.b_U)
+                                ^^^^^^^^^^^^^^^^^^^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 1.10 GiB. GPU 0 has a total capacity of 7.53 GiB of which 992.62 MiB is free. Process 17230 has 164.00 MiB memory in use. Including non-PyTorch memory, this process has 6.37 GiB memory in use. 7.30 GiB allowed; Of the allocated memory 4.99 GiB is allocated by PyTorch, and 1.25 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf)
+2026-11-02 00:21:36,194 INFO E1 -> /home/raveeshvyas/Coding_folder/interpretability/PRISM/runs/E1/efa182f7caf8 (failed)
+2026-11-02 00:44:30,098 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-02 00:44:31,367 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-02 00:44:32,145 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-02 00:44:32,936 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-02 00:44:42,961 INFO stage1 shard 1/1 (60 pairs)
+2026-11-02 00:44:52,875 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-02 00:44:53,839 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-02 00:44:54,098 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-02 00:44:56,147 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-02 00:45:15,510 INFO entity_track_L4_16k_l0124 unit 1/1 (8 conditions, 11.2s)
+2026-11-02 00:45:25,461 INFO entity_track_L8_16k_l071 unit 1/1 (8 conditions, 9.5s)
+2026-11-02 00:45:34,565 INFO entity_track_L10_16k_l077 unit 1/1 (8 conditions, 8.7s)
+2026-11-02 00:45:42,885 INFO entity_track_L12_16k_l082 unit 1/1 (8 conditions, 7.9s)
+2026-11-02 00:45:50,323 INFO entity_track_L14_16k_l084 unit 1/1 (8 conditions, 7.0s)
+2026-11-02 00:45:56,952 INFO entity_track_L16_16k_l078 unit 1/1 (8 conditions, 6.2s)
+2026-11-02 00:46:02,695 INFO entity_track_L18_16k_l074 unit 1/1 (8 conditions, 5.4s)
+2026-11-02 00:46:07,648 INFO entity_track_L20_16k_l071 unit 1/1 (8 conditions, 4.6s)
+2026-11-02 00:46:12,670 INFO add_chain_L4_16k_l0124 unit 1/1 (8 conditions, 4.7s)
+2026-11-02 00:46:17,016 INFO add_chain_L8_16k_l071 unit 1/1 (8 conditions, 4.0s)
+2026-11-02 00:46:20,984 INFO add_chain_L10_16k_l077 unit 1/1 (8 conditions, 3.6s)
+2026-11-02 00:46:24,657 INFO add_chain_L12_16k_l082 unit 1/1 (8 conditions, 3.3s)
+2026-11-02 00:46:27,983 INFO add_chain_L14_16k_l084 unit 1/1 (8 conditions, 3.0s)
+2026-11-02 00:46:30,911 INFO add_chain_L16_16k_l078 unit 1/1 (8 conditions, 2.6s)
+2026-11-02 00:46:33,525 INFO add_chain_L18_16k_l074 unit 1/1 (8 conditions, 2.3s)
+2026-11-02 00:46:35,763 INFO add_chain_L20_16k_l071 unit 1/1 (8 conditions, 1.9s)
+2026-11-02 00:46:38,574 INFO var_binding_L4_16k_l0124 unit 1/1 (8 conditions, 2.4s)
+2026-11-02 00:46:40,979 INFO var_binding_L8_16k_l071 unit 1/1 (8 conditions, 2.1s)
+2026-11-02 00:46:43,183 INFO var_binding_L10_16k_l077 unit 1/1 (8 conditions, 1.8s)
+2026-11-02 00:46:45,193 INFO var_binding_L12_16k_l082 unit 1/1 (8 conditions, 1.7s)
+2026-11-02 00:46:47,047 INFO var_binding_L14_16k_l084 unit 1/1 (8 conditions, 1.5s)
+2026-11-02 00:46:48,778 INFO var_binding_L16_16k_l078 unit 1/1 (8 conditions, 1.3s)
+2026-11-02 00:46:50,288 INFO var_binding_L18_16k_l074 unit 1/1 (8 conditions, 1.2s)
+2026-11-02 00:46:51,718 INFO var_binding_L20_16k_l071 unit 1/1 (8 conditions, 1.1s)
+2026-11-02 00:46:52,802 INFO ioi_control_L4_16k_l0124 unit 1/1 (8 conditions, 0.7s)
+2026-11-02 00:46:53,756 INFO ioi_control_L8_16k_l071 unit 1/1 (8 conditions, 0.6s)
+2026-11-02 00:46:54,671 INFO ioi_control_L10_16k_l077 unit 1/1 (8 conditions, 0.6s)
+2026-11-02 00:46:55,552 INFO ioi_control_L12_16k_l082 unit 1/1 (8 conditions, 0.5s)
+2026-11-02 00:46:56,390 INFO ioi_control_L14_16k_l084 unit 1/1 (8 conditions, 0.5s)
+2026-11-02 00:46:57,176 INFO ioi_control_L16_16k_l078 unit 1/1 (8 conditions, 0.4s)
+2026-11-02 00:46:57,900 INFO ioi_control_L18_16k_l074 unit 1/1 (8 conditions, 0.4s)
+2026-11-02 00:46:58,572 INFO ioi_control_L20_16k_l071 unit 1/1 (8 conditions, 0.3s)
+2026-11-02 00:47:46,110 INFO E1 -> /home/raveeshvyas/Coding_folder/interpretability/PRISM/runs/E1/efa182f7caf8 (complete)

@@ -1,0 +1,119 @@
+{
+ "exp_id": "E2",
+ "run_hash": "ae3ac95dfcee",
+ "n_rows": 5910,
+ "hook_checks": [
+  {
+   "cell": "add_chain_18_L18_16k_l074_pilot",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.06766128540039062
+  },
+  {
+   "cell": "add_chain_18_L18_16k_l074_pilot",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.06523799896240234
+  },
+  {
+   "cell": "entity_track_12_L12_16k_l082_pilot",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "entity_track_12_L12_16k_l082_pilot",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  }
+ ],
+ "cells": [
+  {
+   "cell": "entity_track_L12_16k_l082",
+   "role": "confirmatory",
+   "sae": {
+    "layer": 12,
+    "width": "16k",
+    "l0": 82,
+    "repo": "google/gemma-scope-2b-pt-res",
+    "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_none": 10,
+    "f_A_correct": 10,
+    "f_pilot": 10
+   },
+   "n_test_union": 18,
+   "n_train": 10,
+   "fitset_digest": "c0cb844461639f5b",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 0.6667,
+     "f_both_correct": 0.2333,
+     "f_pilot": 0.4
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 0.7333,
+     "f_both_correct": 0.1333,
+     "f_pilot": 0.3333
+    }
+   },
+   "mean_l0_test": [
+    80.01532745361328,
+    77.43678283691406
+   ],
+   "rel_err_norm_test": 0.42356133460998535,
+   "mean_pos_coverage": {
+    "slot": 90,
+    "offset": 171,
+    "task": 0
+   }
+  },
+  {
+   "cell": "add_chain_L18_16k_l074",
+   "role": "confirmatory",
+   "sae": {
+    "layer": 18,
+    "width": "16k",
+    "l0": 74,
+    "repo": "google/gemma-scope-2b-pt-res",
+    "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_none": 10,
+    "f_A_correct": 10,
+    "f_pilot": 10
+   },
+   "n_test_union": 12,
+   "n_train": 10,
+   "fitset_digest": "0041f59273a696cb",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9667,
+     "f_both_correct": 0.8667,
+     "f_pilot": 0.7333
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9667,
+     "f_both_correct": 0.9333,
+     "f_pilot": 0.5333
+    }
+   },
+   "mean_l0_test": [
+    66.1148681640625,
+    67.17567443847656
+   ],
+   "rel_err_norm_test": 0.39401018619537354,
+   "mean_pos_coverage": {
+    "slot": 60,
+    "offset": 73,
+    "task": 15
+   }
+  }
+ ]
+}

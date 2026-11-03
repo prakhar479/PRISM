@@ -1,0 +1,20 @@
+
+=== attempt 1 2026-11-03 09:11:49: /home/raveeshvyas/Coding_folder/interpretability/PRISM/.venv-harness/bin/python scripts/run_preflight.py --queue queue/release1.yaml --golden golden/R2
+[PASS] 1. packages match requirements/harness.lock: 0 errors, 0 warnings
+[PASS] 1. accelerator: NVIDIA GeForce RTX 5060 Laptop GPU, free 7.41 / 7.53 GB
+[PASS] 1. RAM and disk: RAM available 17.5 GB; disk free at cache root 29 GB
+[PASS] 2. prefetch targets cached with matching sha256: 22 files, 13.14 GB, 0 errors
+Loading weights:   0%|          | 0/288 [00:00<?, ?it/s]Loading weights:   0%|          | 1/288 [00:02<12:15,  2.56s/it]Loading weights:   3%|▎         | 8/288 [00:02<01:10,  3.96it/s]Loading weights:   6%|▌         | 16/288 [00:02<00:29,  9.12it/s]Loading weights:   9%|▉         | 27/288 [00:02<00:14, 18.03it/s]Loading weights:  16%|█▌        | 46/288 [00:03<00:06, 37.26it/s]Loading weights:  22%|██▏       | 63/288 [00:03<00:04, 55.17it/s]Loading weights:  31%|███       | 88/288 [00:03<00:02, 86.25it/s]Loading weights:  38%|███▊      | 109/288 [00:03<00:01, 109.28it/s]Loading weights: 100%|██████████| 288/288 [00:03<00:00, 84.90it/s] 
+Loaded pretrained model gemma-2-2b into HookedTransformer
+[PASS] 3. model load: 17 s, 4.92 GB allocated
+[PASS] 3. last-position head == full forward last logits: max |dlogit| 0.19 (tol 0.25 = 2 bfloat16 ulp at max |logit| 28.4); argmax equal True
+[PASS] 4. hook identity (OT L12, 4 pairs): full_B == clean_B, resumed clean_B == stage 1: max |dD| full_B 0.081, resumed clean_B 0.12
+[PASS] 4. full_A reproduces clean A (NLDR = 1): max |dD| 0.18
+[PASS] 5. entity_track_L12: golden pair ids and token ids == harness prompt set: 16 pairs
+[PASS] 5. entity_track_L12: span residuals vs golden (relative): max relative row error 0.0201 (median 0; tol 0.05); pilot's own batch-1 vs batched: max 0.0269
+[PASS] 5. entity_track_L12: SAE variant == the one the golden export loaded: harness layer_12/width_16k/average_l0_82/params.npz; golden layer_12/width_16k/average_l0_82/params.npz
+[PASS] 5. entity_track_L12: SAE x_hat on golden residuals: max |dx_hat| 0.000114 (GPU fp32 vs golden)
+[PASS] 5. entity_track_L12: per-condition D vs golden: max |dD| feat_A_errB 0.202, feat_B_errA 0.215, feat_A_zero 0.167, full_A 0.174, repair_pca_pooled_r1 0.182, repair_pca_pooled_r2 0.157
+[PASS] 7. throughput: forward tokens/s by rows {1: 2592.9, 2: 3261.6, 4: 3988.6} -> throughput_release1_20261103_091150.json
+[SKIP] 6. HF top-1 agreement (informational): {'add_chain/A': 1.0, 'add_chain/B': 1.0, 'entity_track/A': 1.0, 'entity_track/B': 0.917, 'ioi_control/A': 1.0, 'ioi_control/B': 1.0, 'var_binding/A': 1.0, 'var_binding/B': 1.0} (see release1_20261103_091150_hf/report.md)
+[PASS] 8. smoke E1_split: ok

@@ -131,8 +131,16 @@ logs).
   ```bash
   ls probe_R1.tar golden/R2.tar hf_agreement_R3.tar 2>&1     # make any that are missing with the R1-R3 tar lines above
   tar cf preflight_R5.tar preflight/                         # reports + throughput_*.json + *_hf/ folders
-  sha256sum probe_R1.tar golden/R2.tar hf_agreement_R3.tar preflight_R5.tar > R5.sha256
+  { df -h .; du -sh "$(.venv-harness/bin/python -c 'from harness.profile import load_profile as l; print(l("run").root("cache_root"))')" ~/.cache/huggingface; } > disk_R5.txt 2>&1   # release 2 needs ~35 GiB of new SAEs
+  sha256sum probe_R1.tar golden/R2.tar hf_agreement_R3.tar preflight_R5.tar disk_R5.txt > R5.sha256
   ```
   Then send these with the same `results/...` branch recipe as before (`incoming/R1`, `incoming/R2`, `incoming/R3`,
   `incoming/R5`), splitting anything over 95 MB.
 - **Duration:** ~2 min. **Return:** the four tars + `R5.sha256` → DEV `incoming/<id>/`.
+
+## R6: release 2 queue, `open` (2026-11-03)
+
+- **Purpose:** E3 (the RQ1 gate), E4, E5, E8 fill (handoff 11, RT2).
+- **Commands:** `releases/release2.md` (tag `run-20261103-1`; check disk first: ~35 GiB of new SAE downloads).
+- **Duration:** roughly 20-28 h unattended (preflight re-measures throughput; `plan_runs.py` prints estimates).
+- **Return:** `bundles/release2_<stamp>.tar.gz` + `.sha256` → DEV `incoming/RT2/`.

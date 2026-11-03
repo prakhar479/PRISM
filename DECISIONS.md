@@ -194,3 +194,34 @@ Dated log of non-trivial choices. Pilot run verdicts live in `results/*/DECISION
   test). `Module.to` keeps the strides; `load_gemma` warns if they are lost.
   - Not yet seen on the GPU. The pilot code path (`src/`, used by `export_golden.py` and `hf_agreement.py`) still
     copies; it is frozen.
+
+## 2026-11-03: multi-GPU server runs and the clean run branch
+
+- **Measured, not typed.** `profiles/server.yaml` sets `auto` for the GPU memory cap (total − 0.6 GiB), tokens and
+  rows per forward, embedding placement (CPU only under 16 GiB) and CPU threads (physical cores ÷ concurrent
+  workers); `harness.memory.resolve_resources` fills them from `harness.device.probe_machine` (nvidia-smi + /proc, no
+  CUDA initialisation in the scheduler). The batch size gives 40% of the memory left after the model to one forward
+  (pilot BYTES_PER_TOKEN heuristic, 1024-32768 tokens, 64-256 rows). The heuristic underestimates on the laptop, so
+  preflight check 9 runs one real forward per GPU at that size, halving on OOM, and the scheduler pins the smallest
+  measured budget per experiment (HL_MAX_BATCH_TOKENS). `profiles/run.yaml` (laptop) is unchanged.
+- **One budget per experiment.** All units of one run use the pinned budget (each `.done` records the effective
+  budget and OOM backoffs). `run_hash` still excludes profile and device: server results are a new run of the same
+  experiment, comparable to the laptop's at bf16-batching tolerance.
+- **No concurrent cache writers by design, locks as a guard.** Shared stage-1 entries are filled by scheduled
+  warm-up jobs (E3 sets; the pilot sets via E8, whose layers cover E4/E5); stage 2 runs in disjoint SAE slices. Cache
+  files are written to per-process temp names and published with os.replace; per-entry flock serialises writers
+  (lock order = key order; only a warning on network filesystems, where flock is unreliable).
+- **Stage 3 by dynamic claims, not fixed shards.** Workers claim 8-condition units with O_EXCL claim files (a dead
+  worker's claim is taken over); idle time is at most one unit. Only `--finalize-only` (CPU) writes a run's
+  `manifest.json`, `per_pair.parquet` and summaries, from units with `.done` only; partial processes write
+  `manifest.<w|s2|stage>.json`. Tested: 3 concurrent workers + finalize give per-pair rows identical to one
+  sequential run (tiny model, fp32 CPU).
+- **Host RAM.** Workers reserve bytes from a machine-wide budget (80% of MemAvailable at scheduler start) before an
+  SAE or model load; a short dip waits instead of being recorded as a skipped SAE. Only an SAE that cannot fit the
+  whole budget is skipped.
+- **Queues opt in.** Only queues with `parallel: true` use the multi-GPU scheduler; older queues run one job at a
+  time in order with an unchanged environment, as before.
+- **Run branch.** `scripts/make_run_branch.py` builds `run` from an allow list (harness, src, configs, data, profiles,
+  queue, lockfile, run scripts) with git plumbing, adds `RUN_SOURCE.json` (source commit) and the golden fixtures as
+  < 95 MB parts, and signs the commit and a `run-*` tag. Tests, results, runs, paper and analysis scripts stay on
+  `harness`. Results from the server carry the run-branch commit, which is tagged, so DEV ingest accepts them.

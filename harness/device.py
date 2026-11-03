@@ -2,7 +2,12 @@
 from __future__ import annotations
 
 import gc
-from typing import Optional
+import json
+import os
+import shutil
+import subprocess
+from pathlib import Path
+from typing import List, Optional
 
 import torch
 
@@ -125,3 +130,101 @@ def sync(device: torch.device) -> None:
 
 def allocated_bytes(device: torch.device) -> int:
     return torch.cuda.memory_allocated(device) if is_cuda(device) else 0
+
+
+# --------------------------------------------------------------------------- machine probe (plan step 3)
+def _meminfo() -> dict:
+    out = {}
+    try:
+        for line in Path("/proc/meminfo").read_text().splitlines():
+            k, v = line.split(":", 1)
+            out[k] = int(v.split()[0]) * 1024
+    except (OSError, ValueError):
+        pass
+    return out
+
+
+def _physical_cores() -> Optional[int]:
+    """Distinct (physical id, core id) pairs in /proc/cpuinfo; None if unknown."""
+    try:
+        pairs, phys, core = set(), None, None
+        for line in Path("/proc/cpuinfo").read_text().splitlines() + [""]:
+            if line.startswith("physical id"):
+                phys = line.split(":")[1].strip()
+            elif line.startswith("core id"):
+                core = line.split(":")[1].strip()
+            elif not line.strip():
+                if core is not None:
+                    pairs.add((phys, core))
+                phys, core = None, None
+        return len(pairs) or None
+    except OSError:
+        return None
+
+
+def visible_gpu_ids() -> Optional[List[str]]:
+    """CUDA_VISIBLE_DEVICES as a list (None = not set; [] = none visible)."""
+    v = os.environ.get("CUDA_VISIBLE_DEVICES")
+    if v is None:
+        return None
+    return [x.strip() for x in v.split(",") if x.strip() and x.strip() != "-1"]
+
+
+def _nvidia_smi_gpus() -> List[dict]:
+    try:
+        r = subprocess.run(["nvidia-smi", "--query-gpu=index,uuid,name,memory.total,memory.free,compute_cap",
+                            "--format=csv,noheader,nounits"], capture_output=True, text=True, timeout=30)
+    except (OSError, subprocess.TimeoutExpired):
+        return []
+    if r.returncode != 0:
+        return []
+    gpus = []
+    for line in r.stdout.strip().splitlines():
+        f = [x.strip() for x in line.split(",")]
+        if len(f) < 6:
+            continue
+        gpus.append({"index": int(f[0]), "uuid": f[1], "name": f[2], "total_bytes": int(float(f[3])) * 2 ** 20,
+                     "free_bytes": int(float(f[4])) * 2 ** 20, "compute_cap": f[5]})
+    vis = visible_gpu_ids()
+    if vis is not None:                      # keep the visible ones, in CUDA_VISIBLE_DEVICES order
+        by = {str(g["index"]): g for g in gpus} | {g["uuid"]: g for g in gpus}
+        gpus = [by[v] for v in vis if v in by]
+    return gpus
+
+
+def probe_machine(cache_root: Optional[Path] = None) -> dict:
+    """What this machine has, measured without initialising CUDA (nvidia-smi), so a scheduler can call it.
+    HL_FAKE_PROBE=<json file> replaces the measurement (tests, dry runs on a machine without the GPUs)."""
+    fake = os.environ.get("HL_FAKE_PROBE")
+    if fake:
+        d = json.loads(Path(fake).read_text())
+        d.setdefault("source", f"fake:{fake}")
+        return d
+    mi = _meminfo()
+    logical = os.cpu_count() or 1
+    try:
+        affinity = len(os.sched_getaffinity(0))
+    except (AttributeError, OSError):
+        affinity = logical
+    du = shutil.disk_usage(cache_root) if cache_root and Path(cache_root).exists() else None
+    return {"source": "nvidia-smi + /proc", "gpus": _nvidia_smi_gpus(),
+            "ram_total_bytes": mi.get("MemTotal"), "ram_available_bytes": mi.get("MemAvailable"),
+            "cpu_logical": logical, "cpu_affinity": affinity, "cpu_physical": _physical_cores() or max(1, affinity // 2),
+            "disk_free_bytes": du.free if du else None, "cuda_visible_devices": os.environ.get("CUDA_VISIBLE_DEVICES")}
+
+
+def device_memory(device: torch.device) -> Optional[dict]:
+    """Measured free / total bytes of the device this process computes on (None on CPU)."""
+    if not is_cuda(device):
+        return None
+    free, total = torch.cuda.mem_get_info(device)
+    return {"free_bytes": int(free), "total_bytes": int(total), "name": torch.cuda.get_device_properties(device).name}
+
+
+def set_threads(n: Optional[int]) -> int:
+    """Intra-op CPU threads for this process (torch + the BLAS env read by child processes)."""
+    if n:
+        torch.set_num_threads(int(n))
+        for v in ("OMP_NUM_THREADS", "MKL_NUM_THREADS", "OPENBLAS_NUM_THREADS"):
+            os.environ[v] = str(int(n))
+    return torch.get_num_threads()

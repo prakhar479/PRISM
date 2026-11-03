@@ -18,7 +18,7 @@ import numpy as np
 import torch
 
 from harness.batching import Budget, group_by_length
-from harness.cache import Cache, Entry
+from harness.cache import Cache, Entry, lock_many
 from harness.conditions import Spans
 from harness.device import is_oom, empty_cache
 from harness.model import ModelSpec, final_outputs, hook_name
@@ -56,9 +56,18 @@ def _forward_capture(model, tokens: torch.Tensor, layers: Sequence[int], bi: tor
     return logits, got
 
 
-@torch.inference_mode()
 def stage1(model, spec: ModelSpec, rows: Sequence[dict], set_hash: str, layers: Sequence[int], cache: Cache,
            budget: Budget, device, shard_pairs: int = 96) -> dict:
+    """Stage-1 fill under writer locks on every entry it writes (concurrent processes: one fills, the others wait and
+    then find the shards done)."""
+    out_e, span_e = entries_stage1(cache, spec, set_hash, layers)
+    with lock_many([out_e, *span_e.values()]):
+        return _stage1_fill(model, spec, rows, set_hash, layers, cache, budget, device, shard_pairs)
+
+
+@torch.inference_mode()
+def _stage1_fill(model, spec: ModelSpec, rows: Sequence[dict], set_hash: str, layers: Sequence[int], cache: Cache,
+                 budget: Budget, device, shard_pairs: int = 96) -> dict:
     out_e, span_e = entries_stage1(cache, spec, set_hash, layers)
     out_e.open()
     for e in span_e.values():
@@ -162,8 +171,13 @@ def last_rows(sp: Spans) -> torch.Tensor:
     return torch.from_numpy(sp.row_ptr[1:] - 1).long()
 
 
-@torch.inference_mode()
 def stage2(cache: Cache, spans_entry: Entry, sae, sae_key: dict, device, block_latents: Optional[int] = None) -> Entry:
+    with cache.entry("sae_out", spans=spans_entry.key, sae=sae_key).writer_lock():
+        return _stage2_fill(cache, spans_entry, sae, sae_key, device, block_latents)
+
+
+@torch.inference_mode()
+def _stage2_fill(cache: Cache, spans_entry: Entry, sae, sae_key: dict, device, block_latents: Optional[int] = None) -> Entry:
     from harness.sae import decompose
 
     spans_entry.require_complete()
@@ -181,9 +195,15 @@ def stage2(cache: Cache, spans_entry: Entry, sae, sae_key: dict, device, block_l
     return e
 
 
-@torch.inference_mode()
 def stage2_codes(cache: Cache, spans_entry: Entry, sae, sae_key: dict, device, alpha_min: float,
                  block_latents: Optional[int] = None) -> Tuple[Entry, Entry]:
+    with cache.entry("sae_codes", spans=spans_entry.key, sae=sae_key, alpha_min=float(alpha_min)).writer_lock():
+        return _stage2_codes_fill(cache, spans_entry, sae, sae_key, device, alpha_min, block_latents)
+
+
+@torch.inference_mode()
+def _stage2_codes_fill(cache: Cache, spans_entry: Entry, sae, sae_key: dict, device, alpha_min: float,
+                       block_latents: Optional[int] = None) -> Tuple[Entry, Entry]:
     """E5: sparse sub-threshold codes of the clean prompt A (entries alpha_min*theta <= z <= theta, z > 0; rows local
     to each spans shard) and a DecoderTable with the W_dec rows of every latent that occurs. No model involved."""
     from harness.sae import DecoderTable, encode_sparse, subthreshold_only
@@ -305,9 +325,17 @@ def _run_chunk(model, rows, pidx, kb, chunk, conds, ptr, layer, T, tB, R, device
     return [lg[j * b:(j + 1) * b] for j in range(len(chunk))]
 
 
-@torch.inference_mode()
 def stage1_generic(model, spec: ModelSpec, ids: Sequence[Sequence[int]], corpus_hash: str, layers: Sequence[int],
                    skip: int, cache: Cache, budget: Budget, device, shard_docs: int = 16) -> Dict[int, Entry]:
+    ents = [cache.entry("generic_resid", model=spec.key(), corpus=corpus_hash, layer=int(L), skip=skip, site=spec.site)
+            for L in layers]
+    with lock_many(ents):
+        return _stage1_generic_fill(model, spec, ids, corpus_hash, layers, skip, cache, budget, device, shard_docs)
+
+
+@torch.inference_mode()
+def _stage1_generic_fill(model, spec: ModelSpec, ids: Sequence[Sequence[int]], corpus_hash: str, layers: Sequence[int],
+                         skip: int, cache: Cache, budget: Budget, device, shard_docs: int = 16) -> Dict[int, Entry]:
     """Residuals of generic text at positions >= skip (pilot: BOS / attention-sink positions excluded) per layer."""
     ents = {L: cache.entry("generic_resid", model=spec.key(), corpus=corpus_hash, layer=int(L), skip=skip, site=spec.site).open()
             for L in layers}
@@ -344,8 +372,13 @@ def stage1_generic(model, spec: ModelSpec, ids: Sequence[Sequence[int]], corpus_
     return ents
 
 
-@torch.inference_mode()
 def stage2_generic(cache: Cache, ent: Entry, sae, sae_key: dict, device, block_latents: Optional[int] = None) -> Entry:
+    with cache.entry("generic_sae", resid=ent.key, sae=sae_key).writer_lock():
+        return _stage2_generic_fill(cache, ent, sae, sae_key, device, block_latents)
+
+
+@torch.inference_mode()
+def _stage2_generic_fill(cache: Cache, ent: Entry, sae, sae_key: dict, device, block_latents: Optional[int] = None) -> Entry:
     from harness.sae import decompose
 
     ent.require_complete()

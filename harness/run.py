@@ -28,12 +28,14 @@ import torch
 from harness import conditions as C
 from harness import directions as Dr
 from harness import memory, provenance
+from harness import parallel as Par
 from harness import families as F
 from harness import tasks as T
 from harness.batching import Budget
-from harness.cache import Cache
+from harness.cache import Cache, atomic_write_text
 from harness.config import ExpConfig
-from harness.device import cap_memory, dtype_name, empty_cache, peak_bytes, reset_peak, resolve_device
+from harness.device import (cap_memory, device_memory, dtype_name, empty_cache, peak_bytes, probe_machine, reset_peak,
+                            resolve_device, set_threads)
 from harness.model import ModelSpec, build_model
 from harness.model import stages as S
 from harness.profile import REPO_ROOT, Profile, load_profile
@@ -71,6 +73,8 @@ class Runner:
     def __init__(self, cfg: ExpConfig, prof: Profile, args) -> None:
         self.cfg, self.prof, self.args = cfg, prof, args
         self.tiny, self.smoke = bool(args.tiny), bool(args.smoke)
+        self.worker = getattr(args, "worker", None) or Par.worker_id()      # multi-GPU stage-3 worker id
+        self.resources: dict = {}                                            # measured machine + resolved autos
         # a dry run plans for the profile's machine without touching any device
         self.device = torch.device("cpu") if (self.tiny or getattr(args, "dry_run", False)) else resolve_device(prof.device)
         self.cache = Cache(prof.root("cache_root") if not self.tiny else REPO_ROOT / "tests" / "_tiny_cache")
@@ -201,7 +205,9 @@ class Runner:
         if self.model is None:
             t0 = time.time()
             tok = None
-            self.model = build_model(self.spec, self.device, offload_embed=self.prof.offload_embed, tokenizer=tok)
+            need = 0 if self.tiny else 2 * memory.model_bytes(self.spec.dtype)
+            with Par.reserve_ram(self.prof.root("cache_root"), need, "model load"):
+                self.model = build_model(self.spec, self.device, offload_embed=self.prof.offload_embed, tokenizer=tok)
             self.timings["model_load_s"] = round(time.time() - t0, 1)
         return self.model
 
@@ -256,37 +262,49 @@ class Runner:
         if self.model is not None:                          # stage 2 never shares the GPU with the model
             self.free_model()
         skipped = self.skipped_saes()
-        for _, jobs in by_sae.items():                     # one SAE resident at a time
+        groups = list(by_sae.items())
+        sl = getattr(self.args, "stage2_slice", None)
+        if sl:                                             # disjoint SAE groups per process (multi-GPU warm-up)
+            i, n = (int(x) for x in sl.split("/"))
+            groups = [g for k, g in enumerate(sorted(groups, key=lambda kv: kv[0])) if k % n == i]
+        for _, jobs in groups:                             # one SAE resident at a time
             sid = jobs[0][3]
             est = memory.stage2(self.prof, sid.width, cap)
             if all(self.stage2_done(j) for j in jobs):
                 continue
             need = memory.sae_bytes(sid.width, memory.sae_dtype_for(sid.width, self.prof))
             from src.models.runtime import available_ram
-            avail = available_ram()
+            # in parallel mode a short dip in free RAM is waited out (reserve_ram), never recorded as a skip; only an
+            # SAE that cannot fit the machine's whole budget is skipped
+            avail = Par.ram_budget() if Par.parallel_mode() else available_ram()
             if not self.tiny and need * RAM_MARGIN > avail:
                 skipped[sid.key] = (f"needs {need / 2 ** 30:.1f} GiB host RAM (x{RAM_MARGIN} margin), "
                                     f"{avail / 2 ** 30:.1f} GiB available")
                 log.warning("skipping SAE %s: %s", sid.key, skipped[sid.key])
                 self.write_skipped(skipped)
                 continue
-            sae = self.get_sae(sid)
-            dev = self.device if est.placement in ("gpu", "blockwise-gpu") else torch.device("cpu")
-            if est.placement == "gpu" and not self.tiny:
-                sae.to_device(dev)
-            t0 = time.time()
-            for kind, t, L, _ in jobs:
-                if kind == "task":
-                    S.stage2(self.cache, self.spans_entry(t, L), sae, self.sae_key(sid), dev, est.block_latents)
-                    if self.cfg.subthresh:
-                        S.stage2_codes(self.cache, self.spans_entry(t, L), sae, self.sae_key(sid), dev,
-                                       self.cfg.subthresh.alpha_min, est.block_latents)
-                else:
-                    r, _ = self.generic_entries(L, sid)
-                    S.stage2_generic(self.cache, r, sae, self.sae_key(sid), dev, est.block_latents)
-            self.timings[f"stage2_{sid.key}_s"] = round(time.time() - t0, 1)
-            del sae
-            empty_cache()
+            with Par.reserve_ram(self.prof.root("cache_root"), 0 if self.tiny else int(need * RAM_MARGIN), sid.key):
+                self._stage2_group(sid, jobs, est)
+
+    def _stage2_group(self, sid, jobs, est):
+        """Run every stage-2 job of one SAE (loaded once, freed after)."""
+        sae = self.get_sae(sid)
+        dev = self.device if est.placement in ("gpu", "blockwise-gpu") else torch.device("cpu")
+        if est.placement == "gpu" and not self.tiny:
+            sae.to_device(dev)
+        t0 = time.time()
+        for kind, t, L, _ in jobs:
+            if kind == "task":
+                S.stage2(self.cache, self.spans_entry(t, L), sae, self.sae_key(sid), dev, est.block_latents)
+                if self.cfg.subthresh:
+                    S.stage2_codes(self.cache, self.spans_entry(t, L), sae, self.sae_key(sid), dev,
+                                   self.cfg.subthresh.alpha_min, est.block_latents)
+            else:
+                r, _ = self.generic_entries(L, sid)
+                S.stage2_generic(self.cache, r, sae, self.sae_key(sid), dev, est.block_latents)
+        self.timings[f"stage2_{sid.key}_s"] = round(time.time() - t0, 1)
+        del sae
+        empty_cache()
 
     def stage2_done(self, job) -> bool:
         kind, t, L, sid = job
@@ -299,7 +317,7 @@ class Runner:
 
     def write_skipped(self, skipped: Dict[str, str]) -> None:
         self.run_dir.mkdir(parents=True, exist_ok=True)
-        (self.run_dir / "skipped_saes.json").write_text(json.dumps(skipped, indent=1))
+        atomic_write_text(self.run_dir / "skipped_saes.json", json.dumps(skipped, indent=1))
 
     # ------------------------------------------------------------------ selection / fitting
     def flags(self, task):
@@ -468,16 +486,21 @@ class Runner:
             return C.build(n, test, eps_C=eC)
         return C.build(n, test)
 
-    def run_stage3(self):
+    def run_stage3(self, compute: bool = True):
+        """compute=False (--finalize-only): walk every cell on CPU to rebuild its checks, and require every unit done.
+        With a worker id (multi-GPU), units are claimed (O_EXCL) so concurrent workers never compute the same one."""
         model = None
         parts = self.run_dir / "parts"
         parts.mkdir(parents=True, exist_ok=True)
         skipped = self.skipped_saes()
+        missing = []
         for cell in self.cfg.cells:
             sid = self.sae_id(cell.layer, cell.sae)
             if sid.key in skipped:
                 log.warning("cell %s %s skipped: %s", cell.task, sid.key, skipped[sid.key])
-                self.checks.append({"cell": f"{cell.task}_{sid.key}{cell.tag()}", "role": cell.role, "skipped": skipped[sid.key]})
+                ck = {"cell": f"{cell.task}_{sid.key}{cell.tag()}", "role": cell.role, "skipped": skipped[sid.key]}
+                self.checks.append(ck)
+                atomic_write_text(parts / f"{ck['cell']}.checks.json", json.dumps(ck, indent=1, default=str))
                 continue
             rows = self.rows[cell.task]
             cl, fl = self.flags(cell.task)
@@ -490,14 +513,27 @@ class Runner:
             donors = {"same": C.select_donors(test.meta, True, self.cfg.seed), "diff": C.select_donors(test.meta, False, self.cfg.seed)}
             specs = self.cell_specs(cell, sid, test, bun, te)
             cell_key = f"{cell.task}_{sid.key}{cell.tag()}"
-            self.record_cell(cell, sid, rows, fl, sel, te, bun, test)
+            self.record_cell(cell, sid, rows, fl, sel, te, bun, test, parts / f"{cell_key}.checks.json")
             base = self.base_rows(cell, sid, rows, fl, te, cl, test)
             pq = parts / f"{cell_key}__clean.parquet"
-            if not pq.exists():
-                pd.DataFrame(base).to_parquet(pq)
+            if not (parts / f"{cell_key}__clean.done").exists():
+                tmp = pq.with_name(f"{pq.name}.tmp.{os.getpid()}")
+                pd.DataFrame(base).to_parquet(tmp)
+                os.replace(tmp, pq)                          # identical content whichever worker writes it
+                atomic_write_text(parts / f"{cell_key}__clean.done", "")
             for u in range(0, len(specs), UNIT_SIZE):
-                done = parts / f"{cell_key}__{u // UNIT_SIZE:04d}.done"
+                stem = f"{cell_key}__{u // UNIT_SIZE:04d}"
+                done = parts / f"{stem}.done"
                 if done.exists():
+                    continue
+                if not compute:
+                    missing.append(stem)
+                    continue
+                cl_path = parts / f"{stem}.claim"
+                if self.worker and not Par.claim(cl_path, self.worker):
+                    continue                                 # another live worker owns this unit
+                if done.exists():                            # finished between our check and the claim
+                    Par.release(cl_path)
                     continue
                 if model is None:
                     model = self.load_model()
@@ -514,10 +550,19 @@ class Runner:
                         if sp["condition"].startswith("feat_A_resampC"):
                             ds = donors["same" if sp["condition"].endswith("sameAns") else "diff"][k]["status"]
                         recs.append(self.pair_record(cell, sid, rows[pi], fl, pi, sp, o, k, ds))
-                pd.DataFrame(recs).to_parquet(parts / f"{cell_key}__{u // UNIT_SIZE:04d}.parquet")
-                done.write_text(json.dumps({"seconds": round(time.time() - t0, 1), "n_conditions": len(chunk)}))
+                tmp = parts / f"{stem}.parquet.tmp.{os.getpid()}"
+                pd.DataFrame(recs).to_parquet(tmp)
+                os.replace(tmp, parts / f"{stem}.parquet")
+                atomic_write_text(done, json.dumps({"seconds": round(time.time() - t0, 1), "n_conditions": len(chunk),
+                                                    "worker": self.worker, "max_tokens": self.budget.max_tokens,
+                                                    "backoffs": self.budget.backoffs}))
+                if self.worker:
+                    Par.release(cl_path)
                 log.info("%s unit %d/%d (%d conditions, %.1fs)", cell_key, u // UNIT_SIZE + 1,
                          (len(specs) + UNIT_SIZE - 1) // UNIT_SIZE, len(chunk), time.time() - t0)
+        if missing:
+            raise RuntimeError(f"finalize: {len(missing)} stage-3 units are not done (e.g. {missing[:3]}); "
+                               "run the workers to completion first")
 
     def pair_record(self, cell, sid, r, fl, pi, sp, o, k, donor_status) -> dict:
         rec = {"pair_id": r["pair_id"], "split": r["split"], "family": r.get("family", "pilot"), "task": cell.task,
@@ -538,7 +583,7 @@ class Runner:
             out.append(self.pair_record(cell, sid, rows[pi], fl, pi, sp, o, 0, "n/a"))
         return out
 
-    def record_cell(self, cell, sid, rows, fl, sel, te, bun, test):
+    def record_cell(self, cell, sid, rows, fl, sel, te, bun, test, checks_path: Optional[Path] = None):
         keep = {}
         for split in ("train", "test"):
             idx = [i for i, r in enumerate(rows) if r["split"] == split]
@@ -556,6 +601,8 @@ class Runner:
                             "rel_err_norm_test": float((test.e_A.norm(dim=-1) / test.x_A.norm(dim=-1)).mean()),
                             "mean_pos_coverage": (bun.mean_err.per_row(test), bun.mean_err.last_coverage)[1],
                             **({"generic": self.generic_stats(cell.layer, sid)} if self.cfg.generic_l0 else {})})
+        if checks_path is not None:                      # finalize merges these (workers each see only some cells)
+            atomic_write_text(checks_path, json.dumps(self.checks[-1], indent=1, default=str))
 
     def generic_stats(self, layer, sid) -> dict:
         """Realized L0 and error energy sum||eps||^2 / sum||x||^2 of the cell's SAE on the generic set (E4)."""
@@ -569,9 +616,14 @@ class Runner:
     def finalize(self) -> None:
         from harness.analysis import add_gaps, summarize
 
-        parts = sorted((self.run_dir / "parts").glob("*.parquet"))
+        pdir = self.run_dir / "parts"
+        parts = sorted(p for p in pdir.glob("*.parquet") if (pdir / f"{p.stem}.done").exists())
         if not parts:
             return
+        order = [f"{c.task}_{self.sae_id(c.layer, c.sae).key}{c.tag()}" for c in self.cfg.cells]
+        disk = {p.name[:-len(".checks.json")]: json.loads(p.read_text()) for p in pdir.glob("*.checks.json")}
+        if disk:
+            self.checks = [disk[k] for k in order if k in disk]
         pp = pd.concat([pd.read_parquet(p) for p in parts], ignore_index=True)
         pp.to_parquet(self.run_dir / "per_pair.parquet")
         summ = add_gaps(summarize(pp, self.cfg.filters, n_boot=self.cfg.bootstrap, seed=self.cfg.seed))
@@ -605,7 +657,9 @@ class Runner:
                        "random_seeds": self.cfg.directions.random_seeds if self.cfg.directions else 0},
              "timings": self.timings, "budget": {"max_tokens": self.budget.max_tokens, "backoffs": self.budget.backoffs},
              "peak_gpu_gb": round(peak_bytes(self.device) / 2 ** 30, 2), "cells": self.checks,
-             "allow_dirty": bool(self.args.allow_dirty),
+             "allow_dirty": bool(self.args.allow_dirty), "worker": self.worker,
+             "resources": {k: v for k, v in self.resources.items() if k != "probe"},
+             "machine_probe": self.resources.get("probe"),
              "filters_overridden": "tiny: all filter flags set to True" if self.tiny else None}
         m["config_file"] = str(Path(self.args.config).resolve().relative_to(REPO_ROOT)) if Path(self.args.config).resolve().is_relative_to(REPO_ROOT) else Path(self.args.config).name
         for k in ("cache_root", "data_root", "runs_root", "hf_home"):
@@ -625,15 +679,32 @@ def main(argv=None) -> int:
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--tiny", action="store_true", help="tiny random model + random SAEs (tests only)")
     ap.add_argument("--allow-dirty", action="store_true")
+    ap.add_argument("--worker", default=None, help="stage-3 worker id: claim units so several workers share a run")
+    ap.add_argument("--finalize-only", action="store_true",
+                    help="no model: require every stage-3 unit done, merge parts and checks, write the run's manifest")
+    ap.add_argument("--stage2-slice", default=None, help="i/n: only the i-th of n disjoint SAE groups (stage 2)")
+    ap.add_argument("--max-batch-tokens", type=int, default=None, help="pin the token budget (overrides auto)")
     a = ap.parse_args(argv)
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s", force=True)
     cfg = ExpConfig.load(a.config)
     prof = load_profile(a.profile)
     prof.check_experiment(cfg.exp_id)
     prof.apply_env()
+    # measure the machine, then replace every `auto` profile value by a measured one (plan step 2-4)
+    probe = probe_machine(prof.root("cache_root"))
+    dev_mem = None
+    if not (a.tiny or a.dry_run or a.finalize_only):
+        dev_mem = device_memory(resolve_device(prof.device))
+    prof, resources = memory.resolve_resources(prof, probe, dev_mem)
+    if a.max_batch_tokens:
+        import dataclasses
+        prof = dataclasses.replace(prof, max_batch_tokens=a.max_batch_tokens)
+        resources.setdefault("rules", {})["max_batch_tokens"] = "pinned by --max-batch-tokens"
+    resources["cpu_threads"] = set_threads(prof.cpu_threads if isinstance(prof.cpu_threads, int) else None)
     if not a.tiny and not cfg.model_revision:
         raise SystemExit(f"{a.config}: model_revision must be pinned")
     R = Runner(cfg, prof, a)
+    R.resources = resources
     if a.dry_run:
         p = R.plan()
         print(json.dumps(p, indent=1))
@@ -643,7 +714,8 @@ def main(argv=None) -> int:
     if R.git["dirty"] and not (a.allow_dirty or a.smoke or a.tiny):
         raise SystemExit("working tree is dirty: commit, or pass --allow-dirty (recorded in the manifest)")
     R.run_dir.mkdir(parents=True, exist_ok=True)
-    fh = logging.FileHandler(R.run_dir / "log.txt")
+    tag = f".w{R.worker}" if R.worker else ""            # one log / manifest per worker; only finalize writes the run's
+    fh = logging.FileHandler(R.run_dir / f"log{tag}.txt")
     fh.setFormatter(logging.Formatter("%(asctime)s %(levelname)s %(message)s"))
     logging.getLogger().addHandler(fh)
     cap_memory(R.device, prof.gpu_mem_cap_gb)
@@ -651,6 +723,19 @@ def main(argv=None) -> int:
     t0 = time.time()
     stages = ["1", "2", "3"] if a.stage == "all" else [a.stage]
     status = "running"
+    if a.finalize_only:
+        try:
+            R.run_stage3(compute=False)
+            R.finalize()
+            status = "complete"
+            return 0
+        except Exception:
+            status = "failed"
+            log.exception("finalize failed")
+            return 1
+        finally:
+            atomic_write_text(R.run_dir / "manifest.json", json.dumps(R.manifest(status, t0, ["finalize"]), indent=1, default=str))
+            log.info("%s finalize -> %s (%s)", cfg.exp_id, R.run_dir, status)
     try:
         for s in stages:
             ts = time.time()
@@ -658,16 +743,20 @@ def main(argv=None) -> int:
             R.timings[f"stage{s}_total_s"] = round(time.time() - ts, 1)
             if s == "1":
                 R.free_model()
-        if "3" in stages:
+        if "3" in stages and not R.worker:
             R.finalize()
-        status = "complete" if "3" in stages else f"stage{stages[-1]}_complete"
+        status = ("complete" if "3" in stages and not R.worker else
+                  "worker_done" if R.worker else f"stage{stages[-1]}_complete")
         return 0
     except Exception:
         status = "failed"
         log.exception("run failed")
         return 1
     finally:
-        (R.run_dir / "manifest.json").write_text(json.dumps(R.manifest(status, t0, stages), indent=1, default=str))
+        name = f"manifest{tag}.json" if (R.worker or a.stage2_slice or a.stage != "all") else "manifest.json"
+        if a.stage != "all" and not R.worker and not a.stage2_slice and (R.run_dir / "manifest.json").exists():
+            name = f"manifest.stage{a.stage}.json"     # a partial-stage process never overwrites a complete manifest
+        atomic_write_text(R.run_dir / name, json.dumps(R.manifest(status, t0, stages), indent=1, default=str))
         log.info("%s -> %s (%s)", cfg.exp_id, R.run_dir, status)
 
 

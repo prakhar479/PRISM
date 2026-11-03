@@ -3,6 +3,10 @@
     HL_PROFILE      profile name when none is passed explicitly (default: dev)
     HL_CACHE_ROOT   cache_root      HL_DATA_ROOT  data_root      HL_RUNS_ROOT  runs_root
     HL_DEVICE       device          HF_HOME       hf_home (also exported for huggingface_hub)
+    HL_MAX_BATCH_TOKENS  max_batch_tokens (the multi-GPU scheduler pins one budget per experiment)
+    HL_CPU_THREADS       cpu_threads (set per worker by the scheduler: physical cores / concurrent workers)
+Values may be `auto` (gpu_mem_cap_gb, max_batch_tokens, max_batch_size, offload_embed, cpu_threads): they are measured
+and resolved at start by harness.memory.resolve_resources (profiles/server.yaml).
 Relative roots resolve against the repo root. The resolved profile is stored in every run manifest.
 """
 from __future__ import annotations
@@ -10,14 +14,16 @@ from __future__ import annotations
 import os
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
-from typing import List, Optional
+from typing import List, Optional, Union
 
 import yaml
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 PROFILE_DIR = REPO_ROOT / "profiles"
 ENV_KEYS = {"HL_CACHE_ROOT": "cache_root", "HL_DATA_ROOT": "data_root", "HL_RUNS_ROOT": "runs_root",
-            "HL_DEVICE": "device", "HF_HOME": "hf_home"}
+            "HL_DEVICE": "device", "HF_HOME": "hf_home", "HL_MAX_BATCH_TOKENS": "max_batch_tokens",
+            "HL_CPU_THREADS": "cpu_threads"}
+AUTO_KEYS = ("gpu_mem_cap_gb", "max_batch_tokens", "max_batch_size", "offload_embed", "cpu_threads")
 
 
 @dataclass
@@ -34,14 +40,19 @@ class Profile:
     hf_home: Optional[str] = None
     offline: bool = False
     batch_size: int = 8
-    max_batch_size: int = 64
-    max_batch_tokens: int = 4096
-    gpu_mem_cap_gb: Optional[float] = None
+    max_batch_size: Union[int, str] = 64
+    max_batch_tokens: Union[int, str] = 4096
+    gpu_mem_cap_gb: Optional[Union[float, str]] = None
     cpu_workers: int = 2
-    offload_embed: bool = False
+    offload_embed: Union[bool, str] = False
+    cpu_threads: Optional[Union[int, str]] = None       # None = leave torch's default
+    vram_headroom_gb: float = 0.6                       # kept free per GPU when gpu_mem_cap_gb is auto
     allowed_experiments: List[str] = field(default_factory=list)
     allow_real_model: bool = False
     sources: List[str] = field(default_factory=list)      # files / env vars that set values (provenance)
+
+    def is_auto(self, key: str) -> bool:
+        return str(getattr(self, key)).lower() == "auto"
 
     def root(self, key: str) -> Path:
         """Absolute path of cache_root / data_root / runs_root."""
@@ -84,7 +95,8 @@ def load_profile(name: Optional[str] = None, env: Optional[dict] = None, profile
         sources.append("profiles/local.yaml")
     for var, key in ENV_KEYS.items():
         if env.get(var):
-            data[key] = env[var]
+            v = env[var]
+            data[key] = int(v) if key in ("max_batch_tokens", "cpu_threads") and str(v).isdigit() else v
             sources.append(f"env:{var}")
     known = {f for f in Profile.__dataclass_fields__}
     unknown = set(data) - known

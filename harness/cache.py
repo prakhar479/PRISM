@@ -4,11 +4,20 @@ re-derives the key and refuses an entry whose stored parts differ (never silentl
 
 Writers fill an entry shard by shard (resumable: finished shards have a .done sentinel) and mark it complete with
 _COMPLETE. Tensors are safetensors; small tables are parquet / json.
+
+Concurrency (several processes on one machine, e.g. one per GPU): every file is written to a per-process temporary
+name and published with os.replace, so a reader never sees a half-written file and two writers never share a temp
+file. `writer_lock()` serialises writers of ONE entry with flock; the scheduler additionally never schedules two
+writers of the same entry. flock is unreliable on network filesystems, so there it only warns.
 """
 from __future__ import annotations
 
+import contextlib
+import fcntl
 import hashlib
 import json
+import logging
+import os
 import shutil
 from pathlib import Path
 from typing import Dict, Iterable, List, Optional
@@ -17,6 +26,30 @@ import torch
 from safetensors.torch import load_file, save_file
 
 CACHE_FORMAT = 1
+NETWORK_FS = ("nfs", "nfs4", "cifs", "smbfs", "fuse", "fuse.sshfs", "lustre", "gpfs", "ceph", "9p")
+log = logging.getLogger("harness")
+
+
+def atomic_write_text(path: Path, text: str) -> None:
+    """Write via a per-process temporary file and os.replace (atomic on POSIX)."""
+    path = Path(path)
+    tmp = path.with_name(f"{path.name}.tmp.{os.getpid()}")
+    tmp.write_text(text)
+    os.replace(tmp, path)
+
+
+def fs_type(path: Path) -> str:
+    """Filesystem type of the mount holding `path` (from /proc/mounts; '' if unknown)."""
+    try:
+        p = os.path.realpath(path)
+        best, typ = "", ""
+        for line in Path("/proc/mounts").read_text().splitlines():
+            f = line.split()
+            if len(f) >= 3 and (p == f[1] or p.startswith(f[1].rstrip("/") + "/")) and len(f[1]) > len(best):
+                best, typ = f[1], f[2]
+        return typ
+    except OSError:
+        return ""
 
 
 def key_of(parts: dict) -> str:
@@ -44,15 +77,32 @@ class Entry:
             if stored != json.loads(json.dumps(self.parts, sort_keys=True, default=str)):
                 raise StaleCacheError(f"{self.dir}: stored key parts differ from requested ones")
         else:
-            kp.write_text(json.dumps(self.parts, sort_keys=True, indent=1, default=str))
+            atomic_write_text(kp, json.dumps(self.parts, sort_keys=True, indent=1, default=str))
         return self
+
+    @contextlib.contextmanager
+    def writer_lock(self):
+        """Exclusive lock on this entry while filling it (released when the process exits, even on a crash).
+        Callers re-check shard_done() / complete after acquiring it."""
+        self.dir.mkdir(parents=True, exist_ok=True)
+        if fs_type(self.dir).startswith(NETWORK_FS):
+            log.warning("cache %s is on %s: flock is unreliable there, relying on the scheduler alone",
+                        self.dir, fs_type(self.dir))
+            yield self
+            return
+        with open(self.dir / ".lock", "w") as fh:
+            fcntl.flock(fh, fcntl.LOCK_EX)
+            try:
+                yield self
+            finally:
+                fcntl.flock(fh, fcntl.LOCK_UN)
 
     @property
     def complete(self) -> bool:
         return (self.dir / "_COMPLETE").exists()
 
     def mark_complete(self, info: Optional[dict] = None) -> None:
-        (self.dir / "_COMPLETE").write_text(json.dumps(info or {}, default=str))
+        atomic_write_text(self.dir / "_COMPLETE", json.dumps(info or {}, default=str))
 
     def require_complete(self) -> "Entry":
         if not self.complete:
@@ -70,10 +120,10 @@ class Entry:
         return (self.dir / f"shard_{i:05d}.done").exists()
 
     def write_shard(self, i: int, tensors: Dict[str, torch.Tensor], meta: Optional[dict] = None) -> None:
-        tmp = self.dir / f"shard_{i:05d}.safetensors.tmp"
+        tmp = self.dir / f"shard_{i:05d}.safetensors.tmp.{os.getpid()}"
         save_file({k: v.contiguous().cpu() for k, v in tensors.items()}, str(tmp), metadata={"meta": json.dumps(meta or {})})
-        tmp.rename(self.dir / f"shard_{i:05d}.safetensors")
-        (self.dir / f"shard_{i:05d}.done").write_text("")
+        os.replace(tmp, self.dir / f"shard_{i:05d}.safetensors")
+        atomic_write_text(self.dir / f"shard_{i:05d}.done", "")
 
     def shards(self) -> List[int]:
         return sorted(int(p.stem.split("_")[1]) for p in self.dir.glob("shard_*.done"))
@@ -91,7 +141,7 @@ class Entry:
         return {n: torch.cat(v) if v else torch.zeros(0) for n, v in parts.items()}
 
     def write_json(self, name: str, obj) -> None:
-        (self.dir / name).write_text(json.dumps(obj, indent=1, default=str))
+        atomic_write_text(self.dir / name, json.dumps(obj, indent=1, default=str))
 
     def read_json(self, name: str):
         return json.loads((self.dir / name).read_text())
@@ -107,3 +157,12 @@ class Cache:
 
     def entry(self, kind: str, **parts) -> Entry:
         return Entry(self.root, kind, parts)
+
+
+@contextlib.contextmanager
+def lock_many(entries: Iterable[Entry]):
+    """Writer locks on several entries, always taken in key order (two processes cannot deadlock)."""
+    with contextlib.ExitStack() as stack:
+        for e in sorted({e.dir: e for e in entries}.values(), key=lambda e: (e.kind, e.key)):
+            stack.enter_context(e.writer_lock())
+        yield

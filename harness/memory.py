@@ -2,6 +2,7 @@
 runner's --dry-run. Numbers are deliberately conservative; preflight measurements refine the time side."""
 from __future__ import annotations
 
+import os
 from dataclasses import dataclass
 from typing import Optional
 
@@ -87,3 +88,60 @@ def stage2(profile, width: str, cap_bytes: Optional[int], rows_block: int = 8192
 
 def fits(est: Estimate, cap_bytes: Optional[int]) -> bool:
     return cap_bytes is None or est.peak_bytes <= cap_bytes
+
+
+# --------------------------------------------------------------------------- measured sizing (plan step 2/4)
+TOKENS_MIN, TOKENS_MAX = 1024, 32768
+ROWS_MIN, ROWS_MAX = 64, 256
+ACT_FRACTION = 0.4                     # share of the memory left after the model given to one forward (preflight measures it)
+
+
+def auto_budget(cap_bytes: int, profile_dtype: str, offload_embed: bool) -> tuple:
+    """(max_batch_tokens, max_batch_size) for a device with cap_bytes usable: the activation share of what is left
+    after the CUDA context and the model, by the pilot's BYTES_PER_TOKEN heuristic, rounded down to 512 tokens.
+    Deliberately conservative (OOM backoff still halves it if a forward does not fit)."""
+    free = cap_bytes - CUDA_CONTEXT - model_bytes(profile_dtype, offload_embed)
+    per_tok = BYTES_PER_TOKEN * nbytes(profile_dtype) // 2
+    tokens = int(max(0, free) * ACT_FRACTION) // per_tok // 512 * 512
+    tokens = max(TOKENS_MIN, min(TOKENS_MAX, tokens))
+    rows = max(ROWS_MIN, min(ROWS_MAX, tokens // 128))
+    while rows > ROWS_MIN and forward_bytes(tokens, rows, profile_dtype) > max(0, free):
+        rows //= 2
+    return tokens, rows
+
+
+def resolve_resources(profile, probe: dict, device_mem: Optional[dict] = None):
+    """Profile with every `auto` value replaced by a measured one, plus a record of how (for the manifest).
+
+    device_mem = the measured free/total of the device this process uses (harness.device.device_memory); without it
+    the first GPU of the probe (nvidia-smi) is used; without a GPU, auto values fall back to CPU-safe defaults."""
+    from dataclasses import replace
+
+    gpu = device_mem or ((probe.get("gpus") or [None])[0])
+    total = int(gpu["total_bytes"]) if gpu else None
+    vals, how = {}, {}
+    if profile.is_auto("gpu_mem_cap_gb"):
+        vals["gpu_mem_cap_gb"] = round((total / GiB) - profile.vram_headroom_gb, 2) if total else None
+        how["gpu_mem_cap_gb"] = f"total {total / GiB:.2f} GiB - headroom {profile.vram_headroom_gb}" if total else "no GPU"
+    if profile.is_auto("offload_embed"):
+        vals["offload_embed"] = bool(total and total < 16 * GiB)
+        how["offload_embed"] = "GPU under 16 GiB" if vals["offload_embed"] else "GPU >= 16 GiB (or none)"
+    cap = vals.get("gpu_mem_cap_gb", profile.gpu_mem_cap_gb)
+    offload = vals.get("offload_embed", profile.offload_embed)
+    if profile.is_auto("max_batch_tokens") or profile.is_auto("max_batch_size"):
+        if cap not in (None, "auto"):
+            tok, rows = auto_budget(int(float(cap) * GiB), profile.model_dtype, bool(offload))
+            how["batch"] = f"auto_budget(cap {float(cap):.2f} GiB): {ACT_FRACTION:.0%} of the memory after the model"
+        else:
+            tok, rows = 4096, 64
+            how["batch"] = "no GPU: CPU defaults"
+        if profile.is_auto("max_batch_tokens"):
+            vals["max_batch_tokens"] = tok
+        if profile.is_auto("max_batch_size"):
+            vals["max_batch_size"] = rows
+    if profile.is_auto("cpu_threads"):
+        conc = max(1, int(os.environ.get("HL_CONCURRENT_WORKERS", "1")))
+        vals["cpu_threads"] = max(1, int(probe.get("cpu_physical") or probe.get("cpu_affinity") or 1) // conc)
+        how["cpu_threads"] = f"physical cores {probe.get('cpu_physical')} / {conc} concurrent workers"
+    info = {"probe": probe, "device_memory": device_mem, "resolved": vals, "rules": how}
+    return replace(profile, **vals), info

@@ -83,9 +83,12 @@ import pytest
 import yaml
 
 ROOT = Path(__file__).resolve().parents[2]
+_SUFFIX = f"{os.getpid()}_{int(time.time())}"
 
 
 def _cfg(tmp_path, name):
+    """Tiny E2 config; the name carries a per-test-run suffix (run dirs persist across commits and test sessions)."""
+    name = f"{name}_{_SUFFIX}"
     d = yaml.safe_load((ROOT / "configs" / "experiments" / "E2.yaml").read_text())
     d.update(name=name, cells=d["cells"][:1], bootstrap=20, smoke_pairs=6,
              conditions=["feat_A_errB", "feat_A_meanPos", "feat_B_noise"], noise_seeds=[0, 1])
@@ -102,6 +105,7 @@ def _run(cfg, *extra, env=None):
 
 
 def _run_dir(name):
+    name = f"{name}_{_SUFFIX}"
     hits = []
     for m in (ROOT / "tests" / "_tiny_runs" / "E2").glob("*/manifest*.json"):
         if _json.loads(m.read_text())["config"]["name"] == name:

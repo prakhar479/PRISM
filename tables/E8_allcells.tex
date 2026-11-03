@@ -1,0 +1,676 @@
+\begin{tabular}{llrllrrrlrrr}
+\toprule
+role & task & L & filter & estimator & $r$ & share (same) & best control & control & diff & $p_{adj}$ & to-half $r$ \\
+\midrule
+conf & add\_chain & 18 & f\_A\_correct & answer\_sep & 0 & 0.00 [0.00, 0.00] & 0.00 & other\_task:entity\_track & 0.00 & 1.00 & 4.00 \\
+conf & add\_chain & 18 & f\_A\_correct & answer\_sep & 1 & 0.38 [0.14, 0.59] & 0.03 & random\_p95 & 0.34 & 0.37 & 4.00 \\
+conf & add\_chain & 18 & f\_A\_correct & answer\_sep & 2 & 0.41 [0.20, 0.61] & 0.07 & random\_p95 & 0.34 & 0.31 & 4.00 \\
+conf & add\_chain & 18 & f\_A\_correct & answer\_sep & 4 & 0.62 [0.41, 0.81] & 0.03 & random\_p95 & 0.59 & 0.01 & 4.00 \\
+conf & add\_chain & 18 & f\_A\_correct & answer\_sep & 8 & 0.52 [0.28, 0.72] & 0.07 & random\_p95 & 0.45 & 0.10 & 4.00 \\
+conf & add\_chain & 18 & f\_A\_correct & answer\_sep & 16 & 0.76 [0.59, 0.91] & 0.03 & other\_task:ioi\_control & 0.72 & 0.00 & 4.00 \\
+conf & add\_chain & 18 & f\_A\_correct & answer\_sep & 32 & 0.83 [0.68, 0.96] & 0.07 & generic & 0.76 & 0.00 & 4.00 \\
+conf & add\_chain & 18 & f\_A\_correct & pca\_pooled & 0 & 0.00 [0.00, 0.00] & 0.00 & other\_task:entity\_track & 0.00 & 1.00 & 8.00 \\
+conf & add\_chain & 18 & f\_A\_correct & pca\_pooled & 1 & 0.17 [-0.03, 0.36] & 0.03 & random\_p95 & 0.14 & 0.97 & 8.00 \\
+conf & add\_chain & 18 & f\_A\_correct & pca\_pooled & 2 & 0.24 [-0.06, 0.48] & 0.07 & random\_p95 & 0.17 & 0.83 & 8.00 \\
+conf & add\_chain & 18 & f\_A\_correct & pca\_pooled & 4 & 0.41 [0.17, 0.62] & 0.03 & random\_p95 & 0.38 & 0.26 & 8.00 \\
+conf & add\_chain & 18 & f\_A\_correct & pca\_pooled & 8 & 0.69 [0.48, 0.86] & 0.07 & random\_p95 & 0.62 & 0.01 & 8.00 \\
+conf & add\_chain & 18 & f\_A\_correct & pca\_pooled & 16 & 0.79 [0.62, 0.93] & 0.07 & other\_task:ioi\_control & 0.72 & 0.00 & 8.00 \\
+conf & add\_chain & 18 & f\_A\_correct & pca\_pooled & 32 & 0.79 [0.62, 0.93] & 0.07 & generic & 0.72 & 0.00 & 8.00 \\
+conf & add\_chain & 18 & f\_A\_correct & pca\_pos\_centered & 0 & 0.00 [0.00, 0.00] & -- & nan & -- & -- & -- \\
+conf & add\_chain & 18 & f\_A\_correct & pca\_pos\_centered & 1 & -0.03 [-0.13, 0.00] & -- & nan & -- & -- & -- \\
+conf & add\_chain & 18 & f\_A\_correct & pca\_pos\_centered & 2 & 0.03 [0.00, 0.12] & -- & nan & -- & -- & -- \\
+conf & add\_chain & 18 & f\_A\_correct & pca\_pos\_centered & 4 & 0.03 [-0.09, 0.16] & -- & nan & -- & -- & -- \\
+conf & add\_chain & 18 & f\_A\_correct & pca\_pos\_centered & 8 & 0.21 [0.00, 0.40] & -- & nan & -- & -- & -- \\
+conf & add\_chain & 18 & f\_A\_correct & pca\_slot\_centered\_pairdiff & 0 & 0.00 [0.00, 0.00] & -- & nan & -- & -- & 4.00 \\
+conf & add\_chain & 18 & f\_A\_correct & pca\_slot\_centered\_pairdiff & 1 & 0.00 [0.00, 0.00] & -- & nan & -- & -- & 4.00 \\
+conf & add\_chain & 18 & f\_A\_correct & pca\_slot\_centered\_pairdiff & 2 & 0.24 [0.09, 0.41] & -- & nan & -- & -- & 4.00 \\
+conf & add\_chain & 18 & f\_A\_correct & pca\_slot\_centered\_pairdiff & 4 & 0.55 [0.35, 0.74] & -- & nan & -- & -- & 4.00 \\
+conf & add\_chain & 18 & f\_A\_correct & pca\_slot\_centered\_pairdiff & 8 & 0.62 [0.44, 0.79] & -- & nan & -- & -- & 4.00 \\
+conf & add\_chain & 18 & f\_none & answer\_sep & 0 & 0.00 [0.00, 0.00] & 0.00 & other\_task:entity\_track & 0.00 & 1.00 & 2.00 \\
+conf & add\_chain & 18 & f\_none & answer\_sep & 1 & 0.48 [0.22, 0.76] & 0.07 & random\_p95 & 0.41 & 0.24 & 2.00 \\
+conf & add\_chain & 18 & f\_none & answer\_sep & 2 & 0.52 [0.27, 0.79] & 0.11 & random\_p95 & 0.41 & 0.18 & 2.00 \\
+conf & add\_chain & 18 & f\_none & answer\_sep & 4 & 0.74 [0.50, 1.00] & 0.07 & random\_p95 & 0.67 & 0.01 & 2.00 \\
+conf & add\_chain & 18 & f\_none & answer\_sep & 8 & 0.59 [0.32, 0.86] & 0.11 & random\_p95 & 0.48 & 0.10 & 2.00 \\
+conf & add\_chain & 18 & f\_none & answer\_sep & 16 & 0.89 [0.68, 1.16] & 0.07 & random\_p95 & 0.82 & 0.00 & 2.00 \\
+conf & add\_chain & 18 & f\_none & answer\_sep & 32 & 0.93 [0.74, 1.16] & 0.11 & generic & 0.81 & 0.00 & 2.00 \\
+conf & add\_chain & 18 & f\_none & pca\_pooled & 0 & 0.00 [0.00, 0.00] & 0.00 & other\_task:entity\_track & 0.00 & 1.00 & 8.00 \\
+conf & add\_chain & 18 & f\_none & pca\_pooled & 1 & 0.22 [0.00, 0.44] & 0.07 & random\_p95 & 0.15 & 0.96 & 8.00 \\
+conf & add\_chain & 18 & f\_none & pca\_pooled & 2 & 0.37 [0.04, 0.68] & 0.11 & random\_p95 & 0.26 & 0.59 & 8.00 \\
+conf & add\_chain & 18 & f\_none & pca\_pooled & 4 & 0.48 [0.21, 0.74] & 0.07 & random\_p95 & 0.41 & 0.23 & 8.00 \\
+conf & add\_chain & 18 & f\_none & pca\_pooled & 8 & 0.78 [0.54, 1.03] & 0.11 & random\_p95 & 0.67 & 0.01 & 8.00 \\
+conf & add\_chain & 18 & f\_none & pca\_pooled & 16 & 0.89 [0.68, 1.12] & 0.07 & other\_task:entity\_track & 0.81 & 0.00 & 8.00 \\
+conf & add\_chain & 18 & f\_none & pca\_pooled & 32 & 0.89 [0.68, 1.12] & 0.11 & generic & 0.78 & 0.00 & 8.00 \\
+conf & add\_chain & 18 & f\_pilot & answer\_sep & 0 & 0.00 [0.00, 0.00] & 0.00 & other\_task:entity\_track & 0.00 & 1.00 & 16.00 \\
+conf & add\_chain & 18 & f\_pilot & answer\_sep & 1 & 0.23 [-0.22, 0.56] & 0.08 & random\_p95 & 0.15 & 0.81 & -- \\
+conf & add\_chain & 18 & f\_pilot & answer\_sep & 2 & 0.31 [0.00, 0.62] & 0.08 & random\_p95 & 0.23 & 0.70 & -- \\
+conf & add\_chain & 18 & f\_pilot & answer\_sep & 4 & 0.46 [0.09, 0.76] & 0.08 & random\_p95 & 0.38 & 0.31 & -- \\
+conf & add\_chain & 18 & f\_pilot & answer\_sep & 8 & 0.46 [0.09, 0.77] & 0.08 & random\_p95 & 0.38 & 0.33 & -- \\
+conf & add\_chain & 18 & f\_pilot & answer\_sep & 16 & 0.77 [0.50, 1.00] & 0.08 & other\_task:ioi\_control & 0.69 & 0.01 & 16.00 \\
+conf & add\_chain & 18 & f\_pilot & answer\_sep & 32 & 0.85 [0.62, 1.00] & 0.15 & generic & 0.69 & 0.01 & 16.00 \\
+conf & add\_chain & 18 & f\_pilot & pca\_pooled & 0 & 0.00 [0.00, 0.00] & 0.00 & other\_task:entity\_track & 0.00 & 1.00 & 8.00 \\
+conf & add\_chain & 18 & f\_pilot & pca\_pooled & 1 & 0.00 [-0.27, 0.21] & 0.08 & random\_p95 & -0.08 & 1.00 & 8.00 \\
+conf & add\_chain & 18 & f\_pilot & pca\_pooled & 2 & -0.08 [-0.87, 0.36] & 0.08 & random\_p95 & -0.16 & 0.98 & 8.00 \\
+conf & add\_chain & 18 & f\_pilot & pca\_pooled & 4 & 0.23 [-0.31, 0.60] & 0.08 & random\_p95 & 0.15 & 0.78 & 8.00 \\
+conf & add\_chain & 18 & f\_pilot & pca\_pooled & 8 & 0.69 [0.33, 0.93] & 0.08 & random\_p95 & 0.62 & 0.04 & 8.00 \\
+conf & add\_chain & 18 & f\_pilot & pca\_pooled & 16 & 0.77 [0.43, 1.00] & 0.08 & other\_task:entity\_track & 0.69 & 0.02 & 8.00 \\
+conf & add\_chain & 18 & f\_pilot & pca\_pooled & 32 & 0.77 [0.43, 1.00] & 0.15 & generic & 0.62 & 0.04 & 8.00 \\
+conf & add\_chain & 18 & f\_pilot & pca\_pos\_centered & 0 & 0.00 [0.00, 0.00] & -- & nan & -- & -- & -- \\
+conf & add\_chain & 18 & f\_pilot & pca\_pos\_centered & 1 & -0.08 [-0.33, 0.00] & -- & nan & -- & -- & -- \\
+conf & add\_chain & 18 & f\_pilot & pca\_pos\_centered & 2 & 0.00 [0.00, 0.00] & -- & nan & -- & -- & -- \\
+conf & add\_chain & 18 & f\_pilot & pca\_pos\_centered & 4 & 0.00 [-0.27, 0.21] & -- & nan & -- & -- & -- \\
+conf & add\_chain & 18 & f\_pilot & pca\_pos\_centered & 8 & 0.00 [-0.27, 0.21] & -- & nan & -- & -- & -- \\
+conf & add\_chain & 18 & f\_pilot & pca\_slot\_centered\_pairdiff & 0 & 0.00 [0.00, 0.00] & -- & nan & -- & -- & 8.00 \\
+conf & add\_chain & 18 & f\_pilot & pca\_slot\_centered\_pairdiff & 1 & 0.00 [0.00, 0.00] & -- & nan & -- & -- & 8.00 \\
+conf & add\_chain & 18 & f\_pilot & pca\_slot\_centered\_pairdiff & 2 & 0.15 [0.00, 0.40] & -- & nan & -- & -- & 8.00 \\
+conf & add\_chain & 18 & f\_pilot & pca\_slot\_centered\_pairdiff & 4 & 0.46 [0.18, 0.75] & -- & nan & -- & -- & 8.00 \\
+conf & add\_chain & 18 & f\_pilot & pca\_slot\_centered\_pairdiff & 8 & 0.54 [0.25, 0.82] & -- & nan & -- & -- & 8.00 \\
+conf & entity\_track & 12 & f\_A\_correct & answer\_sep & 0 & -- [--, --] & -- &  & -- & -- & -- \\
+conf & entity\_track & 12 & f\_A\_correct & answer\_sep & 1 & -- [--, --] & -- &  & -- & -- & -- \\
+conf & entity\_track & 12 & f\_A\_correct & answer\_sep & 2 & -- [--, --] & -- &  & -- & -- & -- \\
+conf & entity\_track & 12 & f\_A\_correct & answer\_sep & 4 & -- [--, --] & -- &  & -- & -- & -- \\
+conf & entity\_track & 12 & f\_A\_correct & answer\_sep & 8 & -- [--, --] & -- &  & -- & -- & -- \\
+conf & entity\_track & 12 & f\_A\_correct & answer\_sep & 16 & -- [--, --] & -- &  & -- & -- & -- \\
+conf & entity\_track & 12 & f\_A\_correct & answer\_sep & 32 & -- [--, --] & -- &  & -- & -- & -- \\
+conf & entity\_track & 12 & f\_A\_correct & pca\_pooled & 0 & -- [--, --] & -- &  & -- & -- & -- \\
+conf & entity\_track & 12 & f\_A\_correct & pca\_pooled & 1 & -- [--, --] & -- &  & -- & -- & -- \\
+conf & entity\_track & 12 & f\_A\_correct & pca\_pooled & 2 & -- [--, --] & -- &  & -- & -- & -- \\
+conf & entity\_track & 12 & f\_A\_correct & pca\_pooled & 4 & -- [--, --] & -- &  & -- & -- & -- \\
+conf & entity\_track & 12 & f\_A\_correct & pca\_pooled & 8 & -- [--, --] & -- &  & -- & -- & -- \\
+conf & entity\_track & 12 & f\_A\_correct & pca\_pooled & 16 & -- [--, --] & -- &  & -- & -- & -- \\
+conf & entity\_track & 12 & f\_A\_correct & pca\_pooled & 32 & -- [--, --] & -- &  & -- & -- & -- \\
+conf & entity\_track & 12 & f\_A\_correct & pca\_pos\_centered & 0 & -- [--, --] & -- & nan & -- & -- & -- \\
+conf & entity\_track & 12 & f\_A\_correct & pca\_pos\_centered & 1 & -- [--, --] & -- & nan & -- & -- & -- \\
+conf & entity\_track & 12 & f\_A\_correct & pca\_pos\_centered & 2 & -- [--, --] & -- & nan & -- & -- & -- \\
+conf & entity\_track & 12 & f\_A\_correct & pca\_pos\_centered & 4 & -- [--, --] & -- & nan & -- & -- & -- \\
+conf & entity\_track & 12 & f\_A\_correct & pca\_pos\_centered & 8 & -- [--, --] & -- & nan & -- & -- & -- \\
+conf & entity\_track & 12 & f\_A\_correct & pca\_slot\_centered\_pairdiff & 0 & -- [--, --] & -- & nan & -- & -- & -- \\
+conf & entity\_track & 12 & f\_A\_correct & pca\_slot\_centered\_pairdiff & 1 & -- [--, --] & -- & nan & -- & -- & -- \\
+conf & entity\_track & 12 & f\_A\_correct & pca\_slot\_centered\_pairdiff & 2 & -- [--, --] & -- & nan & -- & -- & -- \\
+conf & entity\_track & 12 & f\_A\_correct & pca\_slot\_centered\_pairdiff & 4 & -- [--, --] & -- & nan & -- & -- & -- \\
+conf & entity\_track & 12 & f\_A\_correct & pca\_slot\_centered\_pairdiff & 8 & -- [--, --] & -- & nan & -- & -- & -- \\
+conf & entity\_track & 12 & f\_none & answer\_sep & 0 & -0.00 [0.00, -0.00] & -0.00 & other\_task:add\_chain & 0.00 & -- & 1.00 \\
+conf & entity\_track & 12 & f\_none & answer\_sep & 1 & 1.00 [1.00, 1.00] & 0.00 & random\_p95 & 1.00 & -- & 1.00 \\
+conf & entity\_track & 12 & f\_none & answer\_sep & 2 & 1.00 [1.00, 1.00] & 0.00 & random\_p95 & 1.00 & -- & 1.00 \\
+conf & entity\_track & 12 & f\_none & answer\_sep & 4 & 1.00 [1.00, 1.00] & 0.00 & random\_p95 & 1.00 & -- & 1.00 \\
+conf & entity\_track & 12 & f\_none & answer\_sep & 8 & 2.00 [1.00, 4.00] & 0.00 & random\_p95 & 2.00 & -- & 1.00 \\
+conf & entity\_track & 12 & f\_none & answer\_sep & 16 & 3.00 [1.00, 6.00] & -0.00 & other\_task:add\_chain & 3.00 & -- & 1.00 \\
+conf & entity\_track & 12 & f\_none & answer\_sep & 32 & 1.00 [1.00, 1.00] & -0.00 & other\_task:add\_chain & 1.00 & -- & 1.00 \\
+conf & entity\_track & 12 & f\_none & pca\_pooled & 0 & -0.00 [0.00, -0.00] & -0.00 & other\_task:add\_chain & 0.00 & -- & 1.00 \\
+conf & entity\_track & 12 & f\_none & pca\_pooled & 1 & 2.00 [1.00, 4.00] & 0.00 & random\_p95 & 2.00 & -- & 1.00 \\
+conf & entity\_track & 12 & f\_none & pca\_pooled & 2 & 1.00 [1.00, 1.00] & 0.00 & random\_p95 & 1.00 & -- & 1.00 \\
+conf & entity\_track & 12 & f\_none & pca\_pooled & 4 & 2.00 [1.00, 4.00] & 0.00 & random\_p95 & 2.00 & -- & 1.00 \\
+conf & entity\_track & 12 & f\_none & pca\_pooled & 8 & 2.00 [1.00, 4.00] & 0.00 & random\_p95 & 2.00 & -- & 1.00 \\
+conf & entity\_track & 12 & f\_none & pca\_pooled & 16 & 1.00 [1.00, 1.00] & -0.00 & other\_task:add\_chain & 1.00 & -- & 1.00 \\
+conf & entity\_track & 12 & f\_none & pca\_pooled & 32 & 2.00 [1.00, 4.00] & -0.00 & other\_task:add\_chain & 2.00 & -- & 1.00 \\
+conf & entity\_track & 12 & f\_pilot & answer\_sep & 0 & -- [--, --] & -- &  & -- & -- & -- \\
+conf & entity\_track & 12 & f\_pilot & answer\_sep & 1 & -- [--, --] & -- &  & -- & -- & -- \\
+conf & entity\_track & 12 & f\_pilot & answer\_sep & 2 & -- [--, --] & -- &  & -- & -- & -- \\
+conf & entity\_track & 12 & f\_pilot & answer\_sep & 4 & -- [--, --] & -- &  & -- & -- & -- \\
+conf & entity\_track & 12 & f\_pilot & answer\_sep & 8 & -- [--, --] & -- &  & -- & -- & -- \\
+conf & entity\_track & 12 & f\_pilot & answer\_sep & 16 & -- [--, --] & -- &  & -- & -- & -- \\
+conf & entity\_track & 12 & f\_pilot & answer\_sep & 32 & -- [--, --] & -- &  & -- & -- & -- \\
+conf & entity\_track & 12 & f\_pilot & pca\_pooled & 0 & -- [--, --] & -- &  & -- & -- & -- \\
+conf & entity\_track & 12 & f\_pilot & pca\_pooled & 1 & -- [--, --] & -- &  & -- & -- & -- \\
+conf & entity\_track & 12 & f\_pilot & pca\_pooled & 2 & -- [--, --] & -- &  & -- & -- & -- \\
+conf & entity\_track & 12 & f\_pilot & pca\_pooled & 4 & -- [--, --] & -- &  & -- & -- & -- \\
+conf & entity\_track & 12 & f\_pilot & pca\_pooled & 8 & -- [--, --] & -- &  & -- & -- & -- \\
+conf & entity\_track & 12 & f\_pilot & pca\_pooled & 16 & -- [--, --] & -- &  & -- & -- & -- \\
+conf & entity\_track & 12 & f\_pilot & pca\_pooled & 32 & -- [--, --] & -- &  & -- & -- & -- \\
+conf & entity\_track & 12 & f\_pilot & pca\_pos\_centered & 0 & -- [--, --] & -- & nan & -- & -- & -- \\
+conf & entity\_track & 12 & f\_pilot & pca\_pos\_centered & 1 & -- [--, --] & -- & nan & -- & -- & -- \\
+conf & entity\_track & 12 & f\_pilot & pca\_pos\_centered & 2 & -- [--, --] & -- & nan & -- & -- & -- \\
+conf & entity\_track & 12 & f\_pilot & pca\_pos\_centered & 4 & -- [--, --] & -- & nan & -- & -- & -- \\
+conf & entity\_track & 12 & f\_pilot & pca\_pos\_centered & 8 & -- [--, --] & -- & nan & -- & -- & -- \\
+conf & entity\_track & 12 & f\_pilot & pca\_slot\_centered\_pairdiff & 0 & -- [--, --] & -- & nan & -- & -- & -- \\
+conf & entity\_track & 12 & f\_pilot & pca\_slot\_centered\_pairdiff & 1 & -- [--, --] & -- & nan & -- & -- & -- \\
+conf & entity\_track & 12 & f\_pilot & pca\_slot\_centered\_pairdiff & 2 & -- [--, --] & -- & nan & -- & -- & -- \\
+conf & entity\_track & 12 & f\_pilot & pca\_slot\_centered\_pairdiff & 4 & -- [--, --] & -- & nan & -- & -- & -- \\
+conf & entity\_track & 12 & f\_pilot & pca\_slot\_centered\_pairdiff & 8 & -- [--, --] & -- & nan & -- & -- & -- \\
+expl & add\_chain & 12 & f\_A\_correct & answer\_sep & 0 & 0.00 [0.00, 0.00] & 0.00 & other\_task:entity\_track & 0.00 & 1.00 & -- \\
+expl & add\_chain & 12 & f\_A\_correct & answer\_sep & 1 & 0.37 [0.00, 0.75] & 0.12 & other\_task:entity\_track & 0.25 & 1.00 & -- \\
+expl & add\_chain & 12 & f\_A\_correct & answer\_sep & 2 & 0.37 [0.00, 0.75] & 0.12 & other\_task:entity\_track & 0.25 & 1.00 & -- \\
+expl & add\_chain & 12 & f\_A\_correct & answer\_sep & 4 & 0.12 [-0.40, 0.50] & 0.12 & other\_task:ioi\_control & 0.00 & 1.00 & -- \\
+expl & add\_chain & 12 & f\_A\_correct & answer\_sep & 8 & 0.25 [-0.50, 0.71] & 0.12 & other\_task:entity\_track & 0.12 & 1.00 & -- \\
+expl & add\_chain & 12 & f\_A\_correct & answer\_sep & 16 & 0.25 [-0.33, 0.67] & 0.25 & other\_task:ioi\_control & 0.00 & 1.00 & -- \\
+expl & add\_chain & 12 & f\_A\_correct & answer\_sep & 32 & 0.25 [-0.50, 0.71] & 0.25 & other\_task:entity\_track & 0.00 & 0.99 & -- \\
+expl & add\_chain & 12 & f\_A\_correct & pca\_pooled & 0 & 0.00 [0.00, 0.00] & 0.00 & other\_task:entity\_track & 0.00 & 1.00 & -- \\
+expl & add\_chain & 12 & f\_A\_correct & pca\_pooled & 1 & 0.00 [0.00, 0.00] & 0.12 & random\_p95 & -0.12 & 1.00 & -- \\
+expl & add\_chain & 12 & f\_A\_correct & pca\_pooled & 2 & -0.12 [-0.60, 0.00] & 0.12 & other\_task:entity\_track & -0.25 & 1.00 & -- \\
+expl & add\_chain & 12 & f\_A\_correct & pca\_pooled & 4 & 0.00 [-0.50, 0.33] & 0.12 & other\_task:entity\_track & -0.12 & 1.00 & -- \\
+expl & add\_chain & 12 & f\_A\_correct & pca\_pooled & 8 & 0.00 [-0.50, 0.33] & 0.12 & other\_task:entity\_track & -0.12 & 1.00 & -- \\
+expl & add\_chain & 12 & f\_A\_correct & pca\_pooled & 16 & 0.12 [-0.40, 0.50] & 0.12 & other\_task:ioi\_control & 0.00 & 0.99 & -- \\
+expl & add\_chain & 12 & f\_A\_correct & pca\_pooled & 32 & 0.00 [-0.75, 0.44] & 0.25 & other\_task:entity\_track & -0.25 & 0.99 & -- \\
+expl & add\_chain & 12 & f\_none & answer\_sep & 0 & 0.00 [0.00, 0.00] & 0.00 & other\_task:entity\_track & 0.00 & -- & 1.00 \\
+expl & add\_chain & 12 & f\_none & answer\_sep & 1 & 0.60 [-1.00, 2.00] & 0.20 & other\_task:entity\_track & 0.40 & -- & 1.00 \\
+expl & add\_chain & 12 & f\_none & answer\_sep & 2 & 0.60 [-1.00, 2.00] & 0.20 & other\_task:entity\_track & 0.40 & -- & 1.00 \\
+expl & add\_chain & 12 & f\_none & answer\_sep & 4 & 0.20 [-1.00, 1.25] & 0.20 & other\_task:ioi\_control & 0.00 & -- & 1.00 \\
+expl & add\_chain & 12 & f\_none & answer\_sep & 8 & 0.40 [-1.00, 2.00] & 0.20 & other\_task:entity\_track & 0.20 & -- & 1.00 \\
+expl & add\_chain & 12 & f\_none & answer\_sep & 16 & 0.40 [-1.00, 2.00] & 0.40 & other\_task:ioi\_control & 0.00 & -- & 1.00 \\
+expl & add\_chain & 12 & f\_none & answer\_sep & 32 & 0.40 [-1.00, 2.00] & 0.40 & other\_task:entity\_track & 0.00 & -- & 1.00 \\
+expl & add\_chain & 12 & f\_none & pca\_pooled & 0 & 0.00 [0.00, 0.00] & 0.00 & other\_task:entity\_track & 0.00 & -- & -- \\
+expl & add\_chain & 12 & f\_none & pca\_pooled & 1 & 0.00 [0.00, 0.00] & 0.20 & random\_p95 & -0.20 & -- & -- \\
+expl & add\_chain & 12 & f\_none & pca\_pooled & 2 & -0.20 [-1.33, 0.33] & 0.20 & other\_task:entity\_track & -0.40 & -- & -- \\
+expl & add\_chain & 12 & f\_none & pca\_pooled & 4 & 0.00 [-1.00, 1.00] & 0.20 & other\_task:entity\_track & -0.20 & -- & -- \\
+expl & add\_chain & 12 & f\_none & pca\_pooled & 8 & 0.00 [-1.00, 1.00] & 0.20 & other\_task:entity\_track & -0.20 & -- & -- \\
+expl & add\_chain & 12 & f\_none & pca\_pooled & 16 & 0.20 [-1.00, 1.25] & 0.20 & other\_task:ioi\_control & 0.00 & -- & -- \\
+expl & add\_chain & 12 & f\_none & pca\_pooled & 32 & 0.00 [-2.00, 1.00] & 0.40 & other\_task:entity\_track & -0.40 & -- & -- \\
+expl & add\_chain & 12 & f\_pilot & answer\_sep & 0 & 0.00 [0.00, 0.00] & 0.00 & other\_task:entity\_track & 0.00 & -- & 1.00 \\
+expl & add\_chain & 12 & f\_pilot & answer\_sep & 1 & 1.00 [1.00, 1.00] & 0.00 & other\_task:entity\_track & 1.00 & -- & 1.00 \\
+expl & add\_chain & 12 & f\_pilot & answer\_sep & 2 & 1.00 [1.00, 1.00] & 0.00 & other\_task:entity\_track & 1.00 & -- & 1.00 \\
+expl & add\_chain & 12 & f\_pilot & answer\_sep & 4 & 0.00 [-2.00, 1.00] & 1.00 & other\_task:ioi\_control & -1.00 & -- & 1.00 \\
+expl & add\_chain & 12 & f\_pilot & answer\_sep & 8 & 0.00 [-2.00, 1.00] & 0.00 & other\_task:entity\_track & 0.00 & -- & 1.00 \\
+expl & add\_chain & 12 & f\_pilot & answer\_sep & 16 & 0.00 [-2.00, 1.00] & 1.00 & other\_task:ioi\_control & -1.00 & -- & 1.00 \\
+expl & add\_chain & 12 & f\_pilot & answer\_sep & 32 & 0.00 [-2.00, 1.00] & 1.00 & other\_task:entity\_track & -1.00 & -- & 1.00 \\
+expl & add\_chain & 12 & f\_pilot & pca\_pooled & 0 & 0.00 [0.00, 0.00] & 0.00 & other\_task:entity\_track & 0.00 & -- & -- \\
+expl & add\_chain & 12 & f\_pilot & pca\_pooled & 1 & 0.00 [0.00, 0.00] & 0.00 & other\_task:entity\_track & 0.00 & -- & -- \\
+expl & add\_chain & 12 & f\_pilot & pca\_pooled & 2 & 0.00 [0.00, 0.00] & 0.00 & other\_task:entity\_track & 0.00 & -- & -- \\
+expl & add\_chain & 12 & f\_pilot & pca\_pooled & 4 & 0.00 [0.00, 0.00] & 0.00 & other\_task:entity\_track & 0.00 & -- & -- \\
+expl & add\_chain & 12 & f\_pilot & pca\_pooled & 8 & 0.00 [-2.00, 1.00] & 0.00 & other\_task:entity\_track & 0.00 & -- & -- \\
+expl & add\_chain & 12 & f\_pilot & pca\_pooled & 16 & 0.00 [-2.00, 1.00] & 0.00 & other\_task:ioi\_control & 0.00 & -- & -- \\
+expl & add\_chain & 12 & f\_pilot & pca\_pooled & 32 & 0.00 [-2.00, 1.00] & 1.00 & other\_task:entity\_track & -1.00 & -- & -- \\
+expl & add\_chain & 14 & f\_A\_correct & answer\_sep & 0 & 0.00 [0.00, 0.00] & 0.00 & other\_task:entity\_track & 0.00 & 1.00 & -- \\
+expl & add\_chain & 14 & f\_A\_correct & answer\_sep & 1 & -0.12 [-0.60, 0.00] & 0.25 & other\_task:ioi\_control & -0.37 & 1.00 & -- \\
+expl & add\_chain & 14 & f\_A\_correct & answer\_sep & 2 & -0.12 [-0.57, 0.00] & 0.24 & random\_p95 & -0.36 & 1.00 & -- \\
+expl & add\_chain & 14 & f\_A\_correct & answer\_sep & 4 & 0.12 [0.00, 0.40] & 0.25 & random\_p95 & -0.12 & 1.00 & -- \\
+expl & add\_chain & 14 & f\_A\_correct & answer\_sep & 8 & -0.12 [-1.00, 0.27] & 0.25 & other\_task:ioi\_control & -0.37 & 1.00 & -- \\
+expl & add\_chain & 14 & f\_A\_correct & answer\_sep & 16 & 0.25 [-0.33, 0.67] & 0.24 & random\_p95 & 0.01 & 1.00 & -- \\
+expl & add\_chain & 14 & f\_A\_correct & answer\_sep & 32 & 0.12 [-0.43, 0.50] & 0.36 & random\_p95 & -0.24 & 0.99 & -- \\
+expl & add\_chain & 14 & f\_A\_correct & pca\_pooled & 0 & 0.00 [0.00, 0.00] & 0.00 & other\_task:entity\_track & 0.00 & 1.00 & -- \\
+expl & add\_chain & 14 & f\_A\_correct & pca\_pooled & 1 & 0.12 [0.00, 0.40] & 0.12 & other\_task:entity\_track & 0.00 & 1.00 & -- \\
+expl & add\_chain & 14 & f\_A\_correct & pca\_pooled & 2 & 0.12 [0.00, 0.40] & 0.24 & random\_p95 & -0.11 & 1.00 & -- \\
+expl & add\_chain & 14 & f\_A\_correct & pca\_pooled & 4 & 0.12 [0.00, 0.40] & 0.25 & other\_task:entity\_track & -0.12 & 1.00 & -- \\
+expl & add\_chain & 14 & f\_A\_correct & pca\_pooled & 8 & -0.12 [-1.00, 0.36] & 0.12 & random\_p95 & -0.25 & 1.00 & -- \\
+expl & add\_chain & 14 & f\_A\_correct & pca\_pooled & 16 & 0.00 [-0.80, 0.43] & 0.24 & random\_p95 & -0.24 & 0.99 & -- \\
+expl & add\_chain & 14 & f\_A\_correct & pca\_pooled & 32 & 0.25 [-0.33, 0.67] & 0.36 & random\_p95 & -0.11 & 0.99 & -- \\
+expl & add\_chain & 14 & f\_none & answer\_sep & 0 & 0.00 [0.00, 0.00] & 0.00 & other\_task:entity\_track & 0.00 & 1.00 & 16.00 \\
+expl & add\_chain & 14 & f\_none & answer\_sep & 1 & 0.14 [-0.40, 1.00] & 0.29 & other\_task:ioi\_control & -0.14 & 0.99 & 16.00 \\
+expl & add\_chain & 14 & f\_none & answer\_sep & 2 & 0.14 [-0.50, 1.00] & 0.40 & random\_p95 & -0.26 & 1.00 & 16.00 \\
+expl & add\_chain & 14 & f\_none & answer\_sep & 4 & 0.43 [0.00, 1.67] & 0.41 & random\_p95 & 0.01 & 0.92 & 16.00 \\
+expl & add\_chain & 14 & f\_none & answer\_sep & 8 & 0.14 [-0.75, 1.00] & 0.43 & other\_task:ioi\_control & -0.29 & 0.97 & 16.00 \\
+expl & add\_chain & 14 & f\_none & answer\_sep & 16 & 0.71 [0.00, 2.33] & 0.40 & random\_p95 & 0.31 & 0.50 & 16.00 \\
+expl & add\_chain & 14 & f\_none & answer\_sep & 32 & 0.29 [-0.33, 1.00] & 0.56 & random\_p95 & -0.27 & 0.99 & 16.00 \\
+expl & add\_chain & 14 & f\_none & pca\_pooled & 0 & 0.00 [0.00, 0.00] & 0.00 & other\_task:entity\_track & 0.00 & 1.00 & -- \\
+expl & add\_chain & 14 & f\_none & pca\_pooled & 1 & 0.14 [0.00, 0.50] & 0.14 & other\_task:entity\_track & 0.00 & 1.00 & -- \\
+expl & add\_chain & 14 & f\_none & pca\_pooled & 2 & 0.29 [0.00, 1.00] & 0.40 & random\_p95 & -0.11 & 1.00 & -- \\
+expl & add\_chain & 14 & f\_none & pca\_pooled & 4 & 0.29 [0.00, 1.00] & 0.41 & random\_p95 & -0.13 & 0.94 & -- \\
+expl & add\_chain & 14 & f\_none & pca\_pooled & 8 & 0.14 [-1.00, 1.14] & 0.14 & random\_p95 & 0.00 & 0.84 & -- \\
+expl & add\_chain & 14 & f\_none & pca\_pooled & 16 & 0.29 [-0.60, 1.33] & 0.40 & random\_p95 & -0.11 & 0.90 & -- \\
+expl & add\_chain & 14 & f\_none & pca\_pooled & 32 & 0.43 [-0.25, 1.33] & 0.56 & random\_p95 & -0.13 & 0.97 & -- \\
+expl & add\_chain & 14 & f\_pilot & answer\_sep & 0 & 0.00 [0.00, 0.00] & 0.00 & other\_task:entity\_track & 0.00 & 1.00 & -- \\
+expl & add\_chain & 14 & f\_pilot & answer\_sep & 1 & 0.00 [0.00, 0.00] & 0.25 & other\_task:ioi\_control & -0.25 & 1.00 & -- \\
+expl & add\_chain & 14 & f\_pilot & answer\_sep & 2 & -0.25 [-1.50, 0.00] & 0.22 & random\_p95 & -0.48 & 1.00 & -- \\
+expl & add\_chain & 14 & f\_pilot & answer\_sep & 4 & 0.00 [0.00, 0.00] & 0.00 & other\_task:ioi\_control & 0.00 & 1.00 & -- \\
+expl & add\_chain & 14 & f\_pilot & answer\_sep & 8 & -0.50 [-3.00, 0.00] & 0.00 & other\_task:ioi\_control & -0.50 & 1.00 & -- \\
+expl & add\_chain & 14 & f\_pilot & answer\_sep & 16 & 0.25 [0.00, 1.00] & 0.00 & other\_task:entity\_track & 0.25 & 0.61 & -- \\
+expl & add\_chain & 14 & f\_pilot & answer\_sep & 32 & 0.25 [0.00, 1.00] & 0.45 & random\_p95 & -0.20 & 0.88 & -- \\
+expl & add\_chain & 14 & f\_pilot & pca\_pooled & 0 & 0.00 [0.00, 0.00] & 0.00 & other\_task:entity\_track & 0.00 & 1.00 & -- \\
+expl & add\_chain & 14 & f\_pilot & pca\_pooled & 1 & 0.00 [0.00, 0.00] & 0.25 & other\_task:entity\_track & -0.25 & 1.00 & -- \\
+expl & add\_chain & 14 & f\_pilot & pca\_pooled & 2 & 0.00 [0.00, 0.00] & 0.22 & random\_p95 & -0.22 & 1.00 & -- \\
+expl & add\_chain & 14 & f\_pilot & pca\_pooled & 4 & 0.00 [0.00, 0.00] & 0.00 & other\_task:entity\_track & 0.00 & 1.00 & -- \\
+expl & add\_chain & 14 & f\_pilot & pca\_pooled & 8 & -0.25 [-2.50, 0.50] & 0.00 & other\_task:ioi\_control & -0.25 & 0.92 & -- \\
+expl & add\_chain & 14 & f\_pilot & pca\_pooled & 16 & 0.00 [-1.33, 0.67] & 0.00 & other\_task:entity\_track & 0.00 & 0.82 & -- \\
+expl & add\_chain & 14 & f\_pilot & pca\_pooled & 32 & 0.25 [0.00, 1.00] & 0.45 & random\_p95 & -0.20 & 0.88 & -- \\
+expl & add\_chain & 16 & f\_A\_correct & answer\_sep & 0 & 0.00 [0.00, 0.00] & 0.00 & other\_task:entity\_track & 0.00 & 1.00 & 32.00 \\
+expl & add\_chain & 16 & f\_A\_correct & answer\_sep & 1 & 0.00 [-1.33, 0.67] & 0.25 & other\_task:entity\_track & -0.25 & 1.00 & 32.00 \\
+expl & add\_chain & 16 & f\_A\_correct & answer\_sep & 2 & 0.00 [-1.33, 0.67] & 0.25 & other\_task:entity\_track & -0.25 & 1.00 & 32.00 \\
+expl & add\_chain & 16 & f\_A\_correct & answer\_sep & 4 & 0.25 [0.00, 1.00] & 0.25 & other\_task:entity\_track & 0.00 & 1.00 & 32.00 \\
+expl & add\_chain & 16 & f\_A\_correct & answer\_sep & 8 & -0.25 [-2.50, 0.50] & 0.25 & other\_task:entity\_track & -0.50 & 1.00 & 32.00 \\
+expl & add\_chain & 16 & f\_A\_correct & answer\_sep & 16 & 0.25 [-1.00, 1.00] & 0.50 & other\_task:ioi\_control & -0.25 & 1.00 & 32.00 \\
+expl & add\_chain & 16 & f\_A\_correct & answer\_sep & 32 & 0.50 [-1.00, 1.00] & 0.25 & other\_task:entity\_track & 0.25 & 0.99 & 32.00 \\
+expl & add\_chain & 16 & f\_A\_correct & pca\_pooled & 0 & 0.00 [0.00, 0.00] & 0.00 & other\_task:entity\_track & 0.00 & 1.00 & -- \\
+expl & add\_chain & 16 & f\_A\_correct & pca\_pooled & 1 & 0.25 [0.00, 1.00] & 0.50 & other\_task:entity\_track & -0.25 & 1.00 & -- \\
+expl & add\_chain & 16 & f\_A\_correct & pca\_pooled & 2 & 0.25 [0.00, 1.00] & 0.25 & other\_task:entity\_track & 0.00 & 1.00 & -- \\
+expl & add\_chain & 16 & f\_A\_correct & pca\_pooled & 4 & -0.50 [-4.00, 0.33] & 0.25 & other\_task:entity\_track & -0.75 & 1.00 & -- \\
+expl & add\_chain & 16 & f\_A\_correct & pca\_pooled & 8 & 0.00 [-1.33, 0.67] & 0.25 & other\_task:entity\_track & -0.25 & 1.00 & -- \\
+expl & add\_chain & 16 & f\_A\_correct & pca\_pooled & 16 & -0.25 [-3.00, 0.67] & 0.25 & other\_task:entity\_track & -0.50 & 0.99 & -- \\
+expl & add\_chain & 16 & f\_A\_correct & pca\_pooled & 32 & 0.25 [-2.00, 1.00] & 0.25 & other\_task:entity\_track & 0.00 & 0.99 & -- \\
+expl & add\_chain & 16 & f\_none & answer\_sep & 0 & 0.00 [0.00, 0.00] & 0.00 & other\_task:entity\_track & 0.00 & -- & 4.00 \\
+expl & add\_chain & 16 & f\_none & answer\_sep & 1 & 0.00 [-2.00, 3.00] & 1.00 & other\_task:entity\_track & -1.00 & -- & 4.00 \\
+expl & add\_chain & 16 & f\_none & answer\_sep & 2 & 0.00 [-2.00, 3.00] & 1.00 & other\_task:entity\_track & -1.00 & -- & 4.00 \\
+expl & add\_chain & 16 & f\_none & answer\_sep & 4 & 1.00 [-2.00, 3.00] & 1.00 & other\_task:entity\_track & 0.00 & -- & 4.00 \\
+expl & add\_chain & 16 & f\_none & answer\_sep & 8 & -3.00 [-5.00, 5.00] & 1.00 & other\_task:ioi\_control & -4.00 & -- & 4.00 \\
+expl & add\_chain & 16 & f\_none & answer\_sep & 16 & -1.00 [-3.00, 3.00] & 2.00 & other\_task:ioi\_control & -3.00 & -- & 4.00 \\
+expl & add\_chain & 16 & f\_none & answer\_sep & 32 & 1.00 [-2.00, 3.00] & 1.00 & generic & 0.00 & -- & 4.00 \\
+expl & add\_chain & 16 & f\_none & pca\_pooled & 0 & 0.00 [0.00, 0.00] & 0.00 & other\_task:entity\_track & 0.00 & -- & 1.00 \\
+expl & add\_chain & 16 & f\_none & pca\_pooled & 1 & 1.00 [-1.00, 2.00] & 2.00 & other\_task:entity\_track & -1.00 & -- & 1.00 \\
+expl & add\_chain & 16 & f\_none & pca\_pooled & 2 & 0.00 [-1.00, 2.00] & 1.00 & other\_task:entity\_track & -1.00 & -- & 1.00 \\
+expl & add\_chain & 16 & f\_none & pca\_pooled & 4 & -3.00 [-5.00, 5.00] & 1.00 & other\_task:entity\_track & -4.00 & -- & 1.00 \\
+expl & add\_chain & 16 & f\_none & pca\_pooled & 8 & -1.00 [-3.00, 3.00] & 1.00 & other\_task:entity\_track & -2.00 & -- & 1.00 \\
+expl & add\_chain & 16 & f\_none & pca\_pooled & 16 & -2.00 [-4.00, 5.00] & 1.00 & generic & -3.00 & -- & 1.00 \\
+expl & add\_chain & 16 & f\_none & pca\_pooled & 32 & 0.00 [-2.00, 4.00] & 1.00 & other\_task:entity\_track & -1.00 & -- & 1.00 \\
+expl & add\_chain & 16 & f\_pilot & answer\_sep & 0 & 0.00 [0.00, 0.00] & 0.00 & other\_task:entity\_track & 0.00 & -- & -- \\
+expl & add\_chain & 16 & f\_pilot & answer\_sep & 1 & 0.00 [0.00, 0.00] & 0.00 & other\_task:entity\_track & 0.00 & -- & -- \\
+expl & add\_chain & 16 & f\_pilot & answer\_sep & 2 & 0.00 [0.00, 0.00] & 0.00 & other\_task:entity\_track & 0.00 & -- & -- \\
+expl & add\_chain & 16 & f\_pilot & answer\_sep & 4 & 0.00 [0.00, 0.00] & 0.00 & other\_task:entity\_track & 0.00 & -- & -- \\
+expl & add\_chain & 16 & f\_pilot & answer\_sep & 8 & 0.00 [0.00, 0.00] & 0.00 & other\_task:entity\_track & 0.00 & -- & -- \\
+expl & add\_chain & 16 & f\_pilot & answer\_sep & 16 & 0.50 [0.00, 1.00] & 0.50 & other\_task:ioi\_control & 0.00 & -- & -- \\
+expl & add\_chain & 16 & f\_pilot & answer\_sep & 32 & 0.50 [-1.50, 1.00] & 0.00 & other\_task:entity\_track & 0.50 & -- & -- \\
+expl & add\_chain & 16 & f\_pilot & pca\_pooled & 0 & 0.00 [0.00, 0.00] & 0.00 & other\_task:entity\_track & 0.00 & -- & -- \\
+expl & add\_chain & 16 & f\_pilot & pca\_pooled & 1 & 0.00 [0.00, 0.00] & 0.50 & other\_task:entity\_track & -0.50 & -- & -- \\
+expl & add\_chain & 16 & f\_pilot & pca\_pooled & 2 & 0.00 [0.00, 0.00] & 0.00 & other\_task:entity\_track & 0.00 & -- & -- \\
+expl & add\_chain & 16 & f\_pilot & pca\_pooled & 4 & -0.50 [-3.00, 0.00] & 0.00 & other\_task:entity\_track & -0.50 & -- & -- \\
+expl & add\_chain & 16 & f\_pilot & pca\_pooled & 8 & 0.00 [0.00, 0.00] & 0.00 & other\_task:entity\_track & 0.00 & -- & -- \\
+expl & add\_chain & 16 & f\_pilot & pca\_pooled & 16 & -0.50 [-4.00, 1.00] & 0.00 & other\_task:entity\_track & -0.50 & -- & -- \\
+expl & add\_chain & 16 & f\_pilot & pca\_pooled & 32 & 0.00 [-3.00, 1.00] & 0.00 & other\_task:entity\_track & 0.00 & -- & -- \\
+expl & add\_chain & 20 & f\_A\_correct & answer\_sep & 0 & 0.00 [0.00, 0.00] & 0.00 & other\_task:entity\_track & 0.00 & 1.00 & 16.00 \\
+expl & add\_chain & 20 & f\_A\_correct & answer\_sep & 1 & 0.00 [-0.25, 0.20] & 0.05 & other\_task:entity\_track & -0.05 & 1.00 & 16.00 \\
+expl & add\_chain & 20 & f\_A\_correct & answer\_sep & 2 & 0.11 [-0.10, 0.31] & 0.05 & other\_task:entity\_track & 0.05 & 1.00 & 16.00 \\
+expl & add\_chain & 20 & f\_A\_correct & answer\_sep & 4 & 0.16 [-0.07, 0.37] & 0.05 & other\_task:entity\_track & 0.11 & 1.00 & 16.00 \\
+expl & add\_chain & 20 & f\_A\_correct & answer\_sep & 8 & 0.47 [0.20, 0.71] & 0.11 & other\_task:entity\_track & 0.37 & 1.00 & 16.00 \\
+expl & add\_chain & 20 & f\_A\_correct & answer\_sep & 16 & 0.53 [0.21, 0.78] & 0.16 & other\_task:entity\_track & 0.37 & 1.00 & 16.00 \\
+expl & add\_chain & 20 & f\_A\_correct & answer\_sep & 32 & 0.74 [0.53, 0.93] & 0.11 & other\_task:entity\_track & 0.63 & 0.05 & 16.00 \\
+expl & add\_chain & 20 & f\_A\_correct & pca\_pooled & 0 & 0.00 [0.00, 0.00] & 0.00 & other\_task:entity\_track & 0.00 & 1.00 & 16.00 \\
+expl & add\_chain & 20 & f\_A\_correct & pca\_pooled & 1 & 0.32 [0.06, 0.56] & 0.05 & random\_p95 & 0.26 & 1.00 & 16.00 \\
+expl & add\_chain & 20 & f\_A\_correct & pca\_pooled & 2 & 0.42 [0.14, 0.67] & 0.05 & random\_p95 & 0.37 & 1.00 & 16.00 \\
+expl & add\_chain & 20 & f\_A\_correct & pca\_pooled & 4 & 0.47 [0.25, 0.71] & 0.05 & other\_task:ioi\_control & 0.42 & 0.59 & 16.00 \\
+expl & add\_chain & 20 & f\_A\_correct & pca\_pooled & 8 & 0.47 [0.25, 0.71] & 0.05 & other\_task:entity\_track & 0.42 & 1.00 & 16.00 \\
+expl & add\_chain & 20 & f\_A\_correct & pca\_pooled & 16 & 0.63 [0.37, 0.85] & 0.10 & random\_p95 & 0.53 & 0.23 & 16.00 \\
+expl & add\_chain & 20 & f\_A\_correct & pca\_pooled & 32 & 0.68 [0.47, 0.89] & 0.09 & random\_p95 & 0.59 & 0.11 & 16.00 \\
+expl & add\_chain & 20 & f\_none & answer\_sep & 0 & 0.00 [0.00, 0.00] & 0.00 & other\_task:entity\_track & 0.00 & 1.00 & 8.00 \\
+expl & add\_chain & 20 & f\_none & answer\_sep & 1 & 0.06 [-0.21, 0.31] & 0.06 & other\_task:entity\_track & 0.00 & 0.99 & 8.00 \\
+expl & add\_chain & 20 & f\_none & answer\_sep & 2 & 0.11 [-0.11, 0.33] & 0.06 & other\_task:entity\_track & 0.06 & 1.00 & 8.00 \\
+expl & add\_chain & 20 & f\_none & answer\_sep & 4 & 0.22 [0.00, 0.50] & 0.06 & other\_task:entity\_track & 0.17 & 0.92 & 8.00 \\
+expl & add\_chain & 20 & f\_none & answer\_sep & 8 & 0.56 [0.26, 0.88] & 0.11 & other\_task:entity\_track & 0.44 & 0.45 & 8.00 \\
+expl & add\_chain & 20 & f\_none & answer\_sep & 16 & 0.56 [0.24, 0.85] & 0.17 & other\_task:entity\_track & 0.39 & 0.50 & 8.00 \\
+expl & add\_chain & 20 & f\_none & answer\_sep & 32 & 0.78 [0.55, 1.00] & 0.11 & other\_task:entity\_track & 0.67 & 0.02 & 8.00 \\
+expl & add\_chain & 20 & f\_none & pca\_pooled & 0 & 0.00 [0.00, 0.00] & 0.00 & other\_task:entity\_track & 0.00 & 1.00 & 2.00 \\
+expl & add\_chain & 20 & f\_none & pca\_pooled & 1 & 0.33 [0.06, 0.62] & 0.06 & random\_p95 & 0.28 & 1.00 & 2.00 \\
+expl & add\_chain & 20 & f\_none & pca\_pooled & 2 & 0.50 [0.20, 0.83] & 0.05 & random\_p95 & 0.45 & 0.37 & 2.00 \\
+expl & add\_chain & 20 & f\_none & pca\_pooled & 4 & 0.56 [0.29, 0.88] & 0.06 & other\_task:ioi\_control & 0.50 & 0.13 & 2.00 \\
+expl & add\_chain & 20 & f\_none & pca\_pooled & 8 & 0.50 [0.25, 0.77] & 0.06 & other\_task:entity\_track & 0.44 & 0.48 & 2.00 \\
+expl & add\_chain & 20 & f\_none & pca\_pooled & 16 & 0.67 [0.39, 0.93] & 0.11 & random\_p95 & 0.56 & 0.09 & 2.00 \\
+expl & add\_chain & 20 & f\_none & pca\_pooled & 32 & 0.72 [0.50, 1.00] & 0.10 & random\_p95 & 0.62 & 0.04 & 2.00 \\
+expl & add\_chain & 20 & f\_pilot & answer\_sep & 0 & 0.00 [0.00, 0.00] & 0.00 & other\_task:entity\_track & 0.00 & 1.00 & 8.00 \\
+expl & add\_chain & 20 & f\_pilot & answer\_sep & 1 & 0.10 [-0.33, 0.43] & 0.10 & other\_task:entity\_track & 0.00 & 1.00 & 8.00 \\
+expl & add\_chain & 20 & f\_pilot & answer\_sep & 2 & 0.20 [0.00, 0.50] & 0.10 & other\_task:entity\_track & 0.10 & 1.00 & 8.00 \\
+expl & add\_chain & 20 & f\_pilot & answer\_sep & 4 & 0.20 [0.00, 0.50] & 0.10 & other\_task:entity\_track & 0.10 & 1.00 & 8.00 \\
+expl & add\_chain & 20 & f\_pilot & answer\_sep & 8 & 0.50 [0.00, 0.86] & 0.20 & other\_task:entity\_track & 0.30 & 1.00 & 8.00 \\
+expl & add\_chain & 20 & f\_pilot & answer\_sep & 16 & 0.60 [0.00, 0.92] & 0.20 & other\_task:entity\_track & 0.40 & 0.61 & 8.00 \\
+expl & add\_chain & 20 & f\_pilot & answer\_sep & 32 & 0.80 [0.50, 1.00] & 0.18 & random\_p95 & 0.62 & 0.12 & 8.00 \\
+expl & add\_chain & 20 & f\_pilot & pca\_pooled & 0 & 0.00 [0.00, 0.00] & 0.00 & other\_task:entity\_track & 0.00 & 1.00 & 1.00 \\
+expl & add\_chain & 20 & f\_pilot & pca\_pooled & 1 & 0.50 [0.17, 0.83] & 0.10 & other\_task:entity\_track & 0.40 & 0.62 & 1.00 \\
+expl & add\_chain & 20 & f\_pilot & pca\_pooled & 2 & 0.50 [0.00, 0.85] & 0.10 & other\_task:entity\_track & 0.40 & 0.67 & 1.00 \\
+expl & add\_chain & 20 & f\_pilot & pca\_pooled & 4 & 0.60 [0.27, 0.91] & 0.10 & other\_task:entity\_track & 0.50 & 0.23 & 1.00 \\
+expl & add\_chain & 20 & f\_pilot & pca\_pooled & 8 & 0.60 [0.27, 0.91] & 0.20 & other\_task:entity\_track & 0.40 & 0.73 & 1.00 \\
+expl & add\_chain & 20 & f\_pilot & pca\_pooled & 16 & 0.70 [0.25, 1.00] & 0.19 & random\_p95 & 0.51 & 0.37 & 1.00 \\
+expl & add\_chain & 20 & f\_pilot & pca\_pooled & 32 & 0.70 [0.38, 1.00] & 0.18 & random\_p95 & 0.52 & 0.39 & 1.00 \\
+expl & entity\_track & 8 & f\_A\_correct & answer\_sep & 0 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 8 & f\_A\_correct & answer\_sep & 1 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 8 & f\_A\_correct & answer\_sep & 2 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 8 & f\_A\_correct & answer\_sep & 4 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 8 & f\_A\_correct & answer\_sep & 8 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 8 & f\_A\_correct & answer\_sep & 16 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 8 & f\_A\_correct & answer\_sep & 32 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 8 & f\_A\_correct & pca\_pooled & 0 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 8 & f\_A\_correct & pca\_pooled & 1 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 8 & f\_A\_correct & pca\_pooled & 2 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 8 & f\_A\_correct & pca\_pooled & 4 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 8 & f\_A\_correct & pca\_pooled & 8 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 8 & f\_A\_correct & pca\_pooled & 16 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 8 & f\_A\_correct & pca\_pooled & 32 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 8 & f\_none & answer\_sep & 0 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 8 & f\_none & answer\_sep & 1 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 8 & f\_none & answer\_sep & 2 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 8 & f\_none & answer\_sep & 4 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 8 & f\_none & answer\_sep & 8 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 8 & f\_none & answer\_sep & 16 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 8 & f\_none & answer\_sep & 32 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 8 & f\_none & pca\_pooled & 0 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 8 & f\_none & pca\_pooled & 1 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 8 & f\_none & pca\_pooled & 2 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 8 & f\_none & pca\_pooled & 4 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 8 & f\_none & pca\_pooled & 8 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 8 & f\_none & pca\_pooled & 16 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 8 & f\_none & pca\_pooled & 32 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 8 & f\_pilot & answer\_sep & 0 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 8 & f\_pilot & answer\_sep & 1 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 8 & f\_pilot & answer\_sep & 2 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 8 & f\_pilot & answer\_sep & 4 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 8 & f\_pilot & answer\_sep & 8 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 8 & f\_pilot & answer\_sep & 16 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 8 & f\_pilot & answer\_sep & 32 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 8 & f\_pilot & pca\_pooled & 0 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 8 & f\_pilot & pca\_pooled & 1 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 8 & f\_pilot & pca\_pooled & 2 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 8 & f\_pilot & pca\_pooled & 4 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 8 & f\_pilot & pca\_pooled & 8 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 8 & f\_pilot & pca\_pooled & 16 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 8 & f\_pilot & pca\_pooled & 32 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 9 & f\_A\_correct & answer\_sep & 0 & -- [--, --] & -- & nan & -- & -- & -- \\
+expl & entity\_track & 9 & f\_A\_correct & answer\_sep & 1 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 9 & f\_A\_correct & answer\_sep & 2 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 9 & f\_A\_correct & pca\_pooled & 0 & -- [--, --] & -- & nan & -- & -- & -- \\
+expl & entity\_track & 9 & f\_A\_correct & pca\_pooled & 1 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 9 & f\_A\_correct & pca\_pooled & 2 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 9 & f\_pilot & answer\_sep & 0 & -- [--, --] & -- & nan & -- & -- & -- \\
+expl & entity\_track & 9 & f\_pilot & answer\_sep & 1 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 9 & f\_pilot & answer\_sep & 2 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 9 & f\_pilot & pca\_pooled & 0 & -- [--, --] & -- & nan & -- & -- & -- \\
+expl & entity\_track & 9 & f\_pilot & pca\_pooled & 1 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 9 & f\_pilot & pca\_pooled & 2 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 10 & f\_A\_correct & answer\_sep & 0 & -- [--, --] & -- & nan & -- & -- & -- \\
+expl & entity\_track & 10 & f\_A\_correct & answer\_sep & 1 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 10 & f\_A\_correct & answer\_sep & 2 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 10 & f\_A\_correct & pca\_pooled & 0 & -- [--, --] & -- & nan & -- & -- & -- \\
+expl & entity\_track & 10 & f\_A\_correct & pca\_pooled & 1 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 10 & f\_A\_correct & pca\_pooled & 2 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 10 & f\_pilot & answer\_sep & 0 & -- [--, --] & -- & nan & -- & -- & -- \\
+expl & entity\_track & 10 & f\_pilot & answer\_sep & 1 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 10 & f\_pilot & answer\_sep & 2 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 10 & f\_pilot & pca\_pooled & 0 & -- [--, --] & -- & nan & -- & -- & -- \\
+expl & entity\_track & 10 & f\_pilot & pca\_pooled & 1 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 10 & f\_pilot & pca\_pooled & 2 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 11 & f\_A\_correct & answer\_sep & 0 & -- [--, --] & -- & nan & -- & -- & -- \\
+expl & entity\_track & 11 & f\_A\_correct & answer\_sep & 1 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 11 & f\_A\_correct & answer\_sep & 2 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 11 & f\_A\_correct & pca\_pooled & 0 & -- [--, --] & -- & nan & -- & -- & -- \\
+expl & entity\_track & 11 & f\_A\_correct & pca\_pooled & 1 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 11 & f\_A\_correct & pca\_pooled & 2 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 11 & f\_pilot & answer\_sep & 0 & -- [--, --] & -- & nan & -- & -- & -- \\
+expl & entity\_track & 11 & f\_pilot & answer\_sep & 1 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 11 & f\_pilot & answer\_sep & 2 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 11 & f\_pilot & pca\_pooled & 0 & -- [--, --] & -- & nan & -- & -- & -- \\
+expl & entity\_track & 11 & f\_pilot & pca\_pooled & 1 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 11 & f\_pilot & pca\_pooled & 2 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 13 & f\_A\_correct & answer\_sep & 0 & 0.00 [0.00, 0.00] & -- & nan & -- & -- & 1.00 \\
+expl & entity\_track & 13 & f\_A\_correct & answer\_sep & 1 & 1.00 [1.00, 1.00] & 0.00 & random\_p95 & 1.00 & -- & 1.00 \\
+expl & entity\_track & 13 & f\_A\_correct & answer\_sep & 2 & 1.00 [1.00, 1.00] & 0.00 & random\_p95 & 1.00 & -- & 1.00 \\
+expl & entity\_track & 13 & f\_A\_correct & pca\_pooled & 0 & 0.00 [0.00, 0.00] & -- & nan & -- & -- & 1.00 \\
+expl & entity\_track & 13 & f\_A\_correct & pca\_pooled & 1 & 1.00 [1.00, 1.00] & 0.00 & random\_p95 & 1.00 & -- & 1.00 \\
+expl & entity\_track & 13 & f\_A\_correct & pca\_pooled & 2 & 1.00 [1.00, 1.00] & 0.00 & random\_p95 & 1.00 & -- & 1.00 \\
+expl & entity\_track & 13 & f\_pilot & answer\_sep & 0 & 0.00 [0.00, 0.00] & -- & nan & -- & -- & 1.00 \\
+expl & entity\_track & 13 & f\_pilot & answer\_sep & 1 & 1.00 [1.00, 1.00] & 0.00 & random\_p95 & 1.00 & -- & 1.00 \\
+expl & entity\_track & 13 & f\_pilot & answer\_sep & 2 & 1.00 [1.00, 1.00] & 0.00 & random\_p95 & 1.00 & -- & 1.00 \\
+expl & entity\_track & 13 & f\_pilot & pca\_pooled & 0 & 0.00 [0.00, 0.00] & -- & nan & -- & -- & 1.00 \\
+expl & entity\_track & 13 & f\_pilot & pca\_pooled & 1 & 1.00 [1.00, 1.00] & 0.00 & random\_p95 & 1.00 & -- & 1.00 \\
+expl & entity\_track & 13 & f\_pilot & pca\_pooled & 2 & 1.00 [1.00, 1.00] & 0.00 & random\_p95 & 1.00 & -- & 1.00 \\
+expl & entity\_track & 14 & f\_A\_correct & answer\_sep & 0 & -- [--, --] & -- & nan & -- & -- & -- \\
+expl & entity\_track & 14 & f\_A\_correct & answer\_sep & 1 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 14 & f\_A\_correct & answer\_sep & 2 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 14 & f\_A\_correct & pca\_pooled & 0 & -- [--, --] & -- & nan & -- & -- & -- \\
+expl & entity\_track & 14 & f\_A\_correct & pca\_pooled & 1 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 14 & f\_A\_correct & pca\_pooled & 2 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 14 & f\_pilot & answer\_sep & 0 & -- [--, --] & -- & nan & -- & -- & -- \\
+expl & entity\_track & 14 & f\_pilot & answer\_sep & 1 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 14 & f\_pilot & answer\_sep & 2 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 14 & f\_pilot & pca\_pooled & 0 & -- [--, --] & -- & nan & -- & -- & -- \\
+expl & entity\_track & 14 & f\_pilot & pca\_pooled & 1 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 14 & f\_pilot & pca\_pooled & 2 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 15 & f\_A\_correct & answer\_sep & 0 & 0.00 [0.00, 0.00] & -- & nan & -- & -- & 1.00 \\
+expl & entity\_track & 15 & f\_A\_correct & answer\_sep & 1 & 0.50 [0.00, 1.00] & 0.00 & random\_p95 & 0.50 & -- & 1.00 \\
+expl & entity\_track & 15 & f\_A\_correct & answer\_sep & 2 & 0.50 [0.00, 1.00] & 0.00 & random\_p95 & 0.50 & -- & 1.00 \\
+expl & entity\_track & 15 & f\_A\_correct & pca\_pooled & 0 & 0.00 [0.00, 0.00] & -- & nan & -- & -- & 1.00 \\
+expl & entity\_track & 15 & f\_A\_correct & pca\_pooled & 1 & 0.50 [0.00, 1.00] & 0.00 & random\_p95 & 0.50 & -- & 1.00 \\
+expl & entity\_track & 15 & f\_A\_correct & pca\_pooled & 2 & 0.50 [0.00, 1.00] & 0.00 & random\_p95 & 0.50 & -- & 1.00 \\
+expl & entity\_track & 15 & f\_pilot & answer\_sep & 0 & 0.00 [0.00, 0.00] & -- & nan & -- & -- & 1.00 \\
+expl & entity\_track & 15 & f\_pilot & answer\_sep & 1 & 0.50 [0.00, 1.00] & 0.00 & random\_p95 & 0.50 & -- & 1.00 \\
+expl & entity\_track & 15 & f\_pilot & answer\_sep & 2 & 0.50 [0.00, 1.00] & 0.00 & random\_p95 & 0.50 & -- & 1.00 \\
+expl & entity\_track & 15 & f\_pilot & pca\_pooled & 0 & 0.00 [0.00, 0.00] & -- & nan & -- & -- & 1.00 \\
+expl & entity\_track & 15 & f\_pilot & pca\_pooled & 1 & 0.50 [0.00, 1.00] & 0.00 & random\_p95 & 0.50 & -- & 1.00 \\
+expl & entity\_track & 15 & f\_pilot & pca\_pooled & 2 & 0.50 [0.00, 1.00] & 0.00 & random\_p95 & 0.50 & -- & 1.00 \\
+expl & entity\_track & 16 & f\_A\_correct & answer\_sep & 0 & -- [--, --] & -- & nan & -- & -- & -- \\
+expl & entity\_track & 16 & f\_A\_correct & answer\_sep & 1 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 16 & f\_A\_correct & answer\_sep & 2 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 16 & f\_A\_correct & pca\_pooled & 0 & -- [--, --] & -- & nan & -- & -- & -- \\
+expl & entity\_track & 16 & f\_A\_correct & pca\_pooled & 1 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 16 & f\_A\_correct & pca\_pooled & 2 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 16 & f\_pilot & answer\_sep & 0 & -- [--, --] & -- & nan & -- & -- & -- \\
+expl & entity\_track & 16 & f\_pilot & answer\_sep & 1 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 16 & f\_pilot & answer\_sep & 2 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 16 & f\_pilot & pca\_pooled & 0 & -- [--, --] & -- & nan & -- & -- & -- \\
+expl & entity\_track & 16 & f\_pilot & pca\_pooled & 1 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 16 & f\_pilot & pca\_pooled & 2 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 18 & f\_A\_correct & answer\_sep & 0 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 18 & f\_A\_correct & answer\_sep & 1 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 18 & f\_A\_correct & answer\_sep & 2 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 18 & f\_A\_correct & answer\_sep & 4 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 18 & f\_A\_correct & answer\_sep & 8 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 18 & f\_A\_correct & answer\_sep & 16 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 18 & f\_A\_correct & answer\_sep & 32 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 18 & f\_A\_correct & pca\_pooled & 0 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 18 & f\_A\_correct & pca\_pooled & 1 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 18 & f\_A\_correct & pca\_pooled & 2 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 18 & f\_A\_correct & pca\_pooled & 4 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 18 & f\_A\_correct & pca\_pooled & 8 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 18 & f\_A\_correct & pca\_pooled & 16 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 18 & f\_A\_correct & pca\_pooled & 32 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 18 & f\_none & answer\_sep & 0 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 18 & f\_none & answer\_sep & 1 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 18 & f\_none & answer\_sep & 2 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 18 & f\_none & answer\_sep & 4 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 18 & f\_none & answer\_sep & 8 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 18 & f\_none & answer\_sep & 16 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 18 & f\_none & answer\_sep & 32 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 18 & f\_none & pca\_pooled & 0 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 18 & f\_none & pca\_pooled & 1 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 18 & f\_none & pca\_pooled & 2 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 18 & f\_none & pca\_pooled & 4 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 18 & f\_none & pca\_pooled & 8 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 18 & f\_none & pca\_pooled & 16 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 18 & f\_none & pca\_pooled & 32 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 18 & f\_pilot & answer\_sep & 0 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 18 & f\_pilot & answer\_sep & 1 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 18 & f\_pilot & answer\_sep & 2 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 18 & f\_pilot & answer\_sep & 4 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 18 & f\_pilot & answer\_sep & 8 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 18 & f\_pilot & answer\_sep & 16 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 18 & f\_pilot & answer\_sep & 32 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 18 & f\_pilot & pca\_pooled & 0 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 18 & f\_pilot & pca\_pooled & 1 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 18 & f\_pilot & pca\_pooled & 2 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 18 & f\_pilot & pca\_pooled & 4 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 18 & f\_pilot & pca\_pooled & 8 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 18 & f\_pilot & pca\_pooled & 16 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 18 & f\_pilot & pca\_pooled & 32 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 20 & f\_A\_correct & answer\_sep & 0 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 20 & f\_A\_correct & answer\_sep & 1 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 20 & f\_A\_correct & answer\_sep & 2 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 20 & f\_A\_correct & answer\_sep & 4 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 20 & f\_A\_correct & answer\_sep & 8 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 20 & f\_A\_correct & answer\_sep & 16 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 20 & f\_A\_correct & answer\_sep & 32 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 20 & f\_A\_correct & pca\_pooled & 0 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 20 & f\_A\_correct & pca\_pooled & 1 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 20 & f\_A\_correct & pca\_pooled & 2 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 20 & f\_A\_correct & pca\_pooled & 4 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 20 & f\_A\_correct & pca\_pooled & 8 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 20 & f\_A\_correct & pca\_pooled & 16 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 20 & f\_A\_correct & pca\_pooled & 32 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 20 & f\_none & answer\_sep & 0 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 20 & f\_none & answer\_sep & 1 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 20 & f\_none & answer\_sep & 2 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 20 & f\_none & answer\_sep & 4 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 20 & f\_none & answer\_sep & 8 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 20 & f\_none & answer\_sep & 16 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 20 & f\_none & answer\_sep & 32 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 20 & f\_none & pca\_pooled & 0 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 20 & f\_none & pca\_pooled & 1 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 20 & f\_none & pca\_pooled & 2 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 20 & f\_none & pca\_pooled & 4 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 20 & f\_none & pca\_pooled & 8 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 20 & f\_none & pca\_pooled & 16 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 20 & f\_none & pca\_pooled & 32 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 20 & f\_pilot & answer\_sep & 0 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 20 & f\_pilot & answer\_sep & 1 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 20 & f\_pilot & answer\_sep & 2 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 20 & f\_pilot & answer\_sep & 4 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 20 & f\_pilot & answer\_sep & 8 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 20 & f\_pilot & answer\_sep & 16 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 20 & f\_pilot & answer\_sep & 32 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 20 & f\_pilot & pca\_pooled & 0 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 20 & f\_pilot & pca\_pooled & 1 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 20 & f\_pilot & pca\_pooled & 2 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 20 & f\_pilot & pca\_pooled & 4 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 20 & f\_pilot & pca\_pooled & 8 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 20 & f\_pilot & pca\_pooled & 16 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & entity\_track & 20 & f\_pilot & pca\_pooled & 32 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 14 & f\_A\_correct & answer\_sep & 0 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 14 & f\_A\_correct & answer\_sep & 1 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 14 & f\_A\_correct & answer\_sep & 2 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 14 & f\_A\_correct & answer\_sep & 4 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 14 & f\_A\_correct & answer\_sep & 8 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 14 & f\_A\_correct & answer\_sep & 16 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 14 & f\_A\_correct & answer\_sep & 32 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 14 & f\_A\_correct & pca\_pooled & 0 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 14 & f\_A\_correct & pca\_pooled & 1 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 14 & f\_A\_correct & pca\_pooled & 2 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 14 & f\_A\_correct & pca\_pooled & 4 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 14 & f\_A\_correct & pca\_pooled & 8 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 14 & f\_A\_correct & pca\_pooled & 16 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 14 & f\_A\_correct & pca\_pooled & 32 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 14 & f\_none & answer\_sep & 0 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 14 & f\_none & answer\_sep & 1 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 14 & f\_none & answer\_sep & 2 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 14 & f\_none & answer\_sep & 4 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 14 & f\_none & answer\_sep & 8 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 14 & f\_none & answer\_sep & 16 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 14 & f\_none & answer\_sep & 32 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 14 & f\_none & pca\_pooled & 0 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 14 & f\_none & pca\_pooled & 1 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 14 & f\_none & pca\_pooled & 2 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 14 & f\_none & pca\_pooled & 4 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 14 & f\_none & pca\_pooled & 8 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 14 & f\_none & pca\_pooled & 16 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 14 & f\_none & pca\_pooled & 32 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 14 & f\_pilot & answer\_sep & 0 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 14 & f\_pilot & answer\_sep & 1 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 14 & f\_pilot & answer\_sep & 2 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 14 & f\_pilot & answer\_sep & 4 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 14 & f\_pilot & answer\_sep & 8 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 14 & f\_pilot & answer\_sep & 16 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 14 & f\_pilot & answer\_sep & 32 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 14 & f\_pilot & pca\_pooled & 0 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 14 & f\_pilot & pca\_pooled & 1 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 14 & f\_pilot & pca\_pooled & 2 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 14 & f\_pilot & pca\_pooled & 4 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 14 & f\_pilot & pca\_pooled & 8 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 14 & f\_pilot & pca\_pooled & 16 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 14 & f\_pilot & pca\_pooled & 32 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 16 & f\_A\_correct & answer\_sep & 0 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 16 & f\_A\_correct & answer\_sep & 1 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 16 & f\_A\_correct & answer\_sep & 2 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 16 & f\_A\_correct & answer\_sep & 4 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 16 & f\_A\_correct & answer\_sep & 8 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 16 & f\_A\_correct & answer\_sep & 16 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 16 & f\_A\_correct & answer\_sep & 32 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 16 & f\_A\_correct & pca\_pooled & 0 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 16 & f\_A\_correct & pca\_pooled & 1 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 16 & f\_A\_correct & pca\_pooled & 2 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 16 & f\_A\_correct & pca\_pooled & 4 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 16 & f\_A\_correct & pca\_pooled & 8 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 16 & f\_A\_correct & pca\_pooled & 16 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 16 & f\_A\_correct & pca\_pooled & 32 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 16 & f\_none & answer\_sep & 0 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 16 & f\_none & answer\_sep & 1 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 16 & f\_none & answer\_sep & 2 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 16 & f\_none & answer\_sep & 4 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 16 & f\_none & answer\_sep & 8 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 16 & f\_none & answer\_sep & 16 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 16 & f\_none & answer\_sep & 32 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 16 & f\_none & pca\_pooled & 0 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 16 & f\_none & pca\_pooled & 1 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 16 & f\_none & pca\_pooled & 2 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 16 & f\_none & pca\_pooled & 4 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 16 & f\_none & pca\_pooled & 8 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 16 & f\_none & pca\_pooled & 16 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 16 & f\_none & pca\_pooled & 32 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 16 & f\_pilot & answer\_sep & 0 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 16 & f\_pilot & answer\_sep & 1 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 16 & f\_pilot & answer\_sep & 2 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 16 & f\_pilot & answer\_sep & 4 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 16 & f\_pilot & answer\_sep & 8 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 16 & f\_pilot & answer\_sep & 16 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 16 & f\_pilot & answer\_sep & 32 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 16 & f\_pilot & pca\_pooled & 0 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 16 & f\_pilot & pca\_pooled & 1 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 16 & f\_pilot & pca\_pooled & 2 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 16 & f\_pilot & pca\_pooled & 4 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 16 & f\_pilot & pca\_pooled & 8 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 16 & f\_pilot & pca\_pooled & 16 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 16 & f\_pilot & pca\_pooled & 32 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 18 & f\_A\_correct & answer\_sep & 0 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 18 & f\_A\_correct & answer\_sep & 1 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 18 & f\_A\_correct & answer\_sep & 2 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 18 & f\_A\_correct & answer\_sep & 4 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 18 & f\_A\_correct & answer\_sep & 8 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 18 & f\_A\_correct & answer\_sep & 16 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 18 & f\_A\_correct & answer\_sep & 32 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 18 & f\_A\_correct & pca\_pooled & 0 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 18 & f\_A\_correct & pca\_pooled & 1 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 18 & f\_A\_correct & pca\_pooled & 2 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 18 & f\_A\_correct & pca\_pooled & 4 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 18 & f\_A\_correct & pca\_pooled & 8 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 18 & f\_A\_correct & pca\_pooled & 16 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 18 & f\_A\_correct & pca\_pooled & 32 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 18 & f\_none & answer\_sep & 0 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 18 & f\_none & answer\_sep & 1 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 18 & f\_none & answer\_sep & 2 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 18 & f\_none & answer\_sep & 4 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 18 & f\_none & answer\_sep & 8 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 18 & f\_none & answer\_sep & 16 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 18 & f\_none & answer\_sep & 32 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 18 & f\_none & pca\_pooled & 0 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 18 & f\_none & pca\_pooled & 1 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 18 & f\_none & pca\_pooled & 2 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 18 & f\_none & pca\_pooled & 4 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 18 & f\_none & pca\_pooled & 8 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 18 & f\_none & pca\_pooled & 16 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 18 & f\_none & pca\_pooled & 32 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 18 & f\_pilot & answer\_sep & 0 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 18 & f\_pilot & answer\_sep & 1 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 18 & f\_pilot & answer\_sep & 2 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 18 & f\_pilot & answer\_sep & 4 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 18 & f\_pilot & answer\_sep & 8 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 18 & f\_pilot & answer\_sep & 16 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 18 & f\_pilot & answer\_sep & 32 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 18 & f\_pilot & pca\_pooled & 0 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 18 & f\_pilot & pca\_pooled & 1 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 18 & f\_pilot & pca\_pooled & 2 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 18 & f\_pilot & pca\_pooled & 4 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 18 & f\_pilot & pca\_pooled & 8 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 18 & f\_pilot & pca\_pooled & 16 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 18 & f\_pilot & pca\_pooled & 32 & -- [--, --] & -- &  & -- & -- & -- \\
+expl & ioi\_control & 20 & f\_A\_correct & answer\_sep & 0 & 0.00 [0.00, 0.00] & 0.00 & other\_task:entity\_track & 0.00 & -- & 1.00 \\
+expl & ioi\_control & 20 & f\_A\_correct & answer\_sep & 1 & 1.00 [1.00, 1.00] & 0.50 & generic & 0.50 & -- & 1.00 \\
+expl & ioi\_control & 20 & f\_A\_correct & answer\_sep & 2 & 1.00 [1.00, 1.00] & 0.50 & other\_task:entity\_track & 0.50 & -- & 1.00 \\
+expl & ioi\_control & 20 & f\_A\_correct & answer\_sep & 4 & 1.00 [1.00, 1.00] & 0.50 & generic & 0.50 & -- & 1.00 \\
+expl & ioi\_control & 20 & f\_A\_correct & answer\_sep & 8 & 1.00 [1.00, 1.00] & 0.50 & other\_task:entity\_track & 0.50 & -- & 1.00 \\
+expl & ioi\_control & 20 & f\_A\_correct & answer\_sep & 16 & 1.00 [1.00, 1.00] & 0.50 & other\_task:entity\_track & 0.50 & -- & 1.00 \\
+expl & ioi\_control & 20 & f\_A\_correct & answer\_sep & 32 & 1.00 [1.00, 1.00] & 1.00 & other\_task:add\_chain & 0.00 & -- & 1.00 \\
+expl & ioi\_control & 20 & f\_A\_correct & pca\_pooled & 0 & 0.00 [0.00, 0.00] & 0.00 & other\_task:entity\_track & 0.00 & -- & 1.00 \\
+expl & ioi\_control & 20 & f\_A\_correct & pca\_pooled & 1 & 1.00 [1.00, 1.00] & 0.50 & other\_task:add\_chain & 0.50 & -- & 1.00 \\
+expl & ioi\_control & 20 & f\_A\_correct & pca\_pooled & 2 & 1.00 [1.00, 1.00] & 0.50 & other\_task:add\_chain & 0.50 & -- & 1.00 \\
+expl & ioi\_control & 20 & f\_A\_correct & pca\_pooled & 4 & 1.00 [1.00, 1.00] & 0.50 & generic & 0.50 & -- & 1.00 \\
+expl & ioi\_control & 20 & f\_A\_correct & pca\_pooled & 8 & 1.00 [1.00, 1.00] & 0.50 & other\_task:entity\_track & 0.50 & -- & 1.00 \\
+expl & ioi\_control & 20 & f\_A\_correct & pca\_pooled & 16 & 1.00 [1.00, 1.00] & 0.50 & other\_task:entity\_track & 0.50 & -- & 1.00 \\
+expl & ioi\_control & 20 & f\_A\_correct & pca\_pooled & 32 & 1.00 [1.00, 1.00] & 1.00 & other\_task:add\_chain & 0.00 & -- & 1.00 \\
+expl & ioi\_control & 20 & f\_none & answer\_sep & 0 & 0.00 [0.00, 0.00] & 0.00 & other\_task:entity\_track & 0.00 & -- & 1.00 \\
+expl & ioi\_control & 20 & f\_none & answer\_sep & 1 & 1.00 [1.00, 1.00] & 0.50 & generic & 0.50 & -- & 1.00 \\
+expl & ioi\_control & 20 & f\_none & answer\_sep & 2 & 1.00 [1.00, 1.00] & 0.50 & other\_task:entity\_track & 0.50 & -- & 1.00 \\
+expl & ioi\_control & 20 & f\_none & answer\_sep & 4 & 1.00 [1.00, 1.00] & 0.50 & generic & 0.50 & -- & 1.00 \\
+expl & ioi\_control & 20 & f\_none & answer\_sep & 8 & 1.00 [1.00, 1.00] & 0.50 & other\_task:entity\_track & 0.50 & -- & 1.00 \\
+expl & ioi\_control & 20 & f\_none & answer\_sep & 16 & 1.00 [1.00, 1.00] & 0.50 & other\_task:entity\_track & 0.50 & -- & 1.00 \\
+expl & ioi\_control & 20 & f\_none & answer\_sep & 32 & 1.00 [1.00, 1.00] & 1.00 & other\_task:add\_chain & 0.00 & -- & 1.00 \\
+expl & ioi\_control & 20 & f\_none & pca\_pooled & 0 & 0.00 [0.00, 0.00] & 0.00 & other\_task:entity\_track & 0.00 & -- & 1.00 \\
+expl & ioi\_control & 20 & f\_none & pca\_pooled & 1 & 1.00 [1.00, 1.00] & 0.50 & other\_task:add\_chain & 0.50 & -- & 1.00 \\
+expl & ioi\_control & 20 & f\_none & pca\_pooled & 2 & 1.00 [1.00, 1.00] & 0.50 & other\_task:add\_chain & 0.50 & -- & 1.00 \\
+expl & ioi\_control & 20 & f\_none & pca\_pooled & 4 & 1.00 [1.00, 1.00] & 0.50 & generic & 0.50 & -- & 1.00 \\
+expl & ioi\_control & 20 & f\_none & pca\_pooled & 8 & 1.00 [1.00, 1.00] & 0.50 & other\_task:entity\_track & 0.50 & -- & 1.00 \\
+expl & ioi\_control & 20 & f\_none & pca\_pooled & 16 & 1.00 [1.00, 1.00] & 0.50 & other\_task:entity\_track & 0.50 & -- & 1.00 \\
+expl & ioi\_control & 20 & f\_none & pca\_pooled & 32 & 1.00 [1.00, 1.00] & 1.00 & other\_task:add\_chain & 0.00 & -- & 1.00 \\
+expl & ioi\_control & 20 & f\_pilot & answer\_sep & 0 & 0.00 [0.00, 0.00] & 0.00 & other\_task:entity\_track & 0.00 & -- & 1.00 \\
+expl & ioi\_control & 20 & f\_pilot & answer\_sep & 1 & 1.00 [1.00, 1.00] & 0.50 & generic & 0.50 & -- & 1.00 \\
+expl & ioi\_control & 20 & f\_pilot & answer\_sep & 2 & 1.00 [1.00, 1.00] & 0.50 & other\_task:entity\_track & 0.50 & -- & 1.00 \\
+expl & ioi\_control & 20 & f\_pilot & answer\_sep & 4 & 1.00 [1.00, 1.00] & 0.50 & generic & 0.50 & -- & 1.00 \\
+expl & ioi\_control & 20 & f\_pilot & answer\_sep & 8 & 1.00 [1.00, 1.00] & 0.50 & other\_task:entity\_track & 0.50 & -- & 1.00 \\
+expl & ioi\_control & 20 & f\_pilot & answer\_sep & 16 & 1.00 [1.00, 1.00] & 0.50 & other\_task:entity\_track & 0.50 & -- & 1.00 \\
+expl & ioi\_control & 20 & f\_pilot & answer\_sep & 32 & 1.00 [1.00, 1.00] & 1.00 & other\_task:add\_chain & 0.00 & -- & 1.00 \\
+expl & ioi\_control & 20 & f\_pilot & pca\_pooled & 0 & 0.00 [0.00, 0.00] & 0.00 & other\_task:entity\_track & 0.00 & -- & 1.00 \\
+expl & ioi\_control & 20 & f\_pilot & pca\_pooled & 1 & 1.00 [1.00, 1.00] & 0.50 & other\_task:add\_chain & 0.50 & -- & 1.00 \\
+expl & ioi\_control & 20 & f\_pilot & pca\_pooled & 2 & 1.00 [1.00, 1.00] & 0.50 & other\_task:add\_chain & 0.50 & -- & 1.00 \\
+expl & ioi\_control & 20 & f\_pilot & pca\_pooled & 4 & 1.00 [1.00, 1.00] & 0.50 & generic & 0.50 & -- & 1.00 \\
+expl & ioi\_control & 20 & f\_pilot & pca\_pooled & 8 & 1.00 [1.00, 1.00] & 0.50 & other\_task:entity\_track & 0.50 & -- & 1.00 \\
+expl & ioi\_control & 20 & f\_pilot & pca\_pooled & 16 & 1.00 [1.00, 1.00] & 0.50 & other\_task:entity\_track & 0.50 & -- & 1.00 \\
+expl & ioi\_control & 20 & f\_pilot & pca\_pooled & 32 & 1.00 [1.00, 1.00] & 1.00 & other\_task:add\_chain & 0.00 & -- & 1.00 \\
+\bottomrule
+\end{tabular}

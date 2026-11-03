@@ -137,5 +137,6 @@ Dated log of non-trivial choices. Pilot run verdicts live in `results/*/DECISION
   the choice had to be fixed before E3. `scripts/make_gate.py` marks `f_pilot` rows on fresh families as the gate and
   reports `f_A_correct` / `f_none` as sensitivity rows. `PREREGISTRATION.md` is not frozen yet (placeholder date); adding
   this line there is the humans' edit.
-- **Still open:** whether the gate's `feat_A_meanPos` uses mean errors fitted on pilot or on fresh families (E3 runs
-  both: `fit_families` pilot -> fresh and fresh -> fresh).
+- **The gate's `feat_A_meanPos` uses mean errors fitted on fresh families** (decided by the humans on 2026-11-03,
+  before any E3 result): the E3 cells `fit_families: [fresh], eval_families: [fresh]`. The pilot-fitted cells evaluated
+  on fresh families are reported as sensitivity rows.

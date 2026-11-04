@@ -1,0 +1,23 @@
+# E2 (P0): error-slot baselines. Is the features-only gap "x_hat misses information" or "eps_B carries B's signal"?
+exp_id: E2
+name: error_slot_baselines
+description: All error-slot conditions plus repair / repair_mean for OT L12 and RS L18 (16k) under three filters.
+model_revision: c5ebcd40d208330abc697524c919956e692655cf
+prompt_sets: {entity_track: prompt_sets/entity_track_pilot.jsonl.gz, add_chain: prompt_sets/add_chain_pilot.jsonl.gz}
+cells:
+  - {task: entity_track, layer: 12, sae: {width: 16k}, role: confirmatory}
+  - {task: add_chain, layer: 18, sae: {width: 16k}, role: confirmatory}
+filters: [f_none, f_A_correct, f_pilot]
+fit_filter: f_pilot
+conditions: [feat_A_errB, feat_B_errA, feat_B_noise, feat_A_zero, feat_A_meanTask, feat_A_meanPos,
+             feat_A_resampC_sameAns, feat_A_resampC_diffAns, feat_A_noise, feat_A_covnoise]
+noise_seeds: [0, 1]
+directions:
+  conditions: [repair, repair_mean]
+  ranks: [0, 1, 2, 4, 8]
+  estimators: [pca_pooled, answer_sep]
+  sources: [same_task]
+  random_seeds: 20
+  r_max: 32
+bootstrap: 1000
+seed: 0

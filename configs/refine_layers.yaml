@@ -1,0 +1,21 @@
+# Refinement after the 2026-10-25 pilot (REFINE verdict): the SAE reconstruction carries most of the causal
+# state, but misses 0.25 of it for entity_track at L12, half of which sits in ONE error direction. This tier
+# maps that residue: where it peaks between L8 and L16, and whether its direction is task-specific
+# (generic_text_svd = fit on ordinary text; transfer = another task's subspace). Pair it with tier2_widths
+# (does the residue shrink with width?):  ./run.sh start --tiers refine_layers,tier2_widths --hours 4
+base: default_config.yaml
+run_name: refine_layers
+tasks: [entity_track, add_chain, ioi_control]
+n_train: 300
+n_test: 150
+layers: [8, 10, 12, 14, 16]
+widths: ["16k"]
+geometry_layers: [10, 12, 14]
+geometry_widths: ["16k"]
+exp1_positions: [from_diff]
+exp3_positions: [from_diff]
+exp1_extras: [controls]
+exp3_methods: [unsupervised_svd, supervised_centroid_svd, random_subspace, generic_text_svd, transfer]
+ranks: [0, 1, 2, 4, 8, 16, 32]
+random_seeds: 3
+bootstrap: 500

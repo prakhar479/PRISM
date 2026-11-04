@@ -1,0 +1,21 @@
+# Paper tier 3/3 (~1-1.5 h on 8 GB, estimate): THE AUDIT. Full-size versions of the pilot's findings and of
+# its three methodological pitfalls: (1) last-token vs from_diff patching across depth, (2) probes vs the
+# prompt-token baseline (exp2 'surface'), (3) readable-but-unused state (probe at the last token vs patching it).
+base: default_config.yaml
+run_name: paper_audit
+n_train: 300
+n_test: 150
+layers: [4, 8, 12, 16, 20]
+widths: ["16k"]
+geometry_layers: [8, 12, 16, 20]
+geometry_widths: ["16k"]
+exp1_positions: [last, from_diff]
+exp3_positions: [from_diff]
+exp1_extras: [controls]
+exp3_methods: [unsupervised_svd, supervised_centroid_svd, random_subspace]
+random_seeds: 2
+noise_seeds: 2
+bootstrap: 1000
+latent_probe_cols: 2048
+generic_text: {dataset: NeelNanda/pile-10k, n_docs: 40, seq_len: 128, skip_positions: 4, fidelity_batches: 2}
+runtime: {max_batch_tokens: 2048}

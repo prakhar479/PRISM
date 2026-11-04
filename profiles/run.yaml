@@ -1,0 +1,20 @@
+# Run machine: one 8 GB NVIDIA laptop GPU (RTX 5060 Laptop, 7.53 GiB usable), ~16 GiB RAM (see probe/R1 when returned).
+name: run
+device: cuda
+model_dtype: bfloat16        # what the pilot used
+sae_dtype: float32
+sae_bf16_min_width: 524k     # pilot rule: >= 524k latents held in bf16
+sae_placement: auto          # resident on GPU if it fits next to the model + activations, else block-wise from CPU
+cache_root: cache
+data_root: data
+runs_root: runs
+hf_home: null
+offline: false               # set true after scripts/prefetch.py has run
+batch_size: 16
+max_batch_size: 64
+max_batch_tokens: 1024       # 1024 avoids OOM / fragmentation on 8 GB laptop GPUs (pilot used 2048 on server GPUs)
+gpu_mem_cap_gb: 7.0          # headroom for OS / desktop display server on 7.53 GB usable VRAM
+cpu_workers: 2
+offload_embed: true          # 256k x 2304 embedding stays on CPU (pilot default on < 16 GB GPUs)
+allowed_experiments: [E0, E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14]
+allow_real_model: true

@@ -1,0 +1,23 @@
+# Multi-GPU server: everything machine-specific is measured at start (harness.memory.resolve_resources) instead of
+# typed here. One worker process per GPU (scripts/run_queue.py --gpus auto); each sees one GPU as cuda:0.
+name: server
+device: cuda
+model_dtype: bfloat16        # what the pilot used
+sae_dtype: float32
+sae_bf16_min_width: 524k     # pilot rule: >= 524k latents held in bf16
+sae_placement: auto          # resident on the GPU when it fits under the measured cap, else block-wise
+cache_root: cache
+data_root: data
+runs_root: runs
+hf_home: null
+offline: false
+batch_size: 16
+max_batch_size: auto         # rows per forward, from the measured VRAM (64-256)
+max_batch_tokens: auto       # tokens per forward, from the measured VRAM (1024-32768); the scheduler pins one per experiment
+gpu_mem_cap_gb: auto         # total VRAM of the GPU minus vram_headroom_gb
+vram_headroom_gb: 0.6
+cpu_workers: 2
+cpu_threads: auto            # physical cores / concurrent workers (set by the scheduler)
+offload_embed: auto          # embedding on CPU only on GPUs under 16 GiB
+allowed_experiments: [E0, E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, E11, E12, E13, E14]
+allow_real_model: true

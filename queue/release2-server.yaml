@@ -1,0 +1,39 @@
+# Release 2 on a multi-GPU server (harness/scheduler.py). Run with:
+#   python scripts/run_queue.py --queue queue/release2-server.yaml --gpus auto
+# Pipeline: prefetch -> preflight (every GPU) -> stage-1 warm-up (E3 sets | pilot sets via E8, which covers E4/E5) ->
+# stage 2 in disjoint SAE slices over all GPUs -> stage-3 workers on all GPUs (E3 first: it is the RQ1 gate) ->
+# finalize per experiment (CPU) -> bundle (runs even if an experiment failed).
+tag: release2-server
+profile: server
+parallel: true
+jobs:
+  - {id: prefetch, kind: script, script: scripts/run_prefetch.py, args: [--queue, queue/release2-server.yaml]}
+  - {id: preflight, kind: script, script: scripts/run_preflight.py, gpu: all,
+     args: [--queue, queue/release2-server.yaml, --golden, golden/R2, --per-gpu], depends_on: [prefetch]}
+
+  # stage 1: one writer per shared cache entry
+  - {id: E3_s1, config: configs/experiments/E3.yaml, stage: "1", priority: 10, depends_on: [preflight]}
+  - {id: E8_s1, config: configs/experiments/E8.yaml, stage: "1", priority: 9, depends_on: [preflight]}
+  - {id: E4_s1, config: configs/experiments/E4.yaml, stage: "1", priority: 8, depends_on: [E8_s1]}
+  - {id: E5_s1, config: configs/experiments/E5.yaml, stage: "1", priority: 8, depends_on: [E8_s1]}
+
+  # stage 2: SAE groups split over the GPUs; E4/E5 after E8 so their shared 16k entries are written once
+  - {id: E3_s2, config: configs/experiments/E3.yaml, stage: "2", slices: auto, priority: 10, depends_on: [E3_s1]}
+  - {id: E8_s2, config: configs/experiments/E8.yaml, stage: "2", slices: auto, priority: 9, depends_on: [E8_s1]}
+  - {id: E4_s2, config: configs/experiments/E4.yaml, stage: "2", slices: auto, priority: 8, depends_on: [E4_s1, E8_s2]}
+  - {id: E5_s2, config: configs/experiments/E5.yaml, stage: "2", slices: auto, priority: 8, depends_on: [E5_s1, E8_s2]}
+
+  # stage 3: claiming workers on every GPU
+  - {id: E3_s3, config: configs/experiments/E3.yaml, stage: "3", workers: auto, priority: 10, depends_on: [E3_s2]}
+  - {id: E4_s3, config: configs/experiments/E4.yaml, stage: "3", workers: auto, priority: 7, depends_on: [E4_s2]}
+  - {id: E5_s3, config: configs/experiments/E5.yaml, stage: "3", workers: auto, priority: 7, depends_on: [E5_s2]}
+  - {id: E8_s3, config: configs/experiments/E8.yaml, stage: "3", workers: auto, priority: 6, depends_on: [E8_s2]}
+
+  # finalize (CPU): the only writer of each run's manifest.json / per_pair.parquet
+  - {id: E3_fin, config: configs/experiments/E3.yaml, stage: "3", gpu: none, args: [--finalize-only], depends_on: [E3_s3]}
+  - {id: E4_fin, config: configs/experiments/E4.yaml, stage: "3", gpu: none, args: [--finalize-only], depends_on: [E4_s3]}
+  - {id: E5_fin, config: configs/experiments/E5.yaml, stage: "3", gpu: none, args: [--finalize-only], depends_on: [E5_s3]}
+  - {id: E8_fin, config: configs/experiments/E8.yaml, stage: "3", gpu: none, args: [--finalize-only], depends_on: [E8_s3]}
+
+  - {id: bundle, kind: script, script: scripts/bundle_results.py, args: [--tag, release2-server], after_failed: true,
+     depends_on: [E3_fin, E4_fin, E5_fin, E8_fin]}

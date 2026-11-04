@@ -1,0 +1,19 @@
+# Top-level pins for the experiment harness (DEV and RUN share one environment; see DECISIONS.md 2026-10-30).
+# Regenerate the lock:  uv pip compile requirements/harness.in -o requirements/harness.lock \
+#     --python-version 3.12 --index-url https://pypi.org/simple --extra-index-url https://download.pytorch.org/whl/cu130 --index-strategy unsafe-best-match
+# Install:              uv pip install -r requirements/harness.lock   (same index flags)
+torch==2.14.1
+transformers==5.19.0
+transformer-lens==3.9.0
+numpy==2.5.4
+pandas==3.0.6
+pyarrow==26.0.0
+scipy==1.18.1
+safetensors==0.8.0
+huggingface-hub==2.2.0
+pyyaml==6.0.3
+pytest==9.1.1
+matplotlib==3.11.2
+scikit-learn==1.9.1
+tqdm==4.70.1
+datasets==5.1.0

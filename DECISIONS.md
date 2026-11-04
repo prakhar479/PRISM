@@ -225,3 +225,16 @@ Dated log of non-trivial choices. Pilot run verdicts live in `results/*/DECISION
   queue, lockfile, run scripts) with git plumbing, adds `RUN_SOURCE.json` (source commit) and the golden fixtures as
   < 95 MB parts, and signs the commit and a `run-*` tag. Tests, results, runs, paper and analysis scripts stay on
   `harness`. Results from the server carry the run-branch commit, which is tagged, so DEV ingest accepts them.
+
+## 2026-11-04: golden R2 accepted; Turing (RTX 20xx) servers
+
+- R2 golden export (`incoming/R2.tar`, sha256 cfec8740...18e4) arrived: 20/20 checks PASS, the 11 pilot conditions of
+  entity_track L12 reproduce the pilot to 0.00 points, refit U columns |cos| = 1.000000. Exported on the laptop at
+  5ac8ef58d5 with `scripts/export_golden.py` modified locally (the inference-mode OOM fix later committed); the
+  fixture content does not depend on that change. It goes into the run branch as `golden_parts/`.
+- The server GPUs may be RTX 2080 class (compute capability 7.5). The model stays bf16: it is what the pilot,
+  the golden export and run_hash use, and Gemma-2 overflows in fp16; fp32 does not fit 8-11 GB with activations.
+  Turing runs bf16 without tensor cores (slower, same numbers to bf16 tolerance; preflight check 5 tests that).
+- `setup_server.sh` now stops on a driver older than 580 (CUDA 13 wheels) and runs `harness.device.gpu_compat`
+  per GPU: kernels for the GPU's arch in the torch build, bf16 GEMM vs fp32, and fp32/bf16 GEMM TFLOPS
+  (`runs/gpu_compat.json`). No fallback torch build: a different CUDA build would differ from the lock.

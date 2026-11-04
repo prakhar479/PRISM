@@ -172,7 +172,7 @@ def visible_gpu_ids() -> Optional[List[str]]:
 
 def _nvidia_smi_gpus() -> List[dict]:
     try:
-        r = subprocess.run(["nvidia-smi", "--query-gpu=index,uuid,name,memory.total,memory.free,compute_cap",
+        r = subprocess.run(["nvidia-smi", "--query-gpu=index,uuid,name,memory.total,memory.free,compute_cap,driver_version",
                             "--format=csv,noheader,nounits"], capture_output=True, text=True, timeout=30)
     except (OSError, subprocess.TimeoutExpired):
         return []
@@ -184,7 +184,8 @@ def _nvidia_smi_gpus() -> List[dict]:
         if len(f) < 6:
             continue
         gpus.append({"index": int(f[0]), "uuid": f[1], "name": f[2], "total_bytes": int(float(f[3])) * 2 ** 20,
-                     "free_bytes": int(float(f[4])) * 2 ** 20, "compute_cap": f[5]})
+                     "free_bytes": int(float(f[4])) * 2 ** 20, "compute_cap": f[5],
+                     "driver": f[6] if len(f) > 6 else None})
     vis = visible_gpu_ids()
     if vis is not None:                      # keep the visible ones, in CUDA_VISIBLE_DEVICES order
         by = {str(g["index"]): g for g in gpus} | {g["uuid"]: g for g in gpus}
@@ -211,6 +212,55 @@ def probe_machine(cache_root: Optional[Path] = None) -> dict:
             "ram_total_bytes": mi.get("MemTotal"), "ram_available_bytes": mi.get("MemAvailable"),
             "cpu_logical": logical, "cpu_affinity": affinity, "cpu_physical": _physical_cores() or max(1, affinity // 2),
             "disk_free_bytes": du.free if du else None, "cuda_visible_devices": os.environ.get("CUDA_VISIBLE_DEVICES")}
+
+
+MIN_DRIVER_CU13 = 580      # CUDA 13 wheels (requirements/harness.lock) need driver branch >= 580
+
+
+def gpu_compat(index: int, n: int = 2048) -> dict:
+    """Can the locked torch build run the harness on GPU `index`? Kernels built for its architecture, a bf16 GEMM
+    that agrees with fp32, and the bf16 / fp32 GEMM speed ratio (GPUs before compute capability 8.0, e.g. Turing
+    RTX 20xx, have no bf16 tensor cores: bf16 runs but is emulated and slow)."""
+    import time
+    dev = torch.device(f"cuda:{index}")
+    cap = torch.cuda.get_device_capability(dev)
+    arch = torch.cuda.get_arch_list()
+    sm = cap[0] * 10 + cap[1]
+    sms = [int(a.split("_")[1]) for a in arch if a.startswith("sm_")]
+    ptx = [int(a.split("_")[1]) for a in arch if a.startswith("compute_")]
+    kernels = sm in sms or any(p <= sm for p in ptx)
+    out = {"index": index, "name": torch.cuda.get_device_name(dev), "compute_cap": f"{cap[0]}.{cap[1]}",
+           "torch_arch_list": arch, "kernels_for_arch": kernels, "native_bf16": cap[0] >= 8}
+    if not kernels:
+        out["ok"] = False
+        out["error"] = f"this torch build has no kernels for sm_{sm} (built for {arch})"
+        return out
+    try:
+        g = torch.Generator(device=dev).manual_seed(0)
+        a = torch.randn(n, n, device=dev, generator=g)
+        b = torch.randn(n, n, device=dev, generator=g)
+        ref = a @ b
+        lo = (a.bfloat16() @ b.bfloat16()).float()
+        out["bf16_rel_err"] = float((lo - ref).norm() / ref.norm())
+
+        def speed(x, y, reps=10):
+            x @ y
+            torch.cuda.synchronize(dev)
+            t = time.perf_counter()
+            for _ in range(reps):
+                x @ y
+            torch.cuda.synchronize(dev)
+            return reps * 2 * n ** 3 / (time.perf_counter() - t) / 1e12
+        out["fp32_tflops"] = round(speed(a, b), 2)
+        out["bf16_tflops"] = round(speed(a.bfloat16(), b.bfloat16()), 2)
+        out["ok"] = out["bf16_rel_err"] < 2e-2
+        if not out["ok"]:
+            out["error"] = f"bf16 GEMM disagrees with fp32 (relative error {out['bf16_rel_err']:.3g})"
+    except RuntimeError as e:
+        out["ok"], out["error"] = False, f"{type(e).__name__}: {e}"
+    finally:
+        torch.cuda.empty_cache()
+    return out
 
 
 def device_memory(device: torch.device) -> Optional[dict]:

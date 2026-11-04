@@ -7,6 +7,19 @@ cd "$(dirname "$0")/.."
 VENV=${VENV:-.venv-harness}
 PYVER=${PYVER:-3.12}
 
+echo "== 0/5 NVIDIA driver (the locked torch is a CUDA 13 build: driver branch >= 580)"
+if command -v nvidia-smi >/dev/null 2>&1; then
+  nvidia-smi --query-gpu=index,name,compute_cap,driver_version,memory.total --format=csv,noheader
+  DRV=$(nvidia-smi --query-gpu=driver_version --format=csv,noheader | head -1 | cut -d. -f1)
+  if [ "${DRV:-0}" -lt 580 ] && [ -z "${ALLOW_OLD_DRIVER:-}" ]; then
+    echo "ERROR: driver $DRV < 580 cannot run CUDA 13 wheels. Ask the admin for driver >= 580 (Turing / RTX 20xx is"
+    echo "       supported by it). Set ALLOW_OLD_DRIVER=1 to install anyway (step 5 will then fail on the GPUs)."
+    exit 1
+  fi
+else
+  echo "WARNING: nvidia-smi not found"
+fi
+
 echo "== 1/5 uv"
 if ! command -v uv >/dev/null 2>&1; then
   echo "uv not found: installing it for this user (https://docs.astral.sh/uv/)"
@@ -52,6 +65,21 @@ print(f"RAM {gb(p['ram_available_bytes'])} free of {gb(p['ram_total_bytes'])}; C
       f"{p['cpu_logical']} logical cores; disk {gb(p['disk_free_bytes'])} free")
 if not p["gpus"]:
     print("WARNING: nvidia-smi found no GPU")
+import json, os, torch
+from harness.device import gpu_compat
+res = [gpu_compat(i) for i in range(torch.cuda.device_count())] if torch.cuda.is_available() else []
+os.makedirs("runs", exist_ok=True)
+json.dump({"torch": torch.__version__, "torch_cuda": torch.version.cuda, "gpus": res}, open("runs/gpu_compat.json", "w"), indent=1)
+print("GPU compatibility (runs/gpu_compat.json):")
+for r in res:
+    print(f"  {r['index']}: {r['name']} cc {r['compute_cap']}: {'OK' if r.get('ok') else 'FAIL ' + r.get('error', '')}"
+          + (f"; GEMM fp32 {r['fp32_tflops']} / bf16 {r['bf16_tflops']} TFLOPS" if 'bf16_tflops' in r else "")
+          + ("" if r["native_bf16"] else " (no native bf16: emulated, slow; numbers stay bf16 like the pilot)"))
+bad = [r for r in res if not r.get("ok")]
+if p["gpus"] and not res:
+    print("ERROR: torch cannot see the GPUs (torch.cuda.is_available() is False)"); raise SystemExit(1)
+if bad:
+    print(f"ERROR: {len(bad)} GPU(s) cannot run this torch build; preflight would drop them"); raise SystemExit(1)
 if (p["disk_free_bytes"] or 0) < 70 * 2**30:
     print("WARNING: release 2 needs ~35 GiB of SAE downloads plus caches: keep >= 70 GiB free")
 EOF

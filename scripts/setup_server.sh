@@ -10,6 +10,14 @@ PYVER=${PYVER:-3.12}
 echo "== 0/5 NVIDIA driver (the locked torch is a CUDA 13 build: driver branch >= 580)"
 if command -v nvidia-smi >/dev/null 2>&1; then
   nvidia-smi --query-gpu=index,name,compute_cap,driver_version,memory.total --format=csv,noheader
+  OLD=$(nvidia-smi --query-gpu=index,name,compute_cap --format=csv,noheader | awk -F', ' '$3+0 < 7.5')
+  if [ -n "$OLD" ] && [ -z "${ALLOW_OLD_GPU:-}" ]; then
+    echo "ERROR: these GPUs are older than compute capability 7.5 (Turing):"
+    echo "$OLD"
+    echo "       CUDA 13 (the locked torch 2.14.1+cu130) has no kernels for them (Pascal GTX 10xx, Volta, Maxwell)."
+    echo "       Running here needs a different torch build, which changes the locked environment: see README.md."
+    exit 1
+  fi
   DRV=$(nvidia-smi --query-gpu=driver_version --format=csv,noheader | head -1 | cut -d. -f1)
   if [ "${DRV:-0}" -lt 580 ] && [ -z "${ALLOW_OLD_DRIVER:-}" ]; then
     echo "ERROR: driver $DRV < 580 cannot run CUDA 13 wheels. Ask the admin for driver >= 580 (Turing / RTX 20xx is"
@@ -69,7 +77,9 @@ import json, os, torch
 from harness.device import gpu_compat
 res = [gpu_compat(i) for i in range(torch.cuda.device_count())] if torch.cuda.is_available() else []
 os.makedirs("runs", exist_ok=True)
-json.dump({"torch": torch.__version__, "torch_cuda": torch.version.cuda, "gpus": res}, open("runs/gpu_compat.json", "w"), indent=1)
+json.dump({"torch": torch.__version__, "torch_cuda": torch.version.cuda, "cuda_available": torch.cuda.is_available(),
+           "torch_arch_list": torch.cuda.get_arch_list() if torch.backends.cuda.is_built() else [],
+           "nvidia_smi": p["gpus"], "gpus": res}, open("runs/gpu_compat.json", "w"), indent=1)
 print("GPU compatibility (runs/gpu_compat.json):")
 for r in res:
     print(f"  {r['index']}: {r['name']} cc {r['compute_cap']}: {'OK' if r.get('ok') else 'FAIL ' + r.get('error', '')}"

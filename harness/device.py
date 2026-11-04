@@ -144,22 +144,35 @@ def _meminfo() -> dict:
     return out
 
 
-def _physical_cores() -> Optional[int]:
-    """Distinct (physical id, core id) pairs in /proc/cpuinfo; None if unknown."""
+def _physical_cores(allowed: Optional[set] = None) -> Optional[int]:
+    """Distinct (physical id, core id) pairs in /proc/cpuinfo among the CPUs this process may run on (`allowed`,
+    the sched affinity set; None = all); None if unknown."""
     try:
-        pairs, phys, core = set(), None, None
+        pairs, proc, phys, core = set(), None, None, None
         for line in Path("/proc/cpuinfo").read_text().splitlines() + [""]:
-            if line.startswith("physical id"):
+            if line.startswith("processor"):
+                proc = int(line.split(":")[1].strip())
+            elif line.startswith("physical id"):
                 phys = line.split(":")[1].strip()
             elif line.startswith("core id"):
                 core = line.split(":")[1].strip()
             elif not line.strip():
-                if core is not None:
+                if core is not None and (allowed is None or proc in allowed):
                     pairs.add((phys, core))
-                phys, core = None, None
+                proc, phys, core = None, None, None
         return len(pairs) or None
-    except OSError:
+    except (OSError, ValueError):
         return None
+
+
+def _existing(path: Optional[Path]) -> Optional[Path]:
+    """`path` or its nearest existing parent (the cache dir may not exist before the first run)."""
+    if not path:
+        return None
+    p = Path(path).resolve()
+    while not p.exists() and p != p.parent:
+        p = p.parent
+    return p
 
 
 def visible_gpu_ids() -> Optional[List[str]]:
@@ -204,13 +217,15 @@ def probe_machine(cache_root: Optional[Path] = None) -> dict:
     mi = _meminfo()
     logical = os.cpu_count() or 1
     try:
-        affinity = len(os.sched_getaffinity(0))
+        allowed = set(os.sched_getaffinity(0))
     except (AttributeError, OSError):
-        affinity = logical
-    du = shutil.disk_usage(cache_root) if cache_root and Path(cache_root).exists() else None
+        allowed = None
+    affinity = len(allowed) if allowed else logical
+    where = _existing(cache_root)
+    du = shutil.disk_usage(where) if where else None
     return {"source": "nvidia-smi + /proc", "gpus": _nvidia_smi_gpus(),
             "ram_total_bytes": mi.get("MemTotal"), "ram_available_bytes": mi.get("MemAvailable"),
-            "cpu_logical": logical, "cpu_affinity": affinity, "cpu_physical": _physical_cores() or max(1, affinity // 2),
+            "cpu_logical": logical, "cpu_affinity": affinity, "cpu_physical": _physical_cores(allowed) or max(1, affinity // 2),
             "disk_free_bytes": du.free if du else None, "cuda_visible_devices": os.environ.get("CUDA_VISIBLE_DEVICES")}
 
 

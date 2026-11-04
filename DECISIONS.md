@@ -238,3 +238,15 @@ Dated log of non-trivial choices. Pilot run verdicts live in `results/*/DECISION
 - `setup_server.sh` now stops on a driver older than 580 (CUDA 13 wheels) and runs `harness.device.gpu_compat`
   per GPU: kernels for the GPU's arch in the torch build, bf16 GEMM vs fp32, and fp32/bf16 GEMM TFLOPS
   (`runs/gpu_compat.json`). No fallback torch build: a different CUDA build would differ from the lock.
+
+## 2026-11-04: the "multi-GPU server" is 4 x GTX 1080 Ti (Pascal, sm_61)
+
+- Setup on the server (`incoming/machine.json`, `incoming/gpu_compat.json`): 4 x GTX 1080 Ti 11 GiB, driver
+  580.178.04, 126 GiB RAM, 40 logical CPUs of which this process may use 16. torch 2.14.1+cu130 saw no usable GPU
+  (`gpus: []`): CUDA 13 has no Pascal kernels (minimum sm_75). Nothing ran on the GPUs; no numbers exist from it.
+- Pascal also has no bf16 hardware and no tensor cores; fp32 Gemma-2-2B does not fit 11 GiB with activations.
+- Fixes: the probe counts physical cores only inside the CPU affinity set (it reported 20, the process may use 16
+  logical CPUs) and measures disk at the nearest existing parent of cache_root (it reported null); setup stops
+  before installing on GPUs older than sm_75 and records the torch arch list in gpu_compat.json.
+- Running on this server needs a torch build with sm_61 kernels (a CUDA 12.x build), i.e. a change to the locked
+  environment: a human decision, not taken here.

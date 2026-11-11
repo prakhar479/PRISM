@@ -53,6 +53,11 @@ def check(pins: dict) -> dict:
         except metadata.PackageNotFoundError:
             (out["errors"] if name in STRICT else out["warnings"]).append(f"{name}: not installed (lock {want})")
             continue
+        if not have:            # a dist-info without a readable version: an interrupted or half-copied install
+            where = ", ".join(str(d._path) for d in metadata.distributions(name=name) if hasattr(d, "_path")) or "?"
+            out["errors"].append(f"{name}: installed metadata has no version ({where}); reinstall it: "
+                                 f"uv pip install --python {sys.executable} --reinstall-package {name} -r <lock> (same index flags)")
+            continue
         out["checked"][name] = {"lock": want, "installed": have}
         if base(have) == base(want):
             continue

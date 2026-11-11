@@ -93,6 +93,17 @@ def test_check_env_picks_the_lock_of_the_installed_torch_build(monkeypatch):
     assert m.base(a["torch"]) == m.base(b["torch"]) and b["torch"].endswith("+cu126")
 
 
+def test_check_env_reports_a_package_without_a_version(monkeypatch, tmp_path):
+    """A half-installed package (dist-info with no Version) is an error naming it, not a crash (2080 Ti, 2026-11-11)."""
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("check_env", Path(__file__).resolve().parents[2] / "scripts" / "check_env.py")
+    m = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(m)
+    monkeypatch.setattr(m.metadata, "version", lambda name: None if name == "pyarrow" else "1.0")
+    res = m.check({"pyarrow": "26.0.0", "numpy": "1.0"})
+    assert len(res["errors"]) == 1 and res["errors"][0].startswith("pyarrow: installed metadata has no version")
+
+
 def test_cap_memory_passes_a_device_index(monkeypatch):
     """set_per_process_memory_fraction rejects an index-less CUDA device (preflight smoke on RUN, 2026-11-01)."""
     got = {}

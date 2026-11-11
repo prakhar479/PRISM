@@ -70,8 +70,9 @@ def c1_env(prof):
     spec = importlib.util.spec_from_file_location("check_env", REPO_ROOT / "scripts" / "check_env.py")
     ce = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(ce)
-    res = ce.check(ce.parse_lock(REPO_ROOT / "requirements" / "harness.lock"))
-    check(1, "packages match requirements/harness.lock", not res["errors"],
+    lock = ce.default_lock()
+    res = ce.check(ce.parse_lock(lock))
+    check(1, f"packages match requirements/{lock.name}", not res["errors"],
           f"{len(res['errors'])} errors, {len(res['warnings'])} warnings", errors=res["errors"], warnings=res["warnings"])
     dev = dv.resolve_device(prof.device)
     info = dv.device_info(dev)

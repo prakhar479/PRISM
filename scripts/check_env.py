@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-"""Compare installed packages with requirements/harness.lock. Fails (exit 1) on a major.minor mismatch of torch,
+"""Compare installed packages with the lockfile (requirements/harness.lock, or harness-cu126.lock for the CUDA 12.6 build). Fails (exit 1) on a major.minor mismatch of torch,
 transformers, transformer-lens or numpy; reports other differences as warnings.
 
     python scripts/check_env.py [--lock requirements/harness.lock] [--json out.json]
@@ -24,6 +24,17 @@ def parse_lock(path: Path) -> dict:
         if m:
             pins[m.group(1).lower().replace("_", "-")] = m.group(2)
     return pins
+
+
+def default_lock() -> Path:
+    """The lock matching the installed torch build: harness-<cuXYZ>.lock if it exists (e.g. torch 2.14.1+cu126 ->
+    harness-cu126.lock), else harness.lock (the CUDA 13 build, also used on CPU-only DEV)."""
+    try:
+        local = metadata.version("torch").partition("+")[2]
+    except metadata.PackageNotFoundError:
+        local = ""
+    alt = ROOT / "requirements" / f"harness-{local}.lock"
+    return alt if local and alt.exists() else ROOT / "requirements" / "harness.lock"
 
 
 def base(v: str) -> str:
@@ -52,10 +63,13 @@ def check(pins: dict) -> dict:
 
 def main() -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--lock", default=str(ROOT / "requirements" / "harness.lock"))
+    ap.add_argument("--lock", default=None, help="default: the lock matching the installed torch build")
     ap.add_argument("--json", default=None)
     a = ap.parse_args()
-    res = check(parse_lock(Path(a.lock)))
+    lock = Path(a.lock) if a.lock else default_lock()
+    print(f"lock: {lock.relative_to(ROOT) if lock.is_relative_to(ROOT) else lock}")
+    res = check(parse_lock(lock))
+    res["lock"] = str(lock)
     res["python"] = sys.version.split()[0]
     for e in res["errors"]:
         print("ERROR  ", e)

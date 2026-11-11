@@ -1,32 +1,44 @@
 #!/usr/bin/env bash
 # One-time setup of a run checkout (the `run` branch) on a GPU server. Safe to re-run.
 #   bash scripts/setup_server.sh            # venv + locked packages + env check + golden fixtures + machine probe
-# Needs: python 3.12, an NVIDIA driver new enough for CUDA 13 (torch 2.14.1+cu130), ~70 GB free disk, HF_TOKEN later.
+# Needs: python 3.12, NVIDIA driver >= 560 and a GPU of compute capability >= 7.5 (Turing / RTX 20xx or newer),
+# ~70 GB free disk, HF_TOKEN later. The torch build follows the driver (both are torch 2.14.1, same other pins):
+#   driver >= 580    requirements/harness.lock        (CUDA 13.0 build, torch 2.14.1+cu130)
+#   driver 560-579   requirements/harness-cu126.lock  (CUDA 12.6 build, torch 2.14.1+cu126)
+# Override with LOCK=requirements/<file>.lock TORCH_INDEX=https://download.pytorch.org/whl/<cuXYZ>.
 set -euo pipefail
 cd "$(dirname "$0")/.."
 VENV=${VENV:-.venv-harness}
 PYVER=${PYVER:-3.12}
 
-echo "== 0/5 NVIDIA driver (the locked torch is a CUDA 13 build: driver branch >= 580)"
+echo "== 0/5 NVIDIA driver and GPUs"
+DRV=0
 if command -v nvidia-smi >/dev/null 2>&1; then
   nvidia-smi --query-gpu=index,name,compute_cap,driver_version,memory.total --format=csv,noheader
   OLD=$(nvidia-smi --query-gpu=index,name,compute_cap --format=csv,noheader | awk -F', ' '$3+0 < 7.5')
   if [ -n "$OLD" ] && [ -z "${ALLOW_OLD_GPU:-}" ]; then
     echo "ERROR: these GPUs are older than compute capability 7.5 (Turing):"
     echo "$OLD"
-    echo "       CUDA 13 (the locked torch 2.14.1+cu130) has no kernels for them (Pascal GTX 10xx, Volta, Maxwell)."
-    echo "       Running here needs a different torch build, which changes the locked environment: see README.md."
+    echo "       The locked torch builds (CUDA 12.6 / 13.0, torch 2.14.1) have no kernels for them (Pascal GTX 10xx,"
+    echo "       Volta, Maxwell). Running here needs a different torch version: a change to the locked environment."
     exit 1
   fi
   DRV=$(nvidia-smi --query-gpu=driver_version --format=csv,noheader | head -1 | cut -d. -f1)
-  if [ "${DRV:-0}" -lt 580 ] && [ -z "${ALLOW_OLD_DRIVER:-}" ]; then
-    echo "ERROR: driver $DRV < 580 cannot run CUDA 13 wheels. Ask the admin for driver >= 580 (Turing / RTX 20xx is"
-    echo "       supported by it). Set ALLOW_OLD_DRIVER=1 to install anyway (step 5 will then fail on the GPUs)."
-    exit 1
-  fi
 else
   echo "WARNING: nvidia-smi not found"
 fi
+if [ -z "${LOCK:-}" ]; then
+  if [ "$DRV" -ge 580 ] || [ "$DRV" -eq 0 ]; then
+    LOCK=requirements/harness.lock; TORCH_INDEX=https://download.pytorch.org/whl/cu130
+  elif [ "$DRV" -ge 560 ]; then
+    LOCK=requirements/harness-cu126.lock; TORCH_INDEX=https://download.pytorch.org/whl/cu126
+  else
+    echo "ERROR: driver $DRV is older than 560: no locked torch build runs on it. Ask the admin for driver >= 560."
+    exit 1
+  fi
+fi
+TORCH_INDEX=${TORCH_INDEX:?set TORCH_INDEX together with LOCK}
+echo "driver $DRV -> $LOCK ($TORCH_INDEX)"
 
 echo "== 1/5 uv"
 if ! command -v uv >/dev/null 2>&1; then
@@ -35,15 +47,15 @@ if ! command -v uv >/dev/null 2>&1; then
   export PATH="$HOME/.local/bin:$HOME/.cargo/bin:$PATH"
 fi
 
-echo "== 2/5 venv $VENV (python $PYVER) + requirements/harness.lock (CUDA 13 torch wheels)"
+echo "== 2/5 venv $VENV (python $PYVER) + $LOCK"
 [ -x "$VENV/bin/python" ] || uv venv "$VENV" --python "$PYVER"
-uv pip install --python "$VENV/bin/python" -r requirements/harness.lock \
-  --index-url https://pypi.org/simple --extra-index-url https://download.pytorch.org/whl/cu130 \
+uv pip sync --python "$VENV/bin/python" "$LOCK" \
+  --index-url https://pypi.org/simple --extra-index-url "$TORCH_INDEX" \
   --index-strategy unsafe-best-match
 H="$VENV/bin/python"
 
 echo "== 3/5 environment vs lockfile"
-"$H" scripts/check_env.py
+"$H" scripts/check_env.py --lock "$LOCK"
 
 echo "== 4/5 golden fixtures (preflight check 5)"
 if ls golden_parts/R2.tar.part-* >/dev/null 2>&1; then

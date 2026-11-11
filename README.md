@@ -22,7 +22,10 @@ are skipped. `--gpus 0,1` limits it to some GPUs; `--workers-per-gpu 2` puts two
 
 ## Older GPUs (e.g. RTX 2080 / 2080 Ti, Turing, compute capability 7.5)
 
-- Needs NVIDIA driver >= 580 (CUDA 13 wheels); `setup_server.sh` stops early if the driver is older.
+- Needs a GPU of compute capability >= 7.5 and NVIDIA driver >= 560. `setup_server.sh` picks the torch build from
+  the driver: >= 580 installs `requirements/harness.lock` (torch 2.14.1+cu130), 560-579 installs
+  `requirements/harness-cu126.lock` (torch 2.14.1+cu126). Both pin the same torch version and identical other
+  packages; the build used is recorded in every manifest (`torch_cuda`). Pascal (GTX 10xx) and older cannot run.
 - Turing has no bf16 tensor cores. The model still runs in bf16 (same numbers as the pilot and the golden export),
   but bf16 is emulated, so expect each GPU to be several times slower than an RTX 30xx/40xx/50xx. Setup step 5
   prints the measured fp32/bf16 GEMM speed per GPU (`runs/gpu_compat.json`). Do not switch to fp16: Gemma-2

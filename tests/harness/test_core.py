@@ -74,6 +74,25 @@ def test_check_env_parses_lock(tmp_path):
     assert any("torch" in e for e in res["errors"]) and any("foo-bar" in w for w in res["warnings"])
 
 
+def test_check_env_picks_the_lock_of_the_installed_torch_build(monkeypatch):
+    """CUDA 12.6 servers (driver 560-579) use harness-cu126.lock; everything else harness.lock. The two locks pin
+    the same torch version and identical non-CUDA packages (DECISIONS.md 2026-11-11)."""
+    import importlib.util
+    root = Path(__file__).resolve().parents[2]
+    spec = importlib.util.spec_from_file_location("check_env", root / "scripts" / "check_env.py")
+    m = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(m)
+    for ver, want in [("2.14.1+cu126", "harness-cu126.lock"), ("2.14.1+cu130", "harness.lock"),
+                      ("2.14.1+cpu", "harness.lock"), ("2.14.1", "harness.lock")]:
+        monkeypatch.setattr(m.metadata, "version", lambda name, v=ver: v)
+        assert m.default_lock().name == want, ver
+    a = m.parse_lock(root / "requirements" / "harness.lock")
+    b = m.parse_lock(root / "requirements" / "harness-cu126.lock")
+    cuda = lambda k: k.startswith(("nvidia-", "cuda-")) or k in ("torch", "triton")
+    assert {k: v for k, v in a.items() if not cuda(k)} == {k: v for k, v in b.items() if not cuda(k)}
+    assert m.base(a["torch"]) == m.base(b["torch"]) and b["torch"].endswith("+cu126")
+
+
 def test_cap_memory_passes_a_device_index(monkeypatch):
     """set_per_process_memory_fraction rejects an index-less CUDA device (preflight smoke on RUN, 2026-11-01)."""
     got = {}

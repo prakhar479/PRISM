@@ -250,3 +250,17 @@ Dated log of non-trivial choices. Pilot run verdicts live in `results/*/DECISION
   before installing on GPUs older than sm_75 and records the torch arch list in gpu_compat.json.
 - Running on this server needs a torch build with sm_61 kernels (a CUDA 12.x build), i.e. a change to the locked
   environment: a human decision, not taken here.
+
+## 2026-11-11: CUDA 12.6 build of the same torch for driver-570 servers (4 x RTX 2080 Ti)
+
+- The 2080 Ti server (gnode047) has driver 570.211.01, which runs CUDA <= 12.8, not the CUDA 13 build in
+  `requirements/harness.lock`. The user asked to make the harness run there.
+- Added `requirements/harness-cu126.lock`: torch 2.14.1+cu126 (same version; download.pytorch.org publishes
+  2.14.1 for cu126 and cu130 only, not cu128) and the NVIDIA CUDA 12.6 libraries; every non-CUDA package is
+  pinned to exactly the version in harness.lock (compiled with those pins as constraints; a test checks it).
+- `setup_server.sh` chooses the lock from the driver (>= 580: harness.lock; 560-579: harness-cu126.lock; older:
+  stop) and installs with `uv pip sync` (exact set). `check_env.py` and preflight check 1 compare against the lock
+  matching the installed torch build. run_hash is unchanged (it does not include the CUDA build); provenance
+  carries it in each manifest's env (`torch_cuda`).
+- Numbers from the two builds can differ at the level of kernel choice in bf16, which is what preflight checks
+  3-5 (golden comparison, bf16 tolerances) already test on each machine. Not yet verified on the 2080 Ti.

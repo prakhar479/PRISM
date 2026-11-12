@@ -259,7 +259,8 @@ def gpu_compat(index: int, n: int = 2048) -> dict:
     cap = torch.cuda.get_device_capability(dev)
     arch = torch.cuda.get_arch_list()
     kernels = kernels_for(cap, arch)
-    out = {"index": index, "name": torch.cuda.get_device_name(dev), "compute_cap": f"{cap[0]}.{cap[1]}",
+    uuid = str(getattr(torch.cuda.get_device_properties(dev), "uuid", "") or "")
+    out = {"index": index, "uuid": uuid, "name": torch.cuda.get_device_name(dev), "compute_cap": f"{cap[0]}.{cap[1]}",
            "torch_arch_list": arch, "kernels_for_arch": kernels, "native_bf16": cap[0] >= 8}
     if not kernels:
         out["ok"] = False

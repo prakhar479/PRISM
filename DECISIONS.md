@@ -291,3 +291,16 @@ Dated log of non-trivial choices. Pilot run verdicts live in `results/*/DECISION
   `runs_root` when it is outside the repo (`bundle_results.default_out_dir`). `gpu_compat.json` and the disk probe use
   the profile roots. run_hash is unaffected (it excludes profile roots).
 - An existing real `.venv-harness` in the home directory is not deleted: setup stops and asks the user to remove it.
+
+## 2026-11-12: GPU numbering = PCI bus order (mixed 3 x RTX 2080 Ti + 1 x RTX 3080 server, driver 580)
+
+- First setup on the 4-GPU server: `gpu_compat.json` listed the RTX 3080 as GPU 0, `machine.json`/nvidia-smi as GPU 2.
+  torch numbers fastest-first by default, nvidia-smi by PCI bus, and the scheduler hands nvidia-smi indices to
+  children as CUDA_VISIBLE_DEVICES: on a mixed machine "GPU 2" would have been a different card than the one the
+  probe, `gpus.json` budgets and failure list named.
+- `CUDA_DEVICE_ORDER=PCI_BUS_ID` is now set (setdefault) in scripts/_bootstrap.py, harness/run.py and setup step 5;
+  `gpu_compat` also records each GPU's uuid. No effect on single-GPU or identical-GPU machines.
+- Same run: all four GPUs ok on torch 2.14.1+cu130 (arch list sm_75 ... sm_120). bf16 GEMM error 0.0029 against fp32.
+  2080 Ti: fp32 ~10.5 TFLOPS, bf16 ~5.9 (emulated, slower than fp32); 3080: fp32 21.3, bf16 52.7. Stage-3 workers claim
+  units dynamically, so the 3080 takes proportionally more; stage-2 slices are static and equal. The model stays bf16
+  (pilot / golden / run_hash); running Turing in fp32 would be a numerics change and a human decision.

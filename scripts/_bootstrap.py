@@ -6,6 +6,9 @@ from pathlib import Path
 for _v in ("OMP_NUM_THREADS", "MKL_NUM_THREADS", "OPENBLAS_NUM_THREADS"):
     os.environ.setdefault(_v, "10")
 os.environ.setdefault("PYTORCH_CUDA_ALLOC_CONF", "expandable_segments:True")
+# nvidia-smi numbers GPUs by PCI bus; torch's default is fastest-first. The scheduler passes nvidia-smi indices as
+# CUDA_VISIBLE_DEVICES, so both must use the same order (matters on mixed machines, e.g. 3 x 2080 Ti + 1 x 3080).
+os.environ.setdefault("CUDA_DEVICE_ORDER", "PCI_BUS_ID")
 
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:

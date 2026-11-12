@@ -20,6 +20,7 @@ from typing import Dict, List, Optional, Sequence
 import os
 
 os.environ.setdefault("PYTORCH_CUDA_ALLOC_CONF", "expandable_segments:True")
+os.environ.setdefault("CUDA_DEVICE_ORDER", "PCI_BUS_ID")      # same numbering as nvidia-smi (see scripts/_bootstrap.py)
 
 import numpy as np
 import pandas as pd

@@ -57,19 +57,28 @@ def main() -> int:
     from harness.memory import resolve_resources
     probe = probe_machine(prof.root("cache_root"))
     gpus = probe.get("gpus") or []
-    prof, res = resolve_resources(prof, probe)              # `auto` values from the first GPU (all are planned alike)
+    # `auto` values are sized for the SMALLEST GPU: every process must fit on every GPU it may be given
+    small = min(gpus, key=lambda g: g["total_bytes"]) if gpus else None
+    prof, res = resolve_resources(prof, {**probe, "gpus": [small] if small else []})
     tp = latest_throughput(a.throughput)
     ok, total = True, 0.0
+    seen = {}          # config -> first job id: one queue splits an experiment into stage / slice / worker / finalize jobs
     print(f"machine: {len(gpus)} GPU(s) " + ", ".join(f"{g['index']}:{g['name']} {g['total_bytes'] / 2**30:.0f} GiB" for g in gpus)
           + f"; RAM {(probe.get('ram_available_bytes') or 0) / 2**30:.0f} GiB free; {probe.get('cpu_physical')} cores")
     if res.get("resolved"):
-        print(f"resolved: {res['resolved']}")
+        print(f"resolved (sized for the smallest GPU, {small['index']}:{small['name']}): {res['resolved']}")
     print(f"queue {q.tag} on profile {prof.name} (GPU cap {prof.gpu_mem_cap_gb} GB); throughput: "
           f"{tp.get('forward_tokens_per_s') if tp else 'none (no time estimates)'}")
     for job in q.jobs:
         if job.kind != "experiment":
             print(f"- {job.id}: script {job.script}")
             continue
+        if job.config in seen:
+            print(f"- {job.id}: same cells as {seen[job.config]} (stage {job.stage}"
+                  f"{', ' + str(job.slices) + ' slices' if job.slices else ''}{', ' + str(job.workers) + ' workers' if job.workers else ''}"
+                  f"{', finalize only' if '--finalize-only' in job.args else ''})")
+            continue
+        seen[job.config] = job.id
         cfg = ExpConfig.load(REPO_ROOT / job.config)
         R = Runner(cfg, prof, SimpleNamespace(tiny=False, smoke="--smoke" in job.args, dry_run=True, config=job.config,
                                               allow_dirty=False))

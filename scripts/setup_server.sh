@@ -1,10 +1,12 @@
 #!/usr/bin/env bash
 # One-time setup of a run checkout (the `run` branch) on a GPU server. Safe to re-run.
 #   bash scripts/setup_server.sh            # venv + locked packages + env check + golden fixtures + machine probe
-# Needs: python 3.12, NVIDIA driver >= 560 and a GPU of compute capability >= 7.5 (Turing / RTX 20xx or newer),
+# Needs: python 3.12, NVIDIA driver >= 560 and GPUs of compute capability >= 5.0 (Pascal GTX 10xx and older need
+# the CUDA 12.6 build, chosen automatically; Turing RTX 20xx and newer can use either),
 # ~70 GB free disk, HF_TOKEN later. The torch build follows the driver (both are torch 2.14.1, same other pins):
 #   driver >= 580    requirements/harness.lock        (CUDA 13.0 build, torch 2.14.1+cu130)
 #   driver 560-579   requirements/harness-cu126.lock  (CUDA 12.6 build, torch 2.14.1+cu126)
+#   any GPU < cc 7.5 requirements/harness-cu126.lock  (CUDA 13 has no Pascal / Volta / Maxwell kernels)
 # Override with LOCK=requirements/<file>.lock TORCH_INDEX=https://download.pytorch.org/whl/<cuXYZ>.
 set -euo pipefail
 cd "$(dirname "$0")/.."
@@ -13,14 +15,14 @@ PYVER=${PYVER:-3.12}
 
 echo "== 0/5 NVIDIA driver and GPUs"
 DRV=0
+MINCC=9.9
 if command -v nvidia-smi >/dev/null 2>&1; then
   nvidia-smi --query-gpu=index,name,compute_cap,driver_version,memory.total --format=csv,noheader
-  OLD=$(nvidia-smi --query-gpu=index,name,compute_cap --format=csv,noheader | awk -F', ' '$3+0 < 7.5')
-  if [ -n "$OLD" ] && [ -z "${ALLOW_OLD_GPU:-}" ]; then
-    echo "ERROR: these GPUs are older than compute capability 7.5 (Turing):"
-    echo "$OLD"
-    echo "       The locked torch builds (CUDA 12.6 / 13.0, torch 2.14.1) have no kernels for them (Pascal GTX 10xx,"
-    echo "       Volta, Maxwell). Running here needs a different torch version: a change to the locked environment."
+  MINCC=$(nvidia-smi --query-gpu=compute_cap --format=csv,noheader | sort -n | head -1)
+  TOOOLD=$(nvidia-smi --query-gpu=index,name,compute_cap --format=csv,noheader | awk -F', ' '$3+0 < 5.0')
+  if [ -n "$TOOOLD" ]; then
+    echo "ERROR: these GPUs are older than compute capability 5.0; no locked torch build has kernels for them:"
+    echo "$TOOOLD"
     exit 1
   fi
   DRV=$(nvidia-smi --query-gpu=driver_version --format=csv,noheader | head -1 | cut -d. -f1)
@@ -28,7 +30,14 @@ else
   echo "WARNING: nvidia-smi not found"
 fi
 if [ -z "${LOCK:-}" ]; then
-  if [ "$DRV" -ge 580 ] || [ "$DRV" -eq 0 ]; then
+  PRE_TURING=$(awk -v c="$MINCC" 'BEGIN { print (c + 0 < 7.5) ? 1 : 0 }')
+  if [ "$PRE_TURING" = 1 ] && [ "$DRV" -lt 560 ]; then
+    echo "ERROR: GPUs of compute capability $MINCC need the CUDA 12.6 build, which needs driver >= 560 (have $DRV)."
+    exit 1
+  elif [ "$PRE_TURING" = 1 ]; then
+    # CUDA 13 dropped Maxwell / Pascal / Volta; the CUDA 12.6 build has sm_50 sm_60 sm_70 kernels (any driver >= 560)
+    LOCK=requirements/harness-cu126.lock; TORCH_INDEX=https://download.pytorch.org/whl/cu126
+  elif [ "$DRV" -ge 580 ] || [ "$DRV" -eq 0 ]; then
     LOCK=requirements/harness.lock; TORCH_INDEX=https://download.pytorch.org/whl/cu130
   elif [ "$DRV" -ge 560 ]; then
     LOCK=requirements/harness-cu126.lock; TORCH_INDEX=https://download.pytorch.org/whl/cu126
@@ -38,7 +47,7 @@ if [ -z "${LOCK:-}" ]; then
   fi
 fi
 TORCH_INDEX=${TORCH_INDEX:?set TORCH_INDEX together with LOCK}
-echo "driver $DRV -> $LOCK ($TORCH_INDEX)"
+echo "driver $DRV, lowest compute capability $MINCC -> $LOCK ($TORCH_INDEX)"
 
 echo "== 1/5 uv"
 if ! command -v uv >/dev/null 2>&1; then

@@ -20,17 +20,19 @@ $H scripts/run_queue.py --queue queue/release2-server.yaml --gpus auto
 Progress: `cat runs/_queue/release2-server/queue_status.md`. The queue is safe to kill and restart: finished units
 are skipped. `--gpus 0,1` limits it to some GPUs; `--workers-per-gpu 2` puts two workers on each large GPU.
 
-## Older GPUs (e.g. RTX 2080 / 2080 Ti, Turing, compute capability 7.5)
+## Older GPUs (RTX 20xx Turing cc 7.5, GTX 10xx Pascal cc 6.1)
 
-- Needs a GPU of compute capability >= 7.5 and NVIDIA driver >= 560. `setup_server.sh` picks the torch build from
-  the driver: >= 580 installs `requirements/harness.lock` (torch 2.14.1+cu130), 560-579 installs
-  `requirements/harness-cu126.lock` (torch 2.14.1+cu126). Both pin the same torch version and identical other
-  packages; the build used is recorded in every manifest (`torch_cuda`). Pascal (GTX 10xx) and older cannot run.
-- Turing has no bf16 tensor cores. The model still runs in bf16 (same numbers as the pilot and the golden export),
-  but bf16 is emulated, so expect each GPU to be several times slower than an RTX 30xx/40xx/50xx. Setup step 5
-  prints the measured fp32/bf16 GEMM speed per GPU (`runs/gpu_compat.json`). Do not switch to fp16: Gemma-2
+- Needs NVIDIA driver >= 560 and GPUs of compute capability >= 5.0. `setup_server.sh` picks the torch build:
+  `requirements/harness.lock` (torch 2.14.1+cu130) on driver >= 580 with Turing or newer;
+  `requirements/harness-cu126.lock` (torch 2.14.1+cu126, kernels sm_50 to sm_90) on driver 560-579, or on any
+  machine with a GPU older than Turing (CUDA 13 has no Pascal code). Both pin the same torch version and
+  identical other packages; the build used is recorded in every manifest (`torch_cuda`).
+- Neither generation has bf16 tensor cores. The model still runs in bf16 (same numbers as the pilot and the golden
+  export, to bf16 tolerance; preflight check 5 tests it), but bf16 is emulated: expect each GPU to be several
+  times slower than an RTX 30xx/40xx/50xx, Pascal slower than Turing. Setup step 5 measures fp32 and bf16 GEMM
+  speed per GPU and checks a bf16 GEMM against fp32 (`runs/gpu_compat.json`). Do not switch to fp16: Gemma-2
   overflows in fp16, and a dtype change makes a different run.
-- 8-11 GB per GPU: the embedding stays on the CPU, budgets are measured by preflight, and SAEs of 131k latents and
+- 11 GB per GPU: the embedding stays on the CPU, budgets are measured by preflight, and SAEs of 131k latents and
   up stay in host RAM and are streamed to the GPU in blocks (the queue serialises their loads against a RAM budget).
 
 ## What the harness does with the machine

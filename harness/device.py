@@ -232,18 +232,33 @@ def probe_machine(cache_root: Optional[Path] = None) -> dict:
 MIN_DRIVER_CU13 = 580      # CUDA 13 wheels (requirements/harness.lock) need driver branch >= 580
 
 
+def kernels_for(cap, arch_list) -> bool:
+    """Does a torch build compiled for `arch_list` (torch.cuda.get_arch_list(), e.g. ['sm_60', 'sm_75', ...]) run on
+    a GPU of compute capability `cap` = (major, minor)? A cubin for sm_XY runs on any GPU of the same major and minor
+    >= Y (sm_60 code runs on a GTX 1080 Ti, sm_61); PTX for compute_XY is JIT-compiled for any GPU >= XY."""
+    major, minor = int(cap[0]), int(cap[1])
+    for a in arch_list:
+        kind, _, num = a.partition("_")
+        num = num.rstrip("a")
+        if not num.isdigit():
+            continue
+        M, m = int(num[:-1]), int(num[-1])
+        if kind == "sm" and M == major and m <= minor:
+            return True
+        if kind == "compute" and (M, m) <= (major, minor):
+            return True
+    return False
+
+
 def gpu_compat(index: int, n: int = 2048) -> dict:
     """Can the locked torch build run the harness on GPU `index`? Kernels built for its architecture, a bf16 GEMM
     that agrees with fp32, and the bf16 / fp32 GEMM speed ratio (GPUs before compute capability 8.0, e.g. Turing
-    RTX 20xx, have no bf16 tensor cores: bf16 runs but is emulated and slow)."""
+    RTX 20xx and Pascal GTX 10xx, have no bf16 tensor cores: bf16 runs but is emulated and slow)."""
     import time
     dev = torch.device(f"cuda:{index}")
     cap = torch.cuda.get_device_capability(dev)
     arch = torch.cuda.get_arch_list()
-    sm = cap[0] * 10 + cap[1]
-    sms = [int(a.split("_")[1]) for a in arch if a.startswith("sm_")]
-    ptx = [int(a.split("_")[1]) for a in arch if a.startswith("compute_")]
-    kernels = sm in sms or any(p <= sm for p in ptx)
+    kernels = kernels_for(cap, arch)
     out = {"index": index, "name": torch.cuda.get_device_name(dev), "compute_cap": f"{cap[0]}.{cap[1]}",
            "torch_arch_list": arch, "kernels_for_arch": kernels, "native_bf16": cap[0] >= 8}
     if not kernels:

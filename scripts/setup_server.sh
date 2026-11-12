@@ -131,6 +131,7 @@ else
 fi
 
 echo "== 5/5 machine probe"
+export CUDA_DEVICE_ORDER=PCI_BUS_ID       # GPU numbers below = nvidia-smi numbers
 "$H" - <<'EOF'
 import json, os, torch
 from harness.device import gpu_compat, probe_machine

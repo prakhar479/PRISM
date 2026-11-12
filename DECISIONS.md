@@ -264,3 +264,16 @@ Dated log of non-trivial choices. Pilot run verdicts live in `results/*/DECISION
   carries it in each manifest's env (`torch_cuda`).
 - Numbers from the two builds can differ at the level of kernel choice in bf16, which is what preflight checks
   3-5 (golden comparison, bf16 tolerances) already test on each machine. Not yet verified on the 2080 Ti.
+
+## 2026-11-12: GTX 1080 Ti (Pascal, cc 6.1) through the CUDA 12.6 build
+
+- The user asked to run on the 4 x GTX 1080 Ti server (driver 570.211.01). torch 2.14.1+cu126 (the wheel in
+  harness-cu126.lock, sha256 75727245...f86c) is compiled for sm_50 sm_60 sm_70 sm_75 sm_80 sm_86 sm_90 (read from
+  libtorch_python.so); sm_60 cubins run on sm_61. The build has no Ampere-only guard on bf16 GEMM; only SDPA
+  backends and sparse bf16 ops require sm_80, and neither the harness nor TransformerLens uses them.
+- `setup_server.sh` now sends any machine with a GPU below cc 7.5 to harness-cu126.lock (whatever the driver,
+  >= 560) and refuses only below cc 5.0. `harness.device.kernels_for` replaces the exact-match arch test in
+  `gpu_compat` (which would have failed sm_61 against sm_60 code).
+- Not verified on hardware: whether cuBLAS runs bf16 GEMM on Pascal, its accuracy and speed. Setup step 5
+  (`gpu_compat`) tests exactly that and stops setup if it fails; preflight checks 3-5 then test the model numbers
+  against the golden export. Pascal has no tensor cores: expect it to be the slowest machine so far.

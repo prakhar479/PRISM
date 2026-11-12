@@ -104,6 +104,20 @@ def test_check_env_reports_a_package_without_a_version(monkeypatch, tmp_path):
     assert len(res["errors"]) == 1 and res["errors"][0].startswith("pyarrow: installed metadata has no version")
 
 
+def test_kernels_for_arch_matches_binary_compatible_gpus():
+    """sm_XY cubins run on the same major with minor >= Y; compute_XY PTX JITs upward (torch 2.14.1+cu126 has
+    sm_50 sm_60 sm_70 sm_75 sm_80 sm_86 sm_90; +cu130 starts at sm_75)."""
+    cu126 = ["sm_50", "sm_60", "sm_70", "sm_75", "sm_80", "sm_86", "sm_90"]
+    cu130 = ["sm_75", "sm_80", "sm_86", "sm_90", "sm_100", "sm_120"]
+    assert dv.kernels_for((6, 1), cu126)            # GTX 1080 Ti
+    assert dv.kernels_for((7, 5), cu126) and dv.kernels_for((7, 5), cu130)   # RTX 2080 Ti
+    assert dv.kernels_for((8, 9), cu126)            # sm_80 cubin on Ada
+    assert not dv.kernels_for((6, 1), cu130)
+    assert not dv.kernels_for((3, 7), cu126)
+    assert dv.kernels_for((12, 0), ["sm_90", "compute_90"])   # PTX JIT
+    assert not dv.kernels_for((6, 1), ["sm_70", "compute_70"])
+
+
 def test_cap_memory_passes_a_device_index(monkeypatch):
     """set_per_process_memory_fraction rejects an index-less CUDA device (preflight smoke on RUN, 2026-11-01)."""
     got = {}

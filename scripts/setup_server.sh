@@ -8,6 +8,9 @@
 #   driver 560-579   requirements/harness-cu126.lock  (CUDA 12.6 build, torch 2.14.1+cu126)
 #   any GPU < cc 7.5 requirements/harness-cu126.lock  (CUDA 13 has no Pascal / Volta / Maxwell kernels)
 # Override with LOCK=requirements/<file>.lock TORCH_INDEX=https://download.pytorch.org/whl/<cuXYZ>.
+# Heavy data goes to a scratch disk, not the home directory: PRISM_WORK=<dir> (default /ssd_scratch/$USER/prism when
+# /ssd_scratch exists; PRISM_SCRATCH=<mount> to look elsewhere). It holds the venv, the uv cache, Hugging Face
+# downloads (HF_HOME), activation caches, runs and bundles; profiles/local.yaml (git-ignored) points the harness there.
 set -euo pipefail
 cd "$(dirname "$0")/.."
 VENV=${VENV:-.venv-harness}
@@ -49,6 +52,40 @@ fi
 TORCH_INDEX=${TORCH_INDEX:?set TORCH_INDEX together with LOCK}
 echo "driver $DRV, lowest compute capability $MINCC -> $LOCK ($TORCH_INDEX)"
 
+echo "== work disk (venv, uv cache, Hugging Face downloads, activation caches, runs, bundles)"
+WORK=${PRISM_WORK:-}
+if [ -z "$WORK" ]; then
+  for base in ${PRISM_SCRATCH:-/ssd_scratch}; do
+    if [ -d "$base" ] && mkdir -p "$base/${USER:-$(id -un)}/prism" 2>/dev/null; then
+      WORK="$base/${USER:-$(id -un)}/prism"; break
+    fi
+  done
+fi
+if [ -n "$WORK" ]; then
+  mkdir -p "$WORK"/uv-cache "$WORK"/hf "$WORK"/cache "$WORK"/runs "$WORK"/bundles "$WORK"/tmp \
+    || { echo "ERROR: cannot create $WORK (set PRISM_WORK to a writable directory)"; exit 1; }
+  WORK=$(cd "$WORK" && pwd -P)
+  export UV_CACHE_DIR="$WORK/uv-cache" TMPDIR="$WORK/tmp"
+  FREE_GIB=$(df -Pk "$WORK" | awk 'NR==2 {print int($4/1048576)}')
+  echo "work disk: $WORK ($FREE_GIB GiB free)"
+  [ "$FREE_GIB" -ge 70 ] || echo "WARNING: release 2 needs ~35 GiB of SAE downloads plus caches and the venv: keep >= 70 GiB free"
+  LOCAL=profiles/local.yaml
+  if [ ! -f "$LOCAL" ] || grep -q "written by setup_server.sh" "$LOCAL"; then
+    cat > "$LOCAL" <<EOF2
+# written by setup_server.sh (git-ignored): heavy data lives on the scratch disk
+cache_root: $WORK/cache
+runs_root: $WORK/runs
+hf_home: $WORK/hf
+EOF2
+    echo "profiles/local.yaml -> cache_root, runs_root, hf_home under $WORK"
+  else
+    echo "WARNING: profiles/local.yaml exists and was not written by this script: set cache_root, runs_root and hf_home in it to"
+    echo "         $WORK/cache, $WORK/runs, $WORK/hf yourself, or the harness will fill this disk."
+  fi
+else
+  echo "WARNING: no /ssd_scratch (set PRISM_WORK=<dir>): everything goes under the repo directory on this disk"
+fi
+
 echo "== 1/5 uv"
 if ! command -v uv >/dev/null 2>&1; then
   echo "uv not found: installing it for this user (https://docs.astral.sh/uv/)"
@@ -57,7 +94,18 @@ if ! command -v uv >/dev/null 2>&1; then
 fi
 
 echo "== 2/5 venv $VENV (python $PYVER) + $LOCK"
-[ -x "$VENV/bin/python" ] || uv venv "$VENV" --python "$PYVER"
+if [ -n "$WORK" ]; then
+  if [ -e "$VENV" ] && [ ! -L "$VENV" ]; then
+    echo "ERROR: $VENV is a real directory on this disk. Remove it (it is only the venv) and re-run: rm -rf $VENV"
+    exit 1
+  fi
+  [ -x "$WORK/venv/bin/python" ] || uv venv "$WORK/venv" --python "$PYVER"
+  [ -L "$VENV" ] || ln -s "$WORK/venv" "$VENV"
+  EXC=$(git rev-parse --git-path info/exclude 2>/dev/null || true)       # keep `git status` clean (a symlink is not matched by .venv*/)
+  if [ -n "$EXC" ]; then mkdir -p "$(dirname "$EXC")"; grep -qxF "/$VENV" "$EXC" 2>/dev/null || echo "/$VENV" >> "$EXC"; fi
+else
+  [ -x "$VENV/bin/python" ] || uv venv "$VENV" --python "$PYVER"
+fi
 uv pip sync --python "$VENV/bin/python" "$LOCK" \
   --index-url https://pypi.org/simple --extra-index-url "$TORCH_INDEX" \
   --index-strategy unsafe-best-match
@@ -84,8 +132,10 @@ fi
 
 echo "== 5/5 machine probe"
 "$H" - <<'EOF'
-from harness.device import probe_machine
-p = probe_machine(".")
+import json, os, torch
+from harness.device import gpu_compat, probe_machine
+from harness.profile import load_profile
+p = probe_machine(load_profile(os.environ.get("HL_PROFILE", "server")).root("cache_root"))
 gb = lambda b: f"{(b or 0) / 2**30:.0f} GiB"
 print(f"GPUs: {len(p['gpus'])}")
 for g in p["gpus"]:
@@ -94,14 +144,13 @@ print(f"RAM {gb(p['ram_available_bytes'])} free of {gb(p['ram_total_bytes'])}; C
       f"{p['cpu_logical']} logical cores; disk {gb(p['disk_free_bytes'])} free")
 if not p["gpus"]:
     print("WARNING: nvidia-smi found no GPU")
-import json, os, torch
-from harness.device import gpu_compat
 res = [gpu_compat(i) for i in range(torch.cuda.device_count())] if torch.cuda.is_available() else []
-os.makedirs("runs", exist_ok=True)
+runs = load_profile(os.environ.get("HL_PROFILE", "server")).root("runs_root")
+os.makedirs(runs, exist_ok=True)
 json.dump({"torch": torch.__version__, "torch_cuda": torch.version.cuda, "cuda_available": torch.cuda.is_available(),
            "torch_arch_list": torch.cuda.get_arch_list() if torch.backends.cuda.is_built() else [],
-           "nvidia_smi": p["gpus"], "gpus": res}, open("runs/gpu_compat.json", "w"), indent=1)
-print("GPU compatibility (runs/gpu_compat.json):")
+           "nvidia_smi": p["gpus"], "gpus": res}, open(runs / "gpu_compat.json", "w"), indent=1)
+print(f"GPU compatibility ({runs}/gpu_compat.json):")
 for r in res:
     print(f"  {r['index']}: {r['name']} cc {r['compute_cap']}: {'OK' if r.get('ok') else 'FAIL ' + r.get('error', '')}"
           + (f"; GEMM fp32 {r['fp32_tflops']} / bf16 {r['bf16_tflops']} TFLOPS" if 'bf16_tflops' in r else "")
@@ -115,4 +164,5 @@ if (p["disk_free_bytes"] or 0) < 70 * 2**30:
     print("WARNING: release 2 needs ~35 GiB of SAE downloads plus caches: keep >= 70 GiB free")
 EOF
 echo
-echo "Setup done. Next: export HL_PROFILE=server HF_TOKEN=hf_...; see README.md"
+echo "Setup done.${WORK:+ Heavy data is in $WORK (runs: $WORK/runs, bundles: $WORK/bundles).}"
+echo "Next: export HL_PROFILE=server HF_TOKEN=hf_...; see README.md"

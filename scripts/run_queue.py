@@ -95,6 +95,7 @@ def main() -> int:
     q = Queue.load(a.queue)
     prof_name = a.profile or q.profile
     prof = load_profile(prof_name)
+    prof.apply_env()          # HF_HOME from the profile reaches every child process (prefetch downloads included)
     state = prof.root("runs_root") / "_queue" / q.tag
     state.mkdir(parents=True, exist_ok=True)
     lock = open(state / ".scheduler.lock", "w")

@@ -22,10 +22,10 @@ See `README.md` in the run checkout:
 | stage 2 | disjoint SAE groups per GPU (E3, E8, then E4/E5) | all |
 | stage 3 | one claiming worker per GPU; E3 first (the gate), then E4, E5, E8 | all |
 | finalize | per experiment, the only writer of `manifest.json` / `per_pair.parquet` | none |
-| bundle | `bundles/release2-server_<stamp>.tar.gz`, runs even if an experiment failed | none |
+| bundle | `<work dir>/bundles/release2-server_<stamp>.tar.gz`, runs even if an experiment failed | none |
 
 ## Send back
 
-`bundles/release2-server_<stamp>.tar.gz` + `.sha256` on a `results/<tag>` branch (README.md, last section), plus a
+`<work dir>/bundles/release2-server_<stamp>.tar.gz` + `.sha256` on a `results/<tag>` branch (README.md, last section), plus a
 short note: GPU model and count (from `machine.json`), start and end time, anything in `queue_status.md` that is not
 `done`.

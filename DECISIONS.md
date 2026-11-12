@@ -277,3 +277,17 @@ Dated log of non-trivial choices. Pilot run verdicts live in `results/*/DECISION
 - Not verified on hardware: whether cuBLAS runs bf16 GEMM on Pascal, its accuracy and speed. Setup step 5
   (`gpu_compat`) tests exactly that and stops setup if it fails; preflight checks 3-5 then test the model numbers
   against the golden export. Pascal has no tensor cores: expect it to be the slowest machine so far.
+
+## 2026-11-12: heavy data on a scratch disk (server with ~30 GB home and /ssd_scratch)
+
+- The 1080 Ti / 2080 Ti server has ~30 GB in the home directory and an SSD at /ssd_scratch; release 2 needs ~35 GiB
+  of SAE downloads plus the model, activation caches, runs and a ~8 GB venv.
+- `setup_server.sh` now uses `PRISM_WORK` or `/ssd_scratch/$USER/prism` (PRISM_SCRATCH=<mount> to look elsewhere)
+  for: the venv (real dir there, `.venv-harness` is a symlink, added to `.git/info/exclude` so git status stays
+  clean), `UV_CACHE_DIR` and `TMPDIR`, and `profiles/local.yaml` (git-ignored; written only if absent or written by
+  the script) with absolute `cache_root`, `runs_root`, `hf_home`. No scratch disk: unchanged behaviour with a warning.
+- `run_queue.py` and `run_prefetch.py` now call `profile.apply_env()` so `HF_HOME` reaches every child process
+  (prefetch used to download into `~/.cache/huggingface` regardless of the profile). Bundles are written next to
+  `runs_root` when it is outside the repo (`bundle_results.default_out_dir`). `gpu_compat.json` and the disk probe use
+  the profile roots. run_hash is unaffected (it excludes profile roots).
+- An existing real `.venv-harness` in the home directory is not deleted: setup stops and asks the user to remove it.

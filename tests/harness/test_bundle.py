@@ -90,3 +90,15 @@ def test_schema_catches_missing_and_duplicates():
                         for k, v in PER_PAIR.items()}] * 2)
     assert any("duplicate" in e for e in validate_per_pair(df))
     assert any("missing column lse" in e for e in validate_per_pair(df.drop(columns=["lse"])))
+
+
+def test_bundle_dir_follows_runs_root(tmp_path):
+    """A runs_root on a scratch disk puts the bundles on that disk too; the default stays <repo>/bundles."""
+    import importlib.util
+    from harness.profile import REPO_ROOT, Profile
+    spec = importlib.util.spec_from_file_location("bundle_results", ROOT / "scripts" / "bundle_results.py")
+    m = importlib.util.module_from_spec(spec)
+    sys.path.insert(0, str(ROOT / "scripts"))
+    spec.loader.exec_module(m)
+    assert m.default_out_dir(Profile(name="x", runs_root="runs")) == REPO_ROOT / "bundles"
+    assert m.default_out_dir(Profile(name="x", runs_root=str(tmp_path / "w" / "runs"))) == tmp_path / "w" / "bundles"

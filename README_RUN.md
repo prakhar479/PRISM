@@ -17,7 +17,13 @@ tmux new -s prism
 $H scripts/run_queue.py --queue queue/release2-server.yaml --gpus auto
 ```
 
-Progress: `cat runs/_queue/release2-server/queue_status.md`. The queue is safe to kill and restart: finished units
+Where things live: `setup_server.sh` puts everything heavy on the scratch disk (`/ssd_scratch/$USER/prism`, or
+`PRISM_WORK=<dir>`): the venv (`.venv-harness` is a link to it), the uv cache, Hugging Face downloads, activation
+caches, runs and bundles. `profiles/local.yaml` (git-ignored, written by setup) points the harness there, so the home
+directory only holds the repo (~60 MB with the golden export). `W` below is that directory:
+`W=$(.venv-harness/bin/python -c 'from harness.profile import load_profile as l; print(l("server").root("runs_root").parent)')`.
+
+Progress: `cat $W/runs/_queue/release2-server/queue_status.md`. The queue is safe to kill and restart: finished units
 are skipped. `--gpus 0,1` limits it to some GPUs; `--workers-per-gpu 2` puts two workers on each large GPU.
 
 ## Older GPUs (RTX 20xx Turing cc 7.5, GTX 10xx Pascal cc 6.1)
@@ -37,7 +43,7 @@ are skipped. `--gpus 0,1` limits it to some GPUs; `--workers-per-gpu 2` puts two
 
 ## What the harness does with the machine
 
-- Measures every GPU (nvidia-smi), host RAM, CPU cores and disk first (`runs/_queue/<tag>/machine.json`).
+- Measures every GPU (nvidia-smi), host RAM, CPU cores and disk first (`$W/runs/_queue/<tag>/machine.json`).
 - `profiles/server.yaml` sizes everything from that: memory cap per GPU, tokens and rows per forward, embedding
   placement, CPU threads per worker. Preflight then runs one real forward per GPU at that size and keeps the largest
   budget that fits (`gpus.json`); a GPU that fails is left out.
@@ -47,12 +53,12 @@ are skipped. `--gpus 0,1` limits it to some GPUs; `--workers-per-gpu 2` puts two
 
 ## Send results back
 
-The last queue job writes `bundles/release2-server_<stamp>.tar.gz` + `.sha256`. Return them on a results branch,
+The last queue job writes `$W/bundles/release2-server_<stamp>.tar.gz` + `.sha256`. Return them on a results branch,
 never by committing `runs/`:
 
 ```bash
 git switch -c results/<tag>
-mkdir -p incoming/RT2 && cp bundles/release2-server_*.tar.gz* incoming/RT2/
+mkdir -p incoming/RT2 && cp $W/bundles/release2-server_*.tar.gz* incoming/RT2/
 find incoming -type f -size +95M -exec sh -c 'split -b 90m -d "$1" "$1.part" && rm "$1"' _ {} \;
 git add -f incoming/RT2 && git commit -m "release 2 (server) results" && git push -u origin results/<tag>
 ```

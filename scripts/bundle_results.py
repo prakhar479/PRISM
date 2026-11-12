@@ -54,6 +54,13 @@ def collect(prof, tag: str, all_commits: bool):
     return files, runs, head
 
 
+def default_out_dir(prof) -> Path:
+    """<repo>/bundles, or <runs_root>/../bundles when runs_root lives outside the repo (a scratch disk): bundles are
+    as big as the runs, so they go on the same disk."""
+    runs = prof.root("runs_root").resolve()
+    return REPO_ROOT / "bundles" if runs.is_relative_to(REPO_ROOT) else runs.parent / "bundles"
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--tag", required=True)
@@ -64,7 +71,7 @@ def main() -> int:
     prof = load_profile(a.profile)
     files, runs, head = collect(prof, a.tag, a.all_commits)
     stamp = time.strftime("%Y%m%d_%H%M%S")
-    out_dir = Path(a.out_dir) if a.out_dir else REPO_ROOT / "bundles"
+    out_dir = Path(a.out_dir) if a.out_dir else default_out_dir(prof)
     out_dir.mkdir(parents=True, exist_ok=True)
     name = f"{a.tag}_{stamp}"
     manifest = {"bundle": name, "tag": a.tag, "created": provenance.now(), "hostname": socket.gethostname(),

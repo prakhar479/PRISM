@@ -51,6 +51,8 @@ def main() -> int:
     ap.add_argument("--out", default=None)
     ap.add_argument("--verify-only", action="store_true", help="no downloads (local_files_only); check hashes")
     a = ap.parse_args()
+    from harness.profile import load_profile
+    load_profile().apply_env()          # HF_HOME of the active profile (HL_PROFILE) before huggingface_hub is imported
     from huggingface_hub import HfApi, hf_hub_download
 
     api = HfApi()

@@ -6,10 +6,14 @@ model_dtype: bfloat16        # what the pilot used
 sae_dtype: float32
 sae_bf16_min_width: 524k     # pilot rule: >= 524k latents held in bf16
 sae_placement: auto          # resident on the GPU when it fits under the measured cap, else block-wise
+# Heavy intermediates (activation caches, HF downloads) are set to a scratch disk by scripts/setup_server.sh in
+# profiles/local.yaml; runs_root stays in the repo directory (finished runs and queue state are small).
 cache_root: cache
 data_root: data
 runs_root: runs
 hf_home: null
+min_free_gb: 10              # free disk required at cache_root at preflight (laptop profile: 20); the queue pauses
+                             # (starts no new unit) when it drops below a quarter of this, and resumes by itself
 offline: false
 batch_size: 16
 max_batch_size: auto         # rows per forward, from the measured VRAM (64-256)

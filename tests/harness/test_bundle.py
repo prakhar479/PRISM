@@ -102,3 +102,31 @@ def test_bundle_dir_follows_runs_root(tmp_path):
     spec.loader.exec_module(m)
     assert m.default_out_dir(Profile(name="x", runs_root="runs")) == REPO_ROOT / "bundles"
     assert m.default_out_dir(Profile(name="x", runs_root=str(tmp_path / "w" / "runs"))) == tmp_path / "w" / "bundles"
+
+
+def test_publish_copies_finals_splits_big_files_and_skips_parts(tmp_path):
+    """scripts/publish_results.py: the small finished files only (no parts/), big files split with checksums."""
+    import hashlib
+    src = tmp_path / "runs"
+    d = fake_run(src)
+    (d / "parts").mkdir()
+    (d / "parts" / "u.parquet").write_bytes(b"x" * 10)
+    (d / "summary.json").write_text("{}")
+    q = src / "_queue" / "t1"
+    q.mkdir(parents=True)
+    (q / "queue_status.md").write_text("# q")
+    out = tmp_path / "pub"
+    code = (f"import sys; sys.path.insert(0, 'scripts'); import publish_results as m; "
+            f"m.PART = 4000; from harness.profile import load_profile; "
+            f"meta = m.publish(load_profile(), 't1', __import__('pathlib').Path({str(out)!r})); print(len(meta['runs']))")
+    r = subprocess.run([sys.executable, "-c", code], cwd=ROOT, env={**os.environ, "HL_RUNS_ROOT": str(src)}, capture_output=True, text=True)
+    assert r.returncode == 0, r.stderr
+    meta = json.loads((out / "PUBLISHED.json").read_text())
+    names = set(meta["files"])
+    assert not any("parts" in n for n in names)
+    assert "runs/_queue/t1/queue_status.md" in names and "runs/E0/abc123def456/summary.json" in names
+    big = "runs/E0/abc123def456/per_pair.parquet"
+    assert meta["files"][big].get("split")
+    parts = sorted((out / "runs/E0/abc123def456").glob("per_pair.parquet.part-*"))
+    assert len(parts) >= 2
+    assert hashlib.sha256(b"".join(p.read_bytes() for p in parts)).hexdigest() == meta["files"][big]["sha256"]

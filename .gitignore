@@ -12,6 +12,7 @@ golden/
 hf_agreement/
 probe/
 bundles/
+results_server/
 runs/
 cache/
 profiles/local.yaml

@@ -268,3 +268,22 @@ def test_preflight_budget_probe_halves_until_a_forward_fits(monkeypatch):
     assert [x["ok"] for x in r["tried"]] == [False, False, True]
     monkeypatch.setattr(runtime, "last_logits", lambda m, t, *a, **k: (_ for _ in ()).throw(dv.FakeOOM("always")))
     assert RP.budget_probe(None, prof, torch.device("cpu"), rows)["budget_ok"] is None
+
+
+def test_scheduler_hold_pauses_new_starts_and_resumes(tmp_path):
+    """hold() returning a reason starts nothing new; once it clears the queue runs to the end."""
+    from harness.queue import Job, Queue
+    from harness.scheduler import Scheduler, expand
+    q = Queue("t", "dev", [Job(id="a", kind="script", script="x.py"), Job(id="b", kind="script", script="x.py", depends_on=["a"])])
+    units = expand(q, 1)
+    calls, logs = {"n": 0}, []
+
+    def hold():
+        calls["n"] += 1
+        return "disk low" if calls["n"] <= 3 else None
+
+    s = Scheduler(q, units, ["cpu"], tmp_path, lambda u: [sys.executable, "-c", "pass"], dict(os.environ), {}, tmp_path,
+                  log=logs.append, poll_s=0.01, hold=hold)
+    s.run(lambda: None)
+    assert all(u.status == "done" for u in units)
+    assert any("paused: disk low" in m for m in logs) and any(m == "resumed" for m in logs)

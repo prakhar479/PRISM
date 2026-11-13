@@ -10,7 +10,8 @@
 # Override with LOCK=requirements/<file>.lock TORCH_INDEX=https://download.pytorch.org/whl/<cuXYZ>.
 # Heavy data goes to a scratch disk, not the home directory: PRISM_WORK=<dir> (default /ssd_scratch/$USER/prism when
 # /ssd_scratch exists; PRISM_SCRATCH=<mount> to look elsewhere). It holds the venv, the uv cache, Hugging Face
-# downloads (HF_HOME), activation caches, runs and bundles; profiles/local.yaml (git-ignored) points the harness there.
+# downloads (HF_HOME) and the activation caches: the heavy intermediates. Finished runs, queue state, preflight reports
+# and bundles stay in the repo directory (small); profiles/local.yaml (git-ignored) points cache_root and hf_home there.
 set -euo pipefail
 cd "$(dirname "$0")/.."
 VENV=${VENV:-.venv-harness}
@@ -52,7 +53,7 @@ fi
 TORCH_INDEX=${TORCH_INDEX:?set TORCH_INDEX together with LOCK}
 echo "driver $DRV, lowest compute capability $MINCC -> $LOCK ($TORCH_INDEX)"
 
-echo "== work disk (venv, uv cache, Hugging Face downloads, activation caches, runs, bundles)"
+echo "== work disk (venv, uv cache, Hugging Face downloads, activation caches)"
 WORK=${PRISM_WORK:-}
 if [ -z "$WORK" ]; then
   for base in ${PRISM_SCRATCH:-/ssd_scratch}; do
@@ -62,7 +63,7 @@ if [ -z "$WORK" ]; then
   done
 fi
 if [ -n "$WORK" ]; then
-  mkdir -p "$WORK"/uv-cache "$WORK"/hf "$WORK"/cache "$WORK"/runs "$WORK"/bundles "$WORK"/tmp \
+  mkdir -p "$WORK"/uv-cache "$WORK"/hf "$WORK"/cache "$WORK"/tmp \
     || { echo "ERROR: cannot create $WORK (set PRISM_WORK to a writable directory)"; exit 1; }
   WORK=$(cd "$WORK" && pwd -P)
   export UV_CACHE_DIR="$WORK/uv-cache" TMPDIR="$WORK/tmp"
@@ -72,15 +73,15 @@ if [ -n "$WORK" ]; then
   LOCAL=profiles/local.yaml
   if [ ! -f "$LOCAL" ] || grep -q "written by setup_server.sh" "$LOCAL"; then
     cat > "$LOCAL" <<EOF2
-# written by setup_server.sh (git-ignored): heavy data lives on the scratch disk
+# written by setup_server.sh (git-ignored): heavy intermediates live on the scratch disk; runs_root (finished runs,
+# queue state) stays in the repo directory
 cache_root: $WORK/cache
-runs_root: $WORK/runs
 hf_home: $WORK/hf
 EOF2
-    echo "profiles/local.yaml -> cache_root, runs_root, hf_home under $WORK"
+    echo "profiles/local.yaml -> cache_root and hf_home under $WORK (runs and queue state stay in the repo directory)"
   else
-    echo "WARNING: profiles/local.yaml exists and was not written by this script: set cache_root, runs_root and hf_home in it to"
-    echo "         $WORK/cache, $WORK/runs, $WORK/hf yourself, or the harness will fill this disk."
+    echo "WARNING: profiles/local.yaml exists and was not written by this script: set cache_root and hf_home in it to"
+    echo "         $WORK/cache and $WORK/hf yourself, or the harness will fill this disk."
   fi
 else
   echo "WARNING: no /ssd_scratch (set PRISM_WORK=<dir>): everything goes under the repo directory on this disk"
@@ -165,5 +166,5 @@ if (p["disk_free_bytes"] or 0) < 70 * 2**30:
     print("WARNING: release 2 needs ~35 GiB of SAE downloads plus caches: keep >= 70 GiB free")
 EOF
 echo
-echo "Setup done.${WORK:+ Heavy data is in $WORK (runs: $WORK/runs, bundles: $WORK/bundles).}"
+echo "Setup done.${WORK:+ Caches and downloads are in $WORK; runs, queue state and bundles are in $(pwd).}"
 echo "Next: export HL_PROFILE=server HF_TOKEN=hf_...; see README.md"

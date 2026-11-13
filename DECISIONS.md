@@ -304,3 +304,23 @@ Dated log of non-trivial choices. Pilot run verdicts live in `results/*/DECISION
   2080 Ti: fp32 ~10.5 TFLOPS, bf16 ~5.9 (emulated, slower than fp32); 3080: fp32 21.3, bf16 52.7. Stage-3 workers claim
   units dynamically, so the 3080 takes proportionally more; stage-2 slices are static and equal. The model stays bf16
   (pilot / golden / run_hash); running Turing in fp32 would be a numerics change and a human decision.
+
+## 2026-11-13: caches on scratch, finished results in the repo directory; disk threshold per profile
+
+- First server preflight (4 GPUs, all checks PASS incl. the golden comparison) failed only on `RAM and disk`: 19-20 GB
+  free at the cache root against a fixed 20 GB, after 49 GB of downloads on the scratch disk.
+- Run directories are small (release 1: per_pair.parquet <= 4 MB, parts/ the same data again); the big things are the
+  Hugging Face downloads and the activation caches. So only those (and the venv, uv cache) stay on scratch:
+  `profiles/local.yaml` written by setup now sets `cache_root` and `hf_home` only; `runs_root`, queue state
+  (`runs/_queue/<tag>`), preflight reports and bundles stay in the repo directory.
+- `min_free_gb` is a profile key (default 20, unchanged for the laptop; 10 in profiles/server.yaml). Preflight needs
+  more than that free at cache_root and 2 GB at runs_root. The real cache need of release 2 was not measured (the 60 GB
+  total in the notes was an estimate: 35 GB downloads + ~25 GB caches), so the queue now watches the cache disk:
+  below min_free_gb / 4 it starts no new unit ("paused: ...", running units continue) and resumes by itself. Units are
+  resumable, so a full disk costs at most the running units, never finished work.
+- Numeric tolerances (preflight 3-5) are unchanged: every one passed on the 2080 Ti / 3080 with margin (span residuals
+  0.031 vs 0.05; per-condition |dD| <= 0.134 vs 0.25).
+- New last queue job `publish` (scripts/publish_results.py): copies the same finished files as the bundle (never
+  parts/ or caches) to `results_server/<tag>/` with PUBLISHED.json (sha256 + source commit), files over 90 MB split;
+  git-ignored so the run checkout stays clean, committed with `git add -f` on a results branch. The bundle is kept:
+  it is what scripts/ingest_results.py validates.

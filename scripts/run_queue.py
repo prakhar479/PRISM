@@ -9,12 +9,14 @@ The machine is measured first (harness.device.probe_machine -> <state>/machine.j
 queue runs in order exactly as before; with several, harness/scheduler.py runs units side by side. A GPU that fails
 preflight's per-GPU check (<state>/gpus.json) is dropped from the pool.
 
+Pauses (starts no new unit, running ones continue) while the cache disk is below min_free_gb / 4.
 State: <runs_root>/_queue/<tag>/{machine.json, status.json, queue_status.md, heartbeat, <unit>.done, <unit>.log}.
 """
 import argparse
 import fcntl
 import json
 import os
+import shutil
 import sys
 import threading
 import time
@@ -155,8 +157,21 @@ def main() -> int:
                 if all(x.status == "done" for x in self.units if x.job.id == u.job.id):
                     (state / f"{u.job.id}.done").write_text(time.strftime("%Y-%m-%dT%H:%M:%S%z"))
 
+    cache_dir = prof.root("cache_root")
+    floor_gib = prof.min_free_gb / 4
+
+    def disk_hold():
+        try:                                   # the cache dir may not exist yet: measure its nearest existing parent
+            where = cache_dir
+            while not where.exists() and where != where.parent:
+                where = where.parent
+            free = shutil.disk_usage(where).free / 2 ** 30
+        except OSError:
+            return None                        # cannot measure: never block the queue on it
+        return f"only {free:.1f} GiB free at {cache_dir} (floor {floor_gib:.1f}): free space and the queue resumes" if free < floor_gib else None
+
     sched = S(q, units, slots, state, lambda u: command(u.job, prof_name, a.allow_dirty, u.extra_args()), env, {},
-              REPO_ROOT, log=log, poll_s=a.poll)
+              REPO_ROOT, log=log, poll_s=a.poll, hold=disk_hold)
 
     def write():
         st = {u.id: {"status": u.status, "attempts": u.attempts, "note": u.note, "slots": u.slots} for u in units}

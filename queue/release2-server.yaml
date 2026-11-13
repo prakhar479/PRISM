@@ -37,3 +37,5 @@ jobs:
 
   - {id: bundle, kind: script, script: scripts/bundle_results.py, args: [--tag, release2-server], after_failed: true,
      depends_on: [E3_fin, E4_fin, E5_fin, E8_fin]}
+  - {id: publish, kind: script, script: scripts/publish_results.py, args: [--tag, release2-server], after_failed: true,
+     depends_on: [bundle]}

@@ -81,7 +81,12 @@ def c1_env(prof):
     cache = prof.root("cache_root")
     cache.mkdir(parents=True, exist_ok=True)
     free = shutil.disk_usage(cache).free / GiB
-    check(1, "RAM and disk", free > 20, f"RAM available {ram_gb()} GB; disk free at cache root {free:.0f} GB")
+    runs = prof.root("runs_root")
+    runs.mkdir(parents=True, exist_ok=True)
+    rfree = shutil.disk_usage(runs).free / GiB
+    check(1, "RAM and disk", free > prof.min_free_gb and rfree > 2,
+          f"RAM available {ram_gb()} GB; disk free at cache root {free:.0f} GB (need > {prof.min_free_gb:g}); "
+          f"at runs root {rfree:.0f} GB (need > 2)")
     return dev
 
 

@@ -46,6 +46,7 @@ class Profile:
     cpu_workers: int = 2
     offload_embed: Union[bool, str] = False
     cpu_threads: Optional[Union[int, str]] = None       # None = leave torch's default
+    min_free_gb: float = 20.0                           # preflight: free disk required at cache_root; the queue pauses below a quarter of it
     vram_headroom_gb: float = 0.6                       # kept free per GPU when gpu_mem_cap_gb is auto
     allowed_experiments: List[str] = field(default_factory=list)
     allow_real_model: bool = False

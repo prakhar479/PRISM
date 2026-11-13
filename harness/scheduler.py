@@ -75,12 +75,14 @@ def slots_for(gpus: List[str], per_gpu: int) -> List[str]:
 
 class Scheduler:
     def __init__(self, q: Queue, units: List[Unit], slots: List[str], state: Path, command: Callable[[Unit], List[str]],
-                 env_base: dict, pinned_tokens: Dict[str, int], cwd: Path, log=print, poll_s: float = 1.0) -> None:
+                 env_base: dict, pinned_tokens: Dict[str, int], cwd: Path, log=print, poll_s: float = 1.0,
+                 hold: Optional[Callable[[], Optional[str]]] = None) -> None:
         self.q, self.units, self.state, self.command = q, units, state, command
         self.free = list(slots)
         self.n_slots = len(slots)
         self.env_base, self.pinned, self.cwd, self.log, self.poll_s = env_base, pinned_tokens, cwd, log, poll_s
         self.order = {j.id: i for i, j in enumerate(q.jobs)}
+        self.hold, self._held = hold, None             # hold() -> reason string: start nothing new until it returns None
 
     # ---- job-level status from its units
     def job_status(self, jid: str) -> str:
@@ -192,11 +194,18 @@ class Scheduler:
             for u in self.units:
                 if u.status == "running":
                     self.reap(u)
-            while (u := self.pick()) is not None:
+            why = self.hold() if self.hold else None
+            if why != self._held:
+                self.log(f"paused: {why}" if why else "resumed")
+                self._held = why
+            while not why and (u := self.pick()) is not None:
                 self.start(u)
             write()
             if all(u.status in ("done", "failed", "skipped") for u in self.units):
                 return
+            if why and not any(u.status == "running" for u in self.units):
+                time.sleep(max(self.poll_s, 5.0))          # paused with nothing running: wait for a human to free space
+                continue
             if not any(u.status == "running" for u in self.units) and self.pick() is None:
                 # nothing runs and nothing can start: everything left waits on something that cannot happen
                 for u in self.units:

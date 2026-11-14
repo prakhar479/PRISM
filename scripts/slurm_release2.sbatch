@@ -10,8 +10,8 @@
 # Adjust the #SBATCH lines to the cluster (partition, account, memory, time). --nodelist matters: /ssd_scratch is
 # node-local, so the venv, downloads and caches that setup_server.sh put there exist only on gnode077.
 #SBATCH --job-name=prism-r2
-#SBATCH --nodelist=gnode077
-#SBATCH --gres=gpu:4
+#SBATCH --nodelist=gnode074
+#SBATCH --gres=gpu:3
 #SBATCH --cpus-per-task=16
 #SBATCH --mem=96G
 #SBATCH --time=48:00:00

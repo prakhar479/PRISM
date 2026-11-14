@@ -48,12 +48,15 @@ clean() {   # clean light | clean full
   find "$REPO" -name __pycache__ -type d -not -path "$REPO/.venv-harness/*" -prune -exec rm -rf {} + 2>/dev/null
   find "$WORK/hf" -name '*.incomplete' -delete 2>/dev/null
   find "$WORK/hf" -name '*.lock' -path '*/.locks/*' -delete 2>/dev/null
+  local BULK=${PRISM_BULK:-/scratch/${USER:-$(id -un)}/prism}
+  if [ "$mode" = full ] && [ -d "$BULK/cache" ]; then echo "  bulk-disk caches $(size "$BULK/cache")"; rm -rf "$BULK/cache" && mkdir -p "$BULK/cache"; fi
   if [ "$mode" = full ]; then
     # results are published: the activation caches are only a speed-up and are rebuilt if a rerun needs them
     [ -d "$WORK/cache" ] && { echo "  activation caches $(size "$WORK/cache")"; rm -rf "$WORK/cache" && mkdir -p "$WORK/cache"; }
-    if [ "$PURGE_HF" = 1 ] && [ -d "$WORK/hf" ]; then
-      echo "  Hugging Face download $(size "$WORK/hf") (PURGE_HF=1; the next run downloads it again)"
-      rm -rf "$WORK/hf" && mkdir -p "$WORK/hf"
+    if [ "$PURGE_HF" = 1 ]; then
+      for hf in "$WORK/hf" "$BULK/hf"; do
+        [ -d "$hf" ] && { echo "  Hugging Face download $(size "$hf") (PURGE_HF=1; the next run downloads it again)"; rm -rf "$hf" && mkdir -p "$hf"; }
+      done
     fi
   fi
   echo "== after cleanup: scratch $(gib "$WORK") GiB free, home $(gib "$REPO") GiB free"
@@ -78,9 +81,17 @@ finish() {   # SIGTERM: stop the queue, free the cheap stuff, keep caches so the
 }
 trap finish TERM INT
 
+# fail in seconds, not after the 30-minute preflight, if the checkout is dirty (a stray file counts: every run records it)
+DIRTY=$(git status --porcelain 2>/dev/null)
+if [ -n "$DIRTY" ]; then
+  echo "ERROR: working tree is dirty; the harness refuses to run. Offending files:"; echo "$DIRTY" | head -20
+  echo "Remove them, or for log files: echo 'slurm-*.out' >> .git/info/exclude"; exit 1
+fi
+
 # idempotent: venv, locked packages, env check, golden fixtures, profiles/local.yaml, gpu_compat.json
 bash scripts/setup_server.sh || { echo "setup failed"; exit 1; }
 
+$H scripts/storage_report.py || true
 $H scripts/plan_runs.py --queue "$QUEUE" --profile server || true
 
 # --retry-failed: a resubmit picks up units that were running when the last job ended

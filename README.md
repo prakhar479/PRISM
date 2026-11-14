@@ -23,6 +23,8 @@ activation caches (`profiles/local.yaml`, git-ignored, points the harness there)
 repo directory, which only needs ~1 GB: `runs/` (one folder per run with manifest, summary, per_pair.parquet),
 `runs/_queue/<tag>/` (queue status, machine.json, gpus.json, logs), `preflight/` (reports) and `bundles/`.
 
+Storage tiers: SSD (`/ssd_scratch`) = venv + hot activation caches; HDD (`/scratch`, found by setup or `PRISM_BULK`) = Hugging Face download + cache overflow; home = runs, queue state, results. `python scripts/storage_report.py [--speed] [--watch 60]` shows free space, what is where, and advice. Move an existing download off the SSD with `PRISM_MIGRATE_HF=1 bash scripts/setup_server.sh`.
+
 Progress: `cat runs/_queue/release2-server/queue_status.md`. If the cache disk drops below a quarter of `min_free_gb`
 (profiles/server.yaml, 10 GB, so 2.5 GB) the queue starts nothing new and prints `paused: ...`; free space and it
 resumes by itself. The queue is safe to kill and restart: finished units

@@ -78,7 +78,7 @@ class Runner:
         self.resources: dict = {}                                            # measured machine + resolved autos
         # a dry run plans for the profile's machine without touching any device
         self.device = torch.device("cpu") if (self.tiny or getattr(args, "dry_run", False)) else resolve_device(prof.device)
-        self.cache = Cache(prof.root("cache_root") if not self.tiny else REPO_ROOT / "tests" / "_tiny_cache")
+        self.cache = prof.cache() if not self.tiny else Cache(REPO_ROOT / "tests" / "_tiny_cache")
         inv = json.loads((REPO_ROOT / "configs" / "sae_inventory.json").read_text())
         self.inventory, self.sae_revision = inv["inventory"], inv["revision"]
         deepest = max([c.layer for c in cfg.cells] + [0])
@@ -645,7 +645,7 @@ class Runner:
                                                                "cells": self.checks}, indent=1, default=str))
 
     def manifest(self, status: str, t_start: float, stages) -> dict:
-        roots = [str(self.prof.root(k)) for k in ("cache_root", "data_root", "runs_root")] + [str(REPO_ROOT)]
+        roots = [str(self.prof.root(k)) for k in ("cache_root", "data_root", "runs_root")] + [str(p) for p in self.prof.spill_roots()] + [str(REPO_ROOT)]
         m = {"exp_id": self.cfg.exp_id, "run_hash": self.run_hash, "status": status, "stages": stages,
              "smoke": self.smoke, "tiny": self.tiny, "created": provenance.now(),
              "wall_time_s": round(time.time() - t_start, 1), "config": self.cfg.to_dict(),
@@ -666,6 +666,8 @@ class Runner:
         for k in ("cache_root", "data_root", "runs_root", "hf_home"):
             if m["profile"].get(k) and Path(str(m["profile"][k])).is_absolute():
                 m["profile"][k] = f"<{k}>"                    # machine-specific; keep manifests portable
+        if m["profile"].get("cache_spill"):
+            m["profile"]["cache_spill"] = ["<cache_spill>"] * len(m["profile"]["cache_spill"])
         provenance.assert_relative({k: v for k, v in m.items() if k not in ("machine", "git")}, roots)
         return m
 
@@ -713,7 +715,8 @@ def main(argv=None) -> int:
     if not a.tiny and not prof.allow_real_model and not a.smoke:
         raise SystemExit(f"profile {prof.name} does not allow full real-model runs")
     if R.git["dirty"] and not (a.allow_dirty or a.smoke or a.tiny):
-        raise SystemExit("working tree is dirty: commit, or pass --allow-dirty (recorded in the manifest)")
+        raise SystemExit("working tree is dirty: commit, or pass --allow-dirty (recorded in the manifest)\n  "
+                         + "\n  ".join(R.git.get("dirty_files", [])[:10]))
     R.run_dir.mkdir(parents=True, exist_ok=True)
     # one log / manifest per partial process; only a full run or --finalize-only writes the run's manifest.json
     tag = (f".w{R.worker}" if R.worker else f".s2-{a.stage2_slice.replace('/', 'of')}" if a.stage2_slice

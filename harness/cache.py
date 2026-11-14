@@ -151,12 +151,63 @@ class Entry:
         return f"{self.kind}/{self.key}"
 
 
+def free_gib(path: Path) -> float:
+    """Free GiB on the filesystem holding `path` (nearest existing parent if it does not exist yet; 0 if unmeasurable)."""
+    p = Path(path)
+    try:
+        while not p.exists() and p != p.parent:
+            p = p.parent
+        return shutil.disk_usage(p).free / 2 ** 30
+    except OSError:
+        return 0.0
+
+
 class Cache:
-    def __init__(self, root: Path) -> None:
+    """`root` is the fast tier. `spill` lists slower roots (e.g. an HDD) used only for entries that no longer fit:
+    an entry lives in exactly one tier, found again by every process by looking for <tier>/<kind>/<key> (a complete
+    copy wins, then a partial one with room to finish). A new entry goes to the first tier with >= min_free_gb free,
+    so the fast disk is used until it is nearly full and nothing is ever moved or evicted behind a reader's back."""
+
+    def __init__(self, root: Path, spill=(), min_free_gb: float = 4.0) -> None:
         self.root = Path(root)
+        self.roots = [self.root] + [Path(r) for r in spill]
+        self.min_free_gb = float(min_free_gb)
+
+    def locate(self, kind: str, key: str) -> Path:
+        if len(self.roots) == 1:
+            return self.root
+        found = [r for r in self.roots if (r / kind / key).is_dir()]
+        for r in found:
+            if (r / kind / key / "_COMPLETE").exists():
+                return r
+        for r in found:
+            if free_gib(r) >= self.min_free_gb:
+                return r                                    # resumable partial entry with room to finish
+        for r in self.roots:
+            if r in found or free_gib(r) < self.min_free_gb:
+                continue
+            try:
+                r.mkdir(parents=True, exist_ok=True)
+            except OSError:
+                continue                                    # tier not mounted / not writable
+            return r
+        usable = [r for r in self.roots if self._usable(r)] or [self.root]
+        return max(usable, key=free_gib)                    # everything is low: use the roomiest, the queue's disk guard pauses
+
+    @staticmethod
+    def _usable(r: Path) -> bool:
+        try:
+            r.mkdir(parents=True, exist_ok=True)
+            return True
+        except OSError:
+            return False
 
     def entry(self, kind: str, **parts) -> Entry:
-        return Entry(self.root, kind, parts)
+        return Entry(self.locate(kind, key_of(parts)), kind, parts)
+
+    def where(self) -> Dict[str, int]:
+        """Entries per tier (for reports)."""
+        return {str(r): sum(1 for _ in r.glob("*/*/_COMPLETE")) if r.exists() else 0 for r in self.roots}
 
 
 @contextlib.contextmanager

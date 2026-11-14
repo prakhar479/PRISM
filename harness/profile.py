@@ -38,6 +38,8 @@ class Profile:
     data_root: str = "data"
     runs_root: str = "runs"
     hf_home: Optional[str] = None
+    cache_spill: List[str] = field(default_factory=list)  # slower cache tiers (HDD), used when cache_root is nearly full
+    cache_spill_min_gb: float = 4.0                      # a tier with less free space than this takes no new cache entry
     offline: bool = False
     batch_size: int = 8
     max_batch_size: Union[int, str] = 64
@@ -59,6 +61,14 @@ class Profile:
         """Absolute path of cache_root / data_root / runs_root."""
         p = Path(getattr(self, key))
         return p if p.is_absolute() else REPO_ROOT / p
+
+    def spill_roots(self) -> List[Path]:
+        return [p if p.is_absolute() else REPO_ROOT / p for p in map(Path, self.cache_spill)]
+
+    def cache(self):
+        """The tiered activation cache for this profile (fast cache_root, then cache_spill)."""
+        from harness.cache import Cache
+        return Cache(self.root("cache_root"), self.spill_roots(), self.cache_spill_min_gb)
 
     def to_dict(self) -> dict:
         return asdict(self)

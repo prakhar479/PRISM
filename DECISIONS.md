@@ -324,3 +324,17 @@ Dated log of non-trivial choices. Pilot run verdicts live in `results/*/DECISION
   parts/ or caches) to `results_server/<tag>/` with PUBLISHED.json (sha256 + source commit), files over 90 MB split;
   git-ignored so the run checkout stays clean, committed with `git add -f` on a results branch. The bundle is kept:
   it is what scripts/ingest_results.py validates.
+
+## 2026-11-14: tiered storage (fast SSD, bulk HDD, home)
+- `/ssd_scratch` had 14 GiB free after the 35 GB download, too little for the caches. Roles now follow access pattern:
+  the Hugging Face download is read once per process at model load (the page cache serves repeats) so it goes to the
+  bulk disk (`/scratch`, HDD); the hot activation caches (re-read by every stage-3 worker) use the SSD first and
+  `Profile.cache_spill` takes only the entries that no longer fit (`harness/cache.py: Cache.locate`). One entry lives in
+  one tier, found by every process by looking for `<tier>/<kind>/<key>`; a complete copy wins; a partial entry on a
+  disk now below `cache_spill_min_gb` (4) restarts on the next tier. Nothing is moved or evicted under a reader. Entry
+  keys and manifests are unchanged (`rel()` stays `<kind>/<key>`); results do not depend on the tier.
+- Preflight check 1 counts free space summed over the cache tiers; the queue pauses only when every tier is below
+  min_free_gb / 4 and logs `disk: ...` every 10 minutes. `scripts/storage_report.py` shows disks (SSD/HDD from sysfs,
+  optional speed test), what the harness keeps on each, advice, `--watch N`, and `--write-profile`. `setup_server.sh`
+  detects `/scratch` (or PRISM_BULK), writes cache_spill and hf_home, and moves an existing download only with
+  PRISM_MIGRATE_HF=1. Unmeasured: the speed penalty of a cache entry on the HDD (bounded by the overflow size).

@@ -157,18 +157,22 @@ def main() -> int:
                 if all(x.status == "done" for x in self.units if x.job.id == u.job.id):
                     (state / f"{u.job.id}.done").write_text(time.strftime("%Y-%m-%dT%H:%M:%S%z"))
 
-    cache_dir = prof.root("cache_root")
+    from harness import storage
+    from harness.cache import free_gib
+    tier_dirs = [prof.root("cache_root"), *prof.spill_roots()]
     floor_gib = prof.min_free_gb / 4
+    last_log = [0.0]
 
     def disk_hold():
-        try:                                   # the cache dir may not exist yet: measure its nearest existing parent
-            where = cache_dir
-            while not where.exists() and where != where.parent:
-                where = where.parent
-            free = shutil.disk_usage(where).free / 2 ** 30
-        except OSError:
-            return None                        # cannot measure: never block the queue on it
-        return f"only {free:.1f} GiB free at {cache_dir} (floor {floor_gib:.1f}): free space and the queue resumes" if free < floor_gib else None
+        free = [free_gib(d) for d in tier_dirs]
+        if time.time() - last_log[0] > 600:                    # runtime visibility: where the space is, every 10 minutes
+            last_log[0] = time.time()
+            log("disk: " + storage.snapshot(prof))
+        # paused only when EVERY cache tier is low: the cache spills to the next tier before that happens
+        if max(free) < floor_gib:
+            return (f"only {max(free):.1f} GiB free on every cache disk ({', '.join(str(d) for d in tier_dirs)}; "
+                    f"floor {floor_gib:.1f}): free space and the queue resumes")
+        return None
 
     sched = S(q, units, slots, state, lambda u: command(u.job, prof_name, a.allow_dirty, u.extra_args()), env, {},
               REPO_ROOT, log=log, poll_s=a.poll, hold=disk_hold)

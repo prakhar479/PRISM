@@ -65,6 +65,13 @@ def ram_gb():
         return None
 
 
+def _near(p):
+    p = Path(p)
+    while not p.exists() and p != p.parent:
+        p = p.parent
+    return p
+
+
 def c1_env(prof):
     import importlib.util
     spec = importlib.util.spec_from_file_location("check_env", REPO_ROOT / "scripts" / "check_env.py")
@@ -80,12 +87,14 @@ def c1_env(prof):
           f"{info.get('gpu_name', info['device'])}, free {info.get('gpu_free_gb')} / {info.get('gpu_total_gb')} GB", info=info)
     cache = prof.root("cache_root")
     cache.mkdir(parents=True, exist_ok=True)
-    free = shutil.disk_usage(cache).free / GiB
+    tier_free = {str(d): shutil.disk_usage(_near(d)).free / GiB for d in [cache, *prof.spill_roots()]}
+    free = sum(tier_free.values())                      # the cache spills across tiers, so their free space adds up
     runs = prof.root("runs_root")
     runs.mkdir(parents=True, exist_ok=True)
     rfree = shutil.disk_usage(runs).free / GiB
     check(1, "RAM and disk", free > prof.min_free_gb and rfree > 2,
-          f"RAM available {ram_gb()} GB; disk free at cache root {free:.0f} GB (need > {prof.min_free_gb:g}); "
+          f"RAM available {ram_gb()} GB; disk free over cache tiers {free:.0f} GB "
+          f"({', '.join(f'{k}: {v:.0f}' for k, v in tier_free.items())}; need > {prof.min_free_gb:g}); "
           f"at runs root {rfree:.0f} GB (need > 2)")
     return dev
 
@@ -125,7 +134,7 @@ def c3_model(prof, dev, revision):
 def c4_hooks(model, spec, prof, dev):
     rows, meta = T.load_set(prof.root("data_root") / "prompt_sets" / "entity_track_pilot.jsonl.gz")
     sub = [r for r in rows if r["split"] == "test"][:4]
-    cache = Cache(prof.root("cache_root"))
+    cache = prof.cache()
     b = Budget(prof.max_batch_tokens, prof.max_batch_size)
     ent = S.stage1(model, spec, sub, T.set_hash(sub), [12], cache, b, dev)
     cl = S.load_clean(ent["clean_out"], len(sub))
@@ -149,7 +158,7 @@ def c5_golden(model, spec, prof, dev, golden):
     from harness.sae import SAEId, decompose, load_params, params_path
     man = json.loads((Path(golden) / "manifest.json").read_text())
     inv = json.loads((REPO_ROOT / "configs" / "sae_inventory.json").read_text())
-    cache = Cache(prof.root("cache_root"))
+    cache = prof.cache()
     for cell, info in man["cells"].items():
         task, layer = info["task"], info["layer"]
         z = np.load(Path(golden) / info["file"])

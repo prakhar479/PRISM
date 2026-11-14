@@ -69,19 +69,49 @@ if [ -n "$WORK" ]; then
   export UV_CACHE_DIR="$WORK/uv-cache" TMPDIR="$WORK/tmp"
   FREE_GIB=$(df -Pk "$WORK" | awk 'NR==2 {print int($4/1048576)}')
   echo "work disk: $WORK ($FREE_GIB GiB free)"
-  [ "$FREE_GIB" -ge 70 ] || echo "WARNING: release 2 needs ~35 GiB of SAE downloads plus caches and the venv: keep >= 70 GiB free"
+  [ "$FREE_GIB" -ge 70 ] || echo "WARNING: $FREE_GIB GiB free on $WORK; with a bulk disk (/scratch) the download and cache overflow go there, else keep >= 70 GiB free"
+  # bulk disk (HDD): PRISM_BULK=<dir>, else /scratch/$USER/prism when /scratch is a different, writable disk
+  BULK=${PRISM_BULK:-}
+  if [ -z "$BULK" ] && [ -d /scratch ] && mkdir -p "/scratch/${USER:-$(id -un)}/prism" 2>/dev/null; then
+    BULK="/scratch/${USER:-$(id -un)}/prism"
+  fi
+  if [ -n "$BULK" ]; then
+    mkdir -p "$BULK/hf" "$BULK/cache" 2>/dev/null || { echo "WARNING: cannot create $BULK; not using it"; BULK=""; }
+  fi
+  if [ -n "$BULK" ] && [ "$(stat -c %d "$BULK")" = "$(stat -c %d "$WORK")" ]; then
+    echo "bulk dir $BULK is on the same disk as $WORK: not a separate tier, ignoring it"; BULK=""
+  fi
+  HFDIR="$WORK/hf"; SPILL=""
+  if [ -n "$BULK" ]; then
+    BULK=$(cd "$BULK" && pwd -P)
+    echo "bulk disk: $BULK ($(df -Pk "$BULK" | awk 'NR==2 {print int($4/1048576)}') GiB free, $(lsblk -no ROTA "$(df -P "$BULK" | awk 'NR==2{print $1}')" 2>/dev/null | head -1 | sed 's/^1$/spinning/;s/^0$/ssd/') )"
+    SPILL="cache_spill: [$BULK/cache]"
+    HFDIR="$BULK/hf"
+    if [ -n "$(ls -A "$WORK/hf" 2>/dev/null)" ] && [ -z "$(ls -A "$BULK/hf" 2>/dev/null)" ]; then
+      if [ "${PRISM_MIGRATE_HF:-0}" = 1 ]; then
+        echo "moving the Hugging Face download $WORK/hf -> $BULK/hf (it is read once per process; the SSD is for the caches)"
+        rsync -a "$WORK/hf/" "$BULK/hf/" && rm -rf "$WORK/hf" && mkdir -p "$WORK/hf" || { echo "ERROR: move failed; $WORK/hf kept"; exit 1; }
+      else
+        echo "NOTE: $WORK/hf already holds the download ($(du -sh "$WORK/hf" | cut -f1)); leaving it there. To move it to the HDD and free the SSD:"
+        echo "      PRISM_MIGRATE_HF=1 bash scripts/setup_server.sh"
+        HFDIR="$WORK/hf"
+      fi
+    fi
+  fi
   LOCAL=profiles/local.yaml
   if [ ! -f "$LOCAL" ] || grep -q "written by setup_server.sh" "$LOCAL"; then
     cat > "$LOCAL" <<EOF2
-# written by setup_server.sh (git-ignored): heavy intermediates live on the scratch disk; runs_root (finished runs,
-# queue state) stays in the repo directory
+# written by setup_server.sh (git-ignored): the activation caches use the fast disk first and spill to the bulk disk;
+# runs_root (finished runs, queue state) stays in the repo directory
 cache_root: $WORK/cache
-hf_home: $WORK/hf
+${SPILL}
+hf_home: $HFDIR
 EOF2
-    echo "profiles/local.yaml -> cache_root and hf_home under $WORK (runs and queue state stay in the repo directory)"
+    sed -i '/^$/d' "$LOCAL"
+    echo "profiles/local.yaml: cache_root $WORK/cache${BULK:+, spill $BULK/cache}, hf_home $HFDIR (runs and queue state stay in the repo directory)"
   else
-    echo "WARNING: profiles/local.yaml exists and was not written by this script: set cache_root and hf_home in it to"
-    echo "         $WORK/cache and $WORK/hf yourself, or the harness will fill this disk."
+    echo "WARNING: profiles/local.yaml exists and was not written by this script: set cache_root, cache_spill and hf_home in it,"
+    echo "         or the harness will fill this disk."
   fi
 else
   echo "WARNING: no /ssd_scratch (set PRISM_WORK=<dir>): everything goes under the repo directory on this disk"

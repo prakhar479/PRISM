@@ -4,7 +4,8 @@ people-cities binding (PC), written in English (a parallel baseline), Hindi (Dev
 STATUS: every pack is a DRAFT written by the assistant and **unvalidated**: no native speaker has checked grammar or
 naturalness (handoff 6: "to be checked by a native speaker and against the tokenizer"). `tests/harness/test_langfamilies.py`
 checks the tokenizer-side invariants; `scripts/validate_templates.py` writes the review file for the humans. Rows built from
-these families carry `validated: false` until a human signs the pack in `data/lang/templates_review.md`.
+these families carry `validated: false` until a human signs the pack with `scripts/sign_templates.py` (data/lang/signoff.json,
+bound to the pack's content hash: editing a template voids its sign-off).
 
 Design rules, each forced by a measured Gemma tokenizer fact (docs/PLAN_COMPLETION.md section 4/5):
   * Answers are one token: box labels are ASCII letters, sums are ASCII digits (as the pilot), cities are Latin-script names
@@ -18,6 +19,9 @@ Design rules, each forced by a measured Gemma tokenizer fact (docs/PLAN_COMPLETI
 """
 from __future__ import annotations
 
+import hashlib
+import json
+from pathlib import Path
 from typing import Dict
 
 from harness.families import OTFamily, PCFamily, RSFamily
@@ -90,7 +94,46 @@ LANG_OF = {
     "ot_fr": ("fr", "Latn"), "rs_fr": ("fr", "Latn"), "pc_fr": ("fr", "Latn"),
 }
 LANGUAGES = ("en", "hi", "hi_latn", "hinglish", "fr")
-VALIDATED: Dict[str, bool] = {k: False for k in LANG_OF}      # flipped only by a human, in data/lang/templates_review.md
+
+SIGNOFF_FILE = Path(__file__).resolve().parents[1] / "data" / "lang" / "signoff.json"
+
+
+def pack_hash(fid: str) -> str:
+    """Hash of everything a reviewer reads: every string and word list of the family. Editing a template changes it."""
+    for fams in FAMILIES.values():
+        if fid in fams:
+            return hashlib.sha256(repr(sorted(vars(fams[fid]).items())).encode()).hexdigest()[:16]
+    raise KeyError(fid)
+
+
+def signoffs() -> Dict[str, dict]:
+    try:
+        return json.loads(SIGNOFF_FILE.read_text())
+    except (OSError, ValueError):
+        return {}
+
+
+def is_validated(fid: str) -> bool:
+    """A human signed this pack (scripts/sign_templates.py) AND the pack is unchanged since: an edit voids the sign-off."""
+    e = signoffs().get(fid)
+    return bool(e) and e.get("pack_hash") == pack_hash(fid)
+
+
+class _Validated(dict):
+    def __getitem__(self, fid):
+        return is_validated(fid)
+
+    def values(self):
+        return [is_validated(k) for k in LANG_OF]
+
+    def __iter__(self):
+        return iter(LANG_OF)
+
+    def __len__(self):
+        return len(LANG_OF)
+
+
+VALIDATED = _Validated()            # VALIDATED[family_id] -> bool, read from data/lang/signoff.json
 
 
 def family_id(task: str, lang: str) -> str:

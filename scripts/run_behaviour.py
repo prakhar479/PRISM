@@ -102,7 +102,7 @@ def main(argv=None) -> int:
             s = B.score_rows(model, rows, budget, device)
             summ = B.summarize(task, rows, s)
             meta = sets[task][1]["families"][fid]
-            row = {"task": task, "family": fid, "lang": lang, "script": meta["script"], "validated": meta["validated"],
+            row = {"task": task, "family": fid, "lang": lang, "script": meta["script"], "validated": LF.is_validated(fid), "pack_hash": LF.pack_hash(fid),
                    "split": a.split, "length_matching_success": meta["length_matching_success"][a.split], **summ}
             pairs = pd.DataFrame({"pair_id": [r["pair_id"] for r in rows], "family": fid, "rank": [r["rank"] for r in rows],
                                   "ans_A": [r["ans_A"] for r in rows], "ans_B": [r["ans_B"] for r in rows], **s})

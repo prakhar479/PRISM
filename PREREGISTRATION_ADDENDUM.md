@@ -50,8 +50,8 @@ Per (task in {object tracking, running sum, people-cities}, language): clean acc
 **Gate A** (runnable): clean accuracy >= 0.6 and clean_only keep >= 0.3 (the pilot's VIABLE rule). **Gate B** (comparable): clean
 accuracy within 10 points of English on the same task (the main preregistration's rule). A language that fails A is reported as a
 capability result. M2/M3 gap comparisons are made **only** for languages and tasks that pass **both** gates **and** whose template
-pack is human-validated (`validated: true`). **[HUMAN]** Who validates the Hindi, Hinglish and French templates (data/lang/
-templates_review.md)? Until then E14 does not run.
+pack is human-validated (`validated: true`). Template validation: **Prakhar** validates the Hindi, romanized Hindi, Hinglish and French packs (data/lang/templates_review.md), recorded with
+`scripts/sign_templates.py` in data/lang/signoff.json (bound to the pack content hash). Until then E14 does not run.
 
 ## D. M2 and M3 (E14, only if the conditions in C hold; not built)
 

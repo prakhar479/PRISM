@@ -49,7 +49,7 @@ def test_gate_b_is_relative_to_english_of_the_same_task():
 
 
 def test_every_pack_is_unvalidated_until_a_human_signs():
-    assert set(LF.VALIDATED) == set(LF.LANG_OF) and not any(LF.VALIDATED.values())
+    assert set(LF.VALIDATED) == set(LF.LANG_OF) and not any(LF.VALIDATED.values()) and not LF.signoffs()
 
 
 def test_script_tiny_end_to_end_and_resume():
@@ -71,3 +71,31 @@ def test_script_tiny_end_to_end_and_resume():
         assert r2.returncode == 0 and len(list(csv.DictReader((out / "behaviour.csv").open()))) == 4      # nothing redone
     finally:
         shutil.rmtree(out, ignore_errors=True)
+
+
+def test_signoff_is_bound_to_the_pack_content(tmp_path, monkeypatch):
+    import harness.langfamilies as lf
+    monkeypatch.setattr(lf, "SIGNOFF_FILE", tmp_path / "signoff.json")
+    assert not lf.is_validated("ot_hi")
+    h = lf.pack_hash("ot_hi")
+    (tmp_path / "signoff.json").write_text(json.dumps({"ot_hi": {"by": "x", "date": "d", "pack_hash": h}}))
+    assert lf.is_validated("ot_hi") and lf.VALIDATED["ot_hi"] and not lf.VALIDATED["rs_hi"]
+    (tmp_path / "signoff.json").write_text(json.dumps({"ot_hi": {"by": "x", "date": "d", "pack_hash": "stale"}}))
+    assert not lf.is_validated("ot_hi")                      # the pack changed after the sign-off: void
+    assert lf.pack_hash("ot_hi") != lf.pack_hash("ot_hi_latn")
+
+
+def test_sign_script_requires_a_name_and_writes_hashes(tmp_path):
+    import subprocess, shutil
+    f = ROOT / "data" / "lang" / "signoff.json"
+    assert not f.exists()
+    try:
+        r = subprocess.run([sys.executable, str(ROOT / "scripts" / "sign_templates.py"), "--langs", "hi"], capture_output=True, text=True, cwd=ROOT)
+        assert r.returncode != 0 and not f.exists()          # no --by, no sign-off
+        r = subprocess.run([sys.executable, str(ROOT / "scripts" / "sign_templates.py"), "--langs", "hi", "--by", "Test Reviewer"], capture_output=True, text=True, cwd=ROOT)
+        assert r.returncode == 0, r.stderr
+        d = json.loads(f.read_text())
+        assert set(d) == {"ot_hi", "rs_hi", "pc_hi"} and d["ot_hi"]["by"] == "Test Reviewer"
+        assert "VALID" in subprocess.run([sys.executable, str(ROOT / "scripts" / "sign_templates.py"), "--list"], capture_output=True, text=True, cwd=ROOT).stdout
+    finally:
+        f.unlink(missing_ok=True)

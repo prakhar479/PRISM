@@ -382,3 +382,10 @@ Dated log of non-trivial choices. Pilot run verdicts live in `results/*/DECISION
   preregistered "within 10 points of English", applied per task in the analysis). The two gates are separate columns. E13 uses the
   test candidates only (rank order); E14 (gap/repair on these languages) would use the train split too and is not built.
 - Ingest accepts table experiments (manifest `table`: fidelity.csv / behaviour.csv) instead of per_pair.parquet.
+
+## 2026-11-15: template validation (decision by the humans: Prakhar validates the language templates)
+- Sign-offs live in `data/lang/signoff.json`, written only by `scripts/sign_templates.py --langs ... --by "<name>"` after reading
+  `data/lang/templates_review.md` (3 sample pairs per family). Each entry stores the pack's content hash (`LF.pack_hash`), so an
+  edit to a template voids the sign-off (`sign_templates.py --list` shows VOID). E13 stamps `validated` from this file when it runs,
+  so signing does not require rebuilding the prompt sets; editing a template does (`scripts/build_lang_tasks.py`).
+- The assistant does not sign. Until the file has valid entries, every E13 row says `validated: false` and E14 stays blocked.

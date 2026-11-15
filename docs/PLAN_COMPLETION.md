@@ -46,15 +46,15 @@ committed), small enough to ship or fetch quickly, and the same measure as the E
 | English | existing Pile sample (`data/generic/`) | already in use | - | genre baseline |
 | Hindi (Devanagari), M1 | **FineWeb-2 `hin_Deva`** (ODC-By, not gated; verified via hub API) | large, natural, clear licence | licence verified; not downloaded | sample >= 300k tokens by streaming one shard; record revision + sha256 |
 | Hindi, native vs Latin script on identical content | **Dakshina, sentence-aligned** (`hi`, Devanagari and human-romanized columns; CC BY-SA 4.0). The hub mirror `suhani-sarvam/google-dakshina` has columns `lang_code, indic, roman` (aligned rows, also `bn`, others) | the cleanest script-vs-language control: same sentences in two scripts, so any M1 difference is script, not content | structure seen in first rows; token count not yet measured | **verify the mirror against the original Dakshina file** (sample lines + counts) before trusting it; count tokens (survey estimate 250-400k, unverified) |
-| Hinglish (code-mixed, Latin script) | **PHINC** (`veezbo/phinc`, CC BY 4.0, human-annotated tweets) | permissive licence, human-written, 13,738 rows | **352,915 Gemma tokens measured** (>= 200k), avg 25.7 tok/row. Genre is tweets; some rows are pure English | add a documented filter (require romanized-Hindi markers); re-count: if the filtered set drops under 200k, add `festvox/cmu_hinglish_dog` (CC BY-SA, its parse failed on first try) or ask the humans to fetch L3Cube (NC; manual Google Drive download) |
+| Hinglish (code-mixed, Latin script) | **PHINC** (`veezbo/phinc`, CC BY 4.0, human-annotated tweets) | permissive licence, human-written, 13,738 rows | **352,915 Gemma tokens measured raw; 206,212 scored tokens after the filter and scrub (built)**, avg 25.7 tok/row raw. Genre is tweets; some rows are pure English | add a documented filter (require romanized-Hindi markers); re-count: if the filtered set drops under 200k, add `festvox/cmu_hinglish_dog` (CC BY-SA, its parse failed on first try) or ask the humans to fetch L3Cube (NC; manual Google Drive download) |
 | French control | **FineWeb-2 `fra_Latn`** (ODC-By) | same source and licence as Hindi, separates "non-English" from "Indian/low-resource" | licence verified | sample >= 300k tokens |
 | Tamil, Bengali (fidelity + capability only) | FineWeb-2 `tam_Taml`, `ben_Beng`; Dakshina `ta`, `bn` rows via the same mirror | cheap (text only); handoff expects the capability gate to fail, which is itself a finding | not downloaded | - |
 | **Excluded** | IndicCorp v2 | the handoff names it, but the hub copy is a loader script that is gone (only a README is cached on DEV) and FineWeb-2 covers the same languages with a clearer licence; reason recorded in DECISIONS.md. `hin_Latn` (mixed natural, Hinglish, machine-transliterated, ~half adult), the unlicensed L3Cube hub mirror, `diwank/hinglish-dump` | - | - |
 
-How data ships: **third-party text is not committed** to the public repo. The repo gets a manifest per set (source, revision,
-licence, selection seed, row ids, sha256 of the extracted file); `scripts/build_lang_sets.py` fetches and rebuilds, and
-fails if the hash differs. Only the CC BY / ODC-By derived samples may be committed (with attribution) if the server has
-no internet; the CC BY-SA Dakshina text is fetched, not shipped. DECISIONS.md will log that the humans delegated this
+How data ships (**changed during the build, 2026-11-15**): the sets are committed as token ids in `data/lang/`, each file under its
+source's licence with attribution (`data/lang/LICENSES.md`, CC BY-SA kept for the Dakshina files), and `MANIFEST.json` carries
+source, revision and sha256; `scripts/build_lang_sets.py --verify` checks them and the same script rebuilds them. Reason: the
+server may have no internet. DECISIONS.md will log that the humans delegated this
 choice on 2026-11-15 ("for dataset i want you to make a infomred choice keeping scope and quality of dat in mind").
 
 ## 5. Language scope and the two gates (kept separate)

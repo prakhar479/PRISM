@@ -66,7 +66,8 @@ def main() -> int:
     print(f"machine: {len(gpus)} GPU(s) " + ", ".join(f"{g['index']}:{g['name']} {g['total_bytes'] / 2**30:.0f} GiB" for g in gpus)
           + f"; RAM {(probe.get('ram_available_bytes') or 0) / 2**30:.0f} GiB free; {probe.get('cpu_physical')} cores")
     if res.get("resolved"):
-        print(f"resolved (sized for the smallest GPU, {small['index']}:{small['name']}): {res['resolved']}")
+        who = f"the smallest GPU, {small['index']}:{small['name']}" if small else "no GPU: CPU-safe defaults"
+        print(f"resolved (sized for {who}): {res['resolved']}")
     print(f"queue {q.tag} on profile {prof.name} (GPU cap {prof.gpu_mem_cap_gb} GB); throughput: "
           f"{tp.get('forward_tokens_per_s') if tp else 'none (no time estimates)'}")
     for job in q.jobs:

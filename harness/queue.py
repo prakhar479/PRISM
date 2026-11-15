@@ -42,11 +42,13 @@ class Queue:
     profile: str
     jobs: List[Job]
     parallel: bool = False            # True: harness/scheduler.py runs units side by side over the GPUs
+    prefetch: dict = field(default_factory=dict)   # extra downloads for script jobs: {saes: [[layer, width, l0], ...]}
 
     @classmethod
     def load(cls, path) -> "Queue":
         d = yaml.safe_load(Path(path).read_text())
-        q = cls(d["tag"], d.get("profile", "run"), [Job(**j) for j in d["jobs"]], bool(d.get("parallel", False)))
+        q = cls(d["tag"], d.get("profile", "run"), [Job(**j) for j in d["jobs"]], bool(d.get("parallel", False)),
+                dict(d.get("prefetch") or {}))
         ids = [j.id for j in q.jobs]
         if len(set(ids)) != len(ids):
             raise ValueError("duplicate job ids")

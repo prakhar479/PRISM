@@ -42,6 +42,11 @@ def targets(queue: Queue) -> dict:
         for cell in cfg.cells:
             sid = SAEId(cell.layer, cell.sae.width, cell.sae.resolve(cell.layer, inv["inventory"]), revision=inv["revision"])
             saes[sid.key] = sid
+    for layer, width, l0 in queue.prefetch.get("saes", []):      # SAEs that script jobs (E12) use without an experiment config
+        sid = SAEId(int(layer), str(width), int(l0), revision=inv["revision"])
+        saes[sid.key] = sid
+    if queue.prefetch.get("model_revision"):
+        model_revs.add(queue.prefetch["model_revision"])
     return {"model_revisions": sorted(r for r in model_revs if r), "saes": list(saes.values())}
 
 

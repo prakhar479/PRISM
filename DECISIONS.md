@@ -343,3 +343,21 @@ Dated log of non-trivial choices. Pilot run verdicts live in `results/*/DECISION
 - The queue's `*_fin` jobs have no GPU slot (CUDA_VISIBLE_DEVICES empty) but Runner still resolved the profile's `cuda`
   and raised. `harness.run.pick_device` now returns CPU for `--finalize-only` (as for tiny and dry runs); compute jobs
   still fail loudly without CUDA. Earlier tests were all `--tiny` (forced CPU) and could not see it.
+
+## 2026-11-15: language data for E12/E13 (delegated to the assistant by the humans: "for dataset i want you to make a infomred choice keeping scope and quality of dat in mind")
+- Chosen (docs/PLAN_COMPLETION.md section 4): English = Pile-10k (same revision as the pilot generic set); Hindi (Devanagari) and
+  French/Tamil/Bengali = FineWeb-2 (ODC-By); native-vs-Latin script on identical sentences = Dakshina (hi, ta, bn) through the
+  hub mirror `suhani-sarvam/google-dakshina` (columns `indic`, `roman`; one shuffle order for both columns); Hinglish = PHINC
+  (CC BY 4.0) filtered to rows with >= 2 romanized-Hindi function words and scrubbed of @handles/URLs.
+- Measured with the Gemma tokenizer (scored tokens = positions >= 4 of 2000 windows of 128, i.e. 248,000 when a source has enough
+  text): every set meets the 200k floor; **PHINC after filtering and scrubbing has 1,663 windows = 206,212 scored tokens, only
+  3% above the floor** (a looser filter or `cmu_hinglish_dog` would add margin; not needed for the floor).
+- Not used: IndicCorp v2 (only a README is cached on DEV; the hub copy is a loader script that no longer exists), FineWeb-2
+  `hin_Latn` (mixed natural / Hinglish / machine-transliterated / adult), the unlicensed L3Cube hub mirror.
+- Shipped as token ids, each file under its source's licence (data/lang/LICENSES.md). This changes the plan text, which said
+  third-party text would be fetched rather than shipped: the server may have no internet, and ids under the right licence are
+  the robust route. Windows differ between the two Dakshina scripts (same sentence pool, packed independently), so the two
+  files cover overlapping but not identical sentences (tokens per sentence differ by script).
+- Tweets and Wikipedia sentences are packed into 128-token windows (sentences joined with a newline); web documents use their
+  first 127 tokens, as the pilot did. Genre therefore differs across sets: M1 differences can come from genre as well as language,
+  and the report must say so.

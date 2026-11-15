@@ -79,6 +79,24 @@
   "tokens_scored": 248000,
   "words": 166565
  },
+ "en_pilot100": {
+  "file": "en_pilot100.json",
+  "hash": "eb64527cbbe066fb",
+  "lang": "en",
+  "licence": "Pile-10k: see dataset card; research use",
+  "meets_floor_200k": false,
+  "n_docs": 100,
+  "script": "Latn",
+  "selection": {
+   "copied_from": "data/generic/pile10k_100x128.json"
+  },
+  "sha256": "c2d6bcdf6f7e2a8a5f2366cdd893915db2599b5b5752fd2f66f7d98bdf279353",
+  "source": "NeelNanda/pile-10k",
+  "source_revision": "127bfedcd5047750df5ccf3a12979a47bfa0bafa",
+  "tokens_per_word": 1.468,
+  "tokens_scored": 12400,
+  "words": 8449
+ },
  "fr_web": {
   "file": "fr_web.json",
   "hash": "a70323c666c3a590",

@@ -1,7 +1,8 @@
-# Release 3 on the multi-GPU server: E12 (SAE fidelity per language/script). E13 (task behaviour per language) is added here
-# when its prompt sets exist. Run with:
+# Release 3 on the multi-GPU server: E12 (SAE fidelity per language/script) and E13 (base-model behaviour per language: accuracy,
+# keep-rates, gates A and B). Run with:
 #   python scripts/run_queue.py --queue queue/release3-server.yaml --gpus auto
 # E12 is text only: one job per language set, each on one GPU, spread by the scheduler; every job writes its own run dir.
+# E13: one job per language (all three tasks, test candidates).
 tag: release3-server
 profile: server
 parallel: true
@@ -14,7 +15,7 @@ jobs:
      args: [--queue, queue/release3-server.yaml, --golden, golden/R2, --per-gpu], depends_on: [prefetch]}
 
   # English first: the pilot's 98-99% CE-recovered number is the parity check for the whole table
-  - {id: E12_en_pile, kind: script, script: scripts/run_fidelity.py, gpu: one, priority: 10, args: [--sets, en_pile, --layers, "12", "18"], depends_on: [preflight]}
+  - {id: E12_en_pile, kind: script, script: scripts/run_fidelity.py, gpu: one, priority: 10, args: [--sets, "en_pilot100,en_pile", --layers, "12", "18"], depends_on: [preflight]}
   - {id: E12_hi_deva_web, kind: script, script: scripts/run_fidelity.py, gpu: one, priority: 9, args: [--sets, hi_deva_web, --layers, "12", "18"], depends_on: [preflight]}
   - {id: E12_fr_web, kind: script, script: scripts/run_fidelity.py, gpu: one, priority: 9, args: [--sets, fr_web, --layers, "12", "18"], depends_on: [preflight]}
   - {id: E12_hinglish, kind: script, script: scripts/run_fidelity.py, gpu: one, priority: 9, args: [--sets, hinglish_phinc, --layers, "12", "18"], depends_on: [preflight]}
@@ -25,6 +26,14 @@ jobs:
   - {id: E12_ta_dakshina, kind: script, script: scripts/run_fidelity.py, gpu: one, priority: 5, args: [--sets, "ta_taml_dakshina,ta_latn_dakshina", --layers, "12", "18"], depends_on: [preflight]}
   - {id: E12_bn_dakshina, kind: script, script: scripts/run_fidelity.py, gpu: one, priority: 5, args: [--sets, "bn_beng_dakshina,bn_latn_dakshina", --layers, "12", "18"], depends_on: [preflight]}
 
+  # E13: English first (the gate-B reference), then the others
+  - {id: E13_en, kind: script, script: scripts/run_behaviour.py, gpu: one, priority: 10, args: [--langs, en], depends_on: [preflight]}
+  - {id: E13_hi, kind: script, script: scripts/run_behaviour.py, gpu: one, priority: 9, args: [--langs, hi], depends_on: [preflight]}
+  - {id: E13_hi_latn, kind: script, script: scripts/run_behaviour.py, gpu: one, priority: 9, args: [--langs, hi_latn], depends_on: [preflight]}
+  - {id: E13_hinglish, kind: script, script: scripts/run_behaviour.py, gpu: one, priority: 9, args: [--langs, hinglish], depends_on: [preflight]}
+  - {id: E13_fr, kind: script, script: scripts/run_behaviour.py, gpu: one, priority: 9, args: [--langs, fr], depends_on: [preflight]}
+
   - {id: bundle, kind: script, script: scripts/bundle_results.py, args: [--tag, release3-server], after_failed: true,
-     depends_on: [E12_en_pile, E12_hi_deva_web, E12_fr_web, E12_hinglish, E12_hi_dakshina, E12_ta_web, E12_bn_web, E12_ta_dakshina, E12_bn_dakshina]}
+     depends_on: [E12_en_pile, E12_hi_deva_web, E12_fr_web, E12_hinglish, E12_hi_dakshina, E12_ta_web, E12_bn_web, E12_ta_dakshina, E12_bn_dakshina,
+                 E13_en, E13_hi, E13_hi_latn, E13_hinglish, E13_fr]}
   - {id: publish, kind: script, script: scripts/publish_results.py, args: [--tag, release3-server], after_failed: true, depends_on: [bundle]}

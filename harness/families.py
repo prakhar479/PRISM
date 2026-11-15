@@ -52,6 +52,19 @@ class RSFamily:
     query_re: str = ""
 
 
+@dataclass(frozen=True)
+class PCFamily:
+    """People-cities binding: 'Asha lives in Pune. Ravi lives in Delhi. ... Asha lives in' (handoff 7.3). The corrupt prompt
+    differs in ONE binding: the queried person's city is replaced by a city nobody else has. Answers are single-token cities."""
+    id: str
+    people: Tuple[str, ...]
+    cities: Tuple[str, ...]
+    init: str            # format with p, c; one sentence
+    query: str           # format with p; no answer
+    init_re: str         # groups (person, city)
+    query_re: str        # group (person)
+
+
 OT_FAMILIES: Dict[str, OTFamily] = {f.id: f for f in [
     OTFamily("ot_placed", ("hat", "shoe", "bell", "lamp", "fork", "doll", "drum", "vase"), tuple("HJKLMNP"),
              "The {o} is placed in box {b}.", "The {o} goes to box {b}.", "The {o} is in box",
@@ -79,7 +92,16 @@ RS_FAMILIES: Dict[str, RSFamily] = {f.id: f for f in [
              start_re=r"^\w+ had (\d) \w+\.", add_re=r"Then \w+ found (\d) more\.", query_re=r"(In the end \w+ had)\s*$"),
 ]}
 
-FAMILIES = {"entity_track": OT_FAMILIES, "add_chain": RS_FAMILIES}
+FAMILIES = {"entity_track": OT_FAMILIES, "add_chain": RS_FAMILIES}      # E3's "fresh" = exactly these (unchanged)
+
+
+def _fam(task: str, family: str):
+    """Family object of any task: E3's fresh families, then the language families of E13 (harness/langfamilies.py)."""
+    from harness import langfamilies as LF
+    for table in (FAMILIES.get(task, {}), LF.FAMILIES.get(task, {})):
+        if family in table:
+            return table[family]
+    raise KeyError(f"unknown family {family!r} for task {task}")
 
 
 def is_pilot(family: str) -> bool:
@@ -114,7 +136,9 @@ def candidates(task: str, family: str) -> List[str]:
         from harness.tasks import CANDIDATE_STRINGS
         return CANDIDATE_STRINGS[task]
     if task == "entity_track":
-        return [f" {b}" for b in OT_FAMILIES[family].labels]
+        return [f" {b}" for b in _fam(task, family).labels]
+    if task == "people_cities":
+        return [f" {c}" for c in _fam(task, family).cities]
     return [f" {d}" for d in range(10)]
 
 
@@ -150,6 +174,26 @@ def _gen_ot(f: OTFamily, rng: np.random.Generator, depth: int = 2) -> Optional[s
     return st.CounterfactualPair("entity_track", "", prompt(moves), prompt(cmoves), f" {a}", f" {ca}",
                                  f.labels.index(a), f.labels.index(ca), [],
                                  {"heur": heur, "corrupt_step": k, "family": f.id})
+
+
+def _gen_pc(f: PCFamily, rng: np.random.Generator, depth: int = 3) -> Optional[st.CounterfactualPair]:
+    n = depth
+    people = [f.people[i] for i in rng.permutation(len(f.people))[:n]]
+    cities = [f.cities[i] for i in rng.permutation(len(f.cities))[:n + 1]]
+    own, spare = cities[:n], cities[n]
+    qi = int(rng.integers(0, n))
+    q = people[qi]
+
+    def prompt(cs):
+        return " ".join(f.init.format(p=p, c=c) for p, c in zip(people, cs)) + " " + f.query.format(p=q)
+
+    ccs = list(own)
+    ccs[qi] = spare
+    a, ca = own[qi], spare
+    heur = {"first_city": own[0], "last_city": own[-1], "query_position": str(qi)}
+    return st.CounterfactualPair("people_cities", "", prompt(own), prompt(ccs), f" {a}", f" {ca}",
+                                 f.cities.index(a), f.cities.index(ca), [],
+                                 {"heur": heur, "corrupt_step": qi, "family": f.id})
 
 
 def _rs_prompt(f: RSFamily, start: int, incs: Sequence[int], name: str = "", item: str = "", opener: str = "",
@@ -189,11 +233,14 @@ def _gen_rs(f: RSFamily, rng: np.random.Generator, depth: int = 3) -> Optional[s
 
 def generator(task: str, family: str, **gen_kwargs) -> Callable[[np.random.Generator], Optional[st.CounterfactualPair]]:
     if task == "entity_track":
-        f = OT_FAMILIES[family]
+        f = _fam(task, family)
         return lambda rng: _gen_ot(f, rng, **gen_kwargs)
     if task == "add_chain":
-        g = RS_FAMILIES[family]
+        g = _fam(task, family)
         return lambda rng: _gen_rs(g, rng, **gen_kwargs)
+    if task == "people_cities":
+        c = _fam(task, family)
+        return lambda rng: _gen_pc(c, rng, **gen_kwargs)
     raise KeyError(f"no fresh families for task {task}")
 
 
@@ -234,7 +281,7 @@ def slot_spans(task: str, family: str, line: str) -> List[Tuple[str, int, int]]:
     """(slot, start, end) within the query line, with the pilot's slot names."""
     out: List[Tuple[str, int, int]] = []
     if task == "entity_track":
-        f = OT_FAMILIES[family]
+        f = _fam(task, family)
         for k, m in enumerate(re.finditer(f.init_re, line), 1):
             out += [(f"obj_{k}", m.start(1), m.end(1)), (f"box_{k}", m.start(2), m.end(2))]
         for k, m in enumerate(re.finditer(f.move_re, line), 1):
@@ -242,8 +289,15 @@ def slot_spans(task: str, family: str, line: str) -> List[Tuple[str, int, int]]:
         m = re.search(f.query_re, line)
         if m:
             out.append(("query_obj", m.start(1), m.end(1)))
+    elif task == "people_cities":
+        c = _fam(task, family)
+        for k, m in enumerate(re.finditer(c.init_re, line), 1):
+            out += [(f"person_{k}", m.start(1), m.end(1)), (f"city_{k}", m.start(2), m.end(2))]
+        m = re.search(c.query_re, line)
+        if m:
+            out.append(("query_person", m.start(1), m.end(1)))
     elif task == "add_chain":
-        g = RS_FAMILIES[family]
+        g = _fam(task, family)
         m = re.search(g.start_re, line)
         if m:
             out.append(("start_num", m.start(1), m.end(1)))

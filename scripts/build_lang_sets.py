@@ -38,6 +38,7 @@ SOURCES = {
     "ta_latn_dakshina":   ("dakshina", {"lang": "ta", "col": "roman"}, "ta", "Latn (human romanization)", "Wikipedia sentences", "CC BY-SA 4.0 (Dakshina)", "packed"),
     "bn_beng_dakshina":   ("dakshina", {"lang": "bn", "col": "indic"}, "bn", "Beng", "Wikipedia sentences", "CC BY-SA 4.0 (Dakshina)", "packed"),
     "bn_latn_dakshina":   ("dakshina", {"lang": "bn", "col": "roman"}, "bn", "Latn (human romanization)", "Wikipedia sentences", "CC BY-SA 4.0 (Dakshina)", "packed"),
+    "en_pilot100":        ("copy", {"file": "data/generic/pile10k_100x128.json"}, "en", "Latn", "web mix (Pile), the pilot's 100 documents", "Pile-10k: see dataset card; research use", "doc"),
     "hinglish_phinc":     ("phinc", {}, "hi-en", "Latn", "tweets, code-mixed", "CC BY 4.0 (PHINC)", "packed"),
 }
 PILE_REV = "127bfedcd5047750df5ccf3a12979a47bfa0bafa"      # same revision as data/generic/pile10k_100x128.json
@@ -121,6 +122,20 @@ def build(names, n_windows, out):
     for name in names:
         kind, p, lang, script, genre, licence, how = SOURCES[name]
         t0 = time.time()
+        if kind == "copy":                                    # the pilot's own generic set: parity check for E12
+            d = json.loads((REPO_ROOT / p["file"]).read_text())
+            d.update({"pilot_hash": d["hash"], "hash": L.content_hash(d["ids"]), "lang": lang, "script": script, "genre": genre, "licence": licence, "windows": "pilot (first 128 tokens)",
+                      "selection": {"copied_from": p["file"]}, **L.fertility(d["ids"], dec, d["skip_positions"]),
+                      "meets_floor_200k": False})
+            f = out / f"{name}.json"
+            f.write_text(json.dumps(d, separators=(",", ":")))
+            man[name] = {"file": f.name, "sha256": sha256(f), "hash": d["hash"], "lang": lang, "script": script, "licence": licence,
+                         "source": d["dataset"], "source_revision": d["dataset_revision"], "n_docs": d["n_docs"],
+                         "tokens_scored": d["tokens_scored"], "words": d["words"], "tokens_per_word": d["tokens_per_word"],
+                         "meets_floor_200k": False, "selection": d["selection"]}
+            print(f"{name:20s} copied the pilot's generic set ({d['n_docs']} windows, {d['tokens_scored']} scored tokens; parity check only)")
+            man_path.write_text(json.dumps(man, indent=1, sort_keys=True))
+            continue
         texts, repo, rev, sel = fetch(kind, p, SEED)
         make = L.doc_windows if how == "doc" else L.packed_windows
         ids = make(texts, enc, bos, n_windows)

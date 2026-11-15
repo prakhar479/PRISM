@@ -361,3 +361,24 @@ Dated log of non-trivial choices. Pilot run verdicts live in `results/*/DECISION
 - Tweets and Wikipedia sentences are packed into 128-token windows (sentences joined with a newline); web documents use their
   first 127 tokens, as the pilot did. Genre therefore differs across sets: M1 differences can come from genre as well as language,
   and the report must say so.
+
+## 2026-11-15: E13 language families, people-cities task, and what the tokenizer forced
+- Measured with the Gemma tokenizer (not assumed): of 45 Devanagari city names only `दिल्ली` is one token, and none of the Tamil or
+  Bengali ones tested; Devanagari object nouns are 1-4 tokens (one length class per list is used so that the two objects an OT pair
+  swaps have equal length). Consequences: (1) people-cities in Hindi keeps Latin-script city answers inside a Devanagari sentence
+  (stated caveat); (2) OT object lists are one token-length class each; (3) Tamil and Bengali get E12 fidelity only, no task packs.
+- `harness/langfamilies.py`: OT, RS and people-cities packs for en (parallel baseline), hi (Devanagari), hi_latn (romanized), hinglish
+  (English nouns in a romanized-Hindi frame) and fr; 15 families. All are drafts by the assistant and unvalidated (`VALIDATED` all
+  False); `scripts/validate_templates.py` checks the tokenizer-side rules and writes `data/lang/templates_review.md` for a native
+  speaker. `harness/families.py` is extended through a merged lookup `_fam`; E3's "fresh" selection is untouched (tested).
+- people-cities (handoff 7.3): 3 people each in a different city, query one person; the corrupt prompt replaces the queried person's
+  city with a city nobody has (one binding differs); 8 shots; single-token Latin city answers. The "optional update step" variant
+  is not built.
+- Built with the real tokenizer: 15 families x (150 train + 150 test) pairs, **length-matching success 100%** for every family and
+  split (candidates kept / generated), all four generation invariants pass. Files: `data/prompt_sets/{entity_track,add_chain,
+  people_cities}_e13.jsonl.gz` (3 MB total).
+- E13 = base-model behaviour only (`harness/behaviour.py`, `scripts/run_behaviour.py`): clean/corrupt accuracy, filter keep-rates,
+  median logit differences, with Gate A (the handoff's/pilot's VIABLE rule: acc >= 0.6 and clean_only keep >= 0.3) and Gate B (the
+  preregistered "within 10 points of English", applied per task in the analysis). The two gates are separate columns. E13 uses the
+  test candidates only (rank order); E14 (gap/repair on these languages) would use the train split too and is not built.
+- Ingest accepts table experiments (manifest `table`: fidelity.csv / behaviour.csv) instead of per_pair.parquet.

@@ -39,3 +39,40 @@ One row per (run, cell, filter, condition key).
 ## <exp>_<name>_random.csv
 
 Per (cell, filter, condition, r): distribution of `metric` over random-direction seeds: n, mean, p95, max.
+
+
+## E12_fidelity_lang.csv (scripts/make_e12.py; runs/E12/*/fidelity.csv)
+
+One row per (set, layer), 16k pilot SAE variant (L12 l0=82, L18 l0=74). Sets are token windows of one language/script (data/lang/MANIFEST.json).
+
+| column | meaning |
+|---|---|
+| set, lang, script, genre, licence | the corpus window set |
+| layer, sae | site and SAE (`L<layer>_<width>_l0<variant>`) |
+| n_windows, n_tokens, tokens_per_word | windows used; scored tokens (positions >= 4, predictions up to the last); fertility |
+| ce_clean, ce_splice, ce_mean_ablate, ce_zero_ablate | mean next-token NLL (nats) clean / x replaced by x_hat / x replaced by the set's mean residual / by zero |
+| recovered_mean, recovered_zero | (CE_ablate - CE_splice) / (CE_ablate - CE_clean) with mean or zero ablation (the pilot reported the mean one) |
+| ce_delta | CE_splice - CE_clean |
+| fvu | sum \|x - x_hat\|^2 / sum \|x - mean\|^2 |
+| eps_over_x | mean of per-position \|eps\| / \|x\| |
+| l0 | mean number of active latents per position |
+| <metric>_lo, <metric>_hi | 95% percentile bootstrap over windows (2000 resamples, seed 0) |
+| run_hash | the run that produced the row |
+| recovered_mean_below_en_ci, fvu_above_en_ci, recovered_mean_minus_en | comparison with `en_pile` at the same layer (non-overlapping CIs; difference) |
+| script_partner, recovered_mean_minus_script_partner | Dakshina pairs: the same sentences in the other script |
+
+## E13_behaviour_lang.csv (scripts/make_e13.py; runs/E13/*/behaviour.csv)
+
+One row per (task, family) on the test candidates (rank order, unfiltered).
+
+| column | meaning |
+|---|---|
+| task, family, lang, script, split | entity_track / add_chain / people_cities; family id (harness/langfamilies.py) |
+| validated | a native speaker signed the template pack (false for every pack so far) |
+| length_matching_success | candidates kept after the tokenizer checks / generated (set build) |
+| n, chance_acc | candidates scored; 1 / number of candidate answers |
+| acc_clean, acc_corrupt (+ _lo, _hi) | top-1 is the run's own answer; Wilson 95% |
+| keep_f_A_correct, keep_f_both_correct, keep_pilot_rule, keep_clean_only (+ CIs) | shares kept by each filter; pilot_rule is the task's pilot filter (OT clean_only, others strict) |
+| median_D_clean, median_D_corrupt | median logit(ans_A) - logit(ans_B) on the clean / corrupt run |
+| gate_A_viable | acc_clean >= 0.6 and keep_clean_only >= 0.3 (handoff / pilot VIABLE rule) |
+| acc_gap_vs_en, gate_B_within_10pts | accuracy minus the English family's on the same task; \|gap\| <= 0.10 (preregistered rule) |

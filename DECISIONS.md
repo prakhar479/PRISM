@@ -338,3 +338,8 @@ Dated log of non-trivial choices. Pilot run verdicts live in `results/*/DECISION
   optional speed test), what the harness keeps on each, advice, `--watch N`, and `--write-profile`. `setup_server.sh`
   detects `/scratch` (or PRISM_BULK), writes cache_spill and hf_home, and moves an existing download only with
   PRISM_MIGRATE_HF=1. Unmeasured: the speed penalty of a cache entry on the HDD (bounded by the overflow size).
+
+## 2026-11-15: finalize jobs run on CPU
+- The queue's `*_fin` jobs have no GPU slot (CUDA_VISIBLE_DEVICES empty) but Runner still resolved the profile's `cuda`
+  and raised. `harness.run.pick_device` now returns CPU for `--finalize-only` (as for tiny and dry runs); compute jobs
+  still fail loudly without CUDA. Earlier tests were all `--tiny` (forced CPU) and could not see it.

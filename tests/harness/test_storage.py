@@ -68,3 +68,18 @@ def test_disk_info_and_usage(tmp_path):
     assert d["free_gib"] > 0 and d["kind"] in ("SSD", "HDD", "network/unknown")
     assert storage.cache_usage(tmp_path) == {"spans": 1000}
     assert "write_mb_s" in storage.speed(tmp_path, mb=2)
+
+
+def test_finalize_only_needs_no_gpu():
+    """The *_fin queue jobs run without a GPU slot (CUDA_VISIBLE_DEVICES empty): they must not ask for CUDA."""
+    import types
+    import pytest
+    import torch
+    from harness.run import pick_device
+    prof = types.SimpleNamespace(device="cuda")
+    a = lambda **k: types.SimpleNamespace(**{"tiny": False, "dry_run": False, "finalize_only": False, **k})
+    assert pick_device(prof, a(finalize_only=True)).type == "cpu"
+    assert pick_device(prof, a(dry_run=True)).type == "cpu"
+    if not torch.cuda.is_available():
+        with pytest.raises(RuntimeError):
+            pick_device(prof, a())                      # a compute job still fails loudly without a GPU

@@ -70,6 +70,14 @@ def subthresh_key(alpha: float, slot: str, k: int) -> dict:
                 r=int(k), seed=-1)
 
 
+def pick_device(prof, args) -> torch.device:
+    """CPU for tiny runs, dry runs and --finalize-only (a CPU-only queue job: no GPU slot, CUDA_VISIBLE_DEVICES is empty);
+    otherwise the profile's device (an unavailable accelerator is an error)."""
+    if getattr(args, "tiny", False) or getattr(args, "dry_run", False) or getattr(args, "finalize_only", False):
+        return torch.device("cpu")
+    return resolve_device(prof.device)
+
+
 class Runner:
     def __init__(self, cfg: ExpConfig, prof: Profile, args) -> None:
         self.cfg, self.prof, self.args = cfg, prof, args
@@ -77,7 +85,7 @@ class Runner:
         self.worker = getattr(args, "worker", None) or Par.worker_id()      # multi-GPU stage-3 worker id
         self.resources: dict = {}                                            # measured machine + resolved autos
         # a dry run plans for the profile's machine without touching any device
-        self.device = torch.device("cpu") if (self.tiny or getattr(args, "dry_run", False)) else resolve_device(prof.device)
+        self.device = pick_device(prof, args)
         self.cache = prof.cache() if not self.tiny else Cache(REPO_ROOT / "tests" / "_tiny_cache")
         inv = json.loads((REPO_ROOT / "configs" / "sae_inventory.json").read_text())
         self.inventory, self.sae_revision = inv["inventory"], inv["revision"]

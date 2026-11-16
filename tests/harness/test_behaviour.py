@@ -48,8 +48,10 @@ def test_gate_b_is_relative_to_english_of_the_same_task():
     assert t[3]["gate_B_within_10pts"] == "no English row"
 
 
-def test_every_pack_is_unvalidated_until_a_human_signs():
-    assert set(LF.VALIDATED) == set(LF.LANG_OF) and not any(LF.VALIDATED.values()) and not LF.signoffs()
+def test_validated_reflects_only_the_signoff_file(tmp_path, monkeypatch):
+    import harness.langfamilies as lf
+    monkeypatch.setattr(lf, "SIGNOFF_FILE", tmp_path / "none.json")
+    assert set(lf.VALIDATED) == set(lf.LANG_OF) and not any(lf.VALIDATED.values()) and not lf.signoffs()
 
 
 def test_script_tiny_end_to_end_and_resume():
@@ -62,7 +64,7 @@ def test_script_tiny_end_to_end_and_resume():
     try:
         rows = list(csv.DictReader((out / "behaviour.csv").open()))
         assert [(x["task"], x["family"]) for x in rows] == [("add_chain", "rs_en"), ("add_chain", "rs_hi"), ("people_cities", "pc_en"), ("people_cities", "pc_hi")]
-        assert all(x["validated"] == "False" and float(x["length_matching_success"]) == 1.0 and int(x["n"]) == 12 for x in rows)
+        assert all(float(x["length_matching_success"]) == 1.0 and int(x["n"]) == 12 for x in rows)
         from harness.schema import validate_manifest
         m = json.loads((out / "manifest.json").read_text())
         assert m["status"] == "complete" and m["table"] == "behaviour.csv"
@@ -86,16 +88,14 @@ def test_signoff_is_bound_to_the_pack_content(tmp_path, monkeypatch):
 
 
 def test_sign_script_requires_a_name_and_writes_hashes(tmp_path):
-    import subprocess, shutil
-    f = ROOT / "data" / "lang" / "signoff.json"
-    assert not f.exists()
-    try:
-        r = subprocess.run([sys.executable, str(ROOT / "scripts" / "sign_templates.py"), "--langs", "hi"], capture_output=True, text=True, cwd=ROOT)
-        assert r.returncode != 0 and not f.exists()          # no --by, no sign-off
-        r = subprocess.run([sys.executable, str(ROOT / "scripts" / "sign_templates.py"), "--langs", "hi", "--by", "Test Reviewer"], capture_output=True, text=True, cwd=ROOT)
-        assert r.returncode == 0, r.stderr
-        d = json.loads(f.read_text())
-        assert set(d) == {"ot_hi", "rs_hi", "pc_hi"} and d["ot_hi"]["by"] == "Test Reviewer"
-        assert "VALID" in subprocess.run([sys.executable, str(ROOT / "scripts" / "sign_templates.py"), "--list"], capture_output=True, text=True, cwd=ROOT).stdout
-    finally:
-        f.unlink(missing_ok=True)
+    import os, subprocess
+    f = tmp_path / "signoff.json"
+    env = {**os.environ, "PRISM_SIGNOFF_FILE": str(f)}
+    run = lambda *a: subprocess.run([sys.executable, str(ROOT / "scripts" / "sign_templates.py"), *a], capture_output=True, text=True, cwd=ROOT, env=env)
+    r = run("--langs", "hi")
+    assert r.returncode != 0 and not f.exists()          # no --by, no sign-off
+    r = run("--langs", "hi", "--by", "Test Reviewer")
+    assert r.returncode == 0, r.stderr
+    d = json.loads(f.read_text())
+    assert set(d) == {"ot_hi", "rs_hi", "pc_hi"} and d["ot_hi"]["by"] == "Test Reviewer"
+    assert "VALID" in run("--list").stdout

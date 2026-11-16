@@ -389,3 +389,30 @@ Dated log of non-trivial choices. Pilot run verdicts live in `results/*/DECISION
   edit to a template voids the sign-off (`sign_templates.py --list` shows VOID). E13 stamps `validated` from this file when it runs,
   so signing does not require rebuilding the prompt sets; editing a template does (`scripts/build_lang_tasks.py`).
 - The assistant does not sign. Until the file has valid entries, every E13 row says `validated: false` and E14 stays blocked.
+
+## 2026-11-16: release-2 results: provenance, finalize on DEV, unfrozen preregistration
+- Written before any release-2 outcome number was computed. `PREREGISTRATION.md` was still unfrozen ("frozen on <date the humans
+  confirm>") when the release-2 results were first read, at the humans' request on 2026-11-16. The gate rule applied is the text in
+  that file plus the 2026-11-03 human decisions (f_pilot, fresh-fitted mean errors); nothing in it was changed.
+- Results branch: the humans committed the raw `runs/` of gnode077 (commit 2b9c898 on top of 02c606f). Compute for E3/E4/E5/E8 ran at
+  31713f8 = tag run-20261114-1 + a 2-line change to scripts/slurm_release2.sbatch only (`git diff --stat 20809e8 31713f8`); harness,
+  configs, data and src are identical to the tag. All stage-1/2 manifests and all stage-3 workers finished (`worker_done`, no claims
+  left, clean tree, not smoke). The four CPU finalize jobs failed on the server (CUDA asked for on a CPU-only job; fixed in d9cfb0b).
+- Finalized on DEV from the committed parts/, in a worktree at 31713f8 with HL_DEVICE=cpu, by calling harness.run.main(--finalize-only)
+  with one substitution: the cache walk of run_stage3(compute=False) (needs the server's activation caches) was replaced by checks that
+  need none: run_hash computed == run directory, per cell checks.json and __clean part present, unit indices contiguous and equal to the
+  workers' logged 'unit k/N', every unit parquet = n_conditions x test pairs with the clean part's pair ids. finalize() itself unchanged.
+  Each manifest carries `finalize_note` and `finalize_checks`. Bootstrap CIs use DEV's numpy/pandas (versions in the manifest), which
+  can differ from the server lock in the last digits.
+- The commit 31713f8 carries no run-* tag; ingest needs --allow-untagged for these runs, justified by the diff above.
+- E1/E2 runs in the results branch (0c8b47bd230b, a975fc2ace9c) are preflight smoke runs and are excluded from every table.
+
+## 2026-11-16: human decisions after release 2
+- **RQ1: running sum (add_chain) L18 = GO** (the humans, 2026-11-16). Object tracking L12 is not declared GO; its gated experiments
+  may still be run as exploratory, redundant rows (labelled so) and rejected in analysis.
+- **Templates**: all 15 language packs (en, hi, hi_latn, hinglish, fr x OT/RS/PC) reviewed and approved by Prakhar Singhal; recorded
+  in data/lang/signoff.json by the assistant at the reviewer's instruction (each entry bound to the pack's content hash).
+- **Two-pass plan** (the humans): build the harness so that every remaining experiment (E9, E10, E11, E14, and redundant variants)
+  runs in one compute pass, then one analysis pass that applies the preregistered gates and rejects what does not qualify.
+  Release 3 (E12, E13) starts now, ahead of that pass.
+- Tests read sign-offs from PRISM_SIGNOFF_FILE when set, so test runs never touch data/lang/signoff.json.

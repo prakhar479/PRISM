@@ -123,3 +123,49 @@ dataset manifests above. It must be frozen **before release 3 results are read**
 - Genre mismatch (Pile web vs. tweets vs. Wikipedia sentences vs. FineWeb): M1 differences can reflect genre as well as language; the Dakshina aligned pair is the control that removes content, and the genre caveat is stated in the report.
 - Shared-node queueing: a run estimated at 14 h can slip a day; release 3 is ordered so the cheap, text-only E12 lands first.
 - DAS (B7) is new training code with no precedent in this repo; it is built only after a GO and is the first thing cut if time runs short.
+
+---
+
+# Update 2026-11-16: plan from the release-2 results
+
+## Where the results stand (facts; decisions are the humans')
+
+| question | result | source |
+|---|---|---|
+| RQ1 gate, running sum L18 | shortfall 14.7 pts [11.6, 18.0], cluster [8.7, 21.3]: criterion met (both CIs) | tables/RQ1_gate.md |
+| RQ1 gate, object tracking L12 | 1.9 pts [0.4, 3.9]: criterion not met; 73% of `ot_placed` B prompts already answer A (5/150 eligible) | RQ1_gate.md; analysis/explore_A,B |
+| Width persistence (prereg row, f_pilot) | RS L18 65k/16k: flip 1.42 [0.83, 2.67], NLDR 0.91 [0.76, 1.10] -> ">= 60%"; OT L12 524k/16k: NLDR 0.76 [0.69, 0.83] -> ">= 60%", flip undefined (16k gap = 0) | tables/E4_width_persistence.csv |
+| Subthreshold add-back (E5) | RS: all near-threshold latents at alpha 0.5 close ~50% (NLDR); greedy k <= 10 close 0-2% | analysis/explore_F |
+| Repair specificity (E8, 36 cells) | pending at the time of writing | tables/E8_* |
+
+## Decisions the humans need to take now
+1. RQ1 GO / NO-GO per cell (the table gives the preregistered quantity; RS L18 meets the criterion, OT L12 does not).
+2. Freeze `PREREGISTRATION.md` (still unfrozen) and the addendum, before release-3 results are read.
+3. For E10 on running sum, the Q2 criterion speaks of "the other box": restate it for a numeric answer (for example "the
+   top-1 answer moves to B's total") in the addendum before E10 is built. [HUMAN]
+4. Reporting OT: flip rate on f_pilot rests on 2 of 3 families (`ot_placed` has 5 eligible pairs). Recommended: report OT per
+   family with the B-prompt fragility rate next to it, and the NLDR/prob-recovery results (where OT has a clear gap) as the
+   pilot-comparable metric.
+
+## Plan (Nov 16 -> Dec 7)
+
+| when | work | depends on | output |
+|---|---|---|---|
+| Nov 16-17 | E8 table and digest; commit analysis scripts; clean data branch `results-consolidated`; RESULTS_R2.md written up (facts only) | E8 summary | tables/E8_*, RESULTS_R2.md |
+| Nov 17 | humans: decisions 1-3 above; template review (Prakhar) | - | frozen prereg + addendum, signoff.json |
+| Nov 17-19 | **release 3 on gnode077: E12 (fidelity, 9 jobs) + E13 (behaviour, 5 jobs)**, already built and tagged (run-20261115-3; rebuild the tag after sign-offs only if templates are edited) | prereg frozen | E12_fidelity_lang, E13_behaviour_lang |
+| Nov 18-23 | if RS L18 = GO: build E9 for RS L18 (along-U conditions, geometry, DAS ranks 1/2/4/8: E5 says the missing part is spread over many latents, so rank 8 is added as a check), E10 steering on RS with the restated criterion; DEV tests with planted directions | decision 1, 3 | configs E9/E10, release 4 |
+| Nov 20-22 | analyse release 3: Gate A/B per language; decide E14 (needs validated templates and Gate B) | release 3 | E14 go/no-go |
+| Nov 24-28 | release 4 on gnode077: E9, E10 (+ E14 if decided); keep the L18 caches on /ssd_scratch until then | builds | E9_geometry, E10_steering |
+| Nov 28-Dec 2 | final tables and figures from CSVs only; results branch snapshot | all runs | figures/, tables/ |
+| Dec 1-7 | report and slides; no new runs after Dec 2 | - | submission |
+
+Cut lines: E11 (people-cities binding + OT transfer) is dropped unless OT becomes GO (it builds on OT's direction). E4_1m is
+dropped (the matched-L0 rule is already answered at 524k). Tamil/Bengali stay fidelity-only. If release 3 slips past Nov 23,
+E14 is dropped first, then E10.
+
+## Analysis follow-ups that need no new runs (exploratory, labelled as such)
+- RS family heterogeneity (story 21 pts vs plus 9 pts): per-family gap and repair numbers in E8 for add_chain.
+- OT: report the error-condition ladder (zero / meanPos recover; B's error pulls toward B) next to the pilot's 26% gap.
+- E4: the gap is not monotone in width and only weakly related to reconstruction error (R^2 0.28): a plot of gap vs generic error
+  energy per SAE.

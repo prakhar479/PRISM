@@ -22,7 +22,8 @@ from harness.profile import REPO_ROOT, load_profile
 PILOT_EXP1 = {"feat_A_errB": "sae_only", "feat_B_errA": "error_only", "feat_B_noise": "noise_control",
               "feat_A_zero": "sae_splice", "full_A": "clean_full"}
 PILOT_EST = {"pca_pooled": "unsupervised_svd", "answer_sep": "supervised_centroid_svd", "random": "random_subspace"}
-TABLE_NAME = {"E0": "E0_pilot_regression", "E1": "E1_rescored", "E2": "E2_baselines", "E6": "E6_layers", "E7": "E7_estimators"}
+TABLE_NAME = {"E0": "E0_pilot_regression", "E1": "E1_rescored", "E2": "E2_baselines", "E6": "E6_layers", "E7": "E7_estimators",
+              "E3": "E3_fresh", "E4": "E4_width_l0", "E5": "E5_subthresh", "E8": "E8_fill"}
 
 
 def runs(runs_root: Path, only=None):

@@ -21,6 +21,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 from pathlib import Path
 from typing import Dict
 
@@ -95,7 +96,7 @@ LANG_OF = {
 }
 LANGUAGES = ("en", "hi", "hi_latn", "hinglish", "fr")
 
-SIGNOFF_FILE = Path(__file__).resolve().parents[1] / "data" / "lang" / "signoff.json"
+SIGNOFF_FILE = Path(os.environ.get("PRISM_SIGNOFF_FILE") or Path(__file__).resolve().parents[1] / "data" / "lang" / "signoff.json")
 
 
 def pack_hash(fid: str) -> str:

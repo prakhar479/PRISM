@@ -1,0 +1,36 @@
+
+=== attempt 1 2026-11-14 11:52:17 slots=[]: /home2/raveeshvyas1410/prism-run/.venv-harness/bin/python scripts/run_prefetch.py --queue queue/release2-server.yaml
+ok   google/gemma-2-2b/config.json 0 MB
+ok   google/gemma-2-2b/generation_config.json 0 MB
+ok   google/gemma-2-2b/model-00001-of-00003.safetensors 4,761 MB
+ok   google/gemma-2-2b/model-00002-of-00003.safetensors 4,753 MB
+ok   google/gemma-2-2b/model-00003-of-00003.safetensors 459 MB
+ok   google/gemma-2-2b/model.safetensors.index.json 0 MB
+ok   google/gemma-2-2b/special_tokens_map.json 0 MB
+ok   google/gemma-2-2b/tokenizer.json 17 MB
+ok   google/gemma-2-2b/tokenizer.model 4 MB
+ok   google/gemma-2-2b/tokenizer_config.json 0 MB
+ok   google/gemma-scope-2b-pt-res/layer_12/width_16k/average_l0_82/params.npz 288 MB
+ok   google/gemma-scope-2b-pt-res/layer_18/width_16k/average_l0_74/params.npz 288 MB
+ok   google/gemma-scope-2b-pt-res/layer_4/width_16k/average_l0_124/params.npz 288 MB
+ok   google/gemma-scope-2b-pt-res/layer_8/width_16k/average_l0_71/params.npz 288 MB
+ok   google/gemma-scope-2b-pt-res/layer_9/width_16k/average_l0_73/params.npz 288 MB
+ok   google/gemma-scope-2b-pt-res/layer_10/width_16k/average_l0_77/params.npz 288 MB
+ok   google/gemma-scope-2b-pt-res/layer_11/width_16k/average_l0_80/params.npz 288 MB
+ok   google/gemma-scope-2b-pt-res/layer_13/width_16k/average_l0_84/params.npz 288 MB
+ok   google/gemma-scope-2b-pt-res/layer_14/width_16k/average_l0_84/params.npz 288 MB
+ok   google/gemma-scope-2b-pt-res/layer_15/width_16k/average_l0_78/params.npz 288 MB
+ok   google/gemma-scope-2b-pt-res/layer_16/width_16k/average_l0_78/params.npz 288 MB
+ok   google/gemma-scope-2b-pt-res/layer_20/width_16k/average_l0_71/params.npz 288 MB
+ok   google/gemma-scope-2b-pt-res/layer_12/width_32k/average_l0_76/params.npz 576 MB
+ok   google/gemma-scope-2b-pt-res/layer_12/width_32k/average_l0_155/params.npz 576 MB
+ok   google/gemma-scope-2b-pt-res/layer_12/width_65k/average_l0_72/params.npz 1,153 MB
+ok   google/gemma-scope-2b-pt-res/layer_12/width_65k/average_l0_141/params.npz 1,153 MB
+ok   google/gemma-scope-2b-pt-res/layer_12/width_131k/average_l0_67/params.npz 2,305 MB
+ok   google/gemma-scope-2b-pt-res/layer_12/width_131k/average_l0_129/params.npz 2,305 MB
+ok   google/gemma-scope-2b-pt-res/layer_12/width_262k/average_l0_67/params.npz 4,610 MB
+ok   google/gemma-scope-2b-pt-res/layer_12/width_262k/average_l0_121/params.npz 4,610 MB
+ok   google/gemma-scope-2b-pt-res/layer_12/width_524k/average_l0_65/params.npz 9,220 MB
+ok   google/gemma-scope-2b-pt-res/layer_12/width_524k/average_l0_115/params.npz 9,220 MB
+ok   google/gemma-scope-2b-pt-res/layer_18/width_65k/average_l0_64/params.npz 1,153 MB
+33 files, 49.15 GB, 0 errors -> /home2/raveeshvyas1410/prism-run/preflight/prefetch_release2-server.json

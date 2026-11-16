@@ -1,0 +1,166 @@
+{
+ "tag": "release2-server",
+ "stamp": "20261113_041112",
+ "seconds": 1040.6,
+ "checks": [
+  {
+   "n": 1,
+   "check": "packages match requirements/harness.lock",
+   "status": "PASS",
+   "detail": "0 errors, 0 warnings",
+   "errors": [],
+   "warnings": []
+  },
+  {
+   "n": 1,
+   "check": "accelerator",
+   "status": "PASS",
+   "detail": "NVIDIA GeForce RTX 2080 Ti, free 10.41 / 10.57 GB",
+   "info": {
+    "device": "cuda:0",
+    "torch": "2.14.1+cu130",
+    "torch_cuda": "13.0",
+    "gpu_name": "NVIDIA GeForce RTX 2080 Ti",
+    "gpu_total_gb": 10.57,
+    "gpu_free_gb": 10.41,
+    "capability": "7.5",
+    "cudnn": 92400
+   }
+  },
+  {
+   "n": 1,
+   "check": "RAM and disk",
+   "status": "FAIL",
+   "detail": "RAM available 122.7 GB; disk free at cache root 19 GB"
+  },
+  {
+   "n": 2,
+   "check": "prefetch targets cached with matching sha256",
+   "status": "PASS",
+   "detail": "33 files, 49.15 GB, 0 errors",
+   "errors": []
+  },
+  {
+   "n": 3,
+   "check": "model load",
+   "status": "PASS",
+   "detail": "27 s, 4.92 GB allocated",
+   "seconds": 27.39289951324463,
+   "gpu_gb": 4.921729564666748
+  },
+  {
+   "n": 3,
+   "check": "last-position head == full forward last logits",
+   "status": "PASS",
+   "detail": "max |dlogit| 0.121 (tol 0.25 = 2 bfloat16 ulp at max |logit| 28.4); argmax equal True"
+  },
+  {
+   "n": 4,
+   "check": "hook identity (OT L12, 4 pairs): full_B == clean_B, resumed clean_B == stage 1",
+   "status": "PASS",
+   "detail": "max |dD| full_B 0, resumed clean_B 0"
+  },
+  {
+   "n": 4,
+   "check": "full_A reproduces clean A (NLDR = 1)",
+   "status": "PASS",
+   "detail": "max |dD| 0"
+  },
+  {
+   "n": 5,
+   "check": "entity_track_L12: golden pair ids and token ids == harness prompt set",
+   "status": "PASS",
+   "detail": "16 pairs"
+  },
+  {
+   "n": 5,
+   "check": "entity_track_L12: span residuals vs golden (relative)",
+   "status": "PASS",
+   "detail": "max relative row error 0.0314 (median 0.0153; tol 0.05); pilot's own batch-1 vs batched: max 0.0269",
+   "rel_max": 0.03135469928383827,
+   "pilot_batch_spread": 0.0268637053668499
+  },
+  {
+   "n": 5,
+   "check": "entity_track_L12: SAE variant == the one the golden export loaded",
+   "status": "PASS",
+   "detail": "harness layer_12/width_16k/average_l0_82/params.npz; golden layer_12/width_16k/average_l0_82/params.npz"
+  },
+  {
+   "n": 5,
+   "check": "entity_track_L12: SAE x_hat on golden residuals",
+   "status": "PASS",
+   "detail": "max |dx_hat| 0.000214 (GPU fp32 vs golden)"
+  },
+  {
+   "n": 5,
+   "check": "entity_track_L12: per-condition D vs golden",
+   "status": "PASS",
+   "detail": "max |dD| feat_A_errB 0.122, feat_B_errA 0.0868, feat_A_zero 0.0994, full_A 0.115, repair_pca_pooled_r1 0.104, repair_pca_pooled_r2 0.134",
+   "worst": {
+    "feat_A_errB": 0.12150001525878906,
+    "feat_B_errA": 0.08684349060058594,
+    "feat_A_zero": 0.0993804931640625,
+    "full_A": 0.11514472961425781,
+    "repair_pca_pooled_r1": 0.10405731201171875,
+    "repair_pca_pooled_r2": 0.13409423828125
+   }
+  },
+  {
+   "n": 7,
+   "check": "throughput",
+   "status": "PASS",
+   "detail": "forward tokens/s by rows {1: 1352.9, 2: 1494.5, 4: 1606.4, 24: 1695.2} -> throughput_release2-server_20261113_041112.json"
+  },
+  {
+   "n": 6,
+   "check": "HF top-1 agreement (informational)",
+   "status": "SKIP",
+   "detail": "{'add_chain/A': 1.0, 'add_chain/B': 1.0, 'entity_track/A': 1.0, 'entity_track/B': 0.917, 'ioi_control/A': 1.0, 'ioi_control/B': 1.0, 'var_binding/A': 1.0, 'var_binding/B': 1.0} (see release2-server_20261113_041112_hf/report.md)"
+  },
+  {
+   "n": 9,
+   "check": "GPU 0",
+   "status": "PASS",
+   "detail": "budget 9216 tokens x 24 rows, peak 5.75 GB, 1640.7 tok/s"
+  },
+  {
+   "n": 9,
+   "check": "GPU 1",
+   "status": "PASS",
+   "detail": "budget 9216 tokens x 24 rows, peak 5.75 GB, 1692.0 tok/s"
+  },
+  {
+   "n": 9,
+   "check": "GPU 2",
+   "status": "PASS",
+   "detail": "budget 7680 tokens x 20 rows, peak 5.61 GB, 9047.8 tok/s"
+  },
+  {
+   "n": 9,
+   "check": "GPU 3",
+   "status": "PASS",
+   "detail": "budget 9216 tokens x 24 rows, peak 5.75 GB, 1816.9 tok/s"
+  },
+  {
+   "n": 3,
+   "check": "per-GPU checks: at least one GPU usable",
+   "status": "PASS",
+   "detail": "4/4 GPUs passed -> /ssd_scratch/raveeshvyas1410/prism/runs/_queue/release2-server/gpus.json"
+  },
+  {
+   "n": 8,
+   "check": "smoke E1_split",
+   "status": "PASS",
+   "detail": "ok"
+  },
+  {
+   "n": 8,
+   "check": "smoke E2",
+   "status": "PASS",
+   "detail": "ok"
+  }
+ ],
+ "ok": false,
+ "profile": "server"
+}

@@ -1,0 +1,41 @@
+2026-11-14 12:04:58,548 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-14 12:04:58,821 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-14 12:04:59,113 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-14 12:05:00,480 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-14 12:05:17,643 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-14 12:05:17,963 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-14 12:05:18,221 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-14 12:05:19,860 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-14 12:06:02,953 INFO entity_track_L4_16k_l0124 unit 1/1 (8 conditions, 27.1s)
+2026-11-14 12:06:26,340 INFO entity_track_L8_16k_l071 unit 1/1 (8 conditions, 22.9s)
+2026-11-14 12:06:47,958 INFO entity_track_L10_16k_l077 unit 1/1 (8 conditions, 21.1s)
+2026-11-14 12:07:07,587 INFO entity_track_L12_16k_l082 unit 1/1 (8 conditions, 19.1s)
+2026-11-14 12:07:25,092 INFO entity_track_L14_16k_l084 unit 1/1 (8 conditions, 17.0s)
+2026-11-14 12:07:40,383 INFO entity_track_L16_16k_l078 unit 1/1 (8 conditions, 14.8s)
+2026-11-14 12:07:53,374 INFO entity_track_L18_16k_l074 unit 1/1 (8 conditions, 12.6s)
+2026-11-14 12:08:04,076 INFO entity_track_L20_16k_l071 unit 1/1 (8 conditions, 10.3s)
+2026-11-14 12:08:17,463 INFO add_chain_L4_16k_l0124 unit 1/1 (8 conditions, 13.0s)
+2026-11-14 12:08:28,705 INFO add_chain_L8_16k_l071 unit 1/1 (8 conditions, 10.8s)
+2026-11-14 12:08:38,924 INFO add_chain_L10_16k_l077 unit 1/1 (8 conditions, 9.8s)
+2026-11-14 12:08:48,179 INFO add_chain_L12_16k_l082 unit 1/1 (8 conditions, 8.9s)
+2026-11-14 12:08:56,338 INFO add_chain_L14_16k_l084 unit 1/1 (8 conditions, 7.8s)
+2026-11-14 12:09:03,481 INFO add_chain_L16_16k_l078 unit 1/1 (8 conditions, 6.7s)
+2026-11-14 12:09:09,602 INFO add_chain_L18_16k_l074 unit 1/1 (8 conditions, 5.7s)
+2026-11-14 12:09:14,687 INFO add_chain_L20_16k_l071 unit 1/1 (8 conditions, 4.7s)
+2026-11-14 12:09:21,147 INFO var_binding_L4_16k_l0124 unit 1/1 (8 conditions, 6.1s)
+2026-11-14 12:09:26,649 INFO var_binding_L8_16k_l071 unit 1/1 (8 conditions, 5.1s)
+2026-11-14 12:09:31,615 INFO var_binding_L10_16k_l077 unit 1/1 (8 conditions, 4.6s)
+2026-11-14 12:09:36,102 INFO var_binding_L12_16k_l082 unit 1/1 (8 conditions, 4.1s)
+2026-11-14 12:09:40,128 INFO var_binding_L14_16k_l084 unit 1/1 (8 conditions, 3.6s)
+2026-11-14 12:09:43,685 INFO var_binding_L16_16k_l078 unit 1/1 (8 conditions, 3.2s)
+2026-11-14 12:09:46,769 INFO var_binding_L18_16k_l074 unit 1/1 (8 conditions, 2.7s)
+2026-11-14 12:09:49,353 INFO var_binding_L20_16k_l071 unit 1/1 (8 conditions, 2.2s)
+2026-11-14 12:09:51,820 INFO ioi_control_L4_16k_l0124 unit 1/1 (8 conditions, 2.1s)
+2026-11-14 12:09:53,945 INFO ioi_control_L8_16k_l071 unit 1/1 (8 conditions, 1.8s)
+2026-11-14 12:09:55,925 INFO ioi_control_L10_16k_l077 unit 1/1 (8 conditions, 1.6s)
+2026-11-14 12:09:57,750 INFO ioi_control_L12_16k_l082 unit 1/1 (8 conditions, 1.5s)
+2026-11-14 12:09:59,411 INFO ioi_control_L14_16k_l084 unit 1/1 (8 conditions, 1.3s)
+2026-11-14 12:10:00,890 INFO ioi_control_L16_16k_l078 unit 1/1 (8 conditions, 1.1s)
+2026-11-14 12:10:02,224 INFO ioi_control_L18_16k_l074 unit 1/1 (8 conditions, 1.0s)
+2026-11-14 12:10:03,379 INFO ioi_control_L20_16k_l071 unit 1/1 (8 conditions, 0.8s)
+2026-11-14 12:12:40,839 INFO E1 -> /home2/raveeshvyas1410/prism-run/runs/E1/0c8b47bd230b (complete)

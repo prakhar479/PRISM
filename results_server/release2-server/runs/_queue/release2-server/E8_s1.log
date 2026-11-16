@@ -1,0 +1,6 @@
+
+=== attempt 1 2026-11-14 12:28:05 slots=['1']: /home2/raveeshvyas1410/prism-run/.venv-harness/bin/python -m harness.run --config configs/experiments/E8.yaml --profile server --stage 1
+working tree is dirty: commit, or pass --allow-dirty (recorded in the manifest)
+
+=== attempt 2 2026-11-14 12:28:11 slots=['2']: /home2/raveeshvyas1410/prism-run/.venv-harness/bin/python -m harness.run --config configs/experiments/E8.yaml --profile server --stage 1
+working tree is dirty: commit, or pass --allow-dirty (recorded in the manifest)

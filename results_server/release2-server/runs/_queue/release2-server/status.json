@@ -1,0 +1,275 @@
+{
+ "prefetch": {
+  "status": "done",
+  "attempts": 1,
+  "note": "3.7 min",
+  "slots": []
+ },
+ "preflight": {
+  "status": "done",
+  "attempts": 1,
+  "note": "32.1 min",
+  "slots": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ]
+ },
+ "E3_s1": {
+  "status": "failed",
+  "attempts": 2,
+  "note": "exit 1",
+  "slots": [
+   "3"
+  ]
+ },
+ "E8_s1": {
+  "status": "failed",
+  "attempts": 2,
+  "note": "exit 1",
+  "slots": [
+   "2"
+  ]
+ },
+ "E4_s1": {
+  "status": "skipped",
+  "attempts": 0,
+  "note": "a dependency failed",
+  "slots": []
+ },
+ "E5_s1": {
+  "status": "skipped",
+  "attempts": 0,
+  "note": "a dependency failed",
+  "slots": []
+ },
+ "E3_s2[0]": {
+  "status": "skipped",
+  "attempts": 0,
+  "note": "a dependency failed",
+  "slots": []
+ },
+ "E3_s2[1]": {
+  "status": "skipped",
+  "attempts": 0,
+  "note": "a dependency failed",
+  "slots": []
+ },
+ "E3_s2[2]": {
+  "status": "skipped",
+  "attempts": 0,
+  "note": "a dependency failed",
+  "slots": []
+ },
+ "E3_s2[3]": {
+  "status": "skipped",
+  "attempts": 0,
+  "note": "a dependency failed",
+  "slots": []
+ },
+ "E8_s2[0]": {
+  "status": "skipped",
+  "attempts": 0,
+  "note": "a dependency failed",
+  "slots": []
+ },
+ "E8_s2[1]": {
+  "status": "skipped",
+  "attempts": 0,
+  "note": "a dependency failed",
+  "slots": []
+ },
+ "E8_s2[2]": {
+  "status": "skipped",
+  "attempts": 0,
+  "note": "a dependency failed",
+  "slots": []
+ },
+ "E8_s2[3]": {
+  "status": "skipped",
+  "attempts": 0,
+  "note": "a dependency failed",
+  "slots": []
+ },
+ "E4_s2[0]": {
+  "status": "skipped",
+  "attempts": 0,
+  "note": "a dependency failed",
+  "slots": []
+ },
+ "E4_s2[1]": {
+  "status": "skipped",
+  "attempts": 0,
+  "note": "a dependency failed",
+  "slots": []
+ },
+ "E4_s2[2]": {
+  "status": "skipped",
+  "attempts": 0,
+  "note": "a dependency failed",
+  "slots": []
+ },
+ "E4_s2[3]": {
+  "status": "skipped",
+  "attempts": 0,
+  "note": "a dependency failed",
+  "slots": []
+ },
+ "E5_s2[0]": {
+  "status": "skipped",
+  "attempts": 0,
+  "note": "a dependency failed",
+  "slots": []
+ },
+ "E5_s2[1]": {
+  "status": "skipped",
+  "attempts": 0,
+  "note": "a dependency failed",
+  "slots": []
+ },
+ "E5_s2[2]": {
+  "status": "skipped",
+  "attempts": 0,
+  "note": "a dependency failed",
+  "slots": []
+ },
+ "E5_s2[3]": {
+  "status": "skipped",
+  "attempts": 0,
+  "note": "a dependency failed",
+  "slots": []
+ },
+ "E3_s3[0]": {
+  "status": "skipped",
+  "attempts": 0,
+  "note": "a dependency failed",
+  "slots": []
+ },
+ "E3_s3[1]": {
+  "status": "skipped",
+  "attempts": 0,
+  "note": "a dependency failed",
+  "slots": []
+ },
+ "E3_s3[2]": {
+  "status": "skipped",
+  "attempts": 0,
+  "note": "a dependency failed",
+  "slots": []
+ },
+ "E3_s3[3]": {
+  "status": "skipped",
+  "attempts": 0,
+  "note": "a dependency failed",
+  "slots": []
+ },
+ "E4_s3[0]": {
+  "status": "skipped",
+  "attempts": 0,
+  "note": "a dependency failed",
+  "slots": []
+ },
+ "E4_s3[1]": {
+  "status": "skipped",
+  "attempts": 0,
+  "note": "a dependency failed",
+  "slots": []
+ },
+ "E4_s3[2]": {
+  "status": "skipped",
+  "attempts": 0,
+  "note": "a dependency failed",
+  "slots": []
+ },
+ "E4_s3[3]": {
+  "status": "skipped",
+  "attempts": 0,
+  "note": "a dependency failed",
+  "slots": []
+ },
+ "E5_s3[0]": {
+  "status": "skipped",
+  "attempts": 0,
+  "note": "a dependency failed",
+  "slots": []
+ },
+ "E5_s3[1]": {
+  "status": "skipped",
+  "attempts": 0,
+  "note": "a dependency failed",
+  "slots": []
+ },
+ "E5_s3[2]": {
+  "status": "skipped",
+  "attempts": 0,
+  "note": "a dependency failed",
+  "slots": []
+ },
+ "E5_s3[3]": {
+  "status": "skipped",
+  "attempts": 0,
+  "note": "a dependency failed",
+  "slots": []
+ },
+ "E8_s3[0]": {
+  "status": "skipped",
+  "attempts": 0,
+  "note": "a dependency failed",
+  "slots": []
+ },
+ "E8_s3[1]": {
+  "status": "skipped",
+  "attempts": 0,
+  "note": "a dependency failed",
+  "slots": []
+ },
+ "E8_s3[2]": {
+  "status": "skipped",
+  "attempts": 0,
+  "note": "a dependency failed",
+  "slots": []
+ },
+ "E8_s3[3]": {
+  "status": "skipped",
+  "attempts": 0,
+  "note": "a dependency failed",
+  "slots": []
+ },
+ "E3_fin": {
+  "status": "skipped",
+  "attempts": 0,
+  "note": "a dependency failed",
+  "slots": []
+ },
+ "E4_fin": {
+  "status": "skipped",
+  "attempts": 0,
+  "note": "a dependency failed",
+  "slots": []
+ },
+ "E5_fin": {
+  "status": "skipped",
+  "attempts": 0,
+  "note": "a dependency failed",
+  "slots": []
+ },
+ "E8_fin": {
+  "status": "skipped",
+  "attempts": 0,
+  "note": "a dependency failed",
+  "slots": []
+ },
+ "bundle": {
+  "status": "done",
+  "attempts": 1,
+  "note": "0.0 min",
+  "slots": []
+ },
+ "publish": {
+  "status": "running",
+  "attempts": 1,
+  "note": "",
+  "slots": []
+ }
+}

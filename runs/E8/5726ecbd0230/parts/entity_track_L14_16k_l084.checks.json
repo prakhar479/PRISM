@@ -1,0 +1,45 @@
+{
+ "cell": "entity_track_L14_16k_l084",
+ "role": "exploratory",
+ "sae": {
+  "layer": 14,
+  "width": "16k",
+  "l0": 84,
+  "repo": "google/gemma-scope-2b-pt-res",
+  "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+ },
+ "fit_families": null,
+ "eval_families": null,
+ "n_test_by_filter": {
+  "f_pilot": 150,
+  "f_A_correct": 150,
+  "f_none": 150
+ },
+ "n_test_union": 249,
+ "n_train": 300,
+ "fitset_digest": "120dcc6193cb7f1a",
+ "keep_rates": {
+  "train": {
+   "f_none": 1.0,
+   "f_A_correct": 0.7406,
+   "f_both_correct": 0.3017,
+   "f_pilot": 0.3867
+  },
+  "test": {
+   "f_none": 1.0,
+   "f_A_correct": 0.7467,
+   "f_both_correct": 0.31,
+   "f_pilot": 0.3856
+  }
+ },
+ "mean_l0_test": [
+  107.43217468261719,
+  106.2594223022461
+ ],
+ "rel_err_norm_test": 0.3969302773475647,
+ "mean_pos_coverage": {
+  "slot": 1176,
+  "offset": 2193,
+  "task": 0
+ }
+}

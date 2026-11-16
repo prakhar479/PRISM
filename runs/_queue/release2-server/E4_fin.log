@@ -1,0 +1,34 @@
+
+=== attempt 1 2026-11-15 11:41:38 slots=[]: /home2/raveeshvyas1410/prism-run/.venv-harness/bin/python -m harness.run --config configs/experiments/E4.yaml --profile server --stage 3 --finalize-only
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home2/raveeshvyas1410/prism-run/harness/run.py", line 767, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home2/raveeshvyas1410/prism-run/harness/run.py", line 709, in main
+    R = Runner(cfg, prof, a)
+        ^^^^^^^^^^^^^^^^^^^^
+  File "/home2/raveeshvyas1410/prism-run/harness/run.py", line 80, in __init__
+    self.device = torch.device("cpu") if (self.tiny or getattr(args, "dry_run", False)) else resolve_device(prof.device)
+                                                                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/raveeshvyas1410/prism-run/harness/device.py", line 44, in resolve_device
+    raise RuntimeError(f"profile asks for {spec} but CUDA is not available")
+RuntimeError: profile asks for cuda but CUDA is not available
+
+=== attempt 2 2026-11-15 11:41:42 slots=[]: /home2/raveeshvyas1410/prism-run/.venv-harness/bin/python -m harness.run --config configs/experiments/E4.yaml --profile server --stage 3 --finalize-only
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home2/raveeshvyas1410/prism-run/harness/run.py", line 767, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home2/raveeshvyas1410/prism-run/harness/run.py", line 709, in main
+    R = Runner(cfg, prof, a)
+        ^^^^^^^^^^^^^^^^^^^^
+  File "/home2/raveeshvyas1410/prism-run/harness/run.py", line 80, in __init__
+    self.device = torch.device("cpu") if (self.tiny or getattr(args, "dry_run", False)) else resolve_device(prof.device)
+                                                                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/raveeshvyas1410/prism-run/harness/device.py", line 44, in resolve_device
+    raise RuntimeError(f"profile asks for {spec} but CUDA is not available")
+RuntimeError: profile asks for cuda but CUDA is not available

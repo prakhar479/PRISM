@@ -1,0 +1,1447 @@
+{
+ "exp_id": "E4",
+ "run_hash": "051558844fa0",
+ "status": "worker_done",
+ "stages": [
+  "3"
+ ],
+ "smoke": false,
+ "tiny": false,
+ "created": "2026-11-15T11:41:35+0530",
+ "wall_time_s": 51.6,
+ "config": {
+  "exp_id": "E4",
+  "name": "width_l0_matched",
+  "description": "Gap and repair across SAE widths at L0 matched to the pilot 16k variant (nominal L0 from the variant name; realized L0 on patched positions and on generic text is recorded per cell).",
+  "kind": "patch_grid",
+  "model_revision": "c5ebcd40d208330abc697524c919956e692655cf",
+  "prompt_sets": {
+   "entity_track": "prompt_sets/entity_track_pilot.jsonl.gz",
+   "add_chain": "prompt_sets/add_chain_pilot.jsonl.gz",
+   "ioi_control": "prompt_sets/ioi_control_pilot.jsonl.gz"
+  },
+  "cells": [
+   {
+    "task": "entity_track",
+    "layer": 12,
+    "sae": {
+     "width": "16k",
+     "l0": 82,
+     "rule": "explicit"
+    },
+    "role": "confirmatory",
+    "fit_families": null,
+    "eval_families": null
+   },
+   {
+    "task": "entity_track",
+    "layer": 12,
+    "sae": {
+     "width": "32k",
+     "l0": 76,
+     "rule": "explicit"
+    },
+    "role": "exploratory",
+    "fit_families": null,
+    "eval_families": null
+   },
+   {
+    "task": "entity_track",
+    "layer": 12,
+    "sae": {
+     "width": "32k",
+     "l0": 155,
+     "rule": "explicit"
+    },
+    "role": "exploratory",
+    "fit_families": null,
+    "eval_families": null
+   },
+   {
+    "task": "entity_track",
+    "layer": 12,
+    "sae": {
+     "width": "65k",
+     "l0": 72,
+     "rule": "explicit"
+    },
+    "role": "exploratory",
+    "fit_families": null,
+    "eval_families": null
+   },
+   {
+    "task": "entity_track",
+    "layer": 12,
+    "sae": {
+     "width": "65k",
+     "l0": 141,
+     "rule": "explicit"
+    },
+    "role": "exploratory",
+    "fit_families": null,
+    "eval_families": null
+   },
+   {
+    "task": "entity_track",
+    "layer": 12,
+    "sae": {
+     "width": "131k",
+     "l0": 67,
+     "rule": "explicit"
+    },
+    "role": "exploratory",
+    "fit_families": null,
+    "eval_families": null
+   },
+   {
+    "task": "entity_track",
+    "layer": 12,
+    "sae": {
+     "width": "131k",
+     "l0": 129,
+     "rule": "explicit"
+    },
+    "role": "exploratory",
+    "fit_families": null,
+    "eval_families": null
+   },
+   {
+    "task": "entity_track",
+    "layer": 12,
+    "sae": {
+     "width": "262k",
+     "l0": 67,
+     "rule": "explicit"
+    },
+    "role": "exploratory",
+    "fit_families": null,
+    "eval_families": null
+   },
+   {
+    "task": "entity_track",
+    "layer": 12,
+    "sae": {
+     "width": "262k",
+     "l0": 121,
+     "rule": "explicit"
+    },
+    "role": "exploratory",
+    "fit_families": null,
+    "eval_families": null
+   },
+   {
+    "task": "entity_track",
+    "layer": 12,
+    "sae": {
+     "width": "524k",
+     "l0": 65,
+     "rule": "explicit"
+    },
+    "role": "exploratory",
+    "fit_families": null,
+    "eval_families": null
+   },
+   {
+    "task": "entity_track",
+    "layer": 12,
+    "sae": {
+     "width": "524k",
+     "l0": 115,
+     "rule": "explicit"
+    },
+    "role": "exploratory",
+    "fit_families": null,
+    "eval_families": null
+   },
+   {
+    "task": "add_chain",
+    "layer": 18,
+    "sae": {
+     "width": "16k",
+     "l0": 74,
+     "rule": "explicit"
+    },
+    "role": "confirmatory",
+    "fit_families": null,
+    "eval_families": null
+   },
+   {
+    "task": "add_chain",
+    "layer": 18,
+    "sae": {
+     "width": "65k",
+     "l0": 64,
+     "rule": "explicit"
+    },
+    "role": "exploratory",
+    "fit_families": null,
+    "eval_families": null
+   },
+   {
+    "task": "ioi_control",
+    "layer": 12,
+    "sae": {
+     "width": "16k",
+     "l0": 82,
+     "rule": "explicit"
+    },
+    "role": "exploratory",
+    "fit_families": null,
+    "eval_families": null
+   },
+   {
+    "task": "ioi_control",
+    "layer": 12,
+    "sae": {
+     "width": "32k",
+     "l0": 76,
+     "rule": "explicit"
+    },
+    "role": "exploratory",
+    "fit_families": null,
+    "eval_families": null
+   },
+   {
+    "task": "ioi_control",
+    "layer": 12,
+    "sae": {
+     "width": "65k",
+     "l0": 72,
+     "rule": "explicit"
+    },
+    "role": "exploratory",
+    "fit_families": null,
+    "eval_families": null
+   },
+   {
+    "task": "ioi_control",
+    "layer": 12,
+    "sae": {
+     "width": "131k",
+     "l0": 67,
+     "rule": "explicit"
+    },
+    "role": "exploratory",
+    "fit_families": null,
+    "eval_families": null
+   },
+   {
+    "task": "ioi_control",
+    "layer": 12,
+    "sae": {
+     "width": "262k",
+     "l0": 67,
+     "rule": "explicit"
+    },
+    "role": "exploratory",
+    "fit_families": null,
+    "eval_families": null
+   },
+   {
+    "task": "ioi_control",
+    "layer": 12,
+    "sae": {
+     "width": "524k",
+     "l0": 65,
+     "rule": "explicit"
+    },
+    "role": "exploratory",
+    "fit_families": null,
+    "eval_families": null
+   }
+  ],
+  "n_train": 300,
+  "n_test": 150,
+  "filters": [
+   "f_none",
+   "f_A_correct",
+   "f_pilot"
+  ],
+  "fit_filter": "f_pilot",
+  "conditions": [
+   "feat_A_errB",
+   "feat_A_meanPos",
+   "feat_A_zero"
+  ],
+  "noise_seeds": [
+   0
+  ],
+  "directions": {
+   "conditions": [
+    "repair"
+   ],
+   "ranks": [
+    0,
+    1,
+    2
+   ],
+   "estimators": [
+    "pca_pooled",
+    "answer_sep"
+   ],
+   "sources": [
+    "same_task"
+   ],
+   "random_seeds": 0,
+   "r_max": 32
+  },
+  "generic": {
+   "set": "generic/pile10k_100x128.json",
+   "skip_positions": 4
+  },
+  "generic_l0": true,
+  "subthresh": null,
+  "bootstrap": 1000,
+  "seed": 0,
+  "smoke_pairs": 10,
+  "pilot_reference": null,
+  "notes": [
+   "Width persistence (PREREGISTRATION): ratio between 16k and the widest available SAE at matched realized L0 (within 25%); the 16k cells are the confirmatory ones, other widths exploratory.",
+   "SAEs >= 524k are held in bf16 (pilot rule, profile sae_bf16_min_width); smaller ones in fp32."
+  ]
+ },
+ "config_file": "configs/experiments/E4.yaml",
+ "profile": {
+  "name": "server",
+  "device": "cuda",
+  "model_dtype": "bfloat16",
+  "sae_dtype": "float32",
+  "sae_bf16_min_width": "524k",
+  "sae_placement": "auto",
+  "cache_root": "<cache_root>",
+  "data_root": "data",
+  "runs_root": "runs",
+  "hf_home": "<hf_home>",
+  "cache_spill": [
+   "<cache_spill>"
+  ],
+  "cache_spill_min_gb": 4.0,
+  "offline": false,
+  "batch_size": 16,
+  "max_batch_size": 72,
+  "max_batch_tokens": 7680,
+  "gpu_mem_cap_gb": 9.97,
+  "cpu_workers": 2,
+  "offload_embed": true,
+  "cpu_threads": 5,
+  "min_free_gb": 10,
+  "vram_headroom_gb": 0.6,
+  "allowed_experiments": [
+   "E0",
+   "E1",
+   "E2",
+   "E3",
+   "E4",
+   "E5",
+   "E6",
+   "E7",
+   "E8",
+   "E9",
+   "E10",
+   "E11",
+   "E12",
+   "E13",
+   "E14"
+  ],
+  "allow_real_model": true,
+  "sources": [
+   "profiles/server.yaml",
+   "profiles/local.yaml",
+   "env:HF_HOME",
+   "env:HL_MAX_BATCH_TOKENS",
+   "env:HL_CPU_THREADS"
+  ]
+ },
+ "git": {
+  "commit": "31713f88af0e72a524a68066cdbd66f29ca3b764",
+  "branch": "HEAD",
+  "tags": [],
+  "dirty": false,
+  "dirty_files": []
+ },
+ "packages": {
+  "torch": "2.14.1+cu130",
+  "transformers": "5.19.0",
+  "transformer-lens": "3.9.0",
+  "numpy": "2.5.4",
+  "pandas": "3.0.6",
+  "pyarrow": "26.0.0",
+  "safetensors": "0.8.0",
+  "huggingface-hub": "2.2.0",
+  "scipy": "1.18.1"
+ },
+ "machine": {
+  "hostname": "gnode074",
+  "os": "Linux-5.15.0-194-generic-x86_64-with-glibc2.35",
+  "python": "3.12.16",
+  "device": "cuda:0",
+  "torch": "2.14.1+cu130",
+  "torch_cuda": "13.0",
+  "gpu_name": "NVIDIA GeForce RTX 2080 Ti",
+  "gpu_total_gb": 10.57,
+  "gpu_free_gb": 10.41,
+  "capability": "7.5",
+  "cudnn": 92400,
+  "nvidia_driver": "595.91.07\n595.91.07\n595.91.07"
+ },
+ "model": {
+  "name": "gemma-2-2b",
+  "revision": "c5ebcd40d208330abc697524c919956e692655cf",
+  "dtype": "bfloat16",
+  "site": "resid_post",
+  "tiny_seed": 0,
+  "tiny_vocab": 0,
+  "tiny_layers": 4
+ },
+ "sae_revision": "fd571b47c1c64851e9b1989792367b9babb4af63",
+ "prompt_sets": {
+  "entity_track": {
+   "hash": "05c876df51db248a",
+   "file": "prompt_sets/entity_track_pilot.jsonl.gz",
+   "n": 2700
+  },
+  "add_chain": {
+   "hash": "ae62178213dffbfc",
+   "file": "prompt_sets/add_chain_pilot.jsonl.gz",
+   "n": 1350
+  },
+  "ioi_control": {
+   "hash": "f73bac64dc74edac",
+   "file": "prompt_sets/ioi_control_pilot.jsonl.gz",
+   "n": 900
+  }
+ },
+ "generic": {
+  "hash": "755b5b80a4fbf7d1",
+  "file": "generic/pile10k_100x128.json",
+  "skip": 4
+ },
+ "seeds": {
+  "seed": 0,
+  "noise_seeds": [
+   0
+  ],
+  "random_seeds": 0
+ },
+ "timings": {
+  "stage3_total_s": 51.6
+ },
+ "budget": {
+  "max_tokens": 7680,
+  "backoffs": 0
+ },
+ "peak_gpu_gb": 0.0,
+ "cells": [
+  {
+   "cell": "entity_track_L12_16k_l082",
+   "role": "confirmatory",
+   "sae": {
+    "layer": 12,
+    "width": "16k",
+    "l0": 82,
+    "repo": "google/gemma-scope-2b-pt-res",
+    "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_none": 150,
+    "f_A_correct": 150,
+    "f_pilot": 150
+   },
+   "n_test_union": 249,
+   "n_train": 300,
+   "fitset_digest": "120dcc6193cb7f1a",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 0.7406,
+     "f_both_correct": 0.3017,
+     "f_pilot": 0.3867
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 0.7467,
+     "f_both_correct": 0.31,
+     "f_pilot": 0.3856
+    }
+   },
+   "mean_l0_test": [
+    78.55683898925781,
+    77.86524200439453
+   ],
+   "rel_err_norm_test": 0.42519018054008484,
+   "mean_pos_coverage": {
+    "slot": 1176,
+    "offset": 2193,
+    "task": 0
+   },
+   "generic": {
+    "rows": 12400,
+    "mean_l0": 84.455078125,
+    "err_energy_ratio": 0.15605342388153076,
+    "corpus": "generic/pile10k_100x128.json"
+   }
+  },
+  {
+   "cell": "entity_track_L12_32k_l076",
+   "role": "exploratory",
+   "sae": {
+    "layer": 12,
+    "width": "32k",
+    "l0": 76,
+    "repo": "google/gemma-scope-2b-pt-res",
+    "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_none": 150,
+    "f_A_correct": 150,
+    "f_pilot": 150
+   },
+   "n_test_union": 249,
+   "n_train": 300,
+   "fitset_digest": "120dcc6193cb7f1a",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 0.7406,
+     "f_both_correct": 0.3017,
+     "f_pilot": 0.3867
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 0.7467,
+     "f_both_correct": 0.31,
+     "f_pilot": 0.3856
+    }
+   },
+   "mean_l0_test": [
+    75.5847396850586,
+    75.20599365234375
+   ],
+   "rel_err_norm_test": 0.4160873591899872,
+   "mean_pos_coverage": {
+    "slot": 1176,
+    "offset": 2193,
+    "task": 0
+   },
+   "generic": {
+    "rows": 12400,
+    "mean_l0": 79.22113037109375,
+    "err_energy_ratio": 0.1434502750635147,
+    "corpus": "generic/pile10k_100x128.json"
+   }
+  },
+  {
+   "cell": "entity_track_L12_32k_l0155",
+   "role": "exploratory",
+   "sae": {
+    "layer": 12,
+    "width": "32k",
+    "l0": 155,
+    "repo": "google/gemma-scope-2b-pt-res",
+    "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_none": 150,
+    "f_A_correct": 150,
+    "f_pilot": 150
+   },
+   "n_test_union": 249,
+   "n_train": 300,
+   "fitset_digest": "120dcc6193cb7f1a",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 0.7406,
+     "f_both_correct": 0.3017,
+     "f_pilot": 0.3867
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 0.7467,
+     "f_both_correct": 0.31,
+     "f_pilot": 0.3856
+    }
+   },
+   "mean_l0_test": [
+    146.49896240234375,
+    145.64796447753906
+   ],
+   "rel_err_norm_test": 0.3675362169742584,
+   "mean_pos_coverage": {
+    "slot": 1176,
+    "offset": 2193,
+    "task": 0
+   },
+   "generic": {
+    "rows": 12400,
+    "mean_l0": 159.63555908203125,
+    "err_energy_ratio": 0.1147390753030777,
+    "corpus": "generic/pile10k_100x128.json"
+   }
+  },
+  {
+   "cell": "entity_track_L12_65k_l072",
+   "role": "exploratory",
+   "sae": {
+    "layer": 12,
+    "width": "65k",
+    "l0": 72,
+    "repo": "google/gemma-scope-2b-pt-res",
+    "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_none": 150,
+    "f_A_correct": 150,
+    "f_pilot": 150
+   },
+   "n_test_union": 249,
+   "n_train": 300,
+   "fitset_digest": "120dcc6193cb7f1a",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 0.7406,
+     "f_both_correct": 0.3017,
+     "f_pilot": 0.3867
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 0.7467,
+     "f_both_correct": 0.31,
+     "f_pilot": 0.3856
+    }
+   },
+   "mean_l0_test": [
+    76.53606414794922,
+    75.605224609375
+   ],
+   "rel_err_norm_test": 0.40743547677993774,
+   "mean_pos_coverage": {
+    "slot": 1176,
+    "offset": 2193,
+    "task": 0
+   },
+   "generic": {
+    "rows": 12400,
+    "mean_l0": 75.61298370361328,
+    "err_energy_ratio": 0.1333473175764084,
+    "corpus": "generic/pile10k_100x128.json"
+   }
+  },
+  {
+   "cell": "entity_track_L12_65k_l0141",
+   "role": "exploratory",
+   "sae": {
+    "layer": 12,
+    "width": "65k",
+    "l0": 141,
+    "repo": "google/gemma-scope-2b-pt-res",
+    "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_none": 150,
+    "f_A_correct": 150,
+    "f_pilot": 150
+   },
+   "n_test_union": 249,
+   "n_train": 300,
+   "fitset_digest": "120dcc6193cb7f1a",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 0.7406,
+     "f_both_correct": 0.3017,
+     "f_pilot": 0.3867
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 0.7467,
+     "f_both_correct": 0.31,
+     "f_pilot": 0.3856
+    }
+   },
+   "mean_l0_test": [
+    134.66102600097656,
+    134.15167236328125
+   ],
+   "rel_err_norm_test": 0.3673129379749298,
+   "mean_pos_coverage": {
+    "slot": 1176,
+    "offset": 2193,
+    "task": 0
+   },
+   "generic": {
+    "rows": 12400,
+    "mean_l0": 142.2861328125,
+    "err_energy_ratio": 0.10914625227451324,
+    "corpus": "generic/pile10k_100x128.json"
+   }
+  },
+  {
+   "cell": "entity_track_L12_131k_l067",
+   "role": "exploratory",
+   "sae": {
+    "layer": 12,
+    "width": "131k",
+    "l0": 67,
+    "repo": "google/gemma-scope-2b-pt-res",
+    "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_none": 150,
+    "f_A_correct": 150,
+    "f_pilot": 150
+   },
+   "n_test_union": 249,
+   "n_train": 300,
+   "fitset_digest": "120dcc6193cb7f1a",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 0.7406,
+     "f_both_correct": 0.3017,
+     "f_pilot": 0.3867
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 0.7467,
+     "f_both_correct": 0.31,
+     "f_pilot": 0.3856
+    }
+   },
+   "mean_l0_test": [
+    70.5886001586914,
+    69.35767364501953
+   ],
+   "rel_err_norm_test": 0.4014029800891876,
+   "mean_pos_coverage": {
+    "slot": 1176,
+    "offset": 2193,
+    "task": 0
+   },
+   "generic": {
+    "rows": 12400,
+    "mean_l0": 69.7965316772461,
+    "err_energy_ratio": 0.12646125257015228,
+    "corpus": "generic/pile10k_100x128.json"
+   }
+  },
+  {
+   "cell": "entity_track_L12_131k_l0129",
+   "role": "exploratory",
+   "sae": {
+    "layer": 12,
+    "width": "131k",
+    "l0": 129,
+    "repo": "google/gemma-scope-2b-pt-res",
+    "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_none": 150,
+    "f_A_correct": 150,
+    "f_pilot": 150
+   },
+   "n_test_union": 249,
+   "n_train": 300,
+   "fitset_digest": "120dcc6193cb7f1a",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 0.7406,
+     "f_both_correct": 0.3017,
+     "f_pilot": 0.3867
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 0.7467,
+     "f_both_correct": 0.31,
+     "f_pilot": 0.3856
+    }
+   },
+   "mean_l0_test": [
+    131.1884765625,
+    130.50904846191406
+   ],
+   "rel_err_norm_test": 0.35842910408973694,
+   "mean_pos_coverage": {
+    "slot": 1176,
+    "offset": 2193,
+    "task": 0
+   },
+   "generic": {
+    "rows": 12400,
+    "mean_l0": 134.5853271484375,
+    "err_energy_ratio": 0.10278496891260147,
+    "corpus": "generic/pile10k_100x128.json"
+   }
+  },
+  {
+   "cell": "entity_track_L12_262k_l067",
+   "role": "exploratory",
+   "sae": {
+    "layer": 12,
+    "width": "262k",
+    "l0": 67,
+    "repo": "google/gemma-scope-2b-pt-res",
+    "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_none": 150,
+    "f_A_correct": 150,
+    "f_pilot": 150
+   },
+   "n_test_union": 249,
+   "n_train": 300,
+   "fitset_digest": "120dcc6193cb7f1a",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 0.7406,
+     "f_both_correct": 0.3017,
+     "f_pilot": 0.3867
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 0.7467,
+     "f_both_correct": 0.31,
+     "f_pilot": 0.3856
+    }
+   },
+   "mean_l0_test": [
+    67.3550033569336,
+    66.75304412841797
+   ],
+   "rel_err_norm_test": 0.4112274646759033,
+   "mean_pos_coverage": {
+    "slot": 1176,
+    "offset": 2193,
+    "task": 0
+   },
+   "generic": {
+    "rows": 12400,
+    "mean_l0": 67.89112854003906,
+    "err_energy_ratio": 0.12025521695613861,
+    "corpus": "generic/pile10k_100x128.json"
+   }
+  },
+  {
+   "cell": "entity_track_L12_262k_l0121",
+   "role": "exploratory",
+   "sae": {
+    "layer": 12,
+    "width": "262k",
+    "l0": 121,
+    "repo": "google/gemma-scope-2b-pt-res",
+    "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_none": 150,
+    "f_A_correct": 150,
+    "f_pilot": 150
+   },
+   "n_test_union": 249,
+   "n_train": 300,
+   "fitset_digest": "120dcc6193cb7f1a",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 0.7406,
+     "f_both_correct": 0.3017,
+     "f_pilot": 0.3867
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 0.7467,
+     "f_both_correct": 0.31,
+     "f_pilot": 0.3856
+    }
+   },
+   "mean_l0_test": [
+    124.73701477050781,
+    124.06975555419922
+   ],
+   "rel_err_norm_test": 0.3616604506969452,
+   "mean_pos_coverage": {
+    "slot": 1176,
+    "offset": 2193,
+    "task": 0
+   },
+   "generic": {
+    "rows": 12400,
+    "mean_l0": 128.232421875,
+    "err_energy_ratio": 0.09804213047027588,
+    "corpus": "generic/pile10k_100x128.json"
+   }
+  },
+  {
+   "cell": "entity_track_L12_524k_l065",
+   "role": "exploratory",
+   "sae": {
+    "layer": 12,
+    "width": "524k",
+    "l0": 65,
+    "repo": "google/gemma-scope-2b-pt-res",
+    "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_none": 150,
+    "f_A_correct": 150,
+    "f_pilot": 150
+   },
+   "n_test_union": 249,
+   "n_train": 300,
+   "fitset_digest": "120dcc6193cb7f1a",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 0.7406,
+     "f_both_correct": 0.3017,
+     "f_pilot": 0.3867
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 0.7467,
+     "f_both_correct": 0.31,
+     "f_pilot": 0.3856
+    }
+   },
+   "mean_l0_test": [
+    67.96883392333984,
+    67.10478210449219
+   ],
+   "rel_err_norm_test": 0.40583258867263794,
+   "mean_pos_coverage": {
+    "slot": 1176,
+    "offset": 2193,
+    "task": 0
+   },
+   "generic": {
+    "rows": 12400,
+    "mean_l0": 68.52588653564453,
+    "err_energy_ratio": 0.11414630711078644,
+    "corpus": "generic/pile10k_100x128.json"
+   }
+  },
+  {
+   "cell": "entity_track_L12_524k_l0115",
+   "role": "exploratory",
+   "sae": {
+    "layer": 12,
+    "width": "524k",
+    "l0": 115,
+    "repo": "google/gemma-scope-2b-pt-res",
+    "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_none": 150,
+    "f_A_correct": 150,
+    "f_pilot": 150
+   },
+   "n_test_union": 249,
+   "n_train": 300,
+   "fitset_digest": "120dcc6193cb7f1a",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 0.7406,
+     "f_both_correct": 0.3017,
+     "f_pilot": 0.3867
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 0.7467,
+     "f_both_correct": 0.31,
+     "f_pilot": 0.3856
+    }
+   },
+   "mean_l0_test": [
+    114.6693344116211,
+    114.13268280029297
+   ],
+   "rel_err_norm_test": 0.36733824014663696,
+   "mean_pos_coverage": {
+    "slot": 1176,
+    "offset": 2193,
+    "task": 0
+   },
+   "generic": {
+    "rows": 12400,
+    "mean_l0": 116.17467498779297,
+    "err_energy_ratio": 0.09577926248311996,
+    "corpus": "generic/pile10k_100x128.json"
+   }
+  },
+  {
+   "cell": "add_chain_L18_16k_l074",
+   "role": "confirmatory",
+   "sae": {
+    "layer": 18,
+    "width": "16k",
+    "l0": 74,
+    "repo": "google/gemma-scope-2b-pt-res",
+    "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_none": 150,
+    "f_A_correct": 150,
+    "f_pilot": 150
+   },
+   "n_test_union": 215,
+   "n_train": 300,
+   "fitset_digest": "7cc34e25b8356245",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9689,
+     "f_both_correct": 0.9411,
+     "f_pilot": 0.6989
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9622,
+     "f_both_correct": 0.9356,
+     "f_pilot": 0.6133
+    }
+   },
+   "mean_l0_test": [
+    67.04561614990234,
+    66.83379364013672
+   ],
+   "rel_err_norm_test": 0.39054790139198303,
+   "mean_pos_coverage": {
+    "slot": 1064,
+    "offset": 1457,
+    "task": 0
+   },
+   "generic": {
+    "rows": 12400,
+    "mean_l0": 75.72088623046875,
+    "err_energy_ratio": 0.12592987716197968,
+    "corpus": "generic/pile10k_100x128.json"
+   }
+  },
+  {
+   "cell": "add_chain_L18_65k_l064",
+   "role": "exploratory",
+   "sae": {
+    "layer": 18,
+    "width": "65k",
+    "l0": 64,
+    "repo": "google/gemma-scope-2b-pt-res",
+    "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_none": 150,
+    "f_A_correct": 150,
+    "f_pilot": 150
+   },
+   "n_test_union": 215,
+   "n_train": 300,
+   "fitset_digest": "7cc34e25b8356245",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9689,
+     "f_both_correct": 0.9411,
+     "f_pilot": 0.6989
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9622,
+     "f_both_correct": 0.9356,
+     "f_pilot": 0.6133
+    }
+   },
+   "mean_l0_test": [
+    59.1923828125,
+    59.11265182495117
+   ],
+   "rel_err_norm_test": 0.37310847640037537,
+   "mean_pos_coverage": {
+    "slot": 1064,
+    "offset": 1457,
+    "task": 0
+   },
+   "generic": {
+    "rows": 12400,
+    "mean_l0": 66.06766510009766,
+    "err_energy_ratio": 0.10523541271686554,
+    "corpus": "generic/pile10k_100x128.json"
+   }
+  },
+  {
+   "cell": "ioi_control_L12_16k_l082",
+   "role": "exploratory",
+   "sae": {
+    "layer": 12,
+    "width": "16k",
+    "l0": 82,
+    "repo": "google/gemma-scope-2b-pt-res",
+    "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_none": 150,
+    "f_A_correct": 150,
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "b47e894057415e49",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    }
+   },
+   "mean_l0_test": [
+    90.80266571044922,
+    87.74666595458984
+   ],
+   "rel_err_norm_test": 0.3759417235851288,
+   "mean_pos_coverage": {
+    "slot": 450,
+    "offset": 300,
+    "task": 0
+   },
+   "generic": {
+    "rows": 12400,
+    "mean_l0": 84.455078125,
+    "err_energy_ratio": 0.15605342388153076,
+    "corpus": "generic/pile10k_100x128.json"
+   }
+  },
+  {
+   "cell": "ioi_control_L12_32k_l076",
+   "role": "exploratory",
+   "sae": {
+    "layer": 12,
+    "width": "32k",
+    "l0": 76,
+    "repo": "google/gemma-scope-2b-pt-res",
+    "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_none": 150,
+    "f_A_correct": 150,
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "b47e894057415e49",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    }
+   },
+   "mean_l0_test": [
+    83.75733184814453,
+    81.01200103759766
+   ],
+   "rel_err_norm_test": 0.3667880594730377,
+   "mean_pos_coverage": {
+    "slot": 450,
+    "offset": 300,
+    "task": 0
+   },
+   "generic": {
+    "rows": 12400,
+    "mean_l0": 79.22113037109375,
+    "err_energy_ratio": 0.1434502750635147,
+    "corpus": "generic/pile10k_100x128.json"
+   }
+  },
+  {
+   "cell": "ioi_control_L12_65k_l072",
+   "role": "exploratory",
+   "sae": {
+    "layer": 12,
+    "width": "65k",
+    "l0": 72,
+    "repo": "google/gemma-scope-2b-pt-res",
+    "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_none": 150,
+    "f_A_correct": 150,
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "b47e894057415e49",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    }
+   },
+   "mean_l0_test": [
+    83.66666412353516,
+    80.92933654785156
+   ],
+   "rel_err_norm_test": 0.35594359040260315,
+   "mean_pos_coverage": {
+    "slot": 450,
+    "offset": 300,
+    "task": 0
+   },
+   "generic": {
+    "rows": 12400,
+    "mean_l0": 75.61298370361328,
+    "err_energy_ratio": 0.1333473175764084,
+    "corpus": "generic/pile10k_100x128.json"
+   }
+  },
+  {
+   "cell": "ioi_control_L12_131k_l067",
+   "role": "exploratory",
+   "sae": {
+    "layer": 12,
+    "width": "131k",
+    "l0": 67,
+    "repo": "google/gemma-scope-2b-pt-res",
+    "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_none": 150,
+    "f_A_correct": 150,
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "b47e894057415e49",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    }
+   },
+   "mean_l0_test": [
+    75.71333312988281,
+    71.44933319091797
+   ],
+   "rel_err_norm_test": 0.35451504588127136,
+   "mean_pos_coverage": {
+    "slot": 450,
+    "offset": 300,
+    "task": 0
+   },
+   "generic": {
+    "rows": 12400,
+    "mean_l0": 69.7965316772461,
+    "err_energy_ratio": 0.12646125257015228,
+    "corpus": "generic/pile10k_100x128.json"
+   }
+  },
+  {
+   "cell": "ioi_control_L12_262k_l067",
+   "role": "exploratory",
+   "sae": {
+    "layer": 12,
+    "width": "262k",
+    "l0": 67,
+    "repo": "google/gemma-scope-2b-pt-res",
+    "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_none": 150,
+    "f_A_correct": 150,
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "b47e894057415e49",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    }
+   },
+   "mean_l0_test": [
+    77.12133026123047,
+    73.86933135986328
+   ],
+   "rel_err_norm_test": 0.3463806211948395,
+   "mean_pos_coverage": {
+    "slot": 450,
+    "offset": 300,
+    "task": 0
+   },
+   "generic": {
+    "rows": 12400,
+    "mean_l0": 67.89112854003906,
+    "err_energy_ratio": 0.12025521695613861,
+    "corpus": "generic/pile10k_100x128.json"
+   }
+  },
+  {
+   "cell": "ioi_control_L12_524k_l065",
+   "role": "exploratory",
+   "sae": {
+    "layer": 12,
+    "width": "524k",
+    "l0": 65,
+    "repo": "google/gemma-scope-2b-pt-res",
+    "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_none": 150,
+    "f_A_correct": 150,
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "b47e894057415e49",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    }
+   },
+   "mean_l0_test": [
+    82.37866973876953,
+    78.70532989501953
+   ],
+   "rel_err_norm_test": 0.3409961760044098,
+   "mean_pos_coverage": {
+    "slot": 450,
+    "offset": 300,
+    "task": 0
+   },
+   "generic": {
+    "rows": 12400,
+    "mean_l0": 68.52588653564453,
+    "err_energy_ratio": 0.11414630711078644,
+    "corpus": "generic/pile10k_100x128.json"
+   }
+  }
+ ],
+ "allow_dirty": false,
+ "worker": "E4_s3-2",
+ "resources": {
+  "device_memory": {
+   "free_bytes": 11180048384,
+   "total_bytes": 11347623936,
+   "name": "NVIDIA GeForce RTX 2080 Ti"
+  },
+  "resolved": {
+   "gpu_mem_cap_gb": 9.97,
+   "offload_embed": true,
+   "max_batch_size": 72
+  },
+  "rules": {
+   "gpu_mem_cap_gb": "total 10.57 GiB - headroom 0.6",
+   "offload_embed": "GPU under 16 GiB",
+   "batch": "auto_budget(cap 9.97 GiB): 40% of the memory after the model"
+  },
+  "cpu_threads": 5
+ },
+ "machine_probe": {
+  "source": "nvidia-smi + /proc",
+  "gpus": [
+   {
+    "index": 2,
+    "uuid": "GPU-a6aa6943-3f9d-a513-8bde-a817d085ec64",
+    "name": "NVIDIA GeForce RTX 2080 Ti",
+    "total_bytes": 11811160064,
+    "free_bytes": 11346640896,
+    "compute_cap": "7.5",
+    "driver": "595.91.07"
+   }
+  ],
+  "ram_total_bytes": 135025573888,
+  "ram_available_bytes": 120573681664,
+  "cpu_logical": 40,
+  "cpu_affinity": 34,
+  "cpu_physical": 17,
+  "disk_free_bytes": 358006947840,
+  "cuda_visible_devices": "2"
+ },
+ "filters_overridden": null
+}

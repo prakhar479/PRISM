@@ -1,0 +1,45 @@
+{
+ "cell": "ioi_control_L10_16k_l077",
+ "role": "exploratory",
+ "sae": {
+  "layer": 10,
+  "width": "16k",
+  "l0": 77,
+  "repo": "google/gemma-scope-2b-pt-res",
+  "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+ },
+ "fit_families": null,
+ "eval_families": null,
+ "n_test_by_filter": {
+  "f_pilot": 150,
+  "f_A_correct": 150,
+  "f_none": 150
+ },
+ "n_test_union": 150,
+ "n_train": 300,
+ "fitset_digest": "b47e894057415e49",
+ "keep_rates": {
+  "train": {
+   "f_none": 1.0,
+   "f_A_correct": 1.0,
+   "f_both_correct": 1.0,
+   "f_pilot": 1.0
+  },
+  "test": {
+   "f_none": 1.0,
+   "f_A_correct": 1.0,
+   "f_both_correct": 1.0,
+   "f_pilot": 1.0
+  }
+ },
+ "mean_l0_test": [
+  88.09466552734375,
+  86.71600341796875
+ ],
+ "rel_err_norm_test": 0.3713894188404083,
+ "mean_pos_coverage": {
+  "slot": 450,
+  "offset": 300,
+  "task": 0
+ }
+}

@@ -1,0 +1,51 @@
+{
+ "cell": "ioi_control_L12_32k_l076",
+ "role": "exploratory",
+ "sae": {
+  "layer": 12,
+  "width": "32k",
+  "l0": 76,
+  "repo": "google/gemma-scope-2b-pt-res",
+  "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+ },
+ "fit_families": null,
+ "eval_families": null,
+ "n_test_by_filter": {
+  "f_none": 150,
+  "f_A_correct": 150,
+  "f_pilot": 150
+ },
+ "n_test_union": 150,
+ "n_train": 300,
+ "fitset_digest": "b47e894057415e49",
+ "keep_rates": {
+  "train": {
+   "f_none": 1.0,
+   "f_A_correct": 1.0,
+   "f_both_correct": 1.0,
+   "f_pilot": 1.0
+  },
+  "test": {
+   "f_none": 1.0,
+   "f_A_correct": 1.0,
+   "f_both_correct": 1.0,
+   "f_pilot": 1.0
+  }
+ },
+ "mean_l0_test": [
+  83.75733184814453,
+  81.01200103759766
+ ],
+ "rel_err_norm_test": 0.3667880594730377,
+ "mean_pos_coverage": {
+  "slot": 450,
+  "offset": 300,
+  "task": 0
+ },
+ "generic": {
+  "rows": 12400,
+  "mean_l0": 79.22113037109375,
+  "err_energy_ratio": 0.1434502750635147,
+  "corpus": "generic/pile10k_100x128.json"
+ }
+}

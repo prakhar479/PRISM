@@ -1,8 +1,9 @@
-# Pre-registration ADDENDUM: multilingual extension and the gated experiments (DRAFT, not frozen)
+# Pre-registration ADDENDUM: multilingual extension and the gated experiments (frozen on 2026-11-16)
 
-Status: proposed by the assistant on 2026-11-15 for the humans to edit and freeze. `PREREGISTRATION.md` is not touched. Nothing
-below has been run; E12/E13 results must not be read before this is frozen. Items marked **[HUMAN]** are decisions I could not
-make for you; they are left open on purpose and must be filled before freezing.
+Status: drafted by the assistant on 2026-11-15; open items decided by the humans on 2026-11-16 (the humans chose the thresholds in
+E to be set by a calibration analysis on data that already existed, `analysis/calibrate_thresholds.txt`, and the M3 definition to
+be chosen by the assistant); frozen on 2026-11-16 together with `PREREGISTRATION.md`, before any E9-E14 output existed and before
+release-3 results were read. Do not edit; a change needs a new, dated addendum.
 
 ## A. Languages, data, and what is exploratory
 
@@ -41,8 +42,7 @@ measure; primary) and with zero ablation, FVU, |eps|/|x|, L0, fertility; 95% boo
 (`en_pile`, same layer): "clearly lower than English" in the handoff, read as non-overlapping CIs. Report the result for both layers
 and both ablations; a language that is lower at one layer and not the other is reported as mixed. The parity check is `en_pilot100`
 against the pilot's published 98-99% (not a hypothesis test). Script versus language: the Dakshina native and romanized rows are
-compared directly (same sentence pool). **[HUMAN]** Do you want a stricter rule (for example a minimum difference in points) or a
-difference-of-means CI instead of CI non-overlap? Default if unanswered: the rule above.
+compared directly (same sentence pool). Decided 2026-11-16: the CI non-overlap rule above, unchanged.
 
 ## C. E13: behaviour and the two capability gates
 
@@ -50,19 +50,40 @@ Per (task in {object tracking, running sum, people-cities}, language): clean acc
 **Gate A** (runnable): clean accuracy >= 0.6 and clean_only keep >= 0.3 (the pilot's VIABLE rule). **Gate B** (comparable): clean
 accuracy within 10 points of English on the same task (the main preregistration's rule). A language that fails A is reported as a
 capability result. M2/M3 gap comparisons are made **only** for languages and tasks that pass **both** gates **and** whose template
-pack is human-validated (`validated: true`). Template validation: **Prakhar** validates the Hindi, romanized Hindi, Hinglish and French packs (data/lang/templates_review.md), recorded with
-`scripts/sign_templates.py` in data/lang/signoff.json (bound to the pack content hash). Until then E14 does not run.
+pack is human-validated (`validated: true`). Template validation: all 15 packs (en, hi, hi_latn, hinglish, fr x 3 tasks) were
+reviewed and approved by Prakhar Singhal on 2026-11-16 (data/lang/signoff.json, bound to each pack's content hash).
 
-## D. M2 and M3 (E14, only if the conditions in C hold; not built)
+## D. M2 and M3 (E14; every language and task is run, a row is READ only if it passes C)
 
-M2: the gap (1 - SAE-parts share) in a language is larger than English with non-overlapping CIs, using E2's conditions at OT L12 / RS L18.
-M3: the direction fitted on English, applied to the language's pairs, closes a similar share of that language's gap (**[HUMAN]**
-define "similar", for example within 10 points of the English share). Holm across the two confirmatory cells; BH (q = 0.05) across
-languages within the exploratory family.
+Readable row: Gate A viable, Gate B within 10 points of English, template validated (`readable` in tables/E14_lang_gap.csv).
+M2: the gap M(full_A) - M(feat_A_errB) in a language is larger than English's (same task, native fit) with non-overlapping 95% CIs;
+primary metric flip rate, NLDR reported alongside; tasks OT L12, RS L18, people-cities L12, 16k pilot variants.
+M3 (definition chosen 2026-11-16): non-inferiority of transfer. On the SAME evaluation pairs of language L, share closed by repair
+with the English-fitted U minus share closed with the L-fitted U, paired bootstrap; **similar** if the 95% lower bound of that
+difference is above -10 points (the same 10-point margin as RQ1 and Gate B). Primary: flip rate, pca_pooled, r = 1 and r = 2
+(E8's ranks); answer_sep reported alongside. M3 is evaluated only where the native share's own 95% lower bound is above 0 (there is
+something to transfer) and the row is readable (tables/E14_m3_transfer.csv: m3_similar, m3_usable). Rationale: "closes a similar
+share" asks whether English directions are as good as native ones; a non-inferiority margin answers that directly and does not
+reward a wide CI, which a CI-overlap rule would.
+Multiplicity: everything in D is exploratory; BH (q = 0.05) across languages within each task where p-values are reported.
 
 ## E. Gated experiments (E9, E10, E11): only if RQ1 = GO for the cell
 
-E9 (illusion checks and DAS) runs on a cell only after RQ1 = GO for it. Thresholds for what counts as an "illusion" and for the
-cosine between U and the DAS direction are **[HUMAN]** decisions and are deliberately not invented here. E10 uses the main file's Q2
-criterion unchanged: >= 50% of pairs move to the other box when steering along the direction; matched-norm random directions
-<= 5% (>= 20 random directions). E11 (people-cities gap and repair at L8-16, U transfer with OT both ways) is a stretch goal.
+E9 (illusion checks and DAS) is confirmatory only for a cell with RQ1 = GO (running sum L18, humans 2026-11-16); object tracking
+L12 is run as an exploratory, redundant row (two-pass plan, docs/PLAN_TWO_PASS.md).
+
+E9 decision rules (fixed 2026-11-16 from release-2 noise and random geometry only, analysis/calibrate_thresholds.txt; constants in
+harness/final.py), per (cell, filter, estimator, rank), primary metric flip rate:
+- **effective**: flip rate >= random-U p95 + 10 points AND its 95% lower bound > random-U p95 (same condition and rank, 20 seeds).
+  Calibration: random-U repair moves flips by <= 1 point (p95 just above the features-only baseline), so beating random alone is too
+  easy; a flip-rate gap's CI half-width is ~3 points at 450 pairs and ~5-6 at 150, so 10 points is >= 2 half-widths.
+- **illusion**: full_along_U is effective AND full_along_U - feat_A_along_U >= 10 points with a paired 95% CI above 0 (the subspace
+  works on the full residual but not through the SAE features' difference). **feature-mediated**: feat_A_along_U is effective.
+- **U-DAS alignment** (top principal cosine between the estimator's rank-k U and DAS_k): aligned >= 0.5; unrelated <= the 99th
+  percentile for independent random subspaces of R^2304 (k = 1, 2, 4, 8: 0.052, 0.072, 0.097, 0.131); partial in between.
+- **DAS fit valid**: train interchange accuracy >= 0.5; a DAS row with an invalid fit is reported as a failed fit, not as evidence.
+
+E10 (decided 2026-11-16): the main file's Q2 criterion with "move to the other box" read, for every task, as "the steered B run's
+top-1 answer becomes A's answer": steer flip rate >= 50% AND the matched-norm random directions' p95 <= 5% (>= 20 random
+directions); confirmatory only for running sum L18 (tables/E10_steering.csv: q2_both). E11 (people-cities gap and repair at L8-16,
+U transfer with OT both ways) is run as exploratory.

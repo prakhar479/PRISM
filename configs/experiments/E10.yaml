@@ -1,0 +1,32 @@
+# E10 (P2, gated): steering. Running sum L18 confirmatory (GO); object tracking L12 and people-cities L12 exploratory (redundant).
+exp_id: E10
+name: steering
+description: >-
+  Steering x_B + s * |m| * P_U m / |P_U m| at the patched rows, m = train mean of x_A - x_B per row key, s in {1, 2, 4};
+  U from pca_pooled, answer_sep and DAS (rank 1, 2, 4), and 20 random U per rank. Every direction adds the same norm, so the
+  random directions are matched-norm by construction. No evaluation pair's x_A is used. The flip rate of steer_x* is the
+  share of pairs that move to A's answer (the preregistered Q2 criterion, restated for each task in the addendum).
+model_revision: c5ebcd40d208330abc697524c919956e692655cf
+prompt_sets: {add_chain: prompt_sets/add_chain_pilot.jsonl.gz, entity_track: prompt_sets/entity_track_pilot.jsonl.gz,
+              people_cities: prompt_sets/people_cities_en.jsonl.gz}
+cells:
+  - {task: add_chain, layer: 18, sae: {width: 16k}, role: confirmatory}
+  - {task: entity_track, layer: 12, sae: {width: 16k}, role: exploratory}
+  - {task: people_cities, layer: 12, sae: {width: 16k}, role: exploratory, fit_families: [pc_en], eval_families: [pc_en]}
+n_train: 300
+n_test: 150
+filters: [f_none, f_A_correct, f_pilot]
+fit_filter: f_pilot
+conditions: []
+noise_seeds: [0]
+directions:
+  conditions: [steer_x1, steer_x2, steer_x4]
+  ranks: [0, 1, 2, 4]
+  estimators: [pca_pooled, answer_sep, das1, das2, das4]
+  sources: [same_task]
+  random_seeds: 20
+  r_max: 32
+bootstrap: 1000
+seed: 0
+notes:
+  - "'binding directions' (handoff E10) = answer_sep and DAS on the binding tasks (object tracking, people-cities); their alignment with U is in directions/*.json (_cosines) and computed again on DEV."

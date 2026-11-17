@@ -33,6 +33,7 @@ def main() -> int:
     ap.add_argument("--n-train", type=int, default=150)
     ap.add_argument("--n-test", type=int, default=150)
     ap.add_argument("--out", default=None)
+    ap.add_argument("--name", default="{task}_e13", help="file stem; {task} is filled in (E11 uses people_cities_en)")
     a = ap.parse_args()
     from transformers import AutoTokenizer
     from harness.profile import load_profile
@@ -62,7 +63,7 @@ def main() -> int:
                 "tokenizer": {"name": "google/gemma-2-2b", "revision": MODEL_REVISION}, "families": fams,
                 "source": "harness.tasks.build_family_candidates over harness.langfamilies (DRAFT templates, unvalidated)",
                 "created": time.strftime("%Y-%m-%d %H:%M:%S %Z")}
-        p = T.save_set(rows, out / f"{task}_e13.jsonl.gz", info)
+        p = T.save_set(rows, out / f"{a.name.format(task=task)}.jsonl.gz", info)
         print(f"{task}: {len(rows)} candidates -> {p} ({p.stat().st_size / 2**20:.1f} MB, {time.time() - t0:.0f}s)")
         for fid, f in fams.items():
             print(f"   {fid:12s} kept {f['kept']}  length-matching success {f['length_matching_success']}")

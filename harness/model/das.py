@@ -50,3 +50,62 @@ def train_das(model, layer: int, rows: Sequence[dict], train_idx: Sequence[int],
         loss.backward()
         opt.step()
     return rot
+
+
+def fit_das(model, layer: int, rows: Sequence[dict], train_idx: Sequence[int], spans, k: int, epochs: int = 3,
+            lr: float = 1e-2, seed: int = 0, device="cpu"):
+    """E9: train a rank-k DAS rotation on the TRAIN pairs (same interchange as `full_along_U` with U = R) and return
+    (U [d, k] float32 numpy, info). Runs outside inference mode with gradients only into R; the model stays frozen.
+    info: training loss of the first and last epoch, and the interchange accuracy (top-1 == A's answer) on the train pairs
+    after training, so a failed fit is visible in the run's directions/ record."""
+    import numpy as np
+    with torch.inference_mode(False), torch.enable_grad():
+        sp = type("S", (), {})()
+        sp.x_A, sp.x_B = spans.x_A.clone().float(), spans.x_B.clone().float()
+        sp.rows = spans.rows
+        steps = epochs * len(train_idx)
+        torch.manual_seed(seed)
+        rot = train_das_logged(model, layer, rows, train_idx, sp, k, steps, lr, seed, device)
+        acc = 0
+        with torch.no_grad():
+            for q, i in enumerate(train_idx):
+                r = rows[i]
+                tB = torch.tensor([r["corrupt_ids"]], device=device)
+                R0 = runtime.resid_at(model, tB, layer)
+                sl = sp.rows(q)
+                x = R0.clone()
+                x[0, r["first_diff"]:r["T"]] = rot.intervene(sp.x_B[sl].to(device), sp.x_A[sl].to(device)).to(x.dtype)
+                acc += int(runtime.last_logits_from(model, x, layer, tB).argmax(-1).item() == r["ans_A"])
+        U = rot.R.detach().float().cpu().numpy()
+    info = {"k": k, "epochs": epochs, "lr": lr, "seed": seed, "n_train": len(train_idx),
+            "loss_first_epoch": rot.losses[0], "loss_last_epoch": rot.losses[-1], "train_interchange_acc": acc / max(1, len(train_idx))}
+    return U.astype(np.float32), info
+
+
+def train_das_logged(model, layer, rows, train_idx, spans, k, steps, lr, seed, device) -> Rotation:
+    """train_das with the mean loss per epoch recorded on the returned rotation (`.losses`)."""
+    rot = Rotation(spans.x_A.shape[1], k, seed).to(device)
+    opt = torch.optim.Adam(rot.parameters(), lr=lr)
+    n = len(train_idx)
+    order = torch.randperm(n, generator=torch.Generator().manual_seed(seed)).tolist()
+    losses, run = [], 0.0
+    for s in range(steps):
+        q = order[s % n]
+        r = rows[train_idx[q]]
+        tB = torch.tensor([r["corrupt_ids"]], device=device)
+        with torch.no_grad():
+            R0 = runtime.resid_at(model, tB, layer)
+        sl = spans.rows(q)
+        x = R0.clone()
+        x[0, r["first_diff"]:r["T"]] = rot.intervene(spans.x_B[sl].to(device), spans.x_A[sl].to(device)).to(x.dtype)
+        lg = runtime.last_logits_from(model, x, layer, tB)
+        loss = nn.functional.cross_entropy(lg.float(), torch.tensor([r["ans_A"]], device=device))
+        opt.zero_grad()
+        loss.backward()
+        opt.step()
+        run += float(loss.detach())
+        if (s + 1) % n == 0:
+            losses.append(run / n)
+            run = 0.0
+    rot.losses = losses or [run / max(1, steps)]
+    return rot

@@ -1,4 +1,4 @@
-# Pre-registration (frozen on <date the humans confirm>)
+# Pre-registration (frozen on 2026-11-16)
 
 Confirmatory cells: object tracking, layer 12, Gemma Scope 16k (pilot L0 variant);
 running sum, layer 18, Gemma Scope 16k (pilot L0 variant).

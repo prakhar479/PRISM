@@ -416,3 +416,31 @@ Dated log of non-trivial choices. Pilot run verdicts live in `results/*/DECISION
   runs in one compute pass, then one analysis pass that applies the preregistered gates and rejects what does not qualify.
   Release 3 (E12, E13) starts now, ahead of that pass.
 - Tests read sign-offs from PRISM_SIGNOFF_FILE when set, so test runs never touch data/lang/signoff.json.
+
+## 2026-11-16: preregistration frozen; E9 thresholds, E10 reading and M3 definition
+- The humans froze `PREREGISTRATION.md` (sha256 2d336914...672cf) and `PREREGISTRATION_ADDENDUM.md` (sha256 4ba48a08...4aaa) on
+  2026-11-16; `tests/harness/test_prereg_frozen.py` fails on any edit. Release-3 and final-pass results had not been read; release-2
+  results had (logged above).
+- E9 thresholds: the humans asked the assistant to choose them from a small analysis. Calibrated ONLY on release-2 data and random
+  geometry (`analysis/calibrate_thresholds.py` / `.txt`): random-U repair moves flips <= 1 point; flip-gap CI half-width ~3 points at
+  450 pairs; Haar principal-cosine p99 in R^2304 = 0.052 / 0.072 / 0.097 / 0.131 for k = 1 / 2 / 4 / 8. Rules (addendum E, constants
+  in harness/final.py): effective = flip >= random p95 + 10 pts and CI lower bound > random p95; illusion = full_along_U effective
+  and full_along_U - feat_A_along_U >= 10 pts with paired CI > 0; aligned >= 0.5 / unrelated <= Haar p99 / partial; DAS fit valid =
+  train interchange accuracy >= 0.5.
+- E10: the humans confirmed "move to the other box" = the steered B run's top-1 becomes A's answer.
+- M3 ("similar"), chosen by the assistant at the humans' request: non-inferiority, paired over the same evaluation pairs: share
+  closed by English-fit U minus native U, 95% lower bound > -10 points; flip rate, pca_pooled r = 1, 2; only where the native share's
+  lower bound > 0 and the row is readable. Chosen over a CI-overlap rule because overlap rewards wide CIs.
+
+## 2026-11-17: bonus / redundant runs, one sbatch for both queues
+- Added at the humans' request (exploratory, lowest queue priority): E9b and E10b (E9 / E10 on running sum L18 fitted on pilot
+  templates, evaluated on the three fresh families: does the subspace, DAS rotation and steering vector generalize to new
+  templates?) and E2r (E2's confirmatory cells with seed 1: new random U, noise and donor draws on the same pairs; checks the
+  stability of the random nulls and agreement between a server-finalized run and the DEV-finalized release 2). Profiles allow
+  E2r / E9b / E10b; a test checks every queued experiment is allowed by every profile (the dry-run caught the missing entries).
+- `scripts/slurm_final.sbatch` runs release 3 then the final pass in one job (gnode074, 3 GPUs, 72 h), adds `slurm-*.out` to the
+  repo's exclude file itself, never deletes activation caches unless called with --clean-full, and has a --check mode for the
+  login node. Operating instructions: docs/FINAL_PASS_RUNBOOK.md.
+- Tiny-model end-to-end runs (stages 1-3 + finalize, CPU) passed for E9, E10, E11, E14, and make_final.py ran on their outputs.
+  DAS train interchange accuracy is 0 on the random tiny model (it cannot learn the task): this checks plumbing only; on real runs
+  the frozen das_fit_valid rule reports a failed fit.

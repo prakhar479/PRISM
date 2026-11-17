@@ -103,6 +103,40 @@ class MeanError:
         return out
 
 
+class MeanDiff(MeanError):
+    """E10: mean over TRAIN pairs of x_A - x_B (full residual) per row key (slot, else offset from final; task mean as the
+    last fallback). It is the steering vector before projection: it depends on no evaluation pair."""
+
+    @classmethod
+    def fit(cls, fitset: FitSet, sp: Spans, use=None) -> "MeanDiff":
+        fitset.require_train(sp.pair_ids)
+        D = (sp.x_A - sp.x_B).double()
+        keys = sp.keys()
+        offs = [f"off:{int(o)}" for o in sp.off]
+        sums: Dict[str, torch.Tensor] = {}
+        cnt: Dict[str, int] = {}
+        for k_list in (keys, offs):
+            for j, k in enumerate(k_list):
+                sums[k] = sums.get(k, 0) + D[j]
+                cnt[k] = cnt.get(k, 0) + 1
+        return cls(D.mean(0).float(), {k: (v / cnt[k]).float() for k, v in sums.items()}, cnt, fitset)
+
+
+STEER_SCALES = {"steer_x1": 1.0, "steer_x2": 2.0, "steer_x4": 4.0}
+
+
+def steer(sp: Spans, U: torch.Tensor, mean_diff_rows: torch.Tensor, scale: float) -> torch.Tensor:
+    """x_B + scale * |m| * P_U m / |P_U m| per row, m = the train mean of x_A - x_B for that row's key. Every direction (U from
+    any estimator, DAS, or random) therefore adds a vector of the SAME norm (scale x the full mean difference) at each row:
+    norm-matched by construction. A row whose m has no component in span(U) (|P_U m| < 1e-6 |m|) gets no push. No evaluation pair's x_A is used."""
+    m = mean_diff_rows.to(sp.x_B.dtype)
+    pm = (m @ U) @ U.T
+    nrm, mn = pm.norm(dim=-1, keepdim=True), m.norm(dim=-1, keepdim=True)
+    ok = nrm > 1e-6 * mn.clamp_min(1e-12)          # relative: a numerically-zero projection must not be blown up to |m|
+    unit = torch.where(ok, pm / nrm.clamp_min(1e-30), torch.zeros_like(pm))
+    return sp.x_B + scale * mn * unit
+
+
 @dataclass
 class CovNoise:
     """Zero-mean Gaussian with the (centered) covariance of train errors."""
@@ -307,6 +341,7 @@ def greedy_subthreshold(fitset: FitSet, pair_ids: Sequence[str], codes, dec, tar
 
 CONDITIONS = ["clean_B", "full_A", "full_B", "feat_A_errB", "feat_B_errA", "feat_B_noise", "feat_A_zero",
               "feat_A_meanTask", "feat_A_meanPos", "feat_A_resampC_sameAns", "feat_A_resampC_diffAns", "feat_A_noise",
-              "feat_A_covnoise", "repair", "repair_mean", "feat_A_along_U", "full_along_U", "subthresh"]
+              "feat_A_covnoise", "repair", "repair_mean", "feat_A_along_U", "full_along_U", "subthresh",
+              "steer_x1", "steer_x2", "steer_x4"]
 PILOT_NAMES = {"feat_A_errB": "sae_only", "feat_B_errA": "error_only", "feat_B_noise": "noise_control",
                "feat_A_zero": "sae_splice", "full_A": "clean_full"}

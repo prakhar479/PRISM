@@ -28,6 +28,7 @@ ALLOW = [
     "scripts/_bootstrap.py", "scripts/run_queue.py", "scripts/run_prefetch.py", "scripts/run_preflight.py",
     "scripts/check_env.py", "scripts/hf_agreement.py", "scripts/bundle_results.py", "scripts/plan_runs.py",
     "scripts/probe_env.py", "scripts/setup_server.sh", "scripts/publish_results.py", "scripts/slurm_release2.sbatch", "scripts/storage_report.py", "scripts/run_fidelity.py", "scripts/run_behaviour.py", "scripts/validate_templates.py", "scripts/sign_templates.py",
+    "scripts/slurm_final.sbatch", "scripts/inventory_runs.py", "docs/FINAL_PASS_RUNBOOK.md",
 ]
 RENAME = {"README_RUN.md": "README.md"}
 PART = 90 * 2 ** 20

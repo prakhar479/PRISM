@@ -10,8 +10,8 @@
 # Read docs/FINAL_PASS_RUNBOOK.md first (before / during / after). The node matters: the release-2 activation caches are on
 # gnode074's node-local /ssd_scratch, so the final pass reuses them there.
 #SBATCH --job-name=prism-final
-#SBATCH --nodelist=gnode074
-#SBATCH --gres=gpu:3
+#SBATCH --nodelist=gnode084
+#SBATCH --gres=gpu:4
 #SBATCH --cpus-per-task=16
 #SBATCH --mem=96G
 #SBATCH --time=72:00:00

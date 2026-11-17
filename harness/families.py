@@ -125,9 +125,16 @@ def expand(task: str, names: Sequence[str]) -> List[str]:
             out += families_for(task)
         elif n == "pilot" or n in FAMILIES.get(task, {}):
             out.append(n)
+        elif n in _lang_families(task):                  # E14 / E11: language families by explicit id
+            out.append(n)
         else:
             raise ValueError(f"{task}: unknown family '{n}' (known: pilot, fresh, {families_for(task)})")
     return list(dict.fromkeys(out))
+
+
+def _lang_families(task: str):
+    from harness import langfamilies as LF
+    return LF.FAMILIES.get(task, {})
 
 
 def candidates(task: str, family: str) -> List[str]:

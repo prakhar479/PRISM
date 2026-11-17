@@ -62,6 +62,7 @@ class Bundle:
     cov: C.CovNoise
     dirs: Dict[str, Dr.Direction] = field(default_factory=dict)
     greedy: Optional[C.GreedyLatents] = None            # E5: latents picked on train pairs
+    mean_diff: Optional[C.MeanDiff] = None              # E10: train mean of x_A - x_B per row key (steering vector)
 
 
 def subthresh_key(alpha: float, slot: str, k: int) -> dict:
@@ -372,6 +373,10 @@ class Runner:
                     b.dirs[est] = Dr.pca_pos_centered(fs, sp.pair_ids, torch.cat([sp.e_A, sp.e_B]), keys * 2, d.r_max)
                 elif est == "pca_slot_centered_pairdiff":
                     b.dirs[est] = Dr.pca_slot_centered_pairdiff(fs, sp.pair_ids, sp.e_A - sp.e_B, keys, d.r_max)
+                elif est.startswith("das"):
+                    b.dirs[est] = self.das_direction(task, layer, rows, tr, sp, fs, int(est[3:]))
+            if any(c.startswith("steer_") for c in d.conditions):
+                b.mean_diff = C.MeanDiff.fit(fs, sp)
             self.save_dirs(task, layer, sid, b, "+".join(fit_families) if fit_families else "")
         st_ = self.cfg.subthresh
         if st_ and st_.greedy_ks:
@@ -388,6 +393,24 @@ class Runner:
                  "objective_def": "sum of squared residuals of the target after each pick"}, indent=1))
         self.bundles[key] = b
         return b
+
+    def das_direction(self, task, layer, rows, tr, sp, fs, k: int) -> Dr.Direction:
+        """Rank-k DAS rotation on the train pairs (E9), trained once and kept in the content-addressed cache, so every
+        worker of a run (and every later run with the same train set) uses the identical rotation."""
+        from harness.model.das import fit_das
+        epochs = 1 if self.tiny or self.smoke else 3
+        ent = self.cache.entry("das", spans=self.spans_entry(task, layer).key, fitset=fs.digest, k=int(k), epochs=epochs,
+                               lr=1e-2, seed=int(self.cfg.seed), model=self.spec.key())
+        with ent.writer_lock():
+            ent.open()
+            if not ent.complete:
+                model = self.load_model()
+                U, info = fit_das(model, layer, rows, tr, sp, k, epochs=epochs, seed=self.cfg.seed, device=self.device)
+                ent.write_shard(0, {"U": torch.from_numpy(U)})
+                ent.write_json("info.json", info)
+                ent.mark_complete(info)
+        U = ent.read_shard(0)["U"].numpy()
+        return Dr.Direction(U, f"das{k}", "same_task", fs.digest, len(tr), None, ent.read_json("info.json"))
 
     def save_dirs(self, task, layer, sid, b: Bundle, fit_tag: str = ""):
         out = self.run_dir / "directions"
@@ -443,6 +466,10 @@ class Runner:
             for n in d.conditions:
                 for e, src, D in sources:
                     for r in d.ranks:
+                        if e.startswith("das") and r != int(e[3:]):
+                            continue                    # a DAS rotation is fitted for its own rank only (columns are not ordered)
+                        if n.startswith("steer_") and r == 0:
+                            continue                    # rank 0 adds nothing: it is clean_B
                         specs.append(dict(condition=n, estimator=e, source=src, r=r, seed=-1, kind="dir", D=D))
                 for s in range(d.random_seeds):
                     D = Dr.random(test.x_A.shape[1], max(d.ranks), self.cfg.seed + 101 * s + cell.layer)
@@ -470,6 +497,9 @@ class Runner:
             return C.build("subthresh", test, codes_A=spec["codes"], sae=spec["dec"], alpha=spec["alpha"],
                            slot_error="B" if spec["slot"] == "B" else "meanPos", eps_mean_pos=mean_pos,
                            latents=spec["latents"])
+        if spec["kind"] == "dir" and n.startswith("steer_"):
+            md = (spec.get("bundle_md") or bun.mean_diff)
+            return C.steer(test, spec["D"].r(spec["r"]), md.per_row(test), C.STEER_SCALES[n])
         if spec["kind"] == "dir":
             U = spec["D"].r(spec["r"])
             mean_pos = bun.mean_err.per_row(test) if n == "repair_mean" else None

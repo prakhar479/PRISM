@@ -1,0 +1,43 @@
+# E11 (P2): people-cities binding, gap and repair at L8-16 (16k), with U transfer between people-cities and object tracking
+# in both directions (directions source other_task). Exploratory (object tracking is not GO; run as a redundant row).
+exp_id: E11
+name: people_cities_binding
+description: >-
+  E2-style baselines and repair for the people-cities binding task (English, harness/langfamilies.py pc_en) at layers 8-16,
+  with object tracking at the same layers so that each task's directions are applied to the other (U transfer both ways).
+model_revision: c5ebcd40d208330abc697524c919956e692655cf
+prompt_sets: {people_cities: prompt_sets/people_cities_en.jsonl.gz, entity_track: prompt_sets/entity_track_pilot.jsonl.gz}
+cells:
+  - {task: people_cities, layer: 8, sae: {width: 16k}, role: exploratory, fit_families: [pc_en], eval_families: [pc_en]}
+  - {task: people_cities, layer: 9, sae: {width: 16k}, role: exploratory, fit_families: [pc_en], eval_families: [pc_en]}
+  - {task: people_cities, layer: 10, sae: {width: 16k}, role: exploratory, fit_families: [pc_en], eval_families: [pc_en]}
+  - {task: people_cities, layer: 11, sae: {width: 16k}, role: exploratory, fit_families: [pc_en], eval_families: [pc_en]}
+  - {task: people_cities, layer: 12, sae: {width: 16k}, role: exploratory, fit_families: [pc_en], eval_families: [pc_en]}
+  - {task: people_cities, layer: 13, sae: {width: 16k}, role: exploratory, fit_families: [pc_en], eval_families: [pc_en]}
+  - {task: people_cities, layer: 14, sae: {width: 16k}, role: exploratory, fit_families: [pc_en], eval_families: [pc_en]}
+  - {task: people_cities, layer: 15, sae: {width: 16k}, role: exploratory, fit_families: [pc_en], eval_families: [pc_en]}
+  - {task: people_cities, layer: 16, sae: {width: 16k}, role: exploratory, fit_families: [pc_en], eval_families: [pc_en]}
+  - {task: entity_track, layer: 8, sae: {width: 16k}, role: exploratory}
+  - {task: entity_track, layer: 9, sae: {width: 16k}, role: exploratory}
+  - {task: entity_track, layer: 10, sae: {width: 16k}, role: exploratory}
+  - {task: entity_track, layer: 11, sae: {width: 16k}, role: exploratory}
+  - {task: entity_track, layer: 12, sae: {width: 16k}, role: exploratory}
+  - {task: entity_track, layer: 13, sae: {width: 16k}, role: exploratory}
+  - {task: entity_track, layer: 14, sae: {width: 16k}, role: exploratory}
+  - {task: entity_track, layer: 15, sae: {width: 16k}, role: exploratory}
+  - {task: entity_track, layer: 16, sae: {width: 16k}, role: exploratory}
+n_train: 300
+n_test: 150
+filters: [f_none, f_A_correct, f_pilot]
+fit_filter: f_pilot
+conditions: [feat_A_errB, feat_A_meanPos, feat_A_zero, feat_B_noise]
+noise_seeds: [0]
+directions:
+  conditions: [repair]
+  ranks: [0, 1, 2, 4]
+  estimators: [pca_pooled, answer_sep]
+  sources: [same_task, other_task]
+  random_seeds: 20
+  r_max: 32
+bootstrap: 1000
+seed: 0

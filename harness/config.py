@@ -12,8 +12,8 @@ import yaml
 from harness.conditions import CONDITIONS
 from harness.tasks import FILTERS
 
-ESTIMATORS = ("pca_pooled", "answer_sep", "pca_pos_centered", "pca_slot_centered_pairdiff")
-U_CONDITIONS = ("repair", "repair_mean", "feat_A_along_U", "full_along_U")
+ESTIMATORS = ("pca_pooled", "answer_sep", "pca_pos_centered", "pca_slot_centered_pairdiff", "das1", "das2", "das4", "das8")
+U_CONDITIONS = ("repair", "repair_mean", "feat_A_along_U", "full_along_U", "steer_x1", "steer_x2", "steer_x4")
 ROLES = ("confirmatory", "exploratory")
 
 

@@ -1,0 +1,23 @@
+# E10b (bonus, exploratory): steering with vectors and directions fitted on pilot templates, evaluated on fresh running-sum families.
+exp_id: E10b
+name: steering_fresh_templates
+description: E10 steering for running sum L18, fitted on pilot templates of the E3 set, evaluated on fresh template families.
+model_revision: c5ebcd40d208330abc697524c919956e692655cf
+prompt_sets: {add_chain: prompt_sets/add_chain_e3.jsonl.gz}
+cells:
+  - {task: add_chain, layer: 18, sae: {width: 16k}, role: exploratory, fit_families: [pilot], eval_families: [fresh]}
+n_train: 300
+n_test: 150
+filters: [f_none, f_A_correct, f_pilot]
+fit_filter: f_pilot
+conditions: []
+noise_seeds: [0]
+directions:
+  conditions: [steer_x1, steer_x2, steer_x4]
+  ranks: [0, 1, 2, 4]
+  estimators: [pca_pooled, answer_sep, das1, das2, das4]
+  sources: [same_task]
+  random_seeds: 20
+  r_max: 32
+bootstrap: 1000
+seed: 0

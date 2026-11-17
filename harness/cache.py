@@ -97,6 +97,25 @@ class Entry:
             finally:
                 fcntl.flock(fh, fcntl.LOCK_UN)
 
+    @contextlib.contextmanager
+    def try_writer_lock(self):
+        """Non-blocking writer lock: yields True when this process holds it, False when another process does (the caller
+        does something else and comes back). On a network filesystem flock is unreliable: yields None."""
+        self.dir.mkdir(parents=True, exist_ok=True)
+        if fs_type(self.dir).startswith(NETWORK_FS):
+            yield None
+            return
+        with open(self.dir / ".lock", "w") as fh:
+            try:
+                fcntl.flock(fh, fcntl.LOCK_EX | fcntl.LOCK_NB)
+            except BlockingIOError:
+                yield False
+                return
+            try:
+                yield True
+            finally:
+                fcntl.flock(fh, fcntl.LOCK_UN)
+
     @property
     def complete(self) -> bool:
         return (self.dir / "_COMPLETE").exists()

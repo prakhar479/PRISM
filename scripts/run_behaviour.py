@@ -85,7 +85,8 @@ def main(argv=None) -> int:
         ModelSpec(revision=MODEL_REVISION, dtype=prof.model_dtype)
     budget = Budget(prof.max_batch_tokens if not a.tiny else 4096, prof.max_batch_size if not a.tiny else 8)
     csv_path = run_dir / "behaviour.csv"
-    done = {(r["task"], r["family"]) for r in csv.DictReader(csv_path.open())} if csv_path.exists() else set()
+    done = {(r["task"], r["family"]) for r in csv.DictReader(csv_path.open())
+            if r.get("task") and r.get("family") and r.get("gate_A_viable") in ("True", "False")} if csv_path.exists() else set()
     todo = [x for x in fams if (x[0], x[1]) not in done]
     log.info("E13: %d families to do, %d done; device %s", len(todo), len(done), device)
     t_start = time.time()

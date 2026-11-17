@@ -27,6 +27,7 @@ import _bootstrap  # noqa: F401
 from harness import parallel as Par
 from harness.device import probe_machine
 from harness.profile import REPO_ROOT, load_profile
+from harness import provenance
 from harness.queue import Queue
 from harness.scheduler import Scheduler, expand, slots_for
 
@@ -91,6 +92,8 @@ def main() -> int:
     ap.add_argument("--only", default=None, help="comma list of job ids")
     ap.add_argument("--dry-run", action="store_true", help="print the units and their commands only")
     ap.add_argument("--allow-dirty", action="store_true", help="pass --allow-dirty to experiment runs")
+    ap.add_argument("--hold-timeout", type=float, default=60,
+                    help="minutes paused on a full disk with nothing running before the queue gives up (default 60)")
     ap.add_argument("--retry-failed", action="store_true", help="retry failed units (reset failure state)")
     ap.add_argument("--poll", type=float, default=2.0)
     a = ap.parse_args()
@@ -112,11 +115,16 @@ def main() -> int:
     units = expand(q, len(slots))
     only = set(a.only.split(",")) if a.only else None
     status = json.loads((state / "status.json").read_text()) if (state / "status.json").exists() else {}
+    head = provenance.git_state()["commit"]
+
+    from harness.queue import done_valid
+    done_ok = lambda path, u: done_valid(path, u.job, u.n, head)
+
     for u in units:
         if only and u.job.id not in only:
             u.status, u.note = "done", "not selected (--only)"     # treated as satisfied for ordering
             continue
-        if (state / f"{u.id}.done").exists() or (u.n == 1 and (state / f"{u.job.id}.done").exists()):
+        if done_ok(state / f"{u.id}.done", u) or (u.n == 1 and done_ok(state / f"{u.job.id}.done", u)):
             u.status = "done"
         elif status.get(u.id, {}).get("status") == "failed" and not (a.retry_failed or (only and u.job.id in only)):
             u.status, u.attempts, u.note = "failed", 2, status[u.id].get("note", "")
@@ -127,7 +135,7 @@ def main() -> int:
         return 0
     n_cleared = Par.clear_stale_claims(prof.root("runs_root"))
     env = {**os.environ, "HL_CPU_PHYSICAL": str(probe.get("cpu_physical") or os.cpu_count() or 1),
-           "HL_RAM_BUDGET_BYTES": str(int(0.8 * (probe.get("ram_available_bytes") or 2 ** 40))),
+           "HL_RAM_BUDGET_BYTES": str(int(0.8 * min(probe.get("ram_available_bytes") or 2 ** 40, Par._cgroup_limit()))),
            "HL_PROFILE": prof_name}
     stop = threading.Event()
     threading.Thread(target=heartbeat, args=(state / "heartbeat", stop), daemon=True).start()
@@ -153,9 +161,10 @@ def main() -> int:
                     log(f"dropping GPUs {sorted(bad)} after preflight")
                 self.applied_health = True
             if u.status == "done":
-                (state / f"{u.id}.done").write_text(time.strftime("%Y-%m-%dT%H:%M:%S%z"))
+                mark = json.dumps({"at": time.strftime("%Y-%m-%dT%H:%M:%S%z"), "commit": head, "n": u.n})
+                (state / f"{u.id}.done").write_text(mark)
                 if all(x.status == "done" for x in self.units if x.job.id == u.job.id):
-                    (state / f"{u.job.id}.done").write_text(time.strftime("%Y-%m-%dT%H:%M:%S%z"))
+                    (state / f"{u.job.id}.done").write_text(mark)
 
     from harness import storage
     from harness.cache import free_gib
@@ -175,7 +184,8 @@ def main() -> int:
         return None
 
     sched = S(q, units, slots, state, lambda u: command(u.job, prof_name, a.allow_dirty, u.extra_args()), env, {},
-              REPO_ROOT, log=log, poll_s=a.poll, hold=disk_hold)
+              REPO_ROOT, log=log, poll_s=a.poll, hold=disk_hold,
+              hold_timeout_s=a.hold_timeout * 60)
 
     def write():
         st = {u.id: {"status": u.status, "attempts": u.attempts, "note": u.note, "slots": u.slots} for u in units}

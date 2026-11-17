@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-"""Pass 2 (DEV, no model): tables for the final compute pass from ingested runs (E9b / E10b use the E9 / E10 rules and
-write E9b_illusion.csv / E10b_steering.csv; E2r writes E2r_conditions.csv for comparison with E2).
+"""Pass 2 (DEV, no model): tables for the final compute pass from ingested runs (E9b / E16 use the E9 rules and E10b the
+E10 rules, writing <EXP>_illusion.csv / E10b_steering.csv; E2r writes E2r_conditions.csv for comparison with E2).
 
     python scripts/make_final.py [--only E9,E10,E11,E14] [--n-boot 10000] [--out tables]
 
@@ -34,6 +34,9 @@ from harness import langfamilies as LF
 from harness.profile import REPO_ROOT, load_profile
 
 
+ILLUSION_EXPS = ("E9", "E9b", "E16")       # E9 rules (E16 has no feat_A_along_U, so its illusion / feature-mediated are NA)
+
+
 def runs_of(root: Path, exp: str, include_tiny: bool = False):
     for man in sorted(root.glob(f"{exp}/*/manifest.json")):
         m = json.loads(man.read_text())
@@ -42,17 +45,24 @@ def runs_of(root: Path, exp: str, include_tiny: bool = False):
         yield m, man.parent
 
 
-def das_info(run_dir: Path) -> pd.DataFrame:
+def _dir_key(path: Path, run_hash: str) -> dict:
+    """directions/<task>_L<layer>_<sae>[__fit-<families>].{json,npz} -> join keys."""
+    stem, _, fit = path.stem.partition("__fit-")
+    task, rest = stem.split("_L", 1)
+    layer = int(rest.split("_")[0])
+    return {"run_hash": run_hash, "task": task, "layer": layer, "sae": rest.split("_", 1)[1], "fit_families": fit or "pilot"}
+
+
+def das_info(run_dir: Path, run_hash: str) -> pd.DataFrame:
     rows = []
     for j in run_dir.glob("directions/*.json"):
         d = json.loads(j.read_text())
         for est, v in d.items():
             if est.startswith("das") and isinstance(v, dict):
-                stem = j.stem.split("__")[0]
-                task, layer = stem.split("_L")[0], int(stem.split("_L")[1].split("_")[0])
-                rows.append({"task": task, "layer": layer, "estimator": est, "das_train_acc": (v.get("meta") or {}).get("train_interchange_acc"),
-                             "das_loss_last": (v.get("meta") or {}).get("loss_last_epoch")})
-    return pd.DataFrame(rows).drop_duplicates(["task", "layer", "estimator"]) if rows else pd.DataFrame()
+                meta = v.get("meta") or {}
+                rows.append({**_dir_key(j, run_hash), "estimator": est, "das_train_acc": meta.get("train_interchange_acc"),
+                             "das_loss_last": meta.get("loss_last_epoch")})
+    return pd.DataFrame(rows).drop_duplicates() if rows else pd.DataFrame()
 
 
 def with_null(tab, conds):
@@ -67,7 +77,8 @@ def spec_table(m, pp, filters, n_boot):
     for cell, g in pp.groupby(FN.GROUP, sort=False):
         for flt in filters:
             _, _, sp = E.analyse_cell(g, flt, n_boot, m["config"].get("seed", 0))
-            out += [{"exp_id": m["exp_id"], "run_hash": m["run_hash"], **dict(zip(FN.GROUP, cell)), **r} for r in sp]
+            out += [{"exp_id": m["exp_id"], "run_hash": m["run_hash"], **dict(zip(FN.GROUP, cell)),
+                     "role": FN.config_role(m, *cell), **r} for r in sp]
     return pd.DataFrame(out)
 
 
@@ -82,17 +93,22 @@ def e14_gap(tab: pd.DataFrame, tables: Path) -> pd.DataFrame:
     base["validated"] = base.family.map(LF.is_validated)
     beh = tables / "E13_behaviour_lang.csv"
     if beh.exists():
-        b = pd.read_csv(beh)[["task", "family", "gate_A_viable", "gate_B_within_10pts", "acc_clean"]]
+        b = pd.read_csv(beh)
+        b = b[b.get("split", pd.Series("test", index=b.index)).fillna("test") == "test"]       # gates of record: test split
+        b = b[["task", "family", "gate_A_viable", "gate_B_within_10pts", "acc_clean"]]
         base = base.merge(b, on=["task", "family"], how="left")
     else:
         base["gate_A_viable"] = base["gate_B_within_10pts"] = np.nan
-    en = base[(base.lang == "en")][["task", "condition", "filter", "gap_flip_rate_hi", "gap_nldr_hi"]].rename(
+    jk = ["run_hash", "task", "layer", "sae", "condition", "filter"]
+    en = base[(base.lang == "en") & (base.fit_source == "native")][jk + ["gap_flip_rate_hi", "gap_nldr_hi"]].rename(
         columns={"gap_flip_rate_hi": "en_gap_flip_hi", "gap_nldr_hi": "en_gap_nldr_hi"})
-    base = base.merge(en, on=["task", "condition", "filter"], how="left")
-    base["m2_gap_above_en_ci_flip"] = (base.lang != "en") & (base.gap_flip_rate_lo > base.en_gap_flip_hi)
-    base["m2_gap_above_en_ci_nldr"] = (base.lang != "en") & (base.gap_nldr_lo > base.en_gap_nldr_hi)
+    base = base.merge(en, on=jk, how="left", validate="m:1")
     gb = base.gate_B_within_10pts.astype(str).isin(["True", "n/a (English)"])
     base["readable"] = base.gate_A_viable.astype(str).eq("True") & gb & base.validated
+    # M2 is only stated for readable, non-English rows (addendum D); others are NA, not False
+    for met, col in (("flip_rate", "en_gap_flip_hi"), ("nldr", "en_gap_nldr_hi")):
+        raw = (base[f"gap_{met}_lo"] > base[col]).astype("boolean")
+        base[f"m2_gap_above_en_ci_{met.split('_')[0]}"] = raw.where(base.readable & (base.lang != "en") & base[col].notna(), pd.NA)
     return base
 
 
@@ -110,45 +126,55 @@ def e9_paired(m, pp, filters, n_boot):
     return rows
 
 
-def das_cosines(run_dir):
-    """Top principal cosine between each error estimator at rank k and DAS_k, from the run's saved directions."""
+def das_cosines(run_dir, run_hash):
+    """Top principal cosine between each error estimator at rank k and DAS_k (rank k only: DAS columns are unordered)."""
     from harness.directions import principal_cosines
     rows = []
     for f in run_dir.glob("directions/*.npz"):
         z = np.load(f)
-        stem = f.stem.split("__")[0]
-        task, layer = stem.split("_L")[0], int(stem.split("_L")[1].split("_")[0])
+        key = _dir_key(f, run_hash)
         for das in [k for k in z.files if k.startswith("das")]:
             k = int(das[3:])
+            if not np.isfinite(z[das]).all():
+                continue
             for est in ("pca_pooled", "answer_sep"):
                 if est in z.files and z[est].shape[1] >= k:
                     c = principal_cosines(z[est][:, :k], z[das])
-                    rows.append({"task": task, "layer": layer, "estimator": est, "r": k, "das": das, "cos_top_das": float(c[0])})
-            rows.append({"task": task, "layer": layer, "estimator": das, "r": k, "das": das, "cos_top_das": 1.0})
+                    rows.append({**key, "estimator": est, "r": k, "das": das, "cos_top_das": float(c[0])})
     return rows
 
 
 def e9_rules(t, pair_rows, cos_rows):
-    """Decision columns fixed on 2026-11-16 (PREREGISTRATION_ADDENDUM.md E; harness/final.py constants)."""
+    """Decision columns fixed on 2026-11-16 (PREREGISTRATION_ADDENDUM.md E; harness/final.py constants). Nullable booleans:
+    NA = not evaluable (no random null with >= 20 seeds, no CI, rank 0, or a DAS row whose fit is invalid), never False."""
+    keys = ["run_hash", *FN.GROUP, "filter", "estimator", "r"]
     p95 = t.get("random_p95", pd.Series(np.nan, index=t.index))
-    t["effective"] = (t.flip_rate >= p95 + FN.EFFECT_PTS) & (t.flip_rate_lo > p95)
-    if pair_rows:
-        pr = pd.DataFrame(pair_rows)
-        t = t.merge(pr, on=["run_hash", *FN.GROUP, "filter", "estimator", "r"], how="left")
-    eff = t[["run_hash", *FN.GROUP, "filter", "estimator", "r", "condition", "effective"]]
-    piv = eff.pivot_table(index=["run_hash", *FN.GROUP, "filter", "estimator", "r"], columns="condition", values="effective",
-                          aggfunc="first").reset_index()
-    piv = piv.rename(columns={"full_along_U": "full_along_U_effective", "feat_A_along_U": "feature_mediated"})
-    keep = [c for c in ("full_along_U_effective", "feature_mediated") if c in piv]
-    t = t.merge(piv[["run_hash", *FN.GROUP, "filter", "estimator", "r", *keep]], on=["run_hash", *FN.GROUP, "filter", "estimator", "r"], how="left")
-    if "illusion_diff" in t and "full_along_U_effective" in t:
-        t["illusion"] = t.full_along_U_effective.fillna(False).astype(bool) & (t.illusion_diff >= FN.EFFECT_PTS) & (t.illusion_diff_lo > 0)
-    if cos_rows:
-        c = pd.DataFrame(cos_rows).drop_duplicates(["task", "layer", "estimator", "r"])
-        t = t.merge(c[["task", "layer", "estimator", "r", "cos_top_das"]], on=["task", "layer", "estimator", "r"], how="left")
-        t["das_alignment"] = [FN.alignment(x, r) for x, r in zip(t.cos_top_das, t.r)]
+    rn = t.get("random_n", pd.Series(0, index=t.index)).fillna(0)
+    evaluable = p95.notna() & t.flip_rate.notna() & t.flip_rate_lo.notna() & (rn >= E.MIN_RANDOM_SEEDS)
+    eff = ((t.flip_rate >= p95 + FN.EFFECT_PTS) & (t.flip_rate_lo > p95)).astype("boolean")
+    t["effective"] = eff.where(evaluable, pd.NA)
     if "das_train_acc" in t:
-        t["das_fit_valid"] = np.where(t.estimator.str.startswith("das"), t.das_train_acc >= FN.DAS_VALID_ACC, np.nan)
+        acc = pd.to_numeric(t.das_train_acc, errors="coerce")
+        valid = (acc >= FN.DAS_VALID_ACC).astype("boolean").where(acc.notna(), pd.NA)
+        t["das_fit_valid"] = valid.where(t.estimator.str.startswith("das"), pd.NA)
+        bad = t.das_fit_valid.fillna(True).eq(False)
+        t.loc[bad, "effective"] = pd.NA                        # an invalid DAS fit is not evidence (addendum E)
+    if pair_rows:
+        pr = pd.DataFrame(pair_rows).drop_duplicates(keys)
+        t = t.merge(pr, on=keys, how="left", validate="m:1")
+    piv = t.pivot_table(index=keys, columns="condition", values="effective", aggfunc="first", dropna=False)
+    piv = piv.rename(columns={"full_along_U": "full_along_U_effective", "feat_A_along_U": "feature_mediated"}).reset_index()
+    keep = [c for c in ("full_along_U_effective", "feature_mediated") if c in piv]
+    t = t.merge(piv[keys + keep], on=keys, how="left", validate="m:1")
+    if "illusion_diff" in t and "full_along_U_effective" in t:
+        fe = t.full_along_U_effective.astype("boolean")
+        ill = (fe.fillna(False) & (t.illusion_diff >= FN.EFFECT_PTS) & (t.illusion_diff_lo > 0)).astype("boolean")
+        t["illusion"] = ill.where(fe.notna() & t.illusion_diff.notna(), pd.NA)
+    if cos_rows:
+        ck = ["run_hash", "task", "layer", "sae", "fit_families", "estimator", "r"]
+        c = pd.DataFrame(cos_rows).drop_duplicates(ck)
+        t = t.merge(c[ck + ["cos_top_das"]], on=ck, how="left", validate="m:1")
+        t["das_alignment"] = [FN.alignment(x, r) for x, r in zip(t.cos_top_das, t.r)]
     return t
 
 
@@ -176,7 +202,7 @@ def m3_table(m, pp, filters, n_boot):
 
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--only", default="E9,E10,E11,E14,E9b,E10b,E2r")
+    ap.add_argument("--only", default="E9,E10,E11,E14,E9b,E10b,E2r,E16")
     ap.add_argument("--n-boot", type=int, default=10_000)
     ap.add_argument("--profile", default=None)
     ap.add_argument("--out", default=str(REPO_ROOT / "tables"))
@@ -194,10 +220,10 @@ def main() -> int:
             tabs.append(FN.run_table(m, pp, flts, a.n_boot))
             if exp in ("E11", "E14"):
                 specs.append(spec_table(m, pp, flts, a.n_boot))
-            dirs.append(das_info(d))
-            if exp.startswith("E9"):
+            dirs.append(das_info(d, m["run_hash"]))
+            if exp in ILLUSION_EXPS:
                 e9_pairs += e9_paired(m, pp, flts, a.n_boot)
-                cos_rows += das_cosines(d)
+                cos_rows += das_cosines(d, m["run_hash"])
             if exp == "E14":
                 m3_rows += m3_table(m, pp, flts, a.n_boot)
         if not tabs:
@@ -206,21 +232,25 @@ def main() -> int:
         tab = pd.concat(tabs, ignore_index=True)
         tab.to_csv(out / f"{exp}_conditions.csv", index=False)
         msg = f"{exp}: {len(tab)} condition rows"
-        if exp.startswith("E9"):
+        if exp in ILLUSION_EXPS:
             t = with_null(tab, ["feat_A_along_U", "full_along_U", "repair"])
             di = pd.concat(dirs, ignore_index=True) if any(len(x) for x in dirs) else pd.DataFrame()
             if not di.empty:
-                t = t.merge(di, on=["task", "layer", "estimator"], how="left")
+                t = t.merge(di, on=["run_hash", "task", "layer", "sae", "fit_families", "estimator"], how="left", validate="m:1")
             t = e9_rules(t, e9_pairs, cos_rows)
             t.to_csv(out / f"{exp}_illusion.csv", index=False)
-            msg += f"; {exp}_illusion {len(t)} (illusion rows {int(t.get('illusion', pd.Series(dtype=bool)).fillna(False).sum())})"
+            ill = t[t.condition == "full_along_U"].get("illusion", pd.Series(dtype="boolean"))
+            msg += f"; {exp}_illusion {len(t)} (illusion (estimator, rank) cells: {int(ill.fillna(False).sum())})"
         if exp.startswith("E10"):
             t = with_null(tab, ["steer_x1", "steer_x2", "steer_x4"])
-            t["q2_flip_ge_50"] = t.flip_rate >= 0.50
-            t["q2_random_p95_le_5"] = t.get("random_p95", np.nan) <= 0.05
-            t["q2_both"] = t.q2_flip_ge_50 & t.q2_random_p95_le_5
+            p95 = t.get("random_p95", pd.Series(np.nan, index=t.index))
+            rn = t.get("random_n", pd.Series(0, index=t.index)).fillna(0)
+            t["q2_flip_ge_50"] = (t.flip_rate >= 0.50).astype("boolean").where(t.flip_rate.notna(), pd.NA)
+            ok_null = p95.notna() & (rn >= E.MIN_RANDOM_SEEDS)
+            t["q2_random_p95_le_5"] = (p95 <= 0.05).astype("boolean").where(ok_null, pd.NA)   # >= 20 random directions (addendum E)
+            t["q2_both"] = (t.q2_flip_ge_50 & t.q2_random_p95_le_5)
             t.to_csv(out / f"{exp}_steering.csv", index=False)
-            msg += f"; {exp}_steering {len(t)} (q2_both: {int(t.q2_both.sum())})"
+            msg += f"; {exp}_steering {len(t)} (q2_both true: {int(t.q2_both.fillna(False).sum())}, not evaluable: {int(t.q2_both.isna().sum())})"
         if specs:
             sp = pd.concat(specs, ignore_index=True)
             if not sp.empty:
@@ -234,11 +264,12 @@ def main() -> int:
             if not m3.empty:
                 rd = g[g.condition == "feat_A_errB"][["task", "family", "filter", "readable"]].drop_duplicates()
                 m3 = m3.merge(rd, on=["task", "family", "filter"], how="left")
-                m3["m3_similar"] = (m3.diff_lo > -FN.M3_MARGIN) & (m3.share_native_lo > 0)
-                m3["m3_usable"] = m3.readable.fillna(False) & (m3.share_native_lo > 0)
+                m3["m3_usable"] = m3.readable.fillna(False).astype(bool) & (m3.share_native_lo > 0)
+                m3["m3_similar"] = (m3.diff_lo > -FN.M3_MARGIN).astype("boolean").where(m3.m3_usable, pd.NA)
             m3.to_csv(out / "E14_m3_transfer.csv", index=False)
             msg += f"; E14_m3_transfer {len(m3)}"
-            msg += f"; E14_lang_gap {len(g)} (readable rows {int(g.readable.sum())})"
+            nat = g[(g.condition == "feat_A_errB") & (g.fit_source == "native")][["task", "family", "filter", "readable"]].drop_duplicates()
+            msg += f"; E14_lang_gap {len(g)} (readable (task, language, filter): {int(nat.readable.sum())} of {len(nat)})"
         print(msg)
     return 0
 

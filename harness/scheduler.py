@@ -76,13 +76,14 @@ def slots_for(gpus: List[str], per_gpu: int) -> List[str]:
 class Scheduler:
     def __init__(self, q: Queue, units: List[Unit], slots: List[str], state: Path, command: Callable[[Unit], List[str]],
                  env_base: dict, pinned_tokens: Dict[str, int], cwd: Path, log=print, poll_s: float = 1.0,
-                 hold: Optional[Callable[[], Optional[str]]] = None) -> None:
+                 hold: Optional[Callable[[], Optional[str]]] = None, hold_timeout_s: float = 3600.0) -> None:
         self.q, self.units, self.state, self.command = q, units, state, command
         self.free = list(slots)
         self.n_slots = len(slots)
         self.env_base, self.pinned, self.cwd, self.log, self.poll_s = env_base, pinned_tokens, cwd, log, poll_s
         self.order = {j.id: i for i, j in enumerate(q.jobs)}
         self.hold, self._held = hold, None             # hold() -> reason string: start nothing new until it returns None
+        self.hold_timeout_s, self._idle_since = hold_timeout_s, None
 
     # ---- job-level status from its units
     def job_status(self, jid: str) -> str:
@@ -204,8 +205,18 @@ class Scheduler:
             if all(u.status in ("done", "failed", "skipped") for u in self.units):
                 return
             if why and not any(u.status == "running" for u in self.units):
+                self._idle_since = self._idle_since or time.time()
+                if time.time() - self._idle_since > self.hold_timeout_s:
+                    # paused with nothing running for too long: give the GPUs back instead of sleeping until the time limit
+                    for u in self.units:
+                        if u.status == "pending":
+                            u.status, u.note = "skipped", f"queue gave up: {why}"
+                    self.log(f"giving up after {self.hold_timeout_s / 60:.0f} min paused with nothing running: {why}")
+                    write()
+                    return
                 time.sleep(max(self.poll_s, 5.0))          # paused with nothing running: wait for a human to free space
                 continue
+            self._idle_since = None
             if not any(u.status == "running" for u in self.units) and self.pick() is None:
                 # nothing runs and nothing can start: everything left waits on something that cannot happen
                 for u in self.units:

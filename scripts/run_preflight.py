@@ -312,6 +312,15 @@ def per_gpu(a, prof, q, probe) -> dict:
     return res
 
 
+def queue_revision(q) -> str:
+    """Model revision a queue runs: its first experiment config's, or (a queue of script jobs only, e.g. release 3) the
+    `prefetch: model_revision` block."""
+    from harness.config import ExpConfig
+    if q.configs():
+        return ExpConfig.load(REPO_ROOT / q.configs()[0]).model_revision
+    return (q.prefetch or {}).get("model_revision")
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--queue", required=True)
@@ -336,7 +345,9 @@ def main() -> int:
     (REPO_ROOT / "preflight").mkdir(exist_ok=True)
     t0 = time.time()
     from harness.config import ExpConfig
-    revision = ExpConfig.load(REPO_ROOT / q.configs()[0]).model_revision
+    revision = queue_revision(q)
+    if not revision:
+        raise SystemExit(f"{a.queue}: no experiment config and no prefetch.model_revision: cannot tell which model to check")
     if a.gpu_probe:
         return gpu_probe(a, prof, revision)
     print(f"resources: {json.dumps(resources.get('resolved'))} ({resources.get('rules')})", flush=True)

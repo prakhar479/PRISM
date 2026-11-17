@@ -27,8 +27,8 @@ from harness.profile import REPO_ROOT, load_profile
 PART = 90 * 2 ** 20
 
 
-def publish(prof, tag: str, out: Path, all_commits: bool = False) -> dict:
-    files, runs, head = collect(prof, tag, all_commits)
+def publish(prof, tag: str, out: Path, all_commits: bool = False, scope=None) -> dict:
+    files, runs, head = collect(prof, tag, all_commits, scope)
     if out.exists():
         shutil.rmtree(out)
     out.mkdir(parents=True)
@@ -58,10 +58,12 @@ def main() -> int:
     ap.add_argument("--profile", default=None)
     ap.add_argument("--out", default=None)
     ap.add_argument("--all-commits", action="store_true")
+    ap.add_argument("--queue", default=None, help="publish exactly the runs this queue produces, at any commit")
     a = ap.parse_args()
     prof = load_profile(a.profile)
     out = Path(a.out) if a.out else REPO_ROOT / "results_server" / a.tag
-    meta = publish(prof, a.tag, out, a.all_commits)
+    from bundle_results import queue_scope
+    meta = publish(prof, a.tag, out, a.all_commits, queue_scope(a.queue) if a.queue else None)
     total = sum(v["bytes"] for v in meta["files"].values())
     print(f"published {len(meta['files'])} files ({total / 2**20:.1f} MiB), {len(meta['runs'])} runs -> {out}")
     return 0 if meta["runs"] else 1

@@ -444,3 +444,33 @@ Dated log of non-trivial choices. Pilot run verdicts live in `results/*/DECISION
 - Tiny-model end-to-end runs (stages 1-3 + finalize, CPU) passed for E9, E10, E11, E14, and make_final.py ran on their outputs.
   DAS train interchange accuracy is 0 on the random tiny model (it cannot learn the task): this checks plumbing only; on real runs
   the frozen das_fit_valid rule reports a failed fit.
+
+## 2026-11-17: deep code review (5 parallel reviewers) and fixes; one queue for everything
+Blockers found and fixed (each has a regression test in tests/harness/test_review_fixes.py or test_cell_skip.py):
+- Release-3 preflight crashed on a queue of script jobs only (no experiment config to take the model revision from): it now uses
+  the queue's `prefetch: model_revision`. Without the fix all 14 E12/E13 jobs would have been skipped.
+- A cell with too few train pairs (e.g. a language the model cannot do) raised and killed every E14 worker at that cell, and blocked
+  finalize. Now `CellSkip`: the cell is recorded as skipped in its checks and the run continues (compute and finalize). Minimum
+  train pairs 20 (was 2; with 2 the estimators return fewer columns than rank 4 and crashed anyway).
+- E4_1m's two 1m SAEs need ~36 GiB of downloads on a ~14 GiB SSD: prefetch would fail and skip everything. E4_1m moved to an
+  optional queue (queue/extra-1m-server.yaml).
+- make_final.py crashed on real data for E11/E14 (spec rows had no `role`): roles now come from each config cell.
+Major / analysis fixes:
+- Queue `.done` markers carry the commit and unit count: after a re-tag, commit-dependent units (stage 3, finalize, script jobs,
+  bundle, publish) are redone (they resume cheaply); stage 1/2 and preflight markers stay valid. Bundle/publish ship exactly the
+  runs a queue produces (`--queue`), at any commit, and run again on every submit.
+- DAS: finalize never trains (missing rotation = error); refuses a network-filesystem cache; NaN rotation not cached; cache key
+  versioned; workers train different ranks in parallel (non-blocking first pass) instead of serializing on one GPU; cosines with
+  DAS only at its own rank.
+- Disk: the job fails in seconds when the cache tiers have < 25 GiB free (instead of pausing for hours); the queue gives up after
+  60 min paused with nothing running; spill threshold 8 GiB; leftover *.tmp.* files cleaned. RAM budget respects the job's cgroup.
+- Analysis decision columns follow the frozen addendum exactly: E9 `effective`/`illusion` and E10 Q2 require >= 20 random seeds
+  and are NA (not False) when not evaluable; invalid DAS fits are not evidence; M2/M3 flags only on readable rows; canonical rows
+  and BH per evaluation family within task; merges keyed by run_hash and fit families. E13 rows are keyed by split (the train-split
+  extension must not overwrite the test-split gates of record).
+- Stage 1 skips its locks when every entry is already complete (release-2 caches), so cached jobs never wait on another job.
+Single run: queue/complete-server.yaml = release 3 + extensions (E12 at L6/L24 via the canonical L0 rule, which reproduces the
+pilot's variants at L12/L18; E13 train split) + final pass + exploratory E9b, E10b, E2r and new E16 (running-sum layer sweep of
+along-U / repair with DAS rank 1/2/4 at L12, L14, L16, L20). scripts/slurm_final.sbatch runs it by default.
+Not changed (noted): the run-side quick summary.csv pools E14's languages (analysis uses make_final, which does not); each
+load_spans reads a whole span cache (~5 GiB host RAM per call for the e13 OT set; fits 96 GB with 3 workers).

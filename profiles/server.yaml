@@ -23,5 +23,6 @@ vram_headroom_gb: 0.6
 cpu_workers: 2
 cpu_threads: auto            # physical cores / concurrent workers (set by the scheduler)
 offload_embed: auto          # embedding on CPU only on GPUs under 16 GiB
-allowed_experiments: [E0, E1, E2, E2r, E3, E4, E5, E6, E7, E8, E9, E9b, E10, E10b, E11, E12, E13, E14]
+allowed_experiments: [E0, E1, E2, E2r, E3, E4, E5, E6, E7, E8, E9, E9b, E10, E10b, E11, E12, E13, E14, E16]
 allow_real_model: true
+cache_spill_min_gb: 8           # a cache tier with less free space takes no new entry (an entry can be several GiB)

@@ -27,6 +27,17 @@ from harness import provenance
 from harness.profile import REPO_ROOT, load_profile
 
 PILOT_L0 = {12: 82, 18: 74}                  # 16k pilot variants (configs/experiments/E4.yaml confirmatory cells)
+
+
+def l0_for(layer: int, width: str) -> int:
+    """Gemma Scope's canonical variant (average L0 closest to 100) from configs/sae_inventory.json; equals the pilot's variant
+    at L12 and L18 (checked), so other layers (E12 depth profile) use the same rule."""
+    from harness.sae import canonical_l0
+    inv = json.loads((REPO_ROOT / "configs" / "sae_inventory.json").read_text())["inventory"]
+    l0 = canonical_l0(inv[str(layer)][width])
+    if layer in PILOT_L0 and width == "16k" and l0 != PILOT_L0[layer]:
+        raise SystemExit(f"inventory canonical L0 {l0} != pilot {PILOT_L0[layer]} at L{layer}")
+    return l0
 MODEL_REVISION = "c5ebcd40d208330abc697524c919956e692655cf"
 FIELDS = ["set", "lang", "script", "genre", "licence", "layer", "sae", "n_windows", "n_tokens", "tokens_per_word",
           "ce_clean", "ce_splice", "ce_mean_ablate", "ce_zero_ablate", "recovered_mean", "recovered_zero", "ce_delta",
@@ -66,7 +77,7 @@ def main(argv=None) -> int:
     todo = [(n, L) for n in names for L in a.layers]
     if a.dry_run:
         for n, L in todo:
-            print(f"{n:20s} L{L} {a.width} l0={PILOT_L0.get(L)}  {man[n]['n_docs']} windows, {man[n]['tokens_scored']} tokens")
+            print(f"{n:20s} L{L} {a.width} l0={l0_for(L, a.width)}  {man[n]['n_docs']} windows, {man[n]['tokens_scored']} tokens")
         return 0
     git = provenance.git_state()
     if git["dirty"] and not (a.allow_dirty or a.tiny):
@@ -91,7 +102,12 @@ def main(argv=None) -> int:
     csv_path = run_dir / "fidelity.csv"
     done = set()
     if csv_path.exists():
-        done = {(r["set"], int(r["layer"])) for r in csv.DictReader(csv_path.open())}
+        done = set()
+        for r in csv.DictReader(csv_path.open()):          # a row cut short by a kill is skipped, so the pair is redone
+            try:
+                done.add((r["set"], int(r["layer"])))
+            except (TypeError, ValueError, KeyError):
+                continue
     todo = [t for t in todo if t not in done]
     log.info("E12: %d (set, layer) pairs to do, %d already done; device %s", len(todo), len(done), device)
     if not todo:
@@ -107,7 +123,7 @@ def main(argv=None) -> int:
             sets = [n for n, L in todo if L == layer]
             if not sets:
                 continue
-            sid = SAEId(layer, a.width, PILOT_L0[layer] if not a.tiny else 1, revision=sae_rev)
+            sid = SAEId(layer, a.width, l0_for(layer, a.width) if not a.tiny else 1, revision=sae_rev)
             if a.tiny:
                 sae = load_params(write_random_params(run_dir / "tiny_saes" / f"{sid.key}.npz", 64, 512, seed=layer, thr=0.05), layer, a.width)
             else:
@@ -136,7 +152,7 @@ def main(argv=None) -> int:
     (run_dir / "manifest.json").write_text(json.dumps({
         "exp_id": "E12", "run_hash": run_hash, "status": status, "table": "fidelity.csv", "smoke": False, "tiny": a.tiny,
         "config": {"name": "fidelity_by_language", "identity": ident, "layers": a.layers, "width": a.width,
-                   "pilot_l0": {str(k): v for k, v in PILOT_L0.items()}},
+                   "l0": {str(L): l0_for(L, a.width) for L in a.layers} if not a.tiny else {}},
         "profile": prof.to_dict(), "git": git, "packages": provenance.packages(), "machine": provenance.machine(device),
         "model": spec.key(), "sae_revision": sae_rev, "prompt_sets": {n: {"hash": man[n]["hash"], "file": man[n]["file"], "n": man[n]["n_docs"]} for n in names},
         "seeds": {"bootstrap_seed": 0, "n_boot": a.n_boot}, "timings": {"total_s": round(time.time() - t_start, 1)},

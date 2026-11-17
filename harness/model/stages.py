@@ -61,6 +61,8 @@ def stage1(model, spec: ModelSpec, rows: Sequence[dict], set_hash: str, layers: 
     """Stage-1 fill under writer locks on every entry it writes (concurrent processes: one fills, the others wait and
     then find the shards done)."""
     out_e, span_e = entries_stage1(cache, spec, set_hash, layers)
+    if all(e.complete for e in (out_e, *span_e.values())):
+        return {"clean_out": out_e, "spans": span_e}          # already filled (e.g. by an earlier release): no lock, no wait
     with lock_many([out_e, *span_e.values()]):
         return _stage1_fill(model, spec, rows, set_hash, layers, cache, budget, device, shard_pairs)
 

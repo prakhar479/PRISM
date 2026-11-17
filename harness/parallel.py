@@ -93,9 +93,29 @@ def _available_ram() -> int:
     return 2 ** 50
 
 
+def _cgroup_limit() -> int:
+    """The job's memory limit (Slurm puts each job in a cgroup), or a huge number when there is none."""
+    for f in ("/sys/fs/cgroup/memory.max", "/sys/fs/cgroup/memory/memory.limit_in_bytes"):
+        try:
+            v = Path(f).read_text().strip()
+            if v and v != "max" and int(v) < 2 ** 60:
+                cur = 0
+                for g in ("/sys/fs/cgroup/memory.current", "/sys/fs/cgroup/memory/memory.usage_in_bytes"):
+                    try:
+                        cur = int(Path(g).read_text().strip())
+                        break
+                    except (OSError, ValueError):
+                        continue
+                return max(0, int(v) - cur)
+        except (OSError, ValueError):
+            continue
+    return 2 ** 50
+
+
 def ram_budget() -> int:
+    """0.8 x min(node MemAvailable, room left under the job's cgroup limit): a node can have more free RAM than the job may use."""
     v = os.environ.get("HL_RAM_BUDGET_BYTES")
-    return int(v) if v else int(0.8 * _available_ram())
+    return int(v) if v else int(0.8 * min(_available_ram(), _cgroup_limit()))
 
 
 @contextlib.contextmanager

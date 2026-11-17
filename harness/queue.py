@@ -60,3 +60,27 @@ class Queue:
 
     def configs(self) -> List[str]:
         return [j.config for j in self.jobs if j.kind == "experiment" and j.config]
+
+
+def commit_free(job: "Job") -> bool:
+    """Units whose result does not depend on the code commit: downloads, preflight, and stage 1/2 of experiments
+    (content-addressed caches). Stage-3 workers and finalize write into a run dir whose hash includes the commit; script jobs,
+    bundle and publish record the commit; those must be redone (cheaply: they resume) after a re-tag."""
+    return job.id in ("prefetch", "preflight") or (job.kind == "experiment" and str(job.stage) in ("1", "2"))
+
+
+def done_valid(path, job: "Job", n: int, head: str) -> bool:
+    """Is the `.done` marker at `path` still valid for this commit and unit count?"""
+    import json as _json
+    from pathlib import Path as _P
+    path = _P(path)
+    if not path.exists():
+        return False
+    try:
+        d = _json.loads(path.read_text())
+        d = d if isinstance(d, dict) else {}
+    except ValueError:
+        d = {}                                             # legacy marker: a timestamp only
+    if job.slices and d.get("n") not in (None, n):
+        return False                                       # stage-2 slice i/N from a run with a different N
+    return commit_free(job) or d.get("commit") == head

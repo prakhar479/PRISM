@@ -79,10 +79,19 @@ def pick_device(prof, args) -> torch.device:
     return resolve_device(prof.device)
 
 
+MIN_TRAIN_PAIRS = 20        # fewer train pairs than this: the cell is skipped (recorded), never fitted on a handful of pairs
+
+
+class CellSkip(RuntimeError):
+    """A cell that cannot be computed for a data reason (too few train pairs passing the fit filter, e.g. a language the
+    model cannot do). Stage 3 and finalize record it in the cell's checks and move on; every other error still fails."""
+
+
 class Runner:
     def __init__(self, cfg: ExpConfig, prof: Profile, args) -> None:
         self.cfg, self.prof, self.args = cfg, prof, args
         self.tiny, self.smoke = bool(args.tiny), bool(args.smoke)
+        self.finalizing = False
         self.worker = getattr(args, "worker", None) or Par.worker_id()      # multi-GPU stage-3 worker id
         self.resources: dict = {}                                            # measured machine + resolved autos
         # a dry run plans for the profile's machine without touching any device
@@ -203,7 +212,8 @@ class Runner:
         if d:
             n_src = sum(len(self.cfg.prompt_sets) - 1 if s == "other_task" else 1 for s in d.sources)
             for n in d.conditions:
-                keys += [(n, e, s, r) for e in d.estimators for s in range(n_src) for r in d.ranks]
+                keys += [(n, e, s, r) for e in d.estimators for s in range(n_src) for r in d.ranks
+                         if not (e.startswith("das") and r != int(e[3:])) and not (n.startswith("steer_") and r == 0)]
                 keys += [(n, "random", s, r) for s in range(d.random_seeds) for r in d.ranks if r > 0]
         st_ = self.cfg.subthresh
         if st_:
@@ -352,9 +362,10 @@ class Runner:
         rows = self.rows[task]
         _, fl = self.flags(task)
         tr = T.select(rows, fl, "train", self.cfg.fit_filter, self.n_train, groups=groups)
-        if len(tr) < 2:
-            raise RuntimeError(f"{task} L{layer}: only {len(tr)} train pairs pass {self.cfg.fit_filter}"
-                               + (f" in families {groups}" if groups else ""))
+        need = max(MIN_TRAIN_PAIRS, (max(self.cfg.directions.ranks) + 2) // 2 + 1 if self.cfg.directions else 2)
+        if len(tr) < (2 if (self.tiny or self.smoke) else need):
+            raise CellSkip(f"{task} L{layer}: only {len(tr)} train pairs pass {self.cfg.fit_filter}"
+                           + (f" in families {groups}" if groups else "") + f" (need {need})")
         sp = S.load_spans(self.spans_entry(task, layer), rows, tr, self.sae_entry(task, layer, sid))
         fs = Dr.FitSet(tuple(sp.pair_ids))
         b = Bundle(fs, tr, sp, C.MeanError.fit(fs, sp), C.CovNoise.fit(fs, torch.cat([sp.e_A, sp.e_B]), sp.pair_ids))
@@ -374,7 +385,14 @@ class Runner:
                 elif est == "pca_slot_centered_pairdiff":
                     b.dirs[est] = Dr.pca_slot_centered_pairdiff(fs, sp.pair_ids, sp.e_A - sp.e_B, keys, d.r_max)
                 elif est.startswith("das"):
-                    b.dirs[est] = self.das_direction(task, layer, rows, tr, sp, fs, int(est[3:]))
+                    b.dirs[est] = None                          # filled below, after the cheap estimators
+            das = [e for e in d.estimators if e.startswith("das")]
+            # pass 1: train every rank whose lock is free (other workers take the other ranks: DAS spreads over the GPUs);
+            # pass 2: wait for the ranks another worker is training, then read them from the cache
+            for blocking in (False, True):
+                for est in das:
+                    if b.dirs.get(est) is None:
+                        b.dirs[est] = self.das_direction(task, layer, rows, tr, sp, fs, int(est[3:]), blocking=blocking)
             if any(c.startswith("steer_") for c in d.conditions):
                 b.mean_diff = C.MeanDiff.fit(fs, sp)
             self.save_dirs(task, layer, sid, b, "+".join(fit_families) if fit_families else "")
@@ -394,23 +412,46 @@ class Runner:
         self.bundles[key] = b
         return b
 
-    def das_direction(self, task, layer, rows, tr, sp, fs, k: int) -> Dr.Direction:
+    DAS_VERSION = 1                                     # bump when fit_das changes: old cached rotations are not reused
+
+    def das_direction(self, task, layer, rows, tr, sp, fs, k: int, blocking: bool = True) -> Optional[Dr.Direction]:
         """Rank-k DAS rotation on the train pairs (E9), trained once and kept in the content-addressed cache, so every
-        worker of a run (and every later run with the same train set) uses the identical rotation."""
+        worker of a run (and every later run with the same train set) uses the identical rotation. blocking=False returns
+        None when another worker is training it right now. --finalize-only never trains: a missing rotation is an error."""
+        from harness.cache import fs_type, NETWORK_FS
         from harness.model.das import fit_das
         epochs = 1 if self.tiny or self.smoke else 3
         ent = self.cache.entry("das", spans=self.spans_entry(task, layer).key, fitset=fs.digest, k=int(k), epochs=epochs,
-                               lr=1e-2, seed=int(self.cfg.seed), model=self.spec.key())
-        with ent.writer_lock():
+                               lr=1e-2, seed=int(self.cfg.seed), model=self.spec.key(), version=self.DAS_VERSION)
+
+        def read():
+            U = ent.read_shard(0)["U"].numpy()
+            return Dr.Direction(U, f"das{k}", "same_task", fs.digest, len(tr), None, ent.read_json("info.json"))
+
+        if ent.complete:
+            return read()
+        if self.finalizing:
+            raise RuntimeError(f"finalize: DAS rotation das{k} for {task} L{layer} is not in the cache ({ent.dir}); "
+                               "it is trained by the stage-3 workers, never during finalize")
+        if fs_type(ent.dir).startswith(NETWORK_FS):
+            raise RuntimeError(f"DAS cache {ent.dir} is on {fs_type(ent.dir)}: no reliable lock, so workers could train "
+                               "different rotations; put cache_root on a local disk (profiles/local.yaml)")
+        lock = ent.writer_lock() if blocking else ent.try_writer_lock()
+        with lock as held:
+            if held is False:
+                return None
             ent.open()
             if not ent.complete:
+                log.info("DAS: training das%d for %s L%d on %d train pairs", k, task, layer, len(tr))
                 model = self.load_model()
+                empty_cache()
                 U, info = fit_das(model, layer, rows, tr, sp, k, epochs=epochs, seed=self.cfg.seed, device=self.device)
+                if not np.isfinite(U).all():
+                    raise RuntimeError(f"DAS das{k} for {task} L{layer} diverged (non-finite rotation); not cached")
                 ent.write_shard(0, {"U": torch.from_numpy(U)})
                 ent.write_json("info.json", info)
                 ent.mark_complete(info)
-        U = ent.read_shard(0)["U"].numpy()
-        return Dr.Direction(U, f"das{k}", "same_task", fs.digest, len(tr), None, ent.read_json("info.json"))
+        return read()
 
     def save_dirs(self, task, layer, sid, b: Bundle, fit_tag: str = ""):
         out = self.run_dir / "directions"
@@ -420,9 +461,11 @@ class Runner:
         info = {k: {"estimator": v.estimator, "fit_digest": v.fit_digest, "n_fit_rows": v.n_fit_rows,
                     "evr": None if v.evr is None else [float(x) for x in v.evr[:8]], "meta": v.meta} for k, v in b.dirs.items()}
         ests = list(b.dirs)
+        own = lambda e: int(e[3:]) if e.startswith("das") else None          # DAS columns are unordered: rank k only
         info["_cosines"] = {f"{a}|{c}|r{r}": [float(x) for x in Dr.principal_cosines(b.dirs[a].U[:, :r], b.dirs[c].U[:, :r])]
-                            for i, a in enumerate(ests) for c in ests[i + 1:] for r in (1, 2, 4)
-                            if r <= min(b.dirs[a].U.shape[1], b.dirs[c].U.shape[1])}
+                            for i, a in enumerate(ests) for c in ests[i + 1:] for r in (1, 2, 4, 8)
+                            if r <= min(b.dirs[a].U.shape[1], b.dirs[c].U.shape[1])
+                            and own(a) in (None, r) and own(c) in (None, r)}
         info["_fitset"] = {"digest": b.fitset.digest, "n_pairs": len(b.train_idx), "filter": self.cfg.fit_filter}
         (out / f"{stem}.json").write_text(json.dumps(info, indent=1))
 
@@ -498,8 +541,7 @@ class Runner:
                            slot_error="B" if spec["slot"] == "B" else "meanPos", eps_mean_pos=mean_pos,
                            latents=spec["latents"])
         if spec["kind"] == "dir" and n.startswith("steer_"):
-            md = (spec.get("bundle_md") or bun.mean_diff)
-            return C.steer(test, spec["D"].r(spec["r"]), md.per_row(test), C.STEER_SCALES[n])
+            return C.steer(test, spec["D"].r(spec["r"]), bun.mean_diff.per_row(test), C.STEER_SCALES[n])
         if spec["kind"] == "dir":
             U = spec["D"].r(spec["r"])
             mean_pos = bun.mean_err.per_row(test) if n == "repair_mean" else None
@@ -528,6 +570,7 @@ class Runner:
     def run_stage3(self, compute: bool = True):
         """compute=False (--finalize-only): walk every cell on CPU to rebuild its checks, and require every unit done.
         With a worker id (multi-GPU), units are claimed (O_EXCL) so concurrent workers never compute the same one."""
+        self.finalizing = not compute
         model = None
         parts = self.run_dir / "parts"
         parts.mkdir(parents=True, exist_ok=True)
@@ -546,12 +589,28 @@ class Runner:
             groups = F.expand(cell.task, cell.eval_families) if cell.eval_families else None
             sel = {f: T.select(rows, fl, "test", f, self.n_test, groups=groups, per_group=True) for f in self.cfg.filters}
             te = sorted(set().union(*sel.values()), key=lambda i: (rows[i].get("family", "pilot"), rows[i]["rank"]))
-            bun = self.bundle(cell.task, cell.layer, sid, cell.fit_families)
+            cell_key = f"{cell.task}_{sid.key}{cell.tag()}"
+            try:
+                if len(te) < 2:
+                    raise CellSkip(f"{cell_key}: {len(te)} test pairs")
+                bun = self.bundle(cell.task, cell.layer, sid, cell.fit_families)
+            except CellSkip as e:
+                log.warning("cell %s skipped: %s", cell_key, e)
+                ck = {"cell": cell_key, "role": cell.role, "skipped": str(e)}
+                self.checks.append(ck)
+                atomic_write_text(parts / f"{cell_key}.checks.json", json.dumps(ck, indent=1, default=str))
+                continue
             bun.fitset.assert_disjoint([rows[i]["pair_id"] for i in te])
             test = S.load_spans(self.spans_entry(cell.task, cell.layer), rows, te, self.sae_entry(cell.task, cell.layer, sid))
             donors = {"same": C.select_donors(test.meta, True, self.cfg.seed), "diff": C.select_donors(test.meta, False, self.cfg.seed)}
-            specs = self.cell_specs(cell, sid, test, bun, te)
-            cell_key = f"{cell.task}_{sid.key}{cell.tag()}"
+            try:
+                specs = self.cell_specs(cell, sid, test, bun, te)        # other_task sources may hit a CellSkip too
+            except CellSkip as e:
+                log.warning("cell %s skipped: %s", cell_key, e)
+                ck = {"cell": cell_key, "role": cell.role, "skipped": str(e)}
+                self.checks.append(ck)
+                atomic_write_text(parts / f"{cell_key}.checks.json", json.dumps(ck, indent=1, default=str))
+                continue
             self.record_cell(cell, sid, rows, fl, sel, te, bun, test, parts / f"{cell_key}.checks.json")
             base = self.base_rows(cell, sid, rows, fl, te, cl, test)
             pq = parts / f"{cell_key}__clean.parquet"

@@ -223,7 +223,8 @@ def correct(spec: pd.DataFrame) -> pd.DataFrame:
     """Mark the canonical row per (cell, filter, metric, estimator, r) and add Holm / BH adjusted p-values."""
     spec = spec.copy()
     spec["canonical"] = False
-    rank_cols = CELL + ["filter", "metric", "estimator", "r"]
+    by_family = "family" in spec.columns                 # E11/E14 specs (harness/final.py) carry the evaluation family
+    rank_cols = CELL + (["family"] if by_family else []) + ["filter", "metric", "estimator", "r"]
     spec["_n_ctrl"] = spec["controls"].fillna("").str.count(",") + spec["controls"].fillna("").ne("").astype(int)
     order = spec.sort_values(["n_random_seeds", "_n_ctrl"], ascending=False)
     spec.loc[order.drop_duplicates(rank_cols).index, "canonical"] = True
@@ -232,7 +233,7 @@ def correct(spec: pd.DataFrame) -> pd.DataFrame:
     spec["p_bh"] = np.nan
     if "p_margin" not in spec:
         spec["p_margin"] = np.nan
-    fam_cols = ["filter", "metric", "estimator", "r"]
+    fam_cols = (["task"] if by_family else []) + ["filter", "metric", "estimator", "r"]   # addendum D: BH within each task
     eligible = spec.canonical & spec.p_margin.notna() & spec.get("base_gap_resolved", True)
     for _, fam in spec[eligible].groupby(fam_cols):
         conf = fam[fam.role == "confirmatory"]

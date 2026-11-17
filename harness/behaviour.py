@@ -89,10 +89,11 @@ def summarize(task: str, rows: Sequence[dict], s: Dict[str, np.ndarray], min_log
 
 def add_gate_b(table: List[dict]) -> None:
     """Gate B per (task, family): |acc - acc of the English family of the same task| <= 0.10 (English rows: n/a)."""
-    en = {r["task"]: r["acc_clean"] for r in table if r["lang"] == "en"}
+    en = {(r["task"], r.get("split", "test")): r["acc_clean"] for r in table if r["lang"] == "en"}
     for r in table:
-        if r["lang"] == "en" or r["task"] not in en:
+        key = (r["task"], r.get("split", "test"))                 # compare within the same split
+        if r["lang"] == "en" or key not in en:
             r["acc_gap_vs_en"], r["gate_B_within_10pts"] = (0.0, "n/a (English)") if r["lang"] == "en" else (float("nan"), "no English row")
         else:
-            r["acc_gap_vs_en"] = r["acc_clean"] - en[r["task"]]
+            r["acc_gap_vs_en"] = r["acc_clean"] - en[key]
             r["gate_B_within_10pts"] = bool(abs(r["acc_gap_vs_en"]) <= GATE_B_POINTS)

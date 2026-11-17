@@ -65,12 +65,28 @@ def condition_table(g: pd.DataFrame, flt: str, n_boot: int = 2000, seed: int = 0
     return rows
 
 
+def config_role(m: dict, task: str, layer: int, sae: str, fit: str, family: str) -> str:
+    """The `role` the experiment's config gives this cell (E9/E10 make only RS L18 confirmatory; bonus and E14 cells are
+    exploratory). Matched on task, layer, SAE width, fit families and evaluation family; falls back to E8's rule."""
+    from harness import families as F
+    width = str(sae).split("_")[1] if "_" in str(sae) else ""
+    for c in (m.get("config") or {}).get("cells", []):
+        if c["task"] != task or int(c["layer"]) != int(layer) or str((c.get("sae") or {}).get("width")) != width:
+            continue
+        if ("+".join(c.get("fit_families") or []) or "pilot") != fit:
+            continue
+        ev = c.get("eval_families")
+        groups = F.expand(task, ev) if ev else ["pilot"]
+        if family in groups or (not ev and family == "pilot"):
+            return c.get("role", "exploratory")
+    return E.role_of(task, layer, sae, fit)
+
+
 def run_table(m: dict, pp: pd.DataFrame, filters: Sequence[str], n_boot: int = 2000) -> pd.DataFrame:
     pp = eval_group(pp)
     out = []
     for cell, g in pp.groupby(GROUP, sort=False):
-        prov = {"exp_id": m["exp_id"], "run_hash": m["run_hash"], **dict(zip(GROUP, cell)),
-                "role": E.role_of(cell[0], cell[1], cell[2], "pilot" if cell[3] in ("pilot", None) else cell[3])}
+        prov = {"exp_id": m["exp_id"], "run_hash": m["run_hash"], **dict(zip(GROUP, cell)), "role": config_role(m, *cell)}
         for flt in filters:
             out += [{**prov, **r} for r in condition_table(g, flt, n_boot, m["config"].get("seed", 0))]
     return pd.DataFrame(out)

@@ -13,7 +13,8 @@ cannot change any preregistered answer (DECISIONS.md 2026-11-18). Each experimen
 | E20 | Does the E9 picture (error-U ineffective, DAS feature-mediated) hold for wider SAEs at matched L0? | RS L18 65k, OT L12 65k / 262k | ~7 |
 | E21 | Does the multilingual fidelity deficit (M1) shrink with a 4x wider SAE at matched L0? | 12 language sets + English, L12 and L18, 65k | ~6.5 |
 | E22 | Is the subspace DAS finds in English the one the model uses in fr / hi / Hinglish? (descriptive: M2/M3 were untestable) | RS L18, PC L12, native vs English fit | ~8 |
-| | **total** | | **~50 GPU-h, ~13-15 h on 4 GPUs** (estimate from the final pass's per-condition cost, +-50 %; 72 h limit) |
+| E23 | On identical sentences, native script and romanized text have the same SAE error size (FVU) but native script costs the model 1.5-4x more loss (deep analysis 2026-11-18): is that the error's DIRECTION or the context's general fragility? Norm-matched noise controls (x_hat + eta, x + eta, \|eta\| = \|eps\| per token) and per-token NLLs. E21 gets the same controls at 65k | 7 language sets + English, 16k, L12 and L18 | ~8 (+3 for E21's controls) |
+| | **total** | | **~62 GPU-h, ~16-18 h on 4 GPUs** (estimate from the final pass's per-condition cost, +-50 %; 72 h limit) |
 
 New downloads: ~8 GB (65k SAEs at L12 and L18, 262k at L12). Everything else is a cache hit from the final pass.
 
@@ -59,7 +60,8 @@ git add -f results_server && git commit -m "final exploratory results"
 git push -u origin HEAD
 ```
 
-If a `*_fin` job failed, also `git add -f runs/E17 runs/E18 runs/E19 runs/E20 runs/E22 runs/E12 runs/_queue` before committing.
+If a `*_fin` job failed, also `git add -f runs/E17 runs/E18 runs/E19 runs/E20 runs/E22 runs/E12 runs/_queue` before committing
+(E21 and E23 write E12-style runs under `runs/E12/`; the per-token arrays make those run folders ~10-40 MB each).
 Send DEV the branch name. After DEV confirms: `bash scripts/slurm_final.sbatch --clean-full` on gnode084.
 
 ## What DEV does with it

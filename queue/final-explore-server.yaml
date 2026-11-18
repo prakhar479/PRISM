@@ -4,7 +4,8 @@
 #   sbatch scripts/slurm_final.sbatch            (defaults: gnode084, 4 GPUs, this queue)
 #   E17 DAS robustness (RS L18)            E18 rank up to 64 + DAS on people-cities     E19 steering dose 0.25-16
 #   E20 illusion checks at 65k / 262k      E21 multilingual fidelity at 65k            E22 multilingual DAS transfer
-# Estimated ~50 GPU-hours (about 13-15 h on 4 GPUs); new downloads ~8 GB (65k L12, 65k L18, 262k L12 for E20).
+#   E23 multilingual fidelity with norm-matched noise controls + per-token NLLs (size vs direction of the SAE error)
+# Estimated ~62 GPU-hours (about 16-18 h on 4 GPUs); new downloads ~8 GB (65k L12, 65k L18, 262k L12 for E20).
 # (E21 at 262k was left out: on 11 GB GPUs a float32 262k SAE leaves room for only a few windows per batch.)
 tag: final-explore-server
 profile: server
@@ -39,15 +40,25 @@ jobs:
   - {id: E22_s3, config: configs/experiments/E22.yaml, stage: "3", workers: auto, priority: 5, depends_on: [E22_s2]}
 
   # ---- E21: multilingual fidelity with wider SAEs at L0 matched to the 16k pilot variants (scripts/run_fidelity.py)
-  - {id: E21_en, kind: script, script: scripts/run_fidelity.py, gpu: one, priority: 6, args: [--sets, "en_pilot100,en_pile", --layers, "12", "18", --width, 65k, --l0-rule, match16k], depends_on: [preflight]}
-  - {id: E21_hi_deva_web, kind: script, script: scripts/run_fidelity.py, gpu: one, priority: 6, args: [--sets, hi_deva_web, --layers, "12", "18", --width, 65k, --l0-rule, match16k], depends_on: [preflight]}
-  - {id: E21_fr_web, kind: script, script: scripts/run_fidelity.py, gpu: one, priority: 6, args: [--sets, fr_web, --layers, "12", "18", --width, 65k, --l0-rule, match16k], depends_on: [preflight]}
-  - {id: E21_hinglish, kind: script, script: scripts/run_fidelity.py, gpu: one, priority: 6, args: [--sets, hinglish_phinc, --layers, "12", "18", --width, 65k, --l0-rule, match16k], depends_on: [preflight]}
-  - {id: E21_hi_dakshina, kind: script, script: scripts/run_fidelity.py, gpu: one, priority: 6, args: [--sets, "hi_deva_dakshina,hi_latn_dakshina", --layers, "12", "18", --width, 65k, --l0-rule, match16k], depends_on: [preflight]}
-  - {id: E21_ta_web, kind: script, script: scripts/run_fidelity.py, gpu: one, priority: 4, args: [--sets, ta_web, --layers, "12", "18", --width, 65k, --l0-rule, match16k], depends_on: [preflight]}
-  - {id: E21_bn_web, kind: script, script: scripts/run_fidelity.py, gpu: one, priority: 4, args: [--sets, bn_web, --layers, "12", "18", --width, 65k, --l0-rule, match16k], depends_on: [preflight]}
-  - {id: E21_ta_dakshina, kind: script, script: scripts/run_fidelity.py, gpu: one, priority: 4, args: [--sets, "ta_taml_dakshina,ta_latn_dakshina", --layers, "12", "18", --width, 65k, --l0-rule, match16k], depends_on: [preflight]}
-  - {id: E21_bn_dakshina, kind: script, script: scripts/run_fidelity.py, gpu: one, priority: 4, args: [--sets, "bn_beng_dakshina,bn_latn_dakshina", --layers, "12", "18", --width, 65k, --l0-rule, match16k], depends_on: [preflight]}
+  - {id: E21_en, kind: script, script: scripts/run_fidelity.py, gpu: one, priority: 6, args: [--sets, "en_pilot100,en_pile", --layers, "12", "18", --width, 65k, --l0-rule, match16k, --extras], depends_on: [preflight]}
+  - {id: E21_hi_deva_web, kind: script, script: scripts/run_fidelity.py, gpu: one, priority: 6, args: [--sets, hi_deva_web, --layers, "12", "18", --width, 65k, --l0-rule, match16k, --extras], depends_on: [preflight]}
+  - {id: E21_fr_web, kind: script, script: scripts/run_fidelity.py, gpu: one, priority: 6, args: [--sets, fr_web, --layers, "12", "18", --width, 65k, --l0-rule, match16k, --extras], depends_on: [preflight]}
+  - {id: E21_hinglish, kind: script, script: scripts/run_fidelity.py, gpu: one, priority: 6, args: [--sets, hinglish_phinc, --layers, "12", "18", --width, 65k, --l0-rule, match16k, --extras], depends_on: [preflight]}
+  - {id: E21_hi_dakshina, kind: script, script: scripts/run_fidelity.py, gpu: one, priority: 6, args: [--sets, "hi_deva_dakshina,hi_latn_dakshina", --layers, "12", "18", --width, 65k, --l0-rule, match16k, --extras], depends_on: [preflight]}
+  - {id: E21_ta_web, kind: script, script: scripts/run_fidelity.py, gpu: one, priority: 4, args: [--sets, ta_web, --layers, "12", "18", --width, 65k, --l0-rule, match16k, --extras], depends_on: [preflight]}
+  - {id: E21_bn_web, kind: script, script: scripts/run_fidelity.py, gpu: one, priority: 4, args: [--sets, bn_web, --layers, "12", "18", --width, 65k, --l0-rule, match16k, --extras], depends_on: [preflight]}
+  - {id: E21_ta_dakshina, kind: script, script: scripts/run_fidelity.py, gpu: one, priority: 4, args: [--sets, "ta_taml_dakshina,ta_latn_dakshina", --layers, "12", "18", --width, 65k, --l0-rule, match16k, --extras], depends_on: [preflight]}
+  - {id: E21_bn_dakshina, kind: script, script: scripts/run_fidelity.py, gpu: one, priority: 4, args: [--sets, "bn_beng_dakshina,bn_latn_dakshina", --layers, "12", "18", --width, 65k, --l0-rule, match16k, --extras], depends_on: [preflight]}
+
+  # ---- E23: is the native-script cost of SAE error about its SIZE or its DIRECTION? 16k, L12 and L18, with norm-matched
+  #      noise controls (x_hat + eta, x + eta; |eta| = |eps| per token) and per-token NLLs (scripts/run_fidelity.py --extras --tokens)
+  - {id: E23_en, kind: script, script: scripts/run_fidelity.py, gpu: one, priority: 7, args: [--sets, en_pile, --layers, "12", "18", --extras, --tokens], depends_on: [preflight]}
+  - {id: E23_hi_deva_web, kind: script, script: scripts/run_fidelity.py, gpu: one, priority: 7, args: [--sets, hi_deva_web, --layers, "12", "18", --extras, --tokens], depends_on: [preflight]}
+  - {id: E23_hi_dakshina, kind: script, script: scripts/run_fidelity.py, gpu: one, priority: 7, args: [--sets, "hi_deva_dakshina,hi_latn_dakshina", --layers, "12", "18", --extras, --tokens], depends_on: [preflight]}
+  - {id: E23_ta_dakshina, kind: script, script: scripts/run_fidelity.py, gpu: one, priority: 7, args: [--sets, "ta_taml_dakshina,ta_latn_dakshina", --layers, "12", "18", --extras, --tokens], depends_on: [preflight]}
+  - {id: E23_bn_dakshina, kind: script, script: scripts/run_fidelity.py, gpu: one, priority: 7, args: [--sets, "bn_beng_dakshina,bn_latn_dakshina", --layers, "12", "18", --extras, --tokens], depends_on: [preflight]}
+  - {id: E23_fr_web, kind: script, script: scripts/run_fidelity.py, gpu: one, priority: 6, args: [--sets, fr_web, --layers, "12", "18", --extras, --tokens], depends_on: [preflight]}
+  - {id: E23_hinglish, kind: script, script: scripts/run_fidelity.py, gpu: one, priority: 6, args: [--sets, hinglish_phinc, --layers, "12", "18", --extras, --tokens], depends_on: [preflight]}
 
   # ---- finalize (CPU)
   - {id: E17_fin, config: configs/experiments/E17.yaml, stage: "3", gpu: none, args: [--finalize-only], depends_on: [E17_s3]}
@@ -56,5 +67,5 @@ jobs:
   - {id: E20_fin, config: configs/experiments/E20.yaml, stage: "3", gpu: none, args: [--finalize-only], depends_on: [E20_s3]}
   - {id: E22_fin, config: configs/experiments/E22.yaml, stage: "3", gpu: none, args: [--finalize-only], depends_on: [E22_s3]}
 
-  - {id: bundle, kind: script, script: scripts/bundle_results.py, args: [--tag, final-explore-server, --queue, queue/final-explore-server.yaml], after_failed: true, depends_on: [E17_fin, E18_fin, E19_fin, E20_fin, E22_fin, E21_en, E21_hi_deva_web, E21_fr_web, E21_hinglish, E21_hi_dakshina, E21_ta_web, E21_bn_web, E21_ta_dakshina, E21_bn_dakshina]}
+  - {id: bundle, kind: script, script: scripts/bundle_results.py, args: [--tag, final-explore-server, --queue, queue/final-explore-server.yaml], after_failed: true, depends_on: [E17_fin, E18_fin, E19_fin, E20_fin, E22_fin, E21_en, E21_hi_deva_web, E21_fr_web, E21_hinglish, E21_hi_dakshina, E21_ta_web, E21_bn_web, E21_ta_dakshina, E21_bn_dakshina, E23_en, E23_hi_deva_web, E23_hi_dakshina, E23_ta_dakshina, E23_bn_dakshina, E23_fr_web, E23_hinglish]}
   - {id: publish, kind: script, script: scripts/publish_results.py, args: [--tag, final-explore-server, --queue, queue/final-explore-server.yaml], after_failed: true, depends_on: [bundle]}

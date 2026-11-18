@@ -474,3 +474,19 @@ pilot's variants at L12/L18; E13 train split) + final pass + exploratory E9b, E1
 along-U / repair with DAS rank 1/2/4 at L12, L14, L16, L20). scripts/slurm_final.sbatch runs it by default.
 Not changed (noted): the run-side quick summary.csv pools E14's languages (analysis uses make_final, which does not); each
 load_spans reads a whole span cache (~5 GiB host RAM per call for the e13 OT set; fits 96 GB with 3 workers).
+
+## 2026-11-18: final pass ingested (untagged commit accepted), tables and analysis
+- The complete-server queue ran on gnode084 (4 GPUs) instead of gnode074: the operator committed a 2-line change of the
+  `#SBATCH --nodelist/--gres` lines on the server, so every run carries commit 14e7e1f (= run-20261117-2 + that commit; harness
+  code identical). Accepted with `--allow-untagged`; the gap is logged per run in runs/_ingested.jsonl. In future, node and GPU
+  count are given on the sbatch command line (they override the #SBATCH lines), never by committing on the server.
+- New scripts/ingest_published.py: ingest of a published results directory (results_server/<tag>/ on a results/* branch), with
+  the checks of ingest_results.py (sha256 of every file against PUBLISHED.json, schemas, tag, no smoke/tiny/dirty runs, no
+  conflicting duplicates). 32 runs merged, 0 errors.
+- Tables: tables/final/ (make_e12, make_e13, make_final, n_boot 10 000); tables/ updated to the release-2 versions that were read
+  on 2026-11-16/17 (E4_width_persistence, E8_*, RQ1_gate). Analysis of record: analysis/final_pass_results.md (numbers copied from
+  the tables, decisions by the frozen addendum rules). Release-2 exploratory digests moved into analysis/release2/.
+- Read under the frozen rules: E9 RS L18 error-derived U not effective at r <= 8; DAS-4/8 effective with both the illusion and the
+  feature-mediated flags true (the two rules are not mutually exclusive; both are reported, neither is redefined); DAS-1/2 failed
+  fits. E10 Q2 not met. M1 supported everywhere. Only pc_fr passes both gates, so M2 is testable only there (not supported) and
+  M3 has no usable row. These are the answers of record; any later exploratory run cannot change them.

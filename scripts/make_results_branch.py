@@ -103,14 +103,20 @@ commit above. Do not edit here; regenerate.
 
 ## Preregistered vs exploratory
 Preregistered (PREREGISTRATION.md): RQ1 gate (`tables/RQ1_gate.*`, rows marked `gate`), repair specificity (`tables/E8_*`,
-confirmatory cells), width persistence (`tables/E4_width_persistence.csv`, rows with `prereg_row = True`). Everything else is
-exploratory or descriptive. GO / NO-GO decisions are the humans' and are not recorded in the tables.
+confirmatory cells), width persistence (`tables/E4_width_persistence.csv`, rows with `prereg_row = True`). Under
+PREREGISTRATION_ADDENDUM.md (frozen 2026-11-16): E9 running sum L18 (`tables/final/E9_illusion.csv`, role confirmatory), E10 Q2
+running sum L18 (`tables/final/E10_steering.csv`, `q2_both`), M1 (`tables/final/E12_fidelity_lang.csv`), the capability gates
+(`tables/final/E13_behaviour_lang.csv`, test split), M2/M3 on readable rows (`tables/final/E14_lang_gap.csv`,
+`E14_m3_transfer.csv`; all multilingual work is exploratory by the addendum). Everything else is exploratory or descriptive.
+GO / NO-GO decisions are the humans' and are not recorded in the tables. Written analysis: `analysis/final_pass_results.md`.
 
 ## Provenance notes
 - Release 2 (E3, E4, E5, E8) was computed on gnode077 at commit 31713f8 (= tag run-20261114-1 + a 2-line sbatch change) and
   finalized on DEV from the committed parts because the server's CPU finalize jobs failed; see each manifest's `finalize_note`
   and `finalize_checks`, and DECISIONS.md (2026-11-16).
 - PREREGISTRATION.md was still unfrozen when the release-2 results were first read (DECISIONS.md 2026-11-16).
+- Release 3 + final pass (E9-E16, queue complete-server) ran on gnode084 (4 GPUs) at commit 14e7e1f = tag run-20261117-2 + a
+  2-line `#SBATCH` node/GPU change; ingested with --allow-untagged (DECISIONS.md 2026-11-18). Finalized on the server.
 """
 
 
@@ -126,9 +132,9 @@ def main() -> int:
     src = git("rev-parse", "HEAD").strip()
     src_branch = git("rev-parse", "--abbrev-ref", "HEAD").strip()
     files, index = collect_runs(Path(a.runs))
-    for f in sorted(Path(a.tables).glob("*")):
+    for f in sorted(Path(a.tables).rglob("*")):
         if f.is_file():
-            files.append((f, Path("tables") / f.name))
+            files.append((f, Path("tables") / f.relative_to(a.tables)))
     if a.analysis:
         for f in sorted(Path(a.analysis).rglob("*")):
             if f.is_file():

@@ -12,7 +12,7 @@
 # Read docs/FINAL_EXPLORE_RUNBOOK.md first (before / during / after). The node matters: the final pass's activation caches and
 # DAS rotations are on gnode084's node-local /ssd_scratch, and this run reuses them there.
 #SBATCH --job-name=prism-final
-#SBATCH --nodelist=gnode084
+#SBATCH --nodelist=gnode058
 #SBATCH --gres=gpu:4
 #SBATCH --cpus-per-task=16
 #SBATCH --mem=96G

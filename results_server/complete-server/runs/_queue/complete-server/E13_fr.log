@@ -1,0 +1,13 @@
+
+=== attempt 1 2026-11-17 14:51:59 slots=['3']: /home2/raveeshvyas1410/prism-run/.venv-harness/bin/python scripts/run_behaviour.py --langs fr
+2026-11-17 14:52:07,210 INFO E13: 3 families to do, 0 done; device cuda:0
+Loading weights:   0%|          | 0/288 [00:00<?, ?it/s]Loading weights:   0%|          | 1/288 [00:00<02:16,  2.10it/s]Loading weights:  97%|█████████▋| 278/288 [00:00<00:00, 636.30it/s]Loading weights: 100%|██████████| 288/288 [00:00<00:00, 496.17it/s]
+2026-11-17 14:52:19,941 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-17 14:52:20,509 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-17 14:52:20,841 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-17 14:52:22,249 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-17 15:01:13,274 INFO entity_track ot_fr: acc 0.632 keep(clean_only) 0.012 viable False (515s)
+2026-11-17 15:03:17,289 INFO add_chain rs_fr: acc 0.802 keep(clean_only) 0.789 viable True (124s)
+2026-11-17 15:06:04,339 INFO people_cities pc_fr: acc 0.996 keep(clean_only) 0.996 viable True (167s)
+2026-11-17 15:06:04,438 INFO E13 066f28f2b804 -> /home2/raveeshvyas1410/prism-run/runs/E13/066f28f2b804 (complete)
+Loaded pretrained model gemma-2-2b into HookedTransformer

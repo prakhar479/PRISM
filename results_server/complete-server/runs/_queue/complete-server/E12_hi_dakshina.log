@@ -1,0 +1,14 @@
+
+=== attempt 1 2026-11-17 21:12:51 slots=['1']: /home2/raveeshvyas1410/prism-run/.venv-harness/bin/python scripts/run_fidelity.py --sets hi_deva_dakshina,hi_latn_dakshina --layers 12 18
+2026-11-17 21:12:54,332 INFO E12: 4 (set, layer) pairs to do, 0 already done; device cuda:0
+Loading weights:   0%|          | 0/288 [00:00<?, ?it/s]Loading weights:   0%|          | 1/288 [00:00<01:58,  2.42it/s]Loading weights:  32%|███▏      | 91/288 [00:05<00:12, 15.55it/s]Loading weights:  85%|████████▌ | 245/288 [00:08<00:01, 35.38it/s]Loading weights:  88%|████████▊ | 253/288 [00:09<00:01, 28.94it/s]Loading weights:  89%|████████▉ | 256/288 [00:11<00:01, 20.43it/s]Loading weights:  90%|████████▉ | 258/288 [00:12<00:01, 16.07it/s]Loading weights:  93%|█████████▎| 268/288 [00:12<00:01, 15.79it/s]Loading weights: 100%|██████████| 288/288 [00:12<00:00, 22.31it/s]
+2026-11-17 21:13:13,936 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-17 21:13:14,214 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-17 21:13:14,484 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-17 21:13:15,969 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-17 21:29:19,054 INFO hi_deva_dakshina L12: CE clean 2.983 splice 3.265, recovered(mean) 0.932 [0.932, 0.933], FVU 0.332  (943s)
+2026-11-17 21:45:03,375 INFO hi_latn_dakshina L12: CE clean 5.016 splice 5.132, recovered(mean) 0.966 [0.965, 0.966], FVU 0.344  (944s)
+2026-11-17 22:00:49,160 INFO hi_deva_dakshina L18: CE clean 2.983 splice 3.346, recovered(mean) 0.912 [0.911, 0.913], FVU 0.287  (945s)
+2026-11-17 22:16:34,522 INFO hi_latn_dakshina L18: CE clean 5.016 splice 5.256, recovered(mean) 0.927 [0.926, 0.929], FVU 0.292  (945s)
+2026-11-17 22:16:34,953 INFO E12 0e34af4c795e -> /home2/raveeshvyas1410/prism-run/runs/E12/0e34af4c795e (complete)
+Loaded pretrained model gemma-2-2b into HookedTransformer

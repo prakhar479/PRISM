@@ -1,0 +1,3 @@
+
+=== attempt 1 2026-11-17 15:16:50 slots=['1']: /home2/raveeshvyas1410/prism-run/.venv-harness/bin/python -m harness.run --config configs/experiments/E14.yaml --profile server --stage 2 --stage2-slice 3/4
+2026-11-17 15:16:59,050 INFO E14 -> /home2/raveeshvyas1410/prism-run/runs/E14/395b811b9c51 (stage2_complete)

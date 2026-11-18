@@ -1,0 +1,18 @@
+2026-11-18 03:11:26,945 INFO DAS: training das1 for add_chain L18 on 300 train pairs
+2026-11-18 03:11:33,388 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-18 03:11:33,645 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-18 03:11:33,893 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-18 03:11:35,678 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-18 03:16:56,173 INFO DAS: training das8 for add_chain L18 on 300 train pairs
+2026-11-18 03:25:41,009 INFO add_chain_L18_16k_l074__fit-pilot__eval-fresh unit 3/36 (8 conditions, 217.5s)
+2026-11-18 03:29:18,916 INFO add_chain_L18_16k_l074__fit-pilot__eval-fresh unit 4/36 (8 conditions, 217.3s)
+2026-11-18 03:32:56,654 INFO add_chain_L18_16k_l074__fit-pilot__eval-fresh unit 7/36 (8 conditions, 217.3s)
+2026-11-18 03:36:34,377 INFO add_chain_L18_16k_l074__fit-pilot__eval-fresh unit 10/36 (8 conditions, 217.3s)
+2026-11-18 03:40:12,164 INFO add_chain_L18_16k_l074__fit-pilot__eval-fresh unit 13/36 (8 conditions, 217.4s)
+2026-11-18 03:43:49,880 INFO add_chain_L18_16k_l074__fit-pilot__eval-fresh unit 16/36 (8 conditions, 217.3s)
+2026-11-18 03:47:27,779 INFO add_chain_L18_16k_l074__fit-pilot__eval-fresh unit 19/36 (8 conditions, 217.5s)
+2026-11-18 03:51:05,654 INFO add_chain_L18_16k_l074__fit-pilot__eval-fresh unit 23/36 (8 conditions, 217.5s)
+2026-11-18 03:54:43,525 INFO add_chain_L18_16k_l074__fit-pilot__eval-fresh unit 27/36 (8 conditions, 217.4s)
+2026-11-18 03:58:21,306 INFO add_chain_L18_16k_l074__fit-pilot__eval-fresh unit 31/36 (8 conditions, 217.3s)
+2026-11-18 04:01:59,139 INFO add_chain_L18_16k_l074__fit-pilot__eval-fresh unit 35/36 (8 conditions, 217.3s)
+2026-11-18 04:01:59,332 INFO E9b -> /home2/raveeshvyas1410/prism-run/runs/E9b/99ff6baa3969 (worker_done)

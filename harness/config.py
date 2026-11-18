@@ -3,17 +3,43 @@
 more filters, with every fitted object fitted on train pairs selected by `fit_filter`."""
 from __future__ import annotations
 
+import re
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
 from typing import Dict, List, Optional
 
 import yaml
 
-from harness.conditions import CONDITIONS
+from harness.conditions import CONDITIONS, is_steer
 from harness.tasks import FILTERS
 
 ESTIMATORS = ("pca_pooled", "answer_sep", "pca_pos_centered", "pca_slot_centered_pairdiff", "das1", "das2", "das4", "das8")
 U_CONDITIONS = ("repair", "repair_mean", "feat_A_along_U", "full_along_U", "steer_x1", "steer_x2", "steer_x4")
+DAS_DEFAULTS = {"epochs": 3, "lr": 1e-2}          # E9/E10/E16 rotations (cache keys unchanged for plain das<k>)
+_DAS_RE = re.compile(r"^das(\d+)(?:_e(\d+))?(?:_lr([0-9.]+e-?\d+|[0-9.]+))?(?:_s(\d+))?$")
+
+
+def parse_das(name: str) -> Optional[dict]:
+    """das<k>[_e<epochs>][_lr<lr>][_s<seed>] -> {k, epochs, lr, seed (None = the config seed)}; None if not a DAS estimator.
+    Plain das<k> is the E9 setting (3 epochs, lr 1e-2, config seed). The variants (E17) only change training."""
+    m = _DAS_RE.match(name)
+    if not m or int(m.group(1)) < 1:
+        return None
+    return {"k": int(m.group(1)), "epochs": int(m.group(2)) if m.group(2) else DAS_DEFAULTS["epochs"],
+            "lr": float(m.group(3)) if m.group(3) else DAS_DEFAULTS["lr"], "seed": int(m.group(4)) if m.group(4) else None}
+
+
+def das_rank(name: str) -> Optional[int]:
+    d = parse_das(name)
+    return d["k"] if d else None
+
+
+def is_estimator(name: str) -> bool:
+    return name in ESTIMATORS or parse_das(name) is not None
+
+
+def is_u_condition(name: str) -> bool:
+    return name in U_CONDITIONS or is_steer(name)
 ROLES = ("confirmatory", "exploratory")
 
 
@@ -150,14 +176,14 @@ class ExpConfig:
             if f not in FILTERS:
                 errs.append(f"unknown filter {f}")
         for n in self.conditions:
-            if n not in CONDITIONS or n in U_CONDITIONS or n == "subthresh":
+            if n not in CONDITIONS or is_u_condition(n) or n == "subthresh":
                 errs.append(f"condition {n} is unknown or belongs under directions")
         if self.directions:
             for n in self.directions.conditions:
-                if n not in U_CONDITIONS:
+                if not is_u_condition(n):
                     errs.append(f"direction condition {n}")
             for e in self.directions.estimators:
-                if e not in ESTIMATORS:
+                if not is_estimator(e):
                     errs.append(f"estimator {e}")
             for s in self.directions.sources:
                 if s not in ("same_task", "other_task", "generic") and not s.startswith("layer:"):

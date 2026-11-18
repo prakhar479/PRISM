@@ -1,0 +1,34 @@
+# E18 (exploratory, post hoc 2026-11-18): rank. E9 tested error-derived U only up to r = 8 (never effective for running sum) and
+# E11 found the people-cities gap (13-34 NLDR points, L8-16) closed by <= 6 % at r <= 4: is the missing information
+# higher-rank? Error estimators at r up to 64, DAS up to rank 16, on running sum L18, object tracking L12 and people-cities L12
+# and L16 (E11's largest-gap layer; DAS on people-cities is new).
+exp_id: E18
+name: rank_extension
+description: >-
+  feat_A_along_U, full_along_U and repair with pca_pooled / answer_sep at r in {1, 2, 4, 8, 16, 32, 64} and DAS rank 1, 2, 4, 8,
+  16 (DAS evaluated at its own rank), 20 random U per rank, on RS L18, OT L12 (pilot templates) and people-cities L12, L16 (pc_en).
+model_revision: c5ebcd40d208330abc697524c919956e692655cf
+prompt_sets: {add_chain: prompt_sets/add_chain_pilot.jsonl.gz, entity_track: prompt_sets/entity_track_pilot.jsonl.gz,
+              people_cities: prompt_sets/people_cities_en.jsonl.gz}
+cells:
+  - {task: add_chain, layer: 18, sae: {width: 16k}, role: exploratory}
+  - {task: entity_track, layer: 12, sae: {width: 16k}, role: exploratory}
+  - {task: people_cities, layer: 12, sae: {width: 16k}, role: exploratory, fit_families: [pc_en], eval_families: [pc_en]}
+  - {task: people_cities, layer: 16, sae: {width: 16k}, role: exploratory, fit_families: [pc_en], eval_families: [pc_en]}
+n_train: 300
+n_test: 150
+filters: [f_none, f_A_correct, f_pilot]
+fit_filter: f_pilot
+conditions: [feat_A_errB, feat_A_meanPos]
+noise_seeds: [0]
+directions:
+  conditions: [feat_A_along_U, full_along_U, repair]
+  ranks: [0, 1, 2, 4, 8, 16, 32, 64]
+  estimators: [pca_pooled, answer_sep, das1, das2, das4, das8, das16]
+  sources: [same_task]
+  random_seeds: 20
+  r_max: 64
+bootstrap: 1000
+seed: 0
+notes:
+  - "Alignment at r = 16, 32, 64 uses harness/final.py HAAR_P99_EXPLORATORY (same Monte Carlo as the frozen k <= 8 values)."

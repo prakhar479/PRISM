@@ -29,11 +29,17 @@ from harness.profile import REPO_ROOT, load_profile
 PILOT_L0 = {12: 82, 18: 74}                  # 16k pilot variants (configs/experiments/E4.yaml confirmatory cells)
 
 
-def l0_for(layer: int, width: str) -> int:
+def l0_for(layer: int, width: str, rule: str = "canonical") -> int:
     """Gemma Scope's canonical variant (average L0 closest to 100) from configs/sae_inventory.json; equals the pilot's variant
-    at L12 and L18 (checked), so other layers (E12 depth profile) use the same rule."""
+    at L12 and L18 (checked), so other layers (E12 depth profile) use the same rule. rule="match16k" (E21, wider SAEs): the
+    variant whose L0 is closest in log ratio to the 16k pilot variant of that layer (E4's "closest" rule), so width changes
+    and L0 stays matched."""
+    import math
     from harness.sae import canonical_l0
     inv = json.loads((REPO_ROOT / "configs" / "sae_inventory.json").read_text())["inventory"]
+    if rule == "match16k":
+        target = PILOT_L0.get(layer) or canonical_l0(inv[str(layer)]["16k"])
+        return min(inv[str(layer)][width], key=lambda v: (abs(math.log(v / target)), v))
     l0 = canonical_l0(inv[str(layer)][width])
     if layer in PILOT_L0 and width == "16k" and l0 != PILOT_L0[layer]:
         raise SystemExit(f"inventory canonical L0 {l0} != pilot {PILOT_L0[layer]} at L{layer}")
@@ -52,6 +58,8 @@ def main(argv=None) -> int:
     ap.add_argument("--sets", default="all", help="comma list of data/lang set names, or all")
     ap.add_argument("--layers", type=int, nargs="+", default=[12, 18])
     ap.add_argument("--width", default="16k")
+    ap.add_argument("--l0-rule", default="canonical", choices=["canonical", "match16k"],
+                    help="which L0 variant of --width: canonical (closest to 100) or match16k (closest to the 16k pilot L0; E21)")
     ap.add_argument("--n-windows", type=int, default=None, help="use only the first N windows of each set")
     ap.add_argument("--lang-dir", default=str(REPO_ROOT / "data" / "lang"))
     ap.add_argument("--tiny", action="store_true")
@@ -71,13 +79,14 @@ def main(argv=None) -> int:
     import hashlib
     sae_rev = json.loads((REPO_ROOT / "configs" / "sae_inventory.json").read_text())["revision"]
     ident = {"exp": "E12", "model": MODEL_REVISION, "sae_revision": sae_rev, "width": a.width, "layers": a.layers,
-             "sets": {n: man[n]["hash"] for n in names}, "n_windows": a.n_windows, "tiny": a.tiny}
+             "sets": {n: man[n]["hash"] for n in names}, "n_windows": a.n_windows, "tiny": a.tiny,
+             **({"l0_rule": a.l0_rule} if a.l0_rule != "canonical" else {})}      # canonical runs keep their old hash
     run_hash = hashlib.sha256(json.dumps(ident, sort_keys=True).encode()).hexdigest()[:12]
     run_dir = (REPO_ROOT / "tests" / "_tiny_runs" if a.tiny else prof.root("runs_root")) / "E12" / run_hash
     todo = [(n, L) for n in names for L in a.layers]
     if a.dry_run:
         for n, L in todo:
-            print(f"{n:20s} L{L} {a.width} l0={l0_for(L, a.width)}  {man[n]['n_docs']} windows, {man[n]['tokens_scored']} tokens")
+            print(f"{n:20s} L{L} {a.width} l0={l0_for(L, a.width, a.l0_rule)}  {man[n]['n_docs']} windows, {man[n]['tokens_scored']} tokens")
         return 0
     git = provenance.git_state()
     if git["dirty"] and not (a.allow_dirty or a.tiny):
@@ -123,7 +132,7 @@ def main(argv=None) -> int:
             sets = [n for n, L in todo if L == layer]
             if not sets:
                 continue
-            sid = SAEId(layer, a.width, l0_for(layer, a.width) if not a.tiny else 1, revision=sae_rev)
+            sid = SAEId(layer, a.width, l0_for(layer, a.width, a.l0_rule) if not a.tiny else 1, revision=sae_rev)
             if a.tiny:
                 sae = load_params(write_random_params(run_dir / "tiny_saes" / f"{sid.key}.npz", 64, 512, seed=layer, thr=0.05), layer, a.width)
             else:
@@ -152,7 +161,7 @@ def main(argv=None) -> int:
     (run_dir / "manifest.json").write_text(json.dumps({
         "exp_id": "E12", "run_hash": run_hash, "status": status, "table": "fidelity.csv", "smoke": False, "tiny": a.tiny,
         "config": {"name": "fidelity_by_language", "identity": ident, "layers": a.layers, "width": a.width,
-                   "l0": {str(L): l0_for(L, a.width) for L in a.layers} if not a.tiny else {}},
+                   "l0": {str(L): l0_for(L, a.width, a.l0_rule) for L in a.layers} if not a.tiny else {}},
         "profile": prof.to_dict(), "git": git, "packages": provenance.packages(), "machine": provenance.machine(device),
         "model": spec.key(), "sae_revision": sae_rev, "prompt_sets": {n: {"hash": man[n]["hash"], "file": man[n]["file"], "n": man[n]["n_docs"]} for n in names},
         "seeds": {"bootstrap_seed": 0, "n_boot": a.n_boot}, "timings": {"total_s": round(time.time() - t_start, 1)},

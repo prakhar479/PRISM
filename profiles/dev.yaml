@@ -16,5 +16,5 @@ max_batch_size: 64
 max_batch_tokens: 4096
 gpu_mem_cap_gb: null         # null = no cap (no GPU here)
 cpu_workers: 4
-allowed_experiments: [E0, E1, E2, E2r, E3, E4, E5, E6, E7, E8, E9, E9b, E10, E10b, E11, E12, E13, E14, E16]
+allowed_experiments: [E0, E1, E2, E2r, E3, E4, E5, E6, E7, E8, E9, E9b, E10, E10b, E11, E12, E13, E14, E16, E17, E18, E19, E20, E22]
 allow_real_model: false      # dev: real-model runs only with --smoke unless overridden in local.yaml

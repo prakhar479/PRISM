@@ -34,7 +34,7 @@ from harness import families as F
 from harness import tasks as T
 from harness.batching import Budget
 from harness.cache import Cache, atomic_write_text
-from harness.config import ExpConfig
+from harness.config import ExpConfig, das_rank, parse_das
 from harness.device import (cap_memory, device_memory, dtype_name, empty_cache, peak_bytes, probe_machine, reset_peak,
                             resolve_device, set_threads)
 from harness.model import ModelSpec, build_model
@@ -213,7 +213,7 @@ class Runner:
             n_src = sum(len(self.cfg.prompt_sets) - 1 if s == "other_task" else 1 for s in d.sources)
             for n in d.conditions:
                 keys += [(n, e, s, r) for e in d.estimators for s in range(n_src) for r in d.ranks
-                         if not (e.startswith("das") and r != int(e[3:])) and not (n.startswith("steer_") and r == 0)]
+                         if not (e.startswith("das") and r != das_rank(e)) and not (n.startswith("steer_") and r == 0)]
                 keys += [(n, "random", s, r) for s in range(d.random_seeds) for r in d.ranks if r > 0]
         st_ = self.cfg.subthresh
         if st_:
@@ -392,7 +392,7 @@ class Runner:
             for blocking in (False, True):
                 for est in das:
                     if b.dirs.get(est) is None:
-                        b.dirs[est] = self.das_direction(task, layer, rows, tr, sp, fs, int(est[3:]), blocking=blocking)
+                        b.dirs[est] = self.das_direction(task, layer, rows, tr, sp, fs, est, blocking=blocking)
             if any(c.startswith("steer_") for c in d.conditions):
                 b.mean_diff = C.MeanDiff.fit(fs, sp)
             self.save_dirs(task, layer, sid, b, "+".join(fit_families) if fit_families else "")
@@ -414,19 +414,22 @@ class Runner:
 
     DAS_VERSION = 1                                     # bump when fit_das changes: old cached rotations are not reused
 
-    def das_direction(self, task, layer, rows, tr, sp, fs, k: int, blocking: bool = True) -> Optional[Dr.Direction]:
+    def das_direction(self, task, layer, rows, tr, sp, fs, est: str, blocking: bool = True) -> Optional[Dr.Direction]:
         """Rank-k DAS rotation on the train pairs (E9), trained once and kept in the content-addressed cache, so every
         worker of a run (and every later run with the same train set) uses the identical rotation. blocking=False returns
         None when another worker is training it right now. --finalize-only never trains: a missing rotation is an error."""
         from harness.cache import fs_type, NETWORK_FS
         from harness.model.das import fit_das
-        epochs = 1 if self.tiny or self.smoke else 3
+        spec = parse_das(est)
+        k, lr = spec["k"], spec["lr"]
+        seed = int(self.cfg.seed if spec["seed"] is None else spec["seed"])
+        epochs = 1 if self.tiny or self.smoke else spec["epochs"]
         ent = self.cache.entry("das", spans=self.spans_entry(task, layer).key, fitset=fs.digest, k=int(k), epochs=epochs,
-                               lr=1e-2, seed=int(self.cfg.seed), model=self.spec.key(), version=self.DAS_VERSION)
+                               lr=lr, seed=seed, model=self.spec.key(), version=self.DAS_VERSION)
 
         def read():
             U = ent.read_shard(0)["U"].numpy()
-            return Dr.Direction(U, f"das{k}", "same_task", fs.digest, len(tr), None, ent.read_json("info.json"))
+            return Dr.Direction(U, est, "same_task", fs.digest, len(tr), None, ent.read_json("info.json"))
 
         if ent.complete:
             return read()
@@ -442,10 +445,10 @@ class Runner:
                 return None
             ent.open()
             if not ent.complete:
-                log.info("DAS: training das%d for %s L%d on %d train pairs", k, task, layer, len(tr))
+                log.info("DAS: training %s (k=%d, %d epochs, lr %g, seed %d) for %s L%d on %d train pairs", est, k, epochs, lr, seed, task, layer, len(tr))
                 model = self.load_model()
                 empty_cache()
-                U, info = fit_das(model, layer, rows, tr, sp, k, epochs=epochs, seed=self.cfg.seed, device=self.device)
+                U, info = fit_das(model, layer, rows, tr, sp, k, epochs=epochs, lr=lr, seed=seed, device=self.device)
                 if not np.isfinite(U).all():
                     raise RuntimeError(f"DAS das{k} for {task} L{layer} diverged (non-finite rotation); not cached")
                 ent.write_shard(0, {"U": torch.from_numpy(U)})
@@ -461,7 +464,7 @@ class Runner:
         info = {k: {"estimator": v.estimator, "fit_digest": v.fit_digest, "n_fit_rows": v.n_fit_rows,
                     "evr": None if v.evr is None else [float(x) for x in v.evr[:8]], "meta": v.meta} for k, v in b.dirs.items()}
         ests = list(b.dirs)
-        own = lambda e: int(e[3:]) if e.startswith("das") else None          # DAS columns are unordered: rank k only
+        own = lambda e: das_rank(e) if e.startswith("das") else None          # DAS columns are unordered: rank k only
         info["_cosines"] = {f"{a}|{c}|r{r}": [float(x) for x in Dr.principal_cosines(b.dirs[a].U[:, :r], b.dirs[c].U[:, :r])]
                             for i, a in enumerate(ests) for c in ests[i + 1:] for r in (1, 2, 4, 8)
                             if r <= min(b.dirs[a].U.shape[1], b.dirs[c].U.shape[1])
@@ -509,7 +512,7 @@ class Runner:
             for n in d.conditions:
                 for e, src, D in sources:
                     for r in d.ranks:
-                        if e.startswith("das") and r != int(e[3:]):
+                        if e.startswith("das") and r != das_rank(e):
                             continue                    # a DAS rotation is fitted for its own rank only (columns are not ordered)
                         if n.startswith("steer_") and r == 0:
                             continue                    # rank 0 adds nothing: it is clean_B
@@ -541,7 +544,7 @@ class Runner:
                            slot_error="B" if spec["slot"] == "B" else "meanPos", eps_mean_pos=mean_pos,
                            latents=spec["latents"])
         if spec["kind"] == "dir" and n.startswith("steer_"):
-            return C.steer(test, spec["D"].r(spec["r"]), bun.mean_diff.per_row(test), C.STEER_SCALES[n])
+            return C.steer(test, spec["D"].r(spec["r"]), bun.mean_diff.per_row(test), C.steer_scale(n))
         if spec["kind"] == "dir":
             U = spec["D"].r(spec["r"])
             mean_pos = bun.mean_err.per_row(test) if n == "repair_mean" else None

@@ -1,0 +1,62 @@
+
+=== attempt 1 2026-11-17 22:59:09 slots=['0']: /home2/raveeshvyas1410/prism-run/.venv-harness/bin/python -m harness.run --config configs/experiments/E11.yaml --profile server --stage 3 --worker E11_s3-2
+Loading weights:   0%|          | 0/288 [00:00<?, ?it/s]Loading weights:   0%|          | 1/288 [00:00<01:52,  2.54it/s]Loading weights:  81%|████████▏ | 234/288 [00:00<00:00, 609.94it/s]Loading weights: 100%|██████████| 288/288 [00:00<00:00, 500.46it/s]
+2026-11-17 22:59:27,211 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-17 22:59:27,486 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-17 22:59:27,754 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-17 22:59:29,188 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-17 23:02:16,700 INFO people_cities_L8_16k_l071__fit-pc_en__eval-pc_en unit 3/11 (8 conditions, 147.9s)
+2026-11-17 23:04:46,028 INFO people_cities_L8_16k_l071__fit-pc_en__eval-pc_en unit 6/11 (8 conditions, 149.2s)
+2026-11-17 23:07:15,572 INFO people_cities_L8_16k_l071__fit-pc_en__eval-pc_en unit 9/11 (8 conditions, 149.4s)
+2026-11-17 23:09:43,247 INFO people_cities_L9_16k_l073__fit-pc_en__eval-pc_en unit 3/11 (8 conditions, 141.8s)
+2026-11-17 23:12:05,522 INFO people_cities_L9_16k_l073__fit-pc_en__eval-pc_en unit 7/11 (8 conditions, 142.1s)
+2026-11-17 23:13:05,389 INFO people_cities_L9_16k_l073__fit-pc_en__eval-pc_en unit 11/11 (3 conditions, 59.8s)
+2026-11-17 23:15:25,909 INFO people_cities_L10_16k_l077__fit-pc_en__eval-pc_en unit 2/11 (8 conditions, 134.6s)
+2026-11-17 23:17:41,071 INFO people_cities_L10_16k_l077__fit-pc_en__eval-pc_en unit 5/11 (8 conditions, 135.0s)
+2026-11-17 23:19:56,272 INFO people_cities_L10_16k_l077__fit-pc_en__eval-pc_en unit 9/11 (8 conditions, 135.1s)
+2026-11-17 23:22:09,252 INFO people_cities_L11_16k_l080__fit-pc_en__eval-pc_en unit 3/11 (8 conditions, 127.5s)
+2026-11-17 23:24:17,416 INFO people_cities_L11_16k_l080__fit-pc_en__eval-pc_en unit 7/11 (8 conditions, 128.0s)
+2026-11-17 23:25:13,290 INFO people_cities_L11_16k_l080__fit-pc_en__eval-pc_en unit 11/11 (3 conditions, 55.8s)
+2026-11-17 23:27:19,435 INFO people_cities_L12_16k_l082__fit-pc_en__eval-pc_en unit 2/11 (8 conditions, 120.5s)
+2026-11-17 23:29:20,331 INFO people_cities_L12_16k_l082__fit-pc_en__eval-pc_en unit 6/11 (8 conditions, 120.8s)
+2026-11-17 23:31:21,204 INFO people_cities_L12_16k_l082__fit-pc_en__eval-pc_en unit 10/11 (8 conditions, 120.7s)
+2026-11-17 23:33:20,053 INFO people_cities_L13_16k_l084__fit-pc_en__eval-pc_en unit 2/11 (8 conditions, 113.2s)
+2026-11-17 23:35:13,663 INFO people_cities_L13_16k_l084__fit-pc_en__eval-pc_en unit 5/11 (8 conditions, 113.5s)
+2026-11-17 23:37:07,283 INFO people_cities_L13_16k_l084__fit-pc_en__eval-pc_en unit 9/11 (8 conditions, 113.5s)
+2026-11-17 23:38:58,842 INFO people_cities_L14_16k_l084__fit-pc_en__eval-pc_en unit 3/11 (8 conditions, 106.0s)
+2026-11-17 23:40:45,263 INFO people_cities_L14_16k_l084__fit-pc_en__eval-pc_en unit 7/11 (8 conditions, 106.3s)
+2026-11-17 23:41:34,881 INFO people_cities_L14_16k_l084__fit-pc_en__eval-pc_en unit 11/11 (3 conditions, 49.6s)
+2026-11-17 23:43:19,178 INFO people_cities_L15_16k_l078__fit-pc_en__eval-pc_en unit 2/11 (8 conditions, 98.7s)
+2026-11-17 23:44:58,292 INFO people_cities_L15_16k_l078__fit-pc_en__eval-pc_en unit 6/11 (8 conditions, 99.0s)
+2026-11-17 23:46:37,384 INFO people_cities_L15_16k_l078__fit-pc_en__eval-pc_en unit 10/11 (8 conditions, 99.0s)
+2026-11-17 23:48:14,634 INFO people_cities_L16_16k_l078__fit-pc_en__eval-pc_en unit 3/11 (8 conditions, 91.6s)
+2026-11-17 23:49:46,513 INFO people_cities_L16_16k_l078__fit-pc_en__eval-pc_en unit 6/11 (8 conditions, 91.8s)
+2026-11-17 23:51:18,447 INFO people_cities_L16_16k_l078__fit-pc_en__eval-pc_en unit 9/11 (8 conditions, 91.8s)
+2026-11-17 23:56:25,747 INFO entity_track_L8_16k_l071 unit 3/11 (8 conditions, 304.1s)
+2026-11-18 00:01:30,043 INFO entity_track_L8_16k_l071 unit 6/11 (8 conditions, 304.1s)
+2026-11-18 00:06:34,212 INFO entity_track_L8_16k_l071 unit 9/11 (8 conditions, 304.0s)
+2026-11-18 00:11:26,699 INFO entity_track_L9_16k_l073 unit 3/11 (8 conditions, 289.3s)
+2026-11-18 00:16:16,355 INFO entity_track_L9_16k_l073 unit 7/11 (8 conditions, 289.5s)
+2026-11-18 00:18:18,209 INFO entity_track_L9_16k_l073 unit 11/11 (3 conditions, 121.8s)
+2026-11-18 00:22:55,646 INFO entity_track_L10_16k_l077 unit 2/11 (8 conditions, 274.5s)
+2026-11-18 00:27:30,248 INFO entity_track_L10_16k_l077 unit 5/11 (8 conditions, 274.4s)
+2026-11-18 00:32:04,814 INFO entity_track_L10_16k_l077 unit 9/11 (8 conditions, 274.4s)
+2026-11-18 00:36:27,727 INFO entity_track_L11_16k_l080 unit 3/11 (8 conditions, 259.7s)
+2026-11-18 00:40:47,746 INFO entity_track_L11_16k_l080 unit 7/11 (8 conditions, 259.9s)
+2026-11-18 00:45:07,778 INFO entity_track_L11_16k_l080 unit 10/11 (8 conditions, 259.8s)
+2026-11-18 00:49:16,066 INFO entity_track_L12_16k_l082 unit 4/11 (8 conditions, 245.0s)
+2026-11-18 00:53:21,475 INFO entity_track_L12_16k_l082 unit 8/11 (8 conditions, 245.2s)
+2026-11-18 00:57:15,465 INFO entity_track_L13_16k_l084 unit 1/11 (8 conditions, 230.4s)
+2026-11-18 01:01:06,308 INFO entity_track_L13_16k_l084 unit 5/11 (8 conditions, 230.7s)
+2026-11-18 01:04:57,077 INFO entity_track_L13_16k_l084 unit 9/11 (8 conditions, 230.6s)
+2026-11-18 01:08:36,146 INFO entity_track_L14_16k_l084 unit 2/11 (8 conditions, 215.8s)
+2026-11-18 01:12:12,435 INFO entity_track_L14_16k_l084 unit 5/11 (8 conditions, 216.1s)
+2026-11-18 01:15:48,638 INFO entity_track_L14_16k_l084 unit 9/11 (8 conditions, 216.0s)
+2026-11-18 01:19:13,280 INFO entity_track_L15_16k_l078 unit 3/11 (8 conditions, 201.3s)
+2026-11-18 01:22:34,955 INFO entity_track_L15_16k_l078 unit 6/11 (8 conditions, 201.5s)
+2026-11-18 01:25:56,672 INFO entity_track_L15_16k_l078 unit 10/11 (8 conditions, 201.5s)
+2026-11-18 01:29:06,847 INFO entity_track_L16_16k_l078 unit 4/11 (8 conditions, 186.8s)
+2026-11-18 01:32:13,965 INFO entity_track_L16_16k_l078 unit 7/11 (8 conditions, 186.9s)
+2026-11-18 01:33:46,444 INFO entity_track_L16_16k_l078 unit 11/11 (3 conditions, 92.4s)
+2026-11-18 01:33:46,574 INFO E11 -> /home2/raveeshvyas1410/prism-run/runs/E11/8fb0d8f37ebf (worker_done)
+Loaded pretrained model gemma-2-2b into HookedTransformer

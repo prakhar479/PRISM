@@ -1,0 +1,6 @@
+
+=== attempt 1 2026-11-02 00:27:46: /home/raveeshvyas/Coding_folder/interpretability/PRISM/.venv-harness/bin/python -m harness.run --config configs/experiments/E0.yaml --profile run --stage all
+working tree is dirty: commit, or pass --allow-dirty (recorded in the manifest)
+
+=== attempt 2 2026-11-02 00:27:48: /home/raveeshvyas/Coding_folder/interpretability/PRISM/.venv-harness/bin/python -m harness.run --config configs/experiments/E0.yaml --profile run --stage all
+working tree is dirty: commit, or pass --allow-dirty (recorded in the manifest)

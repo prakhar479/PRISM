@@ -1,0 +1,116 @@
+{
+ "exp_id": "E10b",
+ "run_hash": "23529335daaf",
+ "n_rows": 120903,
+ "hook_checks": [
+  {
+   "cell": "add_chain_18_L18_16k_l074_pilot",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "add_chain_18_L18_16k_l074_pilot",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  }
+ ],
+ "cells": [
+  {
+   "cell": "add_chain_L18_16k_l074__fit-pilot__eval-fresh",
+   "role": "exploratory",
+   "sae": {
+    "layer": 18,
+    "width": "16k",
+    "l0": 74,
+    "repo": "google/gemma-scope-2b-pt-res",
+    "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+   },
+   "fit_families": [
+    "pilot"
+   ],
+   "eval_families": [
+    "fresh"
+   ],
+   "n_test_by_filter": {
+    "f_none": 450,
+    "f_A_correct": 450,
+    "f_pilot": 450
+   },
+   "n_test_union": 573,
+   "n_train": 300,
+   "fitset_digest": "7cc34e25b8356245",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9447,
+     "f_both_correct": 0.9039,
+     "f_pilot": 0.7253
+    },
+    "train:pilot": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9689,
+     "f_both_correct": 0.9411,
+     "f_pilot": 0.6989
+    },
+    "train:rs_plus": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9189,
+     "f_both_correct": 0.8533,
+     "f_pilot": 0.5967
+    },
+    "train:rs_story": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9011,
+     "f_both_correct": 0.8433,
+     "f_pilot": 0.6644
+    },
+    "train:rs_symbolic": {
+     "f_none": 1.0,
+     "f_A_correct": 0.99,
+     "f_both_correct": 0.9778,
+     "f_pilot": 0.9411
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9506,
+     "f_both_correct": 0.9117,
+     "f_pilot": 0.7083
+    },
+    "test:pilot": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9622,
+     "f_both_correct": 0.9356,
+     "f_pilot": 0.6133
+    },
+    "test:rs_plus": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9578,
+     "f_both_correct": 0.9222,
+     "f_pilot": 0.6067
+    },
+    "test:rs_story": {
+     "f_none": 1.0,
+     "f_A_correct": 0.8867,
+     "f_both_correct": 0.7956,
+     "f_pilot": 0.6533
+    },
+    "test:rs_symbolic": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9956,
+     "f_both_correct": 0.9933,
+     "f_pilot": 0.96
+    }
+   },
+   "mean_l0_test": [
+    56.217529296875,
+    56.22306442260742
+   ],
+   "rel_err_norm_test": 0.3889792859554291,
+   "mean_pos_coverage": {
+    "slot": 3480,
+    "offset": 2634,
+    "task": 207
+   }
+  }
+ ]
+}

@@ -1,0 +1,1888 @@
+{
+ "runs": [
+  {
+   "exp": "E10",
+   "run_hash": "9eb5f4d77046",
+   "finalized": true,
+   "final_status": "complete",
+   "per_pair": true,
+   "summary": true,
+   "units_done": 0,
+   "claims_left": 0,
+   "part_parquets": 0,
+   "cells_with_units": 0,
+   "units_per_cell": [],
+   "skipped_saes": null,
+   "partial_manifests": {
+    "manifest.s2-0of4.json": {
+     "status": "stage2_complete",
+     "commit": "14e7e1f4795b",
+     "dirty": false,
+     "smoke": false,
+     "tiny": false,
+     "stages": [
+      "2"
+     ],
+     "wall_s": 0.0,
+     "created": "2026-11-17T21:42:47+0530",
+     "machine": "NVIDIA GeForce RTX 2080 Ti",
+     "backoffs": 0
+    },
+    "manifest.s2-1of4.json": {
+     "status": "stage2_complete",
+     "commit": "14e7e1f4795b",
+     "dirty": false,
+     "smoke": false,
+     "tiny": false,
+     "stages": [
+      "2"
+     ],
+     "wall_s": 0.0,
+     "created": "2026-11-17T21:42:53+0530",
+     "machine": "NVIDIA GeForce RTX 2080 Ti",
+     "backoffs": 0
+    },
+    "manifest.s2-2of4.json": {
+     "status": "stage2_complete",
+     "commit": "14e7e1f4795b",
+     "dirty": false,
+     "smoke": false,
+     "tiny": false,
+     "stages": [
+      "2"
+     ],
+     "wall_s": 0.0,
+     "created": "2026-11-17T21:42:59+0530",
+     "machine": "NVIDIA GeForce RTX 2080 Ti",
+     "backoffs": 0
+    },
+    "manifest.s2-3of4.json": {
+     "status": "stage2_complete",
+     "commit": "14e7e1f4795b",
+     "dirty": false,
+     "smoke": false,
+     "tiny": false,
+     "stages": [
+      "2"
+     ],
+     "wall_s": 0.0,
+     "created": "2026-11-17T21:43:05+0530",
+     "machine": "NVIDIA GeForce RTX 2080 Ti",
+     "backoffs": 0
+    },
+    "manifest.stage1.json": {
+     "status": "stage1_complete",
+     "commit": "14e7e1f4795b",
+     "dirty": false,
+     "smoke": false,
+     "tiny": false,
+     "stages": [
+      "1"
+     ],
+     "wall_s": 28.8,
+     "created": "2026-11-17T21:41:36+0530",
+     "machine": "NVIDIA GeForce RTX 2080 Ti",
+     "backoffs": 0
+    },
+    "manifest.wE10_s3-0.json": {
+     "status": "worker_done",
+     "commit": "14e7e1f4795b",
+     "dirty": false,
+     "smoke": false,
+     "tiny": false,
+     "stages": [
+      "3"
+     ],
+     "wall_s": 4554.1,
+     "created": "2026-11-17T22:59:05+0530",
+     "machine": "NVIDIA GeForce RTX 2080 Ti",
+     "backoffs": 0
+    },
+    "manifest.wE10_s3-1.json": {
+     "status": "worker_done",
+     "commit": "14e7e1f4795b",
+     "dirty": false,
+     "smoke": false,
+     "tiny": false,
+     "stages": [
+      "3"
+     ],
+     "wall_s": 4510.8,
+     "created": "2026-11-17T22:59:48+0530",
+     "machine": "NVIDIA GeForce RTX 2080 Ti",
+     "backoffs": 0
+    },
+    "manifest.wE10_s3-2.json": {
+     "status": "worker_done",
+     "commit": "14e7e1f4795b",
+     "dirty": false,
+     "smoke": false,
+     "tiny": false,
+     "stages": [
+      "3"
+     ],
+     "wall_s": 2769.5,
+     "created": "2026-11-17T22:58:34+0530",
+     "machine": "NVIDIA GeForce RTX 2080 Ti",
+     "backoffs": 0
+    },
+    "manifest.wE10_s3-3.json": {
+     "status": "worker_done",
+     "commit": "14e7e1f4795b",
+     "dirty": false,
+     "smoke": false,
+     "tiny": false,
+     "stages": [
+      "3"
+     ],
+     "wall_s": 2541.9,
+     "created": "2026-11-17T22:59:03+0530",
+     "machine": "NVIDIA GeForce RTX 2080 Ti",
+     "backoffs": 0
+    }
+   },
+   "commits": [
+    "14e7e1f4795b"
+   ],
+   "any_dirty": false,
+   "any_smoke": false,
+   "tiny": false,
+   "final_commit": "14e7e1f4795b",
+   "statuses": {
+    "stage2_complete": 4,
+    "stage1_complete": 1,
+    "worker_done": 4
+   },
+   "log_errors": []
+  },
+  {
+   "exp": "E10b",
+   "run_hash": "23529335daaf",
+   "finalized": true,
+   "final_status": "complete",
+   "per_pair": true,
+   "summary": true,
+   "units_done": 0,
+   "claims_left": 0,
+   "part_parquets": 0,
+   "cells_with_units": 0,
+   "units_per_cell": [],
+   "skipped_saes": null,
+   "partial_manifests": {
+    "manifest.s2-0of4.json": {
+     "status": "stage2_complete",
+     "commit": "14e7e1f4795b",
+     "dirty": false,
+     "smoke": false,
+     "tiny": false,
+     "stages": [
+      "2"
+     ],
+     "wall_s": 0.0,
+     "created": "2026-11-18T03:11:09+0530",
+     "machine": "NVIDIA GeForce RTX 2080 Ti",
+     "backoffs": 0
+    },
+    "manifest.s2-1of4.json": {
+     "status": "stage2_complete",
+     "commit": "14e7e1f4795b",
+     "dirty": false,
+     "smoke": false,
+     "tiny": false,
+     "stages": [
+      "2"
+     ],
+     "wall_s": 0.0,
+     "created": "2026-11-18T03:11:12+0530",
+     "machine": "NVIDIA GeForce RTX 2080 Ti",
+     "backoffs": 0
+    },
+    "manifest.s2-2of4.json": {
+     "status": "stage2_complete",
+     "commit": "14e7e1f4795b",
+     "dirty": false,
+     "smoke": false,
+     "tiny": false,
+     "stages": [
+      "2"
+     ],
+     "wall_s": 0.0,
+     "created": "2026-11-18T03:11:16+0530",
+     "machine": "NVIDIA GeForce RTX 2080 Ti",
+     "backoffs": 0
+    },
+    "manifest.s2-3of4.json": {
+     "status": "stage2_complete",
+     "commit": "14e7e1f4795b",
+     "dirty": false,
+     "smoke": false,
+     "tiny": false,
+     "stages": [
+      "2"
+     ],
+     "wall_s": 0.0,
+     "created": "2026-11-18T03:11:18+0530",
+     "machine": "NVIDIA GeForce RTX 2080 Ti",
+     "backoffs": 0
+    },
+    "manifest.stage1.json": {
+     "status": "stage1_complete",
+     "commit": "14e7e1f4795b",
+     "dirty": false,
+     "smoke": false,
+     "tiny": false,
+     "stages": [
+      "1"
+     ],
+     "wall_s": 24.2,
+     "created": "2026-11-18T03:10:45+0530",
+     "machine": "NVIDIA GeForce RTX 2080 Ti",
+     "backoffs": 0
+    },
+    "manifest.wE10b_s3-0.json": {
+     "status": "worker_done",
+     "commit": "14e7e1f4795b",
+     "dirty": false,
+     "smoke": false,
+     "tiny": false,
+     "stages": [
+      "3"
+     ],
+     "wall_s": 3330.1,
+     "created": "2026-11-18T04:59:07+0530",
+     "machine": "NVIDIA GeForce RTX 2080 Ti",
+     "backoffs": 0
+    },
+    "manifest.wE10b_s3-1.json": {
+     "status": "worker_done",
+     "commit": "14e7e1f4795b",
+     "dirty": false,
+     "smoke": false,
+     "tiny": false,
+     "stages": [
+      "3"
+     ],
+     "wall_s": 1472.6,
+     "created": "2026-11-18T04:58:52+0530",
+     "machine": "NVIDIA GeForce RTX 2080 Ti",
+     "backoffs": 0
+    },
+    "manifest.wE10b_s3-2.json": {
+     "status": "worker_done",
+     "commit": "14e7e1f4795b",
+     "dirty": false,
+     "smoke": false,
+     "tiny": false,
+     "stages": [
+      "3"
+     ],
+     "wall_s": 1494.3,
+     "created": "2026-11-18T04:59:42+0530",
+     "machine": "NVIDIA GeForce RTX 2080 Ti",
+     "backoffs": 0
+    },
+    "manifest.wE10b_s3-3.json": {
+     "status": "worker_done",
+     "commit": "14e7e1f4795b",
+     "dirty": false,
+     "smoke": false,
+     "tiny": false,
+     "stages": [
+      "3"
+     ],
+     "wall_s": 4.8,
+     "created": "2026-11-18T04:59:03+0530",
+     "machine": "NVIDIA GeForce RTX 2080 Ti",
+     "backoffs": 0
+    }
+   },
+   "commits": [
+    "14e7e1f4795b"
+   ],
+   "any_dirty": false,
+   "any_smoke": false,
+   "tiny": false,
+   "final_commit": "14e7e1f4795b",
+   "statuses": {
+    "stage2_complete": 4,
+    "stage1_complete": 1,
+    "worker_done": 4
+   },
+   "log_errors": []
+  },
+  {
+   "exp": "E11",
+   "run_hash": "8fb0d8f37ebf",
+   "finalized": true,
+   "final_status": "complete",
+   "per_pair": true,
+   "summary": true,
+   "units_done": 0,
+   "claims_left": 0,
+   "part_parquets": 0,
+   "cells_with_units": 0,
+   "units_per_cell": [],
+   "skipped_saes": null,
+   "partial_manifests": {
+    "manifest.s2-0of4.json": {
+     "status": "stage2_complete",
+     "commit": "14e7e1f4795b",
+     "dirty": false,
+     "smoke": false,
+     "tiny": false,
+     "stages": [
+      "2"
+     ],
+     "wall_s": 15.5,
+     "created": "2026-11-17T21:41:58+0530",
+     "machine": "NVIDIA GeForce RTX 2080 Ti",
+     "backoffs": 0
+    },
+    "manifest.s2-1of4.json": {
+     "status": "stage2_complete",
+     "commit": "14e7e1f4795b",
+     "dirty": false,
+     "smoke": false,
+     "tiny": false,
+     "stages": [
+      "2"
+     ],
+     "wall_s": 10.2,
+     "created": "2026-11-17T21:42:13+0530",
+     "machine": "NVIDIA GeForce RTX 2080 Ti",
+     "backoffs": 0
+    },
+    "manifest.s2-2of4.json": {
+     "status": "stage2_complete",
+     "commit": "14e7e1f4795b",
+     "dirty": false,
+     "smoke": false,
+     "tiny": false,
+     "stages": [
+      "2"
+     ],
+     "wall_s": 6.8,
+     "created": "2026-11-17T21:42:26+0530",
+     "machine": "NVIDIA GeForce RTX 2080 Ti",
+     "backoffs": 0
+    },
+    "manifest.s2-3of4.json": {
+     "status": "stage2_complete",
+     "commit": "14e7e1f4795b",
+     "dirty": false,
+     "smoke": false,
+     "tiny": false,
+     "stages": [
+      "2"
+     ],
+     "wall_s": 10.3,
+     "created": "2026-11-17T21:42:41+0530",
+     "machine": "NVIDIA GeForce RTX 2080 Ti",
+     "backoffs": 0
+    },
+    "manifest.stage1.json": {
+     "status": "stage1_complete",
+     "commit": "14e7e1f4795b",
+     "dirty": false,
+     "smoke": false,
+     "tiny": false,
+     "stages": [
+      "1"
+     ],
+     "wall_s": 1667.7,
+     "created": "2026-11-17T21:41:01+0530",
+     "machine": "NVIDIA GeForce RTX 2080 Ti",
+     "backoffs": 0
+    },
+    "manifest.wE11_s3-0.json": {
+     "status": "worker_done",
+     "commit": "14e7e1f4795b",
+     "dirty": false,
+     "smoke": false,
+     "tiny": false,
+     "stages": [
+      "3"
+     ],
+     "wall_s": 9403.0,
+     "created": "2026-11-18T01:35:23+0530",
+     "machine": "NVIDIA GeForce RTX 2080 Ti",
+     "backoffs": 0
+    },
+    "manifest.wE11_s3-1.json": {
+     "status": "worker_done",
+     "commit": "14e7e1f4795b",
+     "dirty": false,
+     "smoke": false,
+     "tiny": false,
+     "stages": [
+      "3"
+     ],
+     "wall_s": 9329.9,
+     "created": "2026-11-18T01:34:40+0530",
+     "machine": "NVIDIA GeForce RTX 2080 Ti",
+     "backoffs": 0
+    },
+    "manifest.wE11_s3-2.json": {
+     "status": "worker_done",
+     "commit": "14e7e1f4795b",
+     "dirty": false,
+     "smoke": false,
+     "tiny": false,
+     "stages": [
+      "3"
+     ],
+     "wall_s": 9273.4,
+     "created": "2026-11-18T01:33:46+0530",
+     "machine": "NVIDIA GeForce RTX 2080 Ti",
+     "backoffs": 0
+    },
+    "manifest.wE11_s3-3.json": {
+     "status": "worker_done",
+     "commit": "14e7e1f4795b",
+     "dirty": false,
+     "smoke": false,
+     "tiny": false,
+     "stages": [
+      "3"
+     ],
+     "wall_s": 9153.4,
+     "created": "2026-11-18T01:32:28+0530",
+     "machine": "NVIDIA GeForce RTX 2080 Ti",
+     "backoffs": 0
+    }
+   },
+   "commits": [
+    "14e7e1f4795b"
+   ],
+   "any_dirty": false,
+   "any_smoke": false,
+   "tiny": false,
+   "final_commit": "14e7e1f4795b",
+   "statuses": {
+    "stage2_complete": 4,
+    "stage1_complete": 1,
+    "worker_done": 4
+   },
+   "log_errors": []
+  },
+  {
+   "exp": "E12",
+   "run_hash": "04de317d9be9",
+   "finalized": true,
+   "final_status": "complete",
+   "per_pair": false,
+   "summary": false,
+   "units_done": 0,
+   "claims_left": 0,
+   "part_parquets": 0,
+   "cells_with_units": 0,
+   "units_per_cell": [],
+   "skipped_saes": null,
+   "partial_manifests": {},
+   "commits": [],
+   "any_dirty": false,
+   "any_smoke": false,
+   "tiny": false,
+   "final_commit": "14e7e1f4795b",
+   "statuses": {},
+   "log_errors": []
+  },
+  {
+   "exp": "E12",
+   "run_hash": "0e34af4c795e",
+   "finalized": true,
+   "final_status": "complete",
+   "per_pair": false,
+   "summary": false,
+   "units_done": 0,
+   "claims_left": 0,
+   "part_parquets": 0,
+   "cells_with_units": 0,
+   "units_per_cell": [],
+   "skipped_saes": null,
+   "partial_manifests": {},
+   "commits": [],
+   "any_dirty": false,
+   "any_smoke": false,
+   "tiny": false,
+   "final_commit": "14e7e1f4795b",
+   "statuses": {},
+   "log_errors": []
+  },
+  {
+   "exp": "E12",
+   "run_hash": "0edac226405a",
+   "finalized": true,
+   "final_status": "complete",
+   "per_pair": false,
+   "summary": false,
+   "units_done": 0,
+   "claims_left": 0,
+   "part_parquets": 0,
+   "cells_with_units": 0,
+   "units_per_cell": [],
+   "skipped_saes": null,
+   "partial_manifests": {},
+   "commits": [],
+   "any_dirty": false,
+   "any_smoke": false,
+   "tiny": false,
+   "final_commit": "14e7e1f4795b",
+   "statuses": {},
+   "log_errors": []
+  },
+  {
+   "exp": "E12",
+   "run_hash": "13e997221908",
+   "finalized": true,
+   "final_status": "complete",
+   "per_pair": false,
+   "summary": false,
+   "units_done": 0,
+   "claims_left": 0,
+   "part_parquets": 0,
+   "cells_with_units": 0,
+   "units_per_cell": [],
+   "skipped_saes": null,
+   "partial_manifests": {},
+   "commits": [],
+   "any_dirty": false,
+   "any_smoke": false,
+   "tiny": false,
+   "final_commit": "14e7e1f4795b",
+   "statuses": {},
+   "log_errors": []
+  },
+  {
+   "exp": "E12",
+   "run_hash": "16d74d2e06c8",
+   "finalized": true,
+   "final_status": "complete",
+   "per_pair": false,
+   "summary": false,
+   "units_done": 0,
+   "claims_left": 0,
+   "part_parquets": 0,
+   "cells_with_units": 0,
+   "units_per_cell": [],
+   "skipped_saes": null,
+   "partial_manifests": {},
+   "commits": [],
+   "any_dirty": false,
+   "any_smoke": false,
+   "tiny": false,
+   "final_commit": "14e7e1f4795b",
+   "statuses": {},
+   "log_errors": []
+  },
+  {
+   "exp": "E12",
+   "run_hash": "1ab0833bcc69",
+   "finalized": true,
+   "final_status": "complete",
+   "per_pair": false,
+   "summary": false,
+   "units_done": 0,
+   "claims_left": 0,
+   "part_parquets": 0,
+   "cells_with_units": 0,
+   "units_per_cell": [],
+   "skipped_saes": null,
+   "partial_manifests": {},
+   "commits": [],
+   "any_dirty": false,
+   "any_smoke": false,
+   "tiny": false,
+   "final_commit": "14e7e1f4795b",
+   "statuses": {},
+   "log_errors": []
+  },
+  {
+   "exp": "E12",
+   "run_hash": "2293017a8b5f",
+   "finalized": true,
+   "final_status": "complete",
+   "per_pair": false,
+   "summary": false,
+   "units_done": 0,
+   "claims_left": 0,
+   "part_parquets": 0,
+   "cells_with_units": 0,
+   "units_per_cell": [],
+   "skipped_saes": null,
+   "partial_manifests": {},
+   "commits": [],
+   "any_dirty": false,
+   "any_smoke": false,
+   "tiny": false,
+   "final_commit": "14e7e1f4795b",
+   "statuses": {},
+   "log_errors": []
+  },
+  {
+   "exp": "E12",
+   "run_hash": "23ff87617a5e",
+   "finalized": true,
+   "final_status": "complete",
+   "per_pair": false,
+   "summary": false,
+   "units_done": 0,
+   "claims_left": 0,
+   "part_parquets": 0,
+   "cells_with_units": 0,
+   "units_per_cell": [],
+   "skipped_saes": null,
+   "partial_manifests": {},
+   "commits": [],
+   "any_dirty": false,
+   "any_smoke": false,
+   "tiny": false,
+   "final_commit": "14e7e1f4795b",
+   "statuses": {},
+   "log_errors": []
+  },
+  {
+   "exp": "E12",
+   "run_hash": "3ff1c580ca3f",
+   "finalized": true,
+   "final_status": "complete",
+   "per_pair": false,
+   "summary": false,
+   "units_done": 0,
+   "claims_left": 0,
+   "part_parquets": 0,
+   "cells_with_units": 0,
+   "units_per_cell": [],
+   "skipped_saes": null,
+   "partial_manifests": {},
+   "commits": [],
+   "any_dirty": false,
+   "any_smoke": false,
+   "tiny": false,
+   "final_commit": "14e7e1f4795b",
+   "statuses": {},
+   "log_errors": []
+  },
+  {
+   "exp": "E12",
+   "run_hash": "71ebd89562ed",
+   "finalized": true,
+   "final_status": "complete",
+   "per_pair": false,
+   "summary": false,
+   "units_done": 0,
+   "claims_left": 0,
+   "part_parquets": 0,
+   "cells_with_units": 0,
+   "units_per_cell": [],
+   "skipped_saes": null,
+   "partial_manifests": {},
+   "commits": [],
+   "any_dirty": false,
+   "any_smoke": false,
+   "tiny": false,
+   "final_commit": "14e7e1f4795b",
+   "statuses": {},
+   "log_errors": []
+  },
+  {
+   "exp": "E12",
+   "run_hash": "8ce8c705008d",
+   "finalized": true,
+   "final_status": "complete",
+   "per_pair": false,
+   "summary": false,
+   "units_done": 0,
+   "claims_left": 0,
+   "part_parquets": 0,
+   "cells_with_units": 0,
+   "units_per_cell": [],
+   "skipped_saes": null,
+   "partial_manifests": {},
+   "commits": [],
+   "any_dirty": false,
+   "any_smoke": false,
+   "tiny": false,
+   "final_commit": "14e7e1f4795b",
+   "statuses": {},
+   "log_errors": []
+  },
+  {
+   "exp": "E12",
+   "run_hash": "a083aa2ab37d",
+   "finalized": true,
+   "final_status": "complete",
+   "per_pair": false,
+   "summary": false,
+   "units_done": 0,
+   "claims_left": 0,
+   "part_parquets": 0,
+   "cells_with_units": 0,
+   "units_per_cell": [],
+   "skipped_saes": null,
+   "partial_manifests": {},
+   "commits": [],
+   "any_dirty": false,
+   "any_smoke": false,
+   "tiny": false,
+   "final_commit": "14e7e1f4795b",
+   "statuses": {},
+   "log_errors": []
+  },
+  {
+   "exp": "E12",
+   "run_hash": "a39c75630688",
+   "finalized": true,
+   "final_status": "complete",
+   "per_pair": false,
+   "summary": false,
+   "units_done": 0,
+   "claims_left": 0,
+   "part_parquets": 0,
+   "cells_with_units": 0,
+   "units_per_cell": [],
+   "skipped_saes": null,
+   "partial_manifests": {},
+   "commits": [],
+   "any_dirty": false,
+   "any_smoke": false,
+   "tiny": false,
+   "final_commit": "14e7e1f4795b",
+   "statuses": {},
+   "log_errors": []
+  },
+  {
+   "exp": "E12",
+   "run_hash": "e8175cc3ad52",
+   "finalized": true,
+   "final_status": "complete",
+   "per_pair": false,
+   "summary": false,
+   "units_done": 0,
+   "claims_left": 0,
+   "part_parquets": 0,
+   "cells_with_units": 0,
+   "units_per_cell": [],
+   "skipped_saes": null,
+   "partial_manifests": {},
+   "commits": [],
+   "any_dirty": false,
+   "any_smoke": false,
+   "tiny": false,
+   "final_commit": "14e7e1f4795b",
+   "statuses": {},
+   "log_errors": []
+  },
+  {
+   "exp": "E13",
+   "run_hash": "066f28f2b804",
+   "finalized": true,
+   "final_status": "complete",
+   "per_pair": false,
+   "summary": false,
+   "units_done": 0,
+   "claims_left": 0,
+   "part_parquets": 0,
+   "cells_with_units": 0,
+   "units_per_cell": [],
+   "skipped_saes": null,
+   "partial_manifests": {},
+   "commits": [],
+   "any_dirty": false,
+   "any_smoke": false,
+   "tiny": false,
+   "final_commit": "14e7e1f4795b",
+   "statuses": {},
+   "log_errors": []
+  },
+  {
+   "exp": "E13",
+   "run_hash": "09a25b535df8",
+   "finalized": true,
+   "final_status": "complete",
+   "per_pair": false,
+   "summary": false,
+   "units_done": 0,
+   "claims_left": 0,
+   "part_parquets": 0,
+   "cells_with_units": 0,
+   "units_per_cell": [],
+   "skipped_saes": null,
+   "partial_manifests": {},
+   "commits": [],
+   "any_dirty": false,
+   "any_smoke": false,
+   "tiny": false,
+   "final_commit": "14e7e1f4795b",
+   "statuses": {},
+   "log_errors": []
+  },
+  {
+   "exp": "E13",
+   "run_hash": "23770c3d80a1",
+   "finalized": true,
+   "final_status": "complete",
+   "per_pair": false,
+   "summary": false,
+   "units_done": 0,
+   "claims_left": 0,
+   "part_parquets": 0,
+   "cells_with_units": 0,
+   "units_per_cell": [],
+   "skipped_saes": null,
+   "partial_manifests": {},
+   "commits": [],
+   "any_dirty": false,
+   "any_smoke": false,
+   "tiny": false,
+   "final_commit": "14e7e1f4795b",
+   "statuses": {},
+   "log_errors": []
+  },
+  {
+   "exp": "E13",
+   "run_hash": "30e834f1df4f",
+   "finalized": true,
+   "final_status": "complete",
+   "per_pair": false,
+   "summary": false,
+   "units_done": 0,
+   "claims_left": 0,
+   "part_parquets": 0,
+   "cells_with_units": 0,
+   "units_per_cell": [],
+   "skipped_saes": null,
+   "partial_manifests": {},
+   "commits": [],
+   "any_dirty": false,
+   "any_smoke": false,
+   "tiny": false,
+   "final_commit": "14e7e1f4795b",
+   "statuses": {},
+   "log_errors": []
+  },
+  {
+   "exp": "E13",
+   "run_hash": "6b8af5cccca3",
+   "finalized": true,
+   "final_status": "complete",
+   "per_pair": false,
+   "summary": false,
+   "units_done": 0,
+   "claims_left": 0,
+   "part_parquets": 0,
+   "cells_with_units": 0,
+   "units_per_cell": [],
+   "skipped_saes": null,
+   "partial_manifests": {},
+   "commits": [],
+   "any_dirty": false,
+   "any_smoke": false,
+   "tiny": false,
+   "final_commit": "14e7e1f4795b",
+   "statuses": {},
+   "log_errors": []
+  },
+  {
+   "exp": "E13",
+   "run_hash": "75acffcef5ae",
+   "finalized": true,
+   "final_status": "complete",
+   "per_pair": false,
+   "summary": false,
+   "units_done": 0,
+   "claims_left": 0,
+   "part_parquets": 0,
+   "cells_with_units": 0,
+   "units_per_cell": [],
+   "skipped_saes": null,
+   "partial_manifests": {},
+   "commits": [],
+   "any_dirty": false,
+   "any_smoke": false,
+   "tiny": false,
+   "final_commit": "14e7e1f4795b",
+   "statuses": {},
+   "log_errors": []
+  },
+  {
+   "exp": "E13",
+   "run_hash": "837279f23da1",
+   "finalized": true,
+   "final_status": "complete",
+   "per_pair": false,
+   "summary": false,
+   "units_done": 0,
+   "claims_left": 0,
+   "part_parquets": 0,
+   "cells_with_units": 0,
+   "units_per_cell": [],
+   "skipped_saes": null,
+   "partial_manifests": {},
+   "commits": [],
+   "any_dirty": false,
+   "any_smoke": false,
+   "tiny": false,
+   "final_commit": "14e7e1f4795b",
+   "statuses": {},
+   "log_errors": []
+  },
+  {
+   "exp": "E13",
+   "run_hash": "bdf96bc872c4",
+   "finalized": true,
+   "final_status": "complete",
+   "per_pair": false,
+   "summary": false,
+   "units_done": 0,
+   "claims_left": 0,
+   "part_parquets": 0,
+   "cells_with_units": 0,
+   "units_per_cell": [],
+   "skipped_saes": null,
+   "partial_manifests": {},
+   "commits": [],
+   "any_dirty": false,
+   "any_smoke": false,
+   "tiny": false,
+   "final_commit": "14e7e1f4795b",
+   "statuses": {},
+   "log_errors": []
+  },
+  {
+   "exp": "E13",
+   "run_hash": "c76e01b192a8",
+   "finalized": true,
+   "final_status": "complete",
+   "per_pair": false,
+   "summary": false,
+   "units_done": 0,
+   "claims_left": 0,
+   "part_parquets": 0,
+   "cells_with_units": 0,
+   "units_per_cell": [],
+   "skipped_saes": null,
+   "partial_manifests": {},
+   "commits": [],
+   "any_dirty": false,
+   "any_smoke": false,
+   "tiny": false,
+   "final_commit": "14e7e1f4795b",
+   "statuses": {},
+   "log_errors": []
+  },
+  {
+   "exp": "E13",
+   "run_hash": "fbb11a6c29ab",
+   "finalized": true,
+   "final_status": "complete",
+   "per_pair": false,
+   "summary": false,
+   "units_done": 0,
+   "claims_left": 0,
+   "part_parquets": 0,
+   "cells_with_units": 0,
+   "units_per_cell": [],
+   "skipped_saes": null,
+   "partial_manifests": {},
+   "commits": [],
+   "any_dirty": false,
+   "any_smoke": false,
+   "tiny": false,
+   "final_commit": "14e7e1f4795b",
+   "statuses": {},
+   "log_errors": []
+  },
+  {
+   "exp": "E14",
+   "run_hash": "395b811b9c51",
+   "finalized": true,
+   "final_status": "complete",
+   "per_pair": true,
+   "summary": true,
+   "units_done": 0,
+   "claims_left": 0,
+   "part_parquets": 0,
+   "cells_with_units": 0,
+   "units_per_cell": [],
+   "skipped_saes": null,
+   "partial_manifests": {
+    "manifest.s2-0of4.json": {
+     "status": "stage2_complete",
+     "commit": "14e7e1f4795b",
+     "dirty": false,
+     "smoke": false,
+     "tiny": false,
+     "stages": [
+      "2"
+     ],
+     "wall_s": 17.3,
+     "created": "2026-11-17T15:16:24+0530",
+     "machine": "NVIDIA GeForce RTX 2080 Ti",
+     "backoffs": 0
+    },
+    "manifest.s2-1of4.json": {
+     "status": "stage2_complete",
+     "commit": "14e7e1f4795b",
+     "dirty": false,
+     "smoke": false,
+     "tiny": false,
+     "stages": [
+      "2"
+     ],
+     "wall_s": 3.7,
+     "created": "2026-11-17T15:16:38+0530",
+     "machine": "NVIDIA GeForce RTX 2080 Ti",
+     "backoffs": 0
+    },
+    "manifest.s2-2of4.json": {
+     "status": "stage2_complete",
+     "commit": "14e7e1f4795b",
+     "dirty": false,
+     "smoke": false,
+     "tiny": false,
+     "stages": [
+      "2"
+     ],
+     "wall_s": 0.0,
+     "created": "2026-11-17T15:16:48+0530",
+     "machine": "NVIDIA GeForce RTX 2080 Ti",
+     "backoffs": 0
+    },
+    "manifest.s2-3of4.json": {
+     "status": "stage2_complete",
+     "commit": "14e7e1f4795b",
+     "dirty": false,
+     "smoke": false,
+     "tiny": false,
+     "stages": [
+      "2"
+     ],
+     "wall_s": 0.0,
+     "created": "2026-11-17T15:16:58+0530",
+     "machine": "NVIDIA GeForce RTX 2080 Ti",
+     "backoffs": 0
+    },
+    "manifest.stage1.json": {
+     "status": "stage1_complete",
+     "commit": "14e7e1f4795b",
+     "dirty": false,
+     "smoke": false,
+     "tiny": false,
+     "stages": [
+      "1"
+     ],
+     "wall_s": 8861.2,
+     "created": "2026-11-17T15:15:55+0530",
+     "machine": "NVIDIA GeForce RTX 2080 Ti",
+     "backoffs": 0
+    },
+    "manifest.wE14_s3-0.json": {
+     "status": "worker_done",
+     "commit": "14e7e1f4795b",
+     "dirty": false,
+     "smoke": false,
+     "tiny": false,
+     "stages": [
+      "3"
+     ],
+     "wall_s": 21338.4,
+     "created": "2026-11-17T21:12:47+0530",
+     "machine": "NVIDIA GeForce RTX 2080 Ti",
+     "backoffs": 0
+    },
+    "manifest.wE14_s3-1.json": {
+     "status": "worker_done",
+     "commit": "14e7e1f4795b",
+     "dirty": false,
+     "smoke": false,
+     "tiny": false,
+     "stages": [
+      "3"
+     ],
+     "wall_s": 20909.7,
+     "created": "2026-11-17T21:13:06+0530",
+     "machine": "NVIDIA GeForce RTX 2080 Ti",
+     "backoffs": 0
+    },
+    "manifest.wE14_s3-2.json": {
+     "status": "worker_done",
+     "commit": "14e7e1f4795b",
+     "dirty": false,
+     "smoke": false,
+     "tiny": false,
+     "stages": [
+      "3"
+     ],
+     "wall_s": 20922.7,
+     "created": "2026-11-17T21:14:05+0530",
+     "machine": "NVIDIA GeForce RTX 2080 Ti",
+     "backoffs": 0
+    },
+    "manifest.wE14_s3-3.json": {
+     "status": "worker_done",
+     "commit": "14e7e1f4795b",
+     "dirty": false,
+     "smoke": false,
+     "tiny": false,
+     "stages": [
+      "3"
+     ],
+     "wall_s": 20013.9,
+     "created": "2026-11-17T21:12:29+0530",
+     "machine": "NVIDIA GeForce RTX 2080 Ti",
+     "backoffs": 0
+    }
+   },
+   "commits": [
+    "14e7e1f4795b"
+   ],
+   "any_dirty": false,
+   "any_smoke": false,
+   "tiny": false,
+   "final_commit": "14e7e1f4795b",
+   "statuses": {
+    "stage2_complete": 4,
+    "stage1_complete": 1,
+    "worker_done": 4
+   },
+   "log_errors": []
+  },
+  {
+   "exp": "E16",
+   "run_hash": "c65523e308db",
+   "finalized": true,
+   "final_status": "complete",
+   "per_pair": true,
+   "summary": true,
+   "units_done": 0,
+   "claims_left": 0,
+   "part_parquets": 0,
+   "cells_with_units": 0,
+   "units_per_cell": [],
+   "skipped_saes": null,
+   "partial_manifests": {
+    "manifest.s2-0of4.json": {
+     "status": "stage2_complete",
+     "commit": "14e7e1f4795b",
+     "dirty": false,
+     "smoke": false,
+     "tiny": false,
+     "stages": [
+      "2"
+     ],
+     "wall_s": 1.5,
+     "created": "2026-11-18T01:42:00+0530",
+     "machine": "NVIDIA GeForce RTX 2080 Ti",
+     "backoffs": 0
+    },
+    "manifest.s2-1of4.json": {
+     "status": "stage2_complete",
+     "commit": "14e7e1f4795b",
+     "dirty": false,
+     "smoke": false,
+     "tiny": false,
+     "stages": [
+      "2"
+     ],
+     "wall_s": 3.5,
+     "created": "2026-11-18T01:42:08+0530",
+     "machine": "NVIDIA GeForce RTX 2080 Ti",
+     "backoffs": 0
+    },
+    "manifest.s2-2of4.json": {
+     "status": "stage2_complete",
+     "commit": "14e7e1f4795b",
+     "dirty": false,
+     "smoke": false,
+     "tiny": false,
+     "stages": [
+      "2"
+     ],
+     "wall_s": 3.4,
+     "created": "2026-11-18T01:42:16+0530",
+     "machine": "NVIDIA GeForce RTX 2080 Ti",
+     "backoffs": 0
+    },
+    "manifest.s2-3of4.json": {
+     "status": "stage2_complete",
+     "commit": "14e7e1f4795b",
+     "dirty": false,
+     "smoke": false,
+     "tiny": false,
+     "stages": [
+      "2"
+     ],
+     "wall_s": 3.4,
+     "created": "2026-11-18T01:42:24+0530",
+     "machine": "NVIDIA GeForce RTX 2080 Ti",
+     "backoffs": 0
+    },
+    "manifest.stage1.json": {
+     "status": "stage1_complete",
+     "commit": "14e7e1f4795b",
+     "dirty": false,
+     "smoke": false,
+     "tiny": false,
+     "stages": [
+      "1"
+     ],
+     "wall_s": 426.2,
+     "created": "2026-11-18T01:41:53+0530",
+     "machine": "NVIDIA GeForce RTX 2080 Ti",
+     "backoffs": 0
+    },
+    "manifest.wE16_s3-0.json": {
+     "status": "worker_done",
+     "commit": "14e7e1f4795b",
+     "dirty": false,
+     "smoke": false,
+     "tiny": false,
+     "stages": [
+      "3"
+     ],
+     "wall_s": 5307.1,
+     "created": "2026-11-18T03:10:55+0530",
+     "machine": "NVIDIA GeForce RTX 2080 Ti",
+     "backoffs": 0
+    },
+    "manifest.wE16_s3-1.json": {
+     "status": "worker_done",
+     "commit": "14e7e1f4795b",
+     "dirty": false,
+     "smoke": false,
+     "tiny": false,
+     "stages": [
+      "3"
+     ],
+     "wall_s": 4071.5,
+     "created": "2026-11-18T03:10:14+0530",
+     "machine": "NVIDIA GeForce RTX 2080 Ti",
+     "backoffs": 0
+    },
+    "manifest.wE16_s3-2.json": {
+     "status": "worker_done",
+     "commit": "14e7e1f4795b",
+     "dirty": false,
+     "smoke": false,
+     "tiny": false,
+     "stages": [
+      "3"
+     ],
+     "wall_s": 2362.8,
+     "created": "2026-11-18T03:10:50+0530",
+     "machine": "NVIDIA GeForce RTX 2080 Ti",
+     "backoffs": 0
+    },
+    "manifest.wE16_s3-3.json": {
+     "status": "worker_done",
+     "commit": "14e7e1f4795b",
+     "dirty": false,
+     "smoke": false,
+     "tiny": false,
+     "stages": [
+      "3"
+     ],
+     "wall_s": 2294.3,
+     "created": "2026-11-18T03:11:04+0530",
+     "machine": "NVIDIA GeForce RTX 2080 Ti",
+     "backoffs": 0
+    }
+   },
+   "commits": [
+    "14e7e1f4795b"
+   ],
+   "any_dirty": false,
+   "any_smoke": false,
+   "tiny": false,
+   "final_commit": "14e7e1f4795b",
+   "statuses": {
+    "stage2_complete": 4,
+    "stage1_complete": 1,
+    "worker_done": 4
+   },
+   "log_errors": []
+  },
+  {
+   "exp": "E2r",
+   "run_hash": "747ea7736718",
+   "finalized": true,
+   "final_status": "complete",
+   "per_pair": true,
+   "summary": true,
+   "units_done": 0,
+   "claims_left": 0,
+   "part_parquets": 0,
+   "cells_with_units": 0,
+   "units_per_cell": [],
+   "skipped_saes": null,
+   "partial_manifests": {
+    "manifest.s2-0of4.json": {
+     "status": "stage2_complete",
+     "commit": "14e7e1f4795b",
+     "dirty": false,
+     "smoke": false,
+     "tiny": false,
+     "stages": [
+      "2"
+     ],
+     "wall_s": 0.0,
+     "created": "2026-11-18T04:02:06+0530",
+     "machine": "NVIDIA GeForce RTX 2080 Ti",
+     "backoffs": 0
+    },
+    "manifest.s2-1of4.json": {
+     "status": "stage2_complete",
+     "commit": "14e7e1f4795b",
+     "dirty": false,
+     "smoke": false,
+     "tiny": false,
+     "stages": [
+      "2"
+     ],
+     "wall_s": 0.0,
+     "created": "2026-11-18T04:02:08+0530",
+     "machine": "NVIDIA GeForce RTX 2080 Ti",
+     "backoffs": 0
+    },
+    "manifest.s2-2of4.json": {
+     "status": "stage2_complete",
+     "commit": "14e7e1f4795b",
+     "dirty": false,
+     "smoke": false,
+     "tiny": false,
+     "stages": [
+      "2"
+     ],
+     "wall_s": 0.0,
+     "created": "2026-11-18T04:02:10+0530",
+     "machine": "NVIDIA GeForce RTX 2080 Ti",
+     "backoffs": 0
+    },
+    "manifest.s2-3of4.json": {
+     "status": "stage2_complete",
+     "commit": "14e7e1f4795b",
+     "dirty": false,
+     "smoke": false,
+     "tiny": false,
+     "stages": [
+      "2"
+     ],
+     "wall_s": 0.0,
+     "created": "2026-11-18T04:02:12+0530",
+     "machine": "NVIDIA GeForce RTX 2080 Ti",
+     "backoffs": 0
+    },
+    "manifest.stage1.json": {
+     "status": "stage1_complete",
+     "commit": "14e7e1f4795b",
+     "dirty": false,
+     "smoke": false,
+     "tiny": false,
+     "stages": [
+      "1"
+     ],
+     "wall_s": 35.0,
+     "created": "2026-11-18T03:11:38+0530",
+     "machine": "NVIDIA GeForce RTX 2080 Ti",
+     "backoffs": 0
+    },
+    "manifest.wE2r_s3-0.json": {
+     "status": "worker_done",
+     "commit": "14e7e1f4795b",
+     "dirty": false,
+     "smoke": false,
+     "tiny": false,
+     "stages": [
+      "3"
+     ],
+     "wall_s": 4713.9,
+     "created": "2026-11-18T05:20:52+0530",
+     "machine": "NVIDIA GeForce RTX 2080 Ti",
+     "backoffs": 0
+    },
+    "manifest.wE2r_s3-1.json": {
+     "status": "worker_done",
+     "commit": "14e7e1f4795b",
+     "dirty": false,
+     "smoke": false,
+     "tiny": false,
+     "stages": [
+      "3"
+     ],
+     "wall_s": 1284.8,
+     "created": "2026-11-18T05:20:33+0530",
+     "machine": "NVIDIA GeForce RTX 2080 Ti",
+     "backoffs": 0
+    },
+    "manifest.wE2r_s3-2.json": {
+     "status": "worker_done",
+     "commit": "14e7e1f4795b",
+     "dirty": false,
+     "smoke": false,
+     "tiny": false,
+     "stages": [
+      "3"
+     ],
+     "wall_s": 1305.1,
+     "created": "2026-11-18T05:20:59+0530",
+     "machine": "NVIDIA GeForce RTX 2080 Ti",
+     "backoffs": 0
+    },
+    "manifest.wE2r_s3-3.json": {
+     "status": "worker_done",
+     "commit": "14e7e1f4795b",
+     "dirty": false,
+     "smoke": false,
+     "tiny": false,
+     "stages": [
+      "3"
+     ],
+     "wall_s": 1248.5,
+     "created": "2026-11-18T05:20:37+0530",
+     "machine": "NVIDIA GeForce RTX 2080 Ti",
+     "backoffs": 0
+    }
+   },
+   "commits": [
+    "14e7e1f4795b"
+   ],
+   "any_dirty": false,
+   "any_smoke": false,
+   "tiny": false,
+   "final_commit": "14e7e1f4795b",
+   "statuses": {
+    "stage2_complete": 4,
+    "stage1_complete": 1,
+    "worker_done": 4
+   },
+   "log_errors": []
+  },
+  {
+   "exp": "E9",
+   "run_hash": "958ffcdee3d4",
+   "finalized": true,
+   "final_status": "complete",
+   "per_pair": true,
+   "summary": true,
+   "units_done": 0,
+   "claims_left": 0,
+   "part_parquets": 0,
+   "cells_with_units": 0,
+   "units_per_cell": [],
+   "skipped_saes": null,
+   "partial_manifests": {
+    "manifest.s2-0of4.json": {
+     "status": "stage2_complete",
+     "commit": "14e7e1f4795b",
+     "dirty": false,
+     "smoke": false,
+     "tiny": false,
+     "stages": [
+      "2"
+     ],
+     "wall_s": 4.4,
+     "created": "2026-11-17T13:14:36+0530",
+     "machine": "NVIDIA GeForce RTX 2080 Ti",
+     "backoffs": 0
+    },
+    "manifest.s2-1of4.json": {
+     "status": "stage2_complete",
+     "commit": "14e7e1f4795b",
+     "dirty": false,
+     "smoke": false,
+     "tiny": false,
+     "stages": [
+      "2"
+     ],
+     "wall_s": 3.4,
+     "created": "2026-11-17T13:14:45+0530",
+     "machine": "NVIDIA GeForce RTX 2080 Ti",
+     "backoffs": 0
+    },
+    "manifest.s2-2of4.json": {
+     "status": "stage2_complete",
+     "commit": "14e7e1f4795b",
+     "dirty": false,
+     "smoke": false,
+     "tiny": false,
+     "stages": [
+      "2"
+     ],
+     "wall_s": 0.0,
+     "created": "2026-11-17T13:14:49+0530",
+     "machine": "NVIDIA GeForce RTX 2080 Ti",
+     "backoffs": 0
+    },
+    "manifest.s2-3of4.json": {
+     "status": "stage2_complete",
+     "commit": "14e7e1f4795b",
+     "dirty": false,
+     "smoke": false,
+     "tiny": false,
+     "stages": [
+      "2"
+     ],
+     "wall_s": 0.0,
+     "created": "2026-11-17T13:14:55+0530",
+     "machine": "NVIDIA GeForce RTX 2080 Ti",
+     "backoffs": 0
+    },
+    "manifest.stage1.json": {
+     "status": "stage1_complete",
+     "commit": "14e7e1f4795b",
+     "dirty": false,
+     "smoke": false,
+     "tiny": false,
+     "stages": [
+      "1"
+     ],
+     "wall_s": 1575.6,
+     "created": "2026-11-17T13:14:24+0530",
+     "machine": "NVIDIA GeForce RTX 2080 Ti",
+     "backoffs": 0
+    },
+    "manifest.wE9_s3-0.json": {
+     "status": "worker_done",
+     "commit": "14e7e1f4795b",
+     "dirty": false,
+     "smoke": false,
+     "tiny": false,
+     "stages": [
+      "3"
+     ],
+     "wall_s": 6013.0,
+     "created": "2026-11-17T14:55:14+0530",
+     "machine": "NVIDIA GeForce RTX 2080 Ti",
+     "backoffs": 0
+    },
+    "manifest.wE9_s3-1.json": {
+     "status": "worker_done",
+     "commit": "14e7e1f4795b",
+     "dirty": false,
+     "smoke": false,
+     "tiny": false,
+     "stages": [
+      "3"
+     ],
+     "wall_s": 5729.3,
+     "created": "2026-11-17T14:53:14+0530",
+     "machine": "NVIDIA GeForce RTX 2080 Ti",
+     "backoffs": 0
+    },
+    "manifest.wE9_s3-2.json": {
+     "status": "worker_done",
+     "commit": "14e7e1f4795b",
+     "dirty": false,
+     "smoke": false,
+     "tiny": false,
+     "stages": [
+      "3"
+     ],
+     "wall_s": 5428.8,
+     "created": "2026-11-17T14:51:42+0530",
+     "machine": "NVIDIA GeForce RTX 2080 Ti",
+     "backoffs": 0
+    },
+    "manifest.wE9_s3-3.json": {
+     "status": "worker_done",
+     "commit": "14e7e1f4795b",
+     "dirty": false,
+     "smoke": false,
+     "tiny": false,
+     "stages": [
+      "3"
+     ],
+     "wall_s": 7.2,
+     "created": "2026-11-17T14:51:56+0530",
+     "machine": "NVIDIA GeForce RTX 2080 Ti",
+     "backoffs": 0
+    }
+   },
+   "commits": [
+    "14e7e1f4795b"
+   ],
+   "any_dirty": false,
+   "any_smoke": false,
+   "tiny": false,
+   "final_commit": "14e7e1f4795b",
+   "statuses": {
+    "stage2_complete": 4,
+    "stage1_complete": 1,
+    "worker_done": 4
+   },
+   "log_errors": []
+  },
+  {
+   "exp": "E9b",
+   "run_hash": "99ff6baa3969",
+   "finalized": true,
+   "final_status": "complete",
+   "per_pair": true,
+   "summary": true,
+   "units_done": 0,
+   "claims_left": 0,
+   "part_parquets": 0,
+   "cells_with_units": 0,
+   "units_per_cell": [],
+   "skipped_saes": null,
+   "partial_manifests": {
+    "manifest.s2-0of4.json": {
+     "status": "stage2_complete",
+     "commit": "14e7e1f4795b",
+     "dirty": false,
+     "smoke": false,
+     "tiny": false,
+     "stages": [
+      "2"
+     ],
+     "wall_s": 3.6,
+     "created": "2026-11-18T03:10:54+0530",
+     "machine": "NVIDIA GeForce RTX 2080 Ti",
+     "backoffs": 0
+    },
+    "manifest.s2-1of4.json": {
+     "status": "stage2_complete",
+     "commit": "14e7e1f4795b",
+     "dirty": false,
+     "smoke": false,
+     "tiny": false,
+     "stages": [
+      "2"
+     ],
+     "wall_s": 0.0,
+     "created": "2026-11-18T03:10:57+0530",
+     "machine": "NVIDIA GeForce RTX 2080 Ti",
+     "backoffs": 0
+    },
+    "manifest.s2-2of4.json": {
+     "status": "stage2_complete",
+     "commit": "14e7e1f4795b",
+     "dirty": false,
+     "smoke": false,
+     "tiny": false,
+     "stages": [
+      "2"
+     ],
+     "wall_s": 0.0,
+     "created": "2026-11-18T03:10:59+0530",
+     "machine": "NVIDIA GeForce RTX 2080 Ti",
+     "backoffs": 0
+    },
+    "manifest.s2-3of4.json": {
+     "status": "stage2_complete",
+     "commit": "14e7e1f4795b",
+     "dirty": false,
+     "smoke": false,
+     "tiny": false,
+     "stages": [
+      "2"
+     ],
+     "wall_s": 0.0,
+     "created": "2026-11-18T03:11:03+0530",
+     "machine": "NVIDIA GeForce RTX 2080 Ti",
+     "backoffs": 0
+    },
+    "manifest.stage1.json": {
+     "status": "stage1_complete",
+     "commit": "14e7e1f4795b",
+     "dirty": false,
+     "smoke": false,
+     "tiny": false,
+     "stages": [
+      "1"
+     ],
+     "wall_s": 1606.2,
+     "created": "2026-11-18T02:02:17+0530",
+     "machine": "NVIDIA GeForce RTX 2080 Ti",
+     "backoffs": 0
+    },
+    "manifest.wE9b_s3-0.json": {
+     "status": "worker_done",
+     "commit": "14e7e1f4795b",
+     "dirty": false,
+     "smoke": false,
+     "tiny": false,
+     "stages": [
+      "3"
+     ],
+     "wall_s": 3036.7,
+     "created": "2026-11-18T04:01:59+0530",
+     "machine": "NVIDIA GeForce RTX 2080 Ti",
+     "backoffs": 0
+    },
+    "manifest.wE9b_s3-1.json": {
+     "status": "worker_done",
+     "commit": "14e7e1f4795b",
+     "dirty": false,
+     "smoke": false,
+     "tiny": false,
+     "stages": [
+      "3"
+     ],
+     "wall_s": 3125.7,
+     "created": "2026-11-18T04:03:29+0530",
+     "machine": "NVIDIA GeForce RTX 2080 Ti",
+     "backoffs": 0
+    },
+    "manifest.wE9b_s3-2.json": {
+     "status": "worker_done",
+     "commit": "14e7e1f4795b",
+     "dirty": false,
+     "smoke": false,
+     "tiny": false,
+     "stages": [
+      "3"
+     ],
+     "wall_s": 3017.9,
+     "created": "2026-11-18T04:02:03+0530",
+     "machine": "NVIDIA GeForce RTX 2080 Ti",
+     "backoffs": 0
+    },
+    "manifest.wE9b_s3-3.json": {
+     "status": "worker_done",
+     "commit": "14e7e1f4795b",
+     "dirty": false,
+     "smoke": false,
+     "tiny": false,
+     "stages": [
+      "3"
+     ],
+     "wall_s": 1005.9,
+     "created": "2026-11-18T04:02:01+0530",
+     "machine": "NVIDIA GeForce RTX 2080 Ti",
+     "backoffs": 0
+    }
+   },
+   "commits": [
+    "14e7e1f4795b"
+   ],
+   "any_dirty": false,
+   "any_smoke": false,
+   "tiny": false,
+   "final_commit": "14e7e1f4795b",
+   "statuses": {
+    "stage2_complete": 4,
+    "stage1_complete": 1,
+    "worker_done": 4
+   },
+   "log_errors": []
+  }
+ ],
+ "queues": {
+  "complete-server": {
+   "done": [
+    "prefetch(1)",
+    "preflight(1)",
+    "E12_en(1)",
+    "E12_hi_deva_web(1)",
+    "E12_fr_web(1)",
+    "E12_hinglish(1)",
+    "E12_hi_dakshina(1)",
+    "E12_ta_web(1)",
+    "E12_bn_web(1)",
+    "E12_ta_dakshina(1)",
+    "E12_bn_dakshina(1)",
+    "E13_en(1)",
+    "E13_hi(1)",
+    "E13_hi_latn(1)",
+    "E13_hinglish(1)",
+    "E13_fr(1)",
+    "E12d_en(1)",
+    "E12d_hi_deva_web(1)",
+    "E12d_fr_web(1)",
+    "E12d_hinglish(1)",
+    "E12d_hi_dakshina(1)",
+    "E13t_en(1)",
+    "E13t_hi(1)",
+    "E13t_hi_latn(1)",
+    "E13t_hinglish(1)",
+    "E13t_fr(1)",
+    "E9_s1(1)",
+    "E14_s1(1)",
+    "E9b_s1(1)",
+    "E11_s1(1)",
+    "E16_s1(1)",
+    "E10_s1(1)",
+    "E2r_s1(1)",
+    "E10b_s1(1)",
+    "E9_s2[0](1)",
+    "E9_s2[1](1)",
+    "E9_s2[2](1)",
+    "E9_s2[3](1)",
+    "E14_s2[0](1)",
+    "E14_s2[1](1)",
+    "E14_s2[2](1)",
+    "E14_s2[3](1)",
+    "E9b_s2[0](1)",
+    "E9b_s2[1](1)",
+    "E9b_s2[2](1)",
+    "E9b_s2[3](1)",
+    "E11_s2[0](1)",
+    "E11_s2[1](1)",
+    "E11_s2[2](1)",
+    "E11_s2[3](1)",
+    "E16_s2[0](1)",
+    "E16_s2[1](1)",
+    "E16_s2[2](1)",
+    "E16_s2[3](1)",
+    "E10_s2[0](1)",
+    "E10_s2[1](1)",
+    "E10_s2[2](1)",
+    "E10_s2[3](1)",
+    "E2r_s2[0](1)",
+    "E2r_s2[1](1)",
+    "E2r_s2[2](1)",
+    "E2r_s2[3](1)",
+    "E10b_s2[0](1)",
+    "E10b_s2[1](1)",
+    "E10b_s2[2](1)",
+    "E10b_s2[3](1)",
+    "E9_s3[0](1)",
+    "E9_s3[1](1)",
+    "E9_s3[2](1)",
+    "E9_s3[3](1)",
+    "E10_s3[0](1)",
+    "E10_s3[1](1)",
+    "E10_s3[2](1)",
+    "E10_s3[3](1)",
+    "E14_s3[0](1)",
+    "E14_s3[1](1)",
+    "E14_s3[2](1)",
+    "E14_s3[3](1)",
+    "E11_s3[0](1)",
+    "E11_s3[1](1)",
+    "E11_s3[2](1)",
+    "E11_s3[3](1)",
+    "E16_s3[0](1)",
+    "E16_s3[1](1)",
+    "E16_s3[2](1)",
+    "E16_s3[3](1)",
+    "E9b_s3[0](1)",
+    "E9b_s3[1](1)",
+    "E9b_s3[2](1)",
+    "E9b_s3[3](1)",
+    "E10b_s3[0](1)",
+    "E10b_s3[1](1)",
+    "E10b_s3[2](1)",
+    "E10b_s3[3](1)",
+    "E2r_s3[0](1)",
+    "E2r_s3[1](1)",
+    "E2r_s3[2](1)",
+    "E2r_s3[3](1)",
+    "E9_fin(1)",
+    "E10_fin(1)",
+    "E14_fin(1)",
+    "E11_fin(1)",
+    "E16_fin(1)",
+    "E9b_fin(1)",
+    "E10b_fin(1)",
+    "E2r_fin(1)",
+    "bundle(1)"
+   ],
+   "running": [
+    "publish(1)"
+   ]
+  }
+ }
+}

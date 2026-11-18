@@ -1,0 +1,53 @@
+
+=== attempt 1 2026-11-14 11:56:01 slots=['0', '1', '2', '3']: /home2/raveeshvyas1410/prism-run/.venv-harness/bin/python scripts/run_preflight.py --queue queue/release2-server.yaml --golden golden/R2 --per-gpu
+resources: {"gpu_mem_cap_gb": 9.97, "offload_embed": true, "max_batch_tokens": 9216, "max_batch_size": 72} ({'gpu_mem_cap_gb': 'total 10.57 GiB - headroom 0.6', 'offload_embed': 'GPU under 16 GiB', 'batch': 'auto_budget(cap 9.97 GiB): 40% of the memory after the model'})
+[PASS] 1. packages match requirements/harness.lock: 0 errors, 0 warnings
+[PASS] 1. accelerator: NVIDIA GeForce RTX 2080 Ti, free 10.41 / 10.57 GB
+[PASS] 1. RAM and disk: RAM available 122.6 GB; disk free at cache root 14 GB (need > 10); at runs root 44 GB (need > 2)
+[PASS] 2. prefetch targets cached with matching sha256: 33 files, 49.15 GB, 0 errors
+Loading weights:   0%|          | 0/288 [00:00<?, ?it/s]Loading weights:   0%|          | 1/288 [00:00<01:23,  3.43it/s]Loading weights:  77%|███████▋  | 223/288 [00:00<00:00, 723.34it/s]Loading weights: 100%|██████████| 288/288 [00:00<00:00, 607.00it/s]
+Loaded pretrained model gemma-2-2b into HookedTransformer
+[PASS] 3. model load: 30 s, 4.92 GB allocated
+[PASS] 3. last-position head == full forward last logits: max |dlogit| 0.121 (tol 0.25 = 2 bfloat16 ulp at max |logit| 28.4); argmax equal True
+[PASS] 4. hook identity (OT L12, 4 pairs): full_B == clean_B, resumed clean_B == stage 1: max |dD| full_B 0, resumed clean_B 0
+[PASS] 4. full_A reproduces clean A (NLDR = 1): max |dD| 0
+[PASS] 5. entity_track_L12: golden pair ids and token ids == harness prompt set: 16 pairs
+[PASS] 5. entity_track_L12: span residuals vs golden (relative): max relative row error 0.0314 (median 0.0153; tol 0.05); pilot's own batch-1 vs batched: max 0.0269
+[PASS] 5. entity_track_L12: SAE variant == the one the golden export loaded: harness layer_12/width_16k/average_l0_82/params.npz; golden layer_12/width_16k/average_l0_82/params.npz
+[PASS] 5. entity_track_L12: SAE x_hat on golden residuals: max |dx_hat| 0.000214 (GPU fp32 vs golden)
+[PASS] 5. entity_track_L12: per-condition D vs golden: max |dD| feat_A_errB 0.122, feat_B_errA 0.0868, feat_A_zero 0.0994, full_A 0.115, repair_pca_pooled_r1 0.104, repair_pca_pooled_r2 0.134
+[PASS] 7. throughput: forward tokens/s by rows {1: 1362.2, 2: 1503.0, 4: 1614.8, 24: 1706.2} -> throughput_release2-server_20261114_115604.json
+[SKIP] 6. HF top-1 agreement (informational): {'add_chain/A': 1.0, 'add_chain/B': 1.0, 'entity_track/A': 1.0, 'entity_track/B': 0.917, 'ioi_control/A': 1.0, 'ioi_control/B': 1.0, 'var_binding/A': 1.0, 'var_binding/B': 1.0} (see release2-server_20261114_115604_hf/report.md)
+[PASS] 9. GPU 0: budget 9216 tokens x 24 rows, peak 5.75 GB, 1652.4 tok/s
+[PASS] 9. GPU 1: budget 9216 tokens x 24 rows, peak 5.75 GB, 1701.2 tok/s
+[PASS] 9. GPU 2: budget 7680 tokens x 20 rows, peak 5.61 GB, 9049.6 tok/s
+[PASS] 9. GPU 3: budget 9216 tokens x 24 rows, peak 5.75 GB, 1819.8 tok/s
+[PASS] 3. per-GPU checks: at least one GPU usable: 4/4 GPUs passed -> runs/_queue/release2-server/gpus.json
+[PASS] 8. smoke E1_split: ok
+[PASS] 8. smoke E2: ok
+# Preflight release2-server 20261114_115604: OK
+
+| # | status | check | detail |
+|---|---|---|---|
+| 1 | PASS | packages match requirements/harness.lock | 0 errors, 0 warnings |
+| 1 | PASS | accelerator | NVIDIA GeForce RTX 2080 Ti, free 10.41 / 10.57 GB |
+| 1 | PASS | RAM and disk | RAM available 122.6 GB; disk free at cache root 14 GB (need > 10); at runs root 44 GB (need > 2) |
+| 2 | PASS | prefetch targets cached with matching sha256 | 33 files, 49.15 GB, 0 errors |
+| 3 | PASS | model load | 30 s, 4.92 GB allocated |
+| 3 | PASS | last-position head == full forward last logits | max /dlogit/ 0.121 (tol 0.25 = 2 bfloat16 ulp at max /logit/ 28.4); argmax equal True |
+| 4 | PASS | hook identity (OT L12, 4 pairs): full_B == clean_B, resumed clean_B == stage 1 | max /dD/ full_B 0, resumed clean_B 0 |
+| 4 | PASS | full_A reproduces clean A (NLDR = 1) | max /dD/ 0 |
+| 5 | PASS | entity_track_L12: golden pair ids and token ids == harness prompt set | 16 pairs |
+| 5 | PASS | entity_track_L12: span residuals vs golden (relative) | max relative row error 0.0314 (median 0.0153; tol 0.05); pilot's own batch-1 vs batched: max 0.0269 |
+| 5 | PASS | entity_track_L12: SAE variant == the one the golden export loaded | harness layer_12/width_16k/average_l0_82/params.npz; golden layer_12/width_16k/average_l0_82/params.npz |
+| 5 | PASS | entity_track_L12: SAE x_hat on golden residuals | max /dx_hat/ 0.000214 (GPU fp32 vs golden) |
+| 5 | PASS | entity_track_L12: per-condition D vs golden | max /dD/ feat_A_errB 0.122, feat_B_errA 0.0868, feat_A_zero 0.0994, full_A 0.115, repair_pca_pooled_r1 0.104, repair_pca_pooled_r2 0.134 |
+| 7 | PASS | throughput | forward tokens/s by rows {1: 1362.2, 2: 1503.0, 4: 1614.8, 24: 1706.2} -> throughput_release2-server_20261114_115604.json |
+| 6 | SKIP | HF top-1 agreement (informational) | {'add_chain/A': 1.0, 'add_chain/B': 1.0, 'entity_track/A': 1.0, 'entity_track/B': 0.917, 'ioi_control/A': 1.0, 'ioi_control/B': 1.0, 'var_binding/A': 1.0, 'var_binding/B': 1.0} (see release2-server_20261114_115604_hf/report.md) |
+| 9 | PASS | GPU 0 | budget 9216 tokens x 24 rows, peak 5.75 GB, 1652.4 tok/s |
+| 9 | PASS | GPU 1 | budget 9216 tokens x 24 rows, peak 5.75 GB, 1701.2 tok/s |
+| 9 | PASS | GPU 2 | budget 7680 tokens x 20 rows, peak 5.61 GB, 9049.6 tok/s |
+| 9 | PASS | GPU 3 | budget 9216 tokens x 24 rows, peak 5.75 GB, 1819.8 tok/s |
+| 3 | PASS | per-GPU checks: at least one GPU usable | 4/4 GPUs passed -> runs/_queue/release2-server/gpus.json |
+| 8 | PASS | smoke E1_split | ok |
+| 8 | PASS | smoke E2 | ok |

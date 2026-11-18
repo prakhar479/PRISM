@@ -1,0 +1,16 @@
+2026-11-18 03:11:49,812 INFO DAS: training das4 for add_chain L18 on 300 train pairs
+2026-11-18 03:11:55,735 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-18 03:11:55,984 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-18 03:11:56,235 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-18 03:11:57,731 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-18 03:26:00,784 INFO add_chain_L18_16k_l074__fit-pilot__eval-fresh unit 2/36 (8 conditions, 237.4s)
+2026-11-18 03:30:01,124 INFO add_chain_L18_16k_l074__fit-pilot__eval-fresh unit 6/36 (8 conditions, 239.7s)
+2026-11-18 03:34:01,278 INFO add_chain_L18_16k_l074__fit-pilot__eval-fresh unit 9/36 (8 conditions, 239.7s)
+2026-11-18 03:38:01,671 INFO add_chain_L18_16k_l074__fit-pilot__eval-fresh unit 12/36 (8 conditions, 239.8s)
+2026-11-18 03:42:01,952 INFO add_chain_L18_16k_l074__fit-pilot__eval-fresh unit 15/36 (8 conditions, 239.8s)
+2026-11-18 03:46:02,170 INFO add_chain_L18_16k_l074__fit-pilot__eval-fresh unit 18/36 (8 conditions, 239.8s)
+2026-11-18 03:50:02,736 INFO add_chain_L18_16k_l074__fit-pilot__eval-fresh unit 22/36 (8 conditions, 240.1s)
+2026-11-18 03:54:03,064 INFO add_chain_L18_16k_l074__fit-pilot__eval-fresh unit 26/36 (8 conditions, 239.8s)
+2026-11-18 03:58:03,440 INFO add_chain_L18_16k_l074__fit-pilot__eval-fresh unit 30/36 (8 conditions, 239.8s)
+2026-11-18 04:02:03,697 INFO add_chain_L18_16k_l074__fit-pilot__eval-fresh unit 34/36 (8 conditions, 239.7s)
+2026-11-18 04:02:03,864 INFO E9b -> /home2/raveeshvyas1410/prism-run/runs/E9b/99ff6baa3969 (worker_done)

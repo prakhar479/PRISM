@@ -1,0 +1,38 @@
+
+=== attempt 1 2026-11-17 21:44:34 slots=['2']: /home2/raveeshvyas1410/prism-run/.venv-harness/bin/python -m harness.run --config configs/experiments/E10.yaml --profile server --stage 3 --worker E10_s3-1
+Loading weights:   0%|          | 0/288 [00:00<?, ?it/s]Loading weights:   0%|          | 1/288 [00:00<01:55,  2.49it/s]Loading weights:  89%|████████▉ | 256/288 [00:00<00:00, 654.41it/s]Loading weights: 100%|██████████| 288/288 [00:00<00:00, 523.09it/s]
+2026-11-17 21:44:47,532 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-17 21:44:48,453 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-17 21:44:48,766 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-17 21:44:50,139 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-17 21:46:34,975 INFO add_chain_L18_16k_l074 unit 2/27 (8 conditions, 87.2s)
+2026-11-17 21:48:03,639 INFO add_chain_L18_16k_l074 unit 4/27 (8 conditions, 88.4s)
+2026-11-17 21:49:32,422 INFO add_chain_L18_16k_l074 unit 7/27 (8 conditions, 88.5s)
+2026-11-17 21:51:01,221 INFO add_chain_L18_16k_l074 unit 9/27 (8 conditions, 88.5s)
+2026-11-17 21:52:30,032 INFO add_chain_L18_16k_l074 unit 11/27 (8 conditions, 88.5s)
+2026-11-17 21:53:58,798 INFO add_chain_L18_16k_l074 unit 13/27 (8 conditions, 88.5s)
+2026-11-17 21:55:27,520 INFO add_chain_L18_16k_l074 unit 15/27 (8 conditions, 88.4s)
+2026-11-17 21:56:56,336 INFO add_chain_L18_16k_l074 unit 17/27 (8 conditions, 88.5s)
+2026-11-17 21:58:25,035 INFO add_chain_L18_16k_l074 unit 19/27 (8 conditions, 88.4s)
+2026-11-17 21:59:53,756 INFO add_chain_L18_16k_l074 unit 21/27 (8 conditions, 88.4s)
+2026-11-17 22:01:22,495 INFO add_chain_L18_16k_l074 unit 23/27 (8 conditions, 88.4s)
+2026-11-17 22:02:51,179 INFO add_chain_L18_16k_l074 unit 25/27 (8 conditions, 88.4s)
+2026-11-17 22:03:30,578 INFO add_chain_L18_16k_l074 unit 27/27 (2 conditions, 39.3s)
+2026-11-17 22:07:54,094 INFO entity_track_L12_16k_l082 unit 1/27 (8 conditions, 257.6s)
+2026-11-17 22:12:12,199 INFO entity_track_L12_16k_l082 unit 4/27 (8 conditions, 257.7s)
+2026-11-17 22:16:30,320 INFO entity_track_L12_16k_l082 unit 6/27 (8 conditions, 257.7s)
+2026-11-17 22:20:48,514 INFO entity_track_L12_16k_l082 unit 9/27 (8 conditions, 257.7s)
+2026-11-17 22:25:06,709 INFO entity_track_L12_16k_l082 unit 13/27 (8 conditions, 257.7s)
+2026-11-17 22:29:24,905 INFO entity_track_L12_16k_l082 unit 17/27 (8 conditions, 257.8s)
+2026-11-17 22:33:43,161 INFO entity_track_L12_16k_l082 unit 21/27 (8 conditions, 257.8s)
+2026-11-17 22:38:01,343 INFO entity_track_L12_16k_l082 unit 25/27 (8 conditions, 257.8s)
+2026-11-17 22:38:04,009 INFO DAS: training das4 for people_cities L12 on 300 train pairs
+2026-11-17 22:47:09,051 INFO people_cities_L12_16k_l082__fit-pc_en__eval-pc_en unit 2/27 (8 conditions, 126.3s)
+2026-11-17 22:49:15,717 INFO people_cities_L12_16k_l082__fit-pc_en__eval-pc_en unit 6/27 (8 conditions, 126.4s)
+2026-11-17 22:51:22,370 INFO people_cities_L12_16k_l082__fit-pc_en__eval-pc_en unit 10/27 (8 conditions, 126.4s)
+2026-11-17 22:53:29,011 INFO people_cities_L12_16k_l082__fit-pc_en__eval-pc_en unit 14/27 (8 conditions, 126.3s)
+2026-11-17 22:55:35,587 INFO people_cities_L12_16k_l082__fit-pc_en__eval-pc_en unit 18/27 (8 conditions, 126.2s)
+2026-11-17 22:57:42,207 INFO people_cities_L12_16k_l082__fit-pc_en__eval-pc_en unit 22/27 (8 conditions, 126.3s)
+2026-11-17 22:59:48,797 INFO people_cities_L12_16k_l082__fit-pc_en__eval-pc_en unit 26/27 (8 conditions, 126.3s)
+2026-11-17 22:59:48,907 INFO E10 -> /home2/raveeshvyas1410/prism-run/runs/E10/9eb5f4d77046 (worker_done)
+Loaded pretrained model gemma-2-2b into HookedTransformer

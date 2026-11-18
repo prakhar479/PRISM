@@ -1,0 +1,209 @@
+
+=== attempt 1 2026-11-02 01:06:46: /home/raveeshvyas/Coding_folder/interpretability/PRISM/.venv-harness/bin/python scripts/run_preflight.py --queue queue/release1.yaml --golden golden/R2
+[PASS] 1. packages match requirements/harness.lock: 0 errors, 0 warnings
+[PASS] 1. accelerator: NVIDIA GeForce RTX 5060 Laptop GPU, free 7.41 / 7.53 GB
+[PASS] 1. RAM and disk: RAM available 15.5 GB; disk free at cache root 51 GB
+[PASS] 2. prefetch targets cached with matching sha256: 22 files, 13.14 GB, 0 errors
+Traceback (most recent call last):
+  File "/home/raveeshvyas/Coding_folder/interpretability/PRISM/scripts/run_preflight.py", line 266, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home/raveeshvyas/Coding_folder/interpretability/PRISM/scripts/run_preflight.py", line 231, in main
+    model, spec = c3_model(prof, dev, revision)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/raveeshvyas/Coding_folder/interpretability/PRISM/scripts/run_preflight.py", line 91, in c3_model
+    model = build_model(spec, dev, offload_embed=prof.offload_embed)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/raveeshvyas/Coding_folder/interpretability/PRISM/harness/model/__init__.py", line 88, in build_model
+    return load_gemma(spec, device, offload_embed, tokenizer)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/raveeshvyas/Coding_folder/interpretability/PRISM/harness/model/__init__.py", line 61, in load_gemma
+    from transformer_lens import HookedTransformer
+  File "/home/raveeshvyas/Coding_folder/interpretability/PRISM/.venv-harness/lib/python3.12/site-packages/transformer_lens/__init__.py", line 1, in <module>
+    from . import (
+  File "/home/raveeshvyas/Coding_folder/interpretability/PRISM/.venv-harness/lib/python3.12/site-packages/transformer_lens/components/__init__.py", line 9, in <module>
+    from .abstract_attention import AbstractAttention
+  File "/home/raveeshvyas/Coding_folder/interpretability/PRISM/.venv-harness/lib/python3.12/site-packages/transformer_lens/components/abstract_attention.py", line 12, in <module>
+    from transformers.utils.import_utils import is_bitsandbytes_available
+  File "/home/raveeshvyas/Coding_folder/interpretability/PRISM/.venv-harness/lib/python3.12/site-packages/transformers/__init__.py", line 30, in <module>
+    from . import dependency_versions_check
+  File "/home/raveeshvyas/Coding_folder/interpretability/PRISM/.venv-harness/lib/python3.12/site-packages/transformers/dependency_versions_check.py", line 16, in <module>
+    from .utils.versions import require_version, require_version_core
+  File "/home/raveeshvyas/Coding_folder/interpretability/PRISM/.venv-harness/lib/python3.12/site-packages/transformers/utils/__init__.py", line 22, in <module>
+    from .auto_docstring import (
+  File "/home/raveeshvyas/Coding_folder/interpretability/PRISM/.venv-harness/lib/python3.12/site-packages/transformers/utils/auto_docstring.py", line 33, in <module>
+    from .generic import ModelOutput
+  File "/home/raveeshvyas/Coding_folder/interpretability/PRISM/.venv-harness/lib/python3.12/site-packages/transformers/utils/generic.py", line 39, in <module>
+    from .import_utils import is_mlx_available, is_torch_available, is_torch_fx_proxy, resolve_internal_import
+  File "/home/raveeshvyas/Coding_folder/interpretability/PRISM/.venv-harness/lib/python3.12/site-packages/transformers/utils/import_utils.py", line 51, in <module>
+    PACKAGE_DISTRIBUTION_MAPPING = importlib.metadata.packages_distributions()
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/raveeshvyas/.local/share/uv/python/cpython-3.12.16-linux-x86_64-gnu/lib/python3.12/importlib/metadata/__init__.py", line 947, in packages_distributions
+    for pkg in _top_level_declared(dist) or _top_level_inferred(dist):
+                                            ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/raveeshvyas/.local/share/uv/python/cpython-3.12.16-linux-x86_64-gnu/lib/python3.12/importlib/metadata/__init__.py", line 959, in _top_level_inferred
+    for f in always_iterable(dist.files)
+                             ^^^^^^^^^^
+  File "/home/raveeshvyas/.local/share/uv/python/cpython-3.12.16-linux-x86_64-gnu/lib/python3.12/importlib/metadata/__init__.py", line 500, in files
+    return skip_missing_files(
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/raveeshvyas/.local/share/uv/python/cpython-3.12.16-linux-x86_64-gnu/lib/python3.12/importlib/metadata/_functools.py", line 102, in wrapper
+    return func(param, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/raveeshvyas/.local/share/uv/python/cpython-3.12.16-linux-x86_64-gnu/lib/python3.12/importlib/metadata/__init__.py", line 498, in skip_missing_files
+    return list(filter(lambda path: path.locate().exists(), package_paths))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/raveeshvyas/.local/share/uv/python/cpython-3.12.16-linux-x86_64-gnu/lib/python3.12/importlib/metadata/__init__.py", line 498, in <lambda>
+    return list(filter(lambda path: path.locate().exists(), package_paths))
+                                    ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/raveeshvyas/.local/share/uv/python/cpython-3.12.16-linux-x86_64-gnu/lib/python3.12/pathlib.py", line 860, in exists
+    self.stat(follow_symlinks=follow_symlinks)
+  File "/home/raveeshvyas/.local/share/uv/python/cpython-3.12.16-linux-x86_64-gnu/lib/python3.12/pathlib.py", line 840, in stat
+    return os.stat(self, follow_symlinks=follow_symlinks)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt
+
+=== attempt 2 2026-11-02 01:08:20: /home/raveeshvyas/Coding_folder/interpretability/PRISM/.venv-harness/bin/python scripts/run_preflight.py --queue queue/release1.yaml --golden golden/R2
+[PASS] 1. packages match requirements/harness.lock: 0 errors, 0 warnings
+[PASS] 1. accelerator: NVIDIA GeForce RTX 5060 Laptop GPU, free 7.41 / 7.53 GB
+[PASS] 1. RAM and disk: RAM available 15.0 GB; disk free at cache root 51 GB
+[PASS] 2. prefetch targets cached with matching sha256: 22 files, 13.14 GB, 0 errors
+Loading weights:   0%|          | 0/288 [00:00<?, ?it/s]Loading weights:   0%|          | 1/288 [00:01<08:26,  1.76s/it]Loading weights:  77%|███████▋  | 223/288 [00:01<00:00, 165.76it/s]Loading weights: 100%|██████████| 288/288 [00:02<00:00, 111.44it/s]
+Loaded pretrained model gemma-2-2b into HookedTransformer
+[PASS] 3. model load: 20 s, 4.92 GB allocated
+[PASS] 3. last-position head == full forward last logits: max |dlogit| 0.19 (tol 0.25 = 2 bfloat16 ulp at max |logit| 28.4); argmax equal True
+[PASS] 4. hook identity (OT L12, 4 pairs): full_B == clean_B, resumed clean_B == stage 1: max |dD| full_B 0, resumed clean_B 0
+[PASS] 4. full_A reproduces clean A (NLDR = 1): max |dD| 0
+[PASS] 5. entity_track_L12: golden pair ids and token ids == harness prompt set: 16 pairs
+[PASS] 5. entity_track_L12: span residuals vs golden (relative): max relative row error 0.0201 (median 0; tol 0.05); pilot's own batch-1 vs batched: max 0.0269
+[PASS] 5. entity_track_L12: SAE variant == the one the golden export loaded: harness layer_12/width_16k/average_l0_82/params.npz; golden layer_12/width_16k/average_l0_82/params.npz
+[PASS] 5. entity_track_L12: SAE x_hat on golden residuals: max |dx_hat| 0.000114 (GPU fp32 vs golden)
+[PASS] 5. entity_track_L12: per-condition D vs golden: max |dD| feat_A_errB 0.202, feat_B_errA 0.215, feat_A_zero 0.167, full_A 0.174, repair_pca_pooled_r1 0.182, repair_pca_pooled_r2 0.157
+[PASS] 7. throughput: forward tokens/s by rows {1: 2539.1, 2: 3234.7, 4: 3955.1, 5: 4164.8} -> throughput_release1_20261102_010821.json
+[SKIP] 6. HF top-1 agreement (informational): {'add_chain/A': 1.0, 'add_chain/B': 1.0, 'entity_track/A': 1.0, 'entity_track/B': 0.917, 'ioi_control/A': 1.0, 'ioi_control/B': 1.0, 'var_binding/A': 1.0, 'var_binding/B': 1.0} (see release1_20261102_010821_hf/report.md)
+
+=== attempt 1 2026-11-02 01:13:38: /home/raveeshvyas/Coding_folder/interpretability/PRISM/.venv-harness/bin/python scripts/run_preflight.py --queue queue/release1.yaml --golden golden/R2
+[PASS] 1. packages match requirements/harness.lock: 0 errors, 0 warnings
+[PASS] 1. accelerator: NVIDIA GeForce RTX 5060 Laptop GPU, free 7.41 / 7.53 GB
+[PASS] 1. RAM and disk: RAM available 16.1 GB; disk free at cache root 51 GB
+[PASS] 2. prefetch targets cached with matching sha256: 22 files, 13.14 GB, 0 errors
+Loading weights:   0%|          | 0/288 [00:00<?, ?it/s]Loading weights:   0%|          | 1/288 [00:01<08:35,  1.80s/it]Loading weights:  66%|██████▌   | 190/288 [00:01<00:00, 139.56it/s]Loading weights: 100%|██████████| 288/288 [00:02<00:00, 115.25it/s]
+Loaded pretrained model gemma-2-2b into HookedTransformer
+[PASS] 3. model load: 20 s, 4.92 GB allocated
+[PASS] 3. last-position head == full forward last logits: max |dlogit| 0.19 (tol 0.25 = 2 bfloat16 ulp at max |logit| 28.4); argmax equal True
+[FAIL] 4. hook identity (OT L12, 4 pairs): full_B == clean_B, resumed clean_B == stage 1: max |dD| full_B 0.081, resumed clean_B 0.12
+[FAIL] 4. full_A reproduces clean A (NLDR = 1): max |dD| 0.18
+[PASS] 5. entity_track_L12: golden pair ids and token ids == harness prompt set: 16 pairs
+[PASS] 5. entity_track_L12: span residuals vs golden (relative): max relative row error 0.0201 (median 0; tol 0.05); pilot's own batch-1 vs batched: max 0.0269
+[PASS] 5. entity_track_L12: SAE variant == the one the golden export loaded: harness layer_12/width_16k/average_l0_82/params.npz; golden layer_12/width_16k/average_l0_82/params.npz
+[PASS] 5. entity_track_L12: SAE x_hat on golden residuals: max |dx_hat| 0.000114 (GPU fp32 vs golden)
+[PASS] 5. entity_track_L12: per-condition D vs golden: max |dD| feat_A_errB 0.202, feat_B_errA 0.215, feat_A_zero 0.167, full_A 0.174, repair_pca_pooled_r1 0.182, repair_pca_pooled_r2 0.157
+[PASS] 7. throughput: forward tokens/s by rows {1: 2589.2, 2: 3210.7, 4: 3958.9} -> throughput_release1_20261102_011339.json
+[SKIP] 6. HF top-1 agreement (informational): {'add_chain/A': 1.0, 'add_chain/B': 1.0, 'entity_track/A': 1.0, 'entity_track/B': 0.917, 'ioi_control/A': 1.0, 'ioi_control/B': 1.0, 'var_binding/A': 1.0, 'var_binding/B': 1.0} (see release1_20261102_011339_hf/report.md)
+[PASS] 8. smoke E1_split: ok
+[PASS] 8. smoke E2: ok
+# Preflight release1 20261102_011339: FAILED
+
+| # | status | check | detail |
+|---|---|---|---|
+| 1 | PASS | packages match requirements/harness.lock | 0 errors, 0 warnings |
+| 1 | PASS | accelerator | NVIDIA GeForce RTX 5060 Laptop GPU, free 7.41 / 7.53 GB |
+| 1 | PASS | RAM and disk | RAM available 16.1 GB; disk free at cache root 51 GB |
+| 2 | PASS | prefetch targets cached with matching sha256 | 22 files, 13.14 GB, 0 errors |
+| 3 | PASS | model load | 20 s, 4.92 GB allocated |
+| 3 | PASS | last-position head == full forward last logits | max /dlogit/ 0.19 (tol 0.25 = 2 bfloat16 ulp at max /logit/ 28.4); argmax equal True |
+| 4 | FAIL | hook identity (OT L12, 4 pairs): full_B == clean_B, resumed clean_B == stage 1 | max /dD/ full_B 0.081, resumed clean_B 0.12 |
+| 4 | FAIL | full_A reproduces clean A (NLDR = 1) | max /dD/ 0.18 |
+| 5 | PASS | entity_track_L12: golden pair ids and token ids == harness prompt set | 16 pairs |
+| 5 | PASS | entity_track_L12: span residuals vs golden (relative) | max relative row error 0.0201 (median 0; tol 0.05); pilot's own batch-1 vs batched: max 0.0269 |
+| 5 | PASS | entity_track_L12: SAE variant == the one the golden export loaded | harness layer_12/width_16k/average_l0_82/params.npz; golden layer_12/width_16k/average_l0_82/params.npz |
+| 5 | PASS | entity_track_L12: SAE x_hat on golden residuals | max /dx_hat/ 0.000114 (GPU fp32 vs golden) |
+| 5 | PASS | entity_track_L12: per-condition D vs golden | max /dD/ feat_A_errB 0.202, feat_B_errA 0.215, feat_A_zero 0.167, full_A 0.174, repair_pca_pooled_r1 0.182, repair_pca_pooled_r2 0.157 |
+| 7 | PASS | throughput | forward tokens/s by rows {1: 2589.2, 2: 3210.7, 4: 3958.9} -> throughput_release1_20261102_011339.json |
+| 6 | SKIP | HF top-1 agreement (informational) | {'add_chain/A': 1.0, 'add_chain/B': 1.0, 'entity_track/A': 1.0, 'entity_track/B': 0.917, 'ioi_control/A': 1.0, 'ioi_control/B': 1.0, 'var_binding/A': 1.0, 'var_binding/B': 1.0} (see release1_20261102_011339_hf/report.md) |
+| 8 | PASS | smoke E1_split | ok |
+| 8 | PASS | smoke E2 | ok |
+
+=== attempt 2 2026-11-02 01:26:57: /home/raveeshvyas/Coding_folder/interpretability/PRISM/.venv-harness/bin/python scripts/run_preflight.py --queue queue/release1.yaml --golden golden/R2
+[PASS] 1. packages match requirements/harness.lock: 0 errors, 0 warnings
+[PASS] 1. accelerator: NVIDIA GeForce RTX 5060 Laptop GPU, free 7.41 / 7.53 GB
+[PASS] 1. RAM and disk: RAM available 18.1 GB; disk free at cache root 51 GB
+[PASS] 2. prefetch targets cached with matching sha256: 22 files, 13.14 GB, 0 errors
+Loading weights:   0%|          | 0/288 [00:00<?, ?it/s]Loading weights:   0%|          | 1/288 [00:01<08:01,  1.68s/it]Loading weights:  70%|██████▉   | 201/288 [00:01<00:00, 154.10it/s]Loading weights: 100%|██████████| 288/288 [00:02<00:00, 124.06it/s]
+Loaded pretrained model gemma-2-2b into HookedTransformer
+[PASS] 3. model load: 20 s, 4.92 GB allocated
+[PASS] 3. last-position head == full forward last logits: max |dlogit| 0.19 (tol 0.25 = 2 bfloat16 ulp at max |logit| 28.4); argmax equal True
+[FAIL] 4. hook identity (OT L12, 4 pairs): full_B == clean_B, resumed clean_B == stage 1: max |dD| full_B 0.081, resumed clean_B 0.12
+[FAIL] 4. full_A reproduces clean A (NLDR = 1): max |dD| 0.18
+[PASS] 5. entity_track_L12: golden pair ids and token ids == harness prompt set: 16 pairs
+[PASS] 5. entity_track_L12: span residuals vs golden (relative): max relative row error 0.0201 (median 0; tol 0.05); pilot's own batch-1 vs batched: max 0.0269
+[PASS] 5. entity_track_L12: SAE variant == the one the golden export loaded: harness layer_12/width_16k/average_l0_82/params.npz; golden layer_12/width_16k/average_l0_82/params.npz
+[PASS] 5. entity_track_L12: SAE x_hat on golden residuals: max |dx_hat| 0.000114 (GPU fp32 vs golden)
+[PASS] 5. entity_track_L12: per-condition D vs golden: max |dD| feat_A_errB 0.202, feat_B_errA 0.215, feat_A_zero 0.167, full_A 0.174, repair_pca_pooled_r1 0.182, repair_pca_pooled_r2 0.157
+[PASS] 7. throughput: forward tokens/s by rows {1: 2582.0, 2: 3211.9, 4: 3954.8} -> throughput_release1_20261102_012658.json
+[SKIP] 6. HF top-1 agreement (informational): {'add_chain/A': 1.0, 'add_chain/B': 1.0, 'entity_track/A': 1.0, 'entity_track/B': 0.917, 'ioi_control/A': 1.0, 'ioi_control/B': 1.0, 'var_binding/A': 1.0, 'var_binding/B': 1.0} (see release1_20261102_012658_hf/report.md)
+[PASS] 8. smoke E1_split: ok
+[PASS] 8. smoke E2: ok
+# Preflight release1 20261102_012658: FAILED
+
+| # | status | check | detail |
+|---|---|---|---|
+| 1 | PASS | packages match requirements/harness.lock | 0 errors, 0 warnings |
+| 1 | PASS | accelerator | NVIDIA GeForce RTX 5060 Laptop GPU, free 7.41 / 7.53 GB |
+| 1 | PASS | RAM and disk | RAM available 18.1 GB; disk free at cache root 51 GB |
+| 2 | PASS | prefetch targets cached with matching sha256 | 22 files, 13.14 GB, 0 errors |
+| 3 | PASS | model load | 20 s, 4.92 GB allocated |
+| 3 | PASS | last-position head == full forward last logits | max /dlogit/ 0.19 (tol 0.25 = 2 bfloat16 ulp at max /logit/ 28.4); argmax equal True |
+| 4 | FAIL | hook identity (OT L12, 4 pairs): full_B == clean_B, resumed clean_B == stage 1 | max /dD/ full_B 0.081, resumed clean_B 0.12 |
+| 4 | FAIL | full_A reproduces clean A (NLDR = 1) | max /dD/ 0.18 |
+| 5 | PASS | entity_track_L12: golden pair ids and token ids == harness prompt set | 16 pairs |
+| 5 | PASS | entity_track_L12: span residuals vs golden (relative) | max relative row error 0.0201 (median 0; tol 0.05); pilot's own batch-1 vs batched: max 0.0269 |
+| 5 | PASS | entity_track_L12: SAE variant == the one the golden export loaded | harness layer_12/width_16k/average_l0_82/params.npz; golden layer_12/width_16k/average_l0_82/params.npz |
+| 5 | PASS | entity_track_L12: SAE x_hat on golden residuals | max /dx_hat/ 0.000114 (GPU fp32 vs golden) |
+| 5 | PASS | entity_track_L12: per-condition D vs golden | max /dD/ feat_A_errB 0.202, feat_B_errA 0.215, feat_A_zero 0.167, full_A 0.174, repair_pca_pooled_r1 0.182, repair_pca_pooled_r2 0.157 |
+| 7 | PASS | throughput | forward tokens/s by rows {1: 2582.0, 2: 3211.9, 4: 3954.8} -> throughput_release1_20261102_012658.json |
+| 6 | SKIP | HF top-1 agreement (informational) | {'add_chain/A': 1.0, 'add_chain/B': 1.0, 'entity_track/A': 1.0, 'entity_track/B': 0.917, 'ioi_control/A': 1.0, 'ioi_control/B': 1.0, 'var_binding/A': 1.0, 'var_binding/B': 1.0} (see release1_20261102_012658_hf/report.md) |
+| 8 | PASS | smoke E1_split | ok |
+| 8 | PASS | smoke E2 | ok |
+
+=== attempt 1 2026-11-02 21:02:42: /home/raveeshvyas/Coding_folder/interpretability/PRISM/.venv-harness/bin/python scripts/run_preflight.py --queue queue/release1.yaml --golden golden/R2
+[PASS] 1. packages match requirements/harness.lock: 0 errors, 0 warnings
+[PASS] 1. accelerator: NVIDIA GeForce RTX 5060 Laptop GPU, free 7.41 / 7.53 GB
+[PASS] 1. RAM and disk: RAM available 17.8 GB; disk free at cache root 51 GB
+[PASS] 2. prefetch targets cached with matching sha256: 22 files, 13.14 GB, 0 errors
+Loading weights:   0%|          | 0/288 [00:00<?, ?it/s]Loading weights:   0%|          | 1/288 [00:01<06:18,  1.32s/it]Loading weights:  70%|██████▉   | 201/288 [00:01<00:00, 192.65it/s]Loading weights: 100%|██████████| 288/288 [00:02<00:00, 137.68it/s]
+Loaded pretrained model gemma-2-2b into HookedTransformer
+[PASS] 3. model load: 17 s, 4.92 GB allocated
+[PASS] 3. last-position head == full forward last logits: max |dlogit| 0.19 (tol 0.25 = 2 bfloat16 ulp at max |logit| 28.4); argmax equal True
+[PASS] 4. hook identity (OT L12, 4 pairs): full_B == clean_B, resumed clean_B == stage 1: max |dD| full_B 0.081, resumed clean_B 0.12
+[PASS] 4. full_A reproduces clean A (NLDR = 1): max |dD| 0.18
+[PASS] 5. entity_track_L12: golden pair ids and token ids == harness prompt set: 16 pairs
+[PASS] 5. entity_track_L12: span residuals vs golden (relative): max relative row error 0.0201 (median 0; tol 0.05); pilot's own batch-1 vs batched: max 0.0269
+[PASS] 5. entity_track_L12: SAE variant == the one the golden export loaded: harness layer_12/width_16k/average_l0_82/params.npz; golden layer_12/width_16k/average_l0_82/params.npz
+[PASS] 5. entity_track_L12: SAE x_hat on golden residuals: max |dx_hat| 0.000114 (GPU fp32 vs golden)
+[PASS] 5. entity_track_L12: per-condition D vs golden: max |dD| feat_A_errB 0.202, feat_B_errA 0.215, feat_A_zero 0.167, full_A 0.174, repair_pca_pooled_r1 0.182, repair_pca_pooled_r2 0.157
+[PASS] 7. throughput: forward tokens/s by rows {1: 2581.3, 2: 3273.8, 4: 3991.8} -> throughput_release1_20261102_210243.json
+[SKIP] 6. HF top-1 agreement (informational): {'add_chain/A': 1.0, 'add_chain/B': 1.0, 'entity_track/A': 1.0, 'entity_track/B': 0.917, 'ioi_control/A': 1.0, 'ioi_control/B': 1.0, 'var_binding/A': 1.0, 'var_binding/B': 1.0} (see release1_20261102_210243_hf/report.md)
+[PASS] 8. smoke E1_split: ok
+[PASS] 8. smoke E2: ok
+# Preflight release1 20261102_210243: OK
+
+| # | status | check | detail |
+|---|---|---|---|
+| 1 | PASS | packages match requirements/harness.lock | 0 errors, 0 warnings |
+| 1 | PASS | accelerator | NVIDIA GeForce RTX 5060 Laptop GPU, free 7.41 / 7.53 GB |
+| 1 | PASS | RAM and disk | RAM available 17.8 GB; disk free at cache root 51 GB |
+| 2 | PASS | prefetch targets cached with matching sha256 | 22 files, 13.14 GB, 0 errors |
+| 3 | PASS | model load | 17 s, 4.92 GB allocated |
+| 3 | PASS | last-position head == full forward last logits | max /dlogit/ 0.19 (tol 0.25 = 2 bfloat16 ulp at max /logit/ 28.4); argmax equal True |
+| 4 | PASS | hook identity (OT L12, 4 pairs): full_B == clean_B, resumed clean_B == stage 1 | max /dD/ full_B 0.081, resumed clean_B 0.12 |
+| 4 | PASS | full_A reproduces clean A (NLDR = 1) | max /dD/ 0.18 |
+| 5 | PASS | entity_track_L12: golden pair ids and token ids == harness prompt set | 16 pairs |
+| 5 | PASS | entity_track_L12: span residuals vs golden (relative) | max relative row error 0.0201 (median 0; tol 0.05); pilot's own batch-1 vs batched: max 0.0269 |
+| 5 | PASS | entity_track_L12: SAE variant == the one the golden export loaded | harness layer_12/width_16k/average_l0_82/params.npz; golden layer_12/width_16k/average_l0_82/params.npz |
+| 5 | PASS | entity_track_L12: SAE x_hat on golden residuals | max /dx_hat/ 0.000114 (GPU fp32 vs golden) |
+| 5 | PASS | entity_track_L12: per-condition D vs golden | max /dD/ feat_A_errB 0.202, feat_B_errA 0.215, feat_A_zero 0.167, full_A 0.174, repair_pca_pooled_r1 0.182, repair_pca_pooled_r2 0.157 |
+| 7 | PASS | throughput | forward tokens/s by rows {1: 2581.3, 2: 3273.8, 4: 3991.8} -> throughput_release1_20261102_210243.json |
+| 6 | SKIP | HF top-1 agreement (informational) | {'add_chain/A': 1.0, 'add_chain/B': 1.0, 'entity_track/A': 1.0, 'entity_track/B': 0.917, 'ioi_control/A': 1.0, 'ioi_control/B': 1.0, 'var_binding/A': 1.0, 'var_binding/B': 1.0} (see release1_20261102_210243_hf/report.md) |
+| 8 | PASS | smoke E1_split | ok |
+| 8 | PASS | smoke E2 | ok |

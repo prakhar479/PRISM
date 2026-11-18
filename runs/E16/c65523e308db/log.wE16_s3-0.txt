@@ -1,0 +1,37 @@
+2026-11-18 01:42:32,292 INFO DAS: training das1 for add_chain L12 on 300 train pairs
+2026-11-18 01:42:37,870 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-18 01:42:38,155 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-18 01:42:38,406 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-18 01:42:40,072 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-18 01:49:08,538 INFO DAS: training das2 for add_chain L12 on 300 train pairs
+2026-11-18 01:55:20,036 INFO DAS: training das4 for add_chain L12 on 300 train pairs
+2026-11-18 02:03:56,929 INFO add_chain_L12_16k_l082 unit 1/19 (8 conditions, 144.6s)
+2026-11-18 02:06:21,591 INFO add_chain_L12_16k_l082 unit 3/19 (8 conditions, 144.5s)
+2026-11-18 02:08:46,055 INFO add_chain_L12_16k_l082 unit 5/19 (8 conditions, 144.4s)
+2026-11-18 02:11:10,602 INFO add_chain_L12_16k_l082 unit 7/19 (8 conditions, 144.4s)
+2026-11-18 02:13:35,205 INFO add_chain_L12_16k_l082 unit 9/19 (8 conditions, 144.5s)
+2026-11-18 02:15:59,762 INFO add_chain_L12_16k_l082 unit 11/19 (8 conditions, 144.4s)
+2026-11-18 02:18:24,310 INFO add_chain_L12_16k_l082 unit 13/19 (8 conditions, 144.4s)
+2026-11-18 02:20:48,975 INFO add_chain_L12_16k_l082 unit 15/19 (8 conditions, 144.5s)
+2026-11-18 02:23:13,481 INFO add_chain_L12_16k_l082 unit 17/19 (8 conditions, 144.4s)
+2026-11-18 02:24:17,808 INFO add_chain_L12_16k_l082 unit 19/19 (3 conditions, 64.3s)
+2026-11-18 02:24:20,016 INFO DAS: training das1 for add_chain L14 on 300 train pairs
+2026-11-18 02:30:15,948 INFO DAS: training das4 for add_chain L14 on 300 train pairs
+2026-11-18 02:38:20,178 INFO add_chain_L14_16k_l084 unit 1/19 (8 conditions, 127.0s)
+2026-11-18 02:40:27,666 INFO add_chain_L14_16k_l084 unit 6/19 (8 conditions, 127.4s)
+2026-11-18 02:42:35,121 INFO add_chain_L14_16k_l084 unit 10/19 (8 conditions, 127.3s)
+2026-11-18 02:44:42,565 INFO add_chain_L14_16k_l084 unit 14/19 (8 conditions, 127.3s)
+2026-11-18 02:45:41,981 INFO add_chain_L14_16k_l084 unit 19/19 (3 conditions, 59.3s)
+2026-11-18 02:45:44,237 INFO DAS: training das2 for add_chain L16 on 300 train pairs
+2026-11-18 02:53:23,506 INFO add_chain_L16_16k_l078 unit 4/19 (8 conditions, 110.1s)
+2026-11-18 02:55:13,853 INFO add_chain_L16_16k_l078 unit 7/19 (8 conditions, 110.2s)
+2026-11-18 02:57:04,112 INFO add_chain_L16_16k_l078 unit 11/19 (8 conditions, 110.1s)
+2026-11-18 02:58:54,364 INFO add_chain_L16_16k_l078 unit 15/19 (8 conditions, 110.1s)
+2026-11-18 02:59:48,816 INFO add_chain_L16_16k_l078 unit 19/19 (3 conditions, 54.4s)
+2026-11-18 02:59:51,272 INFO DAS: training das2 for add_chain L20 on 300 train pairs
+2026-11-18 03:06:23,181 INFO add_chain_L20_16k_l071 unit 3/19 (8 conditions, 75.9s)
+2026-11-18 03:07:39,232 INFO add_chain_L20_16k_l071 unit 8/19 (8 conditions, 75.9s)
+2026-11-18 03:08:55,303 INFO add_chain_L20_16k_l071 unit 11/19 (8 conditions, 75.9s)
+2026-11-18 03:10:11,260 INFO add_chain_L20_16k_l071 unit 15/19 (8 conditions, 75.8s)
+2026-11-18 03:10:55,995 INFO add_chain_L20_16k_l071 unit 19/19 (3 conditions, 44.6s)
+2026-11-18 03:10:56,208 INFO E16 -> /home2/raveeshvyas1410/prism-run/runs/E16/c65523e308db (worker_done)

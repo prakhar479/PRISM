@@ -1,0 +1,17 @@
+2026-11-17 22:16:54,714 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-17 22:16:55,059 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-17 22:16:55,386 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-17 22:16:56,836 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-17 22:21:44,304 INFO entity_track_L12_16k_l082 unit 10/27 (8 conditions, 270.2s)
+2026-11-17 22:26:15,677 INFO entity_track_L12_16k_l082 unit 14/27 (8 conditions, 270.9s)
+2026-11-17 22:30:47,097 INFO entity_track_L12_16k_l082 unit 18/27 (8 conditions, 271.0s)
+2026-11-17 22:35:18,421 INFO entity_track_L12_16k_l082 unit 22/27 (8 conditions, 270.9s)
+2026-11-17 22:39:49,701 INFO entity_track_L12_16k_l082 unit 26/27 (8 conditions, 270.9s)
+2026-11-17 22:47:12,937 INFO people_cities_L12_16k_l082__fit-pc_en__eval-pc_en unit 3/27 (8 conditions, 130.2s)
+2026-11-17 22:49:26,009 INFO people_cities_L12_16k_l082__fit-pc_en__eval-pc_en unit 7/27 (8 conditions, 132.8s)
+2026-11-17 22:51:39,118 INFO people_cities_L12_16k_l082__fit-pc_en__eval-pc_en unit 11/27 (8 conditions, 132.8s)
+2026-11-17 22:53:52,389 INFO people_cities_L12_16k_l082__fit-pc_en__eval-pc_en unit 15/27 (8 conditions, 132.9s)
+2026-11-17 22:56:05,619 INFO people_cities_L12_16k_l082__fit-pc_en__eval-pc_en unit 19/27 (8 conditions, 132.9s)
+2026-11-17 22:58:19,117 INFO people_cities_L12_16k_l082__fit-pc_en__eval-pc_en unit 23/27 (8 conditions, 133.1s)
+2026-11-17 22:59:03,695 INFO people_cities_L12_16k_l082__fit-pc_en__eval-pc_en unit 27/27 (2 conditions, 44.4s)
+2026-11-17 22:59:03,811 INFO E10 -> /home2/raveeshvyas1410/prism-run/runs/E10/9eb5f4d77046 (worker_done)

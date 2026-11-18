@@ -1,0 +1,229 @@
+{
+ "exp_id": "E16",
+ "run_hash": "c65523e308db",
+ "n_rows": 127280,
+ "hook_checks": [
+  {
+   "cell": "add_chain_12_L12_16k_l082_pilot",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "add_chain_12_L12_16k_l082_pilot",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "add_chain_14_L14_16k_l084_pilot",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "add_chain_14_L14_16k_l084_pilot",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "add_chain_16_L16_16k_l078_pilot",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "add_chain_16_L16_16k_l078_pilot",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "add_chain_20_L20_16k_l071_pilot",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "add_chain_20_L20_16k_l071_pilot",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  }
+ ],
+ "cells": [
+  {
+   "cell": "add_chain_L12_16k_l082",
+   "role": "exploratory",
+   "sae": {
+    "layer": 12,
+    "width": "16k",
+    "l0": 82,
+    "repo": "google/gemma-scope-2b-pt-res",
+    "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_none": 150,
+    "f_A_correct": 150,
+    "f_pilot": 150
+   },
+   "n_test_union": 215,
+   "n_train": 300,
+   "fitset_digest": "7cc34e25b8356245",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9689,
+     "f_both_correct": 0.9411,
+     "f_pilot": 0.6989
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9622,
+     "f_both_correct": 0.9356,
+     "f_pilot": 0.6133
+    }
+   },
+   "mean_l0_test": [
+    80.9793701171875,
+    81.29710388183594
+   ],
+   "rel_err_norm_test": 0.4082990884780884,
+   "mean_pos_coverage": {
+    "slot": 1064,
+    "offset": 1457,
+    "task": 0
+   }
+  },
+  {
+   "cell": "add_chain_L14_16k_l084",
+   "role": "exploratory",
+   "sae": {
+    "layer": 14,
+    "width": "16k",
+    "l0": 84,
+    "repo": "google/gemma-scope-2b-pt-res",
+    "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_none": 150,
+    "f_A_correct": 150,
+    "f_pilot": 150
+   },
+   "n_test_union": 215,
+   "n_train": 300,
+   "fitset_digest": "7cc34e25b8356245",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9689,
+     "f_both_correct": 0.9411,
+     "f_pilot": 0.6989
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9622,
+     "f_both_correct": 0.9356,
+     "f_pilot": 0.6133
+    }
+   },
+   "mean_l0_test": [
+    99.14200592041016,
+    99.16898345947266
+   ],
+   "rel_err_norm_test": 0.37826967239379883,
+   "mean_pos_coverage": {
+    "slot": 1064,
+    "offset": 1457,
+    "task": 0
+   }
+  },
+  {
+   "cell": "add_chain_L16_16k_l078",
+   "role": "exploratory",
+   "sae": {
+    "layer": 16,
+    "width": "16k",
+    "l0": 78,
+    "repo": "google/gemma-scope-2b-pt-res",
+    "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_none": 150,
+    "f_A_correct": 150,
+    "f_pilot": 150
+   },
+   "n_test_union": 215,
+   "n_train": 300,
+   "fitset_digest": "7cc34e25b8356245",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9689,
+     "f_both_correct": 0.9411,
+     "f_pilot": 0.6989
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9622,
+     "f_both_correct": 0.9356,
+     "f_pilot": 0.6133
+    }
+   },
+   "mean_l0_test": [
+    82.38992309570312,
+    82.41293334960938
+   ],
+   "rel_err_norm_test": 0.39725905656814575,
+   "mean_pos_coverage": {
+    "slot": 1064,
+    "offset": 1457,
+    "task": 0
+   }
+  },
+  {
+   "cell": "add_chain_L20_16k_l071",
+   "role": "exploratory",
+   "sae": {
+    "layer": 20,
+    "width": "16k",
+    "l0": 71,
+    "repo": "google/gemma-scope-2b-pt-res",
+    "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_none": 150,
+    "f_A_correct": 150,
+    "f_pilot": 150
+   },
+   "n_test_union": 215,
+   "n_train": 300,
+   "fitset_digest": "7cc34e25b8356245",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9689,
+     "f_both_correct": 0.9411,
+     "f_pilot": 0.6989
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9622,
+     "f_both_correct": 0.9356,
+     "f_pilot": 0.6133
+    }
+   },
+   "mean_l0_test": [
+    56.06267166137695,
+    55.98453140258789
+   ],
+   "rel_err_norm_test": 0.3637086749076843,
+   "mean_pos_coverage": {
+    "slot": 1064,
+    "offset": 1457,
+    "task": 0
+   }
+  }
+ ]
+}

@@ -1,0 +1,9 @@
+
+=== attempt 1 2026-11-15 03:17:50 slots=['1']: /home2/raveeshvyas1410/prism-run/.venv-harness/bin/python -m harness.run --config configs/experiments/E4.yaml --profile server --stage 2 --stage2-slice 1/3
+2026-11-15 03:17:55,683 INFO HTTP Request: HEAD https://huggingface.co/google/gemma-scope-2b-pt-res/resolve/fd571b47c1c64851e9b1989792367b9babb4af63/layer_12/width_131k/average_l0_67/params.npz "HTTP/1.1 302 Found"
+2026-11-15 03:17:55,939 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/xet-read-token/fd571b47c1c64851e9b1989792367b9babb4af63 "HTTP/1.1 200 OK"
+2026-11-15 03:20:35,347 INFO HTTP Request: HEAD https://huggingface.co/google/gemma-scope-2b-pt-res/resolve/fd571b47c1c64851e9b1989792367b9babb4af63/layer_12/width_262k/average_l0_67/params.npz "HTTP/1.1 302 Found"
+2026-11-15 03:26:15,211 INFO HTTP Request: HEAD https://huggingface.co/google/gemma-scope-2b-pt-res/resolve/fd571b47c1c64851e9b1989792367b9babb4af63/layer_12/width_524k/average_l0_115/params.npz "HTTP/1.1 302 Found"
+2026-11-15 03:32:15,586 INFO HTTP Request: HEAD https://huggingface.co/google/gemma-scope-2b-pt-res/resolve/fd571b47c1c64851e9b1989792367b9babb4af63/layer_12/width_65k/average_l0_72/params.npz "HTTP/1.1 302 Found"
+2026-11-15 03:32:15,824 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/xet-read-token/fd571b47c1c64851e9b1989792367b9babb4af63 "HTTP/1.1 200 OK"
+2026-11-15 03:34:05,021 INFO E4 -> /home2/raveeshvyas1410/prism-run/runs/E4/051558844fa0 (stage2_complete)

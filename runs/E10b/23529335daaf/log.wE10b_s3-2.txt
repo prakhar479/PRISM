@@ -1,0 +1,11 @@
+2026-11-18 04:34:58,573 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-18 04:34:58,823 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-18 04:34:59,075 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-18 04:35:00,387 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-18 04:39:18,983 INFO add_chain_L18_16k_l074__fit-pilot__eval-fresh unit 11/27 (8 conditions, 243.0s)
+2026-11-18 04:43:23,567 INFO add_chain_L18_16k_l074__fit-pilot__eval-fresh unit 14/27 (8 conditions, 243.9s)
+2026-11-18 04:47:28,029 INFO add_chain_L18_16k_l074__fit-pilot__eval-fresh unit 17/27 (8 conditions, 243.8s)
+2026-11-18 04:51:32,477 INFO add_chain_L18_16k_l074__fit-pilot__eval-fresh unit 20/27 (8 conditions, 243.8s)
+2026-11-18 04:55:37,083 INFO add_chain_L18_16k_l074__fit-pilot__eval-fresh unit 23/27 (8 conditions, 243.9s)
+2026-11-18 04:59:42,438 INFO add_chain_L18_16k_l074__fit-pilot__eval-fresh unit 26/27 (8 conditions, 244.7s)
+2026-11-18 04:59:42,583 INFO E10b -> /home2/raveeshvyas1410/prism-run/runs/E10b/23529335daaf (worker_done)

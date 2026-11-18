@@ -1,0 +1,12 @@
+
+=== attempt 1 2026-11-17 15:06:08 slots=['3']: /home2/raveeshvyas1410/prism-run/.venv-harness/bin/python scripts/run_fidelity.py --sets fr_web --layers 12 18
+2026-11-17 15:06:10,833 INFO E12: 2 (set, layer) pairs to do, 0 already done; device cuda:0
+Loading weights:   0%|          | 0/288 [00:00<?, ?it/s]Loading weights:   0%|          | 1/288 [00:00<02:34,  1.85it/s]Loading weights: 100%|██████████| 288/288 [00:00<00:00, 458.52it/s]
+2026-11-17 15:06:17,649 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-17 15:06:18,183 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-17 15:06:18,455 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-17 15:06:20,050 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-17 15:22:42,298 INFO fr_web L12: CE clean 2.692 splice 2.828, recovered(mean) 0.981 [0.981, 0.981], FVU 0.274  (964s)
+2026-11-17 15:38:43,619 INFO fr_web L18: CE clean 2.692 splice 2.889, recovered(mean) 0.971 [0.970, 0.972], FVU 0.231  (961s)
+2026-11-17 15:38:44,066 INFO E12 71ebd89562ed -> /home2/raveeshvyas1410/prism-run/runs/E12/71ebd89562ed (complete)
+Loaded pretrained model gemma-2-2b into HookedTransformer

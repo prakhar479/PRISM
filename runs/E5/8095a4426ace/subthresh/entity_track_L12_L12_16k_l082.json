@@ -1,0 +1,36 @@
+{
+ "latents": [
+  12364,
+  6207,
+  14810,
+  15291,
+  6423,
+  13897,
+  317,
+  8056,
+  2941,
+  13551
+ ],
+ "objective": [
+  7100731.0,
+  7097197.0,
+  7094556.0,
+  7091942.5,
+  7089435.5,
+  7087022.0,
+  7084638.0,
+  7082273.0,
+  7079960.5,
+  7077644.0,
+  7075385.0
+ ],
+ "alpha": 0.5,
+ "n_candidates": 5383,
+ "fitset": {
+  "digest": "120dcc6193cb7f1a",
+  "n_pairs": 300,
+  "filter": "f_pilot"
+ },
+ "target": "eps_A - eps_B on train span rows",
+ "objective_def": "sum of squared residuals of the target after each pick"
+}

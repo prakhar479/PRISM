@@ -1,0 +1,303 @@
+{
+ "exp_id": "E0",
+ "run_hash": "31fe99eb20d8",
+ "status": "complete",
+ "stages": [
+  "1",
+  "2",
+  "3"
+ ],
+ "smoke": false,
+ "tiny": false,
+ "created": "2026-11-02T21:26:05+0530",
+ "wall_time_s": 1130.9,
+ "config": {
+  "exp_id": "E0",
+  "name": "pilot_regression",
+  "description": "Pilot conditions for object tracking L12 and running sum L18 (16k) through the harness.",
+  "kind": "patch_grid",
+  "model_revision": "c5ebcd40d208330abc697524c919956e692655cf",
+  "prompt_sets": {
+   "entity_track": "prompt_sets/entity_track_pilot.jsonl.gz",
+   "add_chain": "prompt_sets/add_chain_pilot.jsonl.gz"
+  },
+  "cells": [
+   {
+    "task": "entity_track",
+    "layer": 12,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical"
+    },
+    "role": "confirmatory",
+    "fit_families": null,
+    "eval_families": null
+   },
+   {
+    "task": "add_chain",
+    "layer": 18,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical"
+    },
+    "role": "confirmatory",
+    "fit_families": null,
+    "eval_families": null
+   }
+  ],
+  "n_train": 300,
+  "n_test": 150,
+  "filters": [
+   "f_pilot"
+  ],
+  "fit_filter": "f_pilot",
+  "conditions": [
+   "feat_A_errB",
+   "feat_B_errA",
+   "feat_B_noise",
+   "feat_A_zero"
+  ],
+  "noise_seeds": [
+   0,
+   1
+  ],
+  "directions": {
+   "conditions": [
+    "repair"
+   ],
+   "ranks": [
+    0,
+    1,
+    2
+   ],
+   "estimators": [
+    "pca_pooled",
+    "answer_sep"
+   ],
+   "sources": [
+    "same_task"
+   ],
+   "random_seeds": 3,
+   "r_max": 32
+  },
+  "generic": null,
+  "bootstrap": 1000,
+  "seed": 0,
+  "smoke_pairs": 10,
+  "pilot_reference": "results/paper_20261026_001341/paper_residue",
+  "notes": [
+   "Noise rows are drawn over this run's test rows; the pilot drew them over its own Baseline order, so noise is statistically but not bitwise identical."
+  ]
+ },
+ "config_file": "configs/experiments/E0.yaml",
+ "profile": {
+  "name": "run",
+  "device": "cuda",
+  "model_dtype": "bfloat16",
+  "sae_dtype": "float32",
+  "sae_bf16_min_width": "524k",
+  "sae_placement": "auto",
+  "cache_root": "cache",
+  "data_root": "data",
+  "runs_root": "runs",
+  "hf_home": null,
+  "offline": false,
+  "batch_size": 16,
+  "max_batch_size": 64,
+  "max_batch_tokens": 1024,
+  "gpu_mem_cap_gb": 7.0,
+  "cpu_workers": 2,
+  "offload_embed": true,
+  "allowed_experiments": [
+   "E0",
+   "E1",
+   "E2",
+   "E3",
+   "E4",
+   "E5",
+   "E6",
+   "E7",
+   "E8",
+   "E9",
+   "E10",
+   "E11",
+   "E12",
+   "E13",
+   "E14"
+  ],
+  "allow_real_model": true,
+  "sources": [
+   "profiles/run.yaml"
+  ]
+ },
+ "git": {
+  "commit": "1efeff6f3f69841a69d58511182b2c28c5ca2bce",
+  "branch": "harness",
+  "tags": [],
+  "dirty": false,
+  "dirty_files": []
+ },
+ "packages": {
+  "torch": "2.14.1+cu130",
+  "transformers": "5.19.0",
+  "transformer-lens": "3.9.0",
+  "numpy": "2.5.4",
+  "pandas": "3.0.6",
+  "pyarrow": "26.0.0",
+  "safetensors": "0.8.0",
+  "huggingface-hub": "2.2.0",
+  "scipy": "1.18.1"
+ },
+ "machine": {
+  "hostname": "raveeshvyas-OMEN-Gaming-Laptop-16-am0xxx",
+  "os": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+  "python": "3.12.16",
+  "device": "cuda:0",
+  "torch": "2.14.1+cu130",
+  "torch_cuda": "13.0",
+  "gpu_name": "NVIDIA GeForce RTX 5060 Laptop GPU",
+  "gpu_total_gb": 7.53,
+  "gpu_free_gb": 1.27,
+  "capability": "12.0",
+  "cudnn": 92400,
+  "nvidia_driver": "595.99.02"
+ },
+ "model": {
+  "name": "gemma-2-2b",
+  "revision": "c5ebcd40d208330abc697524c919956e692655cf",
+  "dtype": "bfloat16",
+  "site": "resid_post",
+  "tiny_seed": 0,
+  "tiny_vocab": 0,
+  "tiny_layers": 4
+ },
+ "sae_revision": "fd571b47c1c64851e9b1989792367b9babb4af63",
+ "prompt_sets": {
+  "entity_track": {
+   "hash": "05c876df51db248a",
+   "file": "prompt_sets/entity_track_pilot.jsonl.gz",
+   "n": 2700
+  },
+  "add_chain": {
+   "hash": "ae62178213dffbfc",
+   "file": "prompt_sets/add_chain_pilot.jsonl.gz",
+   "n": 1350
+  }
+ },
+ "generic": null,
+ "seeds": {
+  "seed": 0,
+  "noise_seeds": [
+   0,
+   1
+  ],
+  "random_seeds": 3
+ },
+ "timings": {
+  "model_load_s": 11.5,
+  "stage1_entity_track_s": 614.6,
+  "stage1_add_chain_s": 175.3,
+  "stage1_total_s": 806.2,
+  "stage2_L12_16k_l082_s": 2.0,
+  "stage2_L18_16k_l074_s": 0.8,
+  "stage2_total_s": 3.8,
+  "stage3_total_s": 313.7
+ },
+ "budget": {
+  "max_tokens": 1024,
+  "backoffs": 0
+ },
+ "peak_gpu_gb": 6.07,
+ "cells": [
+  {
+   "cell": "entity_track_L12_16k_l082",
+   "role": "confirmatory",
+   "sae": {
+    "layer": 12,
+    "width": "16k",
+    "l0": 82,
+    "repo": "google/gemma-scope-2b-pt-res",
+    "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "fdc4d7475d574657",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 0.7461,
+     "f_both_correct": 0.3028,
+     "f_pilot": 0.3833
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 0.7522,
+     "f_both_correct": 0.31,
+     "f_pilot": 0.38
+    }
+   },
+   "mean_l0_test": [
+    78.40416717529297,
+    77.81082153320312
+   ],
+   "rel_err_norm_test": 0.42458903789520264,
+   "mean_pos_coverage": {
+    "slot": 704,
+    "offset": 1310,
+    "task": 0
+   }
+  },
+  {
+   "cell": "add_chain_L18_16k_l074",
+   "role": "confirmatory",
+   "sae": {
+    "layer": 18,
+    "width": "16k",
+    "l0": 74,
+    "repo": "google/gemma-scope-2b-pt-res",
+    "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "3124e012431d5e76",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9744,
+     "f_both_correct": 0.9489,
+     "f_pilot": 0.6978
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9689,
+     "f_both_correct": 0.9444,
+     "f_pilot": 0.6133
+    }
+   },
+   "mean_l0_test": [
+    66.94721221923828,
+    66.66415405273438
+   ],
+   "rel_err_norm_test": 0.38986000418663025,
+   "mean_pos_coverage": {
+    "slot": 743,
+    "offset": 981,
+    "task": 0
+   }
+  }
+ ],
+ "allow_dirty": true,
+ "filters_overridden": null
+}

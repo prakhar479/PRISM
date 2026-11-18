@@ -1,0 +1,3 @@
+
+=== attempt 1 2026-11-18 04:02:09 slots=['0']: /home2/raveeshvyas1410/prism-run/.venv-harness/bin/python -m harness.run --config configs/experiments/E2r.yaml --profile server --stage 2 --stage2-slice 3/4
+2026-11-18 04:02:12,645 INFO E2r -> /home2/raveeshvyas1410/prism-run/runs/E2r/747ea7736718 (stage2_complete)

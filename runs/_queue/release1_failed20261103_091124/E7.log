@@ -1,0 +1,27 @@
+
+=== attempt 1 2026-11-03 01:37:41: /home/raveeshvyas/Coding_folder/interpretability/PRISM/.venv-harness/bin/python -m harness.run --config configs/experiments/E7.yaml --profile run --stage all --allow-dirty
+Loading weights:   0%|          | 0/288 [00:00<?, ?it/s]Loading weights:   0%|          | 1/288 [00:01<06:53,  1.44s/it]Loading weights:  62%|██████▏   | 179/288 [00:01<00:00, 152.83it/s]Loading weights:  85%|████████▍ | 244/288 [00:01<00:00, 168.83it/s]Loading weights: 100%|██████████| 288/288 [00:02<00:00, 133.09it/s]
+2026-11-03 01:37:49,392 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-03 01:37:49,801 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-03 01:37:50,210 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-03 01:37:51,030 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+Loaded pretrained model gemma-2-2b into HookedTransformer
+Loading weights:   0%|          | 0/288 [00:00<?, ?it/s]Loading weights:   0%|          | 1/288 [00:01<06:57,  1.46s/it]Loading weights:  62%|██████▏   | 179/288 [00:01<00:00, 154.48it/s]Loading weights:  89%|████████▉ | 256/288 [00:02<00:00, 159.59it/s]Loading weights: 100%|██████████| 288/288 [00:02<00:00, 131.94it/s]
+2026-11-03 01:38:13,131 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-03 01:38:13,557 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-03 01:38:13,968 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-03 01:38:14,991 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-03 01:40:26,997 INFO entity_track_L12_16k_l082 unit 1/6 (8 conditions, 121.7s)
+2026-11-03 01:42:28,978 INFO entity_track_L12_16k_l082 unit 2/6 (8 conditions, 121.9s)
+2026-11-03 01:44:30,981 INFO entity_track_L12_16k_l082 unit 3/6 (8 conditions, 121.9s)
+2026-11-03 01:46:33,179 INFO entity_track_L12_16k_l082 unit 4/6 (8 conditions, 122.1s)
+2026-11-03 01:48:35,236 INFO entity_track_L12_16k_l082 unit 5/6 (8 conditions, 121.9s)
+2026-11-03 01:49:55,717 INFO entity_track_L12_16k_l082 unit 6/6 (5 conditions, 80.4s)
+2026-11-03 01:50:49,185 INFO add_chain_L18_16k_l074 unit 1/6 (8 conditions, 46.2s)
+2026-11-03 01:51:34,727 INFO add_chain_L18_16k_l074 unit 2/6 (8 conditions, 45.5s)
+2026-11-03 01:52:20,313 INFO add_chain_L18_16k_l074 unit 3/6 (8 conditions, 45.5s)
+2026-11-03 01:53:06,002 INFO add_chain_L18_16k_l074 unit 4/6 (8 conditions, 45.6s)
+2026-11-03 01:53:51,652 INFO add_chain_L18_16k_l074 unit 5/6 (8 conditions, 45.5s)
+2026-11-03 01:54:23,598 INFO add_chain_L18_16k_l074 unit 6/6 (5 conditions, 31.9s)
+2026-11-03 01:54:44,859 INFO E7 -> /home/raveeshvyas/Coding_folder/interpretability/PRISM/runs/E7/bc8f075a33fe (complete)
+Loaded pretrained model gemma-2-2b into HookedTransformer

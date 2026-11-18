@@ -1,0 +1,176 @@
+{
+ "exp_id": "E12",
+ "run_hash": "8ce8c705008d",
+ "status": "complete",
+ "table": "fidelity.csv",
+ "smoke": false,
+ "tiny": false,
+ "config": {
+  "name": "fidelity_by_language",
+  "identity": {
+   "exp": "E12",
+   "model": "c5ebcd40d208330abc697524c919956e692655cf",
+   "sae_revision": "fd571b47c1c64851e9b1989792367b9babb4af63",
+   "width": "16k",
+   "layers": [
+    12,
+    18
+   ],
+   "sets": {
+    "en_pilot100": "eb64527cbbe066fb",
+    "en_pile": "7aa0be6671ce9c2d"
+   },
+   "n_windows": null,
+   "tiny": false
+  },
+  "layers": [
+   12,
+   18
+  ],
+  "width": "16k",
+  "l0": {
+   "12": 82,
+   "18": 74
+  }
+ },
+ "profile": {
+  "name": "server",
+  "device": "cuda",
+  "model_dtype": "bfloat16",
+  "sae_dtype": "float32",
+  "sae_bf16_min_width": "524k",
+  "sae_placement": "auto",
+  "cache_root": "/ssd_scratch/raveeshvyas1410/prism/cache",
+  "data_root": "data",
+  "runs_root": "runs",
+  "hf_home": "/scratch/raveeshvyas1410/prism/hf",
+  "cache_spill": [
+   "/scratch/raveeshvyas1410/prism/cache"
+  ],
+  "cache_spill_min_gb": 8,
+  "offline": false,
+  "batch_size": 16,
+  "max_batch_size": 72,
+  "max_batch_tokens": 9216,
+  "gpu_mem_cap_gb": 9.97,
+  "cpu_workers": 2,
+  "offload_embed": true,
+  "cpu_threads": 4,
+  "min_free_gb": 10,
+  "vram_headroom_gb": 0.6,
+  "allowed_experiments": [
+   "E0",
+   "E1",
+   "E2",
+   "E2r",
+   "E3",
+   "E4",
+   "E5",
+   "E6",
+   "E7",
+   "E8",
+   "E9",
+   "E9b",
+   "E10",
+   "E10b",
+   "E11",
+   "E12",
+   "E13",
+   "E14",
+   "E16"
+  ],
+  "allow_real_model": true,
+  "sources": [
+   "profiles/server.yaml",
+   "profiles/local.yaml",
+   "env:HF_HOME",
+   "env:HL_CPU_THREADS"
+  ]
+ },
+ "git": {
+  "commit": "14e7e1f4795baed3fdce36998c4c777671bea4bb",
+  "branch": "HEAD",
+  "tags": [],
+  "dirty": false,
+  "dirty_files": []
+ },
+ "packages": {
+  "torch": "2.14.1+cu130",
+  "transformers": "5.19.0",
+  "transformer-lens": "3.9.0",
+  "numpy": "2.5.4",
+  "pandas": "3.0.6",
+  "pyarrow": "26.0.0",
+  "safetensors": "0.8.0",
+  "huggingface-hub": "2.2.0",
+  "scipy": "1.18.1"
+ },
+ "machine": {
+  "hostname": "gnode084",
+  "os": "Linux-5.15.0-194-generic-x86_64-with-glibc2.35",
+  "python": "3.12.16",
+  "device": "cuda:0",
+  "torch": "2.14.1+cu130",
+  "torch_cuda": "13.0",
+  "gpu_name": "NVIDIA GeForce RTX 2080 Ti",
+  "gpu_total_gb": 10.57,
+  "gpu_free_gb": 5.42,
+  "capability": "7.5",
+  "cudnn": 92400,
+  "nvidia_driver": "580.178.04\n580.178.04\n580.178.04\n580.178.04"
+ },
+ "model": {
+  "name": "gemma-2-2b",
+  "revision": "c5ebcd40d208330abc697524c919956e692655cf",
+  "dtype": "bfloat16",
+  "site": "resid_post",
+  "tiny_seed": 0,
+  "tiny_vocab": 0,
+  "tiny_layers": 4
+ },
+ "sae_revision": "fd571b47c1c64851e9b1989792367b9babb4af63",
+ "prompt_sets": {
+  "en_pilot100": {
+   "hash": "eb64527cbbe066fb",
+   "file": "en_pilot100.json",
+   "n": 100
+  },
+  "en_pile": {
+   "hash": "7aa0be6671ce9c2d",
+   "file": "en_pile.json",
+   "n": 2000
+  }
+ },
+ "seeds": {
+  "bootstrap_seed": 0,
+  "n_boot": 2000
+ },
+ "timings": {
+  "total_s": 1886.9
+ },
+ "wall_time_s": 1886.9,
+ "created": "2026-11-17T15:25:11+0530",
+ "sets_sha256": {
+  "en_pilot100": "c2d6bcdf6f7e2a8a5f2366cdd893915db2599b5b5752fd2f66f7d98bdf279353",
+  "en_pile": "ce258bc1ae620020dae680271291600738db54bb3d3bb557c1eb67752e0fc531"
+ },
+ "resources": {
+  "device_memory": {
+   "free_bytes": 11179917312,
+   "total_bytes": 11346575360,
+   "name": "NVIDIA GeForce RTX 2080 Ti"
+  },
+  "resolved": {
+   "gpu_mem_cap_gb": 9.97,
+   "offload_embed": true,
+   "max_batch_tokens": 9216,
+   "max_batch_size": 72
+  },
+  "rules": {
+   "gpu_mem_cap_gb": "total 10.57 GiB - headroom 0.6",
+   "offload_embed": "GPU under 16 GiB",
+   "batch": "auto_budget(cap 9.97 GiB): 40% of the memory after the model"
+  }
+ },
+ "budget_backoffs": 0
+}

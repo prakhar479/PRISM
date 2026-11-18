@@ -490,3 +490,38 @@ load_spans reads a whole span cache (~5 GiB host RAM per call for the e13 OT set
   feature-mediated flags true (the two rules are not mutually exclusive; both are reported, neither is redefined); DAS-1/2 failed
   fits. E10 Q2 not met. M1 supported everywhere. Only pc_fr passes both gates, so M2 is testable only there (not supported) and
   M3 has no usable row. These are the answers of record; any later exploratory run cannot change them.
+
+## 2026-11-18: the last compute run, exploratory E17-E22 (post hoc)
+Designed after reading the final pass; all exploratory, labelled post hoc, and unable to change any answer of record (the
+preregistration and its addendum are not touched). Each targets one open point of analysis/final_pass_results.md:
+- E17 DAS robustness (RS L18): das1/2 failed in E9 with a loss that barely moved. Seeds 1-2, 10 and 30 epochs, lr 3e-2; plain
+  das<k> reuse E9's rotations (cache key unchanged, tested). Rotation agreement across seeds: E17_das_stability.csv.
+- E18 rank: error-derived U up to r = 64 and DAS up to 16 on RS L18, OT L12, people-cities L12/L16 (DAS on people-cities is new).
+  Alignment labels at r = 16/32/64 use HAAR_P99_EXPLORATORY (same Monte Carlo as the frozen k <= 8 values: 0.179, 0.246, 0.339);
+  the frozen constants are unchanged and an unknown rank now gets no label instead of the k = 8 value.
+- E19 steering dose 0.25-16 (RS L18, OT L12, PC L12); Q2 columns computed mechanically but not a revisit of Q2.
+- E20 E9's contrasts with wider SAEs at matched L0 (RS L18 65k/64, OT L12 65k/72 and 262k/67).
+- E21 E12 fidelity with 65k SAEs at L0 matched to the 16k pilot variants (run_fidelity.py --l0-rule match16k, E4's closest rule);
+  make_e12.py now keys rows by (set, layer, SAE) so wider runs sit next to the 16k rows and compare with English at the same SAE.
+  262k fidelity left out: on 11 GB GPUs a float32 262k SAE leaves room for a few windows per batch (hours per set, OOM risk).
+- E22 multilingual DAS (rank 4/8) and pca_pooled, fitted natively or on English, on RS L18 (fr, hinglish, hi) and PC L12 (fr, hi,
+  hinglish): descriptive, E22_transfer.csv; Gate A/B status is reported alongside, nothing enters M2/M3.
+Harness: estimator grammar das<k>[_e<epochs>][_lr<lr>][_s<seed>] (harness/config.py parse_das), steering conditions
+steer_x<scale> for any positive scale, r_max per config up to 64. scripts/slurm_final.sbatch now defaults to gnode084, 4 GPUs and
+this queue; node/GPU changes go on the sbatch command line (never a server-side commit). Tiny end-to-end runs (CPU) of all five
+configs and make_final on their outputs passed; make_final on the real E9/E10 runs gives identical decision columns.
+
+## 2026-11-18 (later): deep analysis of the final pass; E23 added to the last run; DAS geometry correction
+A post hoc deep analysis (scratchpad reports, summarised in analysis/deep_analysis_2026-11-18.md) changed three things:
+- E23 added to queue/final-explore-server.yaml: on Dakshina's identical sentences, native script and romanized text have the
+  same Gemma Scope error size (FVU ratio 0.85-1.06) but the native script's splice cost is 1.5-4.1x higher. E23 reruns 16k
+  fidelity with norm-matched noise controls (harness/fidelity.py extras: x_hat + eta and x + eta, |eta| = |eps| per token) and
+  per-token NLLs, to tell an error-direction effect from context fragility; E21 (65k) gets the same controls. New run hashes
+  (identity gains extras/tokens); canonical E12 runs are unchanged.
+- DAS geometry: every DAS fit with the same (k, seed) starts from the same rotation, and 3-epoch fits keep 41-73 % of their
+  energy in it, so raw DAS-to-DAS cosines are dominated by the shared start. make_final now reports das_init_capture and,
+  for E17, cosines of the learned components (init span projected out). The frozen E9 decision columns are unchanged
+  (cos_top_das is error-U vs DAS, checked); E9's DAS rotations should be described as short fits.
+- Object tracking (pilot templates): A's answer is already determined by the unpatched prefix (the corruption adds a move of
+  the queried object after the first changed token), so feature-only "restoration" is inflated by a fallback to A. The
+  informative diagnostic is the swap x_hat_B + eps_A (B survives in 2 % of pairs at L12). To be stated in the write-up.

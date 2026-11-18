@@ -3,8 +3,8 @@
 
     python scripts/make_e12.py [--runs runs] [--out tables]
 
-One row per (set, layer): the E12 measures with bootstrap CIs over windows (scripts/run_fidelity.py), plus the preregistered M1
-comparison against English at the same layer, kept as plain facts (no verdict wording):
+One row per (set, layer, SAE; E21 adds wider SAEs): the E12 measures with bootstrap CIs over windows (scripts/run_fidelity.py), plus the preregistered M1
+comparison against English at the same layer and SAE, kept as plain facts (no verdict wording):
     recovered_mean_below_en_ci   the set's recovered_mean upper bound is below English's lower bound ("non-overlapping CIs")
     fvu_above_en_ci              the set's FVU lower bound is above English's upper bound
 and, for the Dakshina pairs (same sentences in two scripts), `script_pair` / `script_partner` so the native and romanized rows can
@@ -29,14 +29,14 @@ def gather(runs_root: Path):
         run = f.parent.name
         for r in csv.DictReader(f.open()):
             r["run_hash"] = run
-            rows[(r["set"], int(r["layer"]))] = r           # a later run of the same (set, layer) replaces an earlier one
+            rows[(r["set"], int(r["layer"]), r.get("sae", ""))] = r   # a later run of the same (set, layer, SAE) replaces an earlier one
     return rows
 
 
 def build(rows):
     out = []
-    for (name, layer), r in sorted(rows.items(), key=lambda kv: (kv[0][1], kv[0][0])):
-        ref = rows.get((EN_REF, layer))
+    for (name, layer, sae), r in sorted(rows.items(), key=lambda kv: (kv[0][1], kv[0][2], kv[0][0])):
+        ref = rows.get((EN_REF, layer, sae))                 # English with the same SAE (layer, width, L0)
         row = dict(r)
         f = lambda k: float(r[k])
         if ref and name != EN_REF:
@@ -47,8 +47,8 @@ def build(rows):
             row["recovered_mean_below_en_ci"] = row["fvu_above_en_ci"] = row["recovered_mean_minus_en"] = ""
         partner = PAIRS.get(name)
         row["script_partner"] = partner or ""
-        row["recovered_mean_minus_script_partner"] = (round(f("recovered_mean") - float(rows[(partner, layer)]["recovered_mean"]), 5)
-                                                      if partner and (partner, layer) in rows else "")
+        row["recovered_mean_minus_script_partner"] = (round(f("recovered_mean") - float(rows[(partner, layer, sae)]["recovered_mean"]), 5)
+                                                      if partner and (partner, layer, sae) in rows else "")
         out.append(row)
     return out
 

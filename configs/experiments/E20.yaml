@@ -1,0 +1,29 @@
+# E20 (exploratory, post hoc 2026-11-18): does the E9 picture depend on SAE width? The error (and so the error-derived U and
+# the feature/along-U split) changes with the SAE; full_along_U with DAS does not (DAS rotations are reused from E9's cache).
+# Widths at matched L0 (E4's closest-L0 rule): RS L18 65k (L0 64), OT L12 65k (L0 72) and 262k (L0 67).
+exp_id: E20
+name: illusion_by_width
+description: >-
+  E9's contrasts (feat_A_along_U, full_along_U, repair) with pca_pooled, answer_sep, DAS rank 4 and 8 at wider SAEs, matched L0;
+  20 random U per rank.
+model_revision: c5ebcd40d208330abc697524c919956e692655cf
+prompt_sets: {add_chain: prompt_sets/add_chain_pilot.jsonl.gz, entity_track: prompt_sets/entity_track_pilot.jsonl.gz}
+cells:
+  - {task: add_chain, layer: 18, sae: {width: 65k, l0: 64, rule: explicit}, role: exploratory}
+  - {task: entity_track, layer: 12, sae: {width: 65k, l0: 72, rule: explicit}, role: exploratory}
+  - {task: entity_track, layer: 12, sae: {width: 262k, l0: 67, rule: explicit}, role: exploratory}
+n_train: 300
+n_test: 150
+filters: [f_none, f_A_correct, f_pilot]
+fit_filter: f_pilot
+conditions: [feat_A_errB, feat_A_meanPos]
+noise_seeds: [0]
+directions:
+  conditions: [feat_A_along_U, full_along_U, repair]
+  ranks: [0, 1, 2, 4, 8]
+  estimators: [pca_pooled, answer_sep, das4, das8]
+  sources: [same_task]
+  random_seeds: 20
+  r_max: 32
+bootstrap: 1000
+seed: 0

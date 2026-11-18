@@ -1,17 +1,19 @@
 #!/usr/bin/env bash
-# PRISM: every remaining experiment in ONE queue (queue/complete-server.yaml: release 3 E12/E13 + extensions, final pass E9, E10,
-# E11, E14, exploratory E9b, E10b, E2r, E16), in one Slurm job. Resumable: resubmitting skips finished units.
+# PRISM: the last compute run in ONE Slurm job (default queue/final-explore-server.yaml: exploratory E17-E22, 2026-11-18).
+# The earlier complete queue (release 3 + final pass) is QUEUES=queue/complete-server.yaml. Resumable: resubmitting skips
+# finished units.
 #
-#   sbatch scripts/slurm_final.sbatch                                   # the complete queue
+#   sbatch scripts/slurm_final.sbatch                                   # the final exploratory queue (gnode084, 4 GPUs)
+#   sbatch --nodelist=<node> --gres=gpu:<n> scripts/slurm_final.sbatch   # another node: override on the command line, never commit
 #   sbatch --export=ALL,QUEUES=queue/extra-1m-server.yaml scripts/slurm_final.sbatch  # optional E4_1m (needs ~40 GiB for downloads)
 #   bash   scripts/slurm_final.sbatch --check                           # pre-flight checks only, no GPU work (login node is fine)
 #   bash   scripts/slurm_final.sbatch --clean-full                      # AFTER results are pushed: delete the activation caches
 #
-# Read docs/FINAL_PASS_RUNBOOK.md first (before / during / after). The node matters: the release-2 activation caches are on
-# gnode074's node-local /ssd_scratch, so the final pass reuses them there.
+# Read docs/FINAL_EXPLORE_RUNBOOK.md first (before / during / after). The node matters: the final pass's activation caches and
+# DAS rotations are on gnode084's node-local /ssd_scratch, and this run reuses them there.
 #SBATCH --job-name=prism-final
-#SBATCH --nodelist=gnode074
-#SBATCH --gres=gpu:3
+#SBATCH --nodelist=gnode084
+#SBATCH --gres=gpu:4
 #SBATCH --cpus-per-task=16
 #SBATCH --mem=96G
 #SBATCH --time=72:00:00
@@ -24,7 +26,7 @@ cd "$REPO" || { echo "cannot cd to $REPO"; exit 1; }
 export HL_PROFILE=server CUDA_DEVICE_ORDER=PCI_BUS_ID
 WORK=${PRISM_WORK:-/ssd_scratch/${USER:-$(id -un)}/prism}
 export PRISM_WORK=$WORK
-QUEUES=${QUEUES:-"queue/complete-server.yaml"}
+QUEUES=${QUEUES:-"queue/final-explore-server.yaml"}
 MIN_FREE_GIB=${MIN_FREE_GIB:-25}            # free GiB over all cache tiers required before GPU work starts
 H=$REPO/.venv-harness/bin/python
 MODE=${1:-run}
@@ -77,7 +79,7 @@ trap on_signal TERM INT
 
 bash scripts/setup_server.sh || { echo "ERROR: setup failed"; exit 1; }      # idempotent: venv, lock, env check, golden, probe
 $H scripts/storage_report.py || true
-# fail in seconds, not after hours paused: the new caches need ~16 GiB (E14 ~9, E11 ~5, rest small) beyond what is cached
+# fail in seconds, not after hours paused: new SAE downloads (~8 GB) and E20's stage-2 codes need well under 25 GiB
 FREE=$($H -c "from harness.profile import load_profile; from harness.cache import free_gib; p=load_profile('server'); \
 roots=[p.root('cache_root'), *p.spill_roots()]; import os; seen={}; [seen.setdefault(os.stat(r if r.exists() else r.parent).st_dev, free_gib(r)) for r in roots]; print(int(sum(seen.values())))" 2>/dev/null || echo 0)
 say "free over the cache tiers: ${FREE} GiB (need ${MIN_FREE_GIB})"
@@ -112,11 +114,11 @@ for q in $QUEUES; do
 done
 clean_light
 cat <<EOF
-== next (see docs/FINAL_PASS_RUNBOOK.md, 'After'):
+== next (see docs/FINAL_EXPLORE_RUNBOOK.md, 'After'):
    git switch -c results/final-\$(git describe --tags --always)
    git add -f results_server && git commit -m "final pass results (\$(hostname))"
    git push -u origin HEAD
-   # if any *_fin job failed: also  git add -f runs/E9 runs/E9b runs/E10 runs/E10b runs/E11 runs/E14 runs/E16 runs/E2r runs/E12 runs/E13 runs/_queue
+   # if any *_fin job failed: also  git add -f runs/E17 runs/E18 runs/E19 runs/E20 runs/E22 runs/E12 runs/_queue
 EOF
 for q in $QUEUES; do [ "${RC[$q]}" = 0 ] || exit 1; done
 exit 0

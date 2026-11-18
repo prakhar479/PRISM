@@ -46,7 +46,7 @@ def test_e12_later_run_replaces_earlier_for_the_same_set_and_layer(tmp_path):
     write(p, [fid("en_pile", 12, 0.98, 0.97, 0.99)])
     import os
     os.utime(tmp_path / "E12" / "old" / "fidelity.csv", (1, 1))
-    assert m.gather(tmp_path)[("en_pile", 12)]["recovered_mean"] == "0.98"
+    assert m.gather(tmp_path)[("en_pile", 12, "")]["recovered_mean"] == "0.98"
 
 
 def beh(task, family, lang, acc, keep, viable):

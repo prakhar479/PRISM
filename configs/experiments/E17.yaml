@@ -1,0 +1,35 @@
+# E17 (exploratory, post hoc 2026-11-18; cannot change any preregistered answer): is "no rank-1/2 DAS variable" for running sum
+# L18 a real absence or an optimisation failure? In E9, das1/das2 failed the fit-validity rule (train interchange accuracy
+# 0.25 / 0.33) with a training loss that barely moved in 3 epochs (2.10 -> 2.08). Same cell, train set and test pairs as E9;
+# plain das<k> are E9's cached rotations (identical cache keys), the variants only change training.
+exp_id: E17
+name: das_robustness
+description: >-
+  Running sum L18 (pilot templates, as E9): DAS rank 1, 2, 4, 8 trained with other seeds (s1, s2), longer training (10 and 30
+  epochs) and a larger learning rate (3e-2); feat_A_along_U and full_along_U on the E9 test pairs with 20 random U per rank.
+  Rotation-to-rotation agreement (principal cosines) is computed on DEV from directions/ (make_final E17_das_stability.csv).
+model_revision: c5ebcd40d208330abc697524c919956e692655cf
+prompt_sets: {add_chain: prompt_sets/add_chain_pilot.jsonl.gz}
+cells:
+  - {task: add_chain, layer: 18, sae: {width: 16k}, role: exploratory}
+n_train: 300
+n_test: 150
+filters: [f_none, f_A_correct, f_pilot]
+fit_filter: f_pilot
+conditions: [feat_A_errB, feat_A_meanPos]
+noise_seeds: [0]
+directions:
+  conditions: [feat_A_along_U, full_along_U]
+  ranks: [0, 1, 2, 4, 8]
+  estimators: [pca_pooled, das1, das2, das4, das8,
+               das1_s1, das2_s1, das4_s1, das8_s1, das1_s2, das2_s2,
+               das1_e10, das2_e10, das4_e10, das8_e10, das1_e10_s1, das2_e10_s1, das1_e10_s2, das2_e10_s2,
+               das1_e10_lr3e-2, das2_e10_lr3e-2, das1_e30, das2_e30]
+  sources: [same_task]
+  random_seeds: 20
+  r_max: 32
+bootstrap: 1000
+seed: 0
+notes:
+  - "Estimator grammar: das<k>[_e<epochs>][_lr<lr>][_s<seed>] (harness/config.py parse_das); defaults 3 epochs, lr 1e-2, the config seed."
+  - "Read with E9's rules (das_fit_valid >= 0.5 train interchange accuracy; effective vs the random-U p95), labelled exploratory."

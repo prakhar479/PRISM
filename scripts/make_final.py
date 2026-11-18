@@ -1,6 +1,7 @@
 #!/usr/bin/env python
-"""Pass 2 (DEV, no model): tables for the final compute pass from ingested runs (E9b / E16 use the E9 rules and E10b the
-E10 rules, writing <EXP>_illusion.csv / E10b_steering.csv; E2r writes E2r_conditions.csv for comparison with E2).
+"""Pass 2 (DEV, no model): tables for the final compute pass from ingested runs (E9b / E16 / E17 / E18 / E20 / E22 use the E9
+rules and E10b / E19 the E10 rules, writing <EXP>_illusion.csv / <EXP>_steering.csv; E2r writes E2r_conditions.csv for comparison
+with E2; E17-E22 (2026-11-18) are exploratory: <EXP>_das_stability.csv for rotations of the same rank, E22_transfer.csv).
 
     python scripts/make_final.py [--only E9,E10,E11,E14] [--n-boot 10000] [--out tables]
 
@@ -31,10 +32,13 @@ import _bootstrap  # noqa: F401
 from harness import e8 as E
 from harness import final as FN
 from harness import langfamilies as LF
+from harness.config import das_rank
+from harness.conditions import is_steer
 from harness.profile import REPO_ROOT, load_profile
 
 
-ILLUSION_EXPS = ("E9", "E9b", "E16")       # E9 rules (E16 has no feat_A_along_U, so its illusion / feature-mediated are NA)
+ILLUSION_EXPS = ("E9", "E9b", "E16", "E17", "E18", "E20", "E22")   # E9 rules (E16 has no feat_A_along_U: illusion NA)
+STEERING_EXPS = ("E10", "E10b", "E19")                             # E10 rules (Q2 columns are confirmatory only for E10)
 
 
 def runs_of(root: Path, exp: str, include_tiny: bool = False):
@@ -134,7 +138,7 @@ def das_cosines(run_dir, run_hash):
         z = np.load(f)
         key = _dir_key(f, run_hash)
         for das in [k for k in z.files if k.startswith("das")]:
-            k = int(das[3:])
+            k = das_rank(das)
             if not np.isfinite(z[das]).all():
                 continue
             for est in ("pca_pooled", "answer_sep"):
@@ -142,6 +146,45 @@ def das_cosines(run_dir, run_hash):
                     c = principal_cosines(z[est][:, :k], z[das])
                     rows.append({**key, "estimator": est, "r": k, "das": das, "cos_top_das": float(c[0])})
     return rows
+
+
+def das_stability(run_dir, run_hash):
+    """E17: agreement between DAS rotations of the same rank trained with different seeds / epochs / learning rates (top and
+    mean principal cosine), with each rotation's train interchange accuracy. Exploratory."""
+    from harness.directions import principal_cosines
+    rows = []
+    for f in run_dir.glob("directions/*.npz"):
+        z = np.load(f)
+        meta = json.loads(f.with_suffix(".json").read_text()) if f.with_suffix(".json").exists() else {}
+        key = _dir_key(f, run_hash)
+        das = sorted(k for k in z.files if k.startswith("das") and np.isfinite(z[k]).all())
+        acc = {k: ((meta.get(k) or {}).get("meta") or {}).get("train_interchange_acc") for k in das}
+        for i, a in enumerate(das):
+            for b in das[i + 1:]:
+                if das_rank(a) != das_rank(b):
+                    continue
+                c = principal_cosines(z[a], z[b])
+                rows.append({**key, "r": das_rank(a), "das_a": a, "das_b": b, "acc_a": acc[a], "acc_b": acc[b],
+                             "cos_top": float(c[0]), "cos_mean": float(np.mean(c)),
+                             "haar_p99": FN.HAAR_P99.get(das_rank(a), FN.HAAR_P99_EXPLORATORY.get(das_rank(a)))})
+    return rows
+
+
+def lang_transfer(t):
+    """E22: per (task, evaluation language family, filter, condition, estimator, rank): flip rate with the rotation / U fitted on
+    the same language (native) and on English (transfer), side by side with each one's random-U p95. Exploratory, descriptive."""
+    x = t[(t.estimator != "random") & t.condition.isin(["full_along_U", "feat_A_along_U"]) & (t.r > 0)].copy()
+    fam = x.family.astype(str)
+    x["fit_source"] = np.where(x.fit_families.astype(str) == fam, "native",
+                               np.where(x.fit_families.astype(str).str.endswith("_en"), "english", "other"))
+    cols = ["flip_rate", "flip_rate_lo", "flip_rate_hi", "nldr", "random_p95", "das_train_acc", "n_pairs"]
+    cols = [c for c in cols if c in x]
+    k = ["task", "layer", "family", "filter", "condition", "estimator", "r"]
+    nat = x[x.fit_source == "native"][k + cols].rename(columns={c: f"{c}_native" for c in cols})
+    eng = x[x.fit_source == "english"][k + cols].rename(columns={c: f"{c}_english" for c in cols})
+    out = nat.merge(eng, on=k, how="outer")
+    out["transfer_minus_native"] = out.get("flip_rate_english") - out.get("flip_rate_native")
+    return out.sort_values(k)
 
 
 def e9_rules(t, pair_rows, cos_rows):
@@ -202,7 +245,7 @@ def m3_table(m, pp, filters, n_boot):
 
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--only", default="E9,E10,E11,E14,E9b,E10b,E2r,E16")
+    ap.add_argument("--only", default="E9,E10,E11,E14,E9b,E10b,E2r,E16,E17,E18,E19,E20,E22")
     ap.add_argument("--n-boot", type=int, default=10_000)
     ap.add_argument("--profile", default=None)
     ap.add_argument("--out", default=str(REPO_ROOT / "tables"))
@@ -213,7 +256,7 @@ def main() -> int:
     out = Path(a.out)
     out.mkdir(parents=True, exist_ok=True)
     for exp in a.only.split(","):
-        tabs, specs, dirs, e9_pairs, cos_rows, m3_rows = [], [], [], [], [], []
+        tabs, specs, dirs, e9_pairs, cos_rows, m3_rows, stab_rows = [], [], [], [], [], [], []
         for m, d in runs_of(root, exp, a.include_tiny):
             pp = pd.read_parquet(d / "per_pair.parquet")
             flts = m["config"].get("filters", ["f_pilot"])
@@ -226,6 +269,8 @@ def main() -> int:
                 cos_rows += das_cosines(d, m["run_hash"])
             if exp == "E14":
                 m3_rows += m3_table(m, pp, flts, a.n_boot)
+            if exp in ILLUSION_EXPS:
+                stab_rows += das_stability(d, m["run_hash"])
         if not tabs:
             print(f"{exp}: no complete runs")
             continue
@@ -241,8 +286,15 @@ def main() -> int:
             t.to_csv(out / f"{exp}_illusion.csv", index=False)
             ill = t[t.condition == "full_along_U"].get("illusion", pd.Series(dtype="boolean"))
             msg += f"; {exp}_illusion {len(t)} (illusion (estimator, rank) cells: {int(ill.fillna(False).sum())})"
-        if exp.startswith("E10"):
-            t = with_null(tab, ["steer_x1", "steer_x2", "steer_x4"])
+            if stab_rows:
+                pd.DataFrame(stab_rows).to_csv(out / f"{exp}_das_stability.csv", index=False)
+                msg += f"; {exp}_das_stability {len(stab_rows)}"
+            if exp == "E22":
+                tr = lang_transfer(t)
+                tr.to_csv(out / "E22_transfer.csv", index=False)
+                msg += f"; E22_transfer {len(tr)}"
+        if exp in STEERING_EXPS:
+            t = with_null(tab, sorted({c for c in tab.condition.unique() if is_steer(c)}))
             p95 = t.get("random_p95", pd.Series(np.nan, index=t.index))
             rn = t.get("random_n", pd.Series(0, index=t.index)).fillna(0)
             t["q2_flip_ge_50"] = (t.flip_rate >= 0.50).astype("boolean").where(t.flip_rate.notna(), pd.NA)

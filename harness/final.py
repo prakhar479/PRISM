@@ -106,6 +106,9 @@ def random_null(tab: pd.DataFrame, metric: str = "flip_rate") -> pd.DataFrame:
 # Calibrated on release-2 data and random geometry only (analysis/calibrate_thresholds.txt), before any E9/E14 output existed.
 EFFECT_PTS = 0.10                                         # same 10-point bar as RQ1 and Gate B
 HAAR_P99 = {1: 0.052, 2: 0.072, 4: 0.097, 8: 0.131}       # top principal cosine of independent random subspaces of R^2304
+# Exploratory ranks (E18, 2026-11-18; not part of the frozen addendum): same Monte Carlo (2000 Haar pairs, seed 0, continuing the
+# calibration's generator) at k = 16, 32, 64. Used only for rows at those ranks.
+HAAR_P99_EXPLORATORY = {16: 0.179, 32: 0.246, 64: 0.339}
 ALIGNED = 0.5
 DAS_VALID_ACC = 0.5
 M3_MARGIN = 0.10
@@ -182,4 +185,7 @@ def alignment(cos_top: float, k: int) -> str:
         return ""
     if cos_top >= ALIGNED:
         return "aligned"
-    return "unrelated" if cos_top <= HAAR_P99.get(int(k), 0.131) else "partial"
+    p99 = HAAR_P99.get(int(k), HAAR_P99_EXPLORATORY.get(int(k)))
+    if p99 is None:
+        return ""
+    return "unrelated" if cos_top <= p99 else "partial"

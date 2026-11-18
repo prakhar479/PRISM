@@ -7,6 +7,8 @@ MeanError.fit / CovNoise.fit, which require a train FitSet.
 """
 from __future__ import annotations
 
+import re
+
 from dataclasses import dataclass, field
 from typing import Callable, Dict, List, Optional, Sequence
 
@@ -123,6 +125,20 @@ class MeanDiff(MeanError):
 
 
 STEER_SCALES = {"steer_x1": 1.0, "steer_x2": 2.0, "steer_x4": 4.0}
+_STEER_RE = re.compile(r"^steer_x(\d+(?:\.\d+)?)$")
+
+
+def is_steer(name: str) -> bool:
+    """steer_x<scale>: steer_x1/x2/x4 (E10, preregistered reading) and any other positive scale (exploratory, e.g. steer_x0.5,
+    steer_x8)."""
+    m = _STEER_RE.match(name)
+    return bool(m) and float(m.group(1)) > 0
+
+
+def steer_scale(name: str) -> float:
+    if not is_steer(name):
+        raise ValueError(f"not a steering condition: {name}")
+    return float(_STEER_RE.match(name).group(1))
 
 
 def steer(sp: Spans, U: torch.Tensor, mean_diff_rows: torch.Tensor, scale: float) -> torch.Tensor:

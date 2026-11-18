@@ -4,7 +4,12 @@ This branch (`run`) holds only what a GPU server needs to run the experiment que
 development branch `harness` by `scripts/make_run_branch.py`; `RUN_SOURCE.json` names the source commit. Do not
 edit files here: a dirty tree stops the runs (put machine-specific overrides in `profiles/local.yaml`, git-ignored).
 
-## Run release 2
+## Current run (2026-11-18): the final exploratory queue
+
+`sbatch scripts/slurm_final.sbatch` on gnode084 (4 GPUs; it reuses the final pass's caches there). Read
+`docs/FINAL_EXPLORE_RUNBOOK.md` first. The earlier final pass is documented in `docs/FINAL_PASS_RUNBOOK.md`.
+
+## Run release 2 (historical)
 
 ```bash
 git clone --branch run --single-branch <repo-url> prism-run && cd prism-run

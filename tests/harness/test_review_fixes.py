@@ -87,7 +87,7 @@ def test_finalize_refuses_to_train_das(tmp_path):
                                  spans_entry=lambda t, l: Cache(tmp_path).entry("spans", t=t, l=l))
     fs = types.SimpleNamespace(digest="abc")
     with pytest.raises(RuntimeError, match="never during finalize"):
-        Runner.das_direction(fake, "add_chain", 18, [], [0, 1], None, fs, 2)
+        Runner.das_direction(fake, "add_chain", 18, [], [0, 1], None, fs, "das2")
 
 
 # ---- analysis: spec tables carry the config role; E9 / Q2 decision columns are NA when not evaluable

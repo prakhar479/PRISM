@@ -108,3 +108,34 @@ def test_plain_das_cache_key_unchanged(tmp_path):
     assert seen["das"][0] == old                                 # the exact E9 key
     assert c.entry("das", **seen["das"][0]).key == c.entry("das", **old).key
     assert seen["das"][1]["epochs"] == 10 and seen["das"][1]["seed"] == 1
+
+
+def test_norm_matched_noise_and_extras_summary():
+    import numpy as np
+    import torch
+    from harness import fidelity as F
+    eps = torch.randn(50, 16) * torch.linspace(0.1, 3, 50)[:, None]
+    eta = F.norm_matched_noise(eps, torch.Generator().manual_seed(0))
+    assert torch.allclose(eta.norm(dim=-1), eps.norm(dim=-1), rtol=1e-5)
+    assert abs(float((eta * eps).sum(-1).div(eps.norm(dim=-1) ** 2).mean())) < 0.2        # direction unrelated to eps
+    n = 30
+    per = {k: np.ones(n) for k in ("pred", "pos", "fvu_num", "fvu_den", "eps_ratio_sum", "l0_sum")}
+    per.update(nll_clean=np.full(n, 2.0), nll_splice=np.full(n, 2.3), nll_mean=np.full(n, 9.0), nll_zero=np.full(n, 9.5),
+               nll_noise=np.full(n, 2.1), nll_perturb=np.full(n, 2.05))
+    s = F.summarize(per, n, n_boot=20)
+    assert s["ce_delta"] == pytest.approx(0.3) and s["noise_delta"] == pytest.approx(0.1)
+    assert s["splice_over_noise"] == pytest.approx(3.0) and s["perturb_delta"] == pytest.approx(0.05)
+    per.pop("nll_noise"); per.pop("nll_perturb")
+    assert "noise_delta" not in F.summarize(per, n, n_boot=5)                          # E12 rows unchanged without extras
+
+
+def test_das_learned_removes_shared_init():
+    import numpy as np
+    import make_final as mf
+    I = mf.das_init(2304, 2, 0)
+    rng = np.random.default_rng(0)
+    v = rng.standard_normal((2304, 1)); v -= I @ (I.T @ v); v /= np.linalg.norm(v)
+    U = np.linalg.qr(np.c_[I[:, :1], v])[0]                     # half init, half a learned direction
+    L, cap = mf.das_learned(U, "das2", 0)
+    assert L.shape[1] == 1 and abs(abs(float(L[:, 0] @ v[:, 0])) - 1) < 1e-6
+    assert cap == pytest.approx(0.5, abs=1e-6)

@@ -57,15 +57,44 @@ def _dir_key(path: Path, run_hash: str) -> dict:
     return {"run_hash": run_hash, "task": task, "layer": layer, "sae": rest.split("_", 1)[1], "fit_families": fit or "pilot"}
 
 
-def das_info(run_dir: Path, run_hash: str) -> pd.DataFrame:
+_INIT = {}
+
+
+def das_init(d: int, k: int, seed: int) -> np.ndarray:
+    """The rotation every DAS fit starts from (harness/model/das.py Rotation(d, k, seed)): fits that share (k, seed) share it,
+    and 3-epoch fits stay close to it (deep analysis 2026-11-18), so geometry must be read with it projected out."""
+    if (d, k, seed) not in _INIT:
+        from harness.model.das import Rotation
+        _INIT[(d, k, seed)] = Rotation(d, k, seed).R.detach().double().numpy()
+    return _INIT[(d, k, seed)]
+
+
+def das_learned(U: np.ndarray, est: str, cfg_seed: int):
+    """(learned component: orthonormal basis of U with its init span projected out, init capture = share of U's energy
+    left in the init span; Haar level k/d)."""
+    from harness.config import parse_das
+    p = parse_das(est)
+    I = das_init(U.shape[0], p["k"], cfg_seed if p["seed"] is None else p["seed"])
+    U = U.astype(np.float64)
+    cap = float(np.sum((I.T @ U) ** 2) / U.shape[1])
+    R = U - I @ (I.T @ U)
+    q, s_, _ = np.linalg.svd(R, full_matrices=False)
+    return q[:, s_ > 1e-6 * max(s_.max(), 1e-30)], cap
+
+
+def das_info(run_dir: Path, run_hash: str, cfg_seed: int = 0) -> pd.DataFrame:
     rows = []
     for j in run_dir.glob("directions/*.json"):
         d = json.loads(j.read_text())
+        npz = j.with_suffix(".npz")
+        z = np.load(npz) if npz.exists() else None
         for est, v in d.items():
             if est.startswith("das") and isinstance(v, dict):
                 meta = v.get("meta") or {}
+                cap = (das_learned(z[est], est, cfg_seed)[1] if z is not None and est in z.files
+                       and np.isfinite(z[est]).all() else np.nan)
                 rows.append({**_dir_key(j, run_hash), "estimator": est, "das_train_acc": meta.get("train_interchange_acc"),
-                             "das_loss_last": meta.get("loss_last_epoch")})
+                             "das_loss_last": meta.get("loss_last_epoch"), "das_init_capture": cap})
     return pd.DataFrame(rows).drop_duplicates() if rows else pd.DataFrame()
 
 
@@ -148,9 +177,10 @@ def das_cosines(run_dir, run_hash):
     return rows
 
 
-def das_stability(run_dir, run_hash):
+def das_stability(run_dir, run_hash, cfg_seed: int = 0):
     """E17: agreement between DAS rotations of the same rank trained with different seeds / epochs / learning rates (top and
-    mean principal cosine), with each rotation's train interchange accuracy. Exploratory."""
+    mean principal cosine), with each rotation's train interchange accuracy. Raw cosines are inflated when two fits share an
+    initialisation (same k and seed), so the learned components (init span projected out) are compared too. Exploratory."""
     from harness.directions import principal_cosines
     rows = []
     for f in run_dir.glob("directions/*.npz"):
@@ -164,8 +194,12 @@ def das_stability(run_dir, run_hash):
                 if das_rank(a) != das_rank(b):
                     continue
                 c = principal_cosines(z[a], z[b])
+                (la, ca), (lb, cb) = das_learned(z[a], a, cfg_seed), das_learned(z[b], b, cfg_seed)
+                cl = principal_cosines(la, lb) if la.shape[1] and lb.shape[1] else np.array([np.nan])
                 rows.append({**key, "r": das_rank(a), "das_a": a, "das_b": b, "acc_a": acc[a], "acc_b": acc[b],
                              "cos_top": float(c[0]), "cos_mean": float(np.mean(c)),
+                             "cos_top_learned": float(cl[0]), "cos_mean_learned": float(np.nanmean(cl)),
+                             "init_capture_a": ca, "init_capture_b": cb,
                              "haar_p99": FN.HAAR_P99.get(das_rank(a), FN.HAAR_P99_EXPLORATORY.get(das_rank(a)))})
     return rows
 
@@ -263,14 +297,14 @@ def main() -> int:
             tabs.append(FN.run_table(m, pp, flts, a.n_boot))
             if exp in ("E11", "E14"):
                 specs.append(spec_table(m, pp, flts, a.n_boot))
-            dirs.append(das_info(d, m["run_hash"]))
+            dirs.append(das_info(d, m["run_hash"], m["config"].get("seed", 0)))
             if exp in ILLUSION_EXPS:
                 e9_pairs += e9_paired(m, pp, flts, a.n_boot)
                 cos_rows += das_cosines(d, m["run_hash"])
             if exp == "E14":
                 m3_rows += m3_table(m, pp, flts, a.n_boot)
             if exp in ILLUSION_EXPS:
-                stab_rows += das_stability(d, m["run_hash"])
+                stab_rows += das_stability(d, m["run_hash"], m["config"].get("seed", 0))
         if not tabs:
             print(f"{exp}: no complete runs")
             continue

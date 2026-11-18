@@ -510,3 +510,18 @@ Harness: estimator grammar das<k>[_e<epochs>][_lr<lr>][_s<seed>] (harness/config
 steer_x<scale> for any positive scale, r_max per config up to 64. scripts/slurm_final.sbatch now defaults to gnode084, 4 GPUs and
 this queue; node/GPU changes go on the sbatch command line (never a server-side commit). Tiny end-to-end runs (CPU) of all five
 configs and make_final on their outputs passed; make_final on the real E9/E10 runs gives identical decision columns.
+
+## 2026-11-18 (later): deep analysis of the final pass; E23 added to the last run; DAS geometry correction
+A post hoc deep analysis (scratchpad reports, summarised in analysis/deep_analysis_2026-11-18.md) changed three things:
+- E23 added to queue/final-explore-server.yaml: on Dakshina's identical sentences, native script and romanized text have the
+  same Gemma Scope error size (FVU ratio 0.85-1.06) but the native script's splice cost is 1.5-4.1x higher. E23 reruns 16k
+  fidelity with norm-matched noise controls (harness/fidelity.py extras: x_hat + eta and x + eta, |eta| = |eps| per token) and
+  per-token NLLs, to tell an error-direction effect from context fragility; E21 (65k) gets the same controls. New run hashes
+  (identity gains extras/tokens); canonical E12 runs are unchanged.
+- DAS geometry: every DAS fit with the same (k, seed) starts from the same rotation, and 3-epoch fits keep 41-73 % of their
+  energy in it, so raw DAS-to-DAS cosines are dominated by the shared start. make_final now reports das_init_capture and,
+  for E17, cosines of the learned components (init span projected out). The frozen E9 decision columns are unchanged
+  (cos_top_das is error-U vs DAS, checked); E9's DAS rotations should be described as short fits.
+- Object tracking (pilot templates): A's answer is already determined by the unpatched prefix (the corruption adds a move of
+  the queried object after the first changed token), so feature-only "restoration" is inflated by a fallback to A. The
+  informative diagnostic is the swap x_hat_B + eps_A (B survives in 2 % of pairs at L12). To be stated in the write-up.

@@ -66,7 +66,7 @@ def main() -> int:
     table = build(rows)
     out = Path(a.out)
     out.mkdir(parents=True, exist_ok=True)
-    cols = list(table[0])
+    cols = list(dict.fromkeys(k for r in table for k in r))          # E23 rows add the noise-control columns
     with (out / "E12_fidelity_lang.csv").open("w", newline="") as fh:
         w = csv.DictWriter(fh, fieldnames=cols)
         w.writeheader()

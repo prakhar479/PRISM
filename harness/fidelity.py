@@ -38,7 +38,13 @@ def summarize(per_doc: Dict[str, np.ndarray], n_scored: int, n_boot: int = 2000,
                 "recovered_mean": recovered(c, s, m), "recovered_zero": recovered(c, s, z),
                 "ce_delta": s - c,
                 "fvu": per_doc["fvu_num"][ix].sum() / per_doc["fvu_den"][ix].sum(),
-                "eps_over_x": per_doc["eps_ratio_sum"][ix].sum() / pos, "l0": per_doc["l0_sum"][ix].sum() / pos}
+                "eps_over_x": per_doc["eps_ratio_sum"][ix].sum() / pos, "l0": per_doc["l0_sum"][ix].sum() / pos,
+                **({"ce_noise": per_doc["nll_noise"][ix].sum() / p, "ce_perturb": per_doc["nll_perturb"][ix].sum() / p,
+                    "noise_delta": (per_doc["nll_noise"][ix].sum() - per_doc["nll_clean"][ix].sum()) / p,
+                    "perturb_delta": (per_doc["nll_perturb"][ix].sum() - per_doc["nll_clean"][ix].sum()) / p,
+                    "splice_over_noise": (s - c) / ((per_doc["nll_noise"][ix].sum() / p) - c)
+                    if abs((per_doc["nll_noise"][ix].sum() / p) - c) > 1e-12 else float("nan")}
+                   if "nll_noise" in per_doc else {})}
     point = stats(np.arange(n))
     rng = np.random.default_rng(seed)
     boots = [stats(rng.integers(0, n, n)) for _ in range(n_boot)]
@@ -56,22 +62,39 @@ def to_device(sae, device):
     return sae
 
 
-def _doc_nll(model, runtime, tokens: torch.Tensor, hooks, skip: int) -> torch.Tensor:
-    """Summed NLL per row over predictions at positions skip..L-2 (logits in position chunks)."""
+def _tok_nll(model, runtime, tokens: torch.Tensor, hooks, skip: int) -> torch.Tensor:
+    """Per-prediction NLL [B, L-1-skip] (float64, CPU) for predictions at positions skip..L-2 (logits in position chunks)."""
     R = runtime.final_resid(model, tokens, hooks)
     B, L = tokens.shape
     step = max(1, runtime.LOGIT_CHUNK_BYTES // (B * model.cfg.d_vocab * 4 * 2))
-    tot = torch.zeros(B, dtype=torch.float64)
+    out = torch.zeros(B, L - 1 - skip, dtype=torch.float64)
     for a in range(skip, L - 1, step):
         b = min(a + step, L - 1)
         lp = torch.log_softmax(runtime.head(model, R[:, a:b]), -1)
-        tot -= lp.gather(-1, tokens[:, a + 1:b + 1, None].to(lp.device)).sum((1, 2)).double().cpu()
-    return tot
+        out[:, a - skip:b - skip] = -lp.gather(-1, tokens[:, a + 1:b + 1, None].to(lp.device))[..., 0].double().cpu()
+    return out
+
+
+def _doc_nll(model, runtime, tokens: torch.Tensor, hooks, skip: int) -> torch.Tensor:
+    """Summed NLL per row over predictions at positions skip..L-2."""
+    return _tok_nll(model, runtime, tokens, hooks, skip).sum(1)
+
+
+def norm_matched_noise(eps: torch.Tensor, gen: torch.Generator) -> torch.Tensor:
+    """Isotropic Gaussian directions scaled to each row's |eps| (same per-token error size, random direction)."""
+    eta = torch.randn(eps.shape, generator=gen, device=eps.device, dtype=torch.float32)
+    return eta * (eps.norm(dim=-1, keepdim=True) / eta.norm(dim=-1, keepdim=True).clamp_min(1e-12))
 
 
 @torch.inference_mode()
-def measure(model, sae, layer: int, ids: Sequence[Sequence[int]], skip: int, budget, device, log=print) -> Dict[str, np.ndarray]:
-    """Per-window arrays described in `summarize` for one SAE at one layer."""
+def measure(model, sae, layer: int, ids: Sequence[Sequence[int]], skip: int, budget, device, log=print,
+            extras: bool = False, tokens: bool = False, seed: int = 0) -> Dict[str, np.ndarray]:
+    """Per-window arrays described in `summarize` for one SAE at one layer.
+
+    extras (E23, exploratory 2026-11-18): two norm-matched controls per window, to separate "how big the SAE error is" from
+    "which direction it points": nll_noise = splice x_hat + eta and nll_perturb = x + eta, eta isotropic with |eta| = |eps|
+    per token (fixed seed per batch). tokens: also per-prediction NLLs (key tok_<name>, float32 [N, T-1-skip]) for clean and
+    splice (and the extras), for token-level analyses."""
     from src.models import runtime
     from harness.device import empty_cache, is_oom
     docs = [list(r) for r in ids]
@@ -97,6 +120,11 @@ def measure(model, sae, layer: int, ids: Sequence[Sequence[int]], skip: int, bud
     N = len(docs)
     z = lambda: np.zeros(N)
     out = {k: z() for k in ("nll_clean", "nll_splice", "nll_mean", "nll_zero", "pred", "fvu_num", "fvu_den", "eps_ratio_sum", "l0_sum", "pos")}
+    if extras:
+        out.update({k: z() for k in ("nll_noise", "nll_perturb")})
+    tok_names = (["clean", "splice"] + (["noise", "perturb"] if extras else [])) if tokens else []
+    for k in tok_names:
+        out["tok_" + k] = np.zeros((N, T - 1 - skip), dtype=np.float32)
     pred = (T - 1 - skip)
     out["pred"][:] = pred
     out["pos"][:] = T - skip
@@ -107,8 +135,10 @@ def measure(model, sae, layer: int, ids: Sequence[Sequence[int]], skip: int, bud
         acc = {}
         def grab(act, hook):
             acc["x"] = act[:, skip:].detach().double().sum((0, 1)).cpu()
-        nll = _doc_nll(model, runtime, t, [(hn, grab)], skip)
-        out["nll_clean"][a:a + len(t)] = nll.numpy()
+        tn = _tok_nll(model, runtime, t, [(hn, grab)], skip)
+        out["nll_clean"][a:a + len(t)] = tn.sum(1).numpy()
+        if tokens:
+            out["tok_clean"][a:a + len(t)] = tn.numpy()
         nonlocal s1
         s1 += acc["x"]
     loop(p1)
@@ -139,7 +169,28 @@ def measure(model, sae, layer: int, ids: Sequence[Sequence[int]], skip: int, bud
             return f
         zero = torch.zeros_like(mean_d)
         sl = slice(a, a + B)
-        out["nll_splice"][sl] = _doc_nll(model, runtime, t, [(hn, splice)], skip).numpy()
+        ts = _tok_nll(model, runtime, t, [(hn, splice)], skip)
+        out["nll_splice"][sl] = ts.sum(1).numpy()
+        if tokens:
+            out["tok_splice"][sl] = ts.numpy()
+        if extras:
+            def noisy(base):
+                def f(act, hook):
+                    act = act.clone()
+                    x = act[:, skip:]
+                    x2 = x.reshape(-1, x.shape[-1])
+                    xh, eps, _ = decompose(sae, x2, device=device)
+                    gen = torch.Generator(device=eps.device).manual_seed(seed * 1_000_003 + a)
+                    eta = norm_matched_noise(eps, gen)
+                    new = (xh if base == "xhat" else x2.float()) + eta
+                    act[:, skip:] = new.reshape(x.shape).to(act.device, act.dtype)
+                    return act
+                return f
+            for name, base in (("noise", "xhat"), ("perturb", "x")):
+                tx = _tok_nll(model, runtime, t, [(hn, noisy(base))], skip)
+                out["nll_" + name][sl] = tx.sum(1).numpy()
+                if tokens:
+                    out["tok_" + name][sl] = tx.numpy()
         out["nll_mean"][sl] = _doc_nll(model, runtime, t, [(hn, ablate(mean_d))], skip).numpy()
         out["nll_zero"][sl] = _doc_nll(model, runtime, t, [(hn, ablate(zero))], skip).numpy()
         out["fvu_num"][sl], out["fvu_den"][sl] = st["num"].numpy(), st["den"].numpy()

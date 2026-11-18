@@ -49,6 +49,7 @@ FIELDS = ["set", "lang", "script", "genre", "licence", "layer", "sae", "n_window
           "ce_clean", "ce_splice", "ce_mean_ablate", "ce_zero_ablate", "recovered_mean", "recovered_zero", "ce_delta",
           "fvu", "eps_over_x", "l0"]
 CI = ["ce_clean", "ce_splice", "recovered_mean", "recovered_zero", "ce_delta", "fvu", "eps_over_x", "l0"]
+EXTRA = ["ce_noise", "ce_perturb", "noise_delta", "perturb_delta", "splice_over_noise"]   # --extras (E23)
 log = logging.getLogger("harness")
 
 
@@ -66,6 +67,8 @@ def main(argv=None) -> int:
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--allow-dirty", action="store_true")
     ap.add_argument("--n-boot", type=int, default=2000)
+    ap.add_argument("--extras", action="store_true", help="E23: norm-matched noise controls (x_hat + eta, x + eta, |eta| = |eps|)")
+    ap.add_argument("--tokens", action="store_true", help="E23: also save per-prediction NLLs (per_window npz, tok_* keys)")
     a = ap.parse_args(argv)
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s", force=True)
     prof = load_profile(a.profile)
@@ -80,7 +83,8 @@ def main(argv=None) -> int:
     sae_rev = json.loads((REPO_ROOT / "configs" / "sae_inventory.json").read_text())["revision"]
     ident = {"exp": "E12", "model": MODEL_REVISION, "sae_revision": sae_rev, "width": a.width, "layers": a.layers,
              "sets": {n: man[n]["hash"] for n in names}, "n_windows": a.n_windows, "tiny": a.tiny,
-             **({"l0_rule": a.l0_rule} if a.l0_rule != "canonical" else {})}      # canonical runs keep their old hash
+             **({"l0_rule": a.l0_rule} if a.l0_rule != "canonical" else {}),      # canonical runs keep their old hash
+             **({"extras": True} if a.extras else {}), **({"tokens": True} if a.tokens else {})}
     run_hash = hashlib.sha256(json.dumps(ident, sort_keys=True).encode()).hexdigest()[:12]
     run_dir = (REPO_ROOT / "tests" / "_tiny_runs" if a.tiny else prof.root("runs_root")) / "E12" / run_hash
     todo = [(n, L) for n in names for L in a.layers]
@@ -125,7 +129,8 @@ def main(argv=None) -> int:
     new = not csv_path.exists()
     t_start = time.time()
     with csv_path.open("a", newline="") as fh:
-        w = csv.DictWriter(fh, fieldnames=FIELDS + [c + s for c in CI for s in ("_lo", "_hi")], extrasaction="ignore")
+        ex = EXTRA + [c + s for c in EXTRA for s in ("_lo", "_hi")] if a.extras else []
+        w = csv.DictWriter(fh, fieldnames=FIELDS + [c + s for c in CI for s in ("_lo", "_hi")] + ex, extrasaction="ignore")
         if new:
             w.writeheader()
         for layer in a.layers:
@@ -144,7 +149,7 @@ def main(argv=None) -> int:
                 if a.tiny:
                     ids = [[min(t, 511) for t in r] for r in ids]
                 t0 = time.time()
-                per = F.measure(model, sae, layer, ids, d["skip_positions"], budget, device)
+                per = F.measure(model, sae, layer, ids, d["skip_positions"], budget, device, extras=a.extras, tokens=a.tokens)
                 n_scored = len(ids) * (len(ids[0]) - d["skip_positions"] - 1)
                 s = F.summarize(per, n_scored, a.n_boot)
                 np.savez_compressed(run_dir / f"per_window_{n}_L{layer}.npz", **per)

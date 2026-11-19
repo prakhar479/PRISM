@@ -1,0 +1,60 @@
+{
+ "source": "nvidia-smi + /proc",
+ "gpus": [
+  {
+   "index": 0,
+   "uuid": "GPU-0e63699c-6d21-1dee-8f05-80f5d43385b7",
+   "name": "NVIDIA GeForce RTX 2080 Ti",
+   "total_bytes": 11811160064,
+   "free_bytes": 11348738048,
+   "compute_cap": "7.5",
+   "driver": "570.211.01"
+  },
+  {
+   "index": 1,
+   "uuid": "GPU-d23d7e45-b66c-7b44-965c-b92b7de05f99",
+   "name": "NVIDIA GeForce RTX 2080 Ti",
+   "total_bytes": 11811160064,
+   "free_bytes": 11348738048,
+   "compute_cap": "7.5",
+   "driver": "570.211.01"
+  },
+  {
+   "index": 2,
+   "uuid": "GPU-bedb18d5-eaa1-72fd-5bed-a17733b69deb",
+   "name": "NVIDIA GeForce RTX 2080 Ti",
+   "total_bytes": 11811160064,
+   "free_bytes": 11348738048,
+   "compute_cap": "7.5",
+   "driver": "570.211.01"
+  },
+  {
+   "index": 3,
+   "uuid": "GPU-58a4e1dd-69e4-1f4d-9b38-e58261db0ea1",
+   "name": "NVIDIA GeForce RTX 2080 Ti",
+   "total_bytes": 11811160064,
+   "free_bytes": 11348738048,
+   "compute_cap": "7.5",
+   "driver": "570.211.01"
+  }
+ ],
+ "ram_total_bytes": 135025332224,
+ "ram_available_bytes": 132651687936,
+ "cpu_logical": 40,
+ "cpu_affinity": 34,
+ "cpu_physical": 17,
+ "disk_free_bytes": 937454780416,
+ "cuda_visible_devices": "0,1,2,3",
+ "gpus_used": [
+  "0",
+  "1",
+  "2",
+  "3"
+ ],
+ "slots": [
+  "0",
+  "1",
+  "2",
+  "3"
+ ]
+}

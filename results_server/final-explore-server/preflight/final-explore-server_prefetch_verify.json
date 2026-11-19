@@ -1,0 +1,143 @@
+{
+ "queue": "queue/final-explore-server.yaml",
+ "tag": "final-explore-server",
+ "files": [
+  {
+   "repo": "google/gemma-2-2b",
+   "file": "config.json",
+   "revision": "c5ebcd40d208330abc697524c919956e692655cf",
+   "bytes": 818,
+   "seconds": 0.3
+  },
+  {
+   "repo": "google/gemma-2-2b",
+   "file": "generation_config.json",
+   "revision": "c5ebcd40d208330abc697524c919956e692655cf",
+   "bytes": 168,
+   "seconds": 0.3
+  },
+  {
+   "repo": "google/gemma-2-2b",
+   "file": "model-00001-of-00003.safetensors",
+   "revision": "c5ebcd40d208330abc697524c919956e692655cf",
+   "bytes": 4992576136,
+   "sha256": "1425aa066ec77e3eb79aac14a5bdea3ebcec46aa5c96cd40608c5c1fd70d193d",
+   "sha256_ok": true,
+   "seconds": 12.7
+  },
+  {
+   "repo": "google/gemma-2-2b",
+   "file": "model-00002-of-00003.safetensors",
+   "revision": "c5ebcd40d208330abc697524c919956e692655cf",
+   "bytes": 4983443424,
+   "sha256": "96c111d3dcdbde9271595e463b5d9f7fc4810ad8b79e736309c0a1833e6c0d35",
+   "sha256_ok": true,
+   "seconds": 12.7
+  },
+  {
+   "repo": "google/gemma-2-2b",
+   "file": "model-00003-of-00003.safetensors",
+   "revision": "c5ebcd40d208330abc697524c919956e692655cf",
+   "bytes": 481381384,
+   "sha256": "4e08abc64d1767fdacd2c94da7f2ec4b8c65b25b19a53e87d19dc432901b5f02",
+   "sha256_ok": true,
+   "seconds": 1.5
+  },
+  {
+   "repo": "google/gemma-2-2b",
+   "file": "model.safetensors.index.json",
+   "revision": "c5ebcd40d208330abc697524c919956e692655cf",
+   "bytes": 24224,
+   "seconds": 0.3
+  },
+  {
+   "repo": "google/gemma-2-2b",
+   "file": "special_tokens_map.json",
+   "revision": "c5ebcd40d208330abc697524c919956e692655cf",
+   "bytes": 636,
+   "seconds": 0.3
+  },
+  {
+   "repo": "google/gemma-2-2b",
+   "file": "tokenizer.json",
+   "revision": "c5ebcd40d208330abc697524c919956e692655cf",
+   "bytes": 17525357,
+   "sha256": "3f289bc05132635a8bc7aca7aa21255efd5e18f3710f43e3cdb96bcd41be4922",
+   "sha256_ok": true,
+   "seconds": 0.3
+  },
+  {
+   "repo": "google/gemma-2-2b",
+   "file": "tokenizer.model",
+   "revision": "c5ebcd40d208330abc697524c919956e692655cf",
+   "bytes": 4241003,
+   "sha256": "61a7b147390c64585d6c3543dd6fc636906c9af3865a5548f27f31aee1d4c8e2",
+   "sha256_ok": true,
+   "seconds": 0.3
+  },
+  {
+   "repo": "google/gemma-2-2b",
+   "file": "tokenizer_config.json",
+   "revision": "c5ebcd40d208330abc697524c919956e692655cf",
+   "bytes": 46379,
+   "seconds": 0.3
+  },
+  {
+   "repo": "google/gemma-scope-2b-pt-res",
+   "file": "layer_18/width_16k/average_l0_74/params.npz",
+   "revision": "fd571b47c1c64851e9b1989792367b9babb4af63",
+   "bytes": 302131416,
+   "sha256": "6779e94af81ea79f631c2a0c27cb0e78c08bfdda5037ea3381112e9d714991d6",
+   "sha256_ok": true,
+   "seconds": 1.1
+  },
+  {
+   "repo": "google/gemma-scope-2b-pt-res",
+   "file": "layer_12/width_16k/average_l0_82/params.npz",
+   "revision": "fd571b47c1c64851e9b1989792367b9babb4af63",
+   "bytes": 302131416,
+   "sha256": "afae57c7fdfe6faace4b97d9fe9a184deb08bda8852a4c40b308cf6c72ed8384",
+   "sha256_ok": true,
+   "seconds": 1.0
+  },
+  {
+   "repo": "google/gemma-scope-2b-pt-res",
+   "file": "layer_16/width_16k/average_l0_78/params.npz",
+   "revision": "fd571b47c1c64851e9b1989792367b9babb4af63",
+   "bytes": 302131416,
+   "sha256": "3e1558c7f0ecb6f954f63c287bb342cca38961a8fa249d5a3d60dcd5bcb54865",
+   "sha256_ok": true,
+   "seconds": 1.0
+  },
+  {
+   "repo": "google/gemma-scope-2b-pt-res",
+   "file": "layer_18/width_65k/average_l0_64/params.npz",
+   "revision": "fd571b47c1c64851e9b1989792367b9babb4af63",
+   "bytes": 1208494296,
+   "sha256": "8d5abeb2a0ff2fbc2c2854f2898e88bc2995de911a79623d5f26783221c67a30",
+   "sha256_ok": true,
+   "seconds": 3.2
+  },
+  {
+   "repo": "google/gemma-scope-2b-pt-res",
+   "file": "layer_12/width_65k/average_l0_72/params.npz",
+   "revision": "fd571b47c1c64851e9b1989792367b9babb4af63",
+   "bytes": 1208494296,
+   "sha256": "aca961dd911a607911829f5b7342decd739b5daee61635693f28e08dac7db12c",
+   "sha256_ok": true,
+   "seconds": 3.3
+  },
+  {
+   "repo": "google/gemma-scope-2b-pt-res",
+   "file": "layer_12/width_262k/average_l0_67/params.npz",
+   "revision": "fd571b47c1c64851e9b1989792367b9babb4af63",
+   "bytes": 4833945976,
+   "sha256": "e1fd607fdcc4bbf80022ed70d84af057f21ba6b1268e656033c8bc1c197b1c34",
+   "sha256_ok": true,
+   "seconds": 12.3
+  }
+ ],
+ "errors": [],
+ "started": "2026-11-18T19:35:29+0530",
+ "total_gb": 17.36
+}

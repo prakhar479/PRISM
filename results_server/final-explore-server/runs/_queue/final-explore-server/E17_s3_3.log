@@ -1,0 +1,20 @@
+
+=== attempt 1 2026-11-18 20:40:55 slots=['3']: /home2/raveeshvyas1410/prism-run/.venv-harness/bin/python -m harness.run --config configs/experiments/E17.yaml --profile server --stage 3 --worker E17_s3-3
+2026-11-18 20:41:01,084 INFO DAS: training das8_s1 (k=8, 3 epochs, lr 0.01, seed 1) for add_chain L18 on 300 train pairs
+Loading weights:   0%|          | 0/288 [00:00<?, ?it/s]Loading weights:   0%|          | 1/288 [00:00<02:01,  2.37it/s]Loading weights:  90%|████████▉ | 258/288 [00:00<00:00, 649.02it/s]Loading weights: 100%|██████████| 288/288 [00:00<00:00, 521.52it/s]
+2026-11-18 20:41:06,611 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-18 20:41:06,900 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-18 20:41:07,178 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-18 20:41:08,564 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-18 20:47:34,502 INFO DAS: training das2_e10 (k=2, 10 epochs, lr 0.01, seed 0) for add_chain L18 on 300 train pairs
+2026-11-18 21:05:13,047 INFO DAS: training das2_e10_s1 (k=2, 10 epochs, lr 0.01, seed 1) for add_chain L18 on 300 train pairs
+2026-11-18 21:22:52,398 INFO DAS: training das1_e30 (k=1, 30 epochs, lr 0.01, seed 0) for add_chain L18 on 300 train pairs
+2026-11-18 22:12:12,322 INFO add_chain_L18_16k_l074 unit 2/28 (8 conditions, 89.5s)
+2026-11-18 22:13:46,258 INFO add_chain_L18_16k_l074 unit 7/28 (8 conditions, 93.8s)
+2026-11-18 22:15:21,353 INFO add_chain_L18_16k_l074 unit 12/28 (8 conditions, 95.0s)
+2026-11-18 22:16:57,138 INFO add_chain_L18_16k_l074 unit 16/28 (8 conditions, 95.7s)
+2026-11-18 22:18:33,109 INFO add_chain_L18_16k_l074 unit 20/28 (8 conditions, 95.9s)
+2026-11-18 22:20:09,039 INFO add_chain_L18_16k_l074 unit 24/28 (8 conditions, 95.8s)
+2026-11-18 22:21:00,333 INFO add_chain_L18_16k_l074 unit 28/28 (3 conditions, 51.2s)
+2026-11-18 22:21:00,421 INFO E17 -> /home2/raveeshvyas1410/prism-run/runs/E17/5a4a5fedea5f (worker_done)
+Loaded pretrained model gemma-2-2b into HookedTransformer

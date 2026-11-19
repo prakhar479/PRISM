@@ -1,0 +1,79 @@
+/home/prakhar/dev/legend479/MILP/.venv/lib/python3.12/site-packages/numpy/lib/_function_base_impl.py:3037: RuntimeWarning: invalid value encountered in divide
+  c /= stddev[:, None]
+/home/prakhar/dev/legend479/MILP/.venv/lib/python3.12/site-packages/numpy/lib/_function_base_impl.py:3037: RuntimeWarning: invalid value encountered in divide
+  c /= stddev[:, None]
+/home/prakhar/dev/legend479/MILP/.venv/lib/python3.12/site-packages/numpy/lib/_function_base_impl.py:3037: RuntimeWarning: invalid value encountered in divide
+  c /= stddev[:, None]
+/home/prakhar/dev/legend479/MILP/.venv/lib/python3.12/site-packages/numpy/lib/_function_base_impl.py:3037: RuntimeWarning: invalid value encountered in divide
+  c /= stddev[:, None]
+/home/prakhar/dev/legend479/MILP/.venv/lib/python3.12/site-packages/numpy/lib/_function_base_impl.py:3037: RuntimeWarning: invalid value encountered in divide
+  c /= stddev[:, None]
+/home/prakhar/dev/legend479/MILP/.venv/lib/python3.12/site-packages/numpy/lib/_function_base_impl.py:3037: RuntimeWarning: invalid value encountered in divide
+  c /= stddev[:, None]
+cell                                           a            b              condition  n_elig  flip_a  flip_b   diff   lo95   hi95  per_pair_flip_agree  corr_nldr_i  max_abs_dD
+  RS E2@raveeshvyas-OMEN-Gaming-Laptop-16-am0xxx E2r@gnode084        feat_A_covnoise     207   0.493   0.618 -0.126 -0.208 -0.053                0.671        0.512       4.402
+  RS E2@raveeshvyas-OMEN-Gaming-Laptop-16-am0xxx E2r@gnode084            feat_A_errB     207   0.850   0.855 -0.005 -0.029  0.019                0.966        0.986       0.787
+  RS E2@raveeshvyas-OMEN-Gaming-Laptop-16-am0xxx E2r@gnode084         feat_A_meanPos     207   0.879   0.874  0.005 -0.014  0.024                0.976        0.989       0.771
+  RS E2@raveeshvyas-OMEN-Gaming-Laptop-16-am0xxx E2r@gnode084        feat_A_meanTask     207   0.903   0.894  0.010 -0.014  0.034                0.971        0.993       0.538
+  RS E2@raveeshvyas-OMEN-Gaming-Laptop-16-am0xxx E2r@gnode084           feat_A_noise     207   0.536   0.565 -0.029 -0.102  0.048                0.681        0.458       5.759
+  RS E2@raveeshvyas-OMEN-Gaming-Laptop-16-am0xxx E2r@gnode084 feat_A_resampC_diffAns     207   0.623   0.700 -0.077 -0.150 -0.010                0.729        0.659       5.780
+  RS E2@raveeshvyas-OMEN-Gaming-Laptop-16-am0xxx E2r@gnode084 feat_A_resampC_sameAns     207   0.778   0.754  0.024 -0.039  0.092                0.754        0.237       4.619
+  RS E2@raveeshvyas-OMEN-Gaming-Laptop-16-am0xxx E2r@gnode084            feat_A_zero     207   0.768   0.773 -0.005 -0.024  0.014                0.976        0.994       0.440
+  RS E2@raveeshvyas-OMEN-Gaming-Laptop-16-am0xxx E2r@gnode084            feat_B_errA     207   0.140   0.126  0.014 -0.005  0.034                0.976        0.991       0.984
+  RS E2@raveeshvyas-OMEN-Gaming-Laptop-16-am0xxx E2r@gnode084           feat_B_noise     207   0.082   0.072  0.010 -0.034  0.053                0.894        0.649       3.557
+  RS E2@raveeshvyas-OMEN-Gaming-Laptop-16-am0xxx E2r@gnode084                 full_A     207   0.976   0.971  0.005  0.000  0.014                0.995          NaN       0.341
+  RS E2@raveeshvyas-OMEN-Gaming-Laptop-16-am0xxx  E3@Poseidon        feat_A_covnoise     207   0.493   0.459  0.034 -0.048  0.111                0.609        0.527       4.023
+  RS E2@raveeshvyas-OMEN-Gaming-Laptop-16-am0xxx  E3@Poseidon            feat_A_errB     207   0.850   0.855 -0.005 -0.029  0.019                0.966        0.986       0.734
+  RS E2@raveeshvyas-OMEN-Gaming-Laptop-16-am0xxx  E3@Poseidon         feat_A_meanPos     207   0.879   0.865  0.014 -0.019  0.048                0.937        0.953       1.060
+  RS E2@raveeshvyas-OMEN-Gaming-Laptop-16-am0xxx  E3@Poseidon        feat_A_meanTask     207   0.903   0.870  0.034  0.005  0.068                0.947        0.961       1.451
+  RS E2@raveeshvyas-OMEN-Gaming-Laptop-16-am0xxx  E3@Poseidon           feat_A_noise     207   0.536   0.541 -0.005 -0.043  0.034                0.918        0.969       2.042
+  RS E2@raveeshvyas-OMEN-Gaming-Laptop-16-am0xxx  E3@Poseidon feat_A_resampC_diffAns     207   0.623   0.628 -0.005 -0.053  0.039                0.879        0.909       2.744
+  RS E2@raveeshvyas-OMEN-Gaming-Laptop-16-am0xxx  E3@Poseidon feat_A_resampC_sameAns     207   0.778   0.773  0.005 -0.029  0.039                0.937        0.776       2.816
+  RS E2@raveeshvyas-OMEN-Gaming-Laptop-16-am0xxx  E3@Poseidon            feat_A_zero     207   0.768   0.768  0.000 -0.019  0.019                0.981        0.994       0.440
+  RS E2@raveeshvyas-OMEN-Gaming-Laptop-16-am0xxx  E3@Poseidon            feat_B_errA     207   0.140   0.130  0.010 -0.010  0.029                0.981        0.991       0.984
+  RS E2@raveeshvyas-OMEN-Gaming-Laptop-16-am0xxx  E3@Poseidon           feat_B_noise     207   0.082   0.077  0.005 -0.014  0.029                0.976        0.979       2.502
+  RS E2@raveeshvyas-OMEN-Gaming-Laptop-16-am0xxx  E3@Poseidon                 full_A     207   0.976   0.971  0.005  0.000  0.014                0.995          NaN       0.341
+  RS                                E2r@gnode084  E3@Poseidon        feat_A_covnoise     209   0.617   0.459  0.158  0.072  0.244                0.603        0.463       5.610
+  RS                                E2r@gnode084  E3@Poseidon            feat_A_errB     209   0.852   0.852  0.000  0.000  0.000                1.000        1.000       0.090
+  RS                                E2r@gnode084  E3@Poseidon         feat_A_meanPos     209   0.876   0.861  0.014 -0.014  0.043                0.947        0.965       1.021
+  RS                                E2r@gnode084  E3@Poseidon        feat_A_meanTask     209   0.895   0.871  0.024 -0.005  0.053                0.957        0.965       0.913
+  RS                                E2r@gnode084  E3@Poseidon           feat_A_noise     209   0.560   0.545  0.014 -0.057  0.091                0.689        0.458       5.811
+  RS                                E2r@gnode084  E3@Poseidon feat_A_resampC_diffAns     209   0.699   0.632  0.067 -0.005  0.134                0.751        0.662       6.031
+  RS                                E2r@gnode084  E3@Poseidon feat_A_resampC_sameAns     209   0.751   0.775 -0.024 -0.096  0.043                0.756        0.431       4.405
+  RS                                E2r@gnode084  E3@Poseidon            feat_A_zero     209   0.775   0.770  0.005  0.000  0.014                0.995        1.000       0.110
+  RS                                E2r@gnode084  E3@Poseidon            feat_B_errA     209   0.124   0.129 -0.005 -0.014  0.000                0.995        1.000       0.134
+  RS                                E2r@gnode084  E3@Poseidon           feat_B_noise     209   0.072   0.077 -0.005 -0.053  0.038                0.880        0.640       3.587
+  RS                                E2r@gnode084  E3@Poseidon                 full_A     209   0.971   0.971  0.000  0.000  0.000                1.000          NaN       0.000
+  OT E2@raveeshvyas-OMEN-Gaming-Laptop-16-am0xxx E2r@gnode084        feat_A_covnoise     103   0.883   0.864  0.019 -0.019  0.068                0.942        0.110       3.264
+  OT E2@raveeshvyas-OMEN-Gaming-Laptop-16-am0xxx E2r@gnode084            feat_A_errB     103   0.942   0.942  0.000  0.000  0.000                1.000        0.607       0.279
+  OT E2@raveeshvyas-OMEN-Gaming-Laptop-16-am0xxx E2r@gnode084         feat_A_meanPos     103   0.922   0.922  0.000  0.000  0.000                1.000        0.638       0.250
+  OT E2@raveeshvyas-OMEN-Gaming-Laptop-16-am0xxx E2r@gnode084        feat_A_meanTask     103   0.913   0.913  0.000  0.000  0.000                1.000        0.711       0.266
+  OT E2@raveeshvyas-OMEN-Gaming-Laptop-16-am0xxx E2r@gnode084           feat_A_noise     103   0.913   0.922 -0.010 -0.049  0.019                0.971        0.272       1.504
+  OT E2@raveeshvyas-OMEN-Gaming-Laptop-16-am0xxx E2r@gnode084 feat_A_resampC_diffAns     103   0.913   0.942 -0.029 -0.078  0.010                0.951        0.364       2.007
+  OT E2@raveeshvyas-OMEN-Gaming-Laptop-16-am0xxx E2r@gnode084 feat_A_resampC_sameAns     103   0.932   0.932  0.000 -0.029  0.029                0.981        0.452       1.607
+  OT E2@raveeshvyas-OMEN-Gaming-Laptop-16-am0xxx E2r@gnode084            feat_A_zero     103   0.922   0.913  0.010  0.000  0.029                0.990        0.805       0.400
+  OT E2@raveeshvyas-OMEN-Gaming-Laptop-16-am0xxx E2r@gnode084            feat_B_errA     103   0.942   0.951 -0.010 -0.029  0.000                0.990        0.639       0.516
+  OT E2@raveeshvyas-OMEN-Gaming-Laptop-16-am0xxx E2r@gnode084           feat_B_noise     103   0.835   0.883 -0.049 -0.117  0.019                0.874        0.327       1.969
+  OT E2@raveeshvyas-OMEN-Gaming-Laptop-16-am0xxx E2r@gnode084                 full_A     103   0.932   0.932  0.000  0.000  0.000                1.000          NaN       0.214
+  OT E2@raveeshvyas-OMEN-Gaming-Laptop-16-am0xxx  E3@Poseidon        feat_A_covnoise     103   0.883   0.913 -0.029 -0.078  0.019                0.932        0.343       2.226
+  OT E2@raveeshvyas-OMEN-Gaming-Laptop-16-am0xxx  E3@Poseidon            feat_A_errB     103   0.942   0.942  0.000  0.000  0.000                1.000        0.607       0.279
+  OT E2@raveeshvyas-OMEN-Gaming-Laptop-16-am0xxx  E3@Poseidon         feat_A_meanPos     103   0.922   0.922  0.000 -0.029  0.029                0.981        0.557       0.845
+  OT E2@raveeshvyas-OMEN-Gaming-Laptop-16-am0xxx  E3@Poseidon        feat_A_meanTask     103   0.913   0.913  0.000  0.000  0.000                1.000        0.691       0.385
+  OT E2@raveeshvyas-OMEN-Gaming-Laptop-16-am0xxx  E3@Poseidon           feat_A_noise     103   0.913   0.922 -0.010 -0.029  0.000                0.990        0.749       1.526
+  OT E2@raveeshvyas-OMEN-Gaming-Laptop-16-am0xxx  E3@Poseidon feat_A_resampC_diffAns     103   0.913   0.913  0.000 -0.029  0.029                0.981        0.865       1.009
+  OT E2@raveeshvyas-OMEN-Gaming-Laptop-16-am0xxx  E3@Poseidon feat_A_resampC_sameAns     103   0.932   0.932  0.000  0.000  0.000                1.000        0.613       2.021
+  OT E2@raveeshvyas-OMEN-Gaming-Laptop-16-am0xxx  E3@Poseidon            feat_A_zero     103   0.922   0.913  0.010  0.000  0.029                0.990        0.805       0.400
+  OT E2@raveeshvyas-OMEN-Gaming-Laptop-16-am0xxx  E3@Poseidon            feat_B_errA     103   0.942   0.951 -0.010 -0.029  0.000                0.990        0.639       0.516
+  OT E2@raveeshvyas-OMEN-Gaming-Laptop-16-am0xxx  E3@Poseidon           feat_B_noise     103   0.835   0.883 -0.049 -0.097  0.000                0.932        0.763       1.705
+  OT E2@raveeshvyas-OMEN-Gaming-Laptop-16-am0xxx  E3@Poseidon                 full_A     103   0.932   0.932  0.000  0.000  0.000                1.000          NaN       0.214
+  OT                                E2r@gnode084  E3@Poseidon        feat_A_covnoise     106   0.858   0.906 -0.047 -0.104  0.000                0.915        0.310       2.659
+  OT                                E2r@gnode084  E3@Poseidon            feat_A_errB     106   0.934   0.934  0.000  0.000  0.000                1.000        1.000       0.000
+  OT                                E2r@gnode084  E3@Poseidon         feat_A_meanPos     106   0.915   0.915  0.000 -0.028  0.028                0.981        0.866       0.867
+  OT                                E2r@gnode084  E3@Poseidon        feat_A_meanTask     106   0.906   0.906  0.000  0.000  0.000                1.000        0.975       0.337
+  OT                                E2r@gnode084  E3@Poseidon           feat_A_noise     106   0.915   0.915  0.000 -0.028  0.028                0.981        0.400       1.700
+  OT                                E2r@gnode084  E3@Poseidon feat_A_resampC_diffAns     106   0.934   0.906  0.028  0.000  0.066                0.972        0.368       1.513
+  OT                                E2r@gnode084  E3@Poseidon feat_A_resampC_sameAns     106   0.925   0.925  0.000 -0.028  0.028                0.981        0.647       1.759
+  OT                                E2r@gnode084  E3@Poseidon            feat_A_zero     106   0.906   0.906  0.000  0.000  0.000                1.000        1.000       0.000
+  OT                                E2r@gnode084  E3@Poseidon            feat_B_errA     106   0.953   0.953  0.000  0.000  0.000                1.000        1.000       0.000
+  OT                                E2r@gnode084  E3@Poseidon           feat_B_noise     106   0.877   0.887 -0.009 -0.066  0.047                0.896        0.465       2.113
+  OT                                E2r@gnode084  E3@Poseidon                 full_A     106   0.925   0.925  0.000  0.000  0.000                1.000          NaN       0.000

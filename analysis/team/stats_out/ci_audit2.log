@@ -1,0 +1,132 @@
+E18_illusion people_cities full_along_U pca_pooled 4 f_none done
+E18_illusion people_cities feat_A_along_U das4 4 f_A_correct done
+E18_illusion people_cities full_along_U das1 1 f_pilot done
+E18_illusion add_chain repair answer_sep 0 f_pilot done
+E18_illusion add_chain full_along_U answer_sep 4 f_none done
+E18_illusion people_cities repair answer_sep 2 f_none done
+E18_illusion add_chain feat_A_along_U answer_sep 32 f_A_correct done
+E18_illusion add_chain repair das16 16 f_A_correct done
+E18_illusion add_chain full_along_U pca_pooled 64 f_A_correct done
+E18_illusion people_cities repair answer_sep 32 f_none done
+E18_illusion add_chain repair answer_sep 64 f_none done
+E18_illusion people_cities full_along_U pca_pooled 64 f_A_correct done
+E18_illusion people_cities feat_A_along_U pca_pooled 4 f_none done
+E18_illusion people_cities feat_A_along_U answer_sep 32 f_A_correct done
+E18_illusion entity_track repair answer_sep 4 f_A_correct done
+E18_illusion add_chain feat_A_along_U pca_pooled 4 f_pilot done
+E18_illusion add_chain feat_A_along_U das8 8 f_pilot done
+E18_illusion entity_track repair answer_sep 8 f_none done
+E18_illusion people_cities feat_A_along_U das16 16 f_pilot done
+E18_illusion people_cities full_along_U answer_sep 0 f_none done
+E19_steering entity_track steer_x2 answer_sep 1 f_none done
+E19_steering entity_track steer_x16 das8 8 f_A_correct done
+E19_steering add_chain steer_x4 das8_e10 8 f_none done
+E19_steering entity_track steer_x0.5 answer_sep 4 f_pilot done
+E19_steering entity_track steer_x0.5 das8 8 f_A_correct done
+E19_steering add_chain steer_x0.25 das4 4 f_none done
+E19_steering people_cities steer_x1 das4 4 f_pilot done
+E19_steering add_chain steer_x0.25 pca_pooled 8 f_none done
+E19_steering entity_track steer_x16 pca_pooled 8 f_pilot done
+E19_steering entity_track steer_x0.5 pca_pooled 8 f_pilot done
+E19_steering add_chain steer_x1 pca_pooled 4 f_none done
+E19_steering people_cities steer_x1 das8 8 f_pilot done
+E19_steering entity_track steer_x16 answer_sep 8 f_none done
+E19_steering people_cities steer_x0.5 answer_sep 8 f_pilot done
+E19_steering entity_track steer_x4 answer_sep 1 f_pilot done
+E19_steering entity_track steer_x0.25 pca_pooled 1 f_A_correct done
+E19_steering add_chain steer_x1 answer_sep 4 f_A_correct done
+E19_steering add_chain steer_x2 pca_pooled 4 f_pilot done
+E19_steering add_chain steer_x0.25 das8 8 f_none done
+E19_steering people_cities steer_x8 das8_e10 8 f_pilot done
+rows: 40 n_pairs mismatches: 0 n_elig mismatches: 0
+
+E18_illusion: 20 rows
+  max d_flip_rate_exact: 1.11e-16
+  max d_flip_rate_indep: 6.50e-03
+  max d_gap_flip_rate_exact: 1.11e-16
+  max d_gap_flip_rate_indep: 6.50e-03
+  max d_gap_nldr_exact: 2.22e-16
+  max d_gap_nldr_indep: 1.91e-03
+  max d_gap_prob_recovery_exact: 1.11e-16
+  max d_gap_prob_recovery_indep: 2.06e-03
+  max d_illusion: 8.33e-17
+  max d_nldr_exact: 2.22e-16
+  max d_nldr_indep: 1.91e-03
+  max d_point_flip_rate: 1.11e-16
+  max d_point_gap_flip_rate: 1.11e-16
+  max d_point_gap_nldr: 1.11e-16
+  max d_point_gap_prob_recovery: 1.11e-16
+  max d_point_nldr: 2.22e-16
+  max d_point_prob_recovery: 9.02e-17
+  max d_prob_recovery_exact: 9.45e-17
+  max d_prob_recovery_indep: 2.06e-03
+  max |random_n me - tab|: 0.00e+00
+  max |random_mean me - tab|: 2.22e-16
+  max |random_p95 me - tab|: 0.00e+00
+  max |random_max me - tab|: 0.00e+00
+
+E19_steering: 20 rows
+  max d_flip_rate_exact: 1.11e-16
+  max d_flip_rate_indep: 5.32e-03
+  max d_gap_flip_rate_exact: 1.11e-16
+  max d_gap_flip_rate_indep: 5.32e-03
+  max d_gap_nldr_exact: 2.22e-16
+  max d_gap_nldr_indep: 1.12e-02
+  max d_gap_prob_recovery_exact: 2.22e-16
+  max d_gap_prob_recovery_indep: 1.08e-02
+  max d_illusion: nan
+  max d_nldr_exact: 1.11e-16
+  max d_nldr_indep: 1.12e-02
+  max d_point_flip_rate: 1.11e-16
+  max d_point_gap_flip_rate: 1.11e-16
+  max d_point_gap_nldr: 2.22e-16
+  max d_point_gap_prob_recovery: 2.22e-16
+  max d_point_nldr: 9.54e-17
+  max d_point_prob_recovery: 2.22e-16
+  max d_prob_recovery_exact: 4.44e-16
+  max d_prob_recovery_indep: 1.08e-02
+  max |random_n me - tab|: 0.00e+00
+  max |random_mean me - tab|: 9.02e-17
+  max |random_p95 me - tab|: 6.68e-17
+  max |random_max me - tab|: 6.68e-17
+       table          task      condition  estimator  r      filter  flip_rate_tab  flip_rate_lo_tab  flip_rate_hi_tab  flip_rate_lo_exact  flip_rate_hi_exact  flip_rate_lo_indep  flip_rate_hi_indep
+E18_illusion people_cities   full_along_U pca_pooled  4      f_none         0.0000            0.0000            0.0000              0.0000              0.0000              0.0000              0.0000
+E18_illusion people_cities feat_A_along_U       das4  4 f_A_correct         0.0199            0.0000            0.0461              0.0000              0.0461              0.0000              0.0464
+E18_illusion people_cities   full_along_U       das1  1     f_pilot         0.0067            0.0000            0.0200              0.0000              0.0200              0.0000              0.0200
+E18_illusion     add_chain         repair answer_sep  0     f_pilot         0.9200            0.8733            0.9600              0.8733              0.9600              0.8733              0.9600
+E18_illusion     add_chain   full_along_U answer_sep  4      f_none         0.0718            0.0385            0.1090              0.0385              0.1090              0.0383              0.1090
+E18_illusion people_cities         repair answer_sep  2      f_none         0.8355            0.7748            0.8912              0.7748              0.8912              0.7748              0.8933
+E18_illusion     add_chain feat_A_along_U answer_sep 32 f_A_correct         0.0394            0.0147            0.0690              0.0147              0.0690              0.0147              0.0693
+E18_illusion     add_chain         repair      das16 16 f_A_correct         0.9212            0.8824            0.9561              0.8824              0.9561              0.8800              0.9563
+E18_illusion     add_chain   full_along_U pca_pooled 64 f_A_correct         0.2611            0.2010            0.3232              0.2010              0.3232              0.2059              0.3204
+E18_illusion people_cities         repair answer_sep 32      f_none         0.9013            0.8523            0.9467              0.8523              0.9467              0.8533              0.9463
+E18_illusion     add_chain         repair answer_sep 64      f_none         0.9713            0.9471            0.9905              0.9471              0.9905              0.9469              0.9905
+E18_illusion people_cities   full_along_U pca_pooled 64 f_A_correct         0.0000            0.0000            0.0000              0.0000              0.0000              0.0000              0.0000
+E18_illusion people_cities feat_A_along_U pca_pooled  4      f_none         0.0000            0.0000            0.0000              0.0000              0.0000              0.0000              0.0000
+E18_illusion people_cities feat_A_along_U answer_sep 32 f_A_correct         0.0000            0.0000            0.0000              0.0000              0.0000              0.0000              0.0000
+E18_illusion  entity_track         repair answer_sep  4 f_A_correct         1.0000            1.0000            1.0000              1.0000              1.0000              1.0000              1.0000
+E18_illusion     add_chain feat_A_along_U pca_pooled  4     f_pilot         0.0000            0.0000            0.0000              0.0000              0.0000              0.0000              0.0000
+E18_illusion     add_chain feat_A_along_U       das8  8     f_pilot         0.6800            0.6000            0.7533              0.6000              0.7533              0.6065              0.7535
+E18_illusion  entity_track         repair answer_sep  8      f_none         0.9151            0.8586            0.9636              0.8586              0.9636              0.8617              0.9640
+E18_illusion people_cities feat_A_along_U      das16 16     f_pilot         0.2733            0.2067            0.3467              0.2067              0.3467              0.2067              0.3467
+E18_illusion people_cities   full_along_U answer_sep  0      f_none         0.0000            0.0000            0.0000              0.0000              0.0000              0.0000              0.0000
+E19_steering  entity_track       steer_x2 answer_sep  1      f_none         0.8491            0.7778            0.9135              0.7778              0.9135              0.7767              0.9118
+E19_steering  entity_track      steer_x16       das8  8 f_A_correct         0.0000            0.0000            0.0000              0.0000              0.0000              0.0000              0.0000
+E19_steering     add_chain       steer_x4   das8_e10  8      f_none         0.1292            0.0857            0.1770              0.0857              0.1770              0.0857              0.1762
+E19_steering  entity_track     steer_x0.5 answer_sep  4     f_pilot         0.9438            0.8916            0.9884              0.8916              0.9884              0.8913              0.9884
+E19_steering  entity_track     steer_x0.5       das8  8 f_A_correct         0.9796            0.9479            1.0000              0.9479              1.0000              0.9468              1.0000
+E19_steering     add_chain    steer_x0.25       das4  4      f_none         0.0048            0.0000            0.0146              0.0000              0.0146              0.0000              0.0146
+E19_steering people_cities       steer_x1       das4  4     f_pilot         0.0000            0.0000            0.0000              0.0000              0.0000              0.0000              0.0000
+E19_steering     add_chain    steer_x0.25 pca_pooled  8      f_none         0.0000            0.0000            0.0000              0.0000              0.0000              0.0000              0.0000
+E19_steering  entity_track      steer_x16 pca_pooled  8     f_pilot         0.1910            0.1136            0.2766              0.1136              0.2766              0.1099              0.2771
+E19_steering  entity_track     steer_x0.5 pca_pooled  8     f_pilot         0.9551            0.9070            0.9895              0.9070              0.9895              0.9062              0.9896
+E19_steering     add_chain       steer_x1 pca_pooled  4      f_none         0.0000            0.0000            0.0000              0.0000              0.0000              0.0000              0.0000
+E19_steering people_cities       steer_x1       das8  8     f_pilot         0.0000            0.0000            0.0000              0.0000              0.0000              0.0000              0.0000
+E19_steering  entity_track      steer_x16 answer_sep  8      f_none         0.1698            0.1010            0.2449              0.1010              0.2449              0.1020              0.2453
+E19_steering people_cities     steer_x0.5 answer_sep  8     f_pilot         0.0000            0.0000            0.0000              0.0000              0.0000              0.0000              0.0000
+E19_steering  entity_track       steer_x4 answer_sep  1     f_pilot         0.3596            0.2609            0.4607              0.2609              0.4607              0.2555              0.4598
+E19_steering  entity_track    steer_x0.25 pca_pooled  1 f_A_correct         0.6429            0.5474            0.7386              0.5474              0.7386              0.5517              0.7391
+E19_steering     add_chain       steer_x1 answer_sep  4 f_A_correct         0.0000            0.0000            0.0000              0.0000              0.0000              0.0000              0.0000
+E19_steering     add_chain       steer_x2 pca_pooled  4     f_pilot         0.0000            0.0000            0.0000              0.0000              0.0000              0.0000              0.0000
+E19_steering     add_chain    steer_x0.25       das8  8      f_none         0.0096            0.0000            0.0242              0.0000              0.0242              0.0000              0.0245
+E19_steering people_cities       steer_x8   das8_e10  8     f_pilot         0.0000            0.0000            0.0000              0.0000              0.0000              0.0000              0.0000

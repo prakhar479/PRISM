@@ -1,0 +1,139 @@
+share of windows on common support by script: {0: 0.278, 1: 0.273}
+set
+bn_beng_dakshina    0.231
+bn_latn_dakshina    0.000
+bn_web              0.164
+en_pile             0.575
+fr_web              0.794
+hi_deva_dakshina    0.460
+hi_deva_web         0.652
+hi_latn_dakshina    0.092
+hinglish_phinc      0.193
+ta_latn_dakshina    0.001
+ta_taml_dakshina    0.031
+ta_web              0.097
+all none none langFE=False: ratio 2.738 CR1 [2.265,3.309] wild p 0.0002 clboot [2.322,3.210] unident 0.00 (1s)
+all none none langFE=True: ratio 2.592 CR1 [2.082,3.227] wild p 0.0010 clboot [1.901,3.644] unident 0.02 (2s)
+all none lf langFE=False: ratio 2.575 CR1 [2.052,3.232] wild p 0.0012 clboot [1.927,3.023] unident 0.00 (3s)
+all none lf langFE=True: ratio 2.495 CR1 [2.040,3.050] wild p 0.0017 clboot [1.812,3.851] unident 0.01 (4s)
+all none le langFE=False: ratio 1.964 CR1 [1.599,2.410] wild p 0.0002 clboot [1.634,2.322] unident 0.00 (4s)
+all none le langFE=True: ratio 1.931 CR1 [1.642,2.271] wild p 0.0002 clboot [1.518,2.628] unident 0.01 (4s)
+all none lr langFE=False: ratio 2.677 CR1 [2.202,3.254] wild p 0.0002 clboot [2.272,3.222] unident 0.00 (5s)
+all none lr langFE=True: ratio 2.174 CR1 [1.980,2.388] wild p 0.0002 clboot [1.873,2.483] unident 0.01 (5s)
+all none lf+le langFE=False: ratio 1.780 CR1 [1.566,2.022] wild p 0.0002 clboot [1.487,2.001] unident 0.00 (5s)
+all none lf+le langFE=True: ratio 1.776 CR1 [1.541,2.046] wild p 0.0007 clboot [1.485,2.506] unident 0.02 (6s)
+all lin none langFE=False: ratio 2.672 CR1 [1.992,3.585] wild p 0.0039 clboot [1.368,3.270] unident 0.00 (6s)
+all lin none langFE=True: ratio 1.520 CR1 [1.178,1.961] wild p 0.0029 clboot [1.200,2.382] unident 0.01 (6s)
+all lin lf langFE=False: ratio 1.879 CR1 [1.364,2.590] wild p 0.0154 clboot [1.289,2.270] unident 0.00 (7s)
+all lin lf langFE=True: ratio 1.520 CR1 [1.174,1.968] wild p 0.0042 clboot [1.178,2.577] unident 0.01 (7s)
+all lin le langFE=False: ratio 1.575 CR1 [1.361,1.823] wild p 0.0017 clboot [1.234,1.786] unident 0.00 (7s)
+all lin le langFE=True: ratio 1.514 CR1 [1.175,1.952] wild p 0.0288 clboot [1.139,2.299] unident 0.02 (8s)
+all lin lr langFE=False: ratio 2.885 CR1 [1.991,4.180] wild p 0.0071 clboot [1.458,3.973] unident 0.00 (8s)
+all lin lr langFE=True: ratio 1.810 CR1 [1.421,2.306] wild p 0.0024 clboot [1.337,2.377] unident 0.01 (9s)
+all lin lf+le langFE=False: ratio 1.607 CR1 [1.368,1.888] wild p 0.0022 clboot [1.230,1.815] unident 0.00 (9s)
+all lin lf+le langFE=True: ratio 1.517 CR1 [1.216,1.893] wild p 0.0156 clboot [1.134,2.148] unident 0.01 (10s)
+all rcs4 none langFE=False: ratio 2.793 CR1 [2.042,3.821] wild p 0.0098 clboot [1.171,3.568] unident 0.00 (10s)
+all rcs4 none langFE=True: ratio 1.627 CR1 [1.161,2.280] wild p 0.0676 clboot [1.125,2.748] unident 0.01 (10s)
+all rcs4 lf langFE=False: ratio 1.992 CR1 [1.362,2.914] wild p 0.0076 clboot [1.168,2.615] unident 0.00 (15s)
+all rcs4 lf langFE=True: ratio 1.604 CR1 [1.146,2.246] wild p 0.0610 clboot [1.109,2.955] unident 0.01 (28s)
+all rcs4 le langFE=False: ratio 1.527 CR1 [1.362,1.712] wild p 0.0010 clboot [1.028,1.764] unident 0.00 (33s)
+all rcs4 le langFE=True: ratio 1.412 CR1 [1.098,1.818] wild p 0.1162 clboot [0.974,2.107] unident 0.01 (34s)
+all rcs4 lr langFE=False: ratio 2.915 CR1 [1.999,4.252] wild p 0.0115 clboot [1.250,4.081] unident 0.00 (34s)
+all rcs4 lr langFE=True: ratio 1.823 CR1 [1.443,2.303] wild p 0.0522 clboot [1.208,2.217] unident 0.02 (35s)
+all rcs4 lf+le langFE=False: ratio 1.558 CR1 [1.332,1.823] wild p 0.0142 clboot [1.085,1.787] unident 0.00 (35s)
+all rcs4 lf+le langFE=True: ratio 1.396 CR1 [1.137,1.712] wild p 0.1128 clboot [0.951,1.925] unident 0.01 (36s)
+all rcs6 none langFE=False: ratio 2.830 CR1 [2.116,3.785] wild p 0.0076 clboot [0.977,3.547] unident 0.00 (36s)
+all rcs6 none langFE=True: ratio 1.471 CR1 [0.899,2.408] wild p 0.3740 clboot [0.971,3.106] unident 0.01 (37s)
+all rcs6 lf langFE=False: ratio 1.995 CR1 [1.358,2.931] wild p 0.0005 clboot [1.035,2.601] unident 0.00 (38s)
+all rcs6 lf langFE=True: ratio 1.391 CR1 [0.867,2.232] wild p 0.4565 clboot [0.962,3.056] unident 0.01 (39s)
+all rcs6 le langFE=False: ratio 1.462 CR1 [1.319,1.621] wild p 0.0002 clboot [0.895,1.690] unident 0.00 (39s)
+all rcs6 le langFE=True: ratio 1.140 CR1 [0.830,1.566] wild p 0.6357 clboot [0.869,1.958] unident 0.02 (40s)
+all rcs6 lr langFE=False: ratio 2.987 CR1 [2.042,4.370] wild p 0.0076 clboot [1.132,4.350] unident 0.00 (41s)
+all rcs6 lr langFE=True: ratio 1.695 CR1 [1.206,2.383] wild p 0.1665 clboot [1.001,2.406] unident 0.02 (41s)
+all rcs6 lf+le langFE=False: ratio 1.510 CR1 [1.284,1.775] wild p 0.0022 clboot [0.913,1.818] unident 0.00 (42s)
+all rcs6 lf+le langFE=True: ratio 1.163 CR1 [0.895,1.511] wild p 0.4404 clboot [0.918,1.837] unident 0.01 (43s)
+/tmp/claude-1002/-home-prakhar-dev-legend479-MILP-prism-sae-dark-matter/218361b4-64de-4a4e-b6e1-5d9977ad0da5/scratchpad/team/scripts/stats_ml_regress.py:118: RuntimeWarning: invalid value encountered in sqrt
+  return b, np.sqrt(np.diag(V)), XtXi
+all bins none langFE=False: ratio 2.929 CR1 [2.190,3.917] wild p 0.0073 clboot [1.202,3.659] unident 0.00 (47s)
+all bins none langFE=True: ratio 1.905 CR1 [1.333,2.722] wild p 0.1370 clboot [1.161,3.063] unident 0.01 (52s)
+all bins lf langFE=False: ratio 2.034 CR1 [1.401,2.953] wild p 0.0022 clboot [1.196,2.756] unident 0.00 (138s)
+all bins lf langFE=True: ratio 1.811 CR1 [1.275,2.574] wild p 0.1345 clboot [1.148,3.043] unident 0.01 (261s)
+all bins le langFE=False: ratio 1.515 CR1 [1.326,1.730] wild p 0.0005 clboot [1.079,1.785] unident 0.00 (265s)
+all bins le langFE=True: ratio 1.408 CR1 [1.148,1.728] wild p 0.1294 clboot [1.050,2.056] unident 0.02 (272s)
+all bins lr langFE=False: ratio 3.026 CR1 [2.096,4.368] wild p 0.0073 clboot [1.262,4.377] unident 0.00 (277s)
+all bins lr langFE=True: ratio 1.921 CR1 [1.532,2.408] wild p 0.0486 clboot [1.242,2.512] unident 0.01 (283s)
+all bins lf+le langFE=False: ratio 1.544 CR1 [1.287,1.852] wild p 0.0032 clboot [1.057,1.914] unident 0.00 (290s)
+all bins lf+le langFE=True: ratio 1.379 CR1 [1.154,1.647] wild p 0.1313 clboot [1.060,1.897] unident 0.01 (299s)
+support none none langFE=False: ratio 2.382 CR1 [1.889,3.004] wild p 0.0005 clboot [1.704,2.940] unident 0.00 (299s)
+support none none langFE=True: ratio 1.661 CR1 [1.568,1.760] wild p 0.0234 clboot [1.551,1.834] unident 0.03 (299s)
+support none lf langFE=False: ratio 1.574 CR1 [1.376,1.799] wild p 0.0005 clboot [1.372,1.749] unident 0.00 (299s)
+support none lf langFE=True: ratio 1.687 CR1 [1.550,1.835] wild p 0.0923 clboot [1.554,2.043] unident 0.05 (300s)
+support none le langFE=False: ratio 1.429 CR1 [1.332,1.534] wild p 0.0005 clboot [1.370,1.584] unident 0.00 (300s)
+support none le langFE=True: ratio 1.430 CR1 [1.332,1.535] wild p 0.0078 clboot [1.347,1.528] unident 0.04 (300s)
+support none lr langFE=False: ratio 2.385 CR1 [1.860,3.059] wild p 0.0015 clboot [1.723,3.263] unident 0.00 (300s)
+support none lr langFE=True: ratio 1.705 CR1 [1.480,1.964] wild p 0.1162 clboot [1.351,2.087] unident 0.05 (301s)
+support none lf+le langFE=False: ratio 1.397 CR1 [1.310,1.489] wild p 0.0005 clboot [1.316,1.531] unident 0.00 (301s)
+support none lf+le langFE=True: ratio 1.434 CR1 [1.332,1.544] wild p 0.0210 clboot [1.344,1.542] unident 0.05 (301s)
+support lin none langFE=False: ratio 2.434 CR1 [1.924,3.079] wild p 0.0156 clboot [1.222,3.039] unident 0.00 (301s)
+support lin none langFE=True: ratio 1.433 CR1 [1.167,1.759] wild p 0.0498 clboot [1.125,1.762] unident 0.04 (302s)
+support lin lf langFE=False: ratio 1.432 CR1 [1.309,1.567] wild p 0.0010 clboot [1.243,1.604] unident 0.00 (302s)
+support lin lf langFE=True: ratio 1.445 CR1 [1.212,1.722] wild p 0.0059 clboot [1.189,1.856] unident 0.05 (303s)
+support lin le langFE=False: ratio 1.435 CR1 [1.330,1.548] wild p 0.0029 clboot [1.249,1.607] unident 0.00 (303s)
+support lin le langFE=True: ratio 1.422 CR1 [1.265,1.600] wild p 0.0093 clboot [1.160,1.577] unident 0.04 (303s)
+support lin lr langFE=False: ratio 2.458 CR1 [1.903,3.174] wild p 0.0078 clboot [1.279,3.791] unident 0.00 (304s)
+support lin lr langFE=True: ratio 1.673 CR1 [1.347,2.078] wild p 0.0161 clboot [1.095,1.948] unident 0.04 (304s)
+support lin lf+le langFE=False: ratio 1.378 CR1 [1.300,1.462] wild p 0.0005 clboot [1.264,1.546] unident 0.00 (304s)
+support lin lf+le langFE=True: ratio 1.422 CR1 [1.263,1.600] wild p 0.0171 clboot [1.157,1.583] unident 0.05 (305s)
+support rcs4 none langFE=False: ratio 2.394 CR1 [1.917,2.991] wild p 0.0059 clboot [1.130,2.911] unident 0.00 (305s)
+support rcs4 none langFE=True: ratio 1.382 CR1 [0.966,1.979] wild p 0.0078 clboot [1.049,1.936] unident 0.05 (305s)
+support rcs4 lf langFE=False: ratio 1.370 CR1 [1.225,1.532] wild p 0.0005 clboot [1.044,1.589] unident 0.00 (307s)
+support rcs4 lf langFE=True: ratio 1.212 CR1 [0.857,1.714] wild p 0.4307 clboot [0.993,1.912] unident 0.04 (307s)
+support rcs4 le langFE=False: ratio 1.385 CR1 [1.273,1.508] wild p 0.0044 clboot [0.977,1.582] unident 0.00 (307s)
+support rcs4 le langFE=True: ratio 1.109 CR1 [0.872,1.409] wild p 0.5127 clboot [0.957,1.403] unident 0.03 (308s)
+support rcs4 lr langFE=False: ratio 2.394 CR1 [1.869,3.068] wild p 0.0078 clboot [1.123,3.671] unident 0.00 (308s)
+support rcs4 lr langFE=True: ratio 1.552 CR1 [1.142,2.108] wild p 0.0879 clboot [1.078,1.871] unident 0.04 (309s)
+support rcs4 lf+le langFE=False: ratio 1.298 CR1 [1.221,1.379] wild p 0.0005 clboot [0.982,1.475] unident 0.00 (309s)
+support rcs4 lf+le langFE=True: ratio 1.107 CR1 [0.866,1.415] wild p 0.5054 clboot [0.958,1.442] unident 0.06 (310s)
+support rcs6 none langFE=False: ratio 2.393 CR1 [1.917,2.987] wild p 0.0029 clboot [1.116,2.884] unident 0.00 (310s)
+support rcs6 none langFE=True: ratio 1.343 CR1 [0.960,1.878] wild p 0.1934 clboot [0.979,1.926] unident 0.04 (311s)
+support rcs6 lf langFE=False: ratio 1.362 CR1 [1.223,1.517] wild p 0.0005 clboot [1.029,1.572] unident 0.00 (311s)
+support rcs6 lf langFE=True: ratio 1.169 CR1 [0.844,1.618] wild p 0.4663 clboot [0.956,1.883] unident 0.05 (312s)
+support rcs6 le langFE=False: ratio 1.384 CR1 [1.278,1.500] wild p 0.0049 clboot [0.977,1.594] unident 0.00 (313s)
+support rcs6 le langFE=True: ratio 1.082 CR1 [0.865,1.353] wild p 0.6182 clboot [0.941,1.398] unident 0.05 (314s)
+support rcs6 lr langFE=False: ratio 2.395 CR1 [1.868,3.072] wild p 0.0068 clboot [1.140,3.573] unident 0.00 (315s)
+support rcs6 lr langFE=True: ratio 1.536 CR1 [1.151,2.049] wild p 0.0879 clboot [1.032,1.838] unident 0.05 (316s)
+support rcs6 lf+le langFE=False: ratio 1.293 CR1 [1.223,1.368] wild p 0.0005 clboot [0.984,1.471] unident 0.00 (317s)
+support rcs6 lf+le langFE=True: ratio 1.079 CR1 [0.858,1.357] wild p 0.6196 clboot [0.928,1.444] unident 0.04 (318s)
+support bins none langFE=False: ratio 2.378 CR1 [1.921,2.943] wild p 0.0039 clboot [1.178,2.883] unident 0.00 (320s)
+support bins none langFE=True: ratio 1.426 CR1 [1.008,2.016] wild p 0.2007 clboot [0.964,1.950] unident 0.04 (322s)
+support bins lf langFE=False: ratio 1.372 CR1 [1.239,1.520] wild p 0.0039 clboot [1.083,1.599] unident 0.00 (324s)
+support bins lf langFE=True: ratio 1.250 CR1 [0.906,1.724] wild p 0.2739 clboot [0.947,1.838] unident 0.04 (327s)
+support bins le langFE=False: ratio 1.397 CR1 [1.283,1.521] wild p 0.0005 clboot [1.033,1.615] unident 0.00 (329s)
+support bins le langFE=True: ratio 1.149 CR1 [0.923,1.430] wild p 0.2930 clboot [0.877,1.422] unident 0.05 (331s)
+support bins lr langFE=False: ratio 2.373 CR1 [1.874,3.006] wild p 0.0029 clboot [1.200,3.628] unident 0.00 (333s)
+support bins lr langFE=True: ratio 1.610 CR1 [1.220,2.124] wild p 0.0625 clboot [0.936,1.890] unident 0.05 (336s)
+support bins lf+le langFE=False: ratio 1.306 CR1 [1.235,1.380] wild p 0.0010 clboot [1.029,1.495] unident 0.00 (338s)
+support bins lf+le langFE=True: ratio 1.145 CR1 [0.916,1.432] wild p 0.2896 clboot [0.830,1.463] unident 0.03 (341s)
+Traceback (most recent call last):
+  File "/tmp/claude-1002/-home-prakhar-dev-legend479-MILP-prism-sae-dark-matter/218361b4-64de-4a4e-b6e1-5d9977ad0da5/scratchpad/team/scripts/stats_ml_regress.py", line 272, in <module>
+    X, names = design(wc, P, E, lf)
+               ^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/claude-1002/-home-prakhar-dev-legend479-MILP-prism-sae-dark-matter/218361b4-64de-4a4e-b6e1-5d9977ad0da5/scratchpad/team/scripts/stats_ml_regress.py", line 80, in design
+    kn = np.quantile(x[m > 0], np.linspace(0.05, 0.95, K))
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/prakhar/dev/legend479/MILP/.venv/lib/python3.12/site-packages/numpy/lib/_function_base_impl.py", line 4509, in quantile
+    return _quantile_unchecked(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/prakhar/dev/legend479/MILP/.venv/lib/python3.12/site-packages/numpy/lib/_function_base_impl.py", line 4523, in _quantile_unchecked
+    return _ureduce(a,
+           ^^^^^^^^^^^
+  File "/home/prakhar/dev/legend479/MILP/.venv/lib/python3.12/site-packages/numpy/lib/_function_base_impl.py", line 3893, in _ureduce
+    r = func(a, **kwargs)
+        ^^^^^^^^^^^^^^^^^
+  File "/home/prakhar/dev/legend479/MILP/.venv/lib/python3.12/site-packages/numpy/lib/_function_base_impl.py", line 4682, in _quantile_ureduce_func
+    result = _quantile(arr,
+             ^^^^^^^^^^^^^^
+  File "/home/prakhar/dev/legend479/MILP/.venv/lib/python3.12/site-packages/numpy/lib/_function_base_impl.py", line 4806, in _quantile
+    slices_having_nans = np.isnan(arr[-1, ...])
+                                  ~~~^^^^^^^^^
+IndexError: index -1 is out of bounds for axis 0 with size 0

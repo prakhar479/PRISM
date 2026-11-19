@@ -1,0 +1,6 @@
+exp,fit,eval,n_pairs,share_identical_diff_donors
+E3,fresh,fresh,573,1.0
+E3,fresh,pilot,215,0.023255813953488372
+E3,pilot,fresh,573,1.0
+E2,pilot,pilot,214,0.018691588785046728
+E2r,pilot,pilot,215,0.027906976744186046

@@ -525,3 +525,16 @@ A post hoc deep analysis (scratchpad reports, summarised in analysis/deep_analys
 - Object tracking (pilot templates): A's answer is already determined by the unpatched prefix (the corruption adds a move of
   the queried object after the first changed token), so feature-only "restoration" is inflated by a fallback to A. The
   informative diagnostic is the swap x_hat_B + eps_A (B survives in 2 % of pairs at L12). To be stated in the write-up.
+
+## 2026-11-19: final exploratory run ingested; team analysis of record
+- The final exploratory queue ran on gnode058 at commit 240e5f6 (tag run-20261118-1 plus a server-side #SBATCH node edit, as
+  in the final pass): untagged, ingested with --allow-untagged (5 experiment runs + 9 E21 fidelity runs, 0 errors). E23 was
+  not run (it was added in run-20261118-2, which the server did not use). Stage 1 and the DAS rotations were recomputed on
+  gnode058 and are bit-identical to gnode084's (deterministic kernels on the same GPU model, RTX 2080 Ti).
+- Tables: tables/final/ now also holds E17-E22 and the 65k E21 rows of E12_fidelity_lang.csv (make_e12 / make_final).
+- Analysis of record: analysis/team_analysis_2026-11-19.md (eight independent analysts plus a lead synthesis; reports, scripts
+  and small outputs in analysis/team/). It retracts the deep analysis's "script, not error size" claim: at matched
+  predictability the within-language contrast is small and unidentified for Tamil/Bengali. What survives is a ~1.5x
+  native-Indic vs English/French cost at matched predictability and relative error, with script/language/corpus not
+  separated. It also records a bug in deep/mech_donor_pull*.py (donor order); the conclusion is unchanged. Preregistered
+  answers are unchanged.

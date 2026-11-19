@@ -1,0 +1,26 @@
+            est  k  cos2_consensus  full_flip  train_acc  init_capture
+das1_e10_lr3e-2  1           0.030      0.000      0.000         0.951
+        das1_s1  1           0.315      0.087      0.080         0.515
+    das1_e10_s1  1           0.423      0.147      0.227         0.432
+       das1_e30  1           0.462      0.300      0.300         0.476
+           das1  1           0.487      0.273      0.250         0.407
+    das1_e10_s2  1           0.508      0.320      0.340         0.389
+        das1_s2  1           0.524      0.307      0.333         0.405
+       das1_e10  1           0.575      0.347      0.297         0.300
+    das2_e10_s2  2           0.424      0.327      0.367         0.498
+        das2_s2  2           0.429      0.313      0.343         0.618
+        das2_s1  2           0.445      0.440      0.453         0.532
+    das2_e10_s1  2           0.479      0.373      0.363         0.605
+           das2  2           0.488      0.347      0.333         0.543
+       das2_e10  2           0.659      0.387      0.393         0.556
+das2_e10_lr3e-2  2           0.675      0.440      0.437         0.566
+       das2_e30  2           0.680      0.500      0.473         0.507
+        das4_s1  4           0.440      0.593      0.647         0.626
+           das4  4           0.570      0.760      0.733         0.631
+       das4_e10  4           0.610      0.733      0.840         0.556
+        das8_s1  8           0.505      0.733      0.780         0.673
+       das8_e10  8           0.562      0.900      0.980         0.584
+           das8  8           0.622      0.867      0.890         0.636
+1 Spearman(cos2_consensus, full_flip) SignificanceResult(statistic=np.float64(0.9523809523809524), pvalue=np.float64(0.000260400024387251)) n 8
+2 Spearman(cos2_consensus, full_flip) SignificanceResult(statistic=np.float64(0.7664808076244857), pvalue=np.float64(0.0265200143040766)) n 8
+k<=2 SignificanceResult(statistic=np.float64(0.7069227106950293), pvalue=np.float64(0.0021976564081696106)) 16

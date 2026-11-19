@@ -1,0 +1,13 @@
+task,sae_wide,est,cond,n,flip16k,flip_wide,n01,n10,p,p_bh
+add_chain,L18_65k_l064,das4,feat_A_along_U,150,0.5466666666666666,0.62,17,6,0.03468966484069824,0.4162759780883789
+add_chain,L18_65k_l064,das4,full_along_U,150,0.76,0.76,0,0,1.0,1.0
+add_chain,L18_65k_l064,das8,feat_A_along_U,150,0.68,0.7266666666666667,15,8,0.21003961563110352,1.0
+add_chain,L18_65k_l064,das8,full_along_U,150,0.8666666666666667,0.8666666666666667,0,0,1.0,1.0
+entity_track,L12_262k_l067,das4,feat_A_along_U,89,0.9887640449438202,0.9887640449438202,0,0,1.0,1.0
+entity_track,L12_262k_l067,das4,full_along_U,89,1.0,1.0,0,0,1.0,1.0
+entity_track,L12_262k_l067,das8,feat_A_along_U,89,1.0,1.0,0,0,1.0,1.0
+entity_track,L12_262k_l067,das8,full_along_U,89,0.9887640449438202,0.9887640449438202,0,0,1.0,1.0
+entity_track,L12_65k_l072,das4,feat_A_along_U,89,0.9887640449438202,0.9887640449438202,0,0,1.0,1.0
+entity_track,L12_65k_l072,das4,full_along_U,89,1.0,1.0,0,0,1.0,1.0
+entity_track,L12_65k_l072,das8,feat_A_along_U,89,1.0,1.0,0,0,1.0,1.0
+entity_track,L12_65k_l072,das8,full_along_U,89,0.9887640449438202,0.9887640449438202,0,0,1.0,1.0

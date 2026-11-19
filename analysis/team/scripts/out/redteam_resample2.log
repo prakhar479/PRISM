@@ -1,0 +1,72 @@
+identity
+   exp    fit   eval  n_pairs  share_identical_diff_donors
+0   E3  fresh  fresh      573                        1.000
+1   E3  fresh  pilot      215                        0.023
+2   E3  pilot  fresh      573                        1.000
+3   E2  pilot  pilot      214                        0.019
+4  E2r  pilot  pilot      215                        0.028
+pull
+    exp    fit   eval    n                 control  p_donorAns_diffAns  p_donorAns_control   diff     lo     hi
+0    E3  fresh  fresh  534  feat_A_resampC_sameAns               0.088               0.056  0.032  0.006  0.058
+1    E3  fresh  fresh  534          feat_A_meanPos               0.088               0.047  0.041  0.019  0.066
+2    E3  fresh  fresh  534             feat_A_errB               0.088               0.024  0.064  0.039  0.088
+3    E3  fresh  fresh  534             feat_A_zero               0.088               0.071  0.017 -0.009  0.043
+4    E3  fresh  fresh  534            feat_A_noise               0.088               0.110 -0.022 -0.052  0.009
+5    E3  fresh  fresh  534         feat_A_covnoise               0.088               0.101 -0.013 -0.043  0.017
+6    E3  fresh  pilot  203  feat_A_resampC_sameAns               0.074               0.020  0.054  0.015  0.094
+7    E3  fresh  pilot  203          feat_A_meanPos               0.074               0.020  0.054  0.020  0.089
+8    E3  fresh  pilot  203             feat_A_errB               0.074               0.010  0.064  0.030  0.103
+9    E3  fresh  pilot  203             feat_A_zero               0.074               0.044  0.030 -0.015  0.069
+10   E3  fresh  pilot  203            feat_A_noise               0.074               0.089 -0.015 -0.069  0.039
+11   E3  fresh  pilot  203         feat_A_covnoise               0.074               0.099 -0.025 -0.074  0.025
+12   E3  pilot  fresh  534  feat_A_resampC_sameAns               0.088               0.056  0.032  0.007  0.056
+13   E3  pilot  fresh  534          feat_A_meanPos               0.088               0.067  0.021 -0.004  0.045
+14   E3  pilot  fresh  534             feat_A_errB               0.088               0.024  0.064  0.039  0.088
+15   E3  pilot  fresh  534             feat_A_zero               0.088               0.071  0.017 -0.009  0.043
+16   E3  pilot  fresh  534            feat_A_noise               0.088               0.110 -0.022 -0.054  0.009
+17   E3  pilot  fresh  534         feat_A_covnoise               0.088               0.099 -0.011 -0.043  0.021
+18   E2  pilot  pilot  204  feat_A_resampC_sameAns               0.059               0.025  0.034  0.000  0.069
+19   E2  pilot  pilot  204          feat_A_meanPos               0.059               0.005  0.054  0.024  0.088
+20   E2  pilot  pilot  204             feat_A_errB               0.059               0.005  0.054  0.020  0.088
+21   E2  pilot  pilot  204             feat_A_zero               0.059               0.044  0.015 -0.020  0.054
+22   E2  pilot  pilot  204            feat_A_noise               0.059               0.074 -0.015 -0.054  0.029
+23   E2  pilot  pilot  204         feat_A_covnoise               0.059               0.108 -0.049 -0.098  0.000
+24  E2r  pilot  pilot  203  feat_A_resampC_sameAns               0.074               0.044  0.030 -0.010  0.069
+25  E2r  pilot  pilot  203          feat_A_meanPos               0.074               0.020  0.054  0.025  0.089
+26  E2r  pilot  pilot  203             feat_A_errB               0.074               0.030  0.044  0.010  0.079
+27  E2r  pilot  pilot  203             feat_A_zero               0.074               0.044  0.030 -0.005  0.064
+distance
+    exp    fit   eval  abs_dist    n  nldr_diffAns  nldr_sameAns_same_pairs  same_minus_diff  smd_lo  smd_hi  slope_lo  slope_hi
+0    E3  fresh  fresh         1  222         0.936                    0.957            0.021  -0.006   0.050       NaN       NaN
+1    E3  fresh  fresh         2  153         0.789                    0.817            0.028  -0.007   0.064       NaN       NaN
+2    E3  fresh  fresh         3  100         0.686                    0.848            0.162   0.113   0.216       NaN       NaN
+3    E3  fresh  fresh         4   44         0.557                    0.767            0.210   0.135   0.285       NaN       NaN
+4    E3  fresh  fresh         5   15         0.783                    1.102            0.319   0.160   0.468       NaN       NaN
+5    E3  fresh  fresh        -1  534        -0.101                      NaN              NaN     NaN     NaN    -0.134    -0.066
+6    E3  fresh  pilot         1   66         0.907                    0.886           -0.021  -0.061   0.017       NaN       NaN
+7    E3  fresh  pilot         2   59         0.815                    0.882            0.067   0.013   0.123       NaN       NaN
+8    E3  fresh  pilot         3   49         0.679                    0.855            0.176   0.096   0.264       NaN       NaN
+9    E3  fresh  pilot         4   15         0.728                    0.866            0.138   0.018   0.253       NaN       NaN
+10   E3  fresh  pilot         5    8         0.815                    0.998            0.183   0.006   0.328       NaN       NaN
+11   E3  fresh  pilot         6    6         0.541                    0.786            0.245   0.058   0.416       NaN       NaN
+12   E3  fresh  pilot        -1  203        -0.064                      NaN              NaN     NaN     NaN    -0.115    -0.013
+13   E3  pilot  fresh         1  222         0.936                    0.957            0.021  -0.007   0.049       NaN       NaN
+14   E3  pilot  fresh         2  153         0.789                    0.817            0.028  -0.008   0.063       NaN       NaN
+15   E3  pilot  fresh         3  100         0.686                    0.848            0.162   0.111   0.216       NaN       NaN
+16   E3  pilot  fresh         4   44         0.557                    0.767            0.210   0.133   0.285       NaN       NaN
+17   E3  pilot  fresh         5   15         0.783                    1.102            0.319   0.164   0.466       NaN       NaN
+18   E3  pilot  fresh        -1  534        -0.101                      NaN              NaN     NaN     NaN    -0.137    -0.068
+19   E2  pilot  pilot         1   73         0.858                    0.852           -0.005  -0.045   0.032       NaN       NaN
+20   E2  pilot  pilot         2   52         0.908                    0.944            0.036  -0.022   0.090       NaN       NaN
+21   E2  pilot  pilot         3   54         0.674                    0.874            0.200   0.130   0.269       NaN       NaN
+22   E2  pilot  pilot         4   15         0.687                    0.843            0.156   0.026   0.274       NaN       NaN
+23   E2  pilot  pilot         5    2         0.930                    0.901           -0.029  -0.268   0.209       NaN       NaN
+24   E2  pilot  pilot         6    8         0.560                    0.856            0.296   0.133   0.457       NaN       NaN
+25   E2  pilot  pilot        -1  204        -0.066                      NaN              NaN     NaN     NaN    -0.118    -0.016
+26  E2r  pilot  pilot         1   74         0.954                    0.945           -0.010  -0.060   0.050       NaN       NaN
+27  E2r  pilot  pilot         2   60         0.753                    0.760            0.007  -0.036   0.048       NaN       NaN
+28  E2r  pilot  pilot         3   34         0.749                    0.847            0.098   0.036   0.167       NaN       NaN
+29  E2r  pilot  pilot         4   25         0.800                    0.979            0.180   0.088   0.277       NaN       NaN
+30  E2r  pilot  pilot         5    6         0.963                    1.136            0.172   0.085   0.285       NaN       NaN
+31  E2r  pilot  pilot         6    4         0.012                    0.703            0.691   0.514   0.808       NaN       NaN
+32  E2r  pilot  pilot        -1  203        -0.075                      NaN              NaN     NaN     NaN    -0.129    -0.022

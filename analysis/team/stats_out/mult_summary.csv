@@ -1,0 +1,16 @@
+exp,type,m,raw_sig,bh_sig,bh_sig_pct
+E17,effective,156,134,134,132
+E17,gap,12,12,12,12
+E17,illusion,78,71,71,69
+E18,effective,684,303,284,278
+E18,gap,48,42,42,42
+E18,illusion,228,115,108,109
+E19,effective,567,146,123,124
+E19,q2,567,104,98,98
+E20,effective,270,156,153,154
+E20,gap,36,24,24,24
+E20,illusion,90,69,69,69
+E22,effective,336,164,157,157
+E22,gap,168,162,156,156
+E22,illusion,168,107,101,98
+E22,transfer,144,46,37,38

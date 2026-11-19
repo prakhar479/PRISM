@@ -1,0 +1,196 @@
+[A] verdict counts by experiment / kind
+verdict                                    degenerate (floor/ceiling)  informative null (within +-10 pts)  significant  underpowered null
+exp kind                                                                                                                                 
+E17 epochs 10 vs 3                                                  0                                  10            2                  0
+    epochs 30 vs 3                                                  0                                   4            1                  1
+    lr 3e-2 vs 1e-2                                                 0                                   1            5                  0
+    seed 1 vs 0                                                     0                                   2           12                  4
+    seed 2 vs 0                                                     0                                   6            3                  3
+E20 width add_chain                                                 0                                   9            5                  0
+    width entity_track                                              5                                  11           10                  2
+E22 English-fit minus native-fit (paired)                          18                                  12           16                  2
+
+[A] MDE80 (points) by experiment / kind: median [min, max] over contrasts that are not degenerate
+                                           median    min    max  count
+exp kind                                                              
+E17 epochs 10 vs 3                          0.086  0.057  0.113     12
+    epochs 30 vs 3                          0.096  0.051  0.109      6
+    lr 3e-2 vs 1e-2                         0.079  0.058  0.095      6
+    seed 1 vs 0                             0.096  0.058  0.124     18
+    seed 2 vs 0                             0.098  0.066  0.120     12
+E20 width add_chain                         0.036  0.019  0.082     14
+    width entity_track                      0.083  0.017  0.148     23
+E22 English-fit minus native-fit (paired)   0.082  0.012  0.132     30
+
+[A] all non-significant, non-degenerate contrasts
+exp                                  kind                                   contrast      condition   diff   lo95  hi95   lo90   hi90  mde80                            verdict  q_BH_within_exp  n_elig
+E17                        epochs 10 vs 3                            das1_e10 - das1  illusion_diff  0.010 -0.059 0.074 -0.049  0.065  0.097 informative null (within +-10 pts)            0.870     203
+E17                        epochs 30 vs 3                            das1_e30 - das1   full_along_U -0.025 -0.089 0.040 -0.078  0.030  0.093 informative null (within +-10 pts)            0.649     203
+E17                        epochs 30 vs 3                            das1_e30 - das1 feat_A_along_U -0.010 -0.044 0.025 -0.039  0.020  0.051 informative null (within +-10 pts)            0.773     203
+E17                        epochs 30 vs 3                            das1_e30 - das1  illusion_diff -0.015 -0.082 0.055 -0.069  0.044  0.099 informative null (within +-10 pts)            0.828     203
+E17                        epochs 10 vs 3                            das2_e10 - das2   full_along_U -0.020 -0.092 0.054 -0.083  0.040  0.106 informative null (within +-10 pts)            0.773     203
+E17                        epochs 10 vs 3                            das2_e10 - das2 feat_A_along_U -0.010 -0.078 0.054 -0.069  0.045  0.097 informative null (within +-10 pts)            0.870     203
+E17                        epochs 10 vs 3                            das2_e10 - das2  illusion_diff -0.010 -0.085 0.074 -0.075  0.058  0.113 informative null (within +-10 pts)            0.870     203
+E17                        epochs 30 vs 3                            das2_e30 - das2 feat_A_along_U  0.030 -0.034 0.089 -0.024  0.079  0.087 informative null (within +-10 pts)            0.579     203
+E17                        epochs 30 vs 3                            das2_e30 - das2  illusion_diff  0.054 -0.020 0.130 -0.010  0.118  0.107                  underpowered null            0.302     203
+E17                        epochs 10 vs 3                            das4_e10 - das4   full_along_U -0.010 -0.065 0.050 -0.055  0.039  0.082 informative null (within +-10 pts)            0.870     203
+E17                        epochs 10 vs 3                            das4_e10 - das4 feat_A_along_U -0.034 -0.088 0.024 -0.079  0.010  0.077 informative null (within +-10 pts)            0.377     203
+E17                        epochs 10 vs 3                            das4_e10 - das4  illusion_diff  0.025 -0.039 0.088 -0.025  0.078  0.090 informative null (within +-10 pts)            0.649     203
+E17                        epochs 10 vs 3                            das8_e10 - das8   full_along_U  0.005 -0.034 0.045 -0.029  0.039  0.057 informative null (within +-10 pts)            0.870     203
+E17                        epochs 10 vs 3                            das8_e10 - das8 feat_A_along_U -0.005 -0.045 0.040 -0.039  0.034  0.061 informative null (within +-10 pts)            0.870     203
+E17                        epochs 10 vs 3                            das8_e10 - das8  illusion_diff  0.010 -0.051 0.069 -0.043  0.059  0.085 informative null (within +-10 pts)            0.870     203
+E17                       lr 3e-2 vs 1e-2                 das2_e10_lr3e-2 - das2_e10 feat_A_along_U -0.010 -0.054 0.034 -0.048  0.029  0.064 informative null (within +-10 pts)            0.828     203
+E17                           seed 2 vs 0                             das1_s2 - das1   full_along_U  0.020 -0.035 0.078 -0.029  0.069  0.083 informative null (within +-10 pts)            0.698     203
+E17                           seed 2 vs 0                             das1_s2 - das1  illusion_diff -0.044 -0.109 0.025 -0.100  0.015  0.096 informative null (within +-10 pts)            0.360     203
+E17                           seed 1 vs 0                             das2_s1 - das2   full_along_U  0.059 -0.015 0.139 -0.005  0.127  0.109                  underpowered null            0.260     203
+E17                           seed 1 vs 0                             das2_s1 - das2 feat_A_along_U  0.020 -0.029 0.070 -0.020  0.061  0.072 informative null (within +-10 pts)            0.649     203
+E17                           seed 1 vs 0                             das2_s1 - das2  illusion_diff  0.039 -0.040 0.122 -0.025  0.108  0.116                  underpowered null            0.579     203
+E17                           seed 2 vs 0                             das2_s2 - das2  illusion_diff -0.025 -0.103 0.058 -0.093  0.040  0.113 informative null (within +-10 pts)            0.730     203
+E17                           seed 1 vs 0                             das4_s1 - das4  illusion_diff  0.069 -0.015 0.149 -0.000  0.135  0.118                  underpowered null            0.219     203
+E17                           seed 1 vs 0                             das8_s1 - das8  illusion_diff  0.034 -0.053 0.118 -0.039  0.105  0.124                  underpowered null            0.649     203
+E17                           seed 2 vs 0                     das1_e10_s2 - das1_e10   full_along_U -0.059 -0.132 0.015 -0.119  0.000  0.105                  underpowered null            0.236     203
+E17                           seed 2 vs 0                     das1_e10_s2 - das1_e10 feat_A_along_U  0.005 -0.049 0.054 -0.039  0.045  0.074 informative null (within +-10 pts)            0.884     203
+E17                           seed 2 vs 0                     das1_e10_s2 - das1_e10  illusion_diff -0.064 -0.133 0.010 -0.121 -0.005  0.099                  underpowered null            0.157     203
+E17                           seed 1 vs 0                     das2_e10_s1 - das2_e10   full_along_U  0.000 -0.074 0.074 -0.060  0.060  0.107 informative null (within +-10 pts)            1.000     203
+E17                           seed 2 vs 0                     das2_e10_s2 - das2_e10   full_along_U -0.039 -0.121 0.044 -0.108  0.030  0.120                  underpowered null            0.586     203
+E17                           seed 2 vs 0                     das2_e10_s2 - das2_e10 feat_A_along_U -0.005 -0.073 0.064 -0.064  0.054  0.098 informative null (within +-10 pts)            0.905     203
+E17                           seed 2 vs 0                     das2_e10_s2 - das2_e10  illusion_diff -0.034 -0.109 0.049 -0.098  0.034  0.111 informative null (within +-10 pts)            0.611     203
+E20                       width add_chain         gap feat_A_errB L18_65k_l064 - 16k  gap_flip_rate  0.020 -0.035 0.074 -0.025  0.068  0.078 informative null (within +-10 pts)            0.775     203
+E20                       width add_chain      gap feat_A_meanPos L18_65k_l064 - 16k  gap_flip_rate  0.000 -0.044 0.044 -0.035  0.039  0.062 informative null (within +-10 pts)            1.000     203
+E20                       width add_chain      gap feat_A_meanPos L18_65k_l064 - 16k       gap_nldr  0.002 -0.017 0.021 -0.014  0.018  0.027 informative null (within +-10 pts)            1.000     203
+E20                       width add_chain  illusion pca_pooled r1 L18_65k_l064 - 16k  illusion_diff -0.010 -0.025 0.000 -0.020  0.000  0.019 informative null (within +-10 pts)            0.324     203
+E20                       width add_chain  illusion pca_pooled r2 L18_65k_l064 - 16k  illusion_diff -0.015 -0.034 0.000 -0.030  0.000  0.024 informative null (within +-10 pts)            0.203     203
+E20                       width add_chain  illusion pca_pooled r4 L18_65k_l064 - 16k  illusion_diff -0.005 -0.025 0.015 -0.024  0.015  0.031 informative null (within +-10 pts)            0.889     203
+E20                       width add_chain  illusion answer_sep r1 L18_65k_l064 - 16k  illusion_diff -0.010 -0.034 0.010 -0.030  0.010  0.034 informative null (within +-10 pts)            0.692     203
+E20                       width add_chain  illusion answer_sep r2 L18_65k_l064 - 16k  illusion_diff -0.005 -0.029 0.015 -0.025  0.010  0.031 informative null (within +-10 pts)            0.889     203
+E20                       width add_chain  illusion answer_sep r8 L18_65k_l064 - 16k  illusion_diff -0.010 -0.045 0.025 -0.040  0.020  0.052 informative null (within +-10 pts)            0.889     203
+E20                    width entity_track         gap feat_A_errB L12_65k_l072 - 16k       gap_nldr -0.003 -0.018 0.013 -0.016  0.010  0.022 informative null (within +-10 pts)            0.933      98
+E20                    width entity_track      gap feat_A_meanPos L12_65k_l072 - 16k  gap_flip_rate -0.010 -0.033 0.000 -0.030  0.000  0.028 informative null (within +-10 pts)            0.566      98
+E20                    width entity_track      gap feat_A_meanPos L12_65k_l072 - 16k       gap_nldr -0.011 -0.022 0.001 -0.020 -0.002  0.017 informative null (within +-10 pts)            0.149      98
+E20                    width entity_track  illusion pca_pooled r2 L12_65k_l072 - 16k  illusion_diff  0.031 -0.010 0.076 -0.000  0.069  0.063 informative null (within +-10 pts)            0.345      98
+E20                    width entity_track  illusion pca_pooled r4 L12_65k_l072 - 16k  illusion_diff  0.051 -0.000 0.109  0.000  0.100  0.083                  underpowered null            0.203      98
+E20                    width entity_track  illusion pca_pooled r8 L12_65k_l072 - 16k  illusion_diff -0.020 -0.107 0.063 -0.091  0.052  0.123 informative null (within +-10 pts)            0.889      98
+E20                    width entity_track  illusion answer_sep r4 L12_65k_l072 - 16k  illusion_diff -0.071 -0.168 0.021 -0.155  0.010  0.136                  underpowered null            0.312      98
+E20                    width entity_track        gap feat_A_errB L12_262k_l067 - 16k  gap_flip_rate  0.010  0.000 0.032  0.000  0.030  0.028 informative null (within +-10 pts)            0.566      98
+E20                    width entity_track     gap feat_A_meanPos L12_262k_l067 - 16k  gap_flip_rate  0.000 -0.030 0.029 -0.022  0.022  0.040 informative null (within +-10 pts)            1.000      98
+E20                    width entity_track illusion pca_pooled r1 L12_262k_l067 - 16k  illusion_diff  0.000 -0.060 0.056 -0.051  0.045  0.081 informative null (within +-10 pts)            1.000      98
+E20                    width entity_track illusion pca_pooled r4 L12_262k_l067 - 16k  illusion_diff -0.020 -0.104 0.064 -0.089  0.051  0.119 informative null (within +-10 pts)            0.889      98
+E20                    width entity_track illusion pca_pooled r8 L12_262k_l067 - 16k  illusion_diff -0.010 -0.075 0.054 -0.065  0.043  0.093 informative null (within +-10 pts)            0.966      98
+E20                    width entity_track illusion answer_sep r8 L12_262k_l067 - 16k  illusion_diff -0.031 -0.094 0.031 -0.081  0.020  0.087 informative null (within +-10 pts)            0.566      98
+E22 English-fit minus native-fit (paired)                        rs_fr pca_pooled r8 feat_A_along_U  0.006  0.000 0.019  0.000  0.019  0.014 informative null (within +-10 pts)            0.453     182
+E22 English-fit minus native-fit (paired)                        rs_fr pca_pooled r4   full_along_U -0.006 -0.019 0.000 -0.018  0.000  0.014 informative null (within +-10 pts)            0.453     182
+E22 English-fit minus native-fit (paired)                        rs_fr pca_pooled r8   full_along_U -0.006 -0.025 0.013 -0.025  0.012  0.027 informative null (within +-10 pts)            0.793     182
+E22 English-fit minus native-fit (paired)                        rs_hi pca_pooled r4 feat_A_along_U -0.006 -0.018 0.000 -0.017  0.000  0.013 informative null (within +-10 pts)            0.453     205
+E22 English-fit minus native-fit (paired)                        rs_hi pca_pooled r4   full_along_U -0.012 -0.029 0.000 -0.024  0.000  0.021 informative null (within +-10 pts)            0.232     205
+E22 English-fit minus native-fit (paired)                  rs_hinglish pca_pooled r8 feat_A_along_U  0.006  0.000 0.017  0.000  0.017  0.012 informative null (within +-10 pts)            0.448     191
+E22 English-fit minus native-fit (paired)                        rs_hinglish das4 r4 feat_A_along_U  0.056 -0.011 0.134 -0.006  0.119  0.104                  underpowered null            0.210     191
+E22 English-fit minus native-fit (paired)                        rs_hinglish das8 r8 feat_A_along_U  0.056 -0.011 0.126  0.000  0.115  0.098                  underpowered null            0.186     191
+E22 English-fit minus native-fit (paired)                  rs_hinglish pca_pooled r4   full_along_U  0.000 -0.028 0.028 -0.023  0.022  0.040 informative null (within +-10 pts)            1.000     191
+E22 English-fit minus native-fit (paired)                  rs_hinglish pca_pooled r8   full_along_U -0.006 -0.017 0.000 -0.017  0.000  0.012 informative null (within +-10 pts)            0.456     191
+E22 English-fit minus native-fit (paired)                        rs_hinglish das8 r8   full_along_U  0.017 -0.057 0.091 -0.045  0.078  0.106 informative null (within +-10 pts)            0.912     191
+E22 English-fit minus native-fit (paired)                              pc_fr das4 r4 feat_A_along_U -0.007 -0.020 0.000 -0.020  0.000  0.014 informative null (within +-10 pts)            0.453     150
+E22 English-fit minus native-fit (paired)                              pc_fr das4 r4   full_along_U -0.033 -0.067 0.000 -0.060 -0.007  0.048 informative null (within +-10 pts)            0.090     150
+E22 English-fit minus native-fit (paired)                        pc_hinglish das4 r4   full_along_U -0.007 -0.021 0.000 -0.020  0.000  0.015 informative null (within +-10 pts)            0.449     174
+
+[B] E22: language minus English home flip rate (unpaired normal approx.), f_A_correct, BH over 96 tests
+         task      condition  estimator  r      family     fit  flip_lang  n_lang  flip_en_home  n_en   diff   lo95   hi95  mde80  q_BH                            verdict
+    add_chain feat_A_along_U       das4  4       rs_fr english      0.364     162         0.306   180  0.059 -0.041  0.159  0.143 0.669                  underpowered null
+    add_chain feat_A_along_U       das4  4       rs_hi english      0.298     171         0.306   180 -0.007 -0.103  0.089  0.137 1.000 informative null (within +-10 pts)
+    add_chain feat_A_along_U       das4  4 rs_hinglish english      0.243     177         0.306   180 -0.063 -0.155  0.030  0.132 0.519                  underpowered null
+    add_chain feat_A_along_U       das4  4       rs_fr  native      0.142     162         0.306   180 -0.164 -0.250 -0.077  0.123 0.002                        significant
+    add_chain feat_A_along_U       das4  4       rs_hi  native      0.088     171         0.306   180 -0.218 -0.297 -0.138  0.114 0.000                        significant
+    add_chain feat_A_along_U       das4  4 rs_hinglish  native      0.186     177         0.306   180 -0.119 -0.208 -0.031  0.126 0.044                        significant
+    add_chain feat_A_along_U       das8  8       rs_fr english      0.383     162         0.333   180  0.049 -0.052  0.151  0.145 0.728                  underpowered null
+    add_chain feat_A_along_U       das8  8       rs_hi english      0.351     171         0.333   180  0.018 -0.082  0.117  0.142 1.000                  underpowered null
+    add_chain feat_A_along_U       das8  8 rs_hinglish english      0.367     177         0.333   180  0.034 -0.065  0.133  0.141 0.892                  underpowered null
+    add_chain feat_A_along_U       das8  8       rs_fr  native      0.290     162         0.333   180 -0.043 -0.141  0.055  0.140 0.776                  underpowered null
+    add_chain feat_A_along_U       das8  8       rs_hi  native      0.673     171         0.333   180  0.339  0.241  0.438  0.141 0.000                        significant
+    add_chain feat_A_along_U       das8  8 rs_hinglish  native      0.311     177         0.333   180 -0.023 -0.120  0.074  0.139 0.960                  underpowered null
+    add_chain feat_A_along_U pca_pooled  4       rs_fr english      0.000     162         0.011   180 -0.011 -0.026  0.004  0.022 0.480 informative null (within +-10 pts)
+    add_chain feat_A_along_U pca_pooled  4       rs_hi english      0.000     171         0.011   180 -0.011 -0.026  0.004  0.022 0.480 informative null (within +-10 pts)
+    add_chain feat_A_along_U pca_pooled  4 rs_hinglish english      0.000     177         0.011   180 -0.011 -0.026  0.004  0.022 0.480 informative null (within +-10 pts)
+    add_chain feat_A_along_U pca_pooled  4       rs_fr  native      0.000     162         0.011   180 -0.011 -0.026  0.004  0.022 0.480 informative null (within +-10 pts)
+    add_chain feat_A_along_U pca_pooled  4       rs_hi  native      0.006     171         0.011   180 -0.005 -0.024  0.014  0.027 0.917 informative null (within +-10 pts)
+    add_chain feat_A_along_U pca_pooled  4 rs_hinglish  native      0.000     177         0.011   180 -0.011 -0.026  0.004  0.022 0.480 informative null (within +-10 pts)
+    add_chain feat_A_along_U pca_pooled  8       rs_fr english      0.006     162         0.011   180 -0.005 -0.024  0.015  0.028 0.944 informative null (within +-10 pts)
+    add_chain feat_A_along_U pca_pooled  8       rs_hi english      0.006     171         0.011   180 -0.005 -0.024  0.014  0.027 0.917 informative null (within +-10 pts)
+    add_chain feat_A_along_U pca_pooled  8 rs_hinglish english      0.006     177         0.011   180 -0.005 -0.024  0.013  0.027 0.917 informative null (within +-10 pts)
+    add_chain feat_A_along_U pca_pooled  8       rs_fr  native      0.000     162         0.011   180 -0.011 -0.026  0.004  0.022 0.480 informative null (within +-10 pts)
+    add_chain feat_A_along_U pca_pooled  8       rs_hi  native      0.006     171         0.011   180 -0.005 -0.024  0.014  0.027 0.917 informative null (within +-10 pts)
+    add_chain feat_A_along_U pca_pooled  8 rs_hinglish  native      0.000     177         0.011   180 -0.011 -0.026  0.004  0.022 0.480 informative null (within +-10 pts)
+    add_chain   full_along_U       das4  4       rs_fr english      0.593     162         0.539   180  0.054 -0.051  0.159  0.150 0.691                  underpowered null
+    add_chain   full_along_U       das4  4       rs_hi english      0.503     171         0.539   180 -0.036 -0.140  0.069  0.149 0.892                  underpowered null
+    add_chain   full_along_U       das4  4 rs_hinglish english      0.525     177         0.539   180 -0.013 -0.117  0.090  0.148 1.000                  underpowered null
+    add_chain   full_along_U       das4  4       rs_fr  native      0.204     162         0.539   180 -0.335 -0.431 -0.240  0.137 0.000                        significant
+    add_chain   full_along_U       das4  4       rs_hi  native      0.246     171         0.539   180 -0.293 -0.391 -0.196  0.139 0.000                        significant
+    add_chain   full_along_U       das4  4 rs_hinglish  native      0.384     177         0.539   180 -0.155 -0.257 -0.053  0.146 0.021                        significant
+    add_chain   full_along_U       das8  8       rs_fr english      0.580     162         0.611   180 -0.031 -0.135  0.073  0.149 0.917                  underpowered null
+    add_chain   full_along_U       das8  8       rs_hi english      0.632     171         0.611   180  0.020 -0.081  0.122  0.145 0.992                  underpowered null
+    add_chain   full_along_U       das8  8 rs_hinglish english      0.605     177         0.611   180 -0.007 -0.108  0.095  0.145 1.000 informative null (within +-10 pts)
+    add_chain   full_along_U       das8  8       rs_fr  native      0.481     162         0.611   180 -0.130 -0.234 -0.025  0.150 0.074                        significant
+    add_chain   full_along_U       das8  8       rs_hi  native      0.842     171         0.611   180  0.231  0.141  0.321  0.128 0.000                        significant
+    add_chain   full_along_U       das8  8 rs_hinglish  native      0.588     177         0.611   180 -0.024 -0.125  0.078  0.145 0.960                  underpowered null
+    add_chain   full_along_U pca_pooled  4       rs_fr english      0.031     162         0.050   180 -0.019 -0.061  0.022  0.059 0.764 informative null (within +-10 pts)
+    add_chain   full_along_U pca_pooled  4       rs_hi english      0.018     171         0.050   180 -0.032 -0.070  0.005  0.054 0.372 informative null (within +-10 pts)
+    add_chain   full_along_U pca_pooled  4 rs_hinglish english      0.034     177         0.050   180 -0.016 -0.058  0.025  0.059 0.842 informative null (within +-10 pts)
+    add_chain   full_along_U pca_pooled  4       rs_fr  native      0.037     162         0.050   180 -0.013 -0.056  0.030  0.062 0.917 informative null (within +-10 pts)
+    add_chain   full_along_U pca_pooled  4       rs_hi  native      0.029     171         0.050   180 -0.021 -0.061  0.020  0.058 0.691 informative null (within +-10 pts)
+    add_chain   full_along_U pca_pooled  4 rs_hinglish  native      0.034     177         0.050   180 -0.016 -0.058  0.025  0.059 0.842 informative null (within +-10 pts)
+    add_chain   full_along_U pca_pooled  8       rs_fr english      0.049     162         0.067   180 -0.017 -0.067  0.032  0.071 0.892 informative null (within +-10 pts)
+    add_chain   full_along_U pca_pooled  8       rs_hi english      0.035     171         0.067   180 -0.032 -0.077  0.014  0.065 0.511 informative null (within +-10 pts)
+    add_chain   full_along_U pca_pooled  8 rs_hinglish english      0.045     177         0.067   180 -0.021 -0.069  0.026  0.068 0.769 informative null (within +-10 pts)
+    add_chain   full_along_U pca_pooled  8       rs_fr  native      0.056     162         0.067   180 -0.011 -0.062  0.040  0.072 0.971 informative null (within +-10 pts)
+    add_chain   full_along_U pca_pooled  8       rs_hi  native      0.035     171         0.067   180 -0.032 -0.077  0.014  0.065 0.511 informative null (within +-10 pts)
+    add_chain   full_along_U pca_pooled  8 rs_hinglish  native      0.051     177         0.067   180 -0.016 -0.065  0.033  0.070 0.916 informative null (within +-10 pts)
+people_cities feat_A_along_U       das4  4       pc_fr english      0.000     150         0.007   151 -0.007 -0.020  0.006  0.018 0.691 informative null (within +-10 pts)
+people_cities feat_A_along_U       das4  4       pc_hi english      0.000     150         0.007   151 -0.007 -0.020  0.006  0.018 0.691 informative null (within +-10 pts)
+people_cities feat_A_along_U       das4  4 pc_hinglish english      0.000     150         0.007   151 -0.007 -0.020  0.006  0.018 0.691 informative null (within +-10 pts)
+people_cities feat_A_along_U       das4  4       pc_fr  native      0.007     150         0.007   151  0.000 -0.018  0.018  0.026 1.000 informative null (within +-10 pts)
+people_cities feat_A_along_U       das4  4       pc_hi  native      0.000     150         0.007   151 -0.007 -0.020  0.006  0.018 0.691 informative null (within +-10 pts)
+people_cities feat_A_along_U       das4  4 pc_hinglish  native      0.000     150         0.007   151 -0.007 -0.020  0.006  0.018 0.691 informative null (within +-10 pts)
+people_cities feat_A_along_U       das8  8       pc_fr english      0.007     150         0.066   151 -0.060 -0.101 -0.018  0.060 0.029                        significant
+people_cities feat_A_along_U       das8  8       pc_hi english      0.000     150         0.066   151 -0.066 -0.106 -0.027  0.057 0.009                        significant
+people_cities feat_A_along_U       das8  8 pc_hinglish english      0.000     150         0.066   151 -0.066 -0.106 -0.027  0.057 0.009                        significant
+people_cities feat_A_along_U       das8  8       pc_fr  native      0.180     150         0.066   151  0.114  0.041  0.187  0.105 0.017                        significant
+people_cities feat_A_along_U       das8  8       pc_hi  native      0.027     150         0.066   151 -0.040 -0.087  0.008  0.068 0.405 informative null (within +-10 pts)
+people_cities feat_A_along_U       das8  8 pc_hinglish  native      0.040     150         0.066   151 -0.026 -0.077  0.024  0.072 0.691 informative null (within +-10 pts)
+people_cities feat_A_along_U pca_pooled  4       pc_fr english      0.000     150         0.000   151  0.000  0.000  0.000    NaN 1.000         degenerate (floor/ceiling)
+people_cities feat_A_along_U pca_pooled  4       pc_hi english      0.000     150         0.000   151  0.000  0.000  0.000    NaN 1.000         degenerate (floor/ceiling)
+people_cities feat_A_along_U pca_pooled  4 pc_hinglish english      0.000     150         0.000   151  0.000  0.000  0.000    NaN 1.000         degenerate (floor/ceiling)
+people_cities feat_A_along_U pca_pooled  4       pc_fr  native      0.000     150         0.000   151  0.000  0.000  0.000    NaN 1.000         degenerate (floor/ceiling)
+people_cities feat_A_along_U pca_pooled  4       pc_hi  native      0.000     150         0.000   151  0.000  0.000  0.000    NaN 1.000         degenerate (floor/ceiling)
+people_cities feat_A_along_U pca_pooled  4 pc_hinglish  native      0.000     150         0.000   151  0.000  0.000  0.000    NaN 1.000         degenerate (floor/ceiling)
+people_cities feat_A_along_U pca_pooled  8       pc_fr english      0.000     150         0.000   151  0.000  0.000  0.000    NaN 1.000         degenerate (floor/ceiling)
+people_cities feat_A_along_U pca_pooled  8       pc_hi english      0.000     150         0.000   151  0.000  0.000  0.000    NaN 1.000         degenerate (floor/ceiling)
+people_cities feat_A_along_U pca_pooled  8 pc_hinglish english      0.000     150         0.000   151  0.000  0.000  0.000    NaN 1.000         degenerate (floor/ceiling)
+people_cities feat_A_along_U pca_pooled  8       pc_fr  native      0.000     150         0.000   151  0.000  0.000  0.000    NaN 1.000         degenerate (floor/ceiling)
+people_cities feat_A_along_U pca_pooled  8       pc_hi  native      0.000     150         0.000   151  0.000  0.000  0.000    NaN 1.000         degenerate (floor/ceiling)
+people_cities feat_A_along_U pca_pooled  8 pc_hinglish  native      0.000     150         0.000   151  0.000  0.000  0.000    NaN 1.000         degenerate (floor/ceiling)
+people_cities   full_along_U       das4  4       pc_fr english      0.007     150         0.053   151 -0.046 -0.084 -0.008  0.054 0.074                        significant
+people_cities   full_along_U       das4  4       pc_hi english      0.000     150         0.053   151 -0.053 -0.089 -0.017  0.051 0.022                        significant
+people_cities   full_along_U       das4  4 pc_hinglish english      0.000     150         0.053   151 -0.053 -0.089 -0.017  0.051 0.022                        significant
+people_cities   full_along_U       das4  4       pc_fr  native      0.040     150         0.053   151 -0.013 -0.061  0.035  0.068 0.917 informative null (within +-10 pts)
+people_cities   full_along_U       das4  4       pc_hi  native      0.027     150         0.053   151 -0.026 -0.070  0.018  0.063 0.663 informative null (within +-10 pts)
+people_cities   full_along_U       das4  4 pc_hinglish  native      0.007     150         0.053   151 -0.046 -0.084 -0.008  0.054 0.074                        significant
+people_cities   full_along_U       das8  8       pc_fr english      0.047     150         0.278   151 -0.231 -0.311 -0.152  0.113 0.000                        significant
+people_cities   full_along_U       das8  8       pc_hi english      0.007     150         0.278   151 -0.271 -0.344 -0.199  0.104 0.000                        significant
+people_cities   full_along_U       das8  8 pc_hinglish english      0.020     150         0.278   151 -0.258 -0.333 -0.183  0.107 0.000                        significant
+people_cities   full_along_U       das8  8       pc_fr  native      0.320     150         0.278   151  0.042 -0.061  0.145  0.148 0.837                  underpowered null
+people_cities   full_along_U       das8  8       pc_hi  native      0.107     150         0.278   151 -0.171 -0.258 -0.085  0.124 0.001                        significant
+people_cities   full_along_U       das8  8 pc_hinglish  native      0.160     150         0.278   151 -0.118 -0.211 -0.026  0.132 0.062                        significant
+people_cities   full_along_U pca_pooled  4       pc_fr english      0.000     150         0.000   151  0.000  0.000  0.000    NaN 1.000         degenerate (floor/ceiling)
+people_cities   full_along_U pca_pooled  4       pc_hi english      0.000     150         0.000   151  0.000  0.000  0.000    NaN 1.000         degenerate (floor/ceiling)
+people_cities   full_along_U pca_pooled  4 pc_hinglish english      0.000     150         0.000   151  0.000  0.000  0.000    NaN 1.000         degenerate (floor/ceiling)
+people_cities   full_along_U pca_pooled  4       pc_fr  native      0.000     150         0.000   151  0.000  0.000  0.000    NaN 1.000         degenerate (floor/ceiling)
+people_cities   full_along_U pca_pooled  4       pc_hi  native      0.000     150         0.000   151  0.000  0.000  0.000    NaN 1.000         degenerate (floor/ceiling)
+people_cities   full_along_U pca_pooled  4 pc_hinglish  native      0.000     150         0.000   151  0.000  0.000  0.000    NaN 1.000         degenerate (floor/ceiling)
+people_cities   full_along_U pca_pooled  8       pc_fr english      0.000     150         0.000   151  0.000  0.000  0.000    NaN 1.000         degenerate (floor/ceiling)
+people_cities   full_along_U pca_pooled  8       pc_hi english      0.000     150         0.000   151  0.000  0.000  0.000    NaN 1.000         degenerate (floor/ceiling)
+people_cities   full_along_U pca_pooled  8 pc_hinglish english      0.000     150         0.000   151  0.000  0.000  0.000    NaN 1.000         degenerate (floor/ceiling)
+people_cities   full_along_U pca_pooled  8       pc_fr  native      0.000     150         0.000   151  0.000  0.000  0.000    NaN 1.000         degenerate (floor/ceiling)
+people_cities   full_along_U pca_pooled  8       pc_hi  native      0.000     150         0.000   151  0.000  0.000  0.000    NaN 1.000         degenerate (floor/ceiling)
+people_cities   full_along_U pca_pooled  8 pc_hinglish  native      0.000     150         0.000   151  0.000  0.000  0.000    NaN 1.000         degenerate (floor/ceiling)
+verdict        degenerate (floor/ceiling)  informative null (within +-10 pts)  significant  underpowered null
+task                                                                                                         
+add_chain                               0                                  26            9                 13
+people_cities                          24                                  10           13                  1

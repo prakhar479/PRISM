@@ -1,0 +1,25 @@
+cell,estimator,condition,runs,n_elig,flip_rates,flip_unanimous_share,fleiss_kappa_flip,icc_nldr_i,max_abs_dD
+RS,das1,full_along_U,E9:958ffc@gnode084 E17:5a4a5f@gnode058 E18:69af83@gnode058,209,0.263 0.263 0.263,1.0,1.0,1.0,0.0
+RS,das1,feat_A_along_U,E9:958ffc@gnode084 E17:5a4a5f@gnode058 E18:69af83@gnode058,209,0.100 0.100 0.100,1.0,1.0,1.0,0.0
+RS,das1,repair,E9:958ffc@gnode084 E18:69af83@gnode058,209,0.856 0.856,1.0,1.0,1.0,0.0
+RS,das2,full_along_U,E9:958ffc@gnode084 E17:5a4a5f@gnode058 E18:69af83@gnode058,209,0.373 0.373 0.373,1.0,1.0,1.0,0.0
+RS,das2,feat_A_along_U,E9:958ffc@gnode084 E17:5a4a5f@gnode058 E18:69af83@gnode058,209,0.211 0.211 0.211,1.0,1.0,1.0,0.0
+RS,das2,repair,E9:958ffc@gnode084 E18:69af83@gnode058,209,0.904 0.904,1.0,1.0,1.0,0.0
+RS,das4,full_along_U,E9:958ffc@gnode084 E17:5a4a5f@gnode058 E18:69af83@gnode058,209,0.737 0.737 0.737,1.0,1.0,1.0,0.0
+RS,das4,feat_A_along_U,E9:958ffc@gnode084 E17:5a4a5f@gnode058 E18:69af83@gnode058,209,0.545 0.545 0.545,1.0,1.0,1.0,0.0
+RS,das4,repair,E9:958ffc@gnode084 E18:69af83@gnode058,209,0.933 0.933,1.0,1.0,1.0,0.0
+RS,das8,full_along_U,E9:958ffc@gnode084 E17:5a4a5f@gnode058 E18:69af83@gnode058,209,0.866 0.866 0.866,1.0,1.0,1.0,0.0
+RS,das8,feat_A_along_U,E9:958ffc@gnode084 E17:5a4a5f@gnode058 E18:69af83@gnode058,209,0.651 0.651 0.651,1.0,1.0,1.0,0.0
+RS,das8,repair,E9:958ffc@gnode084 E18:69af83@gnode058,209,0.900 0.900,1.0,1.0,1.0,0.0
+OT,das1,full_along_U,E9:958ffc@gnode084 E18:69af83@gnode058,106,0.906 0.906,1.0,1.0,1.0,0.0
+OT,das1,feat_A_along_U,E9:958ffc@gnode084 E18:69af83@gnode058,106,0.896 0.896,1.0,1.0,1.0,0.0
+OT,das1,repair,E9:958ffc@gnode084 E18:69af83@gnode058,106,0.906 0.906,1.0,1.0,1.0,0.0
+OT,das2,full_along_U,E9:958ffc@gnode084 E18:69af83@gnode058,106,0.925 0.925,1.0,1.0,1.0,0.0
+OT,das2,feat_A_along_U,E9:958ffc@gnode084 E18:69af83@gnode058,106,0.887 0.887,1.0,1.0,1.0,0.0
+OT,das2,repair,E9:958ffc@gnode084 E18:69af83@gnode058,106,0.925 0.925,1.0,1.0,1.0,0.0
+OT,das4,full_along_U,E9:958ffc@gnode084 E18:69af83@gnode058,106,0.915 0.915,1.0,1.0,1.0,0.0
+OT,das4,feat_A_along_U,E9:958ffc@gnode084 E18:69af83@gnode058,106,0.934 0.934,1.0,1.0,1.0,0.0
+OT,das4,repair,E9:958ffc@gnode084 E18:69af83@gnode058,106,0.925 0.925,1.0,1.0,1.0,0.0
+OT,das8,full_along_U,E9:958ffc@gnode084 E18:69af83@gnode058,106,0.962 0.962,1.0,1.0,1.0,0.0
+OT,das8,feat_A_along_U,E9:958ffc@gnode084 E18:69af83@gnode058,106,0.991 0.991,1.0,1.0,1.0,0.0
+OT,das8,repair,E9:958ffc@gnode084 E18:69af83@gnode058,106,0.934 0.934,1.0,1.0,1.0,0.0

@@ -1,0 +1,47 @@
+E3 7bf755d092fa 18 fresh fresh harness_family_rank status mismatches {'same': 0, 'diff': 0} {'same': {'ok': 570, 'none': 3}, 'diff': {'ok': 573}}
+E3 7bf755d092fa 18 fresh fresh pair_id_sorted status mismatches {'same': 0, 'diff': 0} {'same': {'ok': 570, 'none': 3}, 'diff': {'ok': 573}}
+E3 7bf755d092fa 18 fresh pilot harness_family_rank status mismatches {'same': 0, 'diff': 0} {'same': {'ok': 213, 'none': 2}, 'diff': {'ok': 215}}
+E3 7bf755d092fa 18 fresh pilot pair_id_sorted status mismatches {'same': 0, 'diff': 0} {'same': {'ok': 213, 'none': 2}, 'diff': {'ok': 215}}
+E3 7bf755d092fa 18 pilot fresh harness_family_rank status mismatches {'same': 0, 'diff': 0} {'same': {'ok': 570, 'none': 3}, 'diff': {'ok': 573}}
+E3 7bf755d092fa 18 pilot fresh pair_id_sorted status mismatches {'same': 0, 'diff': 0} {'same': {'ok': 570, 'none': 3}, 'diff': {'ok': 573}}
+E2 2c7b81b379f4 18 pilot pilot harness_family_rank status mismatches {'same': 0, 'diff': 0} {'same': {'ok': 7, 'none': 5}, 'diff': {'ok': 11, 'none': 1}}
+E2 2c7b81b379f4 18 pilot pilot pair_id_sorted status mismatches {'same': 0, 'diff': 0} {'same': {'ok': 7, 'none': 5}, 'diff': {'ok': 11, 'none': 1}}
+E2 5ad7ada7f971 18 pilot pilot harness_family_rank status mismatches {'same': 0, 'diff': 0} {'same': {'ok': 212, 'none': 2}, 'diff': {'ok': 214}}
+E2 5ad7ada7f971 18 pilot pilot pair_id_sorted status mismatches {'same': 0, 'diff': 0} {'same': {'ok': 212, 'none': 2}, 'diff': {'ok': 214}}
+E2 ffa413ac112e 18 pilot pilot harness_family_rank status mismatches {'same': 0, 'diff': 0} {'same': {'ok': 7, 'none': 5}, 'diff': {'ok': 11, 'none': 1}}
+E2 ffa413ac112e 18 pilot pilot pair_id_sorted status mismatches {'same': 0, 'diff': 0} {'same': {'ok': 7, 'none': 5}, 'diff': {'ok': 11, 'none': 1}}
+E2r 747ea7736718 18 pilot pilot harness_family_rank status mismatches {'same': 0, 'diff': 0} {'same': {'ok': 213, 'none': 2}, 'diff': {'ok': 215}}
+E2r 747ea7736718 18 pilot pilot pair_id_sorted status mismatches {'same': 0, 'diff': 0} {'same': {'ok': 213, 'none': 2}, 'diff': {'ok': 215}}
+                                  0             1             2             3             4             5             6
+exp                              E3            E3            E3            E2            E2            E2           E2r
+run                    7bf755d092fa  7bf755d092fa  7bf755d092fa  2c7b81b379f4  5ad7ada7f971  ffa413ac112e  747ea7736718
+layer                            18            18            18            18            18            18            18
+fit                           fresh         fresh         pilot         pilot         pilot         pilot         pilot
+eval                          fresh         pilot         fresh         pilot         pilot         pilot         pilot
+n                               532           201           532             7           202             7           201
+dnldr                         0.074         0.079         0.074        -0.033         0.082        -0.033         0.057
+dnldr_lo                      0.053         0.047         0.053        -0.095         0.051        -0.095         0.024
+dnldr_hi                      0.094         0.112         0.094         0.026         0.116         0.027          0.09
+dflip                         0.103         0.144         0.103        -0.143         0.153        -0.143         0.055
+ov_span_same                  0.727         0.764         0.727          0.75         0.762          0.75         0.759
+ov_span_diff                  0.725         0.756         0.725         0.769          0.75         0.769         0.757
+ov_digit_same                 0.264         0.296         0.264           0.0          0.28           0.0         0.237
+ov_digit_diff                 0.279         0.221         0.279           0.0         0.201           0.0         0.246
+ov_full_same                  0.972         0.969         0.972         0.967         0.969         0.967         0.968
+ov_full_diff                  0.971         0.969         0.971         0.966         0.968         0.966         0.968
+icpt_span                     0.074         0.075         0.074        -0.034         0.074        -0.034         0.056
+icpt_span_lo                  0.053         0.042         0.055        -0.135         0.042        -0.128         0.026
+icpt_span_hi                  0.094         0.108         0.095         0.025         0.104         0.024         0.088
+slope_span                    0.066         0.504         0.066        -0.025         0.678        -0.025         0.607
+slope_span_lo                -0.029         0.196        -0.018        -1.185         0.375         -1.03         0.269
+slope_span_hi                 0.157         0.803         0.154          0.73         1.009         0.731         0.966
+icpt_digits                   0.094         0.085         0.094        -0.052         0.094        -0.052          0.06
+icpt_digits_lo                0.063         0.043          0.06        -0.172         0.051        -0.172          0.01
+icpt_digits_hi                0.125         0.127         0.125         0.069         0.137         0.069          0.11
+slope_digits                  0.051         0.081         0.051           0.0         0.075           0.0         0.062
+slope_digits_lo               0.004         0.018         0.006           0.0        -0.001           0.0        -0.042
+slope_digits_hi               0.101         0.153         0.097           0.0         0.156           0.0         0.163
+n_equal_digit_overlap         140.0          57.0         140.0           NaN          59.0           NaN          59.0
+dnldr_equal_ov                0.101         0.084         0.101           NaN         0.096           NaN         0.023
+dnldr_equal_ov_lo             0.055         0.029         0.058           NaN         0.041           NaN        -0.029
+dnldr_equal_ov_hi              0.15         0.138         0.148           NaN          0.15           NaN         0.078

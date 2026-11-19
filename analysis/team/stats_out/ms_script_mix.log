@@ -1,0 +1,30 @@
+Script composition by set (L12 rows), all windows vs windows in the hi overlap interval [3.579, 4.445] nats/token:
+                             native_letter_share  latin_letter_share  digit_share   nllc
+set              in_overlap                                                             
+bn_beng_dakshina False                     0.999               0.001        0.011  2.210
+bn_web           False                     0.988               0.012        0.012  1.869
+hi_deva_dakshina False                     0.997               0.003        0.008  2.953
+                 True                      0.992               0.008        0.007  3.725
+hi_deva_web      False                     0.941               0.059        0.009  2.093
+                 True                      0.911               0.089        0.005  3.782
+hi_latn_dakshina False                     0.000               1.000        0.006  5.094
+                 True                      0.000               1.000        0.012  4.261
+hinglish_phinc   False                     0.000               1.000        0.004  4.849
+                 True                      0.000               1.000        0.006  4.215
+ta_taml_dakshina False                     0.997               0.003        0.007  2.360
+ta_web           False                     0.971               0.028        0.008  1.872
+                 True                      0.350               0.648        0.002  3.788
+
+Within native-script sets: OLS log(cost) ~ nllc + log eps + latin_letter_share (per set, layer); coefficient on latin share
+  bn_beng_dakshina   L12: latin share mean 0.001, sd 0.010; coef +0.052 [-1.151, +1.238] (log cost per unit share)
+  bn_beng_dakshina   L18: latin share mean 0.001, sd 0.010; coef +1.139 [+0.257, +1.787] (log cost per unit share)
+  bn_web             L12: latin share mean 0.012, sd 0.061; coef -0.457 [-0.836, -0.018] (log cost per unit share)
+  bn_web             L18: latin share mean 0.012, sd 0.061; coef -0.369 [-0.591, -0.074] (log cost per unit share)
+  hi_deva_dakshina   L12: latin share mean 0.004, sd 0.013; coef -0.276 [-1.012, +0.548] (log cost per unit share)
+  hi_deva_dakshina   L18: latin share mean 0.004, sd 0.013; coef -0.441 [-1.147, +0.352] (log cost per unit share)
+  hi_deva_web        L12: latin share mean 0.058, sd 0.128; coef -0.441 [-0.589, -0.306] (log cost per unit share)
+  hi_deva_web        L18: latin share mean 0.059, sd 0.130; coef -0.301 [-0.404, -0.198] (log cost per unit share)
+  ta_taml_dakshina   L12: latin share mean 0.003, sd 0.013; coef -0.061 [-1.161, +0.904] (log cost per unit share)
+  ta_taml_dakshina   L18: latin share mean 0.003, sd 0.013; coef +0.152 [-0.538, +0.912] (log cost per unit share)
+  ta_web             L12: latin share mean 0.030, sd 0.113; coef -0.118 [-0.327, +0.080] (log cost per unit share)
+  ta_web             L18: latin share mean 0.030, sd 0.113; coef -0.210 [-0.311, -0.110] (log cost per unit share)

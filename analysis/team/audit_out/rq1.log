@@ -1,0 +1,10 @@
+families ['rs_plus', 'rs_story', 'rs_symbolic']
+n pairs 450 eligible 450
+RQ1 shortfall full_A - meanPos = 0.1467 [0.1133, 0.1800]  full_A 1.0000 meanPos 0.8533
+errB shortfall = 0.0978
+cluster CI [0.0867 0.2133] n clusters 3
+ family rs_plus 150 0.0867
+ family rs_story 150 0.2133
+ family rs_symbolic 150 0.14
+median lead 2.514; low-lead shortfall 0.2035 (median 1.76, n 226); high 0.0893 (median 3.23, n 224)
+(strict <) low 0.2054 high 0.0885

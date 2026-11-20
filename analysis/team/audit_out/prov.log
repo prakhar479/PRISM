@@ -1,0 +1,70 @@
+E4(Poseidon-finalized) vs E8(Poseidon-finalized): shared rows 3070 (logit values 6140), max|Δlogit| 0, top1 agree 1.0000
+E4(Poseidon-finalized) vs E9(gnode084): shared rows 2320 (logit values 4640), max|Δlogit| 0, top1 agree 1.0000
+E4(Poseidon-finalized) vs E2r(gnode084): shared rows 2320 (logit values 4640), max|Δlogit| 0, top1 agree 1.0000
+E4(Poseidon-finalized) vs E17(gnode058): shared rows 1075 (logit values 2150), max|Δlogit| 0, top1 agree 1.0000
+E4(Poseidon-finalized) vs E18(gnode058): shared rows 2320 (logit values 4640), max|Δlogit| 0, top1 agree 1.0000
+E4(Poseidon-finalized) vs E20(gnode058): shared rows 3565 (logit values 7130), max|Δlogit| 0, top1 agree 1.0000
+E8(Poseidon-finalized) vs E9(gnode084): shared rows 2320 (logit values 4640), max|Δlogit| 0, top1 agree 1.0000
+E8(Poseidon-finalized) vs E2r(gnode084): shared rows 2320 (logit values 4640), max|Δlogit| 0, top1 agree 1.0000
+E8(Poseidon-finalized) vs E17(gnode058): shared rows 1075 (logit values 2150), max|Δlogit| 0, top1 agree 1.0000
+E8(Poseidon-finalized) vs E18(gnode058): shared rows 2320 (logit values 4640), max|Δlogit| 0, top1 agree 1.0000
+E9(gnode084) vs E2r(gnode084): shared rows 2320 (logit values 4640), max|Δlogit| 0, top1 agree 1.0000
+E9(gnode084) vs E17(gnode058): shared rows 1075 (logit values 2150), max|Δlogit| 0, top1 agree 1.0000
+E9(gnode084) vs E18(gnode058): shared rows 2320 (logit values 4640), max|Δlogit| 0, top1 agree 1.0000
+E2r(gnode084) vs E17(gnode058): shared rows 1075 (logit values 2150), max|Δlogit| 0, top1 agree 1.0000
+E2r(gnode084) vs E18(gnode058): shared rows 2320 (logit values 4640), max|Δlogit| 0, top1 agree 1.0000
+E17(gnode058) vs E18(gnode058): shared rows 1075 (logit values 2150), max|Δlogit| 0, top1 agree 1.0000
+E0 31fe99eb20d8 add_chain L18: flip gap 0.0867 NLDR gap 0.1256
+E0 31fe99eb20d8 entity_track L12: flip gap 0.0000 NLDR gap 0.2587
+E1 854a2370f878 add_chain L18: flip gap 0.0867 NLDR gap 0.1256
+E1 854a2370f878 entity_track L12: flip gap 0.0000 NLDR gap 0.2587
+Traceback (most recent call last):
+  File "/tmp/claude-1002/-home-prakhar-dev-legend479-MILP-prism-sae-dark-matter/218361b4-64de-4a4e-b6e1-5d9977ad0da5/scratchpad/hw/../team/scripts/audit_prov.py", line 23, in <module>
+    x = load(e, h.split("/")[-2])
+        ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/claude-1002/-home-prakhar-dev-legend479-MILP-prism-sae-dark-matter/218361b4-64de-4a4e-b6e1-5d9977ad0da5/scratchpad/hw/../team/scripts/audit_lib.py", line 31, in load
+    have = set(pq.read_schema(f).names)
+               ^^^^^^^^^^^^^^^^^
+  File "/home/prakhar/dev/legend479/MILP/.venv/lib/python3.12/site-packages/pyarrow/parquet/core.py", line 2495, in read_schema
+    file_ctx = where = filesystem.open_input_file(where)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pyarrow/_fs.pyx", line 815, in pyarrow._fs.FileSystem.open_input_file
+  File "pyarrow/error.pxi", line 155, in pyarrow.lib.pyarrow_internal_check_status
+  File "pyarrow/error.pxi", line 92, in pyarrow.lib.check_status
+FileNotFoundError: [Errno 2] Failed to open local file '/tmp/claude-1002/-home-prakhar-dev-legend479-MILP-prism-sae-dark-matter/218361b4-64de-4a4e-b6e1-5d9977ad0da5/scratchpad/ana_runs/E1/8a8b6b0c6614/per_pair.parquet'. Detail: [errno 2] No such file or directory
+E0 31fe99eb20d8 add_chain L18: flip gap 0.0867 NLDR gap 0.1256
+E0 31fe99eb20d8 entity_track L12: flip gap 0.0000 NLDR gap 0.2587
+E9 958ffcdee3d4 add_chain L18: flip gap 0.0800 NLDR gap 0.1235
+E9 958ffcdee3d4 entity_track L12: flip gap 0.0000 NLDR gap 0.2516
+E18 69af834a1a59 add_chain L18: flip gap 0.0800 NLDR gap 0.1235
+E18 69af834a1a59 entity_track L12: flip gap 0.0000 NLDR gap 0.2516
+E8 5726ecbd0230 add_chain L18: flip gap 0.0800 NLDR gap 0.1235
+E8 5726ecbd0230 entity_track L12: flip gap 0.0000 NLDR gap 0.2516
+E2 2c7b81b379f4 add_chain L18: flip gap 0.1000 NLDR gap 0.0809
+E2 2c7b81b379f4 entity_track L12: flip gap 0.0000 NLDR gap 0.2733
+E2 5ad7ada7f971 add_chain L18: flip gap 0.0867 NLDR gap 0.1256
+E2 5ad7ada7f971 entity_track L12: flip gap 0.0000 NLDR gap 0.2587
+E2 ae3ac95dfcee add_chain L18: flip gap 0.1000 NLDR gap 0.0809
+E2 ae3ac95dfcee entity_track L12: flip gap 0.0000 NLDR gap 0.2733
+E2 ffa413ac112e add_chain L18: flip gap 0.1000 NLDR gap 0.0809
+E2 ffa413ac112e entity_track L12: flip gap 0.0000 NLDR gap 0.2733
+E2r 747ea7736718 add_chain L18: flip gap 0.0800 NLDR gap 0.1235
+E2r 747ea7736718 entity_track L12: flip gap 0.0000 NLDR gap 0.2516
+DAS add_chain_L18_L18_16k_l074 E9 vs E17 add_chain_L18_L18_16k_l074 das1: array_equal True, acc 0.250/0.250
+DAS add_chain_L18_L18_16k_l074 E9 vs E17 add_chain_L18_L18_16k_l074 das2: array_equal True, acc 0.333/0.333
+DAS add_chain_L18_L18_16k_l074 E9 vs E17 add_chain_L18_L18_16k_l074 das4: array_equal True, acc 0.733/0.733
+DAS add_chain_L18_L18_16k_l074 E9 vs E17 add_chain_L18_L18_16k_l074 das8: array_equal True, acc 0.890/0.890
+DAS entity_track_L12_L12_16k_l082 E9 vs E18 entity_track_L12_L12_16k_l082 das1: array_equal True, acc 0.970/0.970
+DAS entity_track_L12_L12_16k_l082 E9 vs E18 entity_track_L12_L12_16k_l082 das2: array_equal True, acc 1.000/1.000
+DAS entity_track_L12_L12_16k_l082 E9 vs E18 entity_track_L12_L12_16k_l082 das4: array_equal True, acc 1.000/1.000
+DAS entity_track_L12_L12_16k_l082 E9 vs E18 entity_track_L12_L12_16k_l082 das8: array_equal True, acc 1.000/1.000
+DAS add_chain_L18_L18_16k_l074 E9 vs E18 add_chain_L18_L18_16k_l074 das1: array_equal True, acc 0.250/0.250
+DAS add_chain_L18_L18_16k_l074 E9 vs E18 add_chain_L18_L18_16k_l074 das2: array_equal True, acc 0.333/0.333
+DAS add_chain_L18_L18_16k_l074 E9 vs E18 add_chain_L18_L18_16k_l074 das4: array_equal True, acc 0.733/0.733
+DAS add_chain_L18_L18_16k_l074 E9 vs E18 add_chain_L18_L18_16k_l074 das8: array_equal True, acc 0.890/0.890
+DAS entity_track_L12_L12_16k_l082 E9 vs E20 entity_track_L12_L12_262k_l067 das4: array_equal True, acc 1.000/1.000
+DAS entity_track_L12_L12_16k_l082 E9 vs E20 entity_track_L12_L12_262k_l067 das8: array_equal True, acc 1.000/1.000
+DAS entity_track_L12_L12_16k_l082 E9 vs E20 entity_track_L12_L12_65k_l072 das4: array_equal True, acc 1.000/1.000
+DAS entity_track_L12_L12_16k_l082 E9 vs E20 entity_track_L12_L12_65k_l072 das8: array_equal True, acc 1.000/1.000
+DAS add_chain_L18_L18_16k_l074 E9 vs E20 add_chain_L18_L18_65k_l064 das4: array_equal True, acc 0.733/0.733
+DAS add_chain_L18_L18_16k_l074 E9 vs E20 add_chain_L18_L18_65k_l064 das8: array_equal True, acc 0.890/0.890

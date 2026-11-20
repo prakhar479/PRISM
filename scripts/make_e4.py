@@ -133,6 +133,8 @@ def main() -> int:
         m = json.loads(man.read_text())
         if m.get("smoke") or m.get("tiny") or m.get("status") != "complete":
             continue
+        if not (man.parent / "per_pair.parquet").exists():               # table-type runs (E12, E13)
+            continue
         pp = pd.read_parquet(man.parent / "per_pair.parquet")
         l0 = cell_l0(json.loads((man.parent / "summary.json").read_text()))
         for flt in m["config"]["filters"]:

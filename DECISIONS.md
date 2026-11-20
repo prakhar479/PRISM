@@ -538,3 +538,11 @@ A post hoc deep analysis (scratchpad reports, summarised in analysis/deep_analys
   native-Indic vs English/French cost at matched predictability and relative error, with script/language/corpus not
   separated. It also records a bug in deep/mech_donor_pull*.py (donor order); the conclusion is unchanged. Preregistered
   answers are unchanged.
+
+## 2026-11-19 (later): claims audit, paper figures, findings frozen for the paper
+- An independent audit (analysis/team/audit.md; new code, no team scripts imported) recomputed 88 claim parts of
+  analysis/team_analysis_2026-11-19.md: 78 match, 5 minor mismatches, 2 not reproducible from disk, 3 not audited. The
+  synthesis was corrected in place (summary box at its top).
+- docs/paper/PAPER_FINDINGS.md fixes what the paper claims (results R1-R4, pitfalls P1-P5, claims not to make,
+  limitations), with figures F1-F7 in docs/paper/figures/ (PDF, PNG, plotted data). The scripts are in
+  analysis/team/scripts/fig_*.py; each checks its numbers against the frozen tables.

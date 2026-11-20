@@ -1,0 +1,43 @@
+
+== capture = NLDR(feat_A_along_U)/NLDR(full_along_U), valid DAS fits, f_pilot, native fits
+  add_chain L18 L18_16k_l074: rows 16 median 0.754 | unique (U,family) 12 median 0.745 | excl E22 unique 0.754 (n 7)
+  add_chain L18 L18_65k_l064: rows 2 median 0.834 | unique (U,family) 2 median 0.834 | excl E22 unique 0.834 (n 2)
+  entity_track L12 L12_16k_l082: rows 9 median 0.565 | unique (U,family) 5 median 0.565 | excl E22 unique 0.565 (n 5)
+  entity_track L12 L12_262k_l067: rows 2 median 0.612 | unique (U,family) 2 median 0.612 | excl E22 unique 0.612 (n 2)
+  entity_track L12 L12_65k_l072: rows 2 median 0.598 | unique (U,family) 2 median 0.598 | excl E22 unique 0.598 (n 2)
+  people_cities L12 L12_16k_l082: rows 1 median 0.690 | unique (U,family) 1 median 0.690 | excl E22 unique 0.690 (n 1)
+  people_cities L16 L16_16k_l078: rows 1 median 0.659 | unique (U,family) 1 median 0.659 | excl E22 unique 0.659 (n 1)
+exp          task  layer           sae         fam      est   acc  valid  capture        U   n
+E17     add_chain     18  L18_16k_l074       pilot     das4 0.733   True    0.754 7457587f 150
+E17     add_chain     18  L18_16k_l074       pilot das4_e10 0.840   True    0.746 ea0b2845 150
+E17     add_chain     18  L18_16k_l074       pilot  das4_s1 0.647   True    0.650 ad4e98c6 150
+E17     add_chain     18  L18_16k_l074       pilot     das8 0.890   True    0.763 7e8d342f 150
+E17     add_chain     18  L18_16k_l074       pilot das8_e10 0.980   True    0.756 c4a6965e 150
+E17     add_chain     18  L18_16k_l074       pilot  das8_s1 0.780   True    0.744 6088b261 150
+E18     add_chain     18  L18_16k_l074       pilot    das16 0.830   True    0.794 e9b8486d 150
+E18     add_chain     18  L18_16k_l074       pilot     das4 0.733   True    0.754 7457587f 150
+E18     add_chain     18  L18_16k_l074       pilot     das8 0.890   True    0.763 7e8d342f 150
+E22     add_chain     18  L18_16k_l074       rs_en     das4 0.633   True    0.624 e5489743 150
+E22     add_chain     18  L18_16k_l074       rs_en     das8 0.687   True    0.629 4302ec03 150
+E22     add_chain     18  L18_16k_l074       rs_fr     das8 0.593   True    0.641 b2b23b32 150
+E22     add_chain     18  L18_16k_l074       rs_hi     das8 0.880   True    0.767 318f9067 150
+E22     add_chain     18  L18_16k_l074 rs_hinglish     das8 0.580   True    0.663 8c7c49b4 150
+ E9     add_chain     18  L18_16k_l074       pilot     das4 0.733   True    0.754 7457587f 150
+ E9     add_chain     18  L18_16k_l074       pilot     das8 0.890   True    0.763 7e8d342f 150
+E20     add_chain     18  L18_65k_l064       pilot     das4 0.733   True    0.827 7457587f 150
+E20     add_chain     18  L18_65k_l064       pilot     das8 0.890   True    0.842 7e8d342f 150
+E18  entity_track     12  L12_16k_l082       pilot     das1 0.970   True    0.663 b694e625 150
+E18  entity_track     12  L12_16k_l082       pilot    das16 0.997   True    0.565 7361da6e 150
+E18  entity_track     12  L12_16k_l082       pilot     das2 1.000   True    0.524 3285c75f 150
+E18  entity_track     12  L12_16k_l082       pilot     das4 1.000   True    0.532 c536c568 150
+E18  entity_track     12  L12_16k_l082       pilot     das8 1.000   True    0.578 7d87e452 150
+ E9  entity_track     12  L12_16k_l082       pilot     das1 0.970   True    0.663 b694e625 150
+ E9  entity_track     12  L12_16k_l082       pilot     das2 1.000   True    0.524 3285c75f 150
+ E9  entity_track     12  L12_16k_l082       pilot     das4 1.000   True    0.532 c536c568 150
+ E9  entity_track     12  L12_16k_l082       pilot     das8 1.000   True    0.578 7d87e452 150
+E20  entity_track     12 L12_262k_l067       pilot     das4 1.000   True    0.591 c536c568 150
+E20  entity_track     12 L12_262k_l067       pilot     das8 1.000   True    0.632 7d87e452 150
+E20  entity_track     12  L12_65k_l072       pilot     das4 1.000   True    0.574 c536c568 150
+E20  entity_track     12  L12_65k_l072       pilot     das8 1.000   True    0.622 7d87e452 150
+E18 people_cities     12  L12_16k_l082       pc_en    das16 0.810   True    0.690 4b8322f2 150
+E18 people_cities     16  L16_16k_l078       pc_en    das16 0.780   True    0.659 c1057233 150

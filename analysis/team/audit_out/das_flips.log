@@ -1,0 +1,135 @@
+E17 n eligible 150
+random p95 full_along_U: {1: np.float64(0.0), 2: np.float64(0.0), 4: np.float64(0.0), 8: np.float64(0.0003333333333333381)}
+            fit  k  seed   acc  full    lo    hi  halfw  feat
+           das1  1     0 0.250 0.273 0.207 0.347  0.070 0.120
+       das1_e10  1     0 0.297 0.347 0.280 0.427  0.073 0.167
+das1_e10_lr3e-2  1     0 0.000 0.000 0.000 0.000  0.000 0.000
+    das1_e10_s1  1     1 0.227 0.147 0.093 0.200  0.053 0.080
+    das1_e10_s2  1     2 0.340 0.320 0.247 0.400  0.077 0.200
+       das1_e30  1     0 0.300 0.300 0.227 0.373  0.073 0.100
+        das1_s1  1     1 0.080 0.087 0.047 0.133  0.043 0.053
+        das1_s2  1     2 0.333 0.307 0.233 0.380  0.073 0.187
+           das2  2     0 0.333 0.347 0.273 0.427  0.077 0.200
+       das2_e10  2     0 0.393 0.387 0.307 0.467  0.080 0.247
+das2_e10_lr3e-2  2     0 0.437 0.440 0.360 0.520  0.080 0.227
+    das2_e10_s1  2     1 0.363 0.373 0.293 0.453  0.080 0.147
+    das2_e10_s2  2     2 0.367 0.327 0.253 0.407  0.077 0.200
+       das2_e30  2     0 0.473 0.500 0.420 0.580  0.080 0.287
+        das2_s1  2     1 0.453 0.440 0.360 0.520  0.080 0.240
+        das2_s2  2     2 0.343 0.313 0.233 0.387  0.077 0.160
+           das4  4     0 0.733 0.760 0.687 0.827  0.070 0.547
+       das4_e10  4     0 0.840 0.733 0.653 0.807  0.077 0.540
+        das4_s1  4     1 0.647 0.593 0.513 0.667  0.077 0.307
+           das8  8     0 0.890 0.867 0.807 0.920  0.057 0.680
+       das8_e10  8     0 0.980 0.900 0.853 0.947  0.047 0.700
+        das8_s1  8     1 0.780 0.733 0.660 0.800  0.070 0.467
+Spearman acc vs full flip (all 22 fits): SignificanceResult(statistic=np.float64(0.9607124203171985), pvalue=np.float64(1.3441980437397438e-12))
+Spearman lr1e-2 only (n=20): SignificanceResult(statistic=np.float64(0.9480617908951154), pvalue=np.float64(2.161878363061485e-10))
+rank-1 lr1e-2 flips range 0.087-0.347; seed-0 rank-1 [0.273, 0.347, 0.3]
+median CI half-width over fits 0.075 (range 0.000-0.080)
+    base     seedfit           cond  base_flip  seed_flip    diff  n01  n10      p   q_bh
+das1_e10 das1_e10_s1   full_along_U     0.3467     0.1467 -0.2000   41   11 0.0000 0.0002
+das1_e10 das1_e10_s1 feat_A_along_U     0.1667     0.0800 -0.0867   16    3 0.0044 0.0126
+das1_e10 das1_e10_s2   full_along_U     0.3467     0.3200 -0.0267   23   19 0.6440 0.6779
+das1_e10 das1_e10_s2 feat_A_along_U     0.1667     0.2000  0.0333    8   13 0.3833 0.4791
+    das1     das1_s1   full_along_U     0.2733     0.0867 -0.1867   30    2 0.0000 0.0000
+    das1     das1_s1 feat_A_along_U     0.1200     0.0533 -0.0667   12    2 0.0129 0.0323
+    das1     das1_s2   full_along_U     0.2733     0.3067  0.0333   12   17 0.4583 0.5391
+    das1     das1_s2 feat_A_along_U     0.1200     0.1867  0.0667    5   15 0.0414 0.0828
+das2_e10 das2_e10_s1   full_along_U     0.3867     0.3733 -0.0133   25   23 0.8854 0.8854
+das2_e10 das2_e10_s1 feat_A_along_U     0.2467     0.1467 -0.1000   25   10 0.0167 0.0371
+das2_e10 das2_e10_s2   full_along_U     0.3867     0.3267 -0.0600   32   23 0.2806 0.4404
+das2_e10 das2_e10_s2 feat_A_along_U     0.2467     0.2000 -0.0467   23   16 0.3368 0.4791
+    das2     das2_s1   full_along_U     0.3467     0.4400  0.0933   19   33 0.0704 0.1280
+    das2     das2_s1 feat_A_along_U     0.2000     0.2400  0.0400    8   14 0.2863 0.4404
+    das2     das2_s2   full_along_U     0.3467     0.3133 -0.0333   28   23 0.5758 0.6398
+    das2     das2_s2 feat_A_along_U     0.2000     0.1600 -0.0400   18   12 0.3616 0.4791
+    das4     das4_s1   full_along_U     0.7600     0.5933 -0.1667   31    6 0.0000 0.0002
+    das4     das4_s1 feat_A_along_U     0.5467     0.3067 -0.2400   39    3 0.0000 0.0000
+    das8     das8_s1   full_along_U     0.8667     0.7333 -0.1333   27    7 0.0008 0.0027
+    das8     das8_s1 feat_A_along_U     0.6800     0.4667 -0.2133   38    6 0.0000 0.0000
+
+== E18 add_chain L18: n pairs 150 eligible 150
+  pca_pooled r 1: full 0.007 [0.000,0.020] p95 0.000 eff=False | feat 0.000 p95 0.000 eff=False | repair gap closed 0.225 (featErrB NLDR 0.876) | nflips 1
+  answer_sep r 1: full 0.033 [0.007,0.067] p95 0.000 eff=False | feat 0.000 p95 0.000 eff=False | repair gap closed 0.444 (featErrB NLDR 0.876) | nflips 5
+  das1          : acc 0.250 full 0.273 eff=True | feat 0.120 eff=True | full-feat 0.153 [0.100,0.213] | repair gap closed 0.733
+  pca_pooled r 2: full 0.007 [0.000,0.020] p95 0.000 eff=False | feat 0.000 p95 0.000 eff=False | repair gap closed 0.225 (featErrB NLDR 0.876) | nflips 1
+  answer_sep r 2: full 0.027 [0.007,0.053] p95 0.000 eff=False | feat 0.000 p95 0.000 eff=False | repair gap closed 0.567 (featErrB NLDR 0.876) | nflips 4
+  das2          : acc 0.333 full 0.347 eff=True | feat 0.200 eff=True | full-feat 0.147 [0.080,0.213] | repair gap closed 0.791
+  pca_pooled r 4: full 0.007 [0.000,0.020] p95 0.000 eff=False | feat 0.000 p95 0.000 eff=False | repair gap closed 0.282 (featErrB NLDR 0.876) | nflips 1
+  answer_sep r 4: full 0.067 [0.027,0.107] p95 0.000 eff=False | feat 0.007 p95 0.000 eff=False | repair gap closed 0.716 (featErrB NLDR 0.876) | nflips 10
+  das4          : acc 0.733 full 0.760 eff=True | feat 0.547 eff=True | full-feat 0.213 [0.140,0.287] | repair gap closed 0.901
+  pca_pooled r 8: full 0.060 [0.027,0.100] p95 0.000 eff=False | feat 0.000 p95 0.000 eff=False | repair gap closed 0.730 (featErrB NLDR 0.876) | nflips 9
+  answer_sep r 8: full 0.060 [0.027,0.100] p95 0.000 eff=False | feat 0.007 p95 0.000 eff=False | repair gap closed 0.756 (featErrB NLDR 0.876) | nflips 9
+  das8          : acc 0.890 full 0.867 eff=True | feat 0.680 eff=True | full-feat 0.187 [0.120,0.260] | repair gap closed 1.057
+  pca_pooled r16: full 0.080 [0.040,0.127] p95 0.000 eff=False | feat 0.000 p95 0.000 eff=False | repair gap closed 0.805 (featErrB NLDR 0.876) | nflips 12
+  answer_sep r16: full 0.080 [0.040,0.127] p95 0.000 eff=False | feat 0.007 p95 0.000 eff=False | repair gap closed 0.836 (featErrB NLDR 0.876) | nflips 12
+  das16         : acc 0.830 full 0.780 eff=True | feat 0.707 eff=True | full-feat 0.073 [0.000,0.153] | repair gap closed 0.949
+  pca_pooled r32: full 0.153 [0.100,0.213] p95 0.000 eff=True | feat 0.040 p95 0.000 eff=False | repair gap closed 0.864 (featErrB NLDR 0.876) | nflips 23
+  answer_sep r32: full 0.173 [0.113,0.240] p95 0.000 eff=True | feat 0.047 p95 0.000 eff=False | repair gap closed 0.867 (featErrB NLDR 0.876) | nflips 26
+  pca_pooled r64: full 0.247 [0.180,0.313] p95 0.000 eff=True | feat 0.053 p95 0.007 eff=False | repair gap closed 0.920 (featErrB NLDR 0.876) | nflips 37
+  answer_sep r64: full 0.267 [0.200,0.333] p95 0.000 eff=True | feat 0.067 p95 0.007 eff=False | repair gap closed 0.913 (featErrB NLDR 0.876) | nflips 40
+  das16 init capture 0.758
+
+== E18 entity_track L12: n pairs 150 eligible 89
+  pca_pooled r 1: full 0.910 [0.843,0.966] p95 0.045 eff=True | feat 0.112 p95 0.023 eff=False | repair gap closed 0.519 (featErrB NLDR 0.748) | nflips 81
+  answer_sep r 1: full 0.865 [0.787,0.933] p95 0.045 eff=True | feat 0.101 p95 0.023 eff=False | repair gap closed 0.377 (featErrB NLDR 0.748) | nflips 77
+  das1          : acc 0.970 full 1.000 eff=True | feat 0.989 eff=True | full-feat 0.011 [0.000,0.034] | repair gap closed 1.925
+  pca_pooled r 2: full 0.944 [0.888,0.989] p95 0.034 eff=True | feat 0.090 p95 0.045 eff=False | repair gap closed 0.524 (featErrB NLDR 0.748) | nflips 84
+  answer_sep r 2: full 0.865 [0.787,0.933] p95 0.034 eff=True | feat 0.112 p95 0.045 eff=False | repair gap closed 0.370 (featErrB NLDR 0.748) | nflips 77
+  das2          : acc 1.000 full 1.000 eff=True | feat 0.955 eff=True | full-feat 0.045 [0.011,0.090] | repair gap closed 1.818
+  pca_pooled r 4: full 0.944 [0.888,0.989] p95 0.034 eff=True | feat 0.157 p95 0.035 eff=True | repair gap closed 0.552 (featErrB NLDR 0.748) | nflips 84
+  answer_sep r 4: full 0.865 [0.787,0.933] p95 0.034 eff=True | feat 0.112 p95 0.035 eff=False | repair gap closed 0.357 (featErrB NLDR 0.748) | nflips 77
+  das4          : acc 1.000 full 1.000 eff=True | feat 0.989 eff=True | full-feat 0.011 [0.000,0.034] | repair gap closed 2.378
+  pca_pooled r 8: full 0.944 [0.888,0.989] p95 0.068 eff=True | feat 0.191 p95 0.047 eff=True | repair gap closed 0.547 (featErrB NLDR 0.748) | nflips 84
+  answer_sep r 8: full 0.955 [0.899,0.989] p95 0.068 eff=True | feat 0.202 p95 0.047 eff=True | repair gap closed 0.569 (featErrB NLDR 0.748) | nflips 85
+  das8          : acc 1.000 full 0.989 eff=True | feat 1.000 eff=True | full-feat -0.011 [-0.034,0.000] | repair gap closed 2.567
+  pca_pooled r16: full 0.944 [0.888,0.989] p95 0.102 eff=True | feat 0.303 p95 0.069 eff=True | repair gap closed 0.568 (featErrB NLDR 0.748) | nflips 84
+  answer_sep r16: full 0.966 [0.921,1.000] p95 0.102 eff=True | feat 0.292 p95 0.069 eff=True | repair gap closed 0.562 (featErrB NLDR 0.748) | nflips 86
+  das16         : acc 0.997 full 1.000 eff=True | feat 0.989 eff=True | full-feat 0.011 [0.000,0.034] | repair gap closed 2.636
+  pca_pooled r32: full 0.966 [0.921,1.000] p95 0.170 eff=True | feat 0.427 p95 0.135 eff=True | repair gap closed 0.630 (featErrB NLDR 0.748) | nflips 86
+  answer_sep r32: full 0.966 [0.921,1.000] p95 0.170 eff=True | feat 0.427 p95 0.135 eff=True | repair gap closed 0.632 (featErrB NLDR 0.748) | nflips 86
+  pca_pooled r64: full 0.989 [0.966,1.000] p95 0.228 eff=True | feat 0.742 p95 0.180 eff=True | repair gap closed 0.693 (featErrB NLDR 0.748) | nflips 88
+  answer_sep r64: full 0.989 [0.966,1.000] p95 0.228 eff=True | feat 0.708 p95 0.180 eff=True | repair gap closed 0.707 (featErrB NLDR 0.748) | nflips 88
+
+== E18 people_cities L12: n pairs 150 eligible 150
+  pca_pooled r 1: full 0.000 [0.000,0.000] p95 0.000 eff=False | feat 0.000 p95 0.000 eff=False | repair gap closed -0.001 (featErrB NLDR 0.763) | nflips 0
+  answer_sep r 1: full 0.000 [0.000,0.000] p95 0.000 eff=False | feat 0.000 p95 0.000 eff=False | repair gap closed -0.003 (featErrB NLDR 0.763) | nflips 0
+  das1          : acc 0.007 full 0.007 eff=False | feat 0.007 eff=False | full-feat 0.000 [0.000,0.000] | repair gap closed 0.044
+  pca_pooled r 2: full 0.000 [0.000,0.000] p95 0.000 eff=False | feat 0.000 p95 0.000 eff=False | repair gap closed -0.003 (featErrB NLDR 0.763) | nflips 0
+  answer_sep r 2: full 0.000 [0.000,0.000] p95 0.000 eff=False | feat 0.000 p95 0.000 eff=False | repair gap closed 0.000 (featErrB NLDR 0.763) | nflips 0
+  das2          : acc 0.017 full 0.007 eff=False | feat 0.007 eff=False | full-feat 0.000 [0.000,0.000] | repair gap closed 0.103
+  pca_pooled r 4: full 0.000 [0.000,0.000] p95 0.000 eff=False | feat 0.000 p95 0.000 eff=False | repair gap closed 0.001 (featErrB NLDR 0.763) | nflips 0
+  answer_sep r 4: full 0.000 [0.000,0.000] p95 0.000 eff=False | feat 0.000 p95 0.000 eff=False | repair gap closed 0.006 (featErrB NLDR 0.763) | nflips 0
+  das4          : acc 0.143 full 0.100 eff=True | feat 0.040 eff=False | full-feat 0.060 [0.020,0.107] | repair gap closed 0.248
+  pca_pooled r 8: full 0.000 [0.000,0.000] p95 0.000 eff=False | feat 0.000 p95 0.000 eff=False | repair gap closed 0.007 (featErrB NLDR 0.763) | nflips 0
+  answer_sep r 8: full 0.000 [0.000,0.000] p95 0.000 eff=False | feat 0.000 p95 0.000 eff=False | repair gap closed 0.017 (featErrB NLDR 0.763) | nflips 0
+  das8          : acc 0.437 full 0.313 eff=True | feat 0.127 eff=True | full-feat 0.187 [0.127,0.247] | repair gap closed 0.417
+  pca_pooled r16: full 0.000 [0.000,0.000] p95 0.000 eff=False | feat 0.000 p95 0.000 eff=False | repair gap closed 0.015 (featErrB NLDR 0.763) | nflips 0
+  answer_sep r16: full 0.000 [0.000,0.000] p95 0.000 eff=False | feat 0.000 p95 0.000 eff=False | repair gap closed 0.019 (featErrB NLDR 0.763) | nflips 0
+  das16         : acc 0.810 full 0.793 eff=True | feat 0.420 eff=True | full-feat 0.373 [0.300,0.453] | repair gap closed 0.604
+  pca_pooled r32: full 0.000 [0.000,0.000] p95 0.000 eff=False | feat 0.000 p95 0.000 eff=False | repair gap closed 0.022 (featErrB NLDR 0.763) | nflips 0
+  answer_sep r32: full 0.000 [0.000,0.000] p95 0.000 eff=False | feat 0.000 p95 0.000 eff=False | repair gap closed 0.026 (featErrB NLDR 0.763) | nflips 0
+  pca_pooled r64: full 0.000 [0.000,0.000] p95 0.000 eff=False | feat 0.000 p95 0.000 eff=False | repair gap closed 0.042 (featErrB NLDR 0.763) | nflips 0
+  answer_sep r64: full 0.000 [0.000,0.000] p95 0.000 eff=False | feat 0.000 p95 0.000 eff=False | repair gap closed 0.043 (featErrB NLDR 0.763) | nflips 0
+
+== E18 people_cities L16: n pairs 150 eligible 150
+  pca_pooled r 1: full 0.000 [0.000,0.000] p95 0.000 eff=False | feat 0.000 p95 0.000 eff=False | repair gap closed 0.000 (featErrB NLDR 0.677) | nflips 0
+  answer_sep r 1: full 0.000 [0.000,0.000] p95 0.000 eff=False | feat 0.000 p95 0.000 eff=False | repair gap closed 0.020 (featErrB NLDR 0.677) | nflips 0
+  das1          : acc 0.007 full 0.000 eff=False | feat 0.000 eff=False | full-feat 0.000 [0.000,0.000] | repair gap closed 0.064
+  pca_pooled r 2: full 0.000 [0.000,0.000] p95 0.000 eff=False | feat 0.000 p95 0.000 eff=False | repair gap closed 0.008 (featErrB NLDR 0.677) | nflips 0
+  answer_sep r 2: full 0.000 [0.000,0.000] p95 0.000 eff=False | feat 0.000 p95 0.000 eff=False | repair gap closed 0.037 (featErrB NLDR 0.677) | nflips 0
+  das2          : acc 0.037 full 0.020 eff=False | feat 0.007 eff=False | full-feat 0.013 [0.000,0.033] | repair gap closed 0.125
+  pca_pooled r 4: full 0.000 [0.000,0.000] p95 0.000 eff=False | feat 0.000 p95 0.000 eff=False | repair gap closed 0.020 (featErrB NLDR 0.677) | nflips 0
+  answer_sep r 4: full 0.000 [0.000,0.000] p95 0.000 eff=False | feat 0.000 p95 0.000 eff=False | repair gap closed 0.055 (featErrB NLDR 0.677) | nflips 0
+  das4          : acc 0.047 full 0.040 eff=False | feat 0.020 eff=False | full-feat 0.020 [0.000,0.047] | repair gap closed 0.213
+  pca_pooled r 8: full 0.000 [0.000,0.000] p95 0.000 eff=False | feat 0.000 p95 0.000 eff=False | repair gap closed 0.058 (featErrB NLDR 0.677) | nflips 0
+  answer_sep r 8: full 0.000 [0.000,0.000] p95 0.000 eff=False | feat 0.000 p95 0.000 eff=False | repair gap closed 0.103 (featErrB NLDR 0.677) | nflips 0
+  das8          : acc 0.327 full 0.253 eff=True | feat 0.047 eff=False | full-feat 0.207 [0.140,0.273] | repair gap closed 0.370
+  pca_pooled r16: full 0.000 [0.000,0.000] p95 0.000 eff=False | feat 0.000 p95 0.000 eff=False | repair gap closed 0.101 (featErrB NLDR 0.677) | nflips 0
+  answer_sep r16: full 0.000 [0.000,0.000] p95 0.000 eff=False | feat 0.000 p95 0.000 eff=False | repair gap closed 0.143 (featErrB NLDR 0.677) | nflips 0
+  das16         : acc 0.780 full 0.827 eff=True | feat 0.273 eff=True | full-feat 0.553 [0.473,0.633] | repair gap closed 0.580
+  pca_pooled r32: full 0.000 [0.000,0.000] p95 0.000 eff=False | feat 0.000 p95 0.000 eff=False | repair gap closed 0.139 (featErrB NLDR 0.677) | nflips 0
+  answer_sep r32: full 0.000 [0.000,0.000] p95 0.000 eff=False | feat 0.000 p95 0.000 eff=False | repair gap closed 0.156 (featErrB NLDR 0.677) | nflips 0
+  pca_pooled r64: full 0.000 [0.000,0.000] p95 0.000 eff=False | feat 0.000 p95 0.000 eff=False | repair gap closed 0.154 (featErrB NLDR 0.677) | nflips 0
+  answer_sep r64: full 0.000 [0.000,0.000] p95 0.000 eff=False | feat 0.000 p95 0.000 eff=False | repair gap closed 0.159 (featErrB NLDR 0.677) | nflips 0

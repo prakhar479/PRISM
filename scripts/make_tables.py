@@ -34,6 +34,8 @@ def runs(runs_root: Path, only=None):
             continue
         if only and m["exp_id"] not in only:
             continue
+        if not (man.parent / "per_pair.parquet").exists():                   # table-type runs (E12, E13)
+            continue
         out.append((m, man.parent))
     return out
 

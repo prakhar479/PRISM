@@ -105,6 +105,7 @@ def md(df: pd.DataFrame) -> str:
 
 def main() -> int:
     ap = argparse.ArgumentParser()
+    ap.add_argument("--only", default=None, help="comma list of experiment ids (e.g. E0,...,E8 reproduces the release-2 table)")
     ap.add_argument("--n-boot", type=int, default=10_000)
     ap.add_argument("--profile", default=None)
     ap.add_argument("--out", default=None)
@@ -114,6 +115,10 @@ def main() -> int:
     for man in sorted(prof.root("runs_root").glob("E*/*/manifest.json")):
         m = json.loads(man.read_text())
         if m.get("smoke") or m.get("tiny") or m.get("status") != "complete":
+            continue
+        if a.only and m["exp_id"] not in a.only.split(","):
+            continue
+        if not (man.parent / "per_pair.parquet").exists():               # table-type runs (E12, E13)
             continue
         pp = pd.read_parquet(man.parent / "per_pair.parquet")
         if CONDITION in set(pp.condition):

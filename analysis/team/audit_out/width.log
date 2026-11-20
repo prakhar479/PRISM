@@ -1,0 +1,125 @@
+
+== add_chain L18 f_pilot: n 150 elig 150
+  16k das4 capture 0.754
+  16k das8 capture 0.763
+  L18_65k_l064 das4: capture 0.827 ; Δ feat NLDR +0.055 [+0.036,+0.075] ; feat flip 0.620 vs 16k 0.547
+  L18_65k_l064 das8: capture 0.842 ; Δ feat NLDR +0.069 [+0.049,+0.091] ; feat flip 0.727 vs 16k 0.680
+  L18_65k_l064 feat_A_errB flip gap: 16k 0.080 wide 0.113 Δ +0.033 [-0.013,+0.080]
+  L18_65k_l064 feat_A_errB NLDR gap: 16k 0.124 wide 0.113 Δ -0.011 [-0.032,+0.012]
+  L18_65k_l064 repair share pca_pooled r1: 16k 0.225 wide -0.033
+  L18_65k_l064 repair share pca_pooled r8: 16k 0.730 wide 0.628
+  L18_65k_l064 repair share answer_sep r1: 16k 0.444 wide 0.316
+
+== add_chain L18 f_A_correct: n 208 elig 203
+  16k das4 capture 0.746
+  16k das8 capture 0.750
+  L18_65k_l064 das4: capture 0.824 ; Δ feat NLDR +0.059 [+0.041,+0.077] ; feat flip 0.621 vs 16k 0.542
+  L18_65k_l064 das8: capture 0.836 ; Δ feat NLDR +0.077 [+0.058,+0.096] ; feat flip 0.714 vs 16k 0.650
+  L18_65k_l064 feat_A_errB flip gap: 16k 0.138 wide 0.158 Δ +0.020 [-0.030,+0.074]
+  L18_65k_l064 feat_A_errB NLDR gap: 16k 0.142 wide 0.118 Δ -0.024 [-0.046,-0.002]
+
+== add_chain L18 f_none: n 215 elig 209
+  16k das4 capture 0.746
+  16k das8 capture 0.750
+  L18_65k_l064 das4: capture 0.823 ; Δ feat NLDR +0.059 [+0.041,+0.078] ; feat flip 0.612 vs 16k 0.545
+  L18_65k_l064 das8: capture 0.834 ; Δ feat NLDR +0.076 [+0.056,+0.097] ; feat flip 0.703 vs 16k 0.651
+  L18_65k_l064 feat_A_errB flip gap: 16k 0.120 wide 0.144 Δ +0.024 [-0.033,+0.081]
+  L18_65k_l064 feat_A_errB NLDR gap: 16k 0.142 wide 0.117 Δ -0.025 [-0.049,-0.004]
+
+== entity_track L12 f_pilot: n 150 elig 89
+  16k das4 capture 0.532
+  16k das8 capture 0.578
+  L12_65k_l072 das4: capture 0.574 ; Δ feat NLDR +0.078 [+0.062,+0.093] ; feat flip 0.989 vs 16k 0.989
+  L12_65k_l072 das8: capture 0.622 ; Δ feat NLDR +0.087 [+0.072,+0.100] ; feat flip 1.000 vs 16k 1.000
+  L12_65k_l072 feat_A_errB flip gap: 16k 0.000 wide 0.000 Δ +0.000 [+0.000,+0.000]
+  L12_65k_l072 feat_A_errB NLDR gap: 16k 0.252 wide 0.241 Δ -0.010 [-0.027,+0.005]
+  L12_65k_l072 repair share pca_pooled r1: 16k 0.519 wide 0.642
+  L12_65k_l072 repair share pca_pooled r8: 16k 0.547 wide 0.734
+  L12_65k_l072 repair share answer_sep r1: 16k 0.377 wide 0.407
+  L12_262k_l067 das4: capture 0.591 ; Δ feat NLDR +0.110 [+0.091,+0.128] ; feat flip 0.989 vs 16k 0.989
+  L12_262k_l067 das8: capture 0.632 ; Δ feat NLDR +0.108 [+0.087,+0.127] ; feat flip 1.000 vs 16k 1.000
+  L12_262k_l067 feat_A_errB flip gap: 16k 0.000 wide 0.011 Δ +0.011 [+0.000,+0.036]
+  L12_262k_l067 feat_A_errB NLDR gap: 16k 0.252 wide 0.147 Δ -0.105 [-0.122,-0.088]
+  L12_262k_l067 repair share pca_pooled r1: 16k 0.519 wide 0.608
+  L12_262k_l067 repair share pca_pooled r8: 16k 0.547 wide 0.663
+  L12_262k_l067 repair share answer_sep r1: 16k 0.377 wide 0.523
+
+== entity_track L12 f_A_correct: n 219 elig 98
+  16k das4 capture 0.528
+  16k das8 capture 0.570
+  L12_65k_l072 das4: capture 0.571 ; Δ feat NLDR +0.082 [+0.069,+0.095] ; feat flip 0.980 vs 16k 0.980
+  L12_65k_l072 das8: capture 0.613 ; Δ feat NLDR +0.087 [+0.073,+0.100] ; feat flip 1.000 vs 16k 1.000
+  L12_65k_l072 feat_A_errB flip gap: 16k 0.000 wide 0.000 Δ +0.000 [+0.000,+0.000]
+  L12_65k_l072 feat_A_errB NLDR gap: 16k 0.255 wide 0.252 Δ -0.003 [-0.019,+0.013]
+  L12_262k_l067 das4: capture 0.584 ; Δ feat NLDR +0.106 [+0.091,+0.121] ; feat flip 0.980 vs 16k 0.980
+  L12_262k_l067 das8: capture 0.622 ; Δ feat NLDR +0.104 [+0.088,+0.121] ; feat flip 1.000 vs 16k 1.000
+  L12_262k_l067 feat_A_errB flip gap: 16k 0.000 wide 0.010 Δ +0.010 [+0.000,+0.033]
+  L12_262k_l067 feat_A_errB NLDR gap: 16k 0.255 wide 0.155 Δ -0.100 [-0.115,-0.085]
+
+== entity_track L12 f_none: n 249 elig 106
+  16k das4 capture 0.532
+  16k das8 capture 0.573
+  L12_65k_l072 das4: capture 0.574 ; Δ feat NLDR +0.075 [+0.061,+0.088] ; feat flip 0.934 vs 16k 0.934
+  L12_65k_l072 das8: capture 0.614 ; Δ feat NLDR +0.080 [+0.066,+0.094] ; feat flip 0.981 vs 16k 0.991
+  L12_65k_l072 feat_A_errB flip gap: 16k -0.009 wide -0.028 Δ -0.019 [-0.048,+0.000]
+  L12_65k_l072 feat_A_errB NLDR gap: 16k 0.248 wide 0.238 Δ -0.010 [-0.025,+0.006]
+  L12_262k_l067 das4: capture 0.588 ; Δ feat NLDR +0.100 [+0.085,+0.114] ; feat flip 0.915 vs 16k 0.934
+  L12_262k_l067 das8: capture 0.624 ; Δ feat NLDR +0.099 [+0.083,+0.115] ; feat flip 0.972 vs 16k 0.991
+  L12_262k_l067 feat_A_errB flip gap: 16k -0.009 wide 0.000 Δ +0.009 [-0.020,+0.042]
+  L12_262k_l067 feat_A_errB NLDR gap: 16k 0.248 wide 0.156 Δ -0.092 [-0.107,-0.076]
+
+== capture = NLDR(feat_A_along_U)/NLDR(full_along_U), valid DAS fits, f_pilot, native fits
+  add_chain L18 L18_16k_l074: rows 27 median 0.744 | unique (U,family) 19 median 0.740 | excl E22 unique 0.747 (n 14)
+  add_chain L18 L18_65k_l064: rows 4 median 0.837 | unique (U,family) 4 median 0.837 | excl E22 unique 0.837 (n 4)
+  entity_track L12 L12_16k_l082: rows 9 median 0.565 | unique (U,family) 5 median 0.565 | excl E22 unique 0.565 (n 5)
+  entity_track L12 L12_262k_l067: rows 2 median 0.612 | unique (U,family) 2 median 0.612 | excl E22 unique 0.612 (n 2)
+  entity_track L12 L12_65k_l072: rows 2 median 0.598 | unique (U,family) 2 median 0.598 | excl E22 unique 0.598 (n 2)
+  people_cities L12 L12_16k_l082: rows 1 median 0.690 | unique (U,family) 1 median 0.690 | excl E22 unique 0.690 (n 1)
+  people_cities L16 L16_16k_l078: rows 1 median 0.659 | unique (U,family) 1 median 0.659 | excl E22 unique 0.659 (n 1)
+exp          task  layer           sae         fam      est   acc  valid  capture        U   n
+E17     add_chain     18  L18_16k_l074  pilot_calc     das4 0.733   True    0.767 7457587f  45
+E17     add_chain     18  L18_16k_l074  pilot_calc das4_e10 0.840   True    0.776 ea0b2845  45
+E17     add_chain     18  L18_16k_l074  pilot_calc  das4_s1 0.647   True    0.694 ad4e98c6  45
+E17     add_chain     18  L18_16k_l074  pilot_calc     das8 0.890   True    0.799 7e8d342f  45
+E17     add_chain     18  L18_16k_l074  pilot_calc das8_e10 0.980   True    0.801 c4a6965e  45
+E17     add_chain     18  L18_16k_l074  pilot_calc  das8_s1 0.780   True    0.749 6088b261  45
+E17     add_chain     18  L18_16k_l074 pilot_story     das4 0.733   True    0.744 7457587f 105
+E17     add_chain     18  L18_16k_l074 pilot_story das4_e10 0.840   True    0.726 ea0b2845 105
+E17     add_chain     18  L18_16k_l074 pilot_story  das4_s1 0.647   True    0.619 ad4e98c6 105
+E17     add_chain     18  L18_16k_l074 pilot_story     das8 0.890   True    0.739 7e8d342f 105
+E17     add_chain     18  L18_16k_l074 pilot_story das8_e10 0.980   True    0.727 c4a6965e 105
+E17     add_chain     18  L18_16k_l074 pilot_story  das8_s1 0.780   True    0.740 6088b261 105
+E18     add_chain     18  L18_16k_l074  pilot_calc    das16 0.830   True    0.802 e9b8486d  45
+E18     add_chain     18  L18_16k_l074  pilot_calc     das4 0.733   True    0.767 7457587f  45
+E18     add_chain     18  L18_16k_l074  pilot_calc     das8 0.890   True    0.799 7e8d342f  45
+E18     add_chain     18  L18_16k_l074 pilot_story    das16 0.830   True    0.788 e9b8486d 105
+E18     add_chain     18  L18_16k_l074 pilot_story     das4 0.733   True    0.744 7457587f 105
+E18     add_chain     18  L18_16k_l074 pilot_story     das8 0.890   True    0.739 7e8d342f 105
+E22     add_chain     18  L18_16k_l074       rs_en     das4 0.633   True    0.624 e5489743 150
+E22     add_chain     18  L18_16k_l074       rs_en     das8 0.687   True    0.629 4302ec03 150
+E22     add_chain     18  L18_16k_l074       rs_fr     das8 0.593   True    0.641 b2b23b32 150
+E22     add_chain     18  L18_16k_l074       rs_hi     das8 0.580   True    0.767 8c7c49b4 150
+E22     add_chain     18  L18_16k_l074 rs_hinglish     das8 0.580   True    0.663 8c7c49b4 150
+ E9     add_chain     18  L18_16k_l074  pilot_calc     das4 0.733   True    0.767 7457587f  45
+ E9     add_chain     18  L18_16k_l074  pilot_calc     das8 0.890   True    0.799 7e8d342f  45
+ E9     add_chain     18  L18_16k_l074 pilot_story     das4 0.733   True    0.744 7457587f 105
+ E9     add_chain     18  L18_16k_l074 pilot_story     das8 0.890   True    0.739 7e8d342f 105
+E20     add_chain     18  L18_65k_l064  pilot_calc     das4 0.733   True    0.858 7457587f  45
+E20     add_chain     18  L18_65k_l064  pilot_calc     das8 0.890   True    0.882 7e8d342f  45
+E20     add_chain     18  L18_65k_l064 pilot_story     das4 0.733   True    0.805 7457587f 105
+E20     add_chain     18  L18_65k_l064 pilot_story     das8 0.890   True    0.815 7e8d342f 105
+E18  entity_track     12  L12_16k_l082       pilot     das1 0.970   True    0.663 b694e625 150
+E18  entity_track     12  L12_16k_l082       pilot    das16 0.997   True    0.565 7361da6e 150
+E18  entity_track     12  L12_16k_l082       pilot     das2 1.000   True    0.524 3285c75f 150
+E18  entity_track     12  L12_16k_l082       pilot     das4 1.000   True    0.532 c536c568 150
+E18  entity_track     12  L12_16k_l082       pilot     das8 1.000   True    0.578 7d87e452 150
+ E9  entity_track     12  L12_16k_l082       pilot     das1 0.970   True    0.663 b694e625 150
+ E9  entity_track     12  L12_16k_l082       pilot     das2 1.000   True    0.524 3285c75f 150
+ E9  entity_track     12  L12_16k_l082       pilot     das4 1.000   True    0.532 c536c568 150
+ E9  entity_track     12  L12_16k_l082       pilot     das8 1.000   True    0.578 7d87e452 150
+E20  entity_track     12 L12_262k_l067       pilot     das4 1.000   True    0.591 c536c568 150
+E20  entity_track     12 L12_262k_l067       pilot     das8 1.000   True    0.632 7d87e452 150
+E20  entity_track     12  L12_65k_l072       pilot     das4 1.000   True    0.574 c536c568 150
+E20  entity_track     12  L12_65k_l072       pilot     das8 1.000   True    0.622 7d87e452 150
+E18 people_cities     12  L12_16k_l082       pc_en    das16 0.810   True    0.690 4b8322f2 150
+E18 people_cities     16  L16_16k_l078       pc_en    das16 0.780   True    0.659 c1057233 150

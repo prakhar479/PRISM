@@ -16,9 +16,10 @@ from harness.schema import PER_PAIR, validate_per_pair
 ROOT = Path(__file__).resolve().parents[2]
 
 
-def root_commit() -> str:
-    """Never tagged (HEAD is tagged right after a release, so HEAD cannot stand in for 'untagged')."""
-    return provenance.git("rev-list", "--max-parents=0", "HEAD").split()[0]
+def old_commit() -> str:
+    """A commit id that is not HEAD and carries no run-* tag. A fixed id that does not exist in the repository works for any
+    history depth (the released snapshot is a single commit, so its root commit is HEAD)."""
+    return "0" * 40
 
 
 def fake_run(runs_root: Path, exp="E0", h="abc123def456", tiny=False, commit=None):
@@ -60,7 +61,7 @@ def test_bundle_ingest_round_trip(tmp_path):
     r = run("ingest_results.py", [str(tar), "--allow-untagged"], env2)          # same bundle again: no-op
     assert r.returncode == 0 and "already present 1" in r.stdout
     old = tmp_path / "run_side_old"
-    fake_run(old, h="0dd0dd0dd0dd", commit=root_commit())
+    fake_run(old, h="0dd0dd0dd0dd", commit=old_commit())
     r = run("bundle_results.py", ["--tag", "t2", "--out-dir", str(tmp_path / "b2")], {**os.environ, "HL_RUNS_ROOT": str(old)})
     assert r.returncode == 0 and "0 runs" in r.stdout                           # default: only runs made at HEAD
     r = run("bundle_results.py", ["--tag", "t2", "--out-dir", str(tmp_path / "b3"), "--all-commits"],

@@ -31,6 +31,8 @@ def load_runs(runs_root: Path, only=None):
             continue
         if only and m["exp_id"] not in only:
             continue
+        if not (man.parent / "per_pair.parquet").exists():               # table-type runs (E12, E13)
+            continue
         pp = pd.read_parquet(man.parent / "per_pair.parquet")
         if not {"full_A", "feat_A_errB"} <= set(pp.condition):
             continue                                              # gaps need full_A and feat_A_errB

@@ -1,0 +1,22 @@
+# E7 (P1): estimator ablation. Four estimators on OT L12 and RS L18 (16k); PC1 variance explained and cosines between
+# estimators are written to directions/*.json.
+exp_id: E7
+name: estimator_ablation
+description: pca_pooled, answer_sep, pca_pos_centered, pca_slot_centered_pairdiff; repair and repair_mean.
+model_revision: c5ebcd40d208330abc697524c919956e692655cf
+prompt_sets: {entity_track: prompt_sets/entity_track_pilot.jsonl.gz, add_chain: prompt_sets/add_chain_pilot.jsonl.gz}
+cells:
+  - {task: entity_track, layer: 12, sae: {width: 16k}, role: confirmatory}
+  - {task: add_chain, layer: 18, sae: {width: 16k}, role: confirmatory}
+filters: [f_pilot, f_A_correct]
+fit_filter: f_pilot
+conditions: [feat_A_errB, feat_A_meanPos]
+directions:
+  conditions: [repair, repair_mean]
+  ranks: [0, 1, 2, 4, 8]
+  estimators: [pca_pooled, answer_sep, pca_pos_centered, pca_slot_centered_pairdiff]
+  sources: [same_task]
+  random_seeds: 0
+  r_max: 32
+bootstrap: 1000
+seed: 0

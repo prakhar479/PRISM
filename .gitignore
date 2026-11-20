@@ -1,0 +1,22 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv*/
+*.egg-info/
+.ipynb_checkpoints/
+# generated locally, never committed (new runs go to runs/ and are shipped with scripts/bundle_results.py)
+/runs/
+.layout/
+external/
+cache/
+golden/
+incoming/
+bundles/
+results_server/
+preflight/
+profiles/local.yaml
+tests/_tiny_runs/
+tests/_tiny_cache/
+slurm-*.out
+.env
+analysis/team/multilingual_out/windows.parquet

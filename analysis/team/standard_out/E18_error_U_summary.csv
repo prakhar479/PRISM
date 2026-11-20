@@ -1,0 +1,73 @@
+cell,filter,estimator,condition,effective_ranks,max_flip,r_at_max,max_flip_minus_p95
+OT L12,f_A_correct,answer_sep,feat_A_along_U,"[8, 16, 32, 64]",0.7040816326530612,64,0.5198979591836735
+OT L12,f_A_correct,answer_sep,full_along_U,"[1, 2, 4, 8, 16, 32, 64]",0.9897959183673468,64,0.8566326530612246
+OT L12,f_A_correct,answer_sep,repair,[],1.0,2,0.0
+OT L12,f_A_correct,pca_pooled,feat_A_along_U,"[4, 8, 16, 32, 64]",0.7346938775510204,64,0.5505102040816328
+OT L12,f_A_correct,pca_pooled,full_along_U,"[1, 2, 4, 8, 16, 32, 64]",0.9897959183673468,64,0.8770408163265307
+OT L12,f_A_correct,pca_pooled,repair,[],1.0,32,0.0
+OT L12,f_none,answer_sep,feat_A_along_U,"[8, 16, 32, 64]",0.660377358490566,64,0.4806603773584906
+OT L12,f_none,answer_sep,full_along_U,"[1, 2, 4, 8, 16, 32, 64]",0.9245283018867924,64,0.7915094339622641
+OT L12,f_none,answer_sep,repair,[],0.9339622641509434,64,0.0
+OT L12,f_none,pca_pooled,feat_A_along_U,"[4, 8, 16, 32, 64]",0.6886792452830188,64,0.5089622641509435
+OT L12,f_none,pca_pooled,full_along_U,"[1, 2, 4, 8, 16, 32, 64]",0.9245283018867924,64,0.8018867924528302
+OT L12,f_none,pca_pooled,repair,[],0.9339622641509434,64,0.0
+OT L12,f_pilot,answer_sep,feat_A_along_U,"[8, 16, 32, 64]",0.7078651685393258,64,0.5275280898876404
+OT L12,f_pilot,answer_sep,full_along_U,"[1, 2, 4, 8, 16, 32, 64]",0.9887640449438202,64,0.8870786516853932
+OT L12,f_pilot,answer_sep,repair,[],1.0,1,0.0
+OT L12,f_pilot,pca_pooled,feat_A_along_U,"[4, 8, 16, 32, 64]",0.7415730337078652,64,0.5612359550561798
+OT L12,f_pilot,pca_pooled,full_along_U,"[1, 2, 4, 8, 16, 32, 64]",0.9887640449438202,64,0.909550561797753
+OT L12,f_pilot,pca_pooled,repair,[],1.0,1,0.0
+PC L12,f_A_correct,answer_sep,feat_A_along_U,[],0.0,1,0.0
+PC L12,f_A_correct,answer_sep,full_along_U,[],0.0,1,0.0
+PC L12,f_A_correct,answer_sep,repair,[],0.933774834437086,64,0.006622516556291536
+PC L12,f_A_correct,pca_pooled,feat_A_along_U,[],0.0,1,0.0
+PC L12,f_A_correct,pca_pooled,full_along_U,[],0.0,1,0.0
+PC L12,f_A_correct,pca_pooled,repair,[],0.933774834437086,64,0.0
+PC L12,f_none,answer_sep,feat_A_along_U,[],0.0,1,0.0
+PC L12,f_none,answer_sep,full_along_U,[],0.0,1,0.0
+PC L12,f_none,answer_sep,repair,[],0.9276315789473684,64,0.0065789473684207955
+PC L12,f_none,pca_pooled,feat_A_along_U,[],0.0,1,0.0
+PC L12,f_none,pca_pooled,full_along_U,[],0.0,1,0.0
+PC L12,f_none,pca_pooled,repair,[],0.9276315789473684,64,0.0
+PC L12,f_pilot,answer_sep,feat_A_along_U,[],0.0,1,0.0
+PC L12,f_pilot,answer_sep,full_along_U,[],0.0,1,0.0
+PC L12,f_pilot,answer_sep,repair,[],0.9333333333333332,64,0.006666666666666599
+PC L12,f_pilot,pca_pooled,feat_A_along_U,[],0.0,1,0.0
+PC L12,f_pilot,pca_pooled,full_along_U,[],0.0,1,0.0
+PC L12,f_pilot,pca_pooled,repair,[],0.9333333333333332,64,0.0
+PC L16,f_A_correct,answer_sep,feat_A_along_U,[],0.0,1,0.0
+PC L16,f_A_correct,answer_sep,full_along_U,[],0.0,1,0.0
+PC L16,f_A_correct,answer_sep,repair,[],0.9072847682119204,32,0.07913907284768196
+PC L16,f_A_correct,pca_pooled,feat_A_along_U,[],0.0,1,0.0
+PC L16,f_A_correct,pca_pooled,full_along_U,[],0.0,1,0.0
+PC L16,f_A_correct,pca_pooled,repair,[],0.8874172185430463,16,0.06622516556291391
+PC L16,f_none,answer_sep,feat_A_along_U,[],0.0,1,0.0
+PC L16,f_none,answer_sep,full_along_U,[],0.0,1,0.0
+PC L16,f_none,answer_sep,repair,[],0.9013157894736842,32,0.07861842105263162
+PC L16,f_none,pca_pooled,feat_A_along_U,[],0.0,1,0.0
+PC L16,f_none,pca_pooled,full_along_U,[],0.0,1,0.0
+PC L16,f_none,pca_pooled,repair,[],0.881578947368421,16,0.06578947368421051
+PC L16,f_pilot,answer_sep,feat_A_along_U,[],0.0,1,0.0
+PC L16,f_pilot,answer_sep,full_along_U,[],0.0,1,0.0
+PC L16,f_pilot,answer_sep,repair,[],0.9066666666666666,32,0.07966666666666666
+PC L16,f_pilot,pca_pooled,feat_A_along_U,[],0.0,1,0.0
+PC L16,f_pilot,pca_pooled,full_along_U,[],0.0,1,0.0
+PC L16,f_pilot,pca_pooled,repair,[],0.8866666666666667,16,0.06000000000000005
+RS L18,f_A_correct,answer_sep,feat_A_along_U,[],0.0541871921182266,64,0.049261083743842395
+RS L18,f_A_correct,answer_sep,full_along_U,"[32, 64]",0.2758620689655172,64,0.2758620689655172
+RS L18,f_A_correct,answer_sep,repair,"[16, 32]",0.9802955665024632,64,0.10344827586206895
+RS L18,f_A_correct,pca_pooled,feat_A_along_U,[],0.0443349753694581,64,0.0394088669950739
+RS L18,f_A_correct,pca_pooled,full_along_U,"[32, 64]",0.2610837438423645,64,0.2610837438423645
+RS L18,f_A_correct,pca_pooled,repair,"[8, 16, 32]",0.9802955665024632,16,0.10837438423645329
+RS L18,f_none,answer_sep,feat_A_along_U,[],0.062200956937799,64,0.0574162679425837
+RS L18,f_none,answer_sep,full_along_U,"[32, 64]",0.2822966507177033,64,0.27751196172248804
+RS L18,f_none,answer_sep,repair,"[16, 32]",0.971291866028708,64,0.10502392344497591
+RS L18,f_none,pca_pooled,feat_A_along_U,[],0.0526315789473684,64,0.047846889952153096
+RS L18,f_none,pca_pooled,full_along_U,"[16, 32, 64]",0.2679425837320574,64,0.26315789473684215
+RS L18,f_none,pca_pooled,repair,"[8, 16, 32]",0.971291866028708,16,0.11004784688995195
+RS L18,f_pilot,answer_sep,feat_A_along_U,[],0.0666666666666666,64,0.06
+RS L18,f_pilot,answer_sep,full_along_U,"[32, 64]",0.2666666666666666,64,0.2666666666666666
+RS L18,f_pilot,answer_sep,repair,[],0.9933333333333332,16,0.05999999999999994
+RS L18,f_pilot,pca_pooled,feat_A_along_U,[],0.0533333333333333,64,0.046666666666666703
+RS L18,f_pilot,pca_pooled,full_along_U,"[32, 64]",0.2466666666666666,64,0.2466666666666666
+RS L18,f_pilot,pca_pooled,repair,[],0.9933333333333332,8,0.06666666666666654

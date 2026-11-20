@@ -1,0 +1,62 @@
+lang  layer width  splice_ratio  splice_ratio_lo  splice_ratio_hi  mean_abl_ratio  mean_abl_ratio_lo  mean_abl_ratio_hi  zero_abl_ratio  zero_abl_ratio_lo  zero_abl_ratio_hi  ce_clean_ratio  splice_over_mean_abl_ratio  splice_over_mean_abl_ratio_lo  splice_over_mean_abl_ratio_hi
+  hi     12   16k         2.438            2.367            2.508           1.242              1.231              1.252           1.259              1.249              1.269           0.595                       1.964                          1.907                          2.019
+  hi     12   65k         1.944            1.890            2.002           1.242              1.231              1.252           1.259              1.249              1.269           0.595                       1.566                          1.521                          1.614
+  hi     18   16k         1.511            1.476            1.546           1.253              1.242              1.263           1.630              1.618              1.640           0.595                       1.206                          1.179                          1.234
+  hi     18   65k         1.629            1.588            1.674           1.253              1.242              1.262           1.630              1.618              1.641           0.595                       1.300                          1.268                          1.336
+  ta     12   16k         4.132            3.986            4.285           1.389              1.377              1.400           1.331              1.320              1.342           0.425                       2.975                          2.872                          3.088
+  ta     12   65k         4.247            4.090            4.410           1.389              1.376              1.402           1.331              1.319              1.342           0.425                       3.058                          2.947                          3.177
+  ta     18   16k         1.729            1.701            1.761           1.507              1.493              1.522           1.611              1.599              1.622           0.425                       1.147                          1.127                          1.169
+  ta     18   65k         3.973            3.836            4.123           1.507              1.493              1.522           1.611              1.600              1.622           0.425                       2.636                          2.550                          2.728
+  bn     12   16k         1.934            1.883            1.985           1.243              1.231              1.255           1.475              1.462              1.489           0.352                       1.556                          1.513                          1.599
+  bn     12   65k         2.688            2.601            2.779           1.243              1.231              1.255           1.475              1.462              1.489           0.352                       2.162                          2.094                          2.236
+  bn     18   16k         2.292            2.243            2.342           1.404              1.390              1.418           2.039              2.024              2.054           0.352                       1.633                          1.599                          1.670
+  bn     18   65k         2.677            2.608            2.759           1.404              1.390              1.417           2.039              2.024              2.054           0.352                       1.907                          1.858                          1.964
+             set      grp  layer width  rho_splice_fvu  rho_splice_epsx  rho_splice_meanabl  rho_splice_zeroabl  rho_splice_ceclean
+bn_beng_dakshina   native     12   16k           0.054            0.061               0.211               0.105              -0.228
+bn_beng_dakshina   native     12   65k           0.097            0.080               0.150               0.085              -0.197
+bn_beng_dakshina   native     18   16k           0.078            0.201               0.321               0.116              -0.330
+bn_beng_dakshina   native     18   65k           0.103            0.209               0.223               0.066              -0.253
+bn_latn_dakshina    roman     12   16k          -0.028           -0.078               0.020               0.051              -0.007
+bn_latn_dakshina    roman     12   65k          -0.088            0.001               0.103               0.029              -0.069
+bn_latn_dakshina    roman     18   16k          -0.068            0.187               0.236               0.113              -0.190
+bn_latn_dakshina    roman     18   65k          -0.080            0.179               0.235               0.097              -0.161
+          bn_web   native     12   16k           0.202            0.210               0.062               0.081              -0.100
+          bn_web   native     12   65k           0.206            0.183               0.024               0.066              -0.094
+          bn_web   native     18   16k           0.163            0.259               0.149               0.118              -0.159
+          bn_web   native     18   65k           0.180            0.246               0.117               0.121              -0.170
+         en_pile       en     12   16k           0.256            0.415               0.333               0.187              -0.176
+         en_pile       en     12   65k           0.214            0.366               0.260               0.139              -0.121
+         en_pile       en     18   16k           0.441            0.468               0.354               0.194              -0.215
+         en_pile       en     18   65k           0.407            0.415               0.284               0.145              -0.159
+          fr_web       fr     12   16k           0.147            0.218               0.063               0.015               0.082
+          fr_web       fr     12   65k           0.118            0.189               0.066               0.020               0.077
+          fr_web       fr     18   16k           0.221            0.336               0.166               0.029               0.065
+          fr_web       fr     18   65k           0.172            0.281               0.133               0.026               0.088
+hi_deva_dakshina   native     12   16k           0.104            0.129               0.101               0.047              -0.187
+hi_deva_dakshina   native     12   65k           0.112            0.150               0.051               0.046              -0.095
+hi_deva_dakshina   native     18   16k           0.158            0.252               0.136               0.150              -0.216
+hi_deva_dakshina   native     18   65k           0.132            0.214               0.123               0.126              -0.199
+     hi_deva_web   native     12   16k           0.296            0.252              -0.226               0.007               0.072
+     hi_deva_web   native     12   65k           0.263            0.268              -0.183               0.028               0.097
+     hi_deva_web   native     18   16k           0.315            0.320              -0.135               0.097               0.010
+     hi_deva_web   native     18   65k           0.289            0.293              -0.126               0.088               0.004
+hi_latn_dakshina    roman     12   16k          -0.032            0.088               0.194               0.098              -0.166
+hi_latn_dakshina    roman     12   65k           0.012            0.094               0.133               0.077              -0.195
+hi_latn_dakshina    roman     18   16k          -0.019            0.258               0.303               0.152              -0.367
+hi_latn_dakshina    roman     18   65k          -0.008            0.249               0.257               0.126              -0.318
+  hinglish_phinc hinglish     12   16k          -0.070            0.099               0.253               0.128              -0.134
+  hinglish_phinc hinglish     12   65k          -0.097            0.065               0.227               0.105              -0.077
+  hinglish_phinc hinglish     18   16k          -0.020            0.227               0.184               0.103              -0.090
+  hinglish_phinc hinglish     18   65k          -0.007            0.232               0.200               0.096              -0.070
+ta_latn_dakshina    roman     12   16k          -0.119           -0.087               0.214               0.139              -0.220
+ta_latn_dakshina    roman     12   65k          -0.127           -0.017               0.214               0.100              -0.176
+ta_latn_dakshina    roman     18   16k           0.126            0.268               0.203               0.146              -0.356
+ta_latn_dakshina    roman     18   65k          -0.035            0.183               0.319               0.087              -0.299
+ta_taml_dakshina   native     12   16k           0.126            0.156               0.115               0.110              -0.238
+ta_taml_dakshina   native     12   65k           0.078            0.132               0.076               0.082              -0.187
+ta_taml_dakshina   native     18   16k           0.111            0.248               0.147               0.189              -0.286
+ta_taml_dakshina   native     18   65k           0.095            0.206               0.156               0.133              -0.290
+          ta_web   native     12   16k           0.245            0.298              -0.081               0.105              -0.121
+          ta_web   native     12   65k           0.244            0.292              -0.098               0.052              -0.095
+          ta_web   native     18   16k           0.252            0.316               0.011               0.180              -0.192
+          ta_web   native     18   65k           0.270            0.321               0.030               0.173              -0.236

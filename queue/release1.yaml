@@ -1,0 +1,15 @@
+# Release 1 queue (handoff §11): prefetch -> preflight -> E0 -> E1 -> E2 -> E7 -> E6.
+# Run with:  python scripts/run_queue.py --queue queue/release1.yaml
+tag: release1
+profile: run
+jobs:
+  - {id: prefetch, kind: script, script: scripts/run_prefetch.py, args: [--queue, queue/release1.yaml]}
+  - {id: preflight, kind: script, script: scripts/run_preflight.py, args: [--queue, queue/release1.yaml, --golden, golden/R2],
+     depends_on: [prefetch]}
+  - {id: E0, config: configs/experiments/E0.yaml, depends_on: [preflight]}
+  - {id: E1_split, config: configs/experiments/E1_split.yaml, depends_on: [E0]}
+  - {id: E1_repair, config: configs/experiments/E1_repair.yaml, depends_on: [E0]}
+  - {id: E2, config: configs/experiments/E2.yaml, depends_on: [E0]}
+  - {id: E7, config: configs/experiments/E7.yaml, depends_on: [E0]}
+  - {id: E6, config: configs/experiments/E6.yaml, depends_on: [E0]}
+  - {id: bundle, kind: script, script: scripts/bundle_results.py, args: [--tag, release1], required: false}

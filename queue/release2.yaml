@@ -1,0 +1,15 @@
+# Release 2 queue (handoff 11): prefetch -> preflight -> E3 (RQ1 gate) -> E4 -> E5 -> E8 fill -> bundle.
+# Run with:  python scripts/run_queue.py --queue queue/release2.yaml
+# Each experiment depends only on preflight, so one failing does not block the others. E3 runs first: it is the gate.
+# E4_1m (1m SAE, ~9 GB host RAM) is NOT queued: the humans decide whether it runs (releases/release2.md).
+tag: release2
+profile: run
+jobs:
+  - {id: prefetch, kind: script, script: scripts/run_prefetch.py, args: [--queue, queue/release2.yaml]}
+  - {id: preflight, kind: script, script: scripts/run_preflight.py, args: [--queue, queue/release2.yaml, --golden, golden/R2],
+     depends_on: [prefetch]}
+  - {id: E3, config: configs/experiments/E3.yaml, depends_on: [preflight]}
+  - {id: E4, config: configs/experiments/E4.yaml, depends_on: [preflight]}
+  - {id: E5, config: configs/experiments/E5.yaml, depends_on: [preflight]}
+  - {id: E8, config: configs/experiments/E8.yaml, depends_on: [preflight]}
+  - {id: bundle, kind: script, script: scripts/bundle_results.py, args: [--tag, release2], required: false}

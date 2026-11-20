@@ -1,0 +1,3 @@
+
+=== attempt 1 2026-11-14 12:28:23 slots=[]: /home/user/prism-run/.venv-harness/bin/python scripts/bundle_results.py --tag release2-server
+2 runs, 50 files -> /home/user/prism-run/bundles/release2-server_20261114_122823.tar.gz (1.1 MB)

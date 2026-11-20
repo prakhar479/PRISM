@@ -1,0 +1,25 @@
+
+=== attempt 1 2026-11-18 03:11:19 slots=['2']: /home/user/prism-run/.venv-harness/bin/python -m harness.run --config configs/experiments/E9b.yaml --profile server --stage 3 --worker E9b_s3-1
+2026-11-18 03:11:28,583 INFO DAS: training das2 for add_chain L18 on 300 train pairs
+
+Loading weights:   0%|          | 0/288 [00:00<?, ?it/s]
+Loading weights:   0%|          | 1/288 [00:00<02:07,  2.25it/s]
+Loading weights:  89%|████████▉ | 256/288 [00:00<00:00, 618.06it/s]
+Loading weights: 100%|██████████| 288/288 [00:00<00:00, 488.67it/s]
+2026-11-18 03:11:35,474 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-18 03:11:35,733 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-18 03:11:36,035 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-18 03:11:37,690 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-18 03:25:47,013 INFO add_chain_L18_16k_l074__fit-pilot__eval-fresh unit 1/36 (8 conditions, 224.1s)
+2026-11-18 03:29:35,340 INFO add_chain_L18_16k_l074__fit-pilot__eval-fresh unit 5/36 (8 conditions, 228.1s)
+2026-11-18 03:33:23,922 INFO add_chain_L18_16k_l074__fit-pilot__eval-fresh unit 8/36 (8 conditions, 228.2s)
+2026-11-18 03:37:12,421 INFO add_chain_L18_16k_l074__fit-pilot__eval-fresh unit 11/36 (8 conditions, 228.2s)
+2026-11-18 03:41:00,973 INFO add_chain_L18_16k_l074__fit-pilot__eval-fresh unit 14/36 (8 conditions, 228.2s)
+2026-11-18 03:44:49,451 INFO add_chain_L18_16k_l074__fit-pilot__eval-fresh unit 17/36 (8 conditions, 228.2s)
+2026-11-18 03:48:37,667 INFO add_chain_L18_16k_l074__fit-pilot__eval-fresh unit 20/36 (8 conditions, 228.0s)
+2026-11-18 03:52:26,059 INFO add_chain_L18_16k_l074__fit-pilot__eval-fresh unit 24/36 (8 conditions, 228.1s)
+2026-11-18 03:56:14,331 INFO add_chain_L18_16k_l074__fit-pilot__eval-fresh unit 28/36 (8 conditions, 227.9s)
+2026-11-18 04:00:02,655 INFO add_chain_L18_16k_l074__fit-pilot__eval-fresh unit 32/36 (8 conditions, 228.0s)
+2026-11-18 04:03:29,761 INFO add_chain_L18_16k_l074__fit-pilot__eval-fresh unit 36/36 (7 conditions, 206.7s)
+2026-11-18 04:03:29,892 INFO E9b -> /home/user/prism-run/runs/E9b/99ff6baa3969 (worker_done)
+Loaded pretrained model gemma-2-2b into HookedTransformer

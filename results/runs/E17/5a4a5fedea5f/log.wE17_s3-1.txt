@@ -1,0 +1,17 @@
+2026-11-18 20:39:00,970 INFO DAS: training das2_s1 (k=2, 3 epochs, lr 0.01, seed 1) for add_chain L18 on 300 train pairs
+2026-11-18 20:39:06,424 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-18 20:39:06,704 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-18 20:39:06,987 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-18 20:39:08,401 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-18 20:44:59,612 INFO DAS: training das2_s2 (k=2, 3 epochs, lr 0.01, seed 2) for add_chain L18 on 300 train pairs
+2026-11-18 20:50:33,210 INFO DAS: training das8_e10 (k=8, 10 epochs, lr 0.01, seed 0) for add_chain L18 on 300 train pairs
+2026-11-18 21:06:29,236 INFO DAS: training das1_e10_s2 (k=1, 10 epochs, lr 0.01, seed 2) for add_chain L18 on 300 train pairs
+2026-11-18 21:22:14,285 INFO DAS: training das2_e10_lr3e-2 (k=2, 10 epochs, lr 0.03, seed 0) for add_chain L18 on 300 train pairs
+2026-11-18 22:12:10,067 INFO add_chain_L18_16k_l074 unit 3/28 (8 conditions, 87.3s)
+2026-11-18 22:13:39,630 INFO add_chain_L18_16k_l074 unit 6/28 (8 conditions, 89.4s)
+2026-11-18 22:15:09,728 INFO add_chain_L18_16k_l074 unit 10/28 (8 conditions, 90.0s)
+2026-11-18 22:16:39,888 INFO add_chain_L18_16k_l074 unit 14/28 (8 conditions, 90.0s)
+2026-11-18 22:18:10,072 INFO add_chain_L18_16k_l074 unit 18/28 (8 conditions, 90.1s)
+2026-11-18 22:19:40,286 INFO add_chain_L18_16k_l074 unit 22/28 (8 conditions, 90.1s)
+2026-11-18 22:21:10,478 INFO add_chain_L18_16k_l074 unit 26/28 (8 conditions, 90.1s)
+2026-11-18 22:21:10,565 INFO E17 -> /home/user/prism-run/runs/E17/5a4a5fedea5f (worker_done)

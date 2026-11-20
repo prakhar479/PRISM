@@ -1,0 +1,6 @@
+n eligible 450 shortfall meanPos 0.147 [0.113, 0.180] errB shortfall 0.098
+low lead n 226 median lead 1.76 shortfall meanPos 0.204 errB 0.142
+high lead n 224 median lead 3.23 shortfall meanPos 0.089 errB 0.054
+rs_plus 150 shortfall meanPos 0.087
+rs_story 150 shortfall meanPos 0.213
+rs_symbolic 150 shortfall meanPos 0.140

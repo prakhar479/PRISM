@@ -1,0 +1,847 @@
+{
+ "prefetch": {
+  "status": "done",
+  "attempts": 1,
+  "note": "10.4 min",
+  "slots": []
+ },
+ "preflight": {
+  "status": "done",
+  "attempts": 1,
+  "note": "31.4 min",
+  "slots": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ]
+ },
+ "E12_en": {
+  "status": "done",
+  "attempts": 1,
+  "note": "31.9 min",
+  "slots": [
+   "2"
+  ]
+ },
+ "E12_hi_deva_web": {
+  "status": "done",
+  "attempts": 1,
+  "note": "29.2 min",
+  "slots": [
+   "0"
+  ]
+ },
+ "E12_fr_web": {
+  "status": "done",
+  "attempts": 1,
+  "note": "32.6 min",
+  "slots": [
+   "3"
+  ]
+ },
+ "E12_hinglish": {
+  "status": "done",
+  "attempts": 1,
+  "note": "27.3 min",
+  "slots": [
+   "3"
+  ]
+ },
+ "E12_hi_dakshina": {
+  "status": "done",
+  "attempts": 1,
+  "note": "63.8 min",
+  "slots": [
+   "1"
+  ]
+ },
+ "E12_ta_web": {
+  "status": "done",
+  "attempts": 1,
+  "note": "30.4 min",
+  "slots": [
+   "2"
+  ]
+ },
+ "E12_bn_web": {
+  "status": "done",
+  "attempts": 1,
+  "note": "32.6 min",
+  "slots": [
+   "3"
+  ]
+ },
+ "E12_ta_dakshina": {
+  "status": "done",
+  "attempts": 1,
+  "note": "60.2 min",
+  "slots": [
+   "2"
+  ]
+ },
+ "E12_bn_dakshina": {
+  "status": "done",
+  "attempts": 1,
+  "note": "57.6 min",
+  "slots": [
+   "0"
+  ]
+ },
+ "E13_en": {
+  "status": "done",
+  "attempts": 1,
+  "note": "12.4 min",
+  "slots": [
+   "2"
+  ]
+ },
+ "E13_hi": {
+  "status": "done",
+  "attempts": 1,
+  "note": "18.9 min",
+  "slots": [
+   "3"
+  ]
+ },
+ "E13_hi_latn": {
+  "status": "done",
+  "attempts": 1,
+  "note": "17.2 min",
+  "slots": [
+   "2"
+  ]
+ },
+ "E13_hinglish": {
+  "status": "done",
+  "attempts": 1,
+  "note": "14.2 min",
+  "slots": [
+   "3"
+  ]
+ },
+ "E13_fr": {
+  "status": "done",
+  "attempts": 1,
+  "note": "14.1 min",
+  "slots": [
+   "3"
+  ]
+ },
+ "E12d_en": {
+  "status": "done",
+  "attempts": 1,
+  "note": "34.2 min",
+  "slots": [
+   "3"
+  ]
+ },
+ "E12d_hi_deva_web": {
+  "status": "done",
+  "attempts": 1,
+  "note": "32.6 min",
+  "slots": [
+   "3"
+  ]
+ },
+ "E12d_fr_web": {
+  "status": "done",
+  "attempts": 1,
+  "note": "32.1 min",
+  "slots": [
+   "1"
+  ]
+ },
+ "E12d_hinglish": {
+  "status": "done",
+  "attempts": 1,
+  "note": "26.9 min",
+  "slots": [
+   "1"
+  ]
+ },
+ "E12d_hi_dakshina": {
+  "status": "done",
+  "attempts": 1,
+  "note": "64.4 min",
+  "slots": [
+   "3"
+  ]
+ },
+ "E13t_en": {
+  "status": "done",
+  "attempts": 1,
+  "note": "11.9 min",
+  "slots": [
+   "0"
+  ]
+ },
+ "E13t_hi": {
+  "status": "done",
+  "attempts": 1,
+  "note": "17.7 min",
+  "slots": [
+   "2"
+  ]
+ },
+ "E13t_hi_latn": {
+  "status": "done",
+  "attempts": 1,
+  "note": "15.6 min",
+  "slots": [
+   "0"
+  ]
+ },
+ "E13t_hinglish": {
+  "status": "done",
+  "attempts": 1,
+  "note": "13.4 min",
+  "slots": [
+   "2"
+  ]
+ },
+ "E13t_fr": {
+  "status": "done",
+  "attempts": 1,
+  "note": "13.8 min",
+  "slots": [
+   "1"
+  ]
+ },
+ "E9_s1": {
+  "status": "done",
+  "attempts": 1,
+  "note": "26.4 min",
+  "slots": [
+   "0"
+  ]
+ },
+ "E14_s1": {
+  "status": "done",
+  "attempts": 1,
+  "note": "147.9 min",
+  "slots": [
+   "1"
+  ]
+ },
+ "E9b_s1": {
+  "status": "done",
+  "attempts": 1,
+  "note": "26.9 min",
+  "slots": [
+   "3"
+  ]
+ },
+ "E11_s1": {
+  "status": "done",
+  "attempts": 1,
+  "note": "27.9 min",
+  "slots": [
+   "0"
+  ]
+ },
+ "E16_s1": {
+  "status": "done",
+  "attempts": 1,
+  "note": "7.2 min",
+  "slots": [
+   "1"
+  ]
+ },
+ "E10_s1": {
+  "status": "done",
+  "attempts": 1,
+  "note": "0.6 min",
+  "slots": [
+   "0"
+  ]
+ },
+ "E2r_s1": {
+  "status": "done",
+  "attempts": 1,
+  "note": "0.7 min",
+  "slots": [
+   "1"
+  ]
+ },
+ "E10b_s1": {
+  "status": "done",
+  "attempts": 1,
+  "note": "0.5 min",
+  "slots": [
+   "3"
+  ]
+ },
+ "E9_s2[0]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "0.2 min",
+  "slots": [
+   "0"
+  ]
+ },
+ "E9_s2[1]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "0.1 min",
+  "slots": [
+   "0"
+  ]
+ },
+ "E9_s2[2]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "0.1 min",
+  "slots": [
+   "0"
+  ]
+ },
+ "E9_s2[3]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "0.1 min",
+  "slots": [
+   "0"
+  ]
+ },
+ "E14_s2[0]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "0.5 min",
+  "slots": [
+   "1"
+  ]
+ },
+ "E14_s2[1]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "0.2 min",
+  "slots": [
+   "1"
+  ]
+ },
+ "E14_s2[2]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "0.2 min",
+  "slots": [
+   "1"
+  ]
+ },
+ "E14_s2[3]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "0.2 min",
+  "slots": [
+   "1"
+  ]
+ },
+ "E9b_s2[0]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "0.1 min",
+  "slots": [
+   "3"
+  ]
+ },
+ "E9b_s2[1]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "0.1 min",
+  "slots": [
+   "0"
+  ]
+ },
+ "E9b_s2[2]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "0.1 min",
+  "slots": [
+   "3"
+  ]
+ },
+ "E9b_s2[3]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "0.1 min",
+  "slots": [
+   "0"
+  ]
+ },
+ "E11_s2[0]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "0.3 min",
+  "slots": [
+   "0"
+  ]
+ },
+ "E11_s2[1]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "0.3 min",
+  "slots": [
+   "0"
+  ]
+ },
+ "E11_s2[2]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "0.2 min",
+  "slots": [
+   "0"
+  ]
+ },
+ "E11_s2[3]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "0.3 min",
+  "slots": [
+   "0"
+  ]
+ },
+ "E16_s2[0]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "0.1 min",
+  "slots": [
+   "1"
+  ]
+ },
+ "E16_s2[1]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "0.1 min",
+  "slots": [
+   "1"
+  ]
+ },
+ "E16_s2[2]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "0.1 min",
+  "slots": [
+   "1"
+  ]
+ },
+ "E16_s2[3]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "0.1 min",
+  "slots": [
+   "1"
+  ]
+ },
+ "E10_s2[0]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "0.1 min",
+  "slots": [
+   "0"
+  ]
+ },
+ "E10_s2[1]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "0.1 min",
+  "slots": [
+   "0"
+  ]
+ },
+ "E10_s2[2]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "0.1 min",
+  "slots": [
+   "0"
+  ]
+ },
+ "E10_s2[3]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "0.1 min",
+  "slots": [
+   "0"
+  ]
+ },
+ "E2r_s2[0]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "0.1 min",
+  "slots": [
+   "0"
+  ]
+ },
+ "E2r_s2[1]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "0.1 min",
+  "slots": [
+   "3"
+  ]
+ },
+ "E2r_s2[2]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "0.1 min",
+  "slots": [
+   "1"
+  ]
+ },
+ "E2r_s2[3]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "0.1 min",
+  "slots": [
+   "0"
+  ]
+ },
+ "E10b_s2[0]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "0.1 min",
+  "slots": [
+   "0"
+  ]
+ },
+ "E10b_s2[1]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "0.1 min",
+  "slots": [
+   "2"
+  ]
+ },
+ "E10b_s2[2]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "0.1 min",
+  "slots": [
+   "0"
+  ]
+ },
+ "E10b_s2[3]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "0.1 min",
+  "slots": [
+   "2"
+  ]
+ },
+ "E9_s3[0]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "100.3 min",
+  "slots": [
+   "0"
+  ]
+ },
+ "E9_s3[1]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "95.6 min",
+  "slots": [
+   "2"
+  ]
+ },
+ "E9_s3[2]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "90.6 min",
+  "slots": [
+   "3"
+  ]
+ },
+ "E9_s3[3]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "0.2 min",
+  "slots": [
+   "3"
+  ]
+ },
+ "E10_s3[0]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "76.0 min",
+  "slots": [
+   "0"
+  ]
+ },
+ "E10_s3[1]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "75.3 min",
+  "slots": [
+   "2"
+  ]
+ },
+ "E10_s3[2]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "46.3 min",
+  "slots": [
+   "3"
+  ]
+ },
+ "E10_s3[3]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "42.5 min",
+  "slots": [
+   "1"
+  ]
+ },
+ "E14_s3[0]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "355.9 min",
+  "slots": [
+   "1"
+  ]
+ },
+ "E14_s3[1]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "348.7 min",
+  "slots": [
+   "0"
+  ]
+ },
+ "E14_s3[2]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "348.9 min",
+  "slots": [
+   "2"
+  ]
+ },
+ "E14_s3[3]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "333.8 min",
+  "slots": [
+   "3"
+  ]
+ },
+ "E11_s3[0]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "156.8 min",
+  "slots": [
+   "3"
+  ]
+ },
+ "E11_s3[1]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "155.6 min",
+  "slots": [
+   "1"
+  ]
+ },
+ "E11_s3[2]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "154.7 min",
+  "slots": [
+   "0"
+  ]
+ },
+ "E11_s3[3]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "152.7 min",
+  "slots": [
+   "2"
+  ]
+ },
+ "E16_s3[0]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "88.6 min",
+  "slots": [
+   "1"
+  ]
+ },
+ "E16_s3[1]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "68.0 min",
+  "slots": [
+   "3"
+  ]
+ },
+ "E16_s3[2]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "39.5 min",
+  "slots": [
+   "0"
+  ]
+ },
+ "E16_s3[3]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "38.3 min",
+  "slots": [
+   "2"
+  ]
+ },
+ "E9b_s3[0]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "50.8 min",
+  "slots": [
+   "0"
+  ]
+ },
+ "E9b_s3[1]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "52.2 min",
+  "slots": [
+   "2"
+  ]
+ },
+ "E9b_s3[2]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "50.4 min",
+  "slots": [
+   "1"
+  ]
+ },
+ "E9b_s3[3]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "16.9 min",
+  "slots": [
+   "3"
+  ]
+ },
+ "E10b_s3[0]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "55.6 min",
+  "slots": [
+   "2"
+  ]
+ },
+ "E10b_s3[1]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "24.6 min",
+  "slots": [
+   "1"
+  ]
+ },
+ "E10b_s3[2]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "25.0 min",
+  "slots": [
+   "3"
+  ]
+ },
+ "E10b_s3[3]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "0.2 min",
+  "slots": [
+   "1"
+  ]
+ },
+ "E2r_s3[0]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "78.7 min",
+  "slots": [
+   "0"
+  ]
+ },
+ "E2r_s3[1]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "21.5 min",
+  "slots": [
+   "1"
+  ]
+ },
+ "E2r_s3[2]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "21.9 min",
+  "slots": [
+   "2"
+  ]
+ },
+ "E2r_s3[3]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "20.9 min",
+  "slots": [
+   "3"
+  ]
+ },
+ "E9_fin": {
+  "status": "done",
+  "attempts": 1,
+  "note": "11.1 min",
+  "slots": []
+ },
+ "E10_fin": {
+  "status": "done",
+  "attempts": 1,
+  "note": "12.6 min",
+  "slots": []
+ },
+ "E14_fin": {
+  "status": "done",
+  "attempts": 1,
+  "note": "46.8 min",
+  "slots": []
+ },
+ "E11_fin": {
+  "status": "done",
+  "attempts": 1,
+  "note": "33.0 min",
+  "slots": []
+ },
+ "E16_fin": {
+  "status": "done",
+  "attempts": 1,
+  "note": "11.8 min",
+  "slots": []
+ },
+ "E9b_fin": {
+  "status": "done",
+  "attempts": 1,
+  "note": "10.0 min",
+  "slots": []
+ },
+ "E10b_fin": {
+  "status": "done",
+  "attempts": 1,
+  "note": "7.2 min",
+  "slots": []
+ },
+ "E2r_fin": {
+  "status": "done",
+  "attempts": 1,
+  "note": "8.0 min",
+  "slots": []
+ },
+ "bundle": {
+  "status": "done",
+  "attempts": 1,
+  "note": "0.2 min",
+  "slots": []
+ },
+ "publish": {
+  "status": "running",
+  "attempts": 1,
+  "note": "",
+  "slots": []
+ }
+}

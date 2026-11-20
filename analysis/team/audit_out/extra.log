@@ -1,0 +1,9 @@
+donor order E2: n 214 share identical diff-answer donors 0.019
+donor order E2r: n 215 share identical diff-answer donors 0.023
+donor order E3: n 215 share identical diff-answer donors 0.023
+cost-vs-patch E18 add_chain L18: Spearman(featErrB NLDR, das4 full NLDR) -0.14 n 203
+cost-vs-patch E18 entity_track L12: Spearman(featErrB NLDR, das4 full NLDR) -0.04 n 98
+cost-vs-patch E18 people_cities L12: Spearman(featErrB NLDR, das4 full NLDR) +0.07 n 151
+cost-vs-patch E18 people_cities L16: Spearman(featErrB NLDR, das4 full NLDR) +0.21 n 151
+E10 RS top steer flips (flip, random p95, cond, est, r): [(np.float64(0.2), np.float64(0.007), 'steer_x4', 'das2', 2), (np.float64(0.18), np.float64(0.007), 'steer_x4', 'das4', 4), (np.float64(0.167), np.float64(0.007), 'steer_x4', 'das1', 1), (np.float64(0.147), np.float64(0.0), 'steer_x2', 'das1', 1)]
+E10 Q2 met anywhere (flip>=0.5 & p95<=0.05): False

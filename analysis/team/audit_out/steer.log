@@ -1,0 +1,80 @@
+
+== RS f_pilot: pairs 150 eligible(cleanB=B) 150 both-correct 150
+  Δ=A-B dist (eligible, n=150): {-3: np.float64(0.053), -2: np.float64(0.207), -1: np.float64(0.167), 1: np.float64(0.353), 2: np.float64(0.173), 3: np.float64(0.047)} max 0.353
+  Δ=A-B dist (both, n=150): {-3: np.float64(0.053), -2: np.float64(0.207), -1: np.float64(0.167), 1: np.float64(0.353), 2: np.float64(0.173), 3: np.float64(0.047)} max 0.353
+  das4 r4 s=4 [eligible]: flip A>B 0.314 (n 86), A<B 0.000 (n 64), Fisher p 4.1e-08
+  das4 r4 s=4 [both]: flip A>B 0.314 (n 86), A<B 0.000 (n 64), Fisher p 4.1e-08
+  das8_e10 r8 s=8 [both]: flip A>B 0.279 (n 86), A<B 0.016 (n 64), Fisher p 4.7e-06
+  das8 r8 s=16 [both]: flip A>B 0.314 (n 86), A<B 0.094 (n 64), Fisher p 0.0013
+  answer_sep r1 s=16 [both]: flip A>B 0.233 (n 86), A<B 0.000 (n 64), Fisher p 8.9e-06
+  answer_sep r4 s=16 [both]: flip A>B 0.128 (n 86), A<B 0.031 (n 64), Fisher p 0.043
+  answer_sep r8 s=16 [both]: flip A>B 0.163 (n 86), A<B 0.016 (n 64), Fisher p 0.0022
+  pca_pooled r1 s=16 [both]: flip A>B 0.023 (n 86), A<B 0.188 (n 64), Fisher p 0.00099
+  pca_pooled r4 s=16 [both]: flip A>B 0.012 (n 86), A<B 0.172 (n 64), Fisher p 0.00039
+  pca_pooled r8 s=16 [both]: flip A>B 0.140 (n 86), A<B 0.000 (n 64), Fisher p 0.0013
+  das4 s=4 flip 0.180; random r4 mean 0.0023 p95 0.0070 max 0.0133
+  spec 0.173 [0.113,0.233], boot p(spec<=0) 0.0010
+
+== RS f_none: pairs 215 eligible(cleanB=B) 209 both-correct 203
+  Δ=A-B dist (eligible, n=209): {-3: np.float64(0.038), -2: np.float64(0.153), -1: np.float64(0.287), 1: np.float64(0.359), 2: np.float64(0.129), 3: np.float64(0.033)} max 0.359
+  Δ=A-B dist (both, n=203): {-3: np.float64(0.039), -2: np.float64(0.158), -1: np.float64(0.281), 1: np.float64(0.355), 2: np.float64(0.133), 3: np.float64(0.034)} max 0.355
+  das4 r4 s=4 [eligible]: flip A>B 0.312 (n 109), A<B 0.000 (n 100), Fisher p 1.3e-11
+  das4 r4 s=4 [both]: flip A>B 0.321 (n 106), A<B 0.000 (n 97), Fisher p 1.3e-11
+  das8_e10 r8 s=8 [both]: flip A>B 0.255 (n 106), A<B 0.010 (n 97), Fisher p 6.6e-08
+  das8 r8 s=16 [both]: flip A>B 0.340 (n 106), A<B 0.103 (n 97), Fisher p 5.1e-05
+  answer_sep r1 s=16 [both]: flip A>B 0.274 (n 106), A<B 0.000 (n 97), Fisher p 8.2e-10
+  answer_sep r4 s=16 [both]: flip A>B 0.142 (n 106), A<B 0.103 (n 97), Fisher p 0.52
+  answer_sep r8 s=16 [both]: flip A>B 0.170 (n 106), A<B 0.082 (n 97), Fisher p 0.091
+  pca_pooled r1 s=16 [both]: flip A>B 0.019 (n 106), A<B 0.289 (n 97), Fisher p 3e-08
+  pca_pooled r4 s=16 [both]: flip A>B 0.009 (n 106), A<B 0.237 (n 97), Fisher p 1.7e-07
+  pca_pooled r8 s=16 [both]: flip A>B 0.151 (n 106), A<B 0.062 (n 97), Fisher p 0.045
+  das4 s=4 flip 0.163; random r4 mean 0.0041 p95 0.0144 max 0.0144
+  spec 0.148 [0.100,0.201], boot p(spec<=0) 0.0010
+  traj das4 r4: n 203 moved 1.000; of moved: mono up 1.000, mono down 0.000; any dose below B 0.000; mean change s.25->16 2.37
+  traj pca_pooled r1: n 203 moved 0.448; of moved: mono up 0.143, mono down 0.857; any dose below B 0.384; mean change s.25->16 -0.43
+  traj pca_pooled r4: n 203 moved 0.389; of moved: mono up 0.025, mono down 0.962; any dose below B 0.379; mean change s.25->16 -0.52
+E10b rs_plus das1 s=4: A>B 0.374 A<B 0.000 (n 107/100)
+E10b rs_plus das2 s=4: A>B 0.280 A<B 0.000 (n 107/100)
+E10b rs_plus das4 s=4: A>B 0.393 A<B 0.000 (n 107/100)
+E10b rs_story das1 s=4: A>B 0.354 A<B 0.000 (n 96/89)
+E10b rs_story das2 s=4: A>B 0.354 A<B 0.000 (n 96/89)
+E10b rs_story das4 s=4: A>B 0.438 A<B 0.000 (n 96/89)
+E10b rs_symbolic das1 s=4: A>B 0.202 A<B 0.000 (n 84/72)
+E10b rs_symbolic das2 s=4: A>B 0.167 A<B 0.000 (n 84/72)
+E10b rs_symbolic das4 s=4: A>B 0.262 A<B 0.000 (n 84/72)
+
+== OT f_pilot pairs 150 eligible 89
+pairs with cand ids: 150 n cands {7}
+  random r1 s=0.25: A share of non-B candidate outcomes 1.0000 (n 65)
+  random r1 s=0.5: A share of non-B candidate outcomes 1.0000 (n 145)
+  random r1 s=1: A share of non-B candidate outcomes 0.9915 (n 354)
+  random r1 s=2: A share of non-B candidate outcomes 0.9206 (n 756)
+  random r4 s=0.25: A share of non-B candidate outcomes 1.0000 (n 103)
+  random r4 s=0.5: A share of non-B candidate outcomes 0.9958 (n 237)
+  random r4 s=1: A share of non-B candidate outcomes 0.9908 (n 542)
+  random r4 s=2: A share of non-B candidate outcomes 0.9619 (n 970)
+  random r8 s=0.25: A share of non-B candidate outcomes 1.0000 (n 137)
+  random r8 s=0.5: A share of non-B candidate outcomes 1.0000 (n 346)
+  random r8 s=1: A share of non-B candidate outcomes 0.9987 (n 748)
+  random r8 s=2: A share of non-B candidate outcomes 0.9848 (n 1188)
+  Spearman(frac seeds flipping, clean-B margin) r1 s=1: -0.842 n 89
+  Spearman(frac seeds flipping, clean-B margin) r4 s=1: -0.850 n 89
+  Spearman(frac seeds flipping, clean-B margin) r8 s=1: -0.849 n 89
+  das4 r4 s=0.25 flip 0.978
+  das8 r8 s=0.25 flip 1.000
+  das8_e10 r8 s=0.25 flip 0.978
+  pca_pooled r1 s=0.25 flip 0.640
+  pca_pooled r4 s=0.25 flip 0.607
+  pca_pooled r8 s=0.25 flip 0.663
+  answer_sep r1 s=0.25 flip 0.629
+  answer_sep r4 s=0.25 flip 0.584
+  answer_sep r8 s=0.25 flip 0.674
+  random r1 s=0.25 mean 0.037 p95 0.112 max 0.112
+  random r4 s=0.25 mean 0.058 p95 0.114 max 0.146
+  random r8 s=0.25 mean 0.077 p95 0.146 max 0.146
+  E8 OT L12 L12_16k_l082 fit pilot f_pilot: feat_B_noise flip mean over seeds 0.927 (2 seeds; per-seed [0.933, 0.921]) elig 89
+  E8 OT L12 L12_16k_l082 fit pilot f_A_correct: feat_B_noise flip mean over seeds 0.918 (2 seeds; per-seed [0.918, 0.918]) elig 98
+  E8 OT L12 L12_16k_l082 fit pilot f_none: feat_B_noise flip mean over seeds 0.882 (2 seeds; per-seed [0.887, 0.877]) elig 106
+  E3 OT L12 L12_16k_l082 fit fresh f_pilot: feat_B_noise flip mean over seeds 0.627 (2 seeds; per-seed [0.637, 0.617]) elig 303
+  E3 OT L12 L12_16k_l082 fit fresh f_A_correct: feat_B_noise flip mean over seeds 0.625 (2 seeds; per-seed [0.634, 0.615]) elig 369
+  E3 OT L12 L12_16k_l082 fit fresh f_none: feat_B_noise flip mean over seeds 0.600 (2 seeds; per-seed [0.604, 0.595]) elig 402

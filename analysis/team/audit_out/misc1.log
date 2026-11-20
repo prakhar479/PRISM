@@ -1,0 +1,23 @@
+C1 E18 RS f_pilot elig 150: pca r32 0.153, pca r64 0.247, ans r32 0.173, ans r64 0.267
+C1 E18 RS f_A_correct elig 203: pca r32 0.158, pca r64 0.261, ans r32 0.182, ans r64 0.276
+C1 E18 RS f_none elig 209: pca r32 0.167, pca r64 0.268, ans r32 0.196, ans r64 0.282
+C5 PC L12: n both-correct 151, cities 16; eta2 median over 10 DAS keys 0.571 (range 0.243-0.675); unclipped-das4 null p95 0.157
+   das1 full NLDR by A city: top Athens 0.43; next max 0.14 (Mumbai)
+C5 PC L16: n both-correct 151, cities 16; eta2 median over 10 DAS keys 0.705 (range 0.478-0.833); unclipped-das4 null p95 0.158
+   das1 full NLDR by A city: top Athens 0.43; next max 0.11 (Cairo)
+C5 E19 PC das8 s=16: non-A/B candidate landings 70; top Tokyo 0.929
+C5 E19 PC das4 s=16: non-A/B candidate landings 54; top Paris 0.574
+C8 E1 ioi_control L20: NLDR gap 0.358, flip gap 0.013, elig 150
+C8 E1 entity_track L12: NLDR gap 0.259, flip gap 0.000, elig 94
+C8 E1 add_chain L18: NLDR gap 0.126, flip gap 0.087, elig 150
+C8 gain: cells 36 slope CI > 0 in 7
+     task  L   n  slope     lo    hi  icpt
+add_chain 18 150 -0.005 -0.062 0.048 0.842
+        task  L  slope    lo
+   add_chain 20  0.124 0.008
+entity_track 12  0.220 0.113
+ ioi_control 12  0.089 0.016
+ ioi_control 14  0.143 0.044
+ ioi_control 18  0.216 0.130
+ ioi_control 20  0.283 0.233
+ var_binding 20  0.069 0.028

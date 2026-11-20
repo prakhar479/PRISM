@@ -1,0 +1,65 @@
+# Final compute pass (two-pass plan, 2026-11-16): every remaining experiment in one queue; the analysis pass decides what is
+# read (preregistered gates, Gate A/B, validated templates). Run with:
+#   python scripts/run_queue.py --queue queue/final-server.yaml --gpus auto
+# or through Slurm: sbatch --export=ALL,QUEUE=queue/final-server.yaml,CLEAN_CACHE_ON_SUCCESS=0 scripts/slurm_release2.sbatch
+#   E9  illusion checks + DAS      RS L18 (confirmatory, GO) + OT L12 (exploratory)
+#   E10 steering                   RS L18 (confirmatory) + OT L12 + people-cities L12 (exploratory)
+#   E14 multilingual gap / M3      27 cells: 3 tasks x 5 languages native + 4 languages fit on English
+#   E11 people-cities binding      L8-16, U transfer with object tracking both ways
+#   E4_1m 1m SAE at L12             redundant width point
+# Bonus / redundant (lowest priority; exploratory):
+#   E9b  E9 on RS L18 fitted on pilot templates, evaluated on fresh families (does the subspace / DAS generalize?)
+#   E10b E10 steering, same split
+#   E2r  E2 again with seed 1 (stability of random nulls and noise controls; server-finalized replicate)
+# Stage 1 of experiments that share cache entries (pilot OT/RS spans, DAS rotations) is chained so each entry has one writer.
+tag: final-server
+profile: server
+parallel: true
+jobs:
+  - {id: prefetch, kind: script, script: scripts/run_prefetch.py, args: [--queue, queue/final-server.yaml]}
+  - {id: preflight, kind: script, script: scripts/run_preflight.py, gpu: all,
+     args: [--queue, queue/final-server.yaml, --golden, golden/R2, --per-gpu], depends_on: [prefetch]}
+
+  # stage 1
+  - {id: E9_s1, config: configs/experiments/E9.yaml, stage: "1", priority: 10, depends_on: [preflight]}
+  - {id: E14_s1, config: configs/experiments/E14.yaml, stage: "1", priority: 9, depends_on: [preflight]}
+  - {id: E11_s1, config: configs/experiments/E11.yaml, stage: "1", priority: 8, depends_on: [preflight]}
+  - {id: E10_s1, config: configs/experiments/E10.yaml, stage: "1", priority: 10, depends_on: [E9_s1, E11_s1]}
+  - {id: E4_1m_s1, config: configs/experiments/E4_1m.yaml, stage: "1", priority: 4, depends_on: [E9_s1]}
+  - {id: E2r_s1, config: configs/experiments/E2r.yaml, stage: "1", priority: 3, depends_on: [E9_s1]}
+  - {id: E9b_s1, config: configs/experiments/E9b.yaml, stage: "1", priority: 3, depends_on: [preflight]}
+  - {id: E10b_s1, config: configs/experiments/E10b.yaml, stage: "1", priority: 3, depends_on: [E9b_s1]}
+
+  # stage 2: SAE groups split over the GPUs
+  - {id: E9_s2, config: configs/experiments/E9.yaml, stage: "2", slices: auto, priority: 10, depends_on: [E9_s1]}
+  - {id: E14_s2, config: configs/experiments/E14.yaml, stage: "2", slices: auto, priority: 9, depends_on: [E14_s1]}
+  - {id: E11_s2, config: configs/experiments/E11.yaml, stage: "2", slices: auto, priority: 8, depends_on: [E11_s1]}
+  - {id: E10_s2, config: configs/experiments/E10.yaml, stage: "2", slices: auto, priority: 10, depends_on: [E10_s1, E9_s2, E11_s2]}
+  - {id: E4_1m_s2, config: configs/experiments/E4_1m.yaml, stage: "2", slices: auto, priority: 4, depends_on: [E4_1m_s1, E9_s2]}
+  - {id: E2r_s2, config: configs/experiments/E2r.yaml, stage: "2", slices: auto, priority: 3, depends_on: [E2r_s1, E9_s2]}
+  - {id: E9b_s2, config: configs/experiments/E9b.yaml, stage: "2", slices: auto, priority: 3, depends_on: [E9b_s1]}
+  - {id: E10b_s2, config: configs/experiments/E10b.yaml, stage: "2", slices: auto, priority: 3, depends_on: [E10b_s1, E9b_s2]}
+
+  # stage 3: claiming workers on every GPU (E9 first: it trains the DAS rotations E10 reuses from the cache)
+  - {id: E9_s3, config: configs/experiments/E9.yaml, stage: "3", workers: auto, priority: 10, depends_on: [E9_s2]}
+  - {id: E10_s3, config: configs/experiments/E10.yaml, stage: "3", workers: auto, priority: 9, depends_on: [E10_s2, E9_s3]}
+  - {id: E14_s3, config: configs/experiments/E14.yaml, stage: "3", workers: auto, priority: 8, depends_on: [E14_s2]}
+  - {id: E11_s3, config: configs/experiments/E11.yaml, stage: "3", workers: auto, priority: 7, depends_on: [E11_s2]}
+  - {id: E4_1m_s3, config: configs/experiments/E4_1m.yaml, stage: "3", workers: auto, priority: 4, depends_on: [E4_1m_s2]}
+  - {id: E9b_s3, config: configs/experiments/E9b.yaml, stage: "3", workers: auto, priority: 3, depends_on: [E9b_s2]}
+  - {id: E10b_s3, config: configs/experiments/E10b.yaml, stage: "3", workers: auto, priority: 2, depends_on: [E10b_s2, E9b_s3]}
+  - {id: E2r_s3, config: configs/experiments/E2r.yaml, stage: "3", workers: auto, priority: 2, depends_on: [E2r_s2]}
+
+  # finalize (CPU)
+  - {id: E9_fin, config: configs/experiments/E9.yaml, stage: "3", gpu: none, args: [--finalize-only], depends_on: [E9_s3]}
+  - {id: E10_fin, config: configs/experiments/E10.yaml, stage: "3", gpu: none, args: [--finalize-only], depends_on: [E10_s3]}
+  - {id: E14_fin, config: configs/experiments/E14.yaml, stage: "3", gpu: none, args: [--finalize-only], depends_on: [E14_s3]}
+  - {id: E11_fin, config: configs/experiments/E11.yaml, stage: "3", gpu: none, args: [--finalize-only], depends_on: [E11_s3]}
+  - {id: E4_1m_fin, config: configs/experiments/E4_1m.yaml, stage: "3", gpu: none, args: [--finalize-only], depends_on: [E4_1m_s3]}
+  - {id: E9b_fin, config: configs/experiments/E9b.yaml, stage: "3", gpu: none, args: [--finalize-only], depends_on: [E9b_s3]}
+  - {id: E10b_fin, config: configs/experiments/E10b.yaml, stage: "3", gpu: none, args: [--finalize-only], depends_on: [E10b_s3]}
+  - {id: E2r_fin, config: configs/experiments/E2r.yaml, stage: "3", gpu: none, args: [--finalize-only], depends_on: [E2r_s3]}
+
+  - {id: bundle, kind: script, script: scripts/bundle_results.py, args: [--tag, final-server], after_failed: true,
+     depends_on: [E9_fin, E10_fin, E14_fin, E11_fin, E4_1m_fin, E9b_fin, E10b_fin, E2r_fin]}
+  - {id: publish, kind: script, script: scripts/publish_results.py, args: [--tag, final-server], after_failed: true, depends_on: [bundle]}

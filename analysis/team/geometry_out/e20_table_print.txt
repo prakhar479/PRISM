@@ -1,0 +1,212 @@
+== f_pilot add_chain cells: flip[E=effective]|nldr|random p95 flip
+sae                                    L18_16k_l074            L18_65k_l064
+estimator  r condition                                                     
+answer_sep 1 feat_A_along_U   0.000|0.003|p95 0.000   0.000|0.002|p95 0.000
+             full_along_U     0.033|0.060|p95 0.000   0.027|0.047|p95 0.000
+             repair           0.927|0.931|p95 0.920   0.913|0.923|p95 0.893
+           2 feat_A_along_U   0.000|0.002|p95 0.000   0.000|0.003|p95 0.000
+             full_along_U     0.027|0.071|p95 0.000   0.027|0.065|p95 0.000
+             repair           0.927|0.946|p95 0.920   0.927|0.937|p95 0.893
+           4 feat_A_along_U   0.007|0.014|p95 0.000   0.007|0.020|p95 0.000
+             full_along_U     0.067|0.112|p95 0.000   0.033|0.092|p95 0.000
+             repair           0.960|0.965|p95 0.927   0.927|0.948|p95 0.893
+           8 feat_A_along_U   0.007|0.016|p95 0.000   0.007|0.032|p95 0.000
+             full_along_U     0.060|0.119|p95 0.000   0.073|0.112|p95 0.000
+             repair           0.960|0.970|p95 0.927   0.953|0.952|p95 0.894
+das1       1 feat_A_along_U   0.120|0.269|p95 0.000                     NaN
+             full_along_U     0.273|0.443|p95 0.000                     NaN
+             repair           0.867|0.967|p95 0.920                     NaN
+das2       2 feat_A_along_U   0.200|0.341|p95 0.000                     NaN
+             full_along_U     0.347|0.526|p95 0.000                     NaN
+             repair           0.900|0.974|p95 0.920                     NaN
+das4       4 feat_A_along_U  0.547E|0.564|p95 0.000  0.620E|0.619|p95 0.000
+             full_along_U    0.760E|0.748|p95 0.000  0.760E|0.748|p95 0.000
+             repair           0.940|0.988|p95 0.927   0.933|0.973|p95 0.893
+das8       8 feat_A_along_U  0.680E|0.670|p95 0.000  0.727E|0.739|p95 0.000
+             full_along_U    0.867E|0.878|p95 0.000  0.867E|0.878|p95 0.000
+             repair           0.907|1.007|p95 0.927   0.927|0.988|p95 0.894
+pca_pooled 1 feat_A_along_U  0.000|-0.002|p95 0.000  0.000|-0.000|p95 0.000
+             full_along_U     0.007|0.027|p95 0.000   0.000|0.003|p95 0.000
+             repair           0.913|0.904|p95 0.920   0.887|0.883|p95 0.893
+           2 feat_A_along_U  0.000|-0.002|p95 0.000   0.000|0.002|p95 0.000
+             full_along_U     0.007|0.028|p95 0.000   0.000|0.011|p95 0.000
+             repair           0.913|0.904|p95 0.920   0.920|0.894|p95 0.893
+           4 feat_A_along_U  0.000|-0.001|p95 0.000   0.000|0.006|p95 0.000
+             full_along_U     0.007|0.033|p95 0.000   0.007|0.031|p95 0.000
+             repair           0.927|0.911|p95 0.927   0.953|0.917|p95 0.893
+           8 feat_A_along_U   0.000|0.008|p95 0.000   0.007|0.019|p95 0.000
+             full_along_U     0.060|0.100|p95 0.000   0.033|0.090|p95 0.000
+             repair           0.993|0.967|p95 0.927   0.953|0.958|p95 0.894
+sae                                         L18_16k_l074                                L18_65k_l064
+estimator  r                                                                                        
+answer_sep 1  ill=False fm=False diff=0.033[0.007,0.067]  ill=False fm=False diff=0.027[0.007,0.053]
+           2  ill=False fm=False diff=0.027[0.007,0.053]  ill=False fm=False diff=0.027[0.007,0.053]
+           4  ill=False fm=False diff=0.060[0.027,0.100]  ill=False fm=False diff=0.027[0.007,0.053]
+           8  ill=False fm=False diff=0.053[0.013,0.093]  ill=False fm=False diff=0.067[0.027,0.107]
+das1       1      ill=nan fm=nan diff=0.153[0.093,0.213]                                         NaN
+das2       2      ill=nan fm=nan diff=0.147[0.080,0.220]                                         NaN
+das4       4    ill=True fm=True diff=0.213[0.147,0.287]    ill=True fm=True diff=0.140[0.073,0.207]
+das8       8    ill=True fm=True diff=0.187[0.113,0.260]    ill=True fm=True diff=0.140[0.080,0.200]
+pca_pooled 1  ill=False fm=False diff=0.007[0.000,0.020]  ill=False fm=False diff=0.000[0.000,0.000]
+           2  ill=False fm=False diff=0.007[0.000,0.020]  ill=False fm=False diff=0.000[0.000,0.000]
+           4  ill=False fm=False diff=0.007[0.000,0.020]  ill=False fm=False diff=0.007[0.000,0.020]
+           8  ill=False fm=False diff=0.060[0.027,0.100]  ill=False fm=False diff=0.027[0.007,0.053]
+== f_pilot entity_track cells: flip[E=effective]|nldr|random p95 flip
+sae                                    L12_16k_l082           L12_262k_l067            L12_65k_l072
+estimator  r condition                                                                             
+answer_sep 1 feat_A_along_U   0.101|0.034|p95 0.023   0.056|0.012|p95 0.034  0.011|-0.002|p95 0.023
+             full_along_U    0.865E|0.324|p95 0.022  0.629E|0.249|p95 0.022  0.663E|0.269|p95 0.022
+             repair           1.000|0.843|p95 1.000   1.000|0.930|p95 0.989   1.000|0.857|p95 1.000
+           2 feat_A_along_U   0.112|0.033|p95 0.034   0.067|0.014|p95 0.023   0.022|0.000|p95 0.022
+             full_along_U    0.865E|0.327|p95 0.034  0.663E|0.252|p95 0.034  0.663E|0.282|p95 0.034
+             repair           1.000|0.841|p95 1.000   1.000|0.932|p95 0.989   1.000|0.859|p95 1.000
+           4 feat_A_along_U   0.112|0.038|p95 0.045  0.146E|0.045|p95 0.034   0.034|0.006|p95 0.034
+             full_along_U    0.865E|0.331|p95 0.034  0.820E|0.310|p95 0.034  0.708E|0.288|p95 0.034
+             repair           1.000|0.838|p95 1.000   1.000|0.932|p95 0.989   1.000|0.859|p95 1.000
+           8 feat_A_along_U  0.202E|0.061|p95 0.045  0.225E|0.064|p95 0.045   0.112|0.026|p95 0.034
+             full_along_U    0.955E|0.480|p95 0.045  0.944E|0.413|p95 0.045  0.966E|0.466|p95 0.045
+             repair           1.000|0.891|p95 1.000   1.000|0.950|p95 0.989   1.000|0.924|p95 1.000
+das1       1 feat_A_along_U  0.989E|1.048|p95 0.023                     NaN                     NaN
+             full_along_U    1.000E|1.581|p95 0.022                     NaN                     NaN
+             repair           1.000|1.233|p95 1.000                     NaN                     NaN
+das2       2 feat_A_along_U  0.955E|0.719|p95 0.034                     NaN                     NaN
+             full_along_U    1.000E|1.371|p95 0.034                     NaN                     NaN
+             repair           1.000|1.206|p95 1.000                     NaN                     NaN
+das4       4 feat_A_along_U  0.989E|0.985|p95 0.045  0.989E|1.095|p95 0.034  0.989E|1.064|p95 0.034
+             full_along_U    1.000E|1.853|p95 0.034  1.000E|1.853|p95 0.034  1.000E|1.853|p95 0.034
+             repair           1.000|1.347|p95 1.000   0.989|1.371|p95 0.989   0.989|1.294|p95 1.000
+das8       8 feat_A_along_U  1.000E|1.145|p95 0.045  1.000E|1.252|p95 0.045  1.000E|1.232|p95 0.034
+             full_along_U    0.989E|1.980|p95 0.045  0.989E|1.980|p95 0.045  0.989E|1.980|p95 0.045
+             repair           1.000|1.394|p95 1.000   0.989|1.420|p95 0.989   1.000|1.344|p95 1.000
+pca_pooled 1 feat_A_along_U   0.112|0.036|p95 0.023   0.067|0.024|p95 0.034   0.045|0.016|p95 0.023
+             full_along_U    0.910E|0.427|p95 0.022  0.876E|0.360|p95 0.022  0.921E|0.436|p95 0.022
+             repair           1.000|0.879|p95 1.000   1.000|0.942|p95 0.989   1.000|0.914|p95 1.000
+           2 feat_A_along_U   0.090|0.038|p95 0.034   0.112|0.028|p95 0.023   0.067|0.020|p95 0.022
+             full_along_U    0.944E|0.439|p95 0.034  0.910E|0.372|p95 0.034  0.944E|0.454|p95 0.034
+             repair           1.000|0.880|p95 1.000   1.000|0.946|p95 0.989   1.000|0.919|p95 1.000
+           4 feat_A_along_U  0.157E|0.048|p95 0.045  0.157E|0.034|p95 0.034  0.135E|0.036|p95 0.034
+             full_along_U    0.944E|0.461|p95 0.034  0.921E|0.391|p95 0.034  0.966E|0.461|p95 0.034
+             repair           1.000|0.887|p95 1.000   1.000|0.947|p95 0.989   1.000|0.925|p95 1.000
+           8 feat_A_along_U  0.191E|0.058|p95 0.045  0.169E|0.039|p95 0.045  0.213E|0.064|p95 0.034
+             full_along_U    0.944E|0.498|p95 0.045  0.933E|0.410|p95 0.045  0.955E|0.513|p95 0.045
+             repair           1.000|0.886|p95 1.000   1.000|0.951|p95 0.989   1.000|0.936|p95 1.000
+sae                                          L12_16k_l082                                L12_262k_l067                                 L12_65k_l072
+estimator  r                                                                                                                                       
+answer_sep 1    ill=True fm=False diff=0.764[0.670,0.850]    ill=True fm=False diff=0.573[0.468,0.675]    ill=True fm=False diff=0.652[0.549,0.750]
+           2    ill=True fm=False diff=0.753[0.660,0.840]    ill=True fm=False diff=0.596[0.489,0.697]    ill=True fm=False diff=0.640[0.538,0.739]
+           4    ill=True fm=False diff=0.753[0.660,0.839]     ill=True fm=True diff=0.674[0.573,0.770]    ill=True fm=False diff=0.674[0.574,0.770]
+           8     ill=True fm=True diff=0.753[0.659,0.841]     ill=True fm=True diff=0.719[0.622,0.810]    ill=True fm=False diff=0.854[0.776,0.923]
+das1       1    ill=False fm=True diff=0.011[0.000,0.037]                                          NaN                                          NaN
+das2       2    ill=False fm=True diff=0.045[0.010,0.093]                                          NaN                                          NaN
+das4       4    ill=False fm=True diff=0.011[0.000,0.037]    ill=False fm=True diff=0.011[0.000,0.037]    ill=False fm=True diff=0.011[0.000,0.037]
+das8       8  ill=False fm=True diff=-0.011[-0.037,0.000]  ill=False fm=True diff=-0.011[-0.037,0.000]  ill=False fm=True diff=-0.011[-0.037,0.000]
+pca_pooled 1    ill=True fm=False diff=0.798[0.711,0.878]    ill=True fm=False diff=0.809[0.723,0.888]    ill=True fm=False diff=0.876[0.802,0.941]
+           2    ill=True fm=False diff=0.854[0.775,0.923]    ill=True fm=False diff=0.798[0.709,0.878]    ill=True fm=False diff=0.876[0.804,0.941]
+           4     ill=True fm=True diff=0.787[0.697,0.868]     ill=True fm=True diff=0.764[0.671,0.849]     ill=True fm=True diff=0.831[0.747,0.905]
+           8     ill=True fm=True diff=0.753[0.659,0.840]     ill=True fm=True diff=0.764[0.670,0.849]     ill=True fm=True diff=0.742[0.646,0.831]
+== f_none add_chain cells: flip[E=effective]|nldr|random p95 flip
+sae                                    L18_16k_l074            L18_65k_l064
+estimator  r condition                                                     
+answer_sep 1 feat_A_along_U   0.000|0.004|p95 0.000   0.000|0.003|p95 0.000
+             full_along_U     0.038|0.068|p95 0.000   0.024|0.050|p95 0.000
+             repair           0.904|0.926|p95 0.852   0.852|0.926|p95 0.833
+           2 feat_A_along_U   0.000|0.002|p95 0.000   0.000|0.003|p95 0.000
+             full_along_U     0.033|0.078|p95 0.000   0.024|0.068|p95 0.000
+             repair           0.904|0.941|p95 0.852   0.866|0.941|p95 0.833
+           4 feat_A_along_U   0.005|0.013|p95 0.000   0.005|0.018|p95 0.000
+             full_along_U     0.072|0.118|p95 0.000   0.029|0.091|p95 0.000
+             repair           0.938|0.963|p95 0.856   0.866|0.951|p95 0.833
+           8 feat_A_along_U   0.005|0.016|p95 0.000   0.005|0.030|p95 0.000
+             full_along_U     0.081|0.130|p95 0.000   0.067|0.112|p95 0.000
+             repair           0.928|0.968|p95 0.856   0.900|0.956|p95 0.833
+das1       1 feat_A_along_U   0.100|0.273|p95 0.000                     NaN
+             full_along_U     0.263|0.454|p95 0.000                     NaN
+             repair           0.856|0.968|p95 0.852                     NaN
+das2       2 feat_A_along_U   0.211|0.354|p95 0.000                     NaN
+             full_along_U     0.373|0.539|p95 0.000                     NaN
+             repair           0.904|0.975|p95 0.852                     NaN
+das4       4 feat_A_along_U  0.545E|0.568|p95 0.000  0.612E|0.627|p95 0.000
+             full_along_U    0.737E|0.762|p95 0.000  0.737E|0.762|p95 0.000
+             repair           0.933|0.991|p95 0.856   0.909|0.980|p95 0.833
+das8       8 feat_A_along_U  0.651E|0.671|p95 0.000  0.703E|0.747|p95 0.000
+             full_along_U    0.866E|0.895|p95 0.000  0.866E|0.895|p95 0.000
+             repair           0.900|1.017|p95 0.856   0.904|0.999|p95 0.833
+pca_pooled 1 feat_A_along_U  0.000|-0.002|p95 0.000   0.000|0.000|p95 0.000
+             full_along_U     0.019|0.034|p95 0.000   0.000|0.002|p95 0.000
+             repair           0.880|0.896|p95 0.852   0.833|0.880|p95 0.833
+           2 feat_A_along_U  0.000|-0.002|p95 0.000   0.000|0.002|p95 0.000
+             full_along_U     0.024|0.042|p95 0.000   0.000|0.008|p95 0.000
+             repair           0.900|0.898|p95 0.852   0.861|0.890|p95 0.833
+           4 feat_A_along_U  0.000|-0.001|p95 0.000   0.000|0.005|p95 0.000
+             full_along_U     0.024|0.047|p95 0.000   0.010|0.029|p95 0.000
+             repair           0.909|0.905|p95 0.856   0.904|0.916|p95 0.833
+           8 feat_A_along_U   0.000|0.007|p95 0.000   0.005|0.016|p95 0.000
+             full_along_U     0.081|0.115|p95 0.000   0.038|0.090|p95 0.000
+             repair          0.962E|0.966|p95 0.856   0.914|0.960|p95 0.833
+sae                                         L18_16k_l074                                L18_65k_l064
+estimator  r                                                                                        
+answer_sep 1  ill=False fm=False diff=0.038[0.014,0.067]  ill=False fm=False diff=0.024[0.005,0.047]
+           2  ill=False fm=False diff=0.033[0.010,0.058]  ill=False fm=False diff=0.024[0.005,0.048]
+           4  ill=False fm=False diff=0.067[0.034,0.102]  ill=False fm=False diff=0.024[0.005,0.047]
+           8  ill=False fm=False diff=0.077[0.039,0.118]  ill=False fm=False diff=0.062[0.033,0.097]
+das1       1      ill=nan fm=nan diff=0.163[0.114,0.216]                                         NaN
+das2       2      ill=nan fm=nan diff=0.163[0.104,0.225]                                         NaN
+das4       4    ill=True fm=True diff=0.191[0.128,0.257]    ill=True fm=True diff=0.124[0.067,0.184]
+das8       8    ill=True fm=True diff=0.215[0.150,0.281]    ill=True fm=True diff=0.163[0.111,0.217]
+pca_pooled 1  ill=False fm=False diff=0.019[0.005,0.039]  ill=False fm=False diff=0.000[0.000,0.000]
+           2  ill=False fm=False diff=0.024[0.005,0.048]  ill=False fm=False diff=0.000[0.000,0.000]
+           4  ill=False fm=False diff=0.024[0.005,0.048]  ill=False fm=False diff=0.010[0.000,0.024]
+           8  ill=False fm=False diff=0.081[0.047,0.121]  ill=False fm=False diff=0.033[0.014,0.061]
+== f_none entity_track cells: flip[E=effective]|nldr|random p95 flip
+sae                                    L12_16k_l082           L12_262k_l067            L12_65k_l072
+estimator  r condition                                                                             
+answer_sep 1 feat_A_along_U   0.104|0.031|p95 0.028   0.057|0.009|p95 0.038  0.019|-0.001|p95 0.028
+             full_along_U    0.774E|0.301|p95 0.038  0.575E|0.236|p95 0.038  0.604E|0.254|p95 0.038
+             repair           0.915|0.829|p95 0.934   0.925|0.911|p95 0.925   0.943|0.851|p95 0.953
+           2 feat_A_along_U   0.113|0.030|p95 0.038   0.075|0.012|p95 0.038   0.038|0.002|p95 0.038
+             full_along_U    0.783E|0.304|p95 0.038  0.604E|0.241|p95 0.038  0.594E|0.267|p95 0.038
+             repair           0.925|0.829|p95 0.934   0.925|0.915|p95 0.925   0.934|0.856|p95 0.953
+           4 feat_A_along_U   0.113|0.036|p95 0.048   0.142|0.037|p95 0.047   0.047|0.006|p95 0.038
+             full_along_U    0.792E|0.311|p95 0.038  0.736E|0.286|p95 0.038  0.642E|0.271|p95 0.038
+             repair           0.925|0.828|p95 0.934   0.925|0.915|p95 0.925   0.934|0.856|p95 0.953
+           8 feat_A_along_U  0.198E|0.059|p95 0.047  0.208E|0.054|p95 0.048   0.113|0.026|p95 0.048
+             full_along_U    0.858E|0.453|p95 0.057  0.849E|0.386|p95 0.057  0.868E|0.442|p95 0.057
+             repair           0.915|0.878|p95 0.934   0.925|0.929|p95 0.925   0.925|0.920|p95 0.953
+das1       1 feat_A_along_U  0.896E|0.957|p95 0.028                     NaN                     NaN
+             full_along_U    0.906E|1.442|p95 0.038                     NaN                     NaN
+             repair           0.906|1.214|p95 0.934                     NaN                     NaN
+das2       2 feat_A_along_U  0.887E|0.679|p95 0.038                     NaN                     NaN
+             full_along_U    0.925E|1.295|p95 0.038                     NaN                     NaN
+             repair           0.925|1.197|p95 0.934                     NaN                     NaN
+das4       4 feat_A_along_U  0.934E|0.950|p95 0.048  0.915E|1.051|p95 0.047  0.934E|1.026|p95 0.038
+             full_along_U    0.915E|1.787|p95 0.038  0.915E|1.787|p95 0.038  0.915E|1.787|p95 0.038
+             repair           0.925|1.339|p95 0.934   0.915|1.360|p95 0.925   0.934|1.295|p95 0.953
+das8       8 feat_A_along_U  0.991E|1.122|p95 0.047  0.972E|1.222|p95 0.048  0.981E|1.202|p95 0.048
+             full_along_U    0.962E|1.959|p95 0.057  0.962E|1.959|p95 0.057  0.962E|1.959|p95 0.057
+             repair           0.934|1.393|p95 0.934   0.934|1.419|p95 0.925   0.943|1.355|p95 0.953
+pca_pooled 1 feat_A_along_U   0.113|0.033|p95 0.028   0.075|0.018|p95 0.038   0.047|0.017|p95 0.028
+             full_along_U    0.821E|0.397|p95 0.038  0.783E|0.335|p95 0.038  0.830E|0.408|p95 0.038
+             repair           0.906|0.862|p95 0.934   0.925|0.920|p95 0.925   0.925|0.908|p95 0.953
+           2 feat_A_along_U   0.104|0.035|p95 0.038   0.113|0.019|p95 0.038   0.075|0.018|p95 0.038
+             full_along_U    0.849E|0.407|p95 0.038  0.811E|0.345|p95 0.038  0.858E|0.424|p95 0.038
+             repair           0.906|0.863|p95 0.934   0.925|0.923|p95 0.925   0.925|0.912|p95 0.953
+           4 feat_A_along_U  0.160E|0.049|p95 0.048  0.151E|0.028|p95 0.047   0.132|0.032|p95 0.038
+             full_along_U    0.849E|0.438|p95 0.038  0.830E|0.369|p95 0.038  0.877E|0.437|p95 0.038
+             repair           0.906|0.872|p95 0.934   0.925|0.927|p95 0.925   0.915|0.921|p95 0.953
+           8 feat_A_along_U  0.189E|0.057|p95 0.047  0.179E|0.035|p95 0.048  0.208E|0.060|p95 0.048
+             full_along_U    0.868E|0.469|p95 0.057  0.849E|0.389|p95 0.057  0.868E|0.484|p95 0.057
+             repair           0.906|0.872|p95 0.934   0.925|0.927|p95 0.925   0.915|0.932|p95 0.953
+sae                                          L12_16k_l082                                L12_262k_l067                                 L12_65k_l072
+estimator  r                                                                                                                                       
+answer_sep 1    ill=True fm=False diff=0.670[0.574,0.762]    ill=True fm=False diff=0.519[0.419,0.618]    ill=True fm=False diff=0.585[0.491,0.680]
+           2    ill=True fm=False diff=0.670[0.573,0.764]    ill=True fm=False diff=0.528[0.430,0.626]    ill=True fm=False diff=0.557[0.458,0.655]
+           4    ill=True fm=False diff=0.679[0.584,0.772]    ill=True fm=False diff=0.594[0.500,0.688]    ill=True fm=False diff=0.594[0.496,0.692]
+           8     ill=True fm=True diff=0.660[0.564,0.752]     ill=True fm=True diff=0.642[0.550,0.731]    ill=True fm=False diff=0.755[0.670,0.837]
+das1       1    ill=False fm=True diff=0.009[0.000,0.030]                                          NaN                                          NaN
+das2       2   ill=False fm=True diff=0.038[-0.010,0.092]                                          NaN                                          NaN
+das4       4  ill=False fm=True diff=-0.019[-0.059,0.018]   ill=False fm=True diff=0.000[-0.028,0.028]  ill=False fm=True diff=-0.019[-0.058,0.018]
+das8       8  ill=False fm=True diff=-0.028[-0.072,0.010]  ill=False fm=True diff=-0.009[-0.043,0.020]  ill=False fm=True diff=-0.019[-0.058,0.018]
+pca_pooled 1    ill=True fm=False diff=0.708[0.615,0.798]    ill=True fm=False diff=0.708[0.617,0.797]    ill=True fm=False diff=0.783[0.701,0.861]
+           2    ill=True fm=False diff=0.745[0.657,0.829]    ill=True fm=False diff=0.698[0.609,0.784]    ill=True fm=False diff=0.783[0.704,0.860]
+           4     ill=True fm=True diff=0.689[0.596,0.780]     ill=True fm=True diff=0.679[0.588,0.766]    ill=True fm=False diff=0.745[0.661,0.827]
+           8     ill=True fm=True diff=0.679[0.586,0.771]     ill=True fm=True diff=0.670[0.573,0.762]     ill=True fm=True diff=0.660[0.570,0.750]

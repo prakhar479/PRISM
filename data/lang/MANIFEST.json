@@ -1,0 +1,266 @@
+{
+ "bn_beng_dakshina": {
+  "file": "bn_beng_dakshina.json",
+  "hash": "67fc022f8f253f11",
+  "lang": "bn",
+  "licence": "CC BY-SA 4.0 (Dakshina)",
+  "meets_floor_200k": true,
+  "n_docs": 2000,
+  "script": "Beng",
+  "selection": {
+   "column": "indic",
+   "lang_code": "bn",
+   "n_sentences": 10268,
+   "shuffle_seed": 0
+  },
+  "sha256": "786345f30734e8ecb34e70c1fd7a15a2b1cd515dc7c8625d8ce2f7ed5d12fd43",
+  "source": "suhani-sarvam/google-dakshina",
+  "source_revision": "c13d9f25f3c4487c27dd04d1f165d185e5bf332d",
+  "tokens_per_word": 3.854,
+  "tokens_scored": 248000,
+  "words": 64343
+ },
+ "bn_latn_dakshina": {
+  "file": "bn_latn_dakshina.json",
+  "hash": "72b6adc7d9ed957e",
+  "lang": "bn",
+  "licence": "CC BY-SA 4.0 (Dakshina)",
+  "meets_floor_200k": true,
+  "n_docs": 2000,
+  "script": "Latn (human romanization)",
+  "selection": {
+   "column": "roman",
+   "lang_code": "bn",
+   "n_sentences": 10268,
+   "shuffle_seed": 0
+  },
+  "sha256": "3d1b9f4f2cbfb73085a9005f0df0e7fce2ddd0d1db04fb52a3eba2b5c02fa24e",
+  "source": "suhani-sarvam/google-dakshina",
+  "source_revision": "c13d9f25f3c4487c27dd04d1f165d185e5bf332d",
+  "tokens_per_word": 2.504,
+  "tokens_scored": 248000,
+  "words": 99053
+ },
+ "bn_web": {
+  "file": "bn_web.json",
+  "hash": "fbc62e241271b66a",
+  "lang": "bn",
+  "licence": "ODC-By 1.0",
+  "meets_floor_200k": true,
+  "n_docs": 2000,
+  "script": "Beng",
+  "selection": {
+   "file": "data/ben_Beng/train/000_00000.parquet",
+   "min_language_score": 0.9,
+   "row_groups_shuffled_seed": 0
+  },
+  "sha256": "77be4f25c3737077151ba418e98c255eab70c6186a6d1ac84c208771b2d0d05c",
+  "source": "HuggingFaceFW/fineweb-2",
+  "source_revision": "af9c13333eb981300149d5ca60a8e9d659b276b9",
+  "tokens_per_word": 3.774,
+  "tokens_scored": 248000,
+  "words": 65718
+ },
+ "en_pile": {
+  "file": "en_pile.json",
+  "hash": "7aa0be6671ce9c2d",
+  "lang": "en",
+  "licence": "Pile-10k: see dataset card; research use",
+  "meets_floor_200k": true,
+  "n_docs": 2000,
+  "script": "Latn",
+  "selection": {
+   "order": "dataset order"
+  },
+  "sha256": "ce258bc1ae620020dae680271291600738db54bb3d3bb557c1eb67752e0fc531",
+  "source": "NeelNanda/pile-10k",
+  "source_revision": "127bfedcd5047750df5ccf3a12979a47bfa0bafa",
+  "tokens_per_word": 1.489,
+  "tokens_scored": 248000,
+  "words": 166565
+ },
+ "en_pilot100": {
+  "file": "en_pilot100.json",
+  "hash": "eb64527cbbe066fb",
+  "lang": "en",
+  "licence": "Pile-10k: see dataset card; research use",
+  "meets_floor_200k": false,
+  "n_docs": 100,
+  "script": "Latn",
+  "selection": {
+   "copied_from": "data/generic/pile10k_100x128.json"
+  },
+  "sha256": "c2d6bcdf6f7e2a8a5f2366cdd893915db2599b5b5752fd2f66f7d98bdf279353",
+  "source": "NeelNanda/pile-10k",
+  "source_revision": "127bfedcd5047750df5ccf3a12979a47bfa0bafa",
+  "tokens_per_word": 1.468,
+  "tokens_scored": 12400,
+  "words": 8449
+ },
+ "fr_web": {
+  "file": "fr_web.json",
+  "hash": "a70323c666c3a590",
+  "lang": "fr",
+  "licence": "ODC-By 1.0",
+  "meets_floor_200k": true,
+  "n_docs": 2000,
+  "script": "Latn",
+  "selection": {
+   "file": "data/fra_Latn/train/000_00000.parquet",
+   "min_language_score": 0.9,
+   "row_groups_shuffled_seed": 0
+  },
+  "sha256": "7ccbb5dd2ce0a61e1ff37e5af859323291a644fd15ece6cce578168b5e684b78",
+  "source": "HuggingFaceFW/fineweb-2",
+  "source_revision": "af9c13333eb981300149d5ca60a8e9d659b276b9",
+  "tokens_per_word": 1.491,
+  "tokens_scored": 248000,
+  "words": 166300
+ },
+ "hi_deva_dakshina": {
+  "file": "hi_deva_dakshina.json",
+  "hash": "3abe90067318e796",
+  "lang": "hi",
+  "licence": "CC BY-SA 4.0 (Dakshina)",
+  "meets_floor_200k": true,
+  "n_docs": 2000,
+  "script": "Deva",
+  "selection": {
+   "column": "indic",
+   "lang_code": "hi",
+   "n_sentences": 11567,
+   "shuffle_seed": 0
+  },
+  "sha256": "32e8dea52e1c30512743c31501eb2c255df78d80e6da57984539c8482059cd27",
+  "source": "suhani-sarvam/google-dakshina",
+  "source_revision": "c13d9f25f3c4487c27dd04d1f165d185e5bf332d",
+  "tokens_per_word": 2.136,
+  "tokens_scored": 248000,
+  "words": 116112
+ },
+ "hi_deva_web": {
+  "file": "hi_deva_web.json",
+  "hash": "4d027cfbf600f844",
+  "lang": "hi",
+  "licence": "ODC-By 1.0",
+  "meets_floor_200k": true,
+  "n_docs": 2000,
+  "script": "Deva",
+  "selection": {
+   "file": "data/hin_Deva/train/000_00000.parquet",
+   "min_language_score": 0.9,
+   "row_groups_shuffled_seed": 0
+  },
+  "sha256": "61ad7b7e25e6928f5bdc0990b7de2d6ea3cb5a9f25a931284350c1fa8df18c9e",
+  "source": "HuggingFaceFW/fineweb-2",
+  "source_revision": "af9c13333eb981300149d5ca60a8e9d659b276b9",
+  "tokens_per_word": 1.961,
+  "tokens_scored": 248000,
+  "words": 126447
+ },
+ "hi_latn_dakshina": {
+  "file": "hi_latn_dakshina.json",
+  "hash": "61ae6b8df8768d1a",
+  "lang": "hi",
+  "licence": "CC BY-SA 4.0 (Dakshina)",
+  "meets_floor_200k": true,
+  "n_docs": 2000,
+  "script": "Latn (human romanization)",
+  "selection": {
+   "column": "roman",
+   "lang_code": "hi",
+   "n_sentences": 11567,
+   "shuffle_seed": 0
+  },
+  "sha256": "ffb71dbb2f82c86614806a901361744d6687afacbf277c032588e10fa47705fc",
+  "source": "suhani-sarvam/google-dakshina",
+  "source_revision": "c13d9f25f3c4487c27dd04d1f165d185e5bf332d",
+  "tokens_per_word": 1.95,
+  "tokens_scored": 248000,
+  "words": 127172
+ },
+ "hinglish_phinc": {
+  "file": "hinglish_phinc.json",
+  "hash": "6bea89bb5bb1e8eb",
+  "lang": "hi-en",
+  "licence": "CC BY 4.0 (PHINC)",
+  "meets_floor_200k": true,
+  "n_docs": 1663,
+  "script": "Latn",
+  "selection": {
+   "kept_by_romanized_hindi_marker_filter": 8661,
+   "min_markers": 2,
+   "rows": 13738,
+   "scrub": "@handles -> @user, URLs -> http",
+   "shuffle_seed": 0
+  },
+  "sha256": "f5d501b1da4f24835b01af677bfd3b6b929bebdaed600b447b2b3149648f2c49",
+  "source": "veezbo/phinc",
+  "source_revision": "a50e9b699599284036f934b3f5ccc42baa6724b7",
+  "tokens_per_word": 1.703,
+  "tokens_scored": 206212,
+  "words": 121066
+ },
+ "ta_latn_dakshina": {
+  "file": "ta_latn_dakshina.json",
+  "hash": "c6b9835bc340dd27",
+  "lang": "ta",
+  "licence": "CC BY-SA 4.0 (Dakshina)",
+  "meets_floor_200k": true,
+  "n_docs": 2000,
+  "script": "Latn (human romanization)",
+  "selection": {
+   "column": "roman",
+   "lang_code": "ta",
+   "n_sentences": 10088,
+   "shuffle_seed": 0
+  },
+  "sha256": "67663c2ba8807fd717e95ba0c0ea89f3c8c1bafa1c10e18c86595bbe5257af0e",
+  "source": "suhani-sarvam/google-dakshina",
+  "source_revision": "c13d9f25f3c4487c27dd04d1f165d185e5bf332d",
+  "tokens_per_word": 3.581,
+  "tokens_scored": 248000,
+  "words": 69247
+ },
+ "ta_taml_dakshina": {
+  "file": "ta_taml_dakshina.json",
+  "hash": "5f6de221f439beb2",
+  "lang": "ta",
+  "licence": "CC BY-SA 4.0 (Dakshina)",
+  "meets_floor_200k": true,
+  "n_docs": 2000,
+  "script": "Taml",
+  "selection": {
+   "column": "indic",
+   "lang_code": "ta",
+   "n_sentences": 10088,
+   "shuffle_seed": 0
+  },
+  "sha256": "31a5d3ffe4167c094ef69eb945a6c9745b46764295cc8d808029c1a7dc18222f",
+  "source": "suhani-sarvam/google-dakshina",
+  "source_revision": "c13d9f25f3c4487c27dd04d1f165d185e5bf332d",
+  "tokens_per_word": 4.353,
+  "tokens_scored": 248000,
+  "words": 56969
+ },
+ "ta_web": {
+  "file": "ta_web.json",
+  "hash": "3729a6cfefdaee54",
+  "lang": "ta",
+  "licence": "ODC-By 1.0",
+  "meets_floor_200k": true,
+  "n_docs": 2000,
+  "script": "Taml",
+  "selection": {
+   "file": "data/tam_Taml/train/000_00000.parquet",
+   "min_language_score": 0.9,
+   "row_groups_shuffled_seed": 0
+  },
+  "sha256": "ed4578d7808cf998f91effd5ed0681d1e18ece72209e20c7dfb1220b5368e772",
+  "source": "HuggingFaceFW/fineweb-2",
+  "source_revision": "af9c13333eb981300149d5ca60a8e9d659b276b9",
+  "tokens_per_word": 3.974,
+  "tokens_scored": 248000,
+  "words": 62400
+ }
+}

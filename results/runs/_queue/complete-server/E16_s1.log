@@ -1,0 +1,27 @@
+
+=== attempt 1 2026-11-18 01:34:44 slots=['1']: /home/user/prism-run/.venv-harness/bin/python -m harness.run --config configs/experiments/E16.yaml --profile server --stage 1
+
+Loading weights:   0%|          | 0/288 [00:00<?, ?it/s]
+Loading weights:   0%|          | 1/288 [00:00<02:14,  2.13it/s]
+Loading weights: 100%|██████████| 288/288 [00:00<00:00, 508.21it/s]
+2026-11-18 01:34:54,217 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-18 01:34:54,777 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-18 01:34:55,034 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-18 01:34:56,377 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-18 01:35:39,006 INFO stage1 shard 1/15 (96 pairs)
+2026-11-18 01:36:06,884 INFO stage1 shard 2/15 (96 pairs)
+2026-11-18 01:36:34,893 INFO stage1 shard 3/15 (96 pairs)
+2026-11-18 01:37:03,000 INFO stage1 shard 4/15 (96 pairs)
+2026-11-18 01:37:31,048 INFO stage1 shard 5/15 (96 pairs)
+2026-11-18 01:37:59,296 INFO stage1 shard 6/15 (96 pairs)
+2026-11-18 01:38:28,275 INFO stage1 shard 7/15 (96 pairs)
+2026-11-18 01:38:57,246 INFO stage1 shard 8/15 (96 pairs)
+2026-11-18 01:39:26,219 INFO stage1 shard 9/15 (96 pairs)
+2026-11-18 01:39:55,198 INFO stage1 shard 10/15 (96 pairs)
+2026-11-18 01:40:24,188 INFO stage1 shard 11/15 (96 pairs)
+2026-11-18 01:40:53,235 INFO stage1 shard 12/15 (96 pairs)
+2026-11-18 01:41:22,227 INFO stage1 shard 13/15 (96 pairs)
+2026-11-18 01:41:51,228 INFO stage1 shard 14/15 (96 pairs)
+2026-11-18 01:41:53,215 INFO stage1 shard 15/15 (6 pairs)
+2026-11-18 01:41:54,042 INFO E16 -> /home/user/prism-run/runs/E16/c65523e308db (stage1_complete)
+Loaded pretrained model gemma-2-2b into HookedTransformer

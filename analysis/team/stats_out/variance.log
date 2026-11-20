@@ -1,0 +1,190 @@
+RS {'E2:5ad7ad': ('laptop', 214), 'E2r:747ea7': ('node-C', 215), 'E4:051558': ('dev-machine', 215), 'E5:8095a4': ('dev-machine', 215), 'E7:bc8f07': ('laptop', 208), 'E8:5726ec': ('dev-machine', 215), 'E9:958ffc': ('node-C', 215), 'E10:9eb5f4': ('node-C', 215), 'E17:5a4a5f': ('node-D', 215), 'E18:69af83': ('node-D', 215), 'E19:deb204': ('node-D', 215)}
+OT {'E2:5ad7ad': ('laptop', 250), 'E2r:747ea7': ('node-C', 249), 'E4:051558': ('dev-machine', 249), 'E5:8095a4': ('dev-machine', 249), 'E6:43e24d': ('laptop', 220), 'E7:bc8f07': ('laptop', 220), 'E8:5726ec': ('dev-machine', 249), 'E9:958ffc': ('node-C', 249), 'E10:9eb5f4': ('node-C', 249), 'E11:8fb0d8': ('node-C', 249), 'E18:69af83': ('node-D', 249), 'E19:deb204': ('node-D', 249)}
+
+[A] cross-run reproducibility (same pairs, same condition, different runs / machines)
+cell      condition  n_runs  hosts  n_pairs  max_abs_dD_any  mean_sd_D_across_runs  sd_D_across_pairs  icc_D  icc_nldr_i  n_elig_all  elig_disagree  flip_unanimous_share  fleiss_kappa_flip  flip_rate_min  flip_rate_max  nldr_rom_min  nldr_rom_max
+  RS        clean_B      11      4      207          0.4464                 0.0232             1.3619 0.9995         NaN         202              1                1.0000                NaN         0.0000         0.0000        0.0000        0.0000
+  RS         full_A      11      4      207          0.3413                 0.0213             1.3064 0.9996         NaN         202              1                0.9950             0.7992         0.9950         1.0000        1.0000        1.0000
+  RS    feat_A_errB       9      4      207          0.7866                 0.0509             1.4985 0.9978      0.9939         202              1                0.9703             0.9516         0.8614         0.8614        0.8547        0.8579
+  RS feat_A_meanPos       9      4      207          0.7706                 0.0367             1.3565 0.9983      0.9954         202              1                0.9802             0.9639         0.8762         0.8861        0.8774        0.8792
+  RS    feat_A_zero       5      3      213          0.4396                 0.0330             1.3027 0.9986      0.9977         207              1                0.9758             0.9726         0.7681         0.7729        0.8030        0.8044
+  OT        clean_B      12      4      215          0.2178                 0.0234             0.7114 0.9982         NaN          96              4                1.0000                NaN         0.0000         0.0000        0.0000        0.0000
+  OT         full_A      12      4      215          0.2136                 0.0266             0.7304 0.9979         NaN          96              4                1.0000                NaN         1.0000         1.0000        1.0000        1.0000
+  OT    feat_A_errB      10      4      215          0.2789                 0.0355             0.6570 0.9954      0.9893          96              4                1.0000                NaN         1.0000         1.0000        0.7394        0.7443
+  OT feat_A_meanPos      10      4      215          0.2504                 0.0334             0.6833 0.9962      0.9902          96              4                1.0000             1.0000         0.9896         0.9896        0.9416        0.9440
+  OT    feat_A_zero       6      3      245          0.4004                 0.0293             0.9302 0.9984      0.9309         103              6                0.9903             0.9794         0.9126         0.9223        1.1001        1.1020
+RS clean_B identical groups: E2:5ad7ad@laptop || E2r:747ea7@node-C,E4:051558@dev-machine,E5:8095a4@dev-machine,E8:5726ec@dev-machine,E9:958ffc@node-C,E10:9eb5f4@node-C,E17:5a4a5f@node-D,E18:69af83@node-D,E19:deb204@node-D || E7:bc8f07@laptop
+RS full_A identical groups: E2:5ad7ad@laptop || E2r:747ea7@node-C,E4:051558@dev-machine,E5:8095a4@dev-machine,E8:5726ec@dev-machine,E9:958ffc@node-C,E10:9eb5f4@node-C,E17:5a4a5f@node-D,E18:69af83@node-D,E19:deb204@node-D || E7:bc8f07@laptop
+RS feat_A_errB identical groups: E2:5ad7ad@laptop || E2r:747ea7@node-C,E4:051558@dev-machine,E5:8095a4@dev-machine,E8:5726ec@dev-machine,E9:958ffc@node-C,E17:5a4a5f@node-D,E18:69af83@node-D || E7:bc8f07@laptop
+RS feat_A_meanPos identical groups: E2:5ad7ad@laptop || E2r:747ea7@node-C,E4:051558@dev-machine,E5:8095a4@dev-machine,E8:5726ec@dev-machine,E9:958ffc@node-C,E17:5a4a5f@node-D,E18:69af83@node-D || E7:bc8f07@laptop
+RS feat_A_zero identical groups: E2:5ad7ad@laptop || E2r:747ea7@node-C,E4:051558@dev-machine,E5:8095a4@dev-machine,E8:5726ec@dev-machine
+OT clean_B identical groups: E2:5ad7ad@laptop,E6:43e24d@laptop,E7:bc8f07@laptop || E2r:747ea7@node-C,E4:051558@dev-machine,E5:8095a4@dev-machine,E8:5726ec@dev-machine,E9:958ffc@node-C,E10:9eb5f4@node-C,E11:8fb0d8@node-C,E18:69af83@node-D,E19:deb204@node-D
+OT full_A identical groups: E2:5ad7ad@laptop,E6:43e24d@laptop,E7:bc8f07@laptop || E2r:747ea7@node-C,E4:051558@dev-machine,E5:8095a4@dev-machine,E8:5726ec@dev-machine,E9:958ffc@node-C,E10:9eb5f4@node-C,E11:8fb0d8@node-C,E18:69af83@node-D,E19:deb204@node-D
+OT feat_A_errB identical groups: E2:5ad7ad@laptop,E6:43e24d@laptop,E7:bc8f07@laptop || E2r:747ea7@node-C,E4:051558@dev-machine,E5:8095a4@dev-machine,E8:5726ec@dev-machine,E9:958ffc@node-C,E11:8fb0d8@node-C,E18:69af83@node-D
+OT feat_A_meanPos identical groups: E2:5ad7ad@laptop,E6:43e24d@laptop,E7:bc8f07@laptop || E2r:747ea7@node-C,E4:051558@dev-machine,E5:8095a4@dev-machine,E8:5726ec@dev-machine,E9:958ffc@node-C,E11:8fb0d8@node-C,E18:69af83@node-D
+OT feat_A_zero identical groups: E2:5ad7ad@laptop || E2r:747ea7@node-C,E4:051558@dev-machine,E5:8095a4@dev-machine,E8:5726ec@dev-machine,E11:8fb0d8@node-C
+
+[B] seed variation: E17 DAS seeds (RS L18) — per-pair agreement and decomposition pair x seed
+ rank                       estimators      condition  n_elig        flip_rates  flip_range  sd_flip_across_seeds  boot_se_flip_one_seed  seed_sd_over_sampling_se  flip_unanimous_share  fleiss_kappa_flip  icc_nldr_i  share_seed_flip  share_pair_flip  share_resid_flip  share_seed_nldr  share_pair_nldr  share_resid_nldr
+    1             das1/das1_s1/das1_s2   full_along_U     209 0.263/0.081/0.282       0.201                 0.111                  0.030                     3.749                 0.670              0.334       0.372            0.050            0.556             0.394            0.166            0.580             0.254
+    1             das1/das1_s1/das1_s2 feat_A_along_U     209 0.100/0.053/0.163       0.110                 0.055                  0.020                     2.721                 0.847              0.458       0.508            0.022            0.639             0.340            0.125            0.671             0.204
+    1 das1_e10/das1_e10_s1/das1_e10_s2   full_along_U     209 0.344/0.158/0.292       0.187                 0.096                  0.032                     2.969                 0.565              0.254       0.449            0.032            0.503             0.465            0.092            0.632             0.277
+    1 das1_e10/das1_e10_s1/das1_e10_s2 feat_A_along_U     209 0.177/0.067/0.177       0.110                 0.064                  0.026                     2.431                 0.785              0.405       0.557            0.022            0.603             0.374            0.064            0.704             0.232
+    2             das2/das2_s1/das2_s2   full_along_U     209 0.373/0.440/0.282       0.158                 0.079                  0.033                     2.394                 0.507              0.291       0.587            0.018            0.528             0.454            0.015            0.724             0.261
+    2             das2/das2_s1/das2_s2 feat_A_along_U     209 0.211/0.244/0.148       0.096                 0.049                  0.028                     1.750                 0.727              0.434       0.591            0.010            0.623             0.368            0.014            0.727             0.260
+    2 das2_e10/das2_e10_s1/das2_e10_s2   full_along_U     209 0.349/0.364/0.321       0.043                 0.022                  0.033                     0.663                 0.498              0.258       0.423            0.001            0.506             0.493            0.028            0.614             0.358
+    2 das2_e10/das2_e10_s1/das2_e10_s2 feat_A_along_U     209 0.201/0.129/0.215       0.086                 0.046                  0.028                     1.639                 0.694              0.314       0.518            0.010            0.543             0.448            0.040            0.677             0.282
+    4                     das4/das4_s1   full_along_U     209       0.737/0.579       0.158                 0.112                  0.030                     3.758                 0.737              0.415       0.528            0.028            0.708             0.265            0.072            0.763             0.165
+    4                     das4/das4_s1 feat_A_along_U     209       0.545/0.316       0.230                 0.162                  0.034                     4.837                 0.742              0.473       0.632            0.054            0.737             0.210            0.098            0.815             0.087
+    8                     das8/das8_s1   full_along_U     209       0.866/0.699       0.167                 0.118                  0.024                     5.015                 0.737              0.227       0.299            0.041            0.614             0.345            0.132            0.649             0.219
+    8                     das8/das8_s1 feat_A_along_U     209       0.651/0.445       0.206                 0.145                  0.033                     4.364                 0.718              0.430       0.635            0.043            0.715             0.242            0.068            0.817             0.115
+
+[B2] random-U seeds (20 Haar draws): spread of flip rate across draws vs sampling SE (E9 RS / OT, full_along_U)
+cell    condition  r  n_seeds  flip_mean  flip_sd  flip_p95  nldr_mean  nldr_sd
+  RS full_along_U  1       20     0.0000   0.0000    0.0000    -0.0005   0.0005
+  RS full_along_U  2       20     0.0000   0.0000    0.0000    -0.0003   0.0007
+  RS full_along_U  4       20     0.0000   0.0000    0.0000    -0.0003   0.0006
+  RS full_along_U  8       20     0.0002   0.0011    0.0002     0.0010   0.0012
+  RS       repair  1       20     0.8488   0.0029    0.8517     0.8577   0.0005
+  RS       repair  2       20     0.8498   0.0029    0.8519     0.8579   0.0009
+  RS       repair  4       20     0.8505   0.0034    0.8565     0.8578   0.0009
+  RS       repair  8       20     0.8517   0.0038    0.8565     0.8584   0.0015
+  OT full_along_U  1       20     0.0231   0.0089    0.0377     0.0008   0.0017
+  OT full_along_U  2       20     0.0231   0.0089    0.0382     0.0010   0.0026
+  OT full_along_U  4       20     0.0236   0.0108    0.0382     0.0029   0.0034
+  OT full_along_U  8       20     0.0354   0.0164    0.0566     0.0061   0.0061
+  OT       repair  1       20     0.9340   0.0000    0.9340     0.7520   0.0010
+  OT       repair  2       20     0.9340   0.0000    0.9340     0.7517   0.0014
+  OT       repair  4       20     0.9330   0.0029    0.9340     0.7524   0.0018
+  OT       repair  8       20     0.9335   0.0021    0.9340     0.7529   0.0027
+
+[C] DAS with identical nominal settings in different runs (E9/E10 node-C vs E17/E18/E19 node-D)
+cell estimator      condition                                                       runs  n_elig        flip_rates  flip_unanimous_share  fleiss_kappa_flip  icc_nldr_i  max_abs_dD
+  RS      das1   full_along_U E9:958ffc@node-C E17:5a4a5f@node-D E18:69af83@node-D     209 0.263 0.263 0.263                   1.0                1.0         1.0         0.0
+  RS      das1 feat_A_along_U E9:958ffc@node-C E17:5a4a5f@node-D E18:69af83@node-D     209 0.100 0.100 0.100                   1.0                1.0         1.0         0.0
+  RS      das1         repair                     E9:958ffc@node-C E18:69af83@node-D     209       0.856 0.856                   1.0                1.0         1.0         0.0
+  RS      das2   full_along_U E9:958ffc@node-C E17:5a4a5f@node-D E18:69af83@node-D     209 0.373 0.373 0.373                   1.0                1.0         1.0         0.0
+  RS      das2 feat_A_along_U E9:958ffc@node-C E17:5a4a5f@node-D E18:69af83@node-D     209 0.211 0.211 0.211                   1.0                1.0         1.0         0.0
+  RS      das2         repair                     E9:958ffc@node-C E18:69af83@node-D     209       0.904 0.904                   1.0                1.0         1.0         0.0
+  RS      das4   full_along_U E9:958ffc@node-C E17:5a4a5f@node-D E18:69af83@node-D     209 0.737 0.737 0.737                   1.0                1.0         1.0         0.0
+  RS      das4 feat_A_along_U E9:958ffc@node-C E17:5a4a5f@node-D E18:69af83@node-D     209 0.545 0.545 0.545                   1.0                1.0         1.0         0.0
+  RS      das4         repair                     E9:958ffc@node-C E18:69af83@node-D     209       0.933 0.933                   1.0                1.0         1.0         0.0
+  RS      das8   full_along_U E9:958ffc@node-C E17:5a4a5f@node-D E18:69af83@node-D     209 0.866 0.866 0.866                   1.0                1.0         1.0         0.0
+  RS      das8 feat_A_along_U E9:958ffc@node-C E17:5a4a5f@node-D E18:69af83@node-D     209 0.651 0.651 0.651                   1.0                1.0         1.0         0.0
+  RS      das8         repair                     E9:958ffc@node-C E18:69af83@node-D     209       0.900 0.900                   1.0                1.0         1.0         0.0
+  OT      das1   full_along_U                     E9:958ffc@node-C E18:69af83@node-D     106       0.906 0.906                   1.0                1.0         1.0         0.0
+  OT      das1 feat_A_along_U                     E9:958ffc@node-C E18:69af83@node-D     106       0.896 0.896                   1.0                1.0         1.0         0.0
+  OT      das1         repair                     E9:958ffc@node-C E18:69af83@node-D     106       0.906 0.906                   1.0                1.0         1.0         0.0
+  OT      das2   full_along_U                     E9:958ffc@node-C E18:69af83@node-D     106       0.925 0.925                   1.0                1.0         1.0         0.0
+  OT      das2 feat_A_along_U                     E9:958ffc@node-C E18:69af83@node-D     106       0.887 0.887                   1.0                1.0         1.0         0.0
+  OT      das2         repair                     E9:958ffc@node-C E18:69af83@node-D     106       0.925 0.925                   1.0                1.0         1.0         0.0
+  OT      das4   full_along_U                     E9:958ffc@node-C E18:69af83@node-D     106       0.915 0.915                   1.0                1.0         1.0         0.0
+  OT      das4 feat_A_along_U                     E9:958ffc@node-C E18:69af83@node-D     106       0.934 0.934                   1.0                1.0         1.0         0.0
+  OT      das4         repair                     E9:958ffc@node-C E18:69af83@node-D     106       0.925 0.925                   1.0                1.0         1.0         0.0
+  OT      das8   full_along_U                     E9:958ffc@node-C E18:69af83@node-D     106       0.962 0.962                   1.0                1.0         1.0         0.0
+  OT      das8 feat_A_along_U                     E9:958ffc@node-C E18:69af83@node-D     106       0.991 0.991                   1.0                1.0         1.0         0.0
+  OT      das8         repair                     E9:958ffc@node-C E18:69af83@node-D     106       0.934 0.934                   1.0                1.0         1.0         0.0
+
+[C2] principal cosines between DAS rotations with the same name in different runs
+cell  das            a            b  cos_top  cos_min  max_abs_elem_diff
+  RS das1  E9@node-C E10@node-C      1.0      1.0                0.0
+  RS das1  E9@node-C E17@node-D      1.0      1.0                0.0
+  RS das1  E9@node-C E18@node-D      1.0      1.0                0.0
+  RS das1 E10@node-C E17@node-D      1.0      1.0                0.0
+  RS das1 E10@node-C E18@node-D      1.0      1.0                0.0
+  RS das1 E17@node-D E18@node-D      1.0      1.0                0.0
+  RS das2  E9@node-C E10@node-C      1.0      1.0                0.0
+  RS das2  E9@node-C E17@node-D      1.0      1.0                0.0
+  RS das2  E9@node-C E18@node-D      1.0      1.0                0.0
+  RS das2 E10@node-C E17@node-D      1.0      1.0                0.0
+  RS das2 E10@node-C E18@node-D      1.0      1.0                0.0
+  RS das2 E17@node-D E18@node-D      1.0      1.0                0.0
+  RS das4  E9@node-C E10@node-C      1.0      1.0                0.0
+  RS das4  E9@node-C E17@node-D      1.0      1.0                0.0
+  RS das4  E9@node-C E18@node-D      1.0      1.0                0.0
+  RS das4  E9@node-C E19@node-D      1.0      1.0                0.0
+  RS das4 E10@node-C E17@node-D      1.0      1.0                0.0
+  RS das4 E10@node-C E18@node-D      1.0      1.0                0.0
+  RS das4 E10@node-C E19@node-D      1.0      1.0                0.0
+  RS das4 E17@node-D E18@node-D      1.0      1.0                0.0
+  RS das4 E17@node-D E19@node-D      1.0      1.0                0.0
+  RS das4 E18@node-D E19@node-D      1.0      1.0                0.0
+  RS das8  E9@node-C E17@node-D      1.0      1.0                0.0
+  RS das8  E9@node-C E18@node-D      1.0      1.0                0.0
+  RS das8  E9@node-C E19@node-D      1.0      1.0                0.0
+  RS das8 E17@node-D E18@node-D      1.0      1.0                0.0
+  RS das8 E17@node-D E19@node-D      1.0      1.0                0.0
+  RS das8 E18@node-D E19@node-D      1.0      1.0                0.0
+  OT das1  E9@node-C E10@node-C      1.0      1.0                0.0
+  OT das1  E9@node-C E18@node-D      1.0      1.0                0.0
+  OT das1 E10@node-C E18@node-D      1.0      1.0                0.0
+  OT das2  E9@node-C E10@node-C      1.0      1.0                0.0
+  OT das2  E9@node-C E18@node-D      1.0      1.0                0.0
+  OT das2 E10@node-C E18@node-D      1.0      1.0                0.0
+  OT das4  E9@node-C E10@node-C      1.0      1.0                0.0
+  OT das4  E9@node-C E18@node-D      1.0      1.0                0.0
+  OT das4  E9@node-C E19@node-D      1.0      1.0                0.0
+  OT das4 E10@node-C E18@node-D      1.0      1.0                0.0
+  OT das4 E10@node-C E19@node-D      1.0      1.0                0.0
+  OT das4 E18@node-D E19@node-D      1.0      1.0                0.0
+  OT das8  E9@node-C E18@node-D      1.0      1.0                0.0
+  OT das8  E9@node-C E19@node-D      1.0      1.0                0.0
+  OT das8 E18@node-D E19@node-D      1.0      1.0                0.0
+
+[D] E8 atlas: per-pair feat_A_errB outcome decomposed into pair / layer / pair x layer
+    term   share   df         task      outcome  n_pairs  n_layers
+       L  0.1097    7    add_chain nldr_i(wins)      215         8
+  family  0.0193    1    add_chain nldr_i(wins)      215         8
+family:L  0.0134   15    add_chain nldr_i(wins)      215         8
+ pair_id  0.3308  214    add_chain nldr_i(wins)      215         8
+residual  0.5268 1482    add_chain nldr_i(wins)      215         8
+       L  0.0299    7    add_chain         flip      209         8
+  family  0.0006    1    add_chain         flip      209         8
+family:L  0.0015   15    add_chain         flip      209         8
+ pair_id  0.3985  208    add_chain         flip      209         8
+residual  0.5696 1440    add_chain         flip      209         8
+       L  0.1687   11 entity_track nldr_i(wins)      249        12
+  family  0.0000    0 entity_track nldr_i(wins)      249        12
+family:L -0.0000   11 entity_track nldr_i(wins)      249        12
+ pair_id  0.1242  248 entity_track nldr_i(wins)      249        12
+residual  0.7071 2717 entity_track nldr_i(wins)      249        12
+       L  0.0007   11 entity_track         flip      106        12
+  family  0.0000    0 entity_track         flip      106        12
+family:L -0.0000   11 entity_track         flip      106        12
+ pair_id  0.9336  105 entity_track         flip      106        12
+residual  0.0657 1144 entity_track         flip      106        12
+
+[E] RS L18 & OT L12: nldr_i(wins) and flip decomposed: family, pair|family, condition, family:cond, pair:cond, run(+machine)
+             term    share   df cell      outcome  n_pairs  n_runs                                                               hosts
+           family  0.02729    1   RS nldr_i(wins)      207       9 dev-machine,node-D,node-C,laptop
+          pair_id  0.78891  206   RS nldr_i(wins)      207       9 dev-machine,node-D,node-C,laptop
+        condition  0.00982    1   RS nldr_i(wins)      207       9 dev-machine,node-D,node-C,laptop
+ family:condition  0.00663    3   RS nldr_i(wins)      207       9 dev-machine,node-D,node-C,laptop
+pair_id:condition  0.16257  413   RS nldr_i(wins)      207       9 dev-machine,node-D,node-C,laptop
+             host  0.00007    3   RS nldr_i(wins)      207       9 dev-machine,node-D,node-C,laptop
+              run  0.00000    8   RS nldr_i(wins)      207       9 dev-machine,node-D,node-C,laptop
+         residual  0.00471 3090   RS nldr_i(wins)      207       9 dev-machine,node-D,node-C,laptop
+           family  0.00170    1   RS         flip      203       9 dev-machine,node-D,node-C,laptop
+          pair_id  0.70604  202   RS         flip      203       9 dev-machine,node-D,node-C,laptop
+        condition  0.00064    1   RS         flip      203       9 dev-machine,node-D,node-C,laptop
+ family:condition  0.00007    3   RS         flip      203       9 dev-machine,node-D,node-C,laptop
+pair_id:condition  0.25375  405   RS         flip      203       9 dev-machine,node-D,node-C,laptop
+             host  0.00004    3   RS         flip      203       9 dev-machine,node-D,node-C,laptop
+              run  0.00000    8   RS         flip      203       9 dev-machine,node-D,node-C,laptop
+         residual  0.03776 3016   RS         flip      203       9 dev-machine,node-D,node-C,laptop
+           family  0.00000    0   OT nldr_i(wins)      215      10 dev-machine,node-D,node-C,laptop
+          pair_id  0.65149  214   OT nldr_i(wins)      215      10 dev-machine,node-D,node-C,laptop
+        condition  0.21713    1   OT nldr_i(wins)      215      10 dev-machine,node-D,node-C,laptop
+ family:condition  0.00000    1   OT nldr_i(wins)      215      10 dev-machine,node-D,node-C,laptop
+pair_id:condition  0.12416  429   OT nldr_i(wins)      215      10 dev-machine,node-D,node-C,laptop
+             host  0.00005    3   OT nldr_i(wins)      215      10 dev-machine,node-D,node-C,laptop
+              run -0.00000    9   OT nldr_i(wins)      215      10 dev-machine,node-D,node-C,laptop
+         residual  0.00717 3642   OT nldr_i(wins)      215      10 dev-machine,node-D,node-C,laptop
+           family  0.00000    0   OT         flip      100      10 dev-machine,node-D,node-C,laptop
+          pair_id  0.49744   99   OT         flip      100      10 dev-machine,node-D,node-C,laptop
+        condition  0.00513    1   OT         flip      100      10 dev-machine,node-D,node-C,laptop
+ family:condition -0.00000    1   OT         flip      100      10 dev-machine,node-D,node-C,laptop
+pair_id:condition  0.49744  199   OT         flip      100      10 dev-machine,node-D,node-C,laptop
+             host  0.00000    3   OT         flip      100      10 dev-machine,node-D,node-C,laptop
+              run -0.00000    9   OT         flip      100      10 dev-machine,node-D,node-C,laptop
+         residual -0.00000 1647   OT         flip      100      10 dev-machine,node-D,node-C,laptop

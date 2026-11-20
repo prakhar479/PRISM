@@ -1,0 +1,15 @@
+
+=== attempt 1 2026-11-18 05:20:36 slots=['1']: /home/user/prism-run/.venv-harness/bin/python scripts/run_fidelity.py --sets hinglish_phinc --layers 6 24
+2026-11-18 05:20:38,871 INFO E12: 2 (set, layer) pairs to do, 0 already done; device cuda:0
+
+Loading weights:   0%|          | 0/288 [00:00<?, ?it/s]
+Loading weights:   0%|          | 1/288 [00:00<02:21,  2.03it/s]
+Loading weights: 100%|██████████| 288/288 [00:00<00:00, 491.85it/s]
+2026-11-18 05:20:45,878 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-18 05:20:46,145 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-18 05:20:46,399 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-18 05:20:47,823 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-18 05:34:21,503 INFO hinglish_phinc L6: CE clean 4.665 splice 4.756, recovered(mean) 0.983 [0.982, 0.983], FVU 0.277  (785s)
+2026-11-18 05:47:28,363 INFO hinglish_phinc L24: CE clean 4.665 splice 5.256, recovered(mean) 0.867 [0.865, 0.869], FVU 0.371  (786s)
+2026-11-18 05:47:28,814 INFO E12 0edac226405a -> /home/user/prism-run/runs/E12/0edac226405a (complete)
+Loaded pretrained model gemma-2-2b into HookedTransformer

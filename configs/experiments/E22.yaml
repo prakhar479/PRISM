@@ -1,0 +1,42 @@
+# E22 (exploratory, post hoc 2026-11-18): multilingual DAS. M2/M3 were untestable (only people-cities French passes both gates).
+# Descriptive question instead: is the causal subspace DAS finds in English the one the model uses in another language? DAS
+# (and pca_pooled) fitted natively per language and fitted on English, applied to the language's pairs (full_along_U,
+# feat_A_along_U). Languages whose task passes Gate A (or nearly): running sum fr, hinglish, hi; people-cities fr, hi, hinglish.
+# E13 gates are reported next to every row; none of this enters M2/M3.
+exp_id: E22
+name: multilingual_das_transfer
+description: >-
+  Running sum L18 and people-cities L12 (E13/E14 prompt sets, 16k): DAS rank 4 and 8 and pca_pooled, fitted on the language
+  (native) or on English (transfer), full_along_U and feat_A_along_U, 20 random U per rank.
+model_revision: c5ebcd40d208330abc697524c919956e692655cf
+prompt_sets: {add_chain: prompt_sets/add_chain_e13.jsonl.gz, people_cities: prompt_sets/people_cities_e13.jsonl.gz}
+cells:
+  - {task: add_chain, layer: 18, sae: {width: 16k}, role: exploratory, fit_families: [rs_en], eval_families: [rs_en]}
+  - {task: add_chain, layer: 18, sae: {width: 16k}, role: exploratory, fit_families: [rs_fr], eval_families: [rs_fr]}
+  - {task: add_chain, layer: 18, sae: {width: 16k}, role: exploratory, fit_families: [rs_hinglish], eval_families: [rs_hinglish]}
+  - {task: add_chain, layer: 18, sae: {width: 16k}, role: exploratory, fit_families: [rs_hi], eval_families: [rs_hi]}
+  - {task: add_chain, layer: 18, sae: {width: 16k}, role: exploratory, fit_families: [rs_en], eval_families: [rs_fr]}
+  - {task: add_chain, layer: 18, sae: {width: 16k}, role: exploratory, fit_families: [rs_en], eval_families: [rs_hinglish]}
+  - {task: add_chain, layer: 18, sae: {width: 16k}, role: exploratory, fit_families: [rs_en], eval_families: [rs_hi]}
+  - {task: people_cities, layer: 12, sae: {width: 16k}, role: exploratory, fit_families: [pc_en], eval_families: [pc_en]}
+  - {task: people_cities, layer: 12, sae: {width: 16k}, role: exploratory, fit_families: [pc_fr], eval_families: [pc_fr]}
+  - {task: people_cities, layer: 12, sae: {width: 16k}, role: exploratory, fit_families: [pc_hi], eval_families: [pc_hi]}
+  - {task: people_cities, layer: 12, sae: {width: 16k}, role: exploratory, fit_families: [pc_hinglish], eval_families: [pc_hinglish]}
+  - {task: people_cities, layer: 12, sae: {width: 16k}, role: exploratory, fit_families: [pc_en], eval_families: [pc_fr]}
+  - {task: people_cities, layer: 12, sae: {width: 16k}, role: exploratory, fit_families: [pc_en], eval_families: [pc_hi]}
+  - {task: people_cities, layer: 12, sae: {width: 16k}, role: exploratory, fit_families: [pc_en], eval_families: [pc_hinglish]}
+n_train: 150
+n_test: 150
+filters: [f_none, f_A_correct, f_pilot]
+fit_filter: f_pilot
+conditions: [feat_A_errB, feat_A_meanPos]
+noise_seeds: [0]
+directions:
+  conditions: [feat_A_along_U, full_along_U]
+  ranks: [0, 4, 8]
+  estimators: [pca_pooled, das4, das8]
+  sources: [same_task]
+  random_seeds: 20
+  r_max: 32
+bootstrap: 1000
+seed: 0

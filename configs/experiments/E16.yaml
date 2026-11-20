@@ -1,0 +1,29 @@
+# E16 (exploratory): where along depth does the running-sum subspace live? E9's contrasts (full_along_U, repair) with the error
+# estimators and DAS rank 1/2/4 at every running-sum layer the pilot grid has a 16k SAE for, except L18 (E9 covers it).
+exp_id: E16
+name: rs_layer_sweep_das
+description: >-
+  Running sum (pilot templates) at L12, L14, L16, L20 (16k canonical variants), full_along_U and repair with pca_pooled,
+  answer_sep and DAS rank 1, 2, 4; 20 random U per rank.
+model_revision: c5ebcd40d208330abc697524c919956e692655cf
+prompt_sets: {add_chain: prompt_sets/add_chain_pilot.jsonl.gz}
+cells:
+  - {task: add_chain, layer: 12, sae: {width: 16k}, role: exploratory}
+  - {task: add_chain, layer: 14, sae: {width: 16k}, role: exploratory}
+  - {task: add_chain, layer: 16, sae: {width: 16k}, role: exploratory}
+  - {task: add_chain, layer: 20, sae: {width: 16k}, role: exploratory}
+n_train: 300
+n_test: 150
+filters: [f_none, f_A_correct, f_pilot]
+fit_filter: f_pilot
+conditions: [feat_A_errB, feat_A_meanPos]
+noise_seeds: [0]
+directions:
+  conditions: [full_along_U, repair]
+  ranks: [0, 1, 2, 4]
+  estimators: [pca_pooled, answer_sep, das1, das2, das4]
+  sources: [same_task]
+  random_seeds: 20
+  r_max: 32
+bootstrap: 1000
+seed: 0

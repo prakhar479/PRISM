@@ -1,0 +1,16 @@
+# Optional (exploratory, redundant width point): E4_1m, the two 1m SAEs at L12 (~36 GiB of downloads, ~10 GiB host RAM each in
+# bf16). Run it only where the Hugging Face cache has room (e.g. PRISM_BULK / /scratch), after queue/complete-server.yaml:
+#   sbatch --export=ALL,QUEUES=queue/extra-1m-server.yaml scripts/slurm_final.sbatch
+tag: extra-1m-server
+profile: server
+parallel: true
+jobs:
+  - {id: prefetch, kind: script, script: scripts/run_prefetch.py, args: [--queue, queue/extra-1m-server.yaml]}
+  - {id: preflight, kind: script, script: scripts/run_preflight.py, gpu: all,
+     args: [--queue, queue/extra-1m-server.yaml, --golden, golden/R2, --per-gpu], depends_on: [prefetch]}
+  - {id: E4_1m_s1, config: configs/experiments/E4_1m.yaml, stage: "1", priority: 4, depends_on: [preflight]}
+  - {id: E4_1m_s2, config: configs/experiments/E4_1m.yaml, stage: "2", slices: auto, priority: 4, depends_on: [E4_1m_s1]}
+  - {id: E4_1m_s3, config: configs/experiments/E4_1m.yaml, stage: "3", workers: auto, priority: 4, depends_on: [E4_1m_s2]}
+  - {id: E4_1m_fin, config: configs/experiments/E4_1m.yaml, stage: "3", gpu: none, args: [--finalize-only], depends_on: [E4_1m_s3]}
+  - {id: bundle, kind: script, script: scripts/bundle_results.py, args: [--tag, extra-1m-server, --queue, queue/extra-1m-server.yaml], after_failed: true, depends_on: [E4_1m_fin]}
+  - {id: publish, kind: script, script: scripts/publish_results.py, args: [--tag, extra-1m-server, --queue, queue/extra-1m-server.yaml], after_failed: true, depends_on: [bundle]}

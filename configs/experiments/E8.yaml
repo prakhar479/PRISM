@@ -1,0 +1,64 @@
+# E8 fill (P1, release 2): repair specificity on every pilot-grid cell (4 tasks x L4-L20) and the E6 layers, with all
+# three controls in ONE run per cell (handoff 9 E8; PREREGISTRATION.md "repair specificity"): other-task directions
+# (every other task), generic-text directions, and >= 20 random U per rank. Release 1 had controls split across runs
+# (E1_repair: other/generic with 3 random seeds; E2: 20 random seeds, no other/generic; E6: 5 seeds) -> tables/E8_*.
+exp_id: E8
+name: allcells_fill
+description: Repair with same-task, other-task, generic and 20 random directions on every pilot-grid cell and E6 layer.
+model_revision: c5ebcd40d208330abc697524c919956e692655cf
+prompt_sets:
+  entity_track: prompt_sets/entity_track_pilot.jsonl.gz
+  add_chain: prompt_sets/add_chain_pilot.jsonl.gz
+  var_binding: prompt_sets/var_binding_pilot.jsonl.gz
+  ioi_control: prompt_sets/ioi_control_pilot.jsonl.gz
+cells:
+  - {task: entity_track, layer: 4, sae: {width: 16k}, role: exploratory}
+  - {task: entity_track, layer: 8, sae: {width: 16k}, role: exploratory}
+  - {task: entity_track, layer: 9, sae: {width: 16k}, role: exploratory}
+  - {task: entity_track, layer: 10, sae: {width: 16k}, role: exploratory}
+  - {task: entity_track, layer: 11, sae: {width: 16k}, role: exploratory}
+  - {task: entity_track, layer: 12, sae: {width: 16k}, role: confirmatory}
+  - {task: entity_track, layer: 13, sae: {width: 16k}, role: exploratory}
+  - {task: entity_track, layer: 14, sae: {width: 16k}, role: exploratory}
+  - {task: entity_track, layer: 15, sae: {width: 16k}, role: exploratory}
+  - {task: entity_track, layer: 16, sae: {width: 16k}, role: exploratory}
+  - {task: entity_track, layer: 18, sae: {width: 16k}, role: exploratory}
+  - {task: entity_track, layer: 20, sae: {width: 16k}, role: exploratory}
+  - {task: add_chain, layer: 4, sae: {width: 16k}, role: exploratory}
+  - {task: add_chain, layer: 8, sae: {width: 16k}, role: exploratory}
+  - {task: add_chain, layer: 10, sae: {width: 16k}, role: exploratory}
+  - {task: add_chain, layer: 12, sae: {width: 16k}, role: exploratory}
+  - {task: add_chain, layer: 14, sae: {width: 16k}, role: exploratory}
+  - {task: add_chain, layer: 16, sae: {width: 16k}, role: exploratory}
+  - {task: add_chain, layer: 18, sae: {width: 16k}, role: confirmatory}
+  - {task: add_chain, layer: 20, sae: {width: 16k}, role: exploratory}
+  - {task: var_binding, layer: 4, sae: {width: 16k}, role: exploratory}
+  - {task: var_binding, layer: 8, sae: {width: 16k}, role: exploratory}
+  - {task: var_binding, layer: 10, sae: {width: 16k}, role: exploratory}
+  - {task: var_binding, layer: 12, sae: {width: 16k}, role: exploratory}
+  - {task: var_binding, layer: 14, sae: {width: 16k}, role: exploratory}
+  - {task: var_binding, layer: 16, sae: {width: 16k}, role: exploratory}
+  - {task: var_binding, layer: 18, sae: {width: 16k}, role: exploratory}
+  - {task: var_binding, layer: 20, sae: {width: 16k}, role: exploratory}
+  - {task: ioi_control, layer: 4, sae: {width: 16k}, role: exploratory}
+  - {task: ioi_control, layer: 8, sae: {width: 16k}, role: exploratory}
+  - {task: ioi_control, layer: 10, sae: {width: 16k}, role: exploratory}
+  - {task: ioi_control, layer: 12, sae: {width: 16k}, role: exploratory}
+  - {task: ioi_control, layer: 14, sae: {width: 16k}, role: exploratory}
+  - {task: ioi_control, layer: 16, sae: {width: 16k}, role: exploratory}
+  - {task: ioi_control, layer: 18, sae: {width: 16k}, role: exploratory}
+  - {task: ioi_control, layer: 20, sae: {width: 16k}, role: exploratory}
+filters: [f_pilot, f_A_correct, f_none]
+fit_filter: f_pilot
+conditions: [feat_A_errB, feat_A_zero, feat_A_meanPos, feat_B_noise]
+noise_seeds: [0, 1]
+directions:
+  conditions: [repair]
+  ranks: [0, 1, 2, 4, 8]          # r <= 2 for the preregistered criterion; 4, 8 for directions-to-half
+  estimators: [pca_pooled, answer_sep]
+  sources: [same_task, other_task, generic]
+  random_seeds: 20
+  r_max: 32
+generic: {set: generic/pile10k_100x128.json}
+bootstrap: 1000
+seed: 0

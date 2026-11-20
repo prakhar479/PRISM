@@ -1,0 +1,113 @@
+{
+ "task": "entity_track",
+ "kind": "language_families",
+ "settings": {
+  "n_train": 300,
+  "n_test": 150,
+  "seed": 0,
+  "candidate_multiplier": 6,
+  "n_shots": 8,
+  "answer_format": "auto",
+  "filter_mode": "clean_only",
+  "min_logit_diff": 2.0,
+  "gen_kwargs": {
+   "depth": 2
+  }
+ },
+ "tokenizer": {
+  "name": "google/gemma-2-2b",
+  "revision": "c5ebcd40d208330abc697524c919956e692655cf"
+ },
+ "families": {
+  "ot_en": {
+   "lang": "en",
+   "script": "Latn",
+   "validated": false,
+   "generated": {
+    "train": 900,
+    "test": 900
+   },
+   "kept": {
+    "train": 900,
+    "test": 900
+   },
+   "length_matching_success": {
+    "train": 1.0,
+    "test": 1.0
+   }
+  },
+  "ot_hi": {
+   "lang": "hi",
+   "script": "Deva",
+   "validated": false,
+   "generated": {
+    "train": 900,
+    "test": 900
+   },
+   "kept": {
+    "train": 900,
+    "test": 900
+   },
+   "length_matching_success": {
+    "train": 1.0,
+    "test": 1.0
+   }
+  },
+  "ot_hi_latn": {
+   "lang": "hi_latn",
+   "script": "Latn (romanized Hindi)",
+   "validated": false,
+   "generated": {
+    "train": 900,
+    "test": 900
+   },
+   "kept": {
+    "train": 900,
+    "test": 900
+   },
+   "length_matching_success": {
+    "train": 1.0,
+    "test": 1.0
+   }
+  },
+  "ot_hinglish": {
+   "lang": "hinglish",
+   "script": "Latn (code-mixed)",
+   "validated": false,
+   "generated": {
+    "train": 900,
+    "test": 900
+   },
+   "kept": {
+    "train": 900,
+    "test": 900
+   },
+   "length_matching_success": {
+    "train": 1.0,
+    "test": 1.0
+   }
+  },
+  "ot_fr": {
+   "lang": "fr",
+   "script": "Latn",
+   "validated": false,
+   "generated": {
+    "train": 900,
+    "test": 900
+   },
+   "kept": {
+    "train": 900,
+    "test": 900
+   },
+   "length_matching_success": {
+    "train": 1.0,
+    "test": 1.0
+   }
+  }
+ },
+ "source": "harness.tasks.build_family_candidates over harness.langfamilies (DRAFT templates, unvalidated)",
+ "created": "2026-11-15 09:37:32 UTC",
+ "n": 9000,
+ "hash": "a451e24642c47e10",
+ "file": "entity_track_e13.jsonl.gz"
+}

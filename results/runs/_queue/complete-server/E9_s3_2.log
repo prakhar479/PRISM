@@ -1,0 +1,37 @@
+
+=== attempt 1 2026-11-17 13:21:09 slots=['3']: /home/user/prism-run/.venv-harness/bin/python -m harness.run --config configs/experiments/E9.yaml --profile server --stage 3 --worker E9_s3-2
+2026-11-17 13:21:17,767 INFO DAS: training das8 for add_chain L18 on 300 train pairs
+
+Loading weights:   0%|          | 0/288 [00:00<?, ?it/s]
+Loading weights:   0%|          | 1/288 [00:00<02:08,  2.24it/s]
+Loading weights:  93%|█████████▎| 267/288 [00:00<00:00, 627.40it/s]
+Loading weights: 100%|██████████| 288/288 [00:00<00:00, 496.51it/s]
+2026-11-17 13:21:24,668 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-17 13:21:24,971 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-17 13:21:25,236 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-17 13:21:26,822 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-17 13:28:57,446 INFO add_chain_L18_16k_l074 unit 1/36 (8 conditions, 94.3s)
+2026-11-17 13:30:31,969 INFO add_chain_L18_16k_l074 unit 6/36 (8 conditions, 94.4s)
+2026-11-17 13:32:06,539 INFO add_chain_L18_16k_l074 unit 9/36 (8 conditions, 94.4s)
+2026-11-17 13:33:41,037 INFO add_chain_L18_16k_l074 unit 12/36 (8 conditions, 94.4s)
+2026-11-17 13:35:15,553 INFO add_chain_L18_16k_l074 unit 15/36 (8 conditions, 94.4s)
+2026-11-17 13:36:50,048 INFO add_chain_L18_16k_l074 unit 18/36 (8 conditions, 94.4s)
+2026-11-17 13:38:24,545 INFO add_chain_L18_16k_l074 unit 21/36 (8 conditions, 94.4s)
+2026-11-17 13:39:59,111 INFO add_chain_L18_16k_l074 unit 24/36 (8 conditions, 94.5s)
+2026-11-17 13:41:33,672 INFO add_chain_L18_16k_l074 unit 27/36 (8 conditions, 94.4s)
+2026-11-17 13:43:08,294 INFO add_chain_L18_16k_l074 unit 31/36 (8 conditions, 94.5s)
+2026-11-17 13:44:42,883 INFO add_chain_L18_16k_l074 unit 34/36 (8 conditions, 94.5s)
+2026-11-17 13:44:47,322 INFO DAS: training das1 for entity_track L12 on 300 train pairs
+2026-11-17 14:05:50,324 INFO entity_track_L12_16k_l082 unit 1/36 (8 conditions, 271.7s)
+2026-11-17 14:10:25,557 INFO entity_track_L12_16k_l082 unit 6/36 (8 conditions, 275.1s)
+2026-11-17 14:15:00,790 INFO entity_track_L12_16k_l082 unit 9/36 (8 conditions, 275.1s)
+2026-11-17 14:19:36,036 INFO entity_track_L12_16k_l082 unit 12/36 (8 conditions, 275.1s)
+2026-11-17 14:24:11,242 INFO entity_track_L12_16k_l082 unit 15/36 (8 conditions, 275.1s)
+2026-11-17 14:28:46,479 INFO entity_track_L12_16k_l082 unit 18/36 (8 conditions, 275.1s)
+2026-11-17 14:33:21,668 INFO entity_track_L12_16k_l082 unit 21/36 (8 conditions, 275.1s)
+2026-11-17 14:37:56,961 INFO entity_track_L12_16k_l082 unit 24/36 (8 conditions, 275.1s)
+2026-11-17 14:42:32,263 INFO entity_track_L12_16k_l082 unit 27/36 (8 conditions, 275.1s)
+2026-11-17 14:47:07,416 INFO entity_track_L12_16k_l082 unit 30/36 (8 conditions, 275.0s)
+2026-11-17 14:51:42,598 INFO entity_track_L12_16k_l082 unit 33/36 (8 conditions, 275.0s)
+2026-11-17 14:51:42,747 INFO E9 -> /home/user/prism-run/runs/E9/958ffcdee3d4 (worker_done)
+Loaded pretrained model gemma-2-2b into HookedTransformer

@@ -1,0 +1,187 @@
+== A. E17 configs (f_pilot test, n eligible per row shown)
+            est  k  epochs   lr  seed  loss_first  loss_last  train_acc  init_capture  full_flip  full_lo  full_hi  feat_flip  full_nldr  feat_nldr   gap  gap_lo  gap_hi   n
+           das1  1       3 0.01     0       2.104      2.078      0.250         0.407      0.273    0.200    0.347      0.120      0.443      0.269 0.153   0.093   0.213 150
+       das1_e10  1      10 0.01     0       2.104      2.305      0.297         0.300      0.347    0.273    0.427      0.167      0.514      0.322 0.180   0.113   0.253 150
+       das1_e30  1      30 0.01     0       2.104      2.242      0.300         0.476      0.300    0.227    0.373      0.100      0.421      0.271 0.200   0.127   0.273 150
+das1_e10_lr3e-2  1      10 0.03     0       3.117      3.771      0.000         0.951      0.000    0.000    0.000      0.000      0.018      0.013 0.000   0.000   0.000 150
+        das1_s1  1       3 0.01     1       2.128      2.412      0.080         0.515      0.087    0.047    0.133      0.053      0.186      0.121 0.033   0.007   0.067 150
+    das1_e10_s1  1      10 0.01     1       2.128      2.159      0.227         0.432      0.147    0.093    0.207      0.080      0.278      0.187 0.067   0.020   0.113 150
+        das1_s2  1       3 0.01     2       2.527      2.204      0.333         0.405      0.307    0.233    0.380      0.187      0.466      0.336 0.120   0.047   0.193 150
+    das1_e10_s2  1      10 0.01     2       2.527      2.218      0.340         0.389      0.320    0.247    0.400      0.200      0.462      0.321 0.120   0.047   0.193 150
+           das2  2       3 0.01     0       2.088      1.816      0.333         0.543      0.347    0.273    0.420      0.200      0.526      0.341 0.147   0.080   0.220 150
+       das2_e10  2      10 0.01     0       2.088      1.788      0.393         0.556      0.387    0.307    0.467      0.247      0.579      0.408 0.140   0.067   0.213 150
+       das2_e30  2      30 0.01     0       2.088      1.525      0.473         0.507      0.500    0.420    0.580      0.287      0.595      0.397 0.213   0.133   0.293 150
+das2_e10_lr3e-2  2      10 0.03     0       3.118      1.717      0.437         0.566      0.440    0.360    0.520      0.227      0.590      0.389 0.213   0.133   0.293 150
+        das2_s1  2       3 0.01     1       1.710      1.826      0.453         0.532      0.440    0.360    0.520      0.240      0.496      0.313 0.200   0.140   0.267 150
+    das2_e10_s1  2      10 0.01     1       1.710      1.819      0.363         0.605      0.373    0.300    0.453      0.147      0.452      0.262 0.227   0.160   0.300 150
+        das2_s2  2       3 0.01     2       1.710      1.671      0.343         0.618      0.313    0.240    0.393      0.160      0.447      0.279 0.153   0.080   0.233 150
+    das2_e10_s2  2      10 0.01     2       1.710      1.737      0.367         0.498      0.327    0.253    0.400      0.200      0.438      0.302 0.127   0.060   0.200 150
+           das4  4       3 0.01     0       1.669      1.109      0.733         0.631      0.760    0.687    0.827      0.547      0.748      0.564 0.213   0.147   0.287 150
+       das4_e10  4      10 0.01     0       1.669      0.730      0.840         0.556      0.733    0.660    0.807      0.540      0.770      0.574 0.193   0.127   0.267 150
+        das4_s1  4       3 0.01     1       1.631      1.083      0.647         0.626      0.593    0.513    0.673      0.307      0.602      0.391 0.287   0.213   0.360 150
+           das8  8       3 0.01     0       1.280      0.704      0.890         0.636      0.867    0.807    0.920      0.680      0.878      0.670 0.187   0.113   0.260 150
+       das8_e10  8      10 0.01     0       1.280      0.329      0.980         0.584      0.900    0.847    0.947      0.700      0.903      0.683 0.200   0.127   0.273 150
+        das8_s1  8       3 0.01     1       1.286      0.695      0.780         0.673      0.733    0.660    0.807      0.467      0.738      0.549 0.267   0.193   0.347 150
+  k=1: Spearman(train_acc, full_flip) over 7 lr=1e-2 fits: SignificanceResult(statistic=np.float64(0.7857142857142859), pvalue=np.float64(0.03623846267982715))
+  k=2: Spearman(train_acc, full_flip) over 7 lr=1e-2 fits: SignificanceResult(statistic=np.float64(0.8214285714285715), pvalue=np.float64(0.0234488083456915))
+  k=1: Spearman(init_capture, train_acc) within rank: SignificanceResult(statistic=np.float64(-0.6071428571428572), pvalue=np.float64(0.14823116148116164)) n 7
+  k=2: Spearman(init_capture, train_acc) within rank: SignificanceResult(statistic=np.float64(-0.5357142857142858), pvalue=np.float64(0.21521745567801298)) n 7
+  all lr=1e-2 fits: Spearman(train_acc, full_flip) SignificanceResult(statistic=np.float64(0.9480617908951154), pvalue=np.float64(2.161878363061485e-10)) n 20
+n pairs in per-pair matrix 150
+== B. paired held-out flip changes with training (exact McNemar, BH over 13 tests)
+       a               b  flip_a  flip_b    diff  n01  n10  p_mcnemar   n   p_bh
+    das1        das1_e10  0.2733  0.3467  0.0733   21   10     0.0708 150 0.1840
+das1_e10        das1_e30  0.3467  0.3000 -0.0467   21   28     0.3916 150 0.6364
+    das1        das1_e30  0.2733  0.3000  0.0267   20   16     0.6177 150 0.7300
+    das2        das2_e10  0.3467  0.3867  0.0400   24   18     0.4408 150 0.6367
+das2_e10        das2_e30  0.3867  0.5000  0.1133   24    7     0.0033 150 0.0216
+    das2        das2_e30  0.3467  0.5000  0.1533   37   14     0.0018 150 0.0216
+das2_e10 das2_e10_lr3e-2  0.3867  0.4400  0.0533   11    3     0.0574 150 0.1840
+    das4        das4_e10  0.7600  0.7333 -0.0267   10   14     0.5413 150 0.7036
+    das8        das8_e10  0.8667  0.9000  0.0333    8    3     0.2266 150 0.4208
+ das1_s1     das1_e10_s1  0.0867  0.1467  0.0600   12    3     0.0352 150 0.1523
+ das1_s2     das1_e10_s2  0.3067  0.3200  0.0133    9    7     0.8036 150 0.8706
+ das2_s1     das2_e10_s1  0.4400  0.3733 -0.0667   10   20     0.0987 150 0.2139
+ das2_s2     das2_e10_s2  0.3133  0.3267  0.0133   22   20     0.8776 150 0.8776
+== C. pairwise same-rank comparisons
+ k               a               b  same_init  raw_top  raw_mean  learned_top  learned_mean  flip_a  flip_b  both_flip  both_expected_indep   phi  valid_a  valid_b
+ 1            das1         das1_s1      False    0.306     0.306        0.595         0.595   0.273   0.087         11                3.553 0.396    False    False
+ 1            das1         das1_s2      False    0.482     0.482        0.805         0.805   0.273   0.307         29               12.573 0.533    False    False
+ 1            das1        das1_e10       True    0.922     0.922        0.889         0.889   0.273   0.347         31               14.213 0.528    False    False
+ 1            das1     das1_e10_s1      False    0.386     0.386        0.675         0.675   0.273   0.147         15                6.013 0.380    False    False
+ 1            das1     das1_e10_s2      False    0.495     0.495        0.813         0.813   0.273   0.320         30               13.120 0.541    False    False
+ 1            das1 das1_e10_lr3e-2       True    0.745     0.745        0.716         0.716   0.273   0.000          0                0.000   NaN    False    False
+ 1            das1        das1_e30       True    0.946     0.946        0.907         0.907   0.273   0.300         25               12.300 0.415    False    False
+ 2            das2         das2_s1      False    0.529     0.314        0.881         0.656   0.347   0.440         33               22.880 0.286    False    False
+ 2            das2         das2_s2      False    0.433     0.248        0.747         0.491   0.347   0.313         24               16.293 0.233    False    False
+ 2            das2        das2_e10       True    0.926     0.837        0.884         0.749   0.347   0.387         34               20.107 0.400    False    False
+ 2            das2     das2_e10_s1      False    0.511     0.287        0.807         0.652   0.347   0.373         27               19.413 0.220    False    False
+ 2            das2     das2_e10_s2      False    0.448     0.318        0.752         0.666   0.347   0.327         21               16.987 0.120    False    False
+ 2            das2 das2_e10_lr3e-2       True    0.906     0.588        0.864         0.616   0.347   0.440         37               22.880 0.398    False    False
+ 2            das2        das2_e30       True    0.892     0.760        0.826         0.634   0.347   0.500         38               26.000 0.336    False    False
+ 4            das4         das4_s1      False    0.645     0.280        0.883         0.599   0.760   0.593         83               67.640 0.488     True     True
+ 4            das4        das4_e10       True    0.993     0.940        0.956         0.864   0.760   0.733        100               83.600 0.579     True     True
+ 8            das8         das8_s1      False    0.726     0.287        0.919         0.586   0.867   0.733        103               95.333 0.340     True     True
+ 8            das8        das8_e10       True    0.992     0.933        0.968         0.860   0.867   0.900        127              117.000 0.654     True     True
+ 1         das1_s1         das1_s2      False    0.370     0.370        0.718         0.718   0.087   0.307         10                3.987 0.309    False    False
+ 1         das1_s1        das1_e10      False    0.394     0.394        0.697         0.697   0.087   0.347         11                4.507 0.323    False    False
+ 1         das1_s1     das1_e10_s1       True    0.920     0.920        0.855         0.855   0.087   0.147         10                1.907 0.542    False    False
+ 1         das1_s1     das1_e10_s2      False    0.326     0.326        0.629         0.629   0.087   0.320         10                4.160 0.297    False    False
+ 1         das1_s1 das1_e10_lr3e-2      False    0.072     0.072        0.513         0.513   0.087   0.000          0                0.000   NaN    False    False
+ 1         das1_s1        das1_e30      False    0.335     0.335        0.690         0.690   0.087   0.300         10                3.900 0.315    False    False
+ 2         das2_s1         das2_s2      False    0.449     0.308        0.793         0.640   0.440   0.313         35               20.680 0.415    False    False
+ 2         das2_s1        das2_e10      False    0.541     0.271        0.870         0.729   0.440   0.387         33               25.520 0.206    False    False
+ 2         das2_s1     das2_e10_s1       True    0.954     0.936        0.899         0.861   0.440   0.373         46               24.640 0.593    False    False
+ 2         das2_s1     das2_e10_s2      False    0.524     0.364        0.763         0.710   0.440   0.327         38               21.560 0.471    False    False
+ 2         das2_s1 das2_e10_lr3e-2      False    0.590     0.307        0.768         0.400   0.440   0.440         37               29.040 0.215    False    False
+ 2         das2_s1        das2_e30      False    0.623     0.323        0.837         0.562   0.440   0.500         44               33.000 0.295    False    False
+ 4         das4_s1        das4_e10      False    0.671     0.287        0.855         0.518   0.593   0.733         79               65.267 0.421     True     True
+ 8         das8_s1        das8_e10      False    0.729     0.315        0.919         0.583   0.733   0.900        107               99.000 0.402     True     True
+ 1         das1_s2        das1_e10      False    0.510     0.510        0.794         0.794   0.307   0.347         30               15.947 0.427    False    False
+ 1         das1_s2     das1_e10_s1      False    0.457     0.457        0.794         0.794   0.307   0.147         16                6.747 0.378    False    False
+ 1         das1_s2     das1_e10_s2       True    0.970     0.970        0.950         0.950   0.307   0.320         39               14.720 0.753    False    False
+ 1         das1_s2 das1_e10_lr3e-2      False    0.145     0.145        0.810         0.810   0.307   0.000          0                0.000   NaN    False    False
+ 1         das1_s2        das1_e30      False    0.486     0.486        0.862         0.862   0.307   0.300         30               13.800 0.511    False    False
+ 2         das2_s2        das2_e10      False    0.542     0.280        0.797         0.549   0.313   0.387         31               18.173 0.379    False    False
+ 2         das2_s2     das2_e10_s1      False    0.454     0.305        0.845         0.722   0.313   0.373         30               17.547 0.370    False    False
+ 2         das2_s2     das2_e10_s2       True    0.893     0.857        0.929         0.699   0.313   0.327         27               15.353 0.357    False    False
+ 2         das2_s2 das2_e10_lr3e-2      False    0.550     0.281        0.798         0.425   0.313   0.440         35               20.680 0.415    False    False
+ 2         das2_s2        das2_e30      False    0.564     0.286        0.782         0.410   0.313   0.500         39               23.500 0.446    False    False
+ 1        das1_e10     das1_e10_s1      False    0.442     0.442        0.710         0.710   0.347   0.147         11                7.627 0.134    False    False
+ 1        das1_e10     das1_e10_s2      False    0.507     0.507        0.776         0.776   0.347   0.320         29               16.640 0.371    False    False
+ 1        das1_e10 das1_e10_lr3e-2       True    0.659     0.659        0.670         0.670   0.347   0.000          0                0.000   NaN    False    False
+ 1        das1_e10        das1_e30       True    0.886     0.886        0.839         0.839   0.347   0.300         24               15.600 0.257    False    False
+ 2        das2_e10     das2_e10_s1      False    0.619     0.315        0.872         0.760   0.387   0.373         33               21.653 0.321    False    False
+ 2        das2_e10     das2_e10_s2      False    0.534     0.286        0.722         0.709   0.387   0.327         26               18.947 0.206    False    False
+ 2        das2_e10 das2_e10_lr3e-2       True    0.992     0.844        0.987         0.541   0.387   0.440         55               25.520 0.813    False    False
+ 2        das2_e10        das2_e30       True    0.989     0.956        0.963         0.895   0.387   0.500         51               29.000 0.602    False    False
+ 1     das1_e10_s1     das1_e10_s2      False    0.426     0.426        0.732         0.732   0.147   0.320         18                7.040 0.443    False    False
+ 1     das1_e10_s1 das1_e10_lr3e-2      False    0.107     0.107        0.624         0.624   0.147   0.000          0                0.000   NaN    False    False
+ 1     das1_e10_s1        das1_e30      False    0.403     0.403        0.748         0.748   0.147   0.300         16                6.600 0.387    False    False
+ 2     das2_e10_s1     das2_e10_s2      False    0.487     0.331        0.792         0.741   0.373   0.327         28               18.293 0.285    False    False
+ 2     das2_e10_s1 das2_e10_lr3e-2      False    0.655     0.338        0.838         0.427   0.373   0.440         39               24.640 0.399    False    False
+ 2     das2_e10_s1        das2_e30      False    0.686     0.354        0.872         0.579   0.373   0.500         45               28.000 0.469    False    False
+ 1     das1_e10_s2 das1_e10_lr3e-2      False    0.148     0.148        0.800         0.800   0.320   0.000          0                0.000   NaN    False    False
+ 1     das1_e10_s2        das1_e30      False    0.485     0.485        0.846         0.846   0.320   0.300         30               14.400 0.487    False    False
+ 2     das2_e10_s2 das2_e10_lr3e-2      False    0.569     0.293        0.726         0.393   0.327   0.440         28               21.560 0.184    False    False
+ 2     das2_e10_s2        das2_e30      False    0.610     0.313        0.737         0.580   0.327   0.500         33               24.500 0.242    False    False
+ 1 das1_e10_lr3e-2        das1_e30       True    0.789     0.789        0.724         0.724   0.000   0.300          0                0.000   NaN    False    False
+ 2 das2_e10_lr3e-2        das2_e30       True    0.998     0.924        0.978         0.556   0.440   0.500         62               33.000 0.779    False    False
+summary (excluding the collapsed lr3e-2 fits):
+            raw_top                     learned_top                     learned_mean                        phi                    
+             median    min    max count      median    min    max count       median    min    max count median    min    max count
+k same_init                                                                                                                        
+1 False       0.434  0.306  0.510    16       0.740  0.595  0.862    16        0.740  0.595  0.862    16  0.383  0.134  0.541    16
+  True        0.922  0.886  0.970     5       0.889  0.839  0.950     5        0.889  0.839  0.950     5  0.528  0.257  0.753     5
+2 False       0.531  0.433  0.686    16       0.795  0.722  0.881    16        0.654  0.410  0.760    16  0.291  0.120  0.471    16
+  True        0.926  0.892  0.989     5       0.899  0.826  0.963     5        0.749  0.634  0.895     5  0.400  0.336  0.602     5
+4 False       0.658  0.645  0.671     2       0.869  0.855  0.883     2        0.559  0.518  0.599     2  0.455  0.421  0.488     2
+  True        0.993  0.993  0.993     1       0.956  0.956  0.956     1        0.864  0.864  0.864     1  0.579  0.579  0.579     1
+8 False       0.727  0.726  0.729     2       0.919  0.919  0.919     2        0.584  0.583  0.586     2  0.371  0.340  0.402     2
+  True        0.992  0.992  0.992     1       0.968  0.968  0.968     1        0.860  0.860  0.860     1  0.654  0.654  0.654     1
+max |diff| vs make_final cos_top_learned: 5.330472729880853e-10 rows 36
+== D. das1 consensus (top singular vector of 7 learned das1 directions); sv^2 share: [0.811 0.087 0.048 0.022 0.018 0.009 0.006]
+  cos^2 of each das1 learned dir with consensus: {'das1': 0.82, 'das1_s1': 0.666, 'das1_s2': 0.888, 'das1_e10': 0.822, 'das1_e10_s1': 0.759, 'das1_e10_s2': 0.838, 'das1_e30': 0.88}
+  consensus seed [0] fits vs other seeds' consensus |cos| = 0.858
+  consensus seed [1] fits vs other seeds' consensus |cos| = 0.774
+  consensus seed [2] fits vs other seeds' consensus |cos| = 0.876
+  consensus inside learned span of higher-rank fits (cos^2; Haar ~k/2304):
+    das2             learned dims 2  cos^2 0.767   in full U 0.488
+    das4             learned dims 4  cos^2 0.780   in full U 0.570
+    das8             learned dims 8  cos^2 0.778   in full U 0.622
+    das2_s1          learned dims 2  cos^2 0.730   in full U 0.445
+    das4_s1          learned dims 4  cos^2 0.728   in full U 0.440
+    das8_s1          learned dims 8  cos^2 0.746   in full U 0.505
+    das2_s2          learned dims 2  cos^2 0.818   in full U 0.429
+    das2_e10         learned dims 2  cos^2 0.763   in full U 0.659
+    das4_e10         learned dims 4  cos^2 0.716   in full U 0.610
+    das8_e10         learned dims 8  cos^2 0.728   in full U 0.562
+    das2_e10_s1      learned dims 2  cos^2 0.786   in full U 0.479
+    das2_e10_s2      learned dims 2  cos^2 0.676   in full U 0.424
+    das2_e10_lr3e-2  learned dims 2  cos^2 0.769   in full U 0.675
+    das2_e30         learned dims 2  cos^2 0.695   in full U 0.680
+  consensus in pca_pooled[:, :r] capture: {1: 0.012, 2: 0.097, 4: 0.1, 8: 0.187, 16: 0.23, 32: 0.284}
+manifest E9 (['node-C'], '14e7e1f4795baed3fdce36998c4c777671bea4bb')
+manifest E17 (['node-D'], '240e5f6146120dcb47c062d21ce487eee1bb1fc8')
+manifest E18 (['node-D'], '240e5f6146120dcb47c062d21ce487eee1bb1fc8')
+manifest E20 (['node-D'], '240e5f6146120dcb47c062d21ce487eee1bb1fc8')
+== F. cross-run/machine DAS and error-U identity
+    a         b        est  max_abs_diff      top  min_pcos    acc_a    acc_b   loss_a   loss_b
+   E9       E17       das1      0.000000 1.000000  1.000000 0.250000 0.250000 2.078366 2.078366
+   E9       E17       das2      0.000000 1.000000  1.000000 0.333333 0.333333 1.816228 1.816228
+   E9       E17       das4      0.000000 1.000000  1.000000 0.733333 0.733333 1.108684 1.108684
+   E9       E17       das8      0.000000 1.000000  1.000000 0.890000 0.890000 0.703697 0.703697
+   E9       E17 pca_pooled      0.000000 1.000000  1.000000      NaN      NaN      NaN      NaN
+   E9       E18       das1      0.000000 1.000000  1.000000 0.250000 0.250000 2.078366 2.078366
+   E9       E18       das2      0.000000 1.000000  1.000000 0.333333 0.333333 1.816228 1.816228
+   E9       E18       das4      0.000000 1.000000  1.000000 0.733333 0.733333 1.108684 1.108684
+   E9       E18       das8      0.000000 1.000000  1.000000 0.890000 0.890000 0.703697 0.703697
+   E9       E18 pca_pooled      0.000000 1.000000  1.000000      NaN      NaN      NaN      NaN
+   E9       E18 answer_sep      0.000000 1.000000  1.000000      NaN      NaN      NaN      NaN
+   E9       E20       das4      0.000000 1.000000  1.000000 0.733333 0.733333 1.108684 1.108684
+   E9       E20       das8      0.000000 1.000000  1.000000 0.890000 0.890000 0.703697 0.703697
+   E9       E20 pca_pooled      0.088185 0.401785  0.535293      NaN      NaN      NaN      NaN
+   E9       E20 answer_sep      0.072678 0.668567  0.426071      NaN      NaN      NaN      NaN
+  E17       E18       das1      0.000000 1.000000  1.000000 0.250000 0.250000 2.078366 2.078366
+  E17       E18       das2      0.000000 1.000000  1.000000 0.333333 0.333333 1.816228 1.816228
+  E17       E18       das4      0.000000 1.000000  1.000000 0.733333 0.733333 1.108684 1.108684
+  E17       E18       das8      0.000000 1.000000  1.000000 0.890000 0.890000 0.703697 0.703697
+  E17       E18 pca_pooled      0.000000 1.000000  1.000000      NaN      NaN      NaN      NaN
+E9:OT    E18:OT       das1      0.000000 1.000000  1.000000 0.970000 0.970000 0.331557 0.331557
+E9:OT    E18:OT       das2      0.000000 1.000000  1.000000 1.000000 1.000000 0.096159 0.096159
+E9:OT    E18:OT       das4      0.000000 1.000000  1.000000 1.000000 1.000000 0.109199 0.109199
+E9:OT    E18:OT       das8      0.000000 1.000000  1.000000 1.000000 1.000000 0.082852 0.082852
+E9:OT    E18:OT pca_pooled      0.000000 1.000000  1.000000      NaN      NaN      NaN      NaN
+E9:OT    E18:OT answer_sep      0.000000 1.000000  1.000000      NaN      NaN      NaN      NaN
+E9:OT  E20:OT65       das4      0.000000 1.000000  1.000000 1.000000 1.000000 0.109199 0.109199
+E9:OT  E20:OT65       das8      0.000000 1.000000  1.000000 1.000000 1.000000 0.082852 0.082852
+E9:OT  E20:OT65 pca_pooled      0.084655 0.759646  0.634790      NaN      NaN      NaN      NaN
+E9:OT  E20:OT65 answer_sep      0.079696 0.714164  0.580790      NaN      NaN      NaN      NaN
+E9:OT E20:OT262       das4      0.000000 1.000000  1.000000 1.000000 1.000000 0.109199 0.109199
+E9:OT E20:OT262       das8      0.000000 1.000000  1.000000 1.000000 1.000000 0.082852 0.082852
+E9:OT E20:OT262 pca_pooled      0.134873 0.708027  0.227478      NaN      NaN      NaN      NaN
+E9:OT E20:OT262 answer_sep      0.094781 0.687828  0.603724      NaN      NaN      NaN      NaN
+  per-pair full_along_U flips das1: E9 0.273 E17 0.273 agree 1.000 n 150
+  per-pair full_along_U flips das2: E9 0.347 E17 0.347 agree 1.000 n 150
+  per-pair full_along_U flips das4: E9 0.760 E17 0.760 agree 1.000 n 150
+  per-pair full_along_U flips das8: E9 0.867 E17 0.867 agree 1.000 n 150

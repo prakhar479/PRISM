@@ -1,0 +1,31 @@
+# E9 (P2, gated): illusion checks and DAS. Running sum L18 is GO (humans, 2026-11-16) -> confirmatory; object tracking L12 is
+# not GO -> run as an exploratory, redundant row that the analysis may reject (DECISIONS.md 2026-11-16).
+exp_id: E9
+name: illusion_checks_das
+description: >-
+  feat_A_along_U (x_hat_B + P(x_hat_A - x_hat_B) + eps_B) and full_along_U (x_B + P(x_A - x_B)) for U from the error
+  estimators and from DAS rotations (rank 1, 2, 4, 8) trained on train pairs; repair with the same U for comparison;
+  20 random U per rank. Geometry (cos(U, DAS), U vs SAE decoder) is computed on DEV from the saved directions.
+model_revision: c5ebcd40d208330abc697524c919956e692655cf
+prompt_sets: {add_chain: prompt_sets/add_chain_pilot.jsonl.gz, entity_track: prompt_sets/entity_track_pilot.jsonl.gz}
+cells:
+  - {task: add_chain, layer: 18, sae: {width: 16k}, role: confirmatory}
+  - {task: entity_track, layer: 12, sae: {width: 16k}, role: exploratory}
+n_train: 300
+n_test: 150
+filters: [f_none, f_A_correct, f_pilot]
+fit_filter: f_pilot
+conditions: [feat_A_errB, feat_A_meanPos]
+noise_seeds: [0]
+directions:
+  conditions: [feat_A_along_U, full_along_U, repair]
+  ranks: [0, 1, 2, 4, 8]
+  estimators: [pca_pooled, answer_sep, das1, das2, das4, das8]
+  sources: [same_task]
+  random_seeds: 20
+  r_max: 32
+bootstrap: 1000
+seed: 0
+notes:
+  - "DAS (harness/model/das.py fit_das): rotation trained on the f_pilot train pairs, 3 epochs, Adam lr 1e-2, cross-entropy toward A's answer; cached per (spans, fit set, k) so every worker uses the same rotation; train interchange accuracy is saved with it."
+  - "A DAS rotation is evaluated only at its own rank (its columns have no order)."

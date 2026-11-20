@@ -1,0 +1,2 @@
+
+=== attempt 1 2026-11-19 09:16:48 slots=[]: /home/user/prism-run/.venv-harness/bin/python scripts/publish_results.py --tag final-explore-server --queue queue/final-explore-server.yaml

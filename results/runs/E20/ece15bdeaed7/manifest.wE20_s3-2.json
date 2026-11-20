@@ -1,0 +1,420 @@
+{
+ "exp_id": "E20",
+ "run_hash": "ece15bdeaed7",
+ "status": "worker_done",
+ "stages": [
+  "3"
+ ],
+ "smoke": false,
+ "tiny": false,
+ "created": "2026-11-19T07:48:59+0530",
+ "wall_time_s": 1383.5,
+ "config": {
+  "exp_id": "E20",
+  "name": "illusion_by_width",
+  "description": "E9's contrasts (feat_A_along_U, full_along_U, repair) with pca_pooled, answer_sep, DAS rank 4 and 8 at wider SAEs, matched L0; 20 random U per rank.",
+  "kind": "patch_grid",
+  "model_revision": "c5ebcd40d208330abc697524c919956e692655cf",
+  "prompt_sets": {
+   "add_chain": "prompt_sets/add_chain_pilot.jsonl.gz",
+   "entity_track": "prompt_sets/entity_track_pilot.jsonl.gz"
+  },
+  "cells": [
+   {
+    "task": "add_chain",
+    "layer": 18,
+    "sae": {
+     "width": "65k",
+     "l0": 64,
+     "rule": "explicit"
+    },
+    "role": "exploratory",
+    "fit_families": null,
+    "eval_families": null
+   },
+   {
+    "task": "entity_track",
+    "layer": 12,
+    "sae": {
+     "width": "65k",
+     "l0": 72,
+     "rule": "explicit"
+    },
+    "role": "exploratory",
+    "fit_families": null,
+    "eval_families": null
+   },
+   {
+    "task": "entity_track",
+    "layer": 12,
+    "sae": {
+     "width": "262k",
+     "l0": 67,
+     "rule": "explicit"
+    },
+    "role": "exploratory",
+    "fit_families": null,
+    "eval_families": null
+   }
+  ],
+  "n_train": 300,
+  "n_test": 150,
+  "filters": [
+   "f_none",
+   "f_A_correct",
+   "f_pilot"
+  ],
+  "fit_filter": "f_pilot",
+  "conditions": [
+   "feat_A_errB",
+   "feat_A_meanPos"
+  ],
+  "noise_seeds": [
+   0
+  ],
+  "directions": {
+   "conditions": [
+    "feat_A_along_U",
+    "full_along_U",
+    "repair"
+   ],
+   "ranks": [
+    0,
+    1,
+    2,
+    4,
+    8
+   ],
+   "estimators": [
+    "pca_pooled",
+    "answer_sep",
+    "das4",
+    "das8"
+   ],
+   "sources": [
+    "same_task"
+   ],
+   "random_seeds": 20,
+   "r_max": 32
+  },
+  "generic": null,
+  "generic_l0": false,
+  "subthresh": null,
+  "bootstrap": 1000,
+  "seed": 0,
+  "smoke_pairs": 10,
+  "pilot_reference": null,
+  "notes": []
+ },
+ "config_file": "configs/experiments/E20.yaml",
+ "profile": {
+  "name": "server",
+  "device": "cuda",
+  "model_dtype": "bfloat16",
+  "sae_dtype": "float32",
+  "sae_bf16_min_width": "524k",
+  "sae_placement": "auto",
+  "cache_root": "<cache_root>",
+  "data_root": "data",
+  "runs_root": "runs",
+  "hf_home": "<hf_home>",
+  "cache_spill": [
+   "<cache_spill>"
+  ],
+  "cache_spill_min_gb": 8,
+  "offline": false,
+  "batch_size": 16,
+  "max_batch_size": 72,
+  "max_batch_tokens": 9216,
+  "gpu_mem_cap_gb": 9.97,
+  "cpu_workers": 2,
+  "offload_embed": true,
+  "cpu_threads": 4,
+  "min_free_gb": 10,
+  "vram_headroom_gb": 0.6,
+  "allowed_experiments": [
+   "E0",
+   "E1",
+   "E2",
+   "E2r",
+   "E3",
+   "E4",
+   "E5",
+   "E6",
+   "E7",
+   "E8",
+   "E9",
+   "E9b",
+   "E10",
+   "E10b",
+   "E11",
+   "E12",
+   "E13",
+   "E14",
+   "E16",
+   "E17",
+   "E18",
+   "E19",
+   "E20",
+   "E22"
+  ],
+  "allow_real_model": true,
+  "sources": [
+   "profiles/server.yaml",
+   "profiles/local.yaml",
+   "env:HF_HOME",
+   "env:HL_MAX_BATCH_TOKENS",
+   "env:HL_CPU_THREADS"
+  ]
+ },
+ "git": {
+  "commit": "240e5f6146120dcb47c062d21ce487eee1bb1fc8",
+  "branch": "HEAD",
+  "tags": [],
+  "dirty": false,
+  "dirty_files": []
+ },
+ "packages": {
+  "torch": "2.14.1+cu126",
+  "transformers": "5.19.0",
+  "transformer-lens": "3.9.0",
+  "numpy": "2.5.4",
+  "pandas": "3.0.6",
+  "pyarrow": "26.0.0",
+  "safetensors": "0.8.0",
+  "huggingface-hub": "2.2.0",
+  "scipy": "1.18.1"
+ },
+ "machine": {
+  "hostname": "node-D",
+  "os": "Linux-5.15.0-203-generic-x86_64-with-glibc2.35",
+  "python": "3.12.16",
+  "device": "cuda:0",
+  "torch": "2.14.1+cu126",
+  "torch_cuda": "12.6",
+  "gpu_name": "NVIDIA GeForce RTX 2080 Ti",
+  "gpu_total_gb": 10.57,
+  "gpu_free_gb": 4.39,
+  "capability": "7.5",
+  "cudnn": 91002,
+  "nvidia_driver": "570.211.01\n570.211.01\n570.211.01\n570.211.01"
+ },
+ "model": {
+  "name": "gemma-2-2b",
+  "revision": "c5ebcd40d208330abc697524c919956e692655cf",
+  "dtype": "bfloat16",
+  "site": "resid_post",
+  "tiny_seed": 0,
+  "tiny_vocab": 0,
+  "tiny_layers": 4
+ },
+ "sae_revision": "fd571b47c1c64851e9b1989792367b9babb4af63",
+ "prompt_sets": {
+  "add_chain": {
+   "hash": "ae62178213dffbfc",
+   "file": "prompt_sets/add_chain_pilot.jsonl.gz",
+   "n": 1350
+  },
+  "entity_track": {
+   "hash": "05c876df51db248a",
+   "file": "prompt_sets/entity_track_pilot.jsonl.gz",
+   "n": 2700
+  }
+ },
+ "generic": null,
+ "seeds": {
+  "seed": 0,
+  "noise_seeds": [
+   0
+  ],
+  "random_seeds": 20
+ },
+ "timings": {
+  "model_load_s": 23.4,
+  "stage3_total_s": 1383.5
+ },
+ "budget": {
+  "max_tokens": 9216,
+  "backoffs": 0
+ },
+ "peak_gpu_gb": 5.81,
+ "cells": [
+  {
+   "cell": "add_chain_L18_65k_l064",
+   "role": "exploratory",
+   "sae": {
+    "layer": 18,
+    "width": "65k",
+    "l0": 64,
+    "repo": "google/gemma-scope-2b-pt-res",
+    "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_none": 150,
+    "f_A_correct": 150,
+    "f_pilot": 150
+   },
+   "n_test_union": 215,
+   "n_train": 300,
+   "fitset_digest": "7cc34e25b8356245",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9689,
+     "f_both_correct": 0.9411,
+     "f_pilot": 0.6989
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9622,
+     "f_both_correct": 0.9356,
+     "f_pilot": 0.6133
+    }
+   },
+   "mean_l0_test": [
+    59.1923828125,
+    59.11265182495117
+   ],
+   "rel_err_norm_test": 0.37310847640037537,
+   "mean_pos_coverage": {
+    "slot": 1064,
+    "offset": 1457,
+    "task": 0
+   }
+  },
+  {
+   "cell": "entity_track_L12_65k_l072",
+   "role": "exploratory",
+   "sae": {
+    "layer": 12,
+    "width": "65k",
+    "l0": 72,
+    "repo": "google/gemma-scope-2b-pt-res",
+    "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_none": 150,
+    "f_A_correct": 150,
+    "f_pilot": 150
+   },
+   "n_test_union": 249,
+   "n_train": 300,
+   "fitset_digest": "120dcc6193cb7f1a",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 0.7406,
+     "f_both_correct": 0.3017,
+     "f_pilot": 0.3867
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 0.7467,
+     "f_both_correct": 0.31,
+     "f_pilot": 0.3856
+    }
+   },
+   "mean_l0_test": [
+    76.53606414794922,
+    75.605224609375
+   ],
+   "rel_err_norm_test": 0.40743547677993774,
+   "mean_pos_coverage": {
+    "slot": 1176,
+    "offset": 2193,
+    "task": 0
+   }
+  },
+  {
+   "cell": "entity_track_L12_262k_l067",
+   "role": "exploratory",
+   "sae": {
+    "layer": 12,
+    "width": "262k",
+    "l0": 67,
+    "repo": "google/gemma-scope-2b-pt-res",
+    "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_none": 150,
+    "f_A_correct": 150,
+    "f_pilot": 150
+   },
+   "n_test_union": 249,
+   "n_train": 300,
+   "fitset_digest": "120dcc6193cb7f1a",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 0.7406,
+     "f_both_correct": 0.3017,
+     "f_pilot": 0.3867
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 0.7467,
+     "f_both_correct": 0.31,
+     "f_pilot": 0.3856
+    }
+   },
+   "mean_l0_test": [
+    67.3550033569336,
+    66.75304412841797
+   ],
+   "rel_err_norm_test": 0.4112274646759033,
+   "mean_pos_coverage": {
+    "slot": 1176,
+    "offset": 2193,
+    "task": 0
+   }
+  }
+ ],
+ "allow_dirty": false,
+ "worker": "E20_s3-2",
+ "resources": {
+  "device_memory": {
+   "free_bytes": 11184177152,
+   "total_bytes": 11348672512,
+   "name": "NVIDIA GeForce RTX 2080 Ti"
+  },
+  "resolved": {
+   "gpu_mem_cap_gb": 9.97,
+   "offload_embed": true,
+   "max_batch_size": 72
+  },
+  "rules": {
+   "gpu_mem_cap_gb": "total 10.57 GiB - headroom 0.6",
+   "offload_embed": "GPU under 16 GiB",
+   "batch": "auto_budget(cap 9.97 GiB): 40% of the memory after the model"
+  },
+  "cpu_threads": 4
+ },
+ "machine_probe": {
+  "source": "nvidia-smi + /proc",
+  "gpus": [
+   {
+    "index": 1,
+    "uuid": "GPU-d23d7e45-b66c-7b44-965c-b92b7de05f99",
+    "name": "NVIDIA GeForce RTX 2080 Ti",
+    "total_bytes": 11811160064,
+    "free_bytes": 11348738048,
+    "compute_cap": "7.5",
+    "driver": "570.211.01"
+   }
+  ],
+  "ram_total_bytes": 135025332224,
+  "ram_available_bytes": 113492664320,
+  "cpu_logical": 40,
+  "cpu_affinity": 34,
+  "cpu_physical": 17,
+  "disk_free_bytes": 928669999104,
+  "cuda_visible_devices": "1"
+ },
+ "filters_overridden": null
+}

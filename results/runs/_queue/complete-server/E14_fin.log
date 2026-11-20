@@ -1,0 +1,7 @@
+
+=== attempt 1 2026-11-17 21:14:08 slots=[]: /home/user/prism-run/.venv-harness/bin/python -m harness.run --config configs/experiments/E14.yaml --profile server --stage 3 --finalize-only
+2026-11-17 21:14:24,249 WARNING cell entity_track_L12_16k_l082__fit-ot_hi__eval-ot_hi skipped: entity_track L12: only 0 train pairs pass f_pilot in families ['ot_hi'] (need 20)
+2026-11-17 21:14:30,175 WARNING cell entity_track_L12_16k_l082__fit-ot_hinglish__eval-ot_hinglish skipped: entity_track L12: only 0 train pairs pass f_pilot in families ['ot_hinglish'] (need 20)
+2026-11-17 21:14:30,265 WARNING cell entity_track_L12_16k_l082__fit-ot_fr__eval-ot_fr skipped: entity_track L12: only 7 train pairs pass f_pilot in families ['ot_fr'] (need 20)
+2026-11-17 21:14:42,964 WARNING cell add_chain_L18_16k_l074__fit-rs_hi_latn__eval-rs_hi_latn skipped: add_chain L18: only 5 train pairs pass f_pilot in families ['rs_hi_latn'] (need 20)
+2026-11-17 22:00:56,968 INFO E14 finalize -> /home/user/prism-run/runs/E14/395b811b9c51 (complete)

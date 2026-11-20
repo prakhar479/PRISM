@@ -1,0 +1,30 @@
+# E6 (P1): fine layer sweep for object tracking, 16k canonical SAEs, every layer 8-16; L12 directions applied at
+# every other layer (source layer:12).
+exp_id: E6
+name: layer_sweep_ot
+description: Object tracking, layers 8-16, features-only / meanPos / noise / repair r in {0,1,2}.
+model_revision: c5ebcd40d208330abc697524c919956e692655cf
+prompt_sets: {entity_track: prompt_sets/entity_track_pilot.jsonl.gz}
+cells:
+  - {task: entity_track, layer: 8, sae: {width: 16k}}
+  - {task: entity_track, layer: 9, sae: {width: 16k}}
+  - {task: entity_track, layer: 10, sae: {width: 16k}}
+  - {task: entity_track, layer: 11, sae: {width: 16k}}
+  - {task: entity_track, layer: 12, sae: {width: 16k}}
+  - {task: entity_track, layer: 13, sae: {width: 16k}}
+  - {task: entity_track, layer: 14, sae: {width: 16k}}
+  - {task: entity_track, layer: 15, sae: {width: 16k}}
+  - {task: entity_track, layer: 16, sae: {width: 16k}}
+filters: [f_pilot, f_A_correct]
+fit_filter: f_pilot
+conditions: [feat_A_errB, feat_A_meanPos, feat_B_noise]
+noise_seeds: [0, 1]
+directions:
+  conditions: [repair]
+  ranks: [0, 1, 2]
+  estimators: [pca_pooled, answer_sep]
+  sources: [same_task, "layer:12"]
+  random_seeds: 5
+  r_max: 32
+bootstrap: 1000
+seed: 0

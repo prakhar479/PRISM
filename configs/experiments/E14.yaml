@@ -1,0 +1,54 @@
+# E14 (P3): multilingual task gap (M2) and English-direction transfer (M3), every language and task at once. Whether a row may be
+# READ is decided in analysis: Gate A (E13 viable), Gate B (accuracy within 10 points of English), validated templates
+# (data/lang/signoff.json). Rows that fail are kept in the data and rejected by scripts/make_e14.py (two-pass plan, 2026-11-16).
+exp_id: E14
+name: multilingual_gap
+description: >-
+  E2 baselines and repair / repair_mean per (task, language family): fit and evaluate on the same language (native), and fit on
+  English, evaluate on the language (transfer, M3). Object tracking L12, running sum L18, people-cities L12; 16k pilot variants.
+model_revision: c5ebcd40d208330abc697524c919956e692655cf
+prompt_sets: {entity_track: prompt_sets/entity_track_e13.jsonl.gz, add_chain: prompt_sets/add_chain_e13.jsonl.gz,
+              people_cities: prompt_sets/people_cities_e13.jsonl.gz}
+cells:
+  - {task: entity_track, layer: 12, sae: {width: 16k}, role: exploratory, fit_families: [ot_en], eval_families: [ot_en]}
+  - {task: entity_track, layer: 12, sae: {width: 16k}, role: exploratory, fit_families: [ot_hi], eval_families: [ot_hi]}
+  - {task: entity_track, layer: 12, sae: {width: 16k}, role: exploratory, fit_families: [ot_hi_latn], eval_families: [ot_hi_latn]}
+  - {task: entity_track, layer: 12, sae: {width: 16k}, role: exploratory, fit_families: [ot_hinglish], eval_families: [ot_hinglish]}
+  - {task: entity_track, layer: 12, sae: {width: 16k}, role: exploratory, fit_families: [ot_fr], eval_families: [ot_fr]}
+  - {task: entity_track, layer: 12, sae: {width: 16k}, role: exploratory, fit_families: [ot_en], eval_families: [ot_hi]}
+  - {task: entity_track, layer: 12, sae: {width: 16k}, role: exploratory, fit_families: [ot_en], eval_families: [ot_hi_latn]}
+  - {task: entity_track, layer: 12, sae: {width: 16k}, role: exploratory, fit_families: [ot_en], eval_families: [ot_hinglish]}
+  - {task: entity_track, layer: 12, sae: {width: 16k}, role: exploratory, fit_families: [ot_en], eval_families: [ot_fr]}
+  - {task: add_chain, layer: 18, sae: {width: 16k}, role: exploratory, fit_families: [rs_en], eval_families: [rs_en]}
+  - {task: add_chain, layer: 18, sae: {width: 16k}, role: exploratory, fit_families: [rs_hi], eval_families: [rs_hi]}
+  - {task: add_chain, layer: 18, sae: {width: 16k}, role: exploratory, fit_families: [rs_hi_latn], eval_families: [rs_hi_latn]}
+  - {task: add_chain, layer: 18, sae: {width: 16k}, role: exploratory, fit_families: [rs_hinglish], eval_families: [rs_hinglish]}
+  - {task: add_chain, layer: 18, sae: {width: 16k}, role: exploratory, fit_families: [rs_fr], eval_families: [rs_fr]}
+  - {task: add_chain, layer: 18, sae: {width: 16k}, role: exploratory, fit_families: [rs_en], eval_families: [rs_hi]}
+  - {task: add_chain, layer: 18, sae: {width: 16k}, role: exploratory, fit_families: [rs_en], eval_families: [rs_hi_latn]}
+  - {task: add_chain, layer: 18, sae: {width: 16k}, role: exploratory, fit_families: [rs_en], eval_families: [rs_hinglish]}
+  - {task: add_chain, layer: 18, sae: {width: 16k}, role: exploratory, fit_families: [rs_en], eval_families: [rs_fr]}
+  - {task: people_cities, layer: 12, sae: {width: 16k}, role: exploratory, fit_families: [pc_en], eval_families: [pc_en]}
+  - {task: people_cities, layer: 12, sae: {width: 16k}, role: exploratory, fit_families: [pc_hi], eval_families: [pc_hi]}
+  - {task: people_cities, layer: 12, sae: {width: 16k}, role: exploratory, fit_families: [pc_hi_latn], eval_families: [pc_hi_latn]}
+  - {task: people_cities, layer: 12, sae: {width: 16k}, role: exploratory, fit_families: [pc_hinglish], eval_families: [pc_hinglish]}
+  - {task: people_cities, layer: 12, sae: {width: 16k}, role: exploratory, fit_families: [pc_fr], eval_families: [pc_fr]}
+  - {task: people_cities, layer: 12, sae: {width: 16k}, role: exploratory, fit_families: [pc_en], eval_families: [pc_hi]}
+  - {task: people_cities, layer: 12, sae: {width: 16k}, role: exploratory, fit_families: [pc_en], eval_families: [pc_hi_latn]}
+  - {task: people_cities, layer: 12, sae: {width: 16k}, role: exploratory, fit_families: [pc_en], eval_families: [pc_hinglish]}
+  - {task: people_cities, layer: 12, sae: {width: 16k}, role: exploratory, fit_families: [pc_en], eval_families: [pc_fr]}
+n_train: 150
+n_test: 150
+filters: [f_none, f_A_correct, f_pilot]
+fit_filter: f_pilot
+conditions: [feat_A_errB, feat_B_errA, feat_B_noise, feat_A_zero, feat_A_meanTask, feat_A_meanPos, feat_A_noise]
+noise_seeds: [0]
+directions:
+  conditions: [repair, repair_mean]
+  ranks: [0, 1, 2, 4]
+  estimators: [pca_pooled, answer_sep]
+  sources: [same_task]
+  random_seeds: 20
+  r_max: 32
+bootstrap: 1000
+seed: 0

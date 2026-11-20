@@ -1,0 +1,51 @@
+# E1 (P0): metric re-scoring of the pilot grid. Pilot outputs kept only D, so final-position passes are re-run.
+# Every pilot features/error/noise cell (paper_audit L4-20 x 4 tasks; paper_residue L10/14/18).
+exp_id: E1
+name: rescoring_split
+description: Pilot causal-split conditions on all pilot cells, scored with the full metric set.
+model_revision: c5ebcd40d208330abc697524c919956e692655cf
+prompt_sets:
+  entity_track: prompt_sets/entity_track_pilot.jsonl.gz
+  add_chain: prompt_sets/add_chain_pilot.jsonl.gz
+  var_binding: prompt_sets/var_binding_pilot.jsonl.gz
+  ioi_control: prompt_sets/ioi_control_pilot.jsonl.gz
+cells:
+  - {task: entity_track, layer: 4, sae: {width: 16k}}
+  - {task: entity_track, layer: 8, sae: {width: 16k}}
+  - {task: entity_track, layer: 10, sae: {width: 16k}}
+  - {task: entity_track, layer: 12, sae: {width: 16k}}
+  - {task: entity_track, layer: 14, sae: {width: 16k}}
+  - {task: entity_track, layer: 16, sae: {width: 16k}}
+  - {task: entity_track, layer: 18, sae: {width: 16k}}
+  - {task: entity_track, layer: 20, sae: {width: 16k}}
+  - {task: add_chain, layer: 4, sae: {width: 16k}}
+  - {task: add_chain, layer: 8, sae: {width: 16k}}
+  - {task: add_chain, layer: 10, sae: {width: 16k}}
+  - {task: add_chain, layer: 12, sae: {width: 16k}}
+  - {task: add_chain, layer: 14, sae: {width: 16k}}
+  - {task: add_chain, layer: 16, sae: {width: 16k}}
+  - {task: add_chain, layer: 18, sae: {width: 16k}}
+  - {task: add_chain, layer: 20, sae: {width: 16k}}
+  - {task: var_binding, layer: 4, sae: {width: 16k}}
+  - {task: var_binding, layer: 8, sae: {width: 16k}}
+  - {task: var_binding, layer: 10, sae: {width: 16k}}
+  - {task: var_binding, layer: 12, sae: {width: 16k}}
+  - {task: var_binding, layer: 14, sae: {width: 16k}}
+  - {task: var_binding, layer: 16, sae: {width: 16k}}
+  - {task: var_binding, layer: 18, sae: {width: 16k}}
+  - {task: var_binding, layer: 20, sae: {width: 16k}}
+  - {task: ioi_control, layer: 4, sae: {width: 16k}}
+  - {task: ioi_control, layer: 8, sae: {width: 16k}}
+  - {task: ioi_control, layer: 10, sae: {width: 16k}}
+  - {task: ioi_control, layer: 12, sae: {width: 16k}}
+  - {task: ioi_control, layer: 14, sae: {width: 16k}}
+  - {task: ioi_control, layer: 16, sae: {width: 16k}}
+  - {task: ioi_control, layer: 18, sae: {width: 16k}}
+  - {task: ioi_control, layer: 20, sae: {width: 16k}}
+filters: [f_pilot, f_none, f_A_correct]
+fit_filter: f_pilot
+conditions: [feat_A_errB, feat_B_errA, feat_B_noise, feat_A_zero]
+noise_seeds: [0, 1]
+bootstrap: 1000
+seed: 0
+pilot_reference: results/paper_20261026_001341

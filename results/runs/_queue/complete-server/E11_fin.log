@@ -1,0 +1,3 @@
+
+=== attempt 1 2026-11-18 01:35:27 slots=[]: /home/user/prism-run/.venv-harness/bin/python -m harness.run --config configs/experiments/E11.yaml --profile server --stage 3 --finalize-only
+2026-11-18 02:08:25,973 INFO E11 finalize -> /home/user/prism-run/runs/E11/8fb0d8f37ebf (complete)

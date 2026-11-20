@@ -1,0 +1,40 @@
+{
+ "task": "entity_track",
+ "kind": "pilot_plus_fresh_families",
+ "settings": {
+  "n_train": 300,
+  "n_test": 150,
+  "seed": 0,
+  "candidate_multiplier": 6,
+  "n_shots": 8,
+  "answer_format": "auto",
+  "filter_mode": "clean_only",
+  "min_logit_diff": 2.0,
+  "gen_kwargs": {
+   "depth": 2
+  }
+ },
+ "tokenizer": {
+  "name": "google/gemma-2-2b",
+  "revision": "c5ebcd40d208330abc697524c919956e692655cf"
+ },
+ "source": "harness.tasks.build_pilot_candidates (pilot generators, unfiltered, pilot order) + harness.tasks.build_family_candidates per fresh family",
+ "created": "2026-10-31 22:07:15 UTC",
+ "families": {
+  "ot_placed": {
+   "train": 1800,
+   "test": 900
+  },
+  "ot_bin": {
+   "train": 1800,
+   "test": 900
+  },
+  "ot_drawer": {
+   "train": 1800,
+   "test": 900
+  }
+ },
+ "n": 10800,
+ "hash": "138188760a343a58",
+ "file": "entity_track_e3.jsonl.gz"
+}

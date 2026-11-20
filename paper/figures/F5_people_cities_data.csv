@@ -1,0 +1,93 @@
+panel,layer,estimator,r,quantity,value,valid,condition,lo,hi,random_p95,n,city
+a,12,das1,1.0,das_train_acc,0.0066666666666666,False,,,,,,
+a,12,das2,2.0,das_train_acc,0.0166666666666666,False,,,,,,
+a,12,das4,4.0,das_train_acc,0.1433333333333333,False,,,,,,
+a,12,das8,8.0,das_train_acc,0.4366666666666666,False,,,,,,
+a,12,das16,16.0,das_train_acc,0.81,True,,,,,,
+a,16,das1,1.0,das_train_acc,0.0066666666666666,False,,,,,,
+a,16,das2,2.0,das_train_acc,0.0366666666666666,False,,,,,,
+a,16,das4,4.0,das_train_acc,0.0466666666666666,False,,,,,,
+a,16,das8,8.0,das_train_acc,0.3266666666666666,False,,,,,,
+a,16,das16,16.0,das_train_acc,0.78,True,,,,,,
+b,12,das1,1.0,flip_rate,0.0066666666666666,False,full_along_U,0.0,0.02,0.0,150.0,
+b,12,das2,2.0,flip_rate,0.0066666666666666,False,full_along_U,0.0,0.02,0.0,150.0,
+b,12,das4,4.0,flip_rate,0.1,False,full_along_U,0.0533333333333333,0.1533333333333333,0.0,150.0,
+b,12,das8,8.0,flip_rate,0.3133333333333333,False,full_along_U,0.24,0.3866666666666666,0.0,150.0,
+b,12,das16,16.0,flip_rate,0.7933333333333333,True,full_along_U,0.7266666666666667,0.8534999999999976,0.0,150.0,
+b,12,das1,1.0,flip_rate,0.0066666666666666,False,feat_A_along_U,0.0,0.02,0.0,150.0,
+b,12,das2,2.0,flip_rate,0.0066666666666666,False,feat_A_along_U,0.0,0.02,0.0,150.0,
+b,12,das4,4.0,flip_rate,0.04,False,feat_A_along_U,0.0133333333333333,0.0733333333333333,0.0,150.0,
+b,12,das8,8.0,flip_rate,0.1266666666666666,False,feat_A_along_U,0.0733333333333333,0.18,0.0,150.0,
+b,12,das16,16.0,flip_rate,0.42,True,feat_A_along_U,0.34,0.5,0.0,150.0,
+b,12,"max(pca_pooled, answer_sep)",1.0,flip_rate,0.0,,full_and_feat_along_U,,,,,
+b,12,"max(pca_pooled, answer_sep)",2.0,flip_rate,0.0,,full_and_feat_along_U,,,,,
+b,12,"max(pca_pooled, answer_sep)",4.0,flip_rate,0.0,,full_and_feat_along_U,,,,,
+b,12,"max(pca_pooled, answer_sep)",8.0,flip_rate,0.0,,full_and_feat_along_U,,,,,
+b,12,"max(pca_pooled, answer_sep)",16.0,flip_rate,0.0,,full_and_feat_along_U,,,,,
+b,12,"max(pca_pooled, answer_sep)",32.0,flip_rate,0.0,,full_and_feat_along_U,,,,,
+b,12,"max(pca_pooled, answer_sep)",64.0,flip_rate,0.0,,full_and_feat_along_U,,,,,
+b,16,das1,1.0,flip_rate,0.0,False,full_along_U,0.0,0.0,0.0,150.0,
+b,16,das2,2.0,flip_rate,0.02,False,full_along_U,0.0,0.0466666666666666,0.0,150.0,
+b,16,das4,4.0,flip_rate,0.04,False,full_along_U,0.0133333333333333,0.0733333333333333,0.0,150.0,
+b,16,das8,8.0,flip_rate,0.2533333333333333,False,full_along_U,0.1866666666666666,0.32,0.0,150.0,
+b,16,das16,16.0,flip_rate,0.8266666666666667,True,full_along_U,0.7666666666666667,0.8866666666666667,0.0,150.0,
+b,16,das1,1.0,flip_rate,0.0,False,feat_A_along_U,0.0,0.0,0.0,150.0,
+b,16,das2,2.0,flip_rate,0.0066666666666666,False,feat_A_along_U,0.0,0.02,0.0,150.0,
+b,16,das4,4.0,flip_rate,0.02,False,feat_A_along_U,0.0,0.0466666666666666,0.0,150.0,
+b,16,das8,8.0,flip_rate,0.0466666666666666,False,feat_A_along_U,0.0133333333333333,0.08,0.0,150.0,
+b,16,das16,16.0,flip_rate,0.2733333333333333,True,feat_A_along_U,0.2066666666666666,0.3466666666666667,0.0,150.0,
+b,16,"max(pca_pooled, answer_sep)",1.0,flip_rate,0.0,,full_and_feat_along_U,,,,,
+b,16,"max(pca_pooled, answer_sep)",2.0,flip_rate,0.0,,full_and_feat_along_U,,,,,
+b,16,"max(pca_pooled, answer_sep)",4.0,flip_rate,0.0,,full_and_feat_along_U,,,,,
+b,16,"max(pca_pooled, answer_sep)",8.0,flip_rate,0.0,,full_and_feat_along_U,,,,,
+b,16,"max(pca_pooled, answer_sep)",16.0,flip_rate,0.0,,full_and_feat_along_U,,,,,
+b,16,"max(pca_pooled, answer_sep)",32.0,flip_rate,0.0,,full_and_feat_along_U,,,,,
+b,16,"max(pca_pooled, answer_sep)",64.0,flip_rate,0.0,,full_and_feat_along_U,,,,,
+c,12,das4,4.0,per_city_nldr_full_along_U,0.21810023319868121,,,0.16464635937145414,0.2732705025527031,,8.0,Pune
+c,12,das4,4.0,per_city_nldr_full_along_U,0.31150860474554776,,,0.16873418520561245,0.47915962955872593,,11.0,Delhi
+c,12,das4,4.0,per_city_nldr_full_along_U,0.2312460650545687,,,0.15981143417582389,0.30419786202286386,,6.0,Mumbai
+c,12,das4,4.0,per_city_nldr_full_along_U,0.44089495284238134,,,0.33551588029367574,0.544636477828167,,11.0,Paris
+c,12,das4,4.0,per_city_nldr_full_along_U,0.2798612635780882,,,0.18799934383217903,0.39582609913325484,,9.0,London
+c,12,das4,4.0,per_city_nldr_full_along_U,0.5878502551544162,,,0.5095542771218392,0.6619146867561316,,11.0,Rome
+c,12,das4,4.0,per_city_nldr_full_along_U,0.10565639945122986,,,0.035087652944507414,0.22245488297300878,,7.0,Berlin
+c,12,das4,4.0,per_city_nldr_full_along_U,0.12903074396251796,,,0.07800927463978892,0.17812943099029377,,8.0,Tokyo
+c,12,das4,4.0,per_city_nldr_full_along_U,0.3832623545102513,,,0.29283011963273375,0.48358032348871777,,8.0,Madrid
+c,12,das4,4.0,per_city_nldr_full_along_U,0.4192977898099893,,,0.3319774286726017,0.5146933708938927,,13.0,Dubai
+c,12,das4,4.0,per_city_nldr_full_along_U,0.1955824634706526,,,0.15320364364824918,0.2458063950118437,,15.0,Cairo
+c,12,das4,4.0,per_city_nldr_full_along_U,0.26708802036653395,,,0.19036444767093014,0.3520984916447302,,12.0,Lima
+c,12,das4,4.0,per_city_nldr_full_along_U,0.13883616071448884,,,0.08590122836084797,0.19022107958905096,,10.0,Oslo
+c,12,das4,4.0,per_city_nldr_full_along_U,0.059747681753294084,,,0.010524832804732043,0.10822775697668063,,9.0,Vienna
+c,12,das4,4.0,per_city_nldr_full_along_U,0.14140382950640126,,,0.033530815248528655,0.24239197971304685,,5.0,Prague
+c,12,das4,4.0,per_city_nldr_full_along_U,0.5711266686243635,,,0.46520270127915236,0.6627834250020764,,8.0,Athens
+c,16,das4,4.0,per_city_nldr_full_along_U,0.1620605721579701,,,0.11201380744097869,0.21415752624606052,,8.0,Pune
+c,16,das4,4.0,per_city_nldr_full_along_U,0.22594338498122202,,,0.09239993824262592,0.38455285006762013,,11.0,Delhi
+c,16,das4,4.0,per_city_nldr_full_along_U,0.20369129638672065,,,0.14380744840549828,0.2662099254888729,,6.0,Mumbai
+c,16,das4,4.0,per_city_nldr_full_along_U,0.271599203801323,,,0.2199016722395905,0.3216800716256824,,11.0,Paris
+c,16,das4,4.0,per_city_nldr_full_along_U,0.0882668933161219,,,0.03999165601579498,0.14537629096771465,,9.0,London
+c,16,das4,4.0,per_city_nldr_full_along_U,0.5967991940823296,,,0.5429822599133409,0.6545159766790197,,11.0,Rome
+c,16,das4,4.0,per_city_nldr_full_along_U,0.1051808083597794,,,0.0009596854494605319,0.2709744936828678,,7.0,Berlin
+c,16,das4,4.0,per_city_nldr_full_along_U,0.05804010658693891,,,0.03113842569513596,0.10107528371735017,,8.0,Tokyo
+c,16,das4,4.0,per_city_nldr_full_along_U,0.23902155678007264,,,0.14652856962290942,0.33736372958522304,,8.0,Madrid
+c,16,das4,4.0,per_city_nldr_full_along_U,0.3956484274477555,,,0.32144232198089917,0.4961421575619039,,13.0,Dubai
+c,16,das4,4.0,per_city_nldr_full_along_U,0.25072603932893267,,,0.17722405310215142,0.32701003994055305,,15.0,Cairo
+c,16,das4,4.0,per_city_nldr_full_along_U,0.13184687631124636,,,0.07094571310129258,0.2155913950866266,,12.0,Lima
+c,16,das4,4.0,per_city_nldr_full_along_U,0.047570266586223355,,,0.021562600325181303,0.07673737496207049,,10.0,Oslo
+c,16,das4,4.0,per_city_nldr_full_along_U,0.07319870816166424,,,0.01593148960717153,0.13407522927052343,,9.0,Vienna
+c,16,das4,4.0,per_city_nldr_full_along_U,0.01638439130694846,,,-0.02637234488240563,0.048395398326505856,,5.0,Prague
+c,16,das4,4.0,per_city_nldr_full_along_U,0.37516994775112433,,,0.29812782781657376,0.4625986826741124,,8.0,Athens
+c,12,das1,1.0,per_city_nldr_full_along_U,0.08478609827918505,,,0.016466507009121813,0.18672246341474882,,8.0,Pune
+c,12,das1,1.0,per_city_nldr_full_along_U,0.007123789126541616,,,0.0008531239656945419,0.015800896898272056,,11.0,Delhi
+c,12,das1,1.0,per_city_nldr_full_along_U,0.1361771717333987,,,0.103149066038992,0.1699337533127651,,6.0,Mumbai
+c,12,das1,1.0,per_city_nldr_full_along_U,0.08196058335707794,,,0.05325821960067741,0.11366681105381932,,11.0,Paris
+c,12,das1,1.0,per_city_nldr_full_along_U,0.04922653373250958,,,0.015327039765994315,0.0741782193550052,,9.0,London
+c,12,das1,1.0,per_city_nldr_full_along_U,-0.0648105944330941,,,-0.09142216405271755,-0.03921996215092721,,11.0,Rome
+c,12,das1,1.0,per_city_nldr_full_along_U,0.004818138287625429,,,-0.010513003070465283,0.023569210578741576,,7.0,Berlin
+c,12,das1,1.0,per_city_nldr_full_along_U,0.00430027123460315,,,-0.006598684670732474,0.014139215322857546,,8.0,Tokyo
+c,12,das1,1.0,per_city_nldr_full_along_U,0.008651464348062868,,,-0.002696230086679115,0.02828954820897977,,8.0,Madrid
+c,12,das1,1.0,per_city_nldr_full_along_U,0.12248376211476245,,,0.05506667994419456,0.20569726586550643,,13.0,Dubai
+c,12,das1,1.0,per_city_nldr_full_along_U,0.04018115002458225,,,0.025624916370205083,0.05797477228788168,,15.0,Cairo
+c,12,das1,1.0,per_city_nldr_full_along_U,0.01754655637998488,,,-0.00947025902260561,0.06302664481270716,,12.0,Lima
+c,12,das1,1.0,per_city_nldr_full_along_U,0.06479263572143143,,,0.0010985923085801538,0.1564979529065605,,10.0,Oslo
+c,12,das1,1.0,per_city_nldr_full_along_U,0.019359874086613382,,,-0.029019907884140026,0.09203920524674533,,9.0,Vienna
+c,12,das1,1.0,per_city_nldr_full_along_U,-0.024166650756558293,,,-0.04571768354004519,-0.008054466192393542,,5.0,Prague
+c,12,das1,1.0,per_city_nldr_full_along_U,0.43219737231588107,,,0.3713614950002951,0.5030151808939347,,8.0,Athens

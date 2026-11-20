@@ -1,0 +1,55 @@
+run_name: full_suite
+seed: 0
+model_name: gemma-2-2b
+hf_tokenizer: google/gemma-2-2b
+sae_release: gemma-scope-2b-pt-res-canonical
+# State-tracking suite validated on gemma-2-2b by scripts/analyze_tasks.py (results/task_analysis/report.md).
+# Legacy tasks mod_sum / dyck_depth / graph_reach still exist (mock + tests) but gemma-2-2b is at chance on them.
+tasks: [add_chain, entity_track, var_binding, ioi_control]
+layers: [4, 8, 12, 16, 20, 24]
+widths: ["16k", "65k"]
+geometry_layers: [12, 16, 20]      # exp2 / exp3
+geometry_widths: ["16k", "65k"]
+ranks: [0, 1, 2, 4, 8, 16, 32, 64]
+n_train: 400
+n_test: 200
+candidate_multiplier: 3            # candidate pool size before base-model filtering
+min_pairs: 20                      # skip a task/split if fewer valid pairs survive
+min_logit_diff: 2.0
+n_shots: 0
+batch_size: 128                    # cap per forward batch; the real limit is runtime.max_batch_tokens
+noise_seeds: 3
+mock:
+  d_model: 256
+  n_layers: 26
+  d_sae: {"16k": 1024, "65k": 4096}
+  noise_std: 0.05
+# ---- v2 options ------------------------------------------------------------------------------
+answer_format: auto                # auto | space_target ('=' + ' 3') | space_prompt ('= ' + '3')
+filter_mode: strict                # strict | clean_only | none
+# Per-task settings (preflight.json, when given, overrides these). gen_kwargs = generator difficulty.
+# From the 2026-10-20 task analysis (128 pairs per cell): top-1 / share kept by the clean_only filter.
+task_overrides:
+  add_chain:    {gen_kwargs: {depth: 3}, n_shots: 2, filter_mode: clean_only, candidate_multiplier: 2}  # 0.99 / 0.99
+  entity_track: {gen_kwargs: {depth: 2}, n_shots: 8, filter_mode: clean_only, candidate_multiplier: 2}  # 0.98 / 0.84
+  var_binding:  {gen_kwargs: {depth: 1}, n_shots: 8, filter_mode: clean_only, candidate_multiplier: 2}  # 0.95 / 0.95
+  ioi_control:  {n_shots: 2, filter_mode: clean_only, candidate_multiplier: 2}                          # 1.00 / 1.00
+exp1_positions: [last, from_diff]  # patch the last token, or every token from the first differing one
+exp3_positions: [last, from_diff]
+exp1_extras: [controls]            # same/diff-state error resampling, mean error, clean_full
+exp3_methods: [unsupervised_svd, supervised_centroid_svd, random_subspace, top_xhat_svd, span_svd]
+random_seeds: 3
+bootstrap: 1000                    # paired-bootstrap resamples for NLDR CIs (0 = off)
+latent_probe: true
+latent_probe_cols: 4096
+generic_text: {dataset: NeelNanda/pile-10k, n_docs: 200, seq_len: 128, skip_positions: 4, fidelity_batches: 4}
+sae_fidelity: true                 # CE-loss-recovered of every SAE on generic text (exp1)
+# ---- runtime: memory / speed (auto = adapt to the GPU; tested down to 8 GB) ---------------------
+runtime:
+  offload_embed: auto              # keep the 256k-row embedding (1.2 GB) on CPU; auto = GPUs < 16 GB
+  max_batch_tokens: auto           # tokens per forward batch; auto = from VRAM left after loading the model
+  resume_from_layer: true          # patched runs restart at block layer+1 (checked against full forwards at startup)
+  sae_placement: auto              # auto | gpu | stream (stream = weights in CPU RAM, chunks streamed to the GPU)
+  prefetch_saes: true              # read the next SAE from disk on a background thread
+  cpu_threads: auto                # torch / BLAS threads (auto = physical cores)
+  cpu_workers: auto                # parallel CPU jobs for exp2 probes, overlapping GPU work

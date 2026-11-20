@@ -1,0 +1,24 @@
+{
+ "task": "ioi_control",
+ "kind": "pilot_candidates",
+ "settings": {
+  "n_train": 300,
+  "n_test": 150,
+  "seed": 0,
+  "candidate_multiplier": 2,
+  "n_shots": 2,
+  "answer_format": "auto",
+  "filter_mode": "strict",
+  "min_logit_diff": 2.0,
+  "gen_kwargs": null
+ },
+ "tokenizer": {
+  "name": "google/gemma-2-2b",
+  "revision": "c5ebcd40d208330abc697524c919956e692655cf"
+ },
+ "source": "harness.tasks.build_pilot_candidates (pilot generators, unfiltered, pilot order)",
+ "created": "2026-10-30 04:08:06 UTC",
+ "n": 900,
+ "hash": "f73bac64dc74edac",
+ "file": "ioi_control_pilot.jsonl.gz"
+}

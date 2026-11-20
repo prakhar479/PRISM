@@ -1,0 +1,27 @@
+C7 E22 add_chain rs_en: n 193 feat_A_errB NLDR gap 0.148
+C7 E22 add_chain rs_fr: n 182 feat_A_errB NLDR gap 0.125
+C7 E22 add_chain rs_hi: n 205 feat_A_errB NLDR gap 0.123
+C7 E22 add_chain rs_hinglish: n 191 feat_A_errB NLDR gap 0.116
+C7 E22 people_cities pc_en: n 153 feat_A_errB NLDR gap 0.237
+C7 E22 people_cities pc_fr: n 150 feat_A_errB NLDR gap 0.241
+C7 E22 people_cities pc_hi: n 179 feat_A_errB NLDR gap 0.244
+C7 E22 people_cities pc_hinglish: n 174 feat_A_errB NLDR gap 0.221
+C7 E22 add_chain das4 full_along_U home 0.539 (n 180) | rs_fr: eng-fit 0.593 (n 162) native 0.204; eng-fit minus home +0.054 [-0.050,+0.161] | rs_hi: eng-fit 0.503 (n 171) native 0.246; eng-fit minus home -0.036 [-0.139,+0.067] | rs_hinglish: eng-fit 0.525 (n 177) native 0.384; eng-fit minus home -0.013 [-0.119,+0.088]
+C7 E22 add_chain das8 full_along_U home 0.611 (n 180) | rs_fr: eng-fit 0.580 (n 162) native 0.481; eng-fit minus home -0.031 [-0.135,+0.072] | rs_hi: eng-fit 0.632 (n 171) native 0.842; eng-fit minus home +0.020 [-0.082,+0.123] | rs_hinglish: eng-fit 0.605 (n 177) native 0.588; eng-fit minus home -0.007 [-0.108,+0.100]
+C7 E22 people_cities das4 full_along_U home 0.053 (n 151) | pc_fr: eng-fit 0.007 (n 150) native 0.040; eng-fit minus home -0.046 [-0.086,-0.007] | pc_hi: eng-fit 0.000 (n 150) native 0.027; eng-fit minus home -0.053 [-0.093,-0.020] | pc_hinglish: eng-fit 0.000 (n 150) native 0.007; eng-fit minus home -0.053 [-0.093,-0.020]
+C7 E22 people_cities das8 full_along_U home 0.278 (n 151) | pc_fr: eng-fit 0.047 (n 150) native 0.320; eng-fit minus home -0.231 [-0.318,-0.158] | pc_hi: eng-fit 0.007 (n 150) native 0.107; eng-fit minus home -0.271 [-0.345,-0.205] | pc_hinglish: eng-fit 0.020 (n 150) native 0.160; eng-fit minus home -0.258 [-0.338,-0.185]
+start E18 RS n 203 das4 r4: start 0: 0.65 (n 78), start 1: 0.77 (n 45), start 2: 0.85 (n 46), start 3: 1.00 (n 22), start 4: 0.89 (n 12)
+start E18 RS n 203 pca_pooled r8: start 0: 0.05 (n 78), start 1: 0.14 (n 45), start 2: 0.15 (n 46), start 3: 0.32 (n 22), start 4: 0.17 (n 12)
+start E22: rho>0 in 15/16: rs_en das4 r4 +0.19; rs_en das8 r8 +0.20; rs_en pca_pooled r4 +0.20; rs_en pca_pooled r8 +0.16; rs_fr das4 r4 +0.14; rs_fr das8 r8 +0.15; rs_fr pca_pooled r4 +0.18; rs_fr pca_pooled r8 +0.20; rs_hi das4 r4 +0.22; rs_hi das8 r8 +0.24; rs_hi pca_pooled r4 +0.03; rs_hi pca_pooled r8 -0.01; rs_hinglish das4 r4 +0.23; rs_hinglish das8 r8 +0.21; rs_hinglish pca_pooled r4 +0.14; rs_hinglish pca_pooled r8 +0.19
+modes E18 add_chain L18: n 203 cols 86 evr PC1-3 [0.385, 0.291, 0.067] split-half |cos V1| 0.90
+modes E18 entity_track L12: n 98 cols 86 evr PC1-3 [0.715, 0.113, 0.061] split-half |cos V1| 0.99
+modes E18 people_cities L12: n 151 cols 86 evr PC1-3 [0.456, 0.274, 0.102] split-half |cos V1| 0.95
+modes E18 people_cities L16: n 151 cols 86 evr PC1-3 [0.548, 0.223, 0.065] split-half |cos V1| 0.98
+Traceback (most recent call last):
+  File ".layout/hw/../team/scripts/audit_misc.py", line 137, in <module>
+    st = d[d.condition == "feat_A_resampC_sameAns"].drop_duplicates("pair_id").set_index("pair_id").donor_status.reindex(ids)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<venv>/lib/python3.12/site-packages/pandas/core/generic.py", line 6194, in __getattr__
+    return object.__getattribute__(self, name)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'DataFrame' object has no attribute 'donor_status'

@@ -1,0 +1,22 @@
+
+=== attempt 1 2026-11-18 04:59:04 slots=['1']: /home/user/prism-run/.venv-harness/bin/python -m harness.run --config configs/experiments/E2r.yaml --profile server --stage 3 --worker E2r_s3-1
+
+Loading weights:   0%|          | 0/288 [00:00<?, ?it/s]
+Loading weights:   0%|          | 1/288 [00:00<01:50,  2.59it/s]
+Loading weights:  89%|████████▉ | 256/288 [00:00<00:00, 667.40it/s]
+Loading weights: 100%|██████████| 288/288 [00:00<00:00, 530.94it/s]
+2026-11-18 04:59:18,580 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-18 04:59:18,838 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-18 04:59:19,094 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-18 04:59:20,491 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-18 05:04:09,928 INFO entity_track_L12_16k_l082 unit 15/25 (8 conditions, 269.6s)
+2026-11-18 05:08:40,993 INFO entity_track_L12_16k_l082 unit 20/25 (8 conditions, 270.7s)
+2026-11-18 05:11:11,653 INFO entity_track_L12_16k_l082 unit 25/25 (4 conditions, 150.4s)
+2026-11-18 05:12:47,451 INFO add_chain_L18_16k_l074 unit 3/25 (8 conditions, 92.9s)
+2026-11-18 05:14:20,483 INFO add_chain_L18_16k_l074 unit 7/25 (8 conditions, 92.9s)
+2026-11-18 05:15:53,533 INFO add_chain_L18_16k_l074 unit 11/25 (8 conditions, 92.9s)
+2026-11-18 05:17:26,634 INFO add_chain_L18_16k_l074 unit 15/25 (8 conditions, 92.8s)
+2026-11-18 05:18:59,850 INFO add_chain_L18_16k_l074 unit 18/25 (8 conditions, 92.9s)
+2026-11-18 05:20:33,055 INFO add_chain_L18_16k_l074 unit 22/25 (8 conditions, 92.9s)
+2026-11-18 05:20:33,167 INFO E2r -> /home/user/prism-run/runs/E2r/747ea7736718 (worker_done)
+Loaded pretrained model gemma-2-2b into HookedTransformer

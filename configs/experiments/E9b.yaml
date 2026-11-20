@@ -1,0 +1,24 @@
+# E9b (bonus, exploratory): does the E9 subspace (error estimators and DAS) generalize to fresh templates? Directions are fitted on
+# the pilot families of the E3 set and evaluated on the three fresh running-sum families (450 pairs). Same rules as E9 in analysis.
+exp_id: E9b
+name: illusion_checks_das_fresh_templates
+description: E9 conditions for running sum L18 with directions fitted on pilot templates and evaluated on fresh template families.
+model_revision: c5ebcd40d208330abc697524c919956e692655cf
+prompt_sets: {add_chain: prompt_sets/add_chain_e3.jsonl.gz}
+cells:
+  - {task: add_chain, layer: 18, sae: {width: 16k}, role: exploratory, fit_families: [pilot], eval_families: [fresh]}
+n_train: 300
+n_test: 150                         # per evaluated family
+filters: [f_none, f_A_correct, f_pilot]
+fit_filter: f_pilot
+conditions: [feat_A_errB, feat_A_meanPos]
+noise_seeds: [0]
+directions:
+  conditions: [feat_A_along_U, full_along_U, repair]
+  ranks: [0, 1, 2, 4, 8]
+  estimators: [pca_pooled, answer_sep, das1, das2, das4, das8]
+  sources: [same_task]
+  random_seeds: 20
+  r_max: 32
+bootstrap: 1000
+seed: 0

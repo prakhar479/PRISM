@@ -1,0 +1,7 @@
+# Tier 2a (~20-30 min): dense layer sweep of the causal split, 16k only (cheap downloads, 26 SAEs x 0.3 GB).
+base: default_config.yaml
+run_name: tier2_layers
+layers: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]
+widths: ["16k"]
+geometry_layers: []
+geometry_widths: []

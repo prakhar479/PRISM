@@ -1,0 +1,107 @@
+== train acc
+  das1               0.250
+  das1_e10           0.297
+  das1_e10_lr3e-2    0.000
+  das1_e10_s1        0.227
+  das1_e10_s2        0.340
+  das1_e30           0.300
+  das1_s1            0.080
+  das1_s2            0.333
+  das2               0.333
+  das2_e10           0.393
+  das2_e10_lr3e-2    0.437
+  das2_e10_s1        0.363
+  das2_e10_s2        0.367
+  das2_e30           0.473
+  das2_s1            0.453
+  das2_s2            0.343
+  das4               0.733
+  das4_e10           0.840
+  das4_s1            0.647
+  das8               0.890
+  das8_e10           0.980
+  das8_s1            0.780
+rank1/2 fits 16 max acc 0.473 (das2_e30); any >=0.5: False
+rank4/8 fits 6 min acc 0.647; all >=0.5: True; max 0.980 (das8_e10)
+init: max|param - QR| (k=4,s=0) = 1.1594966053962708e-07
+== init capture (share of energy in own init span)
+  das1               0.407
+  das1_e10           0.300
+  das1_e10_lr3e-2    0.951
+  das1_e10_s1        0.432
+  das1_e10_s2        0.389
+  das1_e30           0.476
+  das1_s1            0.515
+  das1_s2            0.405
+  das2               0.543
+  das2_e10           0.556
+  das2_e10_lr3e-2    0.566
+  das2_e10_s1        0.605
+  das2_e10_s2        0.498
+  das2_e30           0.507
+  das2_s1            0.532
+  das2_s2            0.618
+  das4               0.631
+  das4_e10           0.556
+  das4_s1            0.626
+  das8               0.636
+  das8_e10           0.584
+  das8_s1            0.673
+3-epoch fits init capture range 0.405-0.673
+rank 1: fits 7, diff-seed pairs 16, learned top cos median 0.740 range 0.595-0.862; raw median 0.434
+   incl lr3e-2: 20 pairs median 0.740 range 0.513-0.862
+rank 2: fits 7, diff-seed pairs 16, learned top cos median 0.795 range 0.722-0.881; raw median 0.531
+rank 4: fits 3, diff-seed pairs 2, learned top cos median 0.869 range 0.855-0.883; raw median 0.658
+rank 8: fits 3, diff-seed pairs 2, learned top cos median 0.919 range 0.919-0.919; raw median 0.727
+Haar p99 k=1 top cos (MC 2000): 0.052
+== learned component capture in pca_pooled[:, :32] (Haar 32/2304 = 0.0139)
+  das1               0.302
+  das1_e10           0.305
+  das1_e10_lr3e-2    0.326
+  das1_e10_s1        0.220
+  das1_e10_s2        0.277
+  das1_e30           0.298
+  das1_s1            0.206
+  das1_s2            0.263
+  das2               0.238
+  das2_e10           0.208
+  das2_e10_lr3e-2    0.190
+  das2_e10_s1        0.210
+  das2_e10_s2        0.248
+  das2_e30           0.181
+  das2_s1            0.197
+  das2_s2            0.245
+  das4               0.177
+  das4_e10           0.183
+  das4_s1            0.193
+  das8               0.166
+  das8_e10           0.164
+  das8_s1            0.148
+E18 das8 == E17 das8: True
+E18 das4 == E17 das4: True
+== recurrent atoms: rank by cos^2 with learned span (0-based) ; OMP-20 share of learned comp
+            fit  k  all7_top10  omp20  15376  7686  8352  11219  13950  411  14691
+           das1  1       False  0.439    456    18    16     55  15424    0   2041
+       das1_e10  1       False  0.485    566     3     6     39   5616    0    922
+das1_e10_lr3e-2  1       False  0.461    518    69     2   7798    316    3     21
+    das1_e10_s1  1       False  0.389   2494    58     1      7    182    2   1993
+    das1_e10_s2  1       False  0.434  11049    13     0     49  13692    1  15098
+       das1_e30  1       False  0.459      5   326     3      9    310    0    723
+        das1_s1  1       False  0.370      3   556     5      1      6    0   2263
+        das1_s2  1       False  0.446   3705    34     0      6    617    1   1180
+           das2  2       False  0.431      0     1     4     40     23    2    179
+       das2_e10  2       False  0.402      0     1     3     12      7    2   6247
+das2_e10_lr3e-2  2       False  0.317      2     8     4     15     12    0     16
+    das2_e10_s1  2       False  0.472      3     1     5      0      2    7     35
+    das2_e10_s2  2       False  0.443      0     1     3      2      4    6     11
+       das2_e30  2       False  0.322      6     3     1    654     41    0    462
+        das2_s1  2       False  0.432      1     0     2      6     10    3    580
+        das2_s2  2       False  0.393      2     3     5      0     29    1     14
+           das4  4       False  0.333      0     1     4      2      3    5     10
+       das4_e10  4        True  0.369      1     4     6      2      5    3      0
+        das4_s1  4       False  0.361      0     1     5      2      4    7     85
+           das8  8        True  0.295      1     3     2      5      4    7      0
+       das8_e10  8        True  0.290      1     3     2      4      5    8      0
+        das8_s1  8        True  0.327      1     5     3      6      4    8      0
+     das16(E18) 16       False  0.192      1     5     2      6      4   10      0
+OMP-20 Haar p99 (20 draws): {1: np.float64(0.112), 2: np.float64(0.069), 4: np.float64(0.046), 8: np.float64(0.032), 16: np.float64(0.023)}

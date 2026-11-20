@@ -1,0 +1,3 @@
+
+=== attempt 1 2026-11-18 04:58:54 slots=['1']: /home/user/prism-run/.venv-harness/bin/python -m harness.run --config configs/experiments/E10b.yaml --profile server --stage 3 --worker E10b_s3-3
+2026-11-18 04:59:03,258 INFO E10b -> /home/user/prism-run/runs/E10b/23529335daaf (worker_done)

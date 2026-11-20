@@ -1,0 +1,119 @@
+rule recheck (effective): 0 disagreements of 60 evaluable rows
+max |my flip - table flip|: 8.326672684688674e-17 n rows 156
+E17 tests: 234 (BH over all); rejections at q<.05: 175
+     filter        estimator  r  epochs    lr  seed  n_elig  train_acc fit_valid   full  full_lo  full_hi  p95_full   feat  feat_lo  feat_hi  p95_feat   diff  diff_lo  diff_hi eff_full feat_med illusion  ungated_eff_full  ungated_eff_feat  q_eff_full  q_eff_feat  n10  n01  q_ill
+0   f_pilot       pca_pooled  1     NaN         NaN     150        NaN            0.007    0.000    0.020       0.0  0.000    0.000    0.000       0.0  0.007    0.000    0.020        F        F        F             False             False       1.000       1.000    1    0  0.622
+1   f_pilot       pca_pooled  2     NaN         NaN     150        NaN            0.007    0.000    0.020       0.0  0.000    0.000    0.000       0.0  0.007    0.000    0.020        F        F        F             False             False       1.000       1.000    1    0  0.622
+2   f_pilot       pca_pooled  4     NaN         NaN     150        NaN            0.007    0.000    0.020       0.0  0.000    0.000    0.000       0.0  0.007    0.000    0.020        F        F        F             False             False       1.000       1.000    1    0  0.622
+3   f_pilot       pca_pooled  8     NaN         NaN     150        NaN            0.060    0.027    0.100       0.0  0.000    0.000    0.000       0.0  0.060    0.027    0.100        F        F        F             False             False       1.000       1.000    9    0  0.003
+4   f_pilot             das1  1     3.0  1e-2   0.0     150      0.250         F  0.273    0.200    0.347       0.0  0.120    0.073    0.173       0.0  0.153    0.093    0.213       NA       NA       NA              True              True       0.000       0.309   24    1  0.000
+5   f_pilot         das1_e10  1    10.0  1e-2   0.0     150      0.297         F  0.347    0.273    0.427       0.0  0.167    0.107    0.227       0.0  0.180    0.113    0.253       NA       NA       NA              True              True       0.000       0.011   30    3  0.000
+6   f_pilot  das1_e10_lr3e-2  1    10.0  3e-2   0.0     150      0.000         F  0.000    0.000    0.000       0.0  0.000    0.000    0.000       0.0  0.000    0.000    0.000       NA       NA       NA             False             False       1.000       1.000    0    0  1.000
+7   f_pilot      das1_e10_s1  1    10.0  1e-2   1.0     150      0.227         F  0.147    0.093    0.207       0.0  0.080    0.040    0.127       0.0  0.067    0.020    0.113       NA       NA       NA              True             False       0.058       0.995   12    2  0.009
+8   f_pilot      das1_e10_s2  1    10.0  1e-2   2.0     150      0.340         F  0.320    0.247    0.400       0.0  0.200    0.140    0.267       0.0  0.120    0.047    0.193       NA       NA       NA              True              True       0.000       0.000   25    7  0.002
+9   f_pilot         das1_e30  1    30.0  1e-2   0.0     150      0.300         F  0.300    0.227    0.373       0.0  0.100    0.053    0.153       0.0  0.200    0.127    0.273       NA       NA       NA              True              True       0.000       0.665   33    3  0.000
+10  f_pilot          das1_s1  1     3.0  1e-2   1.0     150      0.080         F  0.087    0.047    0.133       0.0  0.053    0.020    0.093       0.0  0.033    0.007    0.067       NA       NA       NA             False             False       0.899       1.000    5    0  0.042
+11  f_pilot          das1_s2  1     3.0  1e-2   2.0     150      0.333         F  0.307    0.233    0.380       0.0  0.187    0.127    0.253       0.0  0.120    0.047    0.193       NA       NA       NA              True              True       0.000       0.001   26    8  0.002
+12  f_pilot             das2  2     3.0  1e-2   0.0     150      0.333         F  0.347    0.273    0.420       0.0  0.200    0.140    0.267       0.0  0.147    0.080    0.220       NA       NA       NA              True              True       0.000       0.000   27    5  0.000
+13  f_pilot         das2_e10  2    10.0  1e-2   0.0     150      0.393         F  0.387    0.307    0.467       0.0  0.247    0.180    0.320       0.0  0.140    0.067    0.213       NA       NA       NA              True              True       0.000       0.000   28    7  0.000
+14  f_pilot  das2_e10_lr3e-2  2    10.0  3e-2   0.0     150      0.437         F  0.440    0.360    0.520       0.0  0.227    0.160    0.293       0.0  0.213    0.133    0.293       NA       NA       NA              True              True       0.000       0.000   37    5  0.000
+15  f_pilot      das2_e10_s1  2    10.0  1e-2   1.0     150      0.363         F  0.373    0.300    0.453       0.0  0.147    0.093    0.207       0.0  0.227    0.160    0.300       NA       NA       NA              True              True       0.000       0.058   35    1  0.000
+16  f_pilot      das2_e10_s2  2    10.0  1e-2   2.0     150      0.367         F  0.327    0.253    0.400       0.0  0.200    0.140    0.267       0.0  0.127    0.060    0.200       NA       NA       NA              True              True       0.000       0.000   26    7  0.001
+17  f_pilot         das2_e30  2    30.0  1e-2   0.0     150      0.473         F  0.500    0.420    0.580       0.0  0.287    0.220    0.360       0.0  0.213    0.133    0.293       NA       NA       NA              True              True       0.000       0.000   38    6  0.000
+18  f_pilot          das2_s1  2     3.0  1e-2   1.0     150      0.453         F  0.440    0.360    0.520       0.0  0.240    0.173    0.313       0.0  0.200    0.140    0.267       NA       NA       NA              True              True       0.000       0.000   30    0  0.000
+19  f_pilot          das2_s2  2     3.0  1e-2   2.0     150      0.343         F  0.313    0.240    0.393       0.0  0.160    0.107    0.220       0.0  0.153    0.080    0.233       NA       NA       NA              True              True       0.000       0.020   30    7  0.000
+20  f_pilot             das4  4     3.0  1e-2   0.0     150      0.733         T  0.760    0.687    0.827       0.0  0.547    0.467    0.627       0.0  0.213    0.147    0.287        T        T        T              True              True       0.000       0.000   34    2  0.000
+21  f_pilot         das4_e10  4    10.0  1e-2   0.0     150      0.840         T  0.733    0.660    0.807       0.0  0.540    0.460    0.620       0.0  0.193    0.127    0.267        T        T        T              True              True       0.000       0.000   31    2  0.000
+22  f_pilot          das4_s1  4     3.0  1e-2   1.0     150      0.647         T  0.593    0.513    0.673       0.0  0.307    0.233    0.380       0.0  0.287    0.213    0.360        T        T        T              True              True       0.000       0.000   44    1  0.000
+23  f_pilot             das8  8     3.0  1e-2   0.0     150      0.890         T  0.867    0.807    0.920       0.0  0.680    0.600    0.753       0.0  0.187    0.113    0.260        T        T        T              True              True       0.000       0.000   32    4  0.000
+24  f_pilot         das8_e10  8    10.0  1e-2   0.0     150      0.980         T  0.900    0.847    0.947       0.0  0.700    0.627    0.773       0.0  0.200    0.127    0.273        T        T        T              True              True       0.000       0.000   33    3  0.000
+25  f_pilot          das8_s1  8     3.0  1e-2   1.0     150      0.780         T  0.733    0.660    0.807       0.0  0.467    0.387    0.547       0.0  0.267    0.193    0.347        T        T        T              True              True       0.000       0.000   42    2  0.000
+
+filter disagreements (estimator, r):
+ none
+
+rank 1/2 train acc by variant:
+          estimator  epochs    lr  seed  train_acc      full      feat
+4              das1     3.0  1e-2   0.0   0.250000  0.273333  0.120000
+5          das1_e10    10.0  1e-2   0.0   0.296667  0.346667  0.166667
+6   das1_e10_lr3e-2    10.0  3e-2   0.0   0.000000  0.000000  0.000000
+7       das1_e10_s1    10.0  1e-2   1.0   0.226667  0.146667  0.080000
+8       das1_e10_s2    10.0  1e-2   2.0   0.340000  0.320000  0.200000
+9          das1_e30    30.0  1e-2   0.0   0.300000  0.300000  0.100000
+10          das1_s1     3.0  1e-2   1.0   0.080000  0.086667  0.053333
+11          das1_s2     3.0  1e-2   2.0   0.333333  0.306667  0.186667
+12             das2     3.0  1e-2   0.0   0.333333  0.346667  0.200000
+13         das2_e10    10.0  1e-2   0.0   0.393333  0.386667  0.246667
+14  das2_e10_lr3e-2    10.0  3e-2   0.0   0.436667  0.440000  0.226667
+15      das2_e10_s1    10.0  1e-2   1.0   0.363333  0.373333  0.146667
+16      das2_e10_s2    10.0  1e-2   2.0   0.366667  0.326667  0.200000
+17         das2_e30    30.0  1e-2   0.0   0.473333  0.500000  0.286667
+18          das2_s1     3.0  1e-2   1.0   0.453333  0.440000  0.240000
+19          das2_s2     3.0  1e-2   2.0   0.343333  0.313333  0.160000
+E9 vs E17 flip_rate: max |diff| = 0 over 54 rows
+E9 vs E17 flip_rate_lo: max |diff| = 0 over 54 rows
+E9 vs E17 flip_rate_hi: max |diff| = 0 over 54 rows
+E9 vs E17 nldr: max |diff| = 0 over 54 rows
+E9 vs E17 random_p95: max |diff| = 0 over 48 rows
+E9 vs E17 das_train_acc: max |diff| = 0 over 24 rows
+E9 vs E17 illusion_diff: max |diff| = 0 over 54 rows
+E9 vs E17 illusion_diff_lo: max |diff| = 0 over 54 rows
+  flag effective: 0 disagreements / 54
+  flag illusion: 0 disagreements / 54
+  flag feature_mediated: 0 disagreements / 54
+  flag das_fit_valid: 0 disagreements / 54
+  U das1: bitwise equal = True, max|diff| = 0
+  U das2: bitwise equal = True, max|diff| = 0
+  U das4: bitwise equal = True, max|diff| = 0
+  U das8: bitwise equal = True, max|diff| = 0
+  U pca_pooled: bitwise equal = True, max|diff| = 0
+  per-pair rows shared: 39560; max|logit_A diff| = 0; max|logit_B diff| = 0; top1 agreement = 1.0000
+  E9 manifest: host node-C, device cpu, torch 2.14.1+cu130, commit 14e7e1f
+  E17 manifest: host node-D, device cpu, torch 2.14.1+cu126, commit 240e5f6
+
+DAS rotation stability (top / mean principal cosine), by pair kind:
+                            n  cos_top_min  cos_top_med  cos_top_max  cos_mean_med  aligned_share  learned_top_med
+r kind                                                                                                            
+1 different seed           20        0.072        0.398        0.510         0.398           0.10            0.740
+  same seed (shared init)   8        0.659        0.903        0.970         0.903           1.00            0.847
+2 different seed           20        0.433        0.541        0.686         0.308           0.75            0.795
+  same seed (shared init)   8        0.892        0.940        0.998         0.850           1.00            0.914
+4 different seed            2        0.645        0.658        0.671         0.284           1.00            0.869
+  same seed (shared init)   1        0.993        0.993        0.993         0.940           1.00            0.956
+8 different seed            2        0.726        0.727        0.729         0.301           1.00            0.919
+  same seed (shared init)   1        0.992        0.992        0.992         0.933           1.00            0.968
+    r     das_a     das_b  acc_a  acc_b  cos_top  cos_mean  cos_top_learned
+56  4      das4  das4_e10  0.733  0.840    0.993     0.940            0.956
+57  4      das4   das4_s1  0.733  0.647    0.645     0.280            0.883
+58  4  das4_e10   das4_s1  0.840  0.647    0.671     0.287            0.855
+59  8      das8  das8_e10  0.890  0.980    0.992     0.933            0.968
+60  8      das8   das8_s1  0.890  0.780    0.726     0.287            0.919
+61  8  das8_e10   das8_s1  0.980  0.780    0.729     0.315            0.919
+
+pca_pooled vs DAS alignment per variant:
+                 das  k  cos_top_pca  alignment
+0              das1  1        0.154    partial
+10         das1_e10  1        0.130    partial
+18  das1_e10_lr3e-2  1        0.003  unrelated
+14      das1_e10_s1  1        0.009  unrelated
+16      das1_e10_s2  1        0.063    partial
+20         das1_e30  1        0.043  unrelated
+4           das1_s1  1        0.021  unrelated
+8           das1_s2  1        0.070    partial
+1              das2  2        0.263    partial
+11         das2_e10  2        0.208    partial
+19  das2_e10_lr3e-2  2        0.234    partial
+15      das2_e10_s1  2        0.233    partial
+17      das2_e10_s2  2        0.214    partial
+21         das2_e30  2        0.227    partial
+5           das2_s1  2        0.254    partial
+9           das2_s2  2        0.202    partial
+2              das4  4        0.293    partial
+12         das4_e10  4        0.270    partial
+6           das4_s1  4        0.259    partial
+3              das8  8        0.395    partial
+13         das8_e10  8        0.383    partial
+7           das8_s1  8        0.325    partial
+shipped cos_top_das (pca rows, f_pilot): [[0.0, nan], [1.0, 0.154], [2.0, 0.263], [4.0, 0.293], [8.0, 0.395]]
+Spearman(train acc, full_along_U flip) over 22 DAS variants (f_pilot): rho = 0.961, p = 1.3e-12
+Spearman(train acc, feat_A_along_U flip): rho = 0.955, p = 5e-12

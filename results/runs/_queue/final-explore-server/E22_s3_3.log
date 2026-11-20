@@ -1,0 +1,21 @@
+
+=== attempt 1 2026-11-19 07:49:37 slots=['0']: /home/user/prism-run/.venv-harness/bin/python -m harness.run --config configs/experiments/E22.yaml --profile server --stage 3 --worker E22_s3-3
+
+Loading weights:   0%|          | 0/288 [00:00<?, ?it/s]
+Loading weights:   0%|          | 1/288 [00:00<02:13,  2.16it/s]
+Loading weights:  89%|████████▉ | 256/288 [00:00<00:00, 598.43it/s]
+Loading weights: 100%|██████████| 288/288 [00:00<00:00, 474.81it/s]
+2026-11-19 07:50:21,818 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-19 07:50:22,071 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-19 07:50:22,312 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-19 07:50:23,957 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-19 07:52:38,192 INFO people_cities_L12_16k_l082__fit-pc_en__eval-pc_fr unit 7/12 (8 conditions, 117.6s)
+2026-11-19 07:54:38,522 INFO people_cities_L12_16k_l082__fit-pc_en__eval-pc_fr unit 11/12 (8 conditions, 120.2s)
+2026-11-19 07:57:59,059 INFO people_cities_L12_16k_l082__fit-pc_en__eval-pc_hi unit 4/12 (8 conditions, 199.2s)
+2026-11-19 08:01:19,575 INFO people_cities_L12_16k_l082__fit-pc_en__eval-pc_hi unit 7/12 (8 conditions, 200.2s)
+2026-11-19 08:04:40,015 INFO people_cities_L12_16k_l082__fit-pc_en__eval-pc_hi unit 11/12 (8 conditions, 200.1s)
+2026-11-19 08:07:39,181 INFO people_cities_L12_16k_l082__fit-pc_en__eval-pc_hinglish unit 4/12 (8 conditions, 177.7s)
+2026-11-19 08:10:36,902 INFO people_cities_L12_16k_l082__fit-pc_en__eval-pc_hinglish unit 7/12 (8 conditions, 177.4s)
+2026-11-19 08:13:35,062 INFO people_cities_L12_16k_l082__fit-pc_en__eval-pc_hinglish unit 11/12 (8 conditions, 177.9s)
+2026-11-19 08:13:35,194 INFO E22 -> /home/user/prism-run/runs/E22/1c85291e335f (worker_done)
+Loaded pretrained model gemma-2-2b into HookedTransformer

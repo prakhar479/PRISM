@@ -404,3 +404,54 @@ def test_train_dictionary_tiny_both_modes(tmp_path):
         else:                                   # decoder frozen (random unit rows), encoder trained away from its init
             assert torch.allclose(t.W_dec.norm(dim=1), torch.ones(t.W_dec.shape[0]), atol=1e-5)
             assert not torch.allclose(t.W_enc_T, 0.1 * t.W_dec)
+
+
+@pytest.mark.slow
+def test_das_v2_backs_off_on_oom(tiny, monkeypatch):
+    """A CUDA OOM on a multi-pair batch splits it (and halves later batches) instead of failing the fit."""
+    from harness.model import das as D
+    from src.models import runtime
+    m, rows, sp = tiny
+    real = runtime.last_logits_from
+
+    def flaky(model, resid, layer, tokens):
+        if resid.shape[0] > 1 and torch.is_grad_enabled():
+            raise RuntimeError("CUDA out of memory. Tried to allocate 2.00 GiB")
+        return real(model, resid, layer, tokens)
+    monkeypatch.setattr(D.runtime, "last_logits_from", flaky)
+    U, info = D.fit_das_v2(m, 1, rows, list(range(14)), sp, 2, objective="kl", epochs=1, seed=0, init_seed=3, step_tokens=96)
+    assert info["oom_backoffs"] >= 1 and info["step_tokens"] < 96 and np.isfinite(U).all()
+
+
+# --------------------------------------------------------------------------- review fixes (2026-11-22)
+def test_signoffs_survive_the_pilot_cf_field():
+    """pack_hash ignores the pilot's `cf` selector: every recorded sign-off still matches its pack."""
+    from harness import langfamilies as LF
+    so = LF.signoffs()
+    signed = [f for f in so if any(f in fams for fams in LF.FAMILIES.values())]
+    assert signed, "no sign-offs recorded"
+    for fid in signed:
+        assert LF.is_validated(fid), fid
+
+
+def test_addon_on_jumprelu_keeps_the_base_code_path():
+    """An add-on over a JumpReLU base has no encode_active of its own: encode_sparse keeps alpha_min, and the codes are the
+    base's (the add-on changes x_hat, not the features)."""
+    base = Dct.random_dict(16, 64, "jumprelu", seed=4, thr=0.3)
+    ad = Dct.AddonDict(base, "pcx2", torch.eye(16)[:, :2] @ torch.eye(16)[:2])
+    assert getattr(ad, "encode_active", None) is None
+    X = torch.randn(30, 16)
+    a, b = encode_sparse(ad, X, alpha_min=0.5), encode_sparse(base, X, alpha_min=0.5)
+    assert torch.equal(a.col, b.col) and torch.allclose(a.z, b.z) and a.alpha_min == 0.5
+    tk = Dct.AddonDict(Dct.random_dict(16, 64, "topk", seed=4, k=3), "pcx2", torch.zeros(16, 16))
+    assert tk.encode_active is not None
+
+
+def test_trained_digest_follows_the_weights(tmp_path):
+    d = Dct.trained_dir(tmp_path, "x")
+    assert Dct.trained_digest(tmp_path, "x") is None                       # not trained yet
+    Dct.save_npz_dict(d / "params.npz", Dct.random_dict(8, 16, "jumprelu", seed=1))
+    (d / "complete.json").write_text("{}")
+    h1 = Dct.trained_digest(tmp_path, "x")
+    Dct.save_npz_dict(d / "params.npz", Dct.random_dict(8, 16, "jumprelu", seed=2))
+    assert h1 and Dct.trained_digest(tmp_path, "x") != h1                  # retrained -> new revision -> new cache keys

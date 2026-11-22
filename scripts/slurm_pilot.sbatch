@@ -3,6 +3,7 @@
 # Resumable: resubmitting skips finished units (a 96 h limit or a cancel loses at most the units in flight).
 #
 #   bash   scripts/slurm_pilot.sbatch --check                           # pre-flight checks only, no GPU work (login node is fine)
+#   sbatch --time=04:00:00 scripts/slurm_pilot.sbatch --smoke           # every pilot path on the real model, tiny sizes (~1-2 h)
 #   sbatch scripts/slurm_pilot.sbatch                                   # the whole pilot (gnode084, 4 GPUs, 96 h)
 #   sbatch --nodelist=<node> --gres=gpu:<n> scripts/slurm_pilot.sbatch   # another node: override on the command line, never commit
 #   sbatch --export=ALL,PRISM_BULK=/scratch/$USER/prism scripts/slurm_pilot.sbatch   # caches spill to a bulk disk
@@ -126,6 +127,36 @@ print(",".join(i for i in jobs if i in sel))
 PY
 )
   say "ONLY expands to: $ONLY"
+fi
+
+if [ "$MODE" = "--smoke" ]; then   # every pilot path on the REAL model, tiny sizes, isolated caches; ~1-2 h on 4 GPUs
+  SMK="$WORK/smoke"; rm -rf "$SMK"; mkdir -p "$SMK/logs"
+  export HL_CACHE_ROOT="$SMK/cache" HL_RUNS_ROOT="$SMK/runs"     # trained / cached smoke objects never reach the real run
+  say "smoke: prefetch (real downloads, shared with the full run)"
+  $H scripts/run_prefetch.py --queue queue/pilot-breadth-server.yaml || { echo "ERROR: prefetch failed"; exit 1; }
+  lane() {   # lane <gpu> <cmd...>: run commands one after another on one GPU, each logged; a failure is recorded, not fatal
+    local g=$1; shift
+    for c in "$@"; do
+      local log="$SMK/logs/$(echo "$c" | tr -c 'A-Za-z0-9_.-' '_' | cut -c1-90).log"
+      if CUDA_VISIBLE_DEVICES=$g bash -c "$c" > "$log" 2>&1; then echo "SMOKE OK   gpu$g  $c"
+      else echo "SMOKE FAIL gpu$g  $c  (log: $log)"; echo "$c" > "$log.FAILED"; fi
+    done
+  }
+  R="$H -m harness.run --profile server --smoke --config"
+  T="$H scripts/train_dictionary.py --steps 3"
+  lane 0 "$T --mode frozen_decoder --layer 12 --width 16k --name frozendec_L12_16k" \
+         "$T --mode frozen_decoder --layer 19 --width 16k --name frozendec_L19_16k" "$R configs/pilot/P2.yaml" &
+  lane 1 "$T --mode klft --layer 18 --width 16k --name klft_L18_16k" "$T --mode klft --layer 12 --width 16k --name klft_L12_16k" \
+         "$R configs/pilot/P4.yaml" "$H scripts/run_dict_fidelity.py --config configs/pilot/P4.yaml --n-windows 4 --n-boot 50 --extras" &
+  lane 2 "$R configs/pilot/P0.yaml" "$R configs/pilot/P11.yaml" "$R configs/pilot/P5.yaml" &
+  lane 3 "$R configs/pilot/P8.yaml" "$R configs/pilot/P1.yaml" "$R configs/pilot/P7.yaml" \
+         "$H scripts/run_fidelity.py --sets en_pile --layers 12 --n-windows 4 --extras --tokens" &
+  wait
+  n_fail=$(ls "$SMK"/logs/*.FAILED 2>/dev/null | wc -l)
+  say "smoke finished: $(ls "$SMK"/logs/*.log | wc -l) commands, $n_fail failed (logs kept in $SMK/logs)"
+  rm -rf "$SMK/cache"                                             # caches and smoke runs are throwaway; logs stay
+  [ "$n_fail" = 0 ] && say "smoke passed: launch the full job with  sbatch scripts/slurm_pilot.sbatch" && exit 0
+  exit 1
 fi
 
 declare -A RC

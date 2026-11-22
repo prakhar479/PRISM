@@ -195,15 +195,34 @@ def fit_das_v2(model, layer: int, rows: Sequence[dict], train_idx: Sequence[int]
                     out.append((pf.exp() * (pf - lp)).sum())
             return torch.stack(out).mean()
 
-        losses = []
-        for ep in range(epochs):
-            tot, cnt = 0.0, 0
-            for ps in batches(fit_pos):
+        oom = {"backoffs": 0}
+
+        def step(ps):
+            """One optimizer step on batch ps; on a CUDA OOM the batch is split in halves (each its own step) and the token
+            budget of later batches is halved, so an 11 GB card degrades to v1's batch-1 steps instead of failing."""
+            try:
                 loss = loss_of(forward(ps, True), ps)
                 opt.zero_grad()
                 loss.backward()
                 opt.step()
-                tot += float(loss.detach()) * len(ps)
+                return float(loss.detach()) * len(ps)
+            except Exception as e:  # noqa: BLE001 - re-raised unless it is an OOM we can back off from
+                from harness.device import empty_cache, is_oom
+                if not is_oom(e) or len(ps) == 1:
+                    raise
+                opt.zero_grad()
+                empty_cache()
+                oom["backoffs"] += 1
+                nonlocal step_tokens
+                step_tokens = max(1, step_tokens // 2)
+                h = len(ps) // 2
+                return step(ps[:h]) + step(ps[h:])
+
+        losses = []
+        for ep in range(epochs):
+            tot, cnt = 0.0, 0
+            for ps in batches(fit_pos):
+                tot += step(ps)
                 cnt += len(ps)
             losses.append(tot / max(1, cnt))
             if log:
@@ -230,7 +249,7 @@ def fit_das_v2(model, layer: int, rows: Sequence[dict], train_idx: Sequence[int]
         fit_ev, val_ev = evaluate(fit_pos), evaluate(val_pos)
         U = rot.R.detach().float().cpu().numpy()
     info = {"k": k, "version": 2, "objective": objective, "epochs": epochs, "lr": lr, "seed": seed, "init_seed": init_seed,
-            "holdout": holdout, "step_tokens": step_tokens, "n_train": n, "n_fit": len(fit_pos), "n_val": len(val_pos),
+            "holdout": holdout, "step_tokens": step_tokens, "oom_backoffs": oom["backoffs"], "n_train": n, "n_fit": len(fit_pos), "n_val": len(val_pos),
             "losses": losses, "loss_first_epoch": losses[0] if losses else None, "loss_last_epoch": losses[-1] if losses else None,
             "fit": fit_ev, "val": val_ev,
             # v1-compatible fields (make_final / E9 rules read these): validity judged on HELD-OUT pairs in v2

@@ -103,7 +103,9 @@ def pack_hash(fid: str) -> str:
     """Hash of everything a reviewer reads: every string and word list of the family. Editing a template changes it."""
     for fams in FAMILIES.values():
         if fid in fams:
-            return hashlib.sha256(repr(sorted(vars(fams[fid]).items())).encode()).hexdigest()[:16]
+            # `cf` (the breadth pilot's counterfactual selector, harness/pilotfamilies.py) is not template text: leaving it out
+            # keeps every recorded sign-off valid (the hash is the one the packs were signed with)
+            return hashlib.sha256(repr(sorted((k, v) for k, v in vars(fams[fid]).items() if k != "cf")).encode()).hexdigest()[:16]
     raise KeyError(fid)
 
 

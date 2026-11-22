@@ -16,7 +16,8 @@ frozen_decoder  the 'Sanity checks for SAEs' control (Korznikov et al.): a TopK 
                 vectors (fixed) and whose b_dec is the mean residual (fixed); only the encoder is trained, on MSE.
 Data: data/generic/pile10k_6000x128_skip100.json (disjoint from the 100-document evaluation set). Output:
 <cache_root>/trained_dicts/<name>/{params.npz, info.json, complete.json}; configs use it as sae: {dict: "trained:<name>"}.
-A finished dictionary is not retrained (delete the directory to redo it). The held-out CE on pile10k_100x128 before and
+A finished dictionary is not retrained (delete the directory to redo it; the weights' sha256 is part of every cache key
+that uses the dictionary, so a retrained one never reuses stale stage-2 caches). The held-out CE on pile10k_100x128 before and
 after training is recorded in info.json.
 """
 import argparse
@@ -214,7 +215,12 @@ def main(argv=None) -> int:
             "wall_s": round(time.time() - t0, 1), "git": git, "model": spec.key(), "tiny": a.tiny,
             "created": provenance.now()}
     (out / "info.json").write_text(json.dumps(info, indent=1, default=str))
-    (out / "complete.json").write_text(json.dumps({"name": a.name, "created": provenance.now()}))
+    import hashlib
+    sha = hashlib.sha256((out / "params.npz").read_bytes()).hexdigest()
+    info["params_sha256"] = sha
+    (out / "info.json").write_text(json.dumps(info, indent=1, default=str))
+    # the digest becomes the dictionary's revision in every cache key (harness.dicts.trained_digest): retraining invalidates
+    (out / "complete.json").write_text(json.dumps({"name": a.name, "created": provenance.now(), "params_sha256": sha}))
     # a small run record (no weights) under runs_root/PD/<name>, so bundle / publish ship the training outcome
     rec = ((REPO_ROOT / "tests" / "_tiny_runs") if a.tiny else prof.root("runs_root")) / "PD" / a.name
     rec.mkdir(parents=True, exist_ok=True)

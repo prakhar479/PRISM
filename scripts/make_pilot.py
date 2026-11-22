@@ -72,6 +72,8 @@ class Cell:
         c = self.g[(self.g.condition == condition) & (self.g.estimator == estimator) & (self.g.r == r) & (self.g.seed == seed)]
         if source is not None:
             c = c[c.source == source]
+        if "donor_status" in c:                          # no-donor placeholders (B's own error), as harness.analysis.summarize
+            c = c[c["donor_status"].isin(["ok", "relaxed", "n/a"])]
         return c.drop_duplicates("pair_id").set_index("pair_id")
 
     def metric(self, c, idx=None, key="nldr"):
@@ -343,7 +345,6 @@ def p7(rec, n_boot):
             pc = g[(g.estimator == "pca_pooled") & (g.r == r)]
             if len(ge) and len(pc):
                 a, b, p95 = ge.share_closed.iloc[0], pc.share_closed.iloc[0], ge.random_p95.iloc[0]
-                base = g.repair_nldr.iloc[0] if False else None
                 ok = a >= 2 * max(b, 1e-3) and ge.repair_nldr.iloc[0] > p95
                 go |= bool(ok)
                 lines.append(f"- {task} L{L} r={r}: grad_err closes {a:.3f}, pca_pooled {b:.3f} (repair above random p95: "

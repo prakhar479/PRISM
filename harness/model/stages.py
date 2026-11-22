@@ -266,8 +266,8 @@ def _stage2_active_fill(cache: Cache, spans_entry: Entry, sae, sae_key: dict, de
             c = _active(sae, s[f"x_{who}"], block_latents, device)
             out.update({f"n_rows_{who}": torch.tensor([c.n_rows]), f"row_{who}": c.row, f"col_{who}": c.col, f"z_{who}": c.z})
         e.write_shard(si, out)
-    if not e.complete:
-        e.mark_complete({"sae": sae_key, "entries": "active", "prompts": "A,B"})
+    # the decoder table is written BEFORE the codes entry is marked complete: a kill in between leaves the entry
+    # incomplete, so the next stage 2 redoes both (stage2_done checks both entries)
     d = cache.entry("sae_active_dec", codes=e.key).open()
     if not d.complete:
         cols = torch.unique(torch.cat([e.read_shard(si)[f"col_{w}"] for si in e.shards() for w in ("A", "B")]
@@ -276,6 +276,8 @@ def _stage2_active_fill(cache: Cache, spans_entry: Entry, sae, sae_key: dict, de
         tab = DecoderTable.from_sae(base, cols)
         d.write_shard(0, {"cols": tab.cols, "W": tab.W})
         d.mark_complete({"n_latents": int(len(tab.cols))})
+    if not e.complete:
+        e.mark_complete({"sae": sae_key, "entries": "active", "prompts": "A,B"})
     return e, d
 
 

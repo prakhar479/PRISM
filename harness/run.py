@@ -147,7 +147,13 @@ class Runner:
         """Gemma Scope cells resolve exactly as before (same key, same to_dict); registry / trained / add-on dictionaries
         resolve through harness.dicts (DictId)."""
         from harness import dicts as Dct
-        return Dct.resolve(layer, spec, self.inventory, self.sae_revision, self.registry)
+        did = Dct.resolve(layer, spec, self.inventory, self.sae_revision, self.registry)
+        if did.source == "trained" and not self.tiny:
+            # revision = digest of the trained weights, so every cache keyed by sae_key follows a retrained dictionary
+            # (None until the training job has run: stage 1, plans and prefetch never read SAE caches)
+            import dataclasses
+            did = dataclasses.replace(did, revision=Dct.trained_digest(self.prof.root("cache_root"), did.name))
+        return did
 
     def sae_key(self, sid: SAEId) -> dict:
         k = {**sid.to_dict(), "tiny": self.tiny}
@@ -230,8 +236,10 @@ class Runner:
         if d:
             n_src = sum(len(self.cfg.prompt_sets) - 1 if s == "other_task" else 1 for s in d.sources)
             for n in d.conditions:
+                cols = {"ridge_value": 1, "fourier_T2": 1, "fourier_T5": 2, "fourier_T10": 2}   # as cell_specs skips r > columns
                 keys += [(n, e, s, r) for e in d.estimators for s in range(n_src) for r in d.ranks
-                         if not (e.startswith("das") and r != das_rank(e)) and not (n.startswith("steer_") and r == 0)]
+                         if not (e.startswith("das") and r != das_rank(e)) and not (n.startswith("steer_") and r == 0)
+                         and r <= cols.get(e, r)]
                 keys += [(n, "random", s, r) for s in range(d.random_seeds) for r in d.ranks if r > 0]
         st_ = self.cfg.subthresh
         if st_:
@@ -413,8 +421,10 @@ class Runner:
     def stage2_done(self, job) -> bool:
         kind, t, L, sid = job
         e = self.sae_entry(t, L, sid) if kind == "task" else self.generic_entries(L, sid)[1]
-        if kind == "task" and self.need_codes() and not S.active_entry(self.cache, self.spans_entry(t, L), self.sae_key(sid)).complete:
-            return False
+        if kind == "task" and self.need_codes():
+            ae = S.active_entry(self.cache, self.spans_entry(t, L), self.sae_key(sid))
+            if not (ae.complete and self.cache.entry("sae_active_dec", codes=ae.key).complete):
+                return False
         return e.complete and (kind != "task" or not self.cfg.subthresh or self.codes_entry(t, L, sid).complete)
 
     def skipped_saes(self) -> Dict[str, str]:
@@ -815,7 +825,7 @@ class Runner:
                     o = out[str(i)]
                     for k, pi in enumerate(te):
                         ds = "n/a"
-                        if sp["condition"].startswith("feat_A_resampC"):
+                        if sp["condition"].startswith(("feat_A_resampC", "resampU_")):
                             ds = donors["same" if sp["condition"].endswith("sameAns") else "diff"][k]["status"]
                         recs.append(self.pair_record(cell, sid, rows[pi], fl, pi, sp, o, k, ds))
                 tmp = parts / f"{stem}.parquet.tmp.{os.getpid()}"

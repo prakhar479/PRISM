@@ -142,15 +142,21 @@ class Dictionary(_jumprelu_cls()):
         return self
 
     # ---- arithmetic for topk / gated (pure, chunked over rows; latents in blocks for gated)
-    def _codes(self, xw: torch.Tensor, device) -> Tuple[torch.Tensor, torch.Tensor]:
+    def _on(self, device) -> dict:
+        """The weights on `device`, moved once per decompose / encode call (not once per row chunk)."""
+        w = {"We": self.W_enc_T.to(device), "be": self.b_enc.to(device), "Wd": self.W_dec.to(device)}
+        if self.kind == "gated":
+            w.update(ms=self.mag_scale.to(device), bm=self.b_mag.to(device))
+        return w
+
+    def _codes(self, xw: torch.Tensor, w: dict) -> Tuple[torch.Tensor, torch.Tensor]:
         """(values [R, m], latent ids [R, m]) of the active latents of rows xw (m = k for topk; padded with 0 for gated)."""
-        We, be = self.W_enc_T.to(device), self.b_enc.to(device)
-        z = xw @ We.T
+        z = xw @ w["We"].T
         if self.kind == "topk":
-            post = torch.relu(z + be)
+            post = torch.relu(z + w["be"])
             v, i = torch.topk(post, min(int(self.k), post.shape[-1]), dim=-1)
             return v, i
-        f = (z + be > 0) * torch.relu(self.mag_scale.to(device) * z + self.b_mag.to(device))
+        f = (z + w["be"] > 0) * torch.relu(w["ms"] * z + w["bm"])
         m = int((f != 0).sum(-1).max().item()) if len(f) else 0
         v, i = torch.topk(f, max(1, m), dim=-1)
         return v, i
@@ -164,12 +170,13 @@ class Dictionary(_jumprelu_cls()):
         device = torch.device(device) if device is not None else self.W_enc_T.device
         x32 = X.reshape(-1, X.shape[-1]).to(device, torch.float32)
         xw = x32.to(self.W_enc_T.dtype)
-        Wd = self.W_dec.to(device)
+        w = self._on(device)
+        Wd = w["Wd"]
         x_hat = torch.zeros_like(x32)
         l0 = torch.zeros(len(x32), dtype=torch.long, device=device)
         rb = self._row_step(len(x32))
         for r in range(0, len(x32), rb):
-            v, i = self._codes(xw[r:r + rb], device)
+            v, i = self._codes(xw[r:r + rb], w)
             v = v.float()
             l0[r:r + rb] = (v > 0).sum(-1)
             x_hat[r:r + rb] = torch.einsum("rk,rkd->rd", v, Wd[i].float())
@@ -182,9 +189,10 @@ class Dictionary(_jumprelu_cls()):
         device = torch.device(device) if device is not None else self.W_enc_T.device
         xw = X.reshape(-1, X.shape[-1]).to(device, self.W_enc_T.dtype)
         rows, cols, zs = [], [], []
+        w = self._on(device)
         rb = self._row_step(len(xw))
         for r in range(0, len(xw), rb):
-            v, i = self._codes(xw[r:r + rb], device)
+            v, i = self._codes(xw[r:r + rb], w)
             keep = v > 0
             rr = torch.arange(r, r + len(v), device=device)[:, None].expand_as(v)
             rows.append(rr[keep].cpu())
@@ -202,11 +210,20 @@ class AddonDict:
         self.base, self.mode, self.W, self.c, self.info = base, mode, W.float(), (None if c is None else c.float()), info or {}
         self.width, self.layer = getattr(base, "width", "?"), getattr(base, "layer", -1)
         self.streamed = False
-        self.encode_active = getattr(base, "encode_active", None) or self._base_codes
+        if getattr(base, "encode_active", None) is not None:      # TopK / gated base: its own active codes; a JumpReLU base
+            self.encode_active = base.encode_active               # goes through encode_sparse (alpha_min kept, z > thr filter)
 
     @property
     def b_dec(self):
         return self.base.b_dec
+
+    @property
+    def b_enc(self):
+        return self.base.b_enc
+
+    @property
+    def threshold(self):
+        return self.base.threshold
 
     @property
     def W_dec(self):
@@ -238,9 +255,6 @@ class AddonDict:
         a = self.addon(x32, e2).reshape(eps.shape)
         return xh + a, eps - a, l0
 
-    def _base_codes(self, X, block_latents=None, device=None):
-        from harness.sae import encode_sparse
-        return encode_sparse(self.base, X, alpha_min=1.0, block_latents=block_latents, device=device)
 
 
 # --------------------------------------------------------------------------- add-on fitting (P4 / P6)
@@ -332,6 +346,22 @@ def random_dict(d_model: int, d_sae: int, kind: str = "jumprelu", seed: int = 0,
 
 def trained_dir(cache_root: Path, name: str) -> Path:
     return Path(cache_root) / "trained_dicts" / name
+
+
+def trained_digest(cache_root: Path, name: str) -> Optional[str]:
+    """sha256 (16 hex) of a trained dictionary's params.npz, as recorded at training (None if it is not trained yet)."""
+    d = trained_dir(cache_root, name)
+    if not (d / "complete.json").exists():
+        return None
+    rec = json.loads((d / "complete.json").read_text())
+    if rec.get("params_sha256"):
+        return rec["params_sha256"][:16]
+    import hashlib
+    h = hashlib.sha256()
+    with open(d / "params.npz", "rb") as f:
+        for b in iter(lambda: f.read(1 << 22), b""):
+            h.update(b)
+    return h.hexdigest()[:16]
 
 
 def load_trained(cache_root: Path, did: DictId, dtype=torch.float32) -> Dictionary:

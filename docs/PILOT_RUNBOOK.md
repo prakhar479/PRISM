@@ -37,6 +37,21 @@ P3 (transcoders / cross-layer transcoders) is **not** in this pilot: see "Not bu
    stage-2 caches (P2 keeps x_hat of ~50 dictionaries). If `/ssd_scratch` is short, spill to the bulk disk:
    `sbatch --export=ALL,PRISM_BULK=/scratch/$USER/prism scripts/slurm_pilot.sbatch`.
 
+## Smoke on the real model (recommended, ~1-2 h)
+
+```bash
+sbatch --time=04:00:00 scripts/slurm_pilot.sbatch --smoke
+grep -E "SMOKE (OK|FAIL)|smoke (finished|passed)" slurm-prism-pilot-<jobid>.out
+```
+The smoke job covers every pilot path, with tiny sizes, on the real models across the 4 GPUs:
+- every pilot config run with `--smoke`;
+- 3-step runs of the four training jobs;
+- the P4 fidelity job and the English E23 job.
+
+Caches and runs go to a throwaway `$PRISM_WORK/smoke` (deleted afterwards; logs are kept in `$PRISM_WORK/smoke/logs`), so nothing
+leaks into the real run. Its prefetch is real, so the full job starts with every download in place. It catches what the CPU tests
+cannot: GPU memory, device placement, real checkpoints and the gated-model access.
+
 ## Run
 
 ```bash
@@ -44,7 +59,8 @@ sbatch scripts/slurm_pilot.sbatch                                         # ever
 sbatch --export=ALL,ONLY=P0,P11 scripts/slurm_pilot.sbatch                # a subset: pilot ids or job ids (+ their dependencies)
 sbatch --nodelist=<node> --gres=gpu:<n> scripts/slurm_pilot.sbatch        # another node (never edit and commit the script)
 ```
-Time limit, preemption or a cancel: resubmit the same command. Finished units are skipped, and so are cached DAS rotations,
+If a DAS v2 batch runs out of GPU memory, the batch is split and later batches are halved (`oom_backoffs` in the rotation's
+info). Time limit, preemption or a cancel: resubmit the same command. Finished units are skipped, and so are cached DAS rotations,
 gradient directions, add-on maps and trained dictionaries. gnode084 holds the final pass's RS L18 / PC L12 caches, which P0 reuses;
 any node works, it only recomputes them.
 

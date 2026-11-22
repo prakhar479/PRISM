@@ -34,7 +34,7 @@ from harness import families as F
 from harness import tasks as T
 from harness.batching import Budget
 from harness.cache import Cache, atomic_write_text
-from harness.config import ExpConfig, das_rank, parse_das
+from harness.config import ExpConfig, das_rank, das_spec, parse_das  # noqa: F401
 from harness.device import (cap_memory, device_memory, dtype_name, empty_cache, peak_bytes, probe_machine, reset_peak,
                             resolve_device, set_threads)
 from harness.model import ModelSpec, build_model
@@ -99,9 +99,12 @@ class Runner:
         self.cache = prof.cache() if not self.tiny else Cache(REPO_ROOT / "tests" / "_tiny_cache")
         inv = json.loads((REPO_ROOT / "configs" / "sae_inventory.json").read_text())
         self.inventory, self.sae_revision = inv["inventory"], inv["revision"]
+        from harness import dicts as Dct
+        self.registry = Dct.load_registry()
         deepest = max([c.layer for c in cfg.cells] + [0])
-        self.spec = (ModelSpec(name="tiny", dtype="float32", tiny_vocab=256_000, tiny_layers=deepest + 2) if self.tiny
-                     else ModelSpec(revision=cfg.model_revision, dtype=prof.model_dtype))
+        tiny_vocab = 256_000 if cfg.model == "gemma-2-2b" else 262_208          # Gemma 3 token ids reach 262k
+        self.spec = (ModelSpec(name="tiny", dtype="float32", tiny_vocab=tiny_vocab, tiny_layers=deepest + 2) if self.tiny
+                     else ModelSpec(name=cfg.model, revision=cfg.model_revision, dtype=prof.model_dtype))
         self.rows: Dict[str, List[dict]] = {}
         self.set_meta: Dict[str, dict] = {}
         for task, rel in cfg.prompt_sets.items():
@@ -127,6 +130,8 @@ class Runner:
         self.budget = Budget(max_tokens=prof.max_batch_tokens, max_rows=prof.max_batch_size)
         self.model = None
         self.bundles: Dict[tuple, Bundle] = {}
+        self.code_set_log: List[dict] = []
+        self._cur_sid, self._cur_te = None, ()
         self.timings: Dict[str, float] = {}
         self.checks: List[dict] = []
         gs = provenance.git_state()
@@ -139,10 +144,23 @@ class Runner:
 
     # ------------------------------------------------------------------ identifiers
     def sae_id(self, layer: int, spec) -> SAEId:
-        return SAEId(layer, spec.width, spec.resolve(layer, self.inventory), revision=self.sae_revision)
+        """Gemma Scope cells resolve exactly as before (same key, same to_dict); registry / trained / add-on dictionaries
+        resolve through harness.dicts (DictId)."""
+        from harness import dicts as Dct
+        return Dct.resolve(layer, spec, self.inventory, self.sae_revision, self.registry)
 
     def sae_key(self, sid: SAEId) -> dict:
-        return {**sid.to_dict(), "tiny": self.tiny}
+        k = {**sid.to_dict(), "tiny": self.tiny}
+        if getattr(sid, "addon", ""):
+            from harness.dicts import ADDON_LAMBDA
+            k["addon_fit"] = {"corpus": self.generic["hash"] if self.generic else None, "lam": ADDON_LAMBDA}
+        return k
+
+    def need_codes(self) -> bool:
+        """Active codes of A and B are cached in stage 2 when a code-level condition is evaluated (P0)."""
+        from harness.config import CODE_CONDITIONS
+        d = self.cfg.directions
+        return bool(d and any(n in CODE_CONDITIONS for n in d.conditions))
 
     def stage2_jobs(self) -> List[tuple]:
         """(source kind, task or 'generic', layer, SAEId) needed by the cells and their direction sources."""
@@ -242,18 +260,82 @@ class Runner:
             S.stage1(model, self.spec, self.rows[task], self.set_meta[task]["hash"], layers, self.cache, self.budget, self.device)
             self.timings[f"stage1_{task}_s"] = round(time.time() - t0, 1)
         if self.generic:
-            layers = sorted({j[2] for j in self.stage2_jobs() if j[0] == "generic"})
+            layers = self.generic_layers()
             if layers:
                 S.stage1_generic(model, self.spec, self.generic["ids"], self.generic["hash"], layers, self.generic["skip"],
                                  self.cache, self.budget, self.device)
 
+    def generic_layers(self) -> List[int]:
+        """Layers whose generic-text residuals stage 1 caches: generic stage-2 jobs, plus every add-on cell's layer (the
+        add-on is fitted on those residuals; no generic stage-2 output is written for it)."""
+        L = {j[2] for j in self.stage2_jobs() if j[0] == "generic"}
+        L |= {c.layer for c in self.cfg.cells if c.sae.addon}
+        return sorted(L)
+
     # ------------------------------------------------------------------ stage 2
     def get_sae(self, sid: SAEId):
+        from harness import dicts as Dct
+        if getattr(sid, "addon", ""):
+            base = self.get_sae(sid.base())
+            fit = self.addon_map(sid, base)
+            return Dct.AddonDict(base, sid.addon, fit["W"], fit.get("c"), fit.get("info"))
+        source = getattr(sid, "source", "gemma_scope")
         if self.tiny:
-            p = write_random_params(self.cache.root / "tiny_saes" / f"{sid.key}.npz", TINY_D, TINY_SAE, seed=sid.layer, thr=0.05)
-            return load_params(p, sid.layer, sid.width)
+            if source == "gemma_scope":
+                p = write_random_params(self.cache.root / "tiny_saes" / f"{sid.key}.npz", TINY_D, TINY_SAE, seed=sid.layer, thr=0.05)
+                return load_params(p, sid.layer, sid.width)
+            kind = {"dl_topk": "topk", "dl_gated": "gated"}.get(getattr(sid, "arch", ""), "jumprelu")
+            return Dct.random_dict(TINY_D, TINY_SAE, kind, seed=sid.layer + 7, k=8, layer=sid.layer, width=sid.width)
         from harness.memory import sae_dtype_for
-        return load_params(params_path(sid), sid.layer, sid.width, sae_dtype_for(sid.width, self.prof), sid.key)
+        dt = sae_dtype_for(sid.width, self.prof)
+        if source == "registry":
+            from harness.device import dtype_of
+            return Dct.load_registry_dict(sid, dtype_of(dt))
+        if source == "trained":
+            from harness.device import dtype_of
+            return Dct.load_trained(self.prof.root("cache_root"), sid, dtype_of(dt))
+        return load_params(params_path(sid), sid.layer, sid.width, dt, sid.key)
+
+    @staticmethod
+    def _capped_shards(entry, max_rows: int):
+        """The first shards of a generic residual entry, up to max_rows rows in total (in shard order)."""
+        n = 0
+        for si in entry.shards():
+            if n >= max_rows:
+                return
+            x = entry.read_shard(si)["x"]
+            x = x[: max_rows - n]
+            n += len(x)
+            yield x
+
+    def addon_entry(self, sid):
+        r, _ = self.generic_entries(sid.layer, sid.base())
+        from harness.dicts import ADDON_LAMBDA, ADDON_MAX_ROWS
+        return self.cache.entry("addon", resid=r.key, base=self.sae_key(sid.base()), mode=sid.addon, lam=ADDON_LAMBDA,
+                                max_rows=ADDON_MAX_ROWS)
+
+    def addon_map(self, sid, base) -> dict:
+        """The add-on's fitted map (cached; fitted once from the generic set's cached residuals at the cell's layer)."""
+        from harness import dicts as Dct
+        if not self.generic:
+            raise ValueError(f"{sid.key}: add-ons need a `generic:` block")
+        ent = self.addon_entry(sid)
+        if not ent.complete:
+            with ent.writer_lock():
+                ent.open()
+                if not ent.complete:
+                    r, _ = self.generic_entries(sid.layer, sid.base())
+                    r.require_complete()
+                    dev = self.device if not self.tiny else torch.device("cpu")
+                    chunks = self._capped_shards(r, Dct.ADDON_MAX_ROWS)
+                    t0 = time.time()
+                    fit = Dct.fit_addon(base, chunks, sid.addon, device=dev)
+                    ent.write_shard(0, {"W": fit["W"], **({"c": fit["c"]} if fit["c"] is not None else {})})
+                    ent.write_json("info.json", fit["info"])
+                    ent.mark_complete(fit["info"])
+                    log.info("add-on %s fitted on %d generic rows (%.0fs)", sid.key, fit["info"]["n_rows"], time.time() - t0)
+        sh = ent.read_shard(0)
+        return {"W": sh["W"], "c": sh.get("c"), "info": ent.read_json("info.json")}
 
     def spans_entry(self, task, layer):
         return self.cache.entry("spans", model=self.spec.key(), set_hash=self.set_meta[task]["hash"], layer=int(layer),
@@ -316,6 +398,8 @@ class Runner:
         for kind, t, L, _ in jobs:
             if kind == "task":
                 S.stage2(self.cache, self.spans_entry(t, L), sae, self.sae_key(sid), dev, est.block_latents)
+                if self.need_codes():
+                    S.stage2_active(self.cache, self.spans_entry(t, L), sae, self.sae_key(sid), dev, est.block_latents)
                 if self.cfg.subthresh:
                     S.stage2_codes(self.cache, self.spans_entry(t, L), sae, self.sae_key(sid), dev,
                                    self.cfg.subthresh.alpha_min, est.block_latents)
@@ -329,6 +413,8 @@ class Runner:
     def stage2_done(self, job) -> bool:
         kind, t, L, sid = job
         e = self.sae_entry(t, L, sid) if kind == "task" else self.generic_entries(L, sid)[1]
+        if kind == "task" and self.need_codes() and not S.active_entry(self.cache, self.spans_entry(t, L), self.sae_key(sid)).complete:
+            return False
         return e.complete and (kind != "task" or not self.cfg.subthresh or self.codes_entry(t, L, sid).complete)
 
     def skipped_saes(self) -> Dict[str, str]:
@@ -384,6 +470,11 @@ class Runner:
                     b.dirs[est] = Dr.pca_pos_centered(fs, sp.pair_ids, torch.cat([sp.e_A, sp.e_B]), keys * 2, d.r_max)
                 elif est == "pca_slot_centered_pairdiff":
                     b.dirs[est] = Dr.pca_slot_centered_pairdiff(fs, sp.pair_ids, sp.e_A - sp.e_B, keys, d.r_max)
+                elif est in ("ridge_value", "fourier_T2", "fourier_T5", "fourier_T10"):
+                    X_last = torch.cat([sp.x_A[last], sp.x_B[last]])
+                    b.dirs[est] = Dr.value_direction(fs, sp.pair_ids, X_last, labels, est)
+                elif est in ("grad_pooled", "grad_err"):
+                    b.dirs[est] = None                          # filled below (needs the model; cached like DAS)
                 elif est.startswith("das"):
                     b.dirs[est] = None                          # filled below, after the cheap estimators
             das = [e for e in d.estimators if e.startswith("das")]
@@ -393,6 +484,11 @@ class Runner:
                 for est in das:
                     if b.dirs.get(est) is None:
                         b.dirs[est] = self.das_direction(task, layer, rows, tr, sp, fs, est, blocking=blocking)
+            grads = [e for e in d.estimators if e in ("grad_pooled", "grad_err")]
+            if grads:
+                got = self.grad_directions(task, layer, sid, rows, tr, sp, fs, d.r_max)
+                for e in grads:
+                    b.dirs[e] = got[e]
             if any(c.startswith("steer_") for c in d.conditions):
                 b.mean_diff = C.MeanDiff.fit(fs, sp)
             self.save_dirs(task, layer, sid, b, "+".join(fit_families) if fit_families else "")
@@ -419,13 +515,19 @@ class Runner:
         worker of a run (and every later run with the same train set) uses the identical rotation. blocking=False returns
         None when another worker is training it right now. --finalize-only never trains: a missing rotation is an error."""
         from harness.cache import fs_type, NETWORK_FS
-        from harness.model.das import fit_das
-        spec = parse_das(est)
+        from harness.model.das import fit_das, fit_das_v2, init_seed_v2
+        spec = das_spec(est)
         k, lr = spec["k"], spec["lr"]
         seed = int(self.cfg.seed if spec["seed"] is None else spec["seed"])
         epochs = 1 if self.tiny or self.smoke else spec["epochs"]
-        ent = self.cache.entry("das", spans=self.spans_entry(task, layer).key, fitset=fs.digest, k=int(k), epochs=epochs,
-                               lr=lr, seed=seed, model=self.spec.key(), version=self.DAS_VERSION)
+        if spec["version"] == 1:                    # v1 keys are unchanged: E9/E17 rotations stay reusable
+            ent = self.cache.entry("das", spans=self.spans_entry(task, layer).key, fitset=fs.digest, k=int(k), epochs=epochs,
+                                   lr=lr, seed=seed, model=self.spec.key(), version=self.DAS_VERSION)
+        else:
+            init = init_seed_v2(seed, task, layer, fs.digest)
+            ent = self.cache.entry("das", spans=self.spans_entry(task, layer).key, fitset=fs.digest, k=int(k), epochs=epochs,
+                                   lr=lr, seed=seed, model=self.spec.key(), version=2, objective=spec["objective"],
+                                   holdout=spec["holdout"], step_tokens=spec["step_tokens"], init_seed=init)
 
         def read():
             U = ent.read_shard(0)["U"].numpy()
@@ -448,13 +550,58 @@ class Runner:
                 log.info("DAS: training %s (k=%d, %d epochs, lr %g, seed %d) for %s L%d on %d train pairs", est, k, epochs, lr, seed, task, layer, len(tr))
                 model = self.load_model()
                 empty_cache()
-                U, info = fit_das(model, layer, rows, tr, sp, k, epochs=epochs, lr=lr, seed=seed, device=self.device)
+                if spec["version"] == 1:
+                    U, info = fit_das(model, layer, rows, tr, sp, k, epochs=epochs, lr=lr, seed=seed, device=self.device)
+                else:
+                    U, info = fit_das_v2(model, layer, rows, tr, sp, k, objective=spec["objective"], epochs=epochs, lr=lr,
+                                         seed=seed, init_seed=init, holdout=spec["holdout"],
+                                         step_tokens=spec["step_tokens"], device=self.device, log=log.info)
                 if not np.isfinite(U).all():
                     raise RuntimeError(f"DAS das{k} for {task} L{layer} diverged (non-finite rotation); not cached")
                 ent.write_shard(0, {"U": torch.from_numpy(U)})
                 ent.write_json("info.json", info)
                 ent.mark_complete(info)
         return read()
+
+    GRAD_VERSION = 1
+
+    def grad_directions(self, task, layer, sid, rows, tr, sp, fs, r_max: int) -> Dict[str, Dr.Direction]:
+        """P7: task-gradient directions on the train pairs, linearised at the feat_A_errB patch (cached; one writer)."""
+        from harness.model.grads import fit_grad_dirs
+        ent = self.cache.entry("grad", spans=self.spans_entry(task, layer).key, sae=self.sae_key(sid), fitset=fs.digest,
+                               model=self.spec.key(), r_max=int(r_max), version=self.GRAD_VERSION)
+
+        def read():
+            sh = ent.read_shard(0)
+            info = ent.read_json("info.json")
+            return {e: Dr.Direction(sh[e].numpy(), e, "same_task", fs.digest, len(tr), None, info) for e in ("grad_pooled", "grad_err")}
+
+        if ent.complete:
+            return read()
+        if self.finalizing:
+            raise RuntimeError(f"finalize: gradient directions for {task} L{layer} are not in the cache ({ent.dir})")
+        with ent.writer_lock():
+            ent.open()
+            if not ent.complete:
+                log.info("grad directions: %s L%d %s on %d train pairs", task, layer, sid.key, len(tr))
+                model = self.load_model()
+                empty_cache()
+                U, info = fit_grad_dirs(model, layer, rows, tr, sp, r_max, device=self.device)
+                ent.write_shard(0, {k: torch.from_numpy(v) for k, v in U.items()})
+                ent.write_json("info.json", info)
+                ent.mark_complete(info)
+        return read()
+
+    def code_material(self, cell, sid, b: Bundle, test: C.Spans, te_idx) -> dict:
+        """Active codes (train and test) and the decoder table for the code-level write-back (P0)."""
+        if getattr(test, "_codes", None) is None:
+            ae = S.active_entry(self.cache, self.spans_entry(cell.task, cell.layer), self.sae_key(sid))
+            test._codes = S.load_active(ae, self.spans_entry(cell.task, cell.layer), te_idx)
+            if getattr(b, "_codes", None) is None:
+                b._codes = S.load_active(ae, self.spans_entry(cell.task, cell.layer), b.train_idx)
+                b._dec = S.load_decoder(self.cache.entry("sae_active_dec", codes=ae.key))
+                b._sets = {}
+        return {"train": b._codes, "test": test._codes, "dec": b._dec, "sets": b._sets}
 
     def save_dirs(self, task, layer, sid, b: Bundle, fit_tag: str = ""):
         out = self.run_dir / "directions"
@@ -514,6 +661,8 @@ class Runner:
                     for r in d.ranks:
                         if e.startswith("das") and r != das_rank(e):
                             continue                    # a DAS rotation is fitted for its own rank only (columns are not ordered)
+                        if D is not None and r > D.U.shape[1]:
+                            continue                    # value / Fourier estimators have 1-2 columns
                         if n.startswith("steer_") and r == 0:
                             continue                    # rank 0 adds nothing: it is clean_B
                         specs.append(dict(condition=n, estimator=e, source=src, r=r, seed=-1, kind="dir", D=D))
@@ -547,6 +696,23 @@ class Runner:
             return C.steer(test, spec["D"].r(spec["r"]), bun.mean_diff.per_row(test), C.steer_scale(n))
         if spec["kind"] == "dir":
             U = spec["D"].r(spec["r"])
+            if n in ("resampU_sameAns", "resampU_diffAns"):
+                ds = donors["same" if n.endswith("sameAns") else "diff"]
+                eC = C.donor_errors(test, ds)
+                bad = torch.isnan(eC).any(1)
+                eC[bad] = test.e_B[bad]                          # no donor: the U-part of B's own error (no change)
+                return C.build(n, test, U=U, eps_C=eC)
+            if n == "feat_codes_along_U":
+                m = self.code_material(cell, self._cur_sid, bun, test, self._cur_te)
+                key = (spec["estimator"], spec["source"], int(spec["r"]), int(spec["seed"]))
+                if key not in m["sets"]:
+                    cA, cB = m["train"]
+                    lat, info = C.select_latents_along_U(cA, cB, m["dec"], U)
+                    m["sets"][key] = lat
+                    self.code_set_log.append({"cell": f"{cell.task}_L{cell.layer}_{self._cur_sid.key}", "estimator": key[0],
+                                              "source": key[1], "r": key[2], "seed": key[3], **info})
+                tA, tBc = m["test"]
+                return C.build(n, test, eps_C=C.codes_writeback(tA, tBc, m["dec"], m["sets"][key]))
             mean_pos = bun.mean_err.per_row(test) if n == "repair_mean" else None
             return C.build(n, test, U=U, eps_mean_pos=mean_pos)
         if spec["kind"] == "noise":
@@ -605,6 +771,7 @@ class Runner:
                 continue
             bun.fitset.assert_disjoint([rows[i]["pair_id"] for i in te])
             test = S.load_spans(self.spans_entry(cell.task, cell.layer), rows, te, self.sae_entry(cell.task, cell.layer, sid))
+            self._cur_sid, self._cur_te = sid, te                     # code-level write-back material (materialize)
             donors = {"same": C.select_donors(test.meta, True, self.cfg.seed), "diff": C.select_donors(test.meta, False, self.cfg.seed)}
             try:
                 specs = self.cell_specs(cell, sid, test, bun, te)        # other_task sources may hit a CellSkip too
@@ -661,6 +828,13 @@ class Runner:
                     Par.release(cl_path)
                 log.info("%s unit %d/%d (%d conditions, %.1fs)", cell_key, u // UNIT_SIZE + 1,
                          (len(specs) + UNIT_SIZE - 1) // UNIT_SIZE, len(chunk), time.time() - t0)
+            if self.code_set_log:                                    # latent sets of the code-level write-back (P0)
+                p = parts / f"{cell_key}.codesets.json"
+                old = json.loads(p.read_text()) if p.exists() else []
+                seen = {json.dumps(x, sort_keys=True) for x in old}
+                new = old + [x for x in self.code_set_log if json.dumps(x, sort_keys=True) not in seen]
+                atomic_write_text(p, json.dumps(new, indent=1))
+                self.code_set_log = []
         if missing:
             raise RuntimeError(f"finalize: {len(missing)} stage-3 units are not done (e.g. {missing[:3]}); "
                                "run the workers to completion first")

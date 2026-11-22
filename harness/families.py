@@ -36,6 +36,9 @@ class OTFamily:
     init_re: str
     move_re: str
     query_re: str
+    cf: str = "default"  # counterfactual: default (corrupt moves the queried object instead of another one; A's answer is
+                         # fixed by the prefix, PAPER_FINDINGS P2) | dest (pilot P11: both runs move the queried object at the
+                         # same step, to different boxes; a patch that only erases B's update yields neither A nor B)
 
 
 @dataclass(frozen=True)
@@ -63,6 +66,9 @@ class PCFamily:
     query: str           # format with p; no answer
     init_re: str         # groups (person, city)
     query_re: str        # group (person)
+    cf: str = "content"  # counterfactual (pilot P1): content (the queried person's city -> a city nobody has) | swap (the
+                         # queried person's city is exchanged with another person's: same tokens, different pairing) | query
+                         # (another person is asked about)
 
 
 OT_FAMILIES: Dict[str, OTFamily] = {f.id: f for f in [
@@ -96,9 +102,11 @@ FAMILIES = {"entity_track": OT_FAMILIES, "add_chain": RS_FAMILIES}      # E3's "
 
 
 def _fam(task: str, family: str):
-    """Family object of any task: E3's fresh families, then the language families of E13 (harness/langfamilies.py)."""
+    """Family object of any task: E3's fresh families, the language families of E13 (harness/langfamilies.py), then the
+    breadth pilot's counterfactual variants (harness/pilotfamilies.py)."""
     from harness import langfamilies as LF
-    for table in (FAMILIES.get(task, {}), LF.FAMILIES.get(task, {})):
+    from harness import pilotfamilies as PF
+    for table in (FAMILIES.get(task, {}), LF.FAMILIES.get(task, {}), PF.families().get(task, {})):
         if family in table:
             return table[family]
     raise KeyError(f"unknown family {family!r} for task {task}")
@@ -133,8 +141,10 @@ def expand(task: str, names: Sequence[str]) -> List[str]:
 
 
 def _lang_families(task: str):
+    """Families accepted by explicit id: E13's language families and the breadth pilot's variants."""
     from harness import langfamilies as LF
-    return LF.FAMILIES.get(task, {})
+    from harness import pilotfamilies as PF
+    return {**LF.FAMILIES.get(task, {}), **PF.families().get(task, {})}
 
 
 def candidates(task: str, family: str) -> List[str]:
@@ -153,6 +163,8 @@ def candidates(task: str, family: str) -> List[str]:
 def _gen_ot(f: OTFamily, rng: np.random.Generator, depth: int = 2) -> Optional[st.CounterfactualPair]:
     """Same construction as the pilot's _gen_entity: depth+1 objects, depth moves, the corrupt run moves the
     queried object instead of another one at step k (and no later move touches the queried object)."""
+    if f.cf == "dest":
+        return _gen_ot_dest(f, rng, depth)
     n_obj = depth + 1
     objs = [f.objects[i] for i in rng.permutation(len(f.objects))[:n_obj]]
     loc0 = dict(zip(objs, (f.labels[i] for i in rng.permutation(len(f.labels))[:n_obj])))
@@ -183,7 +195,50 @@ def _gen_ot(f: OTFamily, rng: np.random.Generator, depth: int = 2) -> Optional[s
                                  {"heur": heur, "corrupt_step": k, "family": f.id})
 
 
+def _gen_ot_dest(f: OTFamily, rng: np.random.Generator, depth: int = 2) -> Optional[st.CounterfactualPair]:
+    """Pilot P11 (no default answer): depth+1 objects, depth moves; at step k BOTH runs move the queried object q, the clean
+    run to box X and the corrupt run to box Y (X != Y, both != q's box before step k); no later move touches q. Erasing B's
+    update leaves q's earlier box Z (meta.fallback_label), which is neither answer."""
+    n_obj = depth + 1
+    objs = [f.objects[i] for i in rng.permutation(len(f.objects))[:n_obj]]
+    loc0 = dict(zip(objs, (f.labels[i] for i in rng.permutation(len(f.labels))[:n_obj])))
+    q = objs[int(rng.integers(0, n_obj))]
+    k = int(rng.integers(0, depth))
+    others = [o for o in objs if o != q]
+    loc, moves = dict(loc0), []
+    for s_ in range(depth):
+        o = q if s_ == k else (str(rng.choice(objs)) if s_ < k else str(rng.choice(others)))
+        if s_ == k:
+            z = loc[q]
+            opts = [x for x in f.labels if x != z]
+            if len(opts) < 2:
+                return None
+            xa, xb = (str(v) for v in rng.choice(opts, size=2, replace=False))
+            moves.append((q, xa))
+            loc[q] = xa
+            continue
+        b = str(rng.choice([x for x in f.labels if x != loc[o]]))
+        moves.append((o, b))
+        loc[o] = b
+    cmoves = list(moves)
+    cmoves[k] = (q, xb)
+    a, ca = st.solve_entity(loc0, moves, q), st.solve_entity(loc0, cmoves, q)
+    if a == ca:
+        return None
+
+    def prompt(ms):
+        return (" ".join(f.init.format(o=o, b=loc0[o]) for o in objs) + " "
+                + " ".join(f.move.format(o=o, b=b) for o, b in ms) + " " + f.query.format(o=q))
+
+    return st.CounterfactualPair("entity_track", "", prompt(moves), prompt(cmoves), f" {a}", f" {ca}",
+                                 f.labels.index(a), f.labels.index(ca), [],
+                                 {"heur": {"fallback_box": z}, "corrupt_step": k, "family": f.id, "fallback_label": z,
+                                  "fallback_index": f.labels.index(z)})
+
+
 def _gen_pc(f: PCFamily, rng: np.random.Generator, depth: int = 3) -> Optional[st.CounterfactualPair]:
+    if f.cf in ("swap", "query"):
+        return _gen_pc_variant(f, rng, depth)
     n = depth
     people = [f.people[i] for i in rng.permutation(len(f.people))[:n]]
     cities = [f.cities[i] for i in rng.permutation(len(f.cities))[:n + 1]]
@@ -201,6 +256,32 @@ def _gen_pc(f: PCFamily, rng: np.random.Generator, depth: int = 3) -> Optional[s
     return st.CounterfactualPair("people_cities", "", prompt(own), prompt(ccs), f" {a}", f" {ca}",
                                  f.cities.index(a), f.cities.index(ca), [],
                                  {"heur": heur, "corrupt_step": qi, "family": f.id})
+
+
+def _gen_pc_variant(f: PCFamily, rng: np.random.Generator, depth: int = 3) -> Optional[st.CounterfactualPair]:
+    """Pilot P1. swap: the corrupt prompt exchanges the cities of the queried person and person j (identical tokens, different
+    pairing: a pure binding variable). query: the corrupt prompt asks about person j (the pointer to the entity retrieved)."""
+    n = depth
+    if n < 2:
+        return None
+    people = [f.people[i] for i in rng.permutation(len(f.people))[:n]]
+    own = [f.cities[i] for i in rng.permutation(len(f.cities))[:n]]
+    qi = int(rng.integers(0, n))
+    j = int(rng.choice([x for x in range(n) if x != qi]))
+
+    def prompt(cs, who):
+        return " ".join(f.init.format(p=p, c=c) for p, c in zip(people, cs)) + " " + f.query.format(p=people[who])
+
+    if f.cf == "swap":
+        ccs = list(own)
+        ccs[qi], ccs[j] = own[j], own[qi]
+        clean, corrupt, step = prompt(own, qi), prompt(ccs, qi), min(qi, j)
+    else:
+        clean, corrupt, step = prompt(own, qi), prompt(own, j), n
+    a, ca = own[qi], own[j]
+    return st.CounterfactualPair("people_cities", "", clean, corrupt, f" {a}", f" {ca}", f.cities.index(a), f.cities.index(ca), [],
+                                 {"heur": {"query_position": str(qi), "other_position": str(j)}, "corrupt_step": step,
+                                  "family": f.id, "cf": f.cf, "other_position": j})
 
 
 def _rs_prompt(f: RSFamily, start: int, incs: Sequence[int], name: str = "", item: str = "", opener: str = "",

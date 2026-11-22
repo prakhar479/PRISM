@@ -230,6 +230,82 @@ def _stage2_codes_fill(cache: Cache, spans_entry: Entry, sae, sae_key: dict, dev
     return e, d
 
 
+def active_entry(cache: Cache, spans_entry: Entry, sae_key: dict) -> Entry:
+    return cache.entry("sae_active", spans=spans_entry.key, sae=sae_key)
+
+
+def stage2_active(cache: Cache, spans_entry: Entry, sae, sae_key: dict, device, block_latents: Optional[int] = None):
+    with active_entry(cache, spans_entry, sae_key).writer_lock():
+        return _stage2_active_fill(cache, spans_entry, sae, sae_key, device, block_latents)
+
+
+def _active(sae, X, block_latents, device):
+    """ACTIVE codes of any dictionary as SparseCodes with z = activation (threshold field 0)."""
+    from harness.sae import SparseCodes, encode_sparse
+    c = encode_sparse(sae, X, alpha_min=1.0, block_latents=block_latents, device=device)
+    if getattr(sae, "encode_active", None) is None:              # JumpReLU: keep z > threshold (f = z there)
+        m = c.z > c.threshold
+        c = SparseCodes(c.row[m], c.col[m], c.z[m], torch.zeros(int(m.sum())), c.n_rows, 1.0)
+    return c
+
+
+@torch.inference_mode()
+def _stage2_active_fill(cache: Cache, spans_entry: Entry, sae, sae_key: dict, device, block_latents: Optional[int] = None):
+    """P0: active codes of A and B at every span row (rows local to each spans shard) and a DecoderTable of every latent
+    that occurs, for the code-level write-back condition."""
+    from harness.sae import DecoderTable
+
+    spans_entry.require_complete()
+    e = active_entry(cache, spans_entry, sae_key).open()
+    for si in spans_entry.shards():
+        if e.shard_done(si):
+            continue
+        s = spans_entry.read_shard(si)
+        out = {"pair_index": s["pair_index"]}
+        for who in ("A", "B"):
+            c = _active(sae, s[f"x_{who}"], block_latents, device)
+            out.update({f"n_rows_{who}": torch.tensor([c.n_rows]), f"row_{who}": c.row, f"col_{who}": c.col, f"z_{who}": c.z})
+        e.write_shard(si, out)
+    if not e.complete:
+        e.mark_complete({"sae": sae_key, "entries": "active", "prompts": "A,B"})
+    d = cache.entry("sae_active_dec", codes=e.key).open()
+    if not d.complete:
+        cols = torch.unique(torch.cat([e.read_shard(si)[f"col_{w}"] for si in e.shards() for w in ("A", "B")]
+                                      or [torch.zeros(0, dtype=torch.long)]))
+        base = getattr(sae, "base", sae)                         # AddonDict: the base dictionary's decoder
+        tab = DecoderTable.from_sae(base, cols)
+        d.write_shard(0, {"cols": tab.cols, "W": tab.W})
+        d.mark_complete({"n_latents": int(len(tab.cols))})
+    return e, d
+
+
+def load_active(active: Entry, spans_entry: Entry, pair_idx: Sequence[int]):
+    """(SparseCodes A, SparseCodes B) of ACTIVE entries for pairs `pair_idx`, rows numbered like load_spans."""
+    from harness.sae import SparseCodes
+
+    active.require_complete()
+    t = spans_entry.require_complete().read_all(["pair_index", "span_len"])
+    ptr_all = np.concatenate([[0], np.cumsum(t["span_len"].numpy())])
+    where = {int(p): k for k, p in enumerate(t["pair_index"].tolist())}
+    sel = [where[int(i)] for i in pair_idx]
+    take = torch.cat([torch.arange(ptr_all[k], ptr_all[k + 1]) for k in sel]) if sel else torch.zeros(0, dtype=torch.long)
+    out = []
+    for who in ("A", "B"):
+        rows, cols, zs, off = [], [], [], 0
+        for si in active.shards():
+            s = active.read_shard(si)
+            rows.append(s[f"row_{who}"] + off)
+            cols.append(s[f"col_{who}"])
+            zs.append(s[f"z_{who}"])
+            off += int(s[f"n_rows_{who}"][0])
+        if off != int(ptr_all[-1]):
+            raise ValueError("active-code rows are not aligned with the span cache")
+        z = torch.cat(zs)
+        full = SparseCodes(torch.cat(rows), torch.cat(cols), z, torch.zeros_like(z), off, 1.0)
+        out.append(full.subset_rows(take))
+    return out[0], out[1]
+
+
 def load_codes(codes_entry: Entry, spans_entry: Entry, pair_idx: Sequence[int]):
     """SparseCodes of A for pairs `pair_idx`, rows numbered like load_spans (same pair order)."""
     from harness.sae import SparseCodes

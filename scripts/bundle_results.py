@@ -31,7 +31,8 @@ def sha256(p: Path) -> str:
     return h.hexdigest()
 
 
-SCRIPT_EXPS = {"scripts/run_fidelity.py": ("E12", "fidelity_by_language"), "scripts/run_behaviour.py": ("E13", "behaviour_by_language")}
+SCRIPT_EXPS = {"scripts/run_fidelity.py": ("E12", "fidelity_by_language"), "scripts/run_behaviour.py": ("E13", "behaviour_by_language"),
+               "scripts/run_dict_fidelity.py": ("PF", "dict_fidelity"), "scripts/train_dictionary.py": ("PD", "trained_dictionary")}
 
 
 def queue_scope(queue_path):
@@ -50,7 +51,7 @@ def collect(prof, tag: str, all_commits: bool, scope=None):
     runs_root = prof.root("runs_root")
     head = provenance.git_state()["commit"]
     files, runs = [], []
-    for man in sorted(runs_root.glob("E*/*/manifest.json")):
+    for man in sorted(runs_root.glob("[EP]*/*/manifest.json")):
         m = json.loads(man.read_text())
         if m.get("tiny"):
             continue

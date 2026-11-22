@@ -48,7 +48,7 @@ def safe_extract(tar: Path, dest: Path) -> None:
 
 def write_index(runs_root: Path) -> Path:
     rows = []
-    for man in sorted(runs_root.glob("E*/*/manifest.json")):
+    for man in sorted(runs_root.glob("[EP]*/*/manifest.json")):
         m = json.loads(man.read_text())
         pp = man.parent / "per_pair.parquet"
         rows.append({"exp_id": m["exp_id"], "name": m["config"].get("name"), "run_hash": m["run_hash"],

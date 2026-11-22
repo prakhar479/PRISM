@@ -57,6 +57,8 @@ def summarize(per_doc: Dict[str, np.ndarray], n_scored: int, n_boot: int = 2000,
 
 
 def to_device(sae, device):
+    if hasattr(sae, "base") or getattr(sae, "kind", "jumprelu") != "jumprelu":     # harness/dicts.py wrappers and kinds
+        return sae.to_device(device)
     for a in ("W_enc_T", "b_enc", "threshold", "W_dec", "b_dec"):
         setattr(sae, a, getattr(sae, a).to(device))
     return sae

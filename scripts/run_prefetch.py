@@ -34,20 +34,37 @@ def sha256(p: Path) -> str:
 
 
 def targets(queue: Queue) -> dict:
+    """Model revisions per repo and every dictionary file the queue's configs (and its prefetch block) use. Registry dictionaries
+    (configs/dict_registry.yaml) bring their own repo / files; trained dictionaries are produced by the queue (nothing to fetch);
+    an add-on needs its base dictionary only."""
+    from harness import dicts as Dct
+    from harness.model import MODEL_REPOS
     inv = json.loads((REPO_ROOT / "configs" / "sae_inventory.json").read_text())
-    model_revs, saes = set(), {}
+    reg = Dct.load_registry()
+    model_revs, saes, models = set(), {}, set()
     for c in queue.configs():
         cfg = ExpConfig.load(REPO_ROOT / c)
         model_revs.add(cfg.model_revision)
+        models.add((MODEL_REPOS[cfg.model], cfg.model_revision))
         for cell in cfg.cells:
-            sid = SAEId(cell.layer, cell.sae.width, cell.sae.resolve(cell.layer, inv["inventory"]), revision=inv["revision"])
-            saes[sid.key] = sid
+            sid = Dct.resolve(cell.layer, cell.sae, inv["inventory"], inv["revision"], reg).base()
+            if sid.repo_files():
+                saes[sid.key] = sid
+    for name in queue.prefetch.get("dicts", []):                  # registry dictionaries used by script jobs only
+        e = reg[name]
+        sid = Dct.DictId(int(e["layer"]), str(e["width"]), int(e.get("l0") or 0), repo=e["repo"], revision=e["revision"],
+                         source="registry", name=name, arch=e["arch"], files=tuple(e["files"]))
+        saes[sid.key] = sid
+    for repo, rev in queue.prefetch.get("models", []):
+        models.add((repo, rev))
     for layer, width, l0 in queue.prefetch.get("saes", []):      # SAEs that script jobs (E12) use without an experiment config
         sid = SAEId(int(layer), str(width), int(l0), revision=inv["revision"])
         saes[sid.key] = sid
     if queue.prefetch.get("model_revision"):
         model_revs.add(queue.prefetch["model_revision"])
-    return {"model_revisions": sorted(r for r in model_revs if r), "saes": list(saes.values())}
+        models.add((MODEL_REPO, queue.prefetch["model_revision"]))
+    return {"model_revisions": sorted(r for r in model_revs if r), "models": sorted(m for m in models if m[1]),
+            "saes": list(saes.values())}
 
 
 def main() -> int:
@@ -66,15 +83,16 @@ def main() -> int:
     t = targets(q)
     report = {"queue": a.queue, "tag": q.tag, "files": [], "errors": [], "started": time.strftime("%Y-%m-%dT%H:%M:%S%z")}
     files = []
-    for rev in t["model_revisions"]:
-        names = [f for f in api.list_repo_files(MODEL_REPO, revision=rev)
+    for repo_m, rev in t["models"]:
+        names = [f for f in api.list_repo_files(repo_m, revision=rev)
                  if f in MODEL_PATTERNS or f.endswith(".safetensors")] if not a.verify_only else None
         if names is None:
             from huggingface_hub import scan_cache_dir
-            names = sorted({f.file_name for r in scan_cache_dir().repos if r.repo_id == MODEL_REPO
+            names = sorted({f.file_name for r in scan_cache_dir().repos if r.repo_id == repo_m
                             for v in r.revisions if v.commit_hash == rev for f in v.files})
-        files += [(MODEL_REPO, f, rev) for f in names]
-    files += [(s.repo, s.path_in_repo, s.revision) for s in t["saes"]]
+        files += [(repo_m, f, rev) for f in names]
+    for s_ in t["saes"]:
+        files += list(getattr(s_, "repo_files", lambda: ((s_.repo, s_.path_in_repo, s_.revision),))())
     for repo, f, rev in files:
         rec = {"repo": repo, "file": f, "revision": rev}
         t0 = time.time()

@@ -1,0 +1,96 @@
+# Breadth pilot (docs/PILOT_BREADTH_PLAN.md, runbook docs/PILOT_RUNBOOK.md): every exploratory experiment in one queue, one Slurm
+# job (scripts/slurm_pilot.sbatch: 4 x RTX 2080 Ti, 96 h). All results are exploratory and post hoc; nothing here touches a
+# preregistered answer. Resumable: resubmitting skips finished units.
+#   P0  protocol hardening (DAS objective / seed / held-out validity / write-back / nulls)      RS L18, PC L12
+#   P1  binding blind spot (content vs binding-swap vs query-swap counterfactuals)               PC L8/12/16 x 16k/65k
+#   P11 object tracking without a default answer                                                OT-v2 L8/12/16
+#   P2  dictionary-family sweep (+ P9 temporal SAEs, frozen-decoder control; CE in PF_P2)        PC/OT L12, RS L19
+#   P4  logit fixes vs task state (+ P6 error anatomy: linear add-on, dense low-rank add-backs)   RS L18, PC L12, OT L12
+#   P5  magnitude vs periodic number code                                                       RS L16/18/19
+#   P7  sensitivity- vs variance-chosen error directions (+ E23_en splice-vs-noise costs)       RS L18, PC L12, OT L12
+#   P8  second model: Gemma 3 1B + Gemma Scope 2 16k at layers 7/13/17/22 (capability + split + DAS capture)
+#   P10 (optional) multilingual E23 controls; required: false
+# Estimated ~200-230 GPU-hours (about 55-60 h on 4 GPUs) from E17-E22's measured per-condition cost, +-50 %.
+tag: pilot-breadth-server
+profile: server
+parallel: true
+prefetch:
+  model_revision: c5ebcd40d208330abc697524c919956e692655cf
+  saes: [[12, 16k, 82], [18, 16k, 74]]          # run_fidelity.py (E23) and train_dictionary.py (klft) use these directly
+jobs:
+  - {id: prefetch, kind: script, script: scripts/run_prefetch.py, args: [--queue, queue/pilot-breadth-server.yaml]}
+  - {id: preflight, kind: script, script: scripts/run_preflight.py, gpu: all,
+     args: [--queue, queue/pilot-breadth-server.yaml, --golden, golden/R2, --per-gpu], depends_on: [prefetch]}
+
+  # ---- the pilot's own dictionaries (scripts/train_dictionary.py -> <cache_root>/trained_dicts/<name>, record in runs/PD)
+  - {id: T_frozen_L12, kind: script, script: scripts/train_dictionary.py, gpu: one, priority: 9,
+     args: [--mode, frozen_decoder, --layer, "12", --width, 16k, --name, frozendec_L12_16k, --epochs, "3"], depends_on: [preflight]}
+  - {id: T_frozen_L19, kind: script, script: scripts/train_dictionary.py, gpu: one, priority: 7,
+     args: [--mode, frozen_decoder, --layer, "19", --width, 16k, --name, frozendec_L19_16k, --epochs, "3"], depends_on: [preflight]}
+  - {id: T_klft_L18, kind: script, script: scripts/train_dictionary.py, gpu: one, priority: 9,
+     args: [--mode, klft, --layer, "18", --width, 16k, --name, klft_L18_16k, --epochs, "1"], depends_on: [preflight]}
+  - {id: T_klft_L12, kind: script, script: scripts/train_dictionary.py, gpu: one, priority: 9,
+     args: [--mode, klft, --layer, "12", --width, 16k, --name, klft_L12_16k, --epochs, "1"], depends_on: [preflight]}
+
+  # ---- stage 1 (chained: one writer per cache entry; P0 first, it trains the rotations most others reuse)
+  - {id: P0_s1, config: configs/pilot/P0.yaml, stage: "1", priority: 10, depends_on: [preflight]}
+  - {id: P11_s1, config: configs/pilot/P11.yaml, stage: "1", priority: 9, depends_on: [P0_s1]}
+  - {id: P1_s1, config: configs/pilot/P1.yaml, stage: "1", priority: 8, depends_on: [P11_s1]}
+  - {id: P4_s1, config: configs/pilot/P4.yaml, stage: "1", priority: 8, depends_on: [P1_s1]}
+  - {id: P7_s1, config: configs/pilot/P7.yaml, stage: "1", priority: 6, depends_on: [P4_s1]}
+  - {id: P5_s1, config: configs/pilot/P5.yaml, stage: "1", priority: 6, depends_on: [P7_s1]}
+  - {id: P2_s1, config: configs/pilot/P2.yaml, stage: "1", priority: 7, depends_on: [P5_s1]}
+  - {id: P8_s1, config: configs/pilot/P8.yaml, stage: "1", priority: 5, depends_on: [preflight]}     # Gemma 3 1B: its own caches
+
+  # ---- stage 2 (SAE passes; P2 / P4 wait for the dictionaries they use)
+  - {id: P0_s2, config: configs/pilot/P0.yaml, stage: "2", slices: auto, priority: 10, depends_on: [P0_s1]}
+  - {id: P11_s2, config: configs/pilot/P11.yaml, stage: "2", slices: auto, priority: 9, depends_on: [P11_s1]}
+  - {id: P1_s2, config: configs/pilot/P1.yaml, stage: "2", slices: auto, priority: 8, depends_on: [P1_s1]}
+  - {id: P4_s2, config: configs/pilot/P4.yaml, stage: "2", slices: auto, priority: 8, depends_on: [P4_s1, T_klft_L18, T_klft_L12]}
+  - {id: P7_s2, config: configs/pilot/P7.yaml, stage: "2", slices: auto, priority: 6, depends_on: [P7_s1]}
+  - {id: P5_s2, config: configs/pilot/P5.yaml, stage: "2", slices: auto, priority: 6, depends_on: [P5_s1]}
+  - {id: P2_s2, config: configs/pilot/P2.yaml, stage: "2", slices: auto, priority: 7, depends_on: [P2_s1, T_frozen_L12, T_frozen_L19]}
+  - {id: P8_s2, config: configs/pilot/P8.yaml, stage: "2", slices: auto, priority: 5, depends_on: [P8_s1]}
+
+  # ---- stage 3 (claiming workers; DAS v2 rotations are trained by whichever worker reaches them first, then cached)
+  - {id: P0_s3, config: configs/pilot/P0.yaml, stage: "3", workers: auto, priority: 10, depends_on: [P0_s2]}
+  - {id: P11_s3, config: configs/pilot/P11.yaml, stage: "3", workers: auto, priority: 9, depends_on: [P11_s2]}
+  - {id: P1_s3, config: configs/pilot/P1.yaml, stage: "3", workers: auto, priority: 8, depends_on: [P1_s2]}
+  - {id: P4_s3, config: configs/pilot/P4.yaml, stage: "3", workers: auto, priority: 8, depends_on: [P4_s2]}
+  - {id: P7_s3, config: configs/pilot/P7.yaml, stage: "3", workers: auto, priority: 6, depends_on: [P7_s2]}
+  - {id: P5_s3, config: configs/pilot/P5.yaml, stage: "3", workers: auto, priority: 6, depends_on: [P5_s2]}
+  - {id: P2_s3, config: configs/pilot/P2.yaml, stage: "3", workers: auto, priority: 7, depends_on: [P2_s2, P0_s3]}
+  - {id: P8_s3, config: configs/pilot/P8.yaml, stage: "3", workers: auto, priority: 5, depends_on: [P8_s2]}
+
+  # ---- ordinary-text fidelity of every dictionary (CE gaps for P2 and P4; held-out generic set)
+  - {id: PF_P4, kind: script, script: scripts/run_dict_fidelity.py, gpu: one, priority: 8, args: [--config, configs/pilot/P4.yaml, --extras],
+     depends_on: [P4_s2]}
+  - {id: PF_P2, kind: script, script: scripts/run_dict_fidelity.py, gpu: one, priority: 7, args: [--config, configs/pilot/P2.yaml],
+     depends_on: [P2_s2]}
+  # P7 (a): English splice cost vs norm-matched noise, with per-token NLLs (the E23 design, English only)
+  - {id: E23_en, kind: script, script: scripts/run_fidelity.py, gpu: one, priority: 5, args: [--sets, en_pile, --layers, "12", "18", --extras, --tokens],
+     depends_on: [preflight]}
+
+  # ---- P10 (optional, multilingual): E23 noise controls never ran; failures here block nothing
+  - {id: E23_hi_dakshina, kind: script, script: scripts/run_fidelity.py, gpu: one, priority: 2, required: false,
+     args: [--sets, "hi_deva_dakshina,hi_latn_dakshina", --layers, "12", "18", --extras, --tokens], depends_on: [preflight]}
+  - {id: E23_hi_deva_web, kind: script, script: scripts/run_fidelity.py, gpu: one, priority: 2, required: false,
+     args: [--sets, hi_deva_web, --layers, "12", "18", --extras, --tokens], depends_on: [preflight]}
+  - {id: E23_fr_web, kind: script, script: scripts/run_fidelity.py, gpu: one, priority: 2, required: false,
+     args: [--sets, fr_web, --layers, "12", "18", --extras, --tokens], depends_on: [preflight]}
+
+  # ---- finalize (CPU)
+  - {id: P0_fin, config: configs/pilot/P0.yaml, stage: "3", gpu: none, args: [--finalize-only], depends_on: [P0_s3]}
+  - {id: P11_fin, config: configs/pilot/P11.yaml, stage: "3", gpu: none, args: [--finalize-only], depends_on: [P11_s3]}
+  - {id: P1_fin, config: configs/pilot/P1.yaml, stage: "3", gpu: none, args: [--finalize-only], depends_on: [P1_s3]}
+  - {id: P4_fin, config: configs/pilot/P4.yaml, stage: "3", gpu: none, args: [--finalize-only], depends_on: [P4_s3]}
+  - {id: P7_fin, config: configs/pilot/P7.yaml, stage: "3", gpu: none, args: [--finalize-only], depends_on: [P7_s3]}
+  - {id: P5_fin, config: configs/pilot/P5.yaml, stage: "3", gpu: none, args: [--finalize-only], depends_on: [P5_s3]}
+  - {id: P2_fin, config: configs/pilot/P2.yaml, stage: "3", gpu: none, args: [--finalize-only], depends_on: [P2_s3]}
+  - {id: P8_fin, config: configs/pilot/P8.yaml, stage: "3", gpu: none, args: [--finalize-only], depends_on: [P8_s3]}
+
+  - {id: bundle, kind: script, script: scripts/bundle_results.py, args: [--tag, pilot-breadth-server, --queue, queue/pilot-breadth-server.yaml],
+     after_failed: true, depends_on: [P0_fin, P11_fin, P1_fin, P4_fin, P7_fin, P5_fin, P2_fin, P8_fin, PF_P4, PF_P2, E23_en, E23_hi_dakshina,
+                                      E23_hi_deva_web, E23_fr_web, T_frozen_L12, T_frozen_L19, T_klft_L18, T_klft_L12]}
+  - {id: publish, kind: script, script: scripts/publish_results.py, args: [--tag, pilot-breadth-server, --queue, queue/pilot-breadth-server.yaml],
+     after_failed: true, depends_on: [bundle]}

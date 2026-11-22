@@ -282,6 +282,10 @@ def build(name: str, sp: Spans, U: Optional[torch.Tensor] = None, eps_mean_pos: 
         return xh_A + m + proj(U, e_A - m)                  # x̂_A + P ε_A + (I-P) ε̄_pos
     if name == "feat_A_along_U":
         return xh_B + proj(U, xh_A - xh_B) + e_B
+    if name in ("resampU_sameAns", "resampU_diffAns"):                   # P5: only the U-part of a donor's error
+        return xh_A + proj(U, _need(eps_C, "eps_C")) + e_B - proj(U, e_B)
+    if name == "feat_codes_along_U":                                     # P0: code-level write-back (see codes_writeback)
+        return xh_B + _need(eps_C, "code-level difference rows") + e_B
     if name == "full_along_U":
         return sp.x_B + proj(U, sp.x_A - sp.x_B)
     if name == "subthresh":
@@ -355,9 +359,47 @@ def greedy_subthreshold(fitset: FitSet, pair_ids: Sequence[str], codes, dec, tar
     return GreedyLatents(chosen, obj, alpha, fitset, int(len(cand)))
 
 
+def codes_writeback(codes_A, codes_B, dec, latents: torch.Tensor) -> torch.Tensor:
+    """P0's code-level write-back: sum_{i in latents} (f_A,i - f_B,i) d_i per span row (no bias). codes_* are SparseCodes of
+    ACTIVE entries (z = activation) for the same rows; dec a DecoderTable holding the latents' decoder rows. Unlike
+    feat_A_along_U (which replaces the U-component of x_hat), this swaps the selected latents' activations: the write-back
+    operator of a dictionary method (ICLR 2027 submission 'Calibrating Causal-Localization Scores')."""
+    from harness.sae import decode_entries
+    lat = torch.as_tensor(latents, dtype=torch.long)
+    mA = torch.isin(codes_A.col, lat)
+    mB = torch.isin(codes_B.col, lat)
+    return decode_entries(dec, codes_A, mA) - decode_entries(dec, codes_B, mB)
+
+
+def select_latents_along_U(codes_A, codes_B, dec, U: torch.Tensor, coverage: float = 0.9, cap: int = 512):
+    """Latents carrying the U-component of the train feature difference: score_i = sum_rows |f_A,i - f_B,i| * |U^T d_i|;
+    the smallest top-scoring set reaching `coverage` of the total score (at most `cap`). Returns (latents, info)."""
+    cols = torch.unique(torch.cat([codes_A.col, codes_B.col]))
+    if len(cols) == 0:
+        return torch.zeros(0, dtype=torch.long), {"n_latents": 0, "coverage": 0.0}
+    proj_norm = (dec.rows(cols).float() @ U.float()).norm(dim=1)                # |U^T d_i|
+    diff = torch.zeros(len(cols))
+    # |f_A - f_B| summed over rows: accumulate per (row, col) with signs, then take abs per row-col
+    base = int(cols.max()) + 1
+    keys = torch.cat([codes_A.row * base + codes_A.col, codes_B.row * base + codes_B.col])
+    vals = torch.cat([codes_A.z.float(), -codes_B.z.float()])
+    uk, inv = torch.unique(keys, return_inverse=True)
+    net = torch.zeros(len(uk)).index_add_(0, inv, vals).abs()
+    diff.index_add_(0, torch.searchsorted(cols, uk % base), net)               # cols is sorted (torch.unique)
+    score = diff * proj_norm
+    order = torch.argsort(score, descending=True)
+    tot = float(score.sum())
+    if tot <= 0:
+        return torch.zeros(0, dtype=torch.long), {"n_latents": 0, "coverage": 0.0}
+    cum = torch.cumsum(score[order], 0) / tot
+    m = int(min(cap, int((cum < coverage).sum()) + 1))
+    chosen = cols[order[:m]]
+    return torch.sort(chosen).values, {"n_latents": m, "coverage": float(cum[m - 1]), "n_candidates": int(len(cols))}
+
+
 CONDITIONS = ["clean_B", "full_A", "full_B", "feat_A_errB", "feat_B_errA", "feat_B_noise", "feat_A_zero",
               "feat_A_meanTask", "feat_A_meanPos", "feat_A_resampC_sameAns", "feat_A_resampC_diffAns", "feat_A_noise",
               "feat_A_covnoise", "repair", "repair_mean", "feat_A_along_U", "full_along_U", "subthresh",
-              "steer_x1", "steer_x2", "steer_x4"]
+              "steer_x1", "steer_x2", "steer_x4", "resampU_sameAns", "resampU_diffAns", "feat_codes_along_U"]
 PILOT_NAMES = {"feat_A_errB": "sae_only", "feat_B_errA": "error_only", "feat_B_noise": "noise_control",
                "feat_A_zero": "sae_splice", "full_A": "clean_full"}

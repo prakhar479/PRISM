@@ -1,0 +1,70 @@
+{
+ "task": "entity_track",
+ "kind": "pilot_counterfactual_families",
+ "settings": {
+  "n_train": 300,
+  "n_test": 150,
+  "seed": 0,
+  "candidate_multiplier": 6,
+  "n_shots": 8,
+  "answer_format": "auto",
+  "filter_mode": "clean_only",
+  "min_logit_diff": 2.0,
+  "gen_kwargs": {
+   "depth": 2
+  }
+ },
+ "tokenizer": {
+  "name": "google/gemma-3-1b-pt",
+  "revision": "fcf18a2a879aab110ca39f8bffbccd5d49d8eb29"
+ },
+ "families": {
+  "ot_placed_dest": {
+   "generated": {
+    "train": 1800,
+    "test": 900
+   },
+   "kept": {
+    "train": 1800,
+    "test": 900
+   },
+   "length_matching_success": {
+    "train": 1.0,
+    "test": 1.0
+   }
+  },
+  "ot_bin_dest": {
+   "generated": {
+    "train": 1800,
+    "test": 900
+   },
+   "kept": {
+    "train": 1800,
+    "test": 900
+   },
+   "length_matching_success": {
+    "train": 1.0,
+    "test": 1.0
+   }
+  },
+  "ot_drawer_dest": {
+   "generated": {
+    "train": 1800,
+    "test": 900
+   },
+   "kept": {
+    "train": 1800,
+    "test": 900
+   },
+   "length_matching_success": {
+    "train": 1.0,
+    "test": 1.0
+   }
+  }
+ },
+ "source": "harness.tasks.build_family_candidates over harness.pilotfamilies",
+ "created": "2026-11-22 04:31:51 UTC",
+ "n": 8100,
+ "hash": "624dafa9924b5897",
+ "file": "entity_track_p11_g3.jsonl.gz"
+}

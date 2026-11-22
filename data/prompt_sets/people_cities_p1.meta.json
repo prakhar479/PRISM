@@ -1,0 +1,70 @@
+{
+ "task": "people_cities",
+ "kind": "pilot_counterfactual_families",
+ "settings": {
+  "n_train": 300,
+  "n_test": 150,
+  "seed": 0,
+  "candidate_multiplier": 3,
+  "n_shots": 8,
+  "answer_format": "auto",
+  "filter_mode": "strict",
+  "min_logit_diff": 2.0,
+  "gen_kwargs": {
+   "depth": 3
+  }
+ },
+ "tokenizer": {
+  "name": "google/gemma-2-2b",
+  "revision": "c5ebcd40d208330abc697524c919956e692655cf"
+ },
+ "families": {
+  "pc_en": {
+   "generated": {
+    "train": 900,
+    "test": 450
+   },
+   "kept": {
+    "train": 900,
+    "test": 450
+   },
+   "length_matching_success": {
+    "train": 1.0,
+    "test": 1.0
+   }
+  },
+  "pc_en_swap": {
+   "generated": {
+    "train": 900,
+    "test": 450
+   },
+   "kept": {
+    "train": 900,
+    "test": 450
+   },
+   "length_matching_success": {
+    "train": 1.0,
+    "test": 1.0
+   }
+  },
+  "pc_en_query": {
+   "generated": {
+    "train": 900,
+    "test": 450
+   },
+   "kept": {
+    "train": 900,
+    "test": 450
+   },
+   "length_matching_success": {
+    "train": 1.0,
+    "test": 1.0
+   }
+  }
+ },
+ "source": "harness.tasks.build_family_candidates over harness.pilotfamilies",
+ "created": "2026-11-22 03:44:17 UTC",
+ "n": 4050,
+ "hash": "f21224805dce6be3",
+ "file": "people_cities_p1.jsonl.gz"
+}

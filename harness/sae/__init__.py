@@ -104,7 +104,13 @@ def _row_step(n_block: int, rows: int) -> int:
 @torch.inference_mode()
 def decompose(sae, X: torch.Tensor, block_latents: Optional[int] = None, device=None
               ) -> Tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
-    """X [N, d] -> (x_hat [N, d] fp32, eps [N, d] fp32, l0 [N]) on `device` (default: the weights' device)."""
+    """X [N, d] -> (x_hat [N, d] fp32, eps [N, d] fp32, l0 [N]) on `device` (default: the weights' device).
+
+    Dictionaries other than JumpReLU (harness/dicts.py: TopK, gated, add-on wrappers) carry their own `decompose_rows`;
+    every caller (stage 2, fidelity, spans) goes through this function, so they all see the same arithmetic."""
+    custom = getattr(sae, "decompose_rows", None)
+    if custom is not None:
+        return custom(X, block_latents=block_latents, device=device)
     device = torch.device(device) if device is not None else sae.W_enc_T.device
     x32 = X.reshape(-1, X.shape[-1]).to(device, torch.float32)
     xw = x32.to(sae.W_enc_T.dtype)
@@ -154,7 +160,11 @@ class SparseCodes:
 @torch.inference_mode()
 def encode_sparse(sae, X: torch.Tensor, alpha_min: float = 0.5, block_latents: Optional[int] = None,
                   device=None) -> SparseCodes:
-    """Sparse near-threshold pre-activations (CPU tensors); same arithmetic as decompose()."""
+    """Sparse near-threshold pre-activations (CPU tensors); same arithmetic as decompose(). Dictionaries with their own
+    `encode_active` (harness/dicts.py) return their ACTIVE entries only (z = activation, threshold 0, alpha_min 1)."""
+    custom = getattr(sae, "encode_active", None)
+    if custom is not None:
+        return custom(X, block_latents=block_latents, device=device)
     device = torch.device(device) if device is not None else sae.W_enc_T.device
     xw = X.reshape(-1, X.shape[-1]).to(device, sae.W_enc_T.dtype)
     rows, cols, zs, ths = [], [], [], []

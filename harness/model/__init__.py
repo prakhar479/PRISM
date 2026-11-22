@@ -17,9 +17,15 @@ log = logging.getLogger("harness")
 HOOK_FMT = "blocks.{layer}.hook_resid_post"          # pilot hook site (Gemma Scope 'res' SAEs)
 
 
+# model name (config `model:`) -> Hugging Face repo. Gemma 3 (breadth pilot P8) loads through the same TransformerLens path
+# (HookedTransformer.from_pretrained_no_processing); transformer-lens 3.9 lists gemma-3-1b-pt / gemma-3-4b-pt.
+MODEL_REPOS = {"gemma-2-2b": "google/gemma-2-2b", "gemma-3-1b-pt": "google/gemma-3-1b-pt", "gemma-3-4b-pt": "google/gemma-3-4b-pt",
+               "gemma-3-270m": "google/gemma-3-270m"}
+
+
 @dataclass(frozen=True)
 class ModelSpec:
-    name: str = "gemma-2-2b"                         # "gemma-2-2b" | "tiny"
+    name: str = "gemma-2-2b"                         # a MODEL_REPOS key | "tiny"
     revision: Optional[str] = None                   # HF commit of google/gemma-2-2b (required for real runs)
     dtype: str = "bfloat16"
     site: str = "resid_post"
@@ -71,19 +77,25 @@ def tiny_gemma2(d_vocab: int, n_layers: int = 4, d_model: int = 64, seed: int = 
 
 
 def load_gemma(spec: ModelSpec, device: torch.device, offload_embed: bool = False, tokenizer=None):
-    """gemma-2-2b through TransformerLens `from_pretrained_no_processing` (as the pilot), with the HF weights loaded at
-    the pinned revision and handed over as hf_model. Built on CPU, moved child by child (embedding optionally kept on
-    CPU, as the pilot did on < 16 GB GPUs)."""
+    """gemma-2-2b (or a Gemma 3 model of MODEL_REPOS) through TransformerLens `from_pretrained_no_processing` (as the
+    pilot), with the HF weights loaded at the pinned revision and handed over as hf_model. Built on CPU, moved child by
+    child (embedding optionally kept on CPU, as the pilot did on < 16 GB GPUs)."""
     from transformer_lens import HookedTransformer
     from transformers import AutoModelForCausalLM
 
     if not spec.revision:
         raise ValueError("real model runs need a pinned model revision (config model.revision)")
+    if spec.name not in MODEL_REPOS:
+        raise ValueError(f"unknown model {spec.name!r} (known: {sorted(MODEL_REPOS)})")
+    repo = MODEL_REPOS[spec.name]
     dt = dtype_of(spec.dtype)
+    if tokenizer is None and spec.name != "gemma-2-2b":
+        from transformers import AutoTokenizer
+        tokenizer = AutoTokenizer.from_pretrained(repo, revision=spec.revision)
     try:
-        hf = AutoModelForCausalLM.from_pretrained("google/gemma-2-2b", revision=spec.revision, dtype=dt)
+        hf = AutoModelForCausalLM.from_pretrained(repo, revision=spec.revision, dtype=dt)
     except TypeError:
-        hf = AutoModelForCausalLM.from_pretrained("google/gemma-2-2b", revision=spec.revision, torch_dtype=dt)
+        hf = AutoModelForCausalLM.from_pretrained(repo, revision=spec.revision, torch_dtype=dt)
     model = HookedTransformer.from_pretrained_no_processing(spec.name, hf_model=hf, dtype=dt, device=str(device),
                                                             move_to_device=False, tokenizer=tokenizer)
     del hf

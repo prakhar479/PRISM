@@ -152,3 +152,39 @@ def principal_cosines(U: np.ndarray, V: np.ndarray) -> np.ndarray:
     Qu, _ = np.linalg.qr(U)
     Qv, _ = np.linalg.qr(V)
     return np.clip(np.linalg.svd(Qu.T @ Qv, compute_uv=False), 0, 1)
+
+
+# --------------------------------------------------------------------------- breadth pilot (P5): directions of a numeric value
+PERIODS = {"fourier_T2": 2, "fourier_T5": 5, "fourier_T10": 10}
+
+
+def _ridge(X: np.ndarray, Y: np.ndarray, lam: float = 1e-2) -> np.ndarray:
+    """Ridge coefficients [d, k] of centred Y on centred X; lam relative to the mean diagonal of X^T X / n."""
+    Xc = X - X.mean(0)
+    Yc = Y - Y.mean(0)
+    C = Xc.T @ Xc / len(Xc)
+    reg = lam * float(np.trace(C) / C.shape[0])
+    return np.linalg.solve(C + reg * np.eye(C.shape[0]), Xc.T @ Yc / len(Xc))
+
+
+def value_direction(fs: FitSet, pair_ids, X_last: torch.Tensor, values: np.ndarray, estimator: str) -> Direction:
+    """P5 (running sum). X_last [2n, d]: last-position FULL residuals of the train pairs (A rows then B rows); values: the
+    running total of each row. ridge_value = the ridge line of the value (1 column); fourier_T<p> = the ridge plane of
+    (cos, sin)(2 pi value / p) (orthonormalised; 1 column for p = 2, whose sine is identically 0). Fitted on train rows only."""
+    fs.require_train(pair_ids)
+    X = X_last.double().numpy()
+    v = np.asarray(values, dtype=float)
+    if estimator == "ridge_value":
+        Y = v[:, None]
+    else:
+        p = PERIODS[estimator]
+        Y = np.stack([np.cos(2 * np.pi * v / p), np.sin(2 * np.pi * v / p)], 1)
+        if p == 2:
+            Y = Y[:, :1]
+    W = _ridge(X, Y)
+    Q, R = np.linalg.qr(W)
+    keep = np.abs(np.diag(R)) > 1e-10 * max(1.0, float(np.abs(R).max()))
+    U = Q[:, keep]
+    pred = (X - X.mean(0)) @ W
+    r2 = 1 - ((Y - Y.mean(0) - pred) ** 2).sum() / max(1e-12, ((Y - Y.mean(0)) ** 2).sum())
+    return Direction(U, estimator, fs.source, fs.digest, len(X), meta={"train_r2": float(r2), "n_values": int(len(np.unique(v)))})

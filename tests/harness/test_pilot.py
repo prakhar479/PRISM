@@ -455,3 +455,25 @@ def test_trained_digest_follows_the_weights(tmp_path):
     h1 = Dct.trained_digest(tmp_path, "x")
     Dct.save_npz_dict(d / "params.npz", Dct.random_dict(8, 16, "jumprelu", seed=2))
     assert h1 and Dct.trained_digest(tmp_path, "x") != h1                  # retrained -> new revision -> new cache keys
+
+
+def test_make_pilot_backfills_resampU_donor_status():
+    """Runs from the run-20261122-pilot tag (2df949e) record resampU_* donor_status as 'n/a'; make_pilot copies the cell's
+    feat_A_resampC_* status (same donor draw) so no-donor placeholders are excluded."""
+    import importlib.util
+    import pandas as pd
+    spec = importlib.util.spec_from_file_location("make_pilot", Path(__file__).resolve().parents[2] / "scripts" / "make_pilot.py")
+    mp = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mp)
+    base = {"task": "t", "layer": 16, "sae": "s", "fit_families": "f"}
+    rows = []
+    for pid, same, diff in (("p0", "ok", "none"), ("p1", "none", "relaxed")):
+        rows += [{**base, "pair_id": pid, "condition": "feat_A_resampC_sameAns", "donor_status": same},
+                 {**base, "pair_id": pid, "condition": "feat_A_resampC_diffAns", "donor_status": diff},
+                 {**base, "pair_id": pid, "condition": "resampU_sameAns", "donor_status": "n/a"},
+                 {**base, "pair_id": pid, "condition": "resampU_diffAns", "donor_status": "n/a"},
+                 {**base, "pair_id": pid, "condition": "clean_A", "donor_status": "n/a"}]
+    out = mp.backfill_donor_status(pd.DataFrame(rows)).set_index(["pair_id", "condition"]).donor_status
+    assert out[("p0", "resampU_sameAns")] == "ok" and out[("p0", "resampU_diffAns")] == "none"
+    assert out[("p1", "resampU_sameAns")] == "none" and out[("p1", "resampU_diffAns")] == "relaxed"
+    assert out[("p0", "clean_A")] == "n/a"

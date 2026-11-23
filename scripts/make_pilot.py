@@ -40,7 +40,7 @@ def load_runs(root: Path) -> dict:
         e = m["exp_id"]
         rec = {"dir": d, "manifest": m}
         if (d / "per_pair.parquet").exists():
-            rec["pp"] = with_defaults(pd.read_parquet(d / "per_pair.parquet"))
+            rec["pp"] = backfill_donor_status(with_defaults(pd.read_parquet(d / "per_pair.parquet")))
             rec["summary"] = pd.read_csv(d / "summary.csv") if (d / "summary.csv").exists() else None
             rec["checks"] = json.loads((d / "summary.json").read_text()).get("cells", []) if (d / "summary.json").exists() else []
         if e in ("PF", "PD"):
@@ -48,6 +48,22 @@ def load_runs(root: Path) -> dict:
         else:
             out[e] = rec
     return out
+
+
+def backfill_donor_status(pp: pd.DataFrame) -> pd.DataFrame:
+    """Runs from commit 2df949e (tag run-20261122-pilot) record resampU_* rows with donor_status 'n/a', so a pair with no
+    donor (the condition then keeps B's own error) would not be dropped. The cell's feat_A_resampC_<same|diff>Ans rows use
+    the SAME donor draw (harness.run: one `donors` dict per cell) and do record it: copy it across by (cell, pair_id)."""
+    if "donor_status" not in pp or not pp.condition.astype(str).str.startswith("resampU_").any():
+        return pp
+    key = ["task", "layer", "sae", "fit_families", "pair_id"]
+    pp = pp.copy()
+    for kind in ("sameAns", "diffAns"):
+        src = pp[pp.condition == f"feat_A_resampC_{kind}"].drop_duplicates(key).set_index(key)["donor_status"].to_dict()
+        m = (pp.condition == f"resampU_{kind}") & (pp.donor_status == "n/a")
+        if m.any() and src:
+            pp.loc[m, "donor_status"] = [src.get(t, "n/a") for t in pp.loc[m, key].itertuples(index=False, name=None)]
+    return pp
 
 
 def outs(df):

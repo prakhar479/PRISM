@@ -217,7 +217,9 @@ def decode_entries(sae, codes: SparseCodes, mask: torch.Tensor) -> torch.Tensor:
     out = torch.zeros(codes.n_rows, d, dtype=torch.float32)
     if mask.any():
         r, c, z = codes.row[mask], codes.col[mask], codes.z[mask]
-        out.index_add_(0, r, z[:, None] * gather(c).float())
+        step = max(1, (256 * 2 ** 20) // (4 * max(1, d)))          # entries per chunk: ~256 MiB of gathered decoder rows
+        for s in range(0, len(r), step):
+            out.index_add_(0, r[s:s + step], z[s:s + step, None] * gather(c[s:s + step]).float())
     return out
 
 

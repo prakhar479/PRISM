@@ -477,3 +477,25 @@ def test_make_pilot_backfills_resampU_donor_status():
     assert out[("p0", "resampU_sameAns")] == "ok" and out[("p0", "resampU_diffAns")] == "none"
     assert out[("p1", "resampU_sameAns")] == "none" and out[("p1", "resampU_diffAns")] == "relaxed"
     assert out[("p0", "clean_A")] == "n/a"
+
+
+@pytest.mark.parametrize("kind", ["topk", "gated"])
+def test_decompose_rows_dense_matches_reference_and_bounds_memory(kind, monkeypatch):
+    """TopK / gated reconstruction = dense codes @ W_dec (no [rows, m, d] gather: that OOMed a high-L0 gated SAE on P2),
+    exact against a direct reference, also when the row step forces many chunks."""
+    d = Dct.random_dict(16, 64, kind, seed=5, k=7)
+    if kind == "gated":
+        d.b_mag = d.b_mag + 3.0                                  # many active latents per row (the high-L0 case)
+    X = torch.randn(50, 16, generator=torch.Generator().manual_seed(1))
+    z = X @ d.W_enc_T.T
+    if kind == "topk":
+        post = torch.relu(z + d.b_enc)
+        v, i = post.topk(7, -1)
+        f = torch.zeros_like(post).scatter_(1, i, v)
+    else:
+        f = (z + d.b_enc > 0) * torch.relu(d.mag_scale * z + d.b_mag)
+    ref = f @ d.W_dec + d.b_dec
+    monkeypatch.setattr(type(d), "_row_step", lambda self, rows: 3)
+    xh, eps, l0 = d._decompose_rows(X)
+    assert torch.allclose(xh, ref, atol=1e-5) and torch.allclose(eps, X - ref, atol=1e-5)
+    assert torch.equal(l0, (f > 0).sum(-1))

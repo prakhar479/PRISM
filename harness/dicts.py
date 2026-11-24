@@ -162,8 +162,10 @@ class Dictionary(_jumprelu_cls()):
         return v, i
 
     def _row_step(self, rows: int) -> int:
+        """Rows per chunk: ~256 MiB per [rows, n_latents] float32 buffer, four of them alive at once (pre-activations,
+        post / gated codes, the top-k copy, the dense code matrix of the reconstruction)."""
         n = self.W_enc_T.shape[0]
-        return max(1, min(rows, (256 * 2 ** 20) // max(1, n * 4 * 3)))
+        return max(1, min(rows, (256 * 2 ** 20) // max(1, n * 4 * 4)))
 
     @torch.inference_mode()
     def _decompose_rows(self, X: torch.Tensor, block_latents=None, device=None):
@@ -171,7 +173,7 @@ class Dictionary(_jumprelu_cls()):
         x32 = X.reshape(-1, X.shape[-1]).to(device, torch.float32)
         xw = x32.to(self.W_enc_T.dtype)
         w = self._on(device)
-        Wd = w["Wd"]
+        Wd = w["Wd"].float()
         x_hat = torch.zeros_like(x32)
         l0 = torch.zeros(len(x32), dtype=torch.long, device=device)
         rb = self._row_step(len(x32))
@@ -179,7 +181,11 @@ class Dictionary(_jumprelu_cls()):
             v, i = self._codes(xw[r:r + rb], w)
             v = v.float()
             l0[r:r + rb] = (v > 0).sum(-1)
-            x_hat[r:r + rb] = torch.einsum("rk,rkd->rd", v, Wd[i].float())
+            # dense codes [rows, n] @ W_dec: memory is rows x n (budgeted by _row_step). Gathering W_dec[i] instead is
+            # rows x m x d_model, which for a high-L0 gated SAE (m = the chunk's max L0) asked for 14 GiB on an 11 GB card
+            f = torch.zeros(len(v), Wd.shape[0], device=device, dtype=torch.float32).scatter_(1, i, v)
+            x_hat[r:r + rb] = f @ Wd
+            del f
         x_hat += self.b_dec.to(device).float()
         shape = X.shape
         return x_hat.reshape(shape), (x32 - x_hat).reshape(shape), l0.reshape(shape[:-1])

@@ -22,6 +22,7 @@ from harness.profile import REPO_ROOT
 OUT = REPO_ROOT / "configs" / "pilot"
 REV = "c5ebcd40d208330abc697524c919956e692655cf"            # gemma-2-2b
 G3_REV = "fcf18a2a879aab110ca39f8bffbccd5d49d8eb29"         # gemma-3-1b-pt (HF commit, 2026-11-22)
+IT_REV = "dcc83ea841ab6100d6b47a070329e1ba4cf78752"         # gemma-3-1b-it (HF commit, 2026-11-24): P13
 PS = {"add_chain": "prompt_sets/add_chain_pilot.jsonl.gz", "people_cities": "prompt_sets/people_cities_en.jsonl.gz",
       "pc_p1": "prompt_sets/people_cities_p1.jsonl.gz", "ot_p11": "prompt_sets/entity_track_p11.jsonl.gz"}
 OT_FAMS = ["ot_placed_dest", "ot_bin_dest", "ot_drawer_dest"]
@@ -184,6 +185,44 @@ def configs() -> dict:
                 c["fit_families"] = c["eval_families"] = ["pc_en"]
             if c["task"] == "add_chain":
                 c["fit_families"] = c["eval_families"] = ["rs_en", "rs_plus", "rs_story"]
+    # ---------------------------------------------------------------- P12: dictionary families on Gemma 3 1B (branch pilot-g3)
+    p8, r12, c12 = registry("p8_g3"), registry("p12_resid"), registry("p12_comp")
+    if r12 and c12:
+        names = [n for n, e in p8.items() if int(e["layer"]) in (13, 17)] + list(r12) + list(c12)
+        reg_all = {**p8, **r12, **c12}
+        cells = []
+        for n in sorted(names, key=lambda n: (int(reg_all[n]["layer"]), reg_all[n]["arch"], n)):
+            L = int(reg_all[n]["layer"])
+            cells += [rs(L, {"dict": n}), pc(L, {"dict": n})]
+        for c in cells:
+            if c["task"] == "add_chain":
+                c["fit_families"] = c["eval_families"] = ["rs_en", "rs_plus", "rs_story"]
+        out["P12"] = base("P12", "dictionary_families_gemma3",
+                          "Gemma 3 1B, one site (residual after L13; a subset at L17), many dictionary families from Gemma Scope 2: "
+                          "residual SAEs (4 widths x 3 L0s + a second seed), transcoders (all layers / single layer, affine skip), "
+                          "MLP-out SAEs, CLTs, attention SAEs and weakly causal crosscoders, all as decompositions of the same residual "
+                          "(harness/composite.py: x_hat = x - sum of sublayer errors). One fixed DAS subspace per cell scores every "
+                          "dictionary: how much task state does each family keep, and is the rest in its error?",
+                          {"add_chain": "prompt_sets/add_chain_p8_g3.jsonl.gz", "people_cities": "prompt_sets/people_cities_p1_g3.jsonl.gz"},
+                          model="gemma-3-1b-pt", model_revision=G3_REV, cells=cells,
+                          conditions=["feat_A_errB", "feat_A_meanPos", "feat_B_errA"],
+                          directions={"conditions": ["feat_A_along_U", "full_along_U"], "ranks": [8], "estimators": ["das8v2_kl"],
+                                      "sources": ["same_task"], "random_seeds": 5, "r_max": 8})
+    # ---------------------------------------------------------------- P13: refusal state in Gemma 3 1B-IT
+    r13, c13 = registry("p13_resid"), registry("p13_comp")
+    if r13:
+        reg13 = {**r13, **c13}
+        cells = [{"task": "refusal", "layer": int(reg13[n]["layer"]), "sae": {"dict": n}, "role": "exploratory"}
+                 for n in sorted(reg13, key=lambda n: (int(reg13[n]["layer"]), reg13[n]["arch"], n))]
+        out["P13"] = base("P13", "refusal_state_it",
+                          "Gemma 3 1B-IT, harmful vs harmless minimal chat requests (scripts/build_refusal_set.py): is the refusal "
+                          "decision carried by SAE features or by the SAE error (L7/13/17/22, 16k / 262k; transcoder, CLT and crosscoder "
+                          "composites at L13)? Difference-of-means refusal direction vs DAS, capture along U, repair, matched random nulls.",
+                          {"refusal": "prompt_sets/refusal_p13_g3it.jsonl.gz"}, model="gemma-3-1b-it", model_revision=IT_REV,
+                          cells=cells, conditions=["feat_A_errB", "feat_A_meanPos", "feat_B_errA", "feat_B_noise"],
+                          directions={"conditions": ["feat_A_along_U", "full_along_U", "repair"], "ranks": [1, 4, 8],
+                                      "estimators": ["diffmean", "das1v2_kl", "das4v2_kl", "das8v2_kl", "pca_pooled"],
+                                      "sources": ["same_task"], "random_seeds": 10, "r_max": 8})
     return out
 
 

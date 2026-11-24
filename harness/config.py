@@ -72,7 +72,8 @@ def das_rank(name: str) -> Optional[int]:
 GRAD_ESTIMATORS = ("grad_pooled", "grad_err")
 # Estimators fitted on task labels (P5): running-sum value -> ridge line and Fourier planes of the value
 LABEL_ESTIMATORS = ("ridge_value", "fourier_T2", "fourier_T5", "fourier_T10")
-NEW_ESTIMATORS = GRAD_ESTIMATORS + LABEL_ESTIMATORS
+CONTRAST_ESTIMATORS = ("diffmean",)               # P13: mean(x_A) - mean(x_B) at the last position (the refusal direction)
+NEW_ESTIMATORS = GRAD_ESTIMATORS + LABEL_ESTIMATORS + CONTRAST_ESTIMATORS
 
 
 def is_estimator(name: str) -> bool:

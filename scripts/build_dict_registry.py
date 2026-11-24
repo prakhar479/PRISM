@@ -66,9 +66,104 @@ def fmt_width(n: int) -> str:
     return named.get(n, f"{n // 1024}k")
 
 
+# ------------------------------------------------------------------ P12 / P13 (Gemma 3 1B / 1B-IT, Gemma Scope 2)
+GS2_PT, GS2_IT = "google/gemma-scope-2-1b-pt", "google/gemma-scope-2-1b-it"
+P12_RESID = {13: [(w, l) for w in ("16k", "65k", "262k", "1m") for l in ("small", "medium", "big")] + [("262k", "medium_seed_1")],
+             17: [(w, "medium") for w in ("16k", "65k", "262k", "1m")]}
+# composites (harness/composite.py): name -> (layer, recipe). Recipes: ("all", folder, variant) every layer 0..L of a *_all
+# folder; ("single", folder, variant) layer L only; ("clt", variant) source layers 0..L; ("xc", variant) crosscoder blocks <= L;
+# a second recipe (attention SAEs, all layers 0..L) is added with "+".
+P12_COMP = {
+    "tc16k_small_all": [("all", "transcoder_all", "width_16k_l0_small")],
+    "tc16k_big_all": [("all", "transcoder_all", "width_16k_l0_big")],
+    "tc16k_small_aff_all": [("all", "transcoder_all", "width_16k_l0_small_affine")],
+    "tc16k_big_aff_all": [("all", "transcoder_all", "width_16k_l0_big_affine")],
+    "tc262k_small_all": [("all", "transcoder_all", "width_262k_l0_small")],
+    "mlpsae16k_small_all": [("all", "mlp_out_all", "width_16k_l0_small")],
+    "mlpsae16k_big_all": [("all", "mlp_out_all", "width_16k_l0_big")],
+    "clt262k_medium": [("clt", "width_262k_l0_medium")],
+    "clt262k_medium_aff": [("clt", "width_262k_l0_medium_affine")],
+    "clt524k_medium": [("clt", "width_524k_l0_medium")],
+    "tc16k_medium_single": [("single", "transcoder", "width_16k_l0_medium")],
+    "tc65k_medium_single": [("single", "transcoder", "width_65k_l0_medium")],
+    "tc262k_medium_single": [("single", "transcoder", "width_262k_l0_medium")],
+    "tc16k_medium_aff_single": [("single", "transcoder", "width_16k_l0_medium_affine")],
+    "tc16k_small_all+attn16k_small": [("all", "transcoder_all", "width_16k_l0_small"), ("all", "attn_out_all", "width_16k_l0_small")],
+    "clt262k_medium+attn16k_small": [("clt", "width_262k_l0_medium"), ("all", "attn_out_all", "width_16k_l0_small")],
+    "xc65k_medium": [("xc", "width_65k_l0_medium")],
+    "xc262k_medium": [("xc", "width_262k_l0_medium")],
+    "xc524k_medium": [("xc", "width_524k_l0_medium")],
+    "xc1m_medium": [("xc", "width_1m_l0_medium")],
+    "xc65k_big": [("xc", "width_65k_l0_big")],
+    "xc262k_big": [("xc", "width_262k_l0_big")],
+}
+P12_COMP_L17 = ("tc16k_small_all", "clt262k_medium", "xc65k_medium", "xc262k_medium")
+P13_RESID = {L: [("16k", "medium"), ("262k", "medium")] for L in (7, 13, 17, 22)}
+P13_COMP = ("tc16k_small_all", "clt262k_medium", "xc65k_medium")
+XC_LAYERS = (7, 13, 17, 22)
+
+
+def comp_files(L: int, recipe) -> list:
+    files = []
+    for r in recipe:
+        if r[0] == "all":
+            files += [f"{r[1]}/layer_{l}_{r[2]}/params.safetensors" for l in range(L + 1)]
+        elif r[0] == "single":
+            files.append(f"{r[1]}/layer_{L}_{r[2]}/params.safetensors")
+        elif r[0] == "clt":
+            files += [f"clt/{r[1]}/params_layer_{l}.safetensors" for l in range(L + 1)]
+        elif r[0] == "xc":
+            tag = "_".join(map(str, XC_LAYERS))
+            files += [f"crosscoder/layer_{tag}_{r[1]}/params_layer_{i}.safetensors" for i, l in enumerate(XC_LAYERS) if l <= L]
+    return files
+
+
+def g3_entries(api, jget, notes, existing=()) -> dict:
+    """P12 (gemma-3-1b-pt) and P13 (gemma-3-1b-it) dictionaries: residual SAEs and composites, pinned revisions; every
+    file is checked to exist in the repo. Names already in the registry (P8's gs2_1b_L13/L17_16k_medium) are kept as they
+    are (same dictionary, same cache keys); scripts/make_pilot_configs.py adds them to P12 by name."""
+    reg = {}
+    for repo, model, groups in ((GS2_PT, "gemma-3-1b-pt", ("p12_resid", "p12_comp")), (GS2_IT, "gemma-3-1b-it", ("p13_resid", "p13_comp"))):
+        rev = api.model_info(repo).sha
+        have = set(api.list_repo_files(repo, revision=rev))
+        pre = "gs2_1b" if repo == GS2_PT else "gs2_1bit"
+        resid = P12_RESID if repo == GS2_PT else P13_RESID
+        for L, vs in resid.items():
+            for w, l0 in vs:
+                d = f"resid_post/layer_{L}_width_{w}_l0_{l0}"
+                if f"{d}/params.safetensors" not in have:
+                    notes.append(f"{repo}/{d}: missing")
+                    continue
+                cfg = jget(repo, f"{d}/config.json", rev)
+                name = f"{pre}_L{L}_{w}_{l0}"
+                if name in existing:
+                    continue
+                reg[name] = {"group": groups[0], "layer": L, "width": w, "l0": int(cfg.get("l0") or 0), "l0_source": "config.l0",
+                             "arch": "gs2", "repo": repo, "revision": rev, "files": [f"{d}/params.safetensors", f"{d}/config.json"],
+                             "model": model, "source": "Gemma Scope 2 (Dec 2025)", "hook": cfg.get("hf_hook_point_in")}
+        comps = [(13, k) for k in P12_COMP] + [(17, k) for k in P12_COMP_L17] if repo == GS2_PT else [(13, k) for k in P13_COMP]
+        for L, k in comps:
+            recipe = P12_COMP[k]
+            files = comp_files(L, recipe)
+            miss = [f for f in files if f not in have]
+            if miss:
+                notes.append(f"{repo} composite {k} L{L}: {len(miss)} files missing, e.g. {miss[0]}")
+                continue
+            first = files[-1].rsplit("/", 1)[0]
+            cfg = jget(repo, f"{first}/config.json", rev)
+            width = re.search(r"width_(\d+[km])", files[0]).group(1)
+            reg[f"{pre}c_L{L}_{k}"] = {"group": groups[1], "layer": L, "width": width, "l0": int(cfg.get("l0") or 0),
+                                       "l0_source": "config.l0 (per sublayer dictionary)", "arch": "gs2c", "repo": repo,
+                                       "revision": rev, "files": files, "model": model, "recipe": [list(r) for r in recipe],
+                                       "source": "Gemma Scope 2 (Dec 2025), composite (harness/composite.py)"}
+    return reg
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default=str(REPO_ROOT / "configs" / "dict_registry.yaml"))
+    ap.add_argument("--g3-only", action="store_true",
+                    help="keep the existing registry and (re)add only the P12/P13 Gemma Scope 2 groups (branch pilot-g3)")
     a = ap.parse_args()
     from huggingface_hub import HfApi, hf_hub_download
     api = HfApi()
@@ -80,6 +175,21 @@ def main() -> int:
         except Exception as e:  # noqa: BLE001
             notes.append(f"{repo}/{f}: {type(e).__name__}")
             return {}
+
+    if a.g3_only:
+        old = yaml.safe_load(Path(a.out).read_text()) or {}
+        reg = {k: v for k, v in (old.get("dictionaries") or {}).items() if not str(v.get("group", "")).startswith(("p12_", "p13_"))}
+        notes = [n for n in (old.get("notes") or []) if "gemma-scope-2" not in n]
+        reg.update(g3_entries(api, jget, notes, set(reg)))
+        out = Path(a.out)
+        head = ("# GENERATED by scripts/build_dict_registry.py (" + time.strftime("%Y-%m-%d") + "): non-Gemma-Scope dictionaries of the\n"
+                "# breadth pilot at pinned revisions. Formats: harness/dict_formats.py. Do not edit by hand; rerun the script.\n")
+        out.write_text(head + yaml.safe_dump({"dictionaries": reg, "notes": notes}, sort_keys=False, width=140))
+        groups = {}
+        for v in reg.values():
+            groups[v["group"]] = groups.get(v["group"], 0) + 1
+        print(f"{len(reg)} dictionaries {groups} -> {out}; notes: {notes[-10:]}")
+        return 0
 
     for repo in SAEBENCH:
         rev = api.model_info(repo).sha

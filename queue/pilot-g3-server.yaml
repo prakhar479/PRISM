@@ -1,0 +1,39 @@
+# Pilot, second set (branch pilot-g3; docs/PILOT_G3_PLAN.md): runs in parallel with the breadth pilot, on another account.
+# One Slurm job: scripts/slurm_pilot_g3.sbatch (4 x RTX 2080 Ti, 96 h). Exploratory and post hoc. Resumable.
+#   P12 dictionary families on Gemma 3 1B at one site (residual after L13; subset at L17): Gemma Scope 2 residual SAEs
+#       (4 widths x 3 L0s + seed 2), transcoders (all layers / single, affine skip), MLP-out SAEs, CLTs (262k / 524k),
+#       attention SAEs and weakly causal crosscoders, as decompositions of the same residual (harness/composite.py).
+#       Running sum and people-cities (the P8 sets), 86 cells.
+#   P13 refusal state in Gemma 3 1B-IT: harmful vs harmless minimal chat requests; residual SAEs at L7/13/17/22 (16k / 262k)
+#       and three composites at L13; difference-of-means refusal direction vs DAS; 11 cells.
+# Estimated ~35-60 GPU-h (stage 2 of the composites reads ~200 GB of weights; DAS v2 per task/layer as in P8).
+tag: pilot-g3-server
+profile: server
+parallel: true
+prefetch:
+  model_revision: c5ebcd40d208330abc697524c919956e692655cf      # gemma-2-2b: preflight's golden check runs on it
+jobs:
+  - {id: prefetch, kind: script, script: scripts/run_prefetch.py, args: [--queue, queue/pilot-g3-server.yaml]}
+  - {id: preflight, kind: script, script: scripts/run_preflight.py, gpu: all,
+     args: [--queue, queue/pilot-g3-server.yaml, --golden, golden/R2, --per-gpu], depends_on: [prefetch]}
+
+  # ---- stage 1 (P12 caches every sublayer site its composites read: ~14 layers x 3 sites per task)
+  - {id: P13_s1, config: configs/pilot/P13.yaml, stage: "1", priority: 10, depends_on: [preflight]}
+  - {id: P12_s1, config: configs/pilot/P12.yaml, stage: "1", priority: 9, depends_on: [preflight]}
+
+  # ---- stage 2 (composites stream one weight file at a time; slices spread the dictionaries over the GPUs)
+  - {id: P13_s2, config: configs/pilot/P13.yaml, stage: "2", slices: auto, priority: 10, depends_on: [P13_s1]}
+  - {id: P12_s2, config: configs/pilot/P12.yaml, stage: "2", slices: auto, priority: 9, depends_on: [P12_s1]}
+
+  # ---- stage 3 (workers share each run; DAS v2 rotations are cached per task / layer, so every dictionary reuses them)
+  - {id: P13_s3, config: configs/pilot/P13.yaml, stage: "3", workers: auto, priority: 10, depends_on: [P13_s2]}
+  - {id: P12_s3, config: configs/pilot/P12.yaml, stage: "3", workers: auto, priority: 9, depends_on: [P12_s2]}
+
+  # ---- finalize (CPU)
+  - {id: P13_fin, config: configs/pilot/P13.yaml, stage: "3", gpu: none, args: [--finalize-only], depends_on: [P13_s3]}
+  - {id: P12_fin, config: configs/pilot/P12.yaml, stage: "3", gpu: none, args: [--finalize-only], depends_on: [P12_s3]}
+
+  - {id: bundle, kind: script, script: scripts/bundle_results.py, args: [--tag, pilot-g3-server, --queue, queue/pilot-g3-server.yaml],
+     after_failed: true, depends_on: [P13_fin, P12_fin]}
+  - {id: publish, kind: script, script: scripts/publish_results.py, args: [--tag, pilot-g3-server, --queue, queue/pilot-g3-server.yaml],
+     after_failed: true, depends_on: [bundle]}

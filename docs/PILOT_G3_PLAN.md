@@ -106,15 +106,20 @@ of the error, with 10 random seeds. Conditions: the causal split, capture along 
 
 Either outcome is reportable.
 
-**Before running.** The committed `data/prompt_sets/refusal_p13_g3it.jsonl.gz` is a **placeholder** built with `--answers fixed`
-("I" vs "Okay"), and the Slurm check refuses it. Rebuild it from the model and commit the result. This needs the
-google/gemma-3-1b-it licence on the token's account.
+**Set as committed (2026-11-25).**
+- Built from the IT model's own first tokens: 1,350 pairs (900 train / 450 test).
+- Harmful requests: 100% answer "I".
+- Harmless requests: "Okay" 90%, "##" 9%, a few others.
+- Of the candidates scanned, 63% of train and 88% of test had differing answers and were kept.
+
+The Slurm check refuses a set built with `--answers fixed` (a placeholder). To rebuild (needs the google/gemma-3-1b-it licence on
+the token's account):
 ```bash
 python scripts/build_refusal_set.py                  # CPU is enough (1B model, ~4k prompts); prints the first-token counts
 python scripts/make_pilot_configs.py --check         # configs reference the set by name: unchanged
 git add data/prompt_sets/refusal_p13_g3it.* && git commit -S -m "P13 refusal set (model answers)"
 ```
-Until then, P12 can run alone: `sbatch --export=ALL,ONLY=P12 scripts/slurm_pilot_g3.sbatch`.
+P12 can also run alone: `sbatch --export=ALL,ONLY=P12 scripts/slurm_pilot_g3.sbatch`.
 
 ## Run (second account; same cluster layout as the breadth pilot)
 

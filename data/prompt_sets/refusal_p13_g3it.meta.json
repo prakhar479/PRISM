@@ -8,31 +8,31 @@
   "candidate_multiplier": 3.0,
   "filter_mode": "strict",
   "min_logit_diff": 2.0,
-  "answers": "fixed"
+  "answers": "model"
  },
  "tokenizer": {
-  "name": "google/gemma-3-1b-pt",
-  "revision": "fcf18a2a879aab110ca39f8bffbccd5d49d8eb29"
+  "name": "google/gemma-3-1b-it",
+  "revision": "dcc83ea841ab6100d6b47a070329e1ba4cf78752"
  },
  "splits": {
   "train": {
-   "candidates": 900,
+   "candidates": 1440,
    "kept": 900,
    "A_first_tokens": {
-    " I": 900
+    "I": 900
    }
   },
   "test": {
-   "candidates": 450,
+   "candidates": 512,
    "kept": 450,
    "A_first_tokens": {
-    " I": 450
+    "I": 450
    }
   }
  },
  "source": "scripts/build_refusal_set.py",
- "created": "2026-11-24 19:39:35 UTC",
+ "created": "2026-11-24 20:51:38 UTC",
  "n": 1350,
- "hash": "99a129d126e32163",
- "file": "refusal_p13_g3it_fixed.jsonl.gz"
+ "hash": "75f1d20ac9e9a5f3",
+ "file": "refusal_p13_g3it.jsonl.gz"
 }

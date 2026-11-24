@@ -188,3 +188,15 @@ def value_direction(fs: FitSet, pair_ids, X_last: torch.Tensor, values: np.ndarr
     pred = (X - X.mean(0)) @ W
     r2 = 1 - ((Y - Y.mean(0) - pred) ** 2).sum() / max(1e-12, ((Y - Y.mean(0)) ** 2).sum())
     return Direction(U, estimator, fs.source, fs.digest, len(X), meta={"train_r2": float(r2), "n_values": int(len(np.unique(v)))})
+
+
+def diff_mean(fs: FitSet, pair_ids, X_A_last: torch.Tensor, X_B_last: torch.Tensor) -> Direction:
+    """P13: the difference-of-means direction of the FULL residual at the last position (A minus B over the train pairs;
+    Arditi et al.'s refusal direction when A is harmful and B harmless), unit norm, 1 column."""
+    fs.require_train(pair_ids)
+    v = (X_A_last.double().mean(0) - X_B_last.double().mean(0)).numpy()
+    n = float(np.linalg.norm(v))
+    U = (v / max(n, 1e-12))[:, None]
+    proj = (X_A_last.double().numpy() - X_B_last.double().numpy()) @ U[:, 0]
+    return Direction(U, "diffmean", fs.source, fs.digest, 2 * len(X_A_last),
+                     meta={"norm": n, "pair_proj_mean": float(proj.mean()), "pair_proj_pos_frac": float((proj > 0).mean())})

@@ -37,23 +37,82 @@ def shard_plan(rows: Sequence[dict], shard_pairs: int) -> List[List[int]]:
     return [order[a:a + shard_pairs] for a in range(0, len(order), shard_pairs)]
 
 
-def entries_stage1(cache: Cache, spec: ModelSpec, set_hash: str, layers: Sequence[int]):
+def site_entry(cache: Cache, spec: ModelSpec, set_hash: str, layer: int, site: str) -> Entry:
+    """Span cache of one (layer, site): site = spec.site (resid_post: the cell's own, keys unchanged) or a sublayer site
+    of harness.composite (mlp_in, mlp_out, attn_z, resid_post at another layer)."""
+    return cache.entry("spans", model=spec.key(), set_hash=set_hash, layer=int(layer), site=site)
+
+
+def entries_stage1(cache: Cache, spec: ModelSpec, set_hash: str, layers: Sequence):
+    """`layers`: ints (resid_post spans, the pilot's) and/or (layer, site) tuples (composite dictionaries, P12)."""
     out = cache.entry("clean_out", model=spec.key(), set_hash=set_hash)
-    spans = {L: cache.entry("spans", model=spec.key(), set_hash=set_hash, layer=int(L), site=spec.site) for L in layers}
+    spans = {}
+    for L in layers:
+        if isinstance(L, tuple):
+            spans[L] = site_entry(cache, spec, set_hash, L[0], L[1])
+        else:
+            spans[L] = site_entry(cache, spec, set_hash, L, spec.site)
     return out, spans
 
 
-def _forward_capture(model, tokens: torch.Tensor, layers: Sequence[int], bi: torch.Tensor, pi: torch.Tensor):
-    """Last-position logits and, per layer, resid_post rows act[bi, pi] (model dtype, CPU)."""
-    got: Dict[int, torch.Tensor] = {}
+def site_hook(model, key):
+    """(TransformerLens hook name, transform of the hooked activation) for a span key (int = resid_post)."""
+    if not isinstance(key, tuple):
+        return hook_name(key), None
+    l, site = key
+    if site == "resid_post":
+        return hook_name(l), None
+    if site == "mlp_out":                  # = HF post_feedforward_layernorm output (what the MLP adds to the residual)
+        return f"blocks.{l}.hook_mlp_out", None
+    if site == "mlp_in":                   # = HF pre_feedforward_layernorm output (the transcoders' input)
+        w = model.blocks[l].ln2.w
+        return f"blocks.{l}.ln2.hook_normalized", (lambda a, w=w: a * w.to(a.device, a.dtype))
+    if site == "attn_z":                   # = HF o_proj input (heads concatenated)
+        return f"blocks.{l}.attn.hook_z", (lambda a: a.flatten(-2))
+    raise ValueError(f"unknown site {site}")
+
+
+def _forward_capture(model, tokens: torch.Tensor, layers: Sequence, bi: torch.Tensor, pi: torch.Tensor):
+    """Last-position logits and, per span key, rows act[bi, pi] (model dtype, CPU)."""
+    got: Dict = {}
     hooks = []
     for L in layers:
-        def fn(act, hook, L=L):
-            got[L] = act[bi, pi].detach().cpu()
+        name, tf = site_hook(model, L)
+        def fn(act, hook, L=L, tf=tf):
+            a = act[bi, pi].detach()
+            got[L] = (tf(a) if tf is not None else a).cpu()
             return None
-        hooks.append((hook_name(L), fn))
+        hooks.append((name, fn))
     logits = runtime.last_logits(model, tokens, hooks)
     return logits, got
+
+
+def write_sublayer_params(model, spec: ModelSpec, cache: Cache, layers: Sequence[int]) -> Dict[int, Entry]:
+    """Per layer the attention output map of the residual (W_O [n_heads*d_head, d], b_O, ln1_post weight, eps): what an
+    attention-SAE composite needs to map z-space errors into the residual (no model in stage 2)."""
+    out = {}
+    for l in layers:
+        e = cache.entry("sublayer_params", model=spec.key(), layer=int(l))
+        if not e.complete:
+            with e.writer_lock():
+                e.open()
+                if not e.complete:
+                    b = model.blocks[l]
+                    W_O = b.attn.W_O.detach().float().cpu()
+                    e.write_shard(0, {"W_O": W_O.reshape(-1, W_O.shape[-1]).contiguous(),
+                                      "b_O": b.attn.b_O.detach().float().cpu(), "ln1_post_w": b.ln1_post.w.detach().float().cpu()})
+                    e.mark_complete({"eps": float(b.ln1_post.eps), "layer": int(l)})
+        out[l] = e
+    return out
+
+
+def load_sublayer_params(cache: Cache, spec: ModelSpec, layers: Sequence[int]) -> Dict[int, dict]:
+    out = {}
+    for l in layers:
+        e = cache.entry("sublayer_params", model=spec.key(), layer=int(l)).require_complete()
+        t = e.read_shard(0)
+        out[l] = {"W_O": t["W_O"], "b_O": t["b_O"], "ln1_post_w": t["ln1_post_w"], "eps": float(json.loads((e.dir / "_COMPLETE").read_text())["eps"])}
+    return out
 
 
 def stage1(model, spec: ModelSpec, rows: Sequence[dict], set_hash: str, layers: Sequence[int], cache: Cache,
@@ -195,6 +254,26 @@ def _stage2_fill(cache: Cache, spans_entry: Entry, sae, sae_key: dict, device, b
     if not e.complete:
         e.mark_complete({"sae": sae_key})
     return e
+
+
+def stage2_composite(cache: Cache, spans_entry: Entry, site_entries: Dict, comp, sae_key: dict, sub_params=None) -> Entry:
+    """Stage 2 of a composite dictionary (harness.composite): x_hat = x - eps per span row, same entry as stage2()."""
+    with cache.entry("sae_out", spans=spans_entry.key, sae=sae_key).writer_lock():
+        e = cache.entry("sae_out", spans=spans_entry.key, sae=sae_key).open()
+        if e.complete:
+            return e
+        spans_entry.require_complete()
+        for ent in site_entries.values():
+            ent.require_complete()
+        acc = comp.eps_for_entries(spans_entry, site_entries, sub_params, log=log.info)
+        for si, a in acc.items():
+            if e.shard_done(si):
+                continue
+            s = spans_entry.read_shard(si)
+            e.write_shard(si, {"pair_index": s["pair_index"], "xh_A": s["x_A"].float() - a["eps_A"],
+                               "xh_B": s["x_B"].float() - a["eps_B"], "l0_A": a["l0_A"], "l0_B": a["l0_B"]})
+        e.mark_complete({"sae": sae_key, "composite": True})
+        return e
 
 
 def stage2_codes(cache: Cache, spans_entry: Entry, sae, sae_key: dict, device, alpha_min: float,

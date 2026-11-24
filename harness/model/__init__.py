@@ -20,7 +20,7 @@ HOOK_FMT = "blocks.{layer}.hook_resid_post"          # pilot hook site (Gemma Sc
 # model name (config `model:`) -> Hugging Face repo. Gemma 3 (breadth pilot P8) loads through the same TransformerLens path
 # (HookedTransformer.from_pretrained_no_processing); transformer-lens 3.9 lists gemma-3-1b-pt / gemma-3-4b-pt.
 MODEL_REPOS = {"gemma-2-2b": "google/gemma-2-2b", "gemma-3-1b-pt": "google/gemma-3-1b-pt", "gemma-3-4b-pt": "google/gemma-3-4b-pt",
-               "gemma-3-270m": "google/gemma-3-270m"}
+               "gemma-3-270m": "google/gemma-3-270m", "gemma-3-1b-it": "google/gemma-3-1b-it"}     # 1b-it: P13 (refusal)
 
 
 @dataclass(frozen=True)

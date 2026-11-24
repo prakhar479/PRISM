@@ -160,7 +160,7 @@ def test_registry_entries_are_well_formed():
     for name, e in reg.items():
         assert {"group", "layer", "width", "arch", "repo", "revision", "files"} <= set(e), name
         assert len(e["revision"]) == 40 and e["files"], name
-        assert e["arch"] in ("gs2",) or e["arch"][3:] in ("standard", "p_anneal", "topk", "batchtopk", "matryoshka", "jumprelu", "gated")
+        assert e["arch"] in ("gs2", "gs2c") or e["arch"][3:] in ("standard", "p_anneal", "topk", "batchtopk", "matryoshka", "jumprelu", "gated")
 
 
 # --------------------------------------------------------------------------- add-ons

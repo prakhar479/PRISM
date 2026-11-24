@@ -107,6 +107,7 @@ class Runner:
                      else ModelSpec(name=cfg.model, revision=cfg.model_revision, dtype=prof.model_dtype))
         self.rows: Dict[str, List[dict]] = {}
         self.set_meta: Dict[str, dict] = {}
+        self._check_composites()
         for task, rel in cfg.prompt_sets.items():
             rows, meta = T.load_set(prof.root("data_root") / rel)
             if self.smoke:
@@ -154,6 +155,58 @@ class Runner:
             import dataclasses
             did = dataclasses.replace(did, revision=Dct.trained_digest(self.prof.root("cache_root"), did.name))
         return did
+
+    @staticmethod
+    def is_composite(sid) -> bool:
+        return getattr(sid, "arch", "") == "gs2c"
+
+    def comp_parts(self, sid):
+        from harness import composite as Cm
+        return Cm.parse_parts(sid.files)
+
+    def _check_composites(self) -> None:
+        """Composite dictionaries (P12) give x_hat / eps at the cell's site only: no latent codes, no generic text."""
+        from harness import composite as Cm
+        from harness.config import CODE_CONDITIONS
+        comp = [c for c in self.cfg.cells if self.is_composite(self.sae_id(c.layer, c.sae))]
+        if not comp:
+            return
+        d = self.cfg.directions
+        bad = []
+        if self.cfg.subthresh:
+            bad.append("subthresh")
+        if self.cfg.generic_l0:
+            bad.append("generic_l0")
+        if d and any(n in CODE_CONDITIONS for n in d.conditions):
+            bad.append("code-level conditions")
+        if d and any(s == "generic" for s in d.sources):
+            bad.append("generic direction sources")
+        if any(c.sae.addon for c in comp):
+            bad.append("add-ons")
+        if bad:
+            raise ValueError(f"composite dictionaries do not support: {', '.join(bad)}")
+        for c in comp:
+            Cm.validate(self.comp_parts(self.sae_id(c.layer, c.sae)), c.layer)
+
+    def stage1_sites(self) -> Dict[str, list]:
+        """Per task: the cell layers (resid_post) plus every (layer, site) a composite cell reads."""
+        from harness import composite as Cm
+        out = {t: list(Ls) for t, Ls in self.cfg.layers_by_task().items()}
+        for c in self.cfg.cells:
+            sid = self.sae_id(c.layer, c.sae)
+            if self.is_composite(sid):
+                extra = sorted(Cm.needed_sites(self.comp_parts(sid), c.layer) - {(L, "resid_post") for L in out[c.task]})
+                out[c.task] += [k for k in extra if k not in out[c.task]]
+        return out
+
+    def attn_layers(self) -> List[int]:
+        from harness import composite as Cm
+        L = set()
+        for c in self.cfg.cells:
+            sid = self.sae_id(c.layer, c.sae)
+            if self.is_composite(sid):
+                L |= set(Cm.attn_layers(self.comp_parts(sid)))
+        return sorted(L)
 
     def sae_key(self, sid: SAEId) -> dict:
         k = {**sid.to_dict(), "tiny": self.tiny}
@@ -236,7 +289,7 @@ class Runner:
         if d:
             n_src = sum(len(self.cfg.prompt_sets) - 1 if s == "other_task" else 1 for s in d.sources)
             for n in d.conditions:
-                cols = {"ridge_value": 1, "fourier_T2": 1, "fourier_T5": 2, "fourier_T10": 2}   # as cell_specs skips r > columns
+                cols = {"ridge_value": 1, "fourier_T2": 1, "fourier_T5": 2, "fourier_T10": 2, "diffmean": 1}   # as cell_specs skips r > columns
                 keys += [(n, e, s, r) for e in d.estimators for s in range(n_src) for r in d.ranks
                          if not (e.startswith("das") and r != das_rank(e)) and not (n.startswith("steer_") and r == 0)
                          and r <= cols.get(e, r)]
@@ -263,10 +316,12 @@ class Runner:
 
     def run_stage1(self):
         model = self.load_model()
-        for task, layers in self.cfg.layers_by_task().items():
+        for task, layers in self.stage1_sites().items():
             t0 = time.time()
             S.stage1(model, self.spec, self.rows[task], self.set_meta[task]["hash"], layers, self.cache, self.budget, self.device)
             self.timings[f"stage1_{task}_s"] = round(time.time() - t0, 1)
+        if self.attn_layers():
+            S.write_sublayer_params(model, self.spec, self.cache, self.attn_layers())
         if self.generic:
             layers = self.generic_layers()
             if layers:
@@ -288,6 +343,13 @@ class Runner:
             fit = self.addon_map(sid, base)
             return Dct.AddonDict(base, sid.addon, fit["W"], fit.get("c"), fit.get("info"))
         source = getattr(sid, "source", "gemma_scope")
+        if self.is_composite(sid):
+            from harness import composite as Cm
+            if self.tiny:
+                return Cm.Composite(self.comp_parts(sid), sid.layer, sid.width, sid.key, self._tiny_comp_fetch(sid))
+            from huggingface_hub import hf_hub_download
+            return Cm.Composite(self.comp_parts(sid), sid.layer, sid.width, sid.key,
+                                lambda f, sid=sid: Path(hf_hub_download(sid.repo, f, revision=sid.revision)))
         if self.tiny:
             if source == "gemma_scope":
                 p = write_random_params(self.cache.root / "tiny_saes" / f"{sid.key}.npz", TINY_D, TINY_SAE, seed=sid.layer, thr=0.05)
@@ -303,6 +365,40 @@ class Runner:
             from harness.device import dtype_of
             return Dct.load_trained(self.prof.root("cache_root"), sid, dtype_of(dt))
         return load_params(params_path(sid), sid.layer, sid.width, dt, sid.key)
+
+    def _tiny_comp_fetch(self, sid):
+        """Random Gemma-Scope-2-shaped weight files for a composite on the tiny model (tests only)."""
+        from harness import composite as Cm
+        root = self.cache.root / "tiny_comp"
+        d, dz, nL = TINY_D, 4 * 16, self.spec.tiny_layers          # harness.model.tiny_gemma2: 4 heads x d_head 16
+
+        def fetch(f):
+            path = root / f
+            if not path.exists():
+                from safetensors.torch import save_file
+                part = [p for p in Cm.parse_parts([f])][0]
+                import hashlib
+                g = torch.Generator().manual_seed(int(hashlib.sha256(f.encode()).hexdigest()[:8], 16))
+                d_in = dz if part.kind == "attn" else d
+                n = 96
+                t = {"w_enc": torch.randn(d_in, n, generator=g) / d_in ** 0.5, "b_enc": torch.zeros(n),
+                     "threshold": torch.full((n,), 0.05), "b_dec": torch.randn(d_in, generator=g) * 0.01}
+                if part.kind == "clt":
+                    W = torch.randn(n, nL, d, generator=g) / n ** 0.5
+                    W[:, :part.layer] = 0
+                    t["w_dec"] = W
+                elif part.kind == "xc":
+                    W = torch.randn(n, len(part.xc_layers), d, generator=g) / n ** 0.5
+                    W[:, :part.block] = 0
+                    t["w_dec"] = W
+                else:
+                    t["w_dec"] = torch.randn(n, d_in, generator=g) / n ** 0.5
+                if part.affine:
+                    t["affine_skip_connection"] = torch.randn(d, d, generator=g) * 0.01
+                path.parent.mkdir(parents=True, exist_ok=True)
+                save_file(t, str(path))
+            return path
+        return fetch
 
     @staticmethod
     def _capped_shards(entry, max_rows: int):
@@ -399,6 +495,21 @@ class Runner:
     def _stage2_group(self, sid, jobs, est):
         """Run every stage-2 job of one SAE (loaded once, freed after)."""
         sae = self.get_sae(sid)
+        if getattr(sae, "composite", False):         # streams one weight file at a time: always on the run's device
+            dev = self.device if not self.tiny else torch.device("cpu")
+            sae.to_device(dev)
+            sub = S.load_sublayer_params(self.cache, self.spec, self.attn_layers()) if self.attn_layers() else None
+            t0 = time.time()
+            for kind, t, L, _ in jobs:
+                if kind != "task":
+                    raise ValueError(f"{sid.key}: composite dictionaries have no generic-text stage 2")
+                h = self.set_meta[t]["hash"]
+                ents = {k: S.site_entry(self.cache, self.spec, h, k[0], k[1]) for k in sae.sites()}
+                S.stage2_composite(self.cache, self.spans_entry(t, L), ents, sae, self.sae_key(sid), sub)
+            self.timings[f"stage2_{sid.key}_s"] = round(time.time() - t0, 1)
+            del sae
+            empty_cache()
+            return
         dev = self.device if est.placement in ("gpu", "blockwise-gpu") else torch.device("cpu")
         if est.placement == "gpu" and not self.tiny:
             sae.to_device(dev)
@@ -483,6 +594,8 @@ class Runner:
                 elif est in ("ridge_value", "fourier_T2", "fourier_T5", "fourier_T10"):
                     X_last = torch.cat([sp.x_A[last], sp.x_B[last]])
                     b.dirs[est] = Dr.value_direction(fs, sp.pair_ids, X_last, labels, est)
+                elif est == "diffmean":
+                    b.dirs[est] = Dr.diff_mean(fs, sp.pair_ids, sp.x_A[last], sp.x_B[last])
                 elif est in ("grad_pooled", "grad_err"):
                     b.dirs[est] = None                          # filled below (needs the model; cached like DAS)
                 elif est.startswith("das"):
@@ -971,9 +1084,20 @@ def main(argv=None) -> int:
                     help="no model: require every stage-3 unit done, merge parts and checks, write the run's manifest")
     ap.add_argument("--stage2-slice", default=None, help="i/n: only the i-th of n disjoint SAE groups (stage 2)")
     ap.add_argument("--max-batch-tokens", type=int, default=None, help="pin the token budget (overrides auto)")
+    ap.add_argument("--only-sae", action="append", default=None,
+                    help="smoke only: keep the cells whose dictionary name starts with this prefix (repeatable); the run hash "
+                         "follows the reduced cell list, so several smoke processes of one config never share a run")
     a = ap.parse_args(argv)
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s", force=True)
     cfg = ExpConfig.load(a.config)
+    if a.only_sae:
+        if not (a.smoke or a.tiny):
+            raise SystemExit("--only-sae is for smoke runs (a real run keeps its config's cells)")
+        import dataclasses
+        keep = [c for c in cfg.cells if (c.sae.dict or "").startswith(tuple(a.only_sae))]
+        if not keep:
+            raise SystemExit(f"--only-sae {a.only_sae}: no cell matches")
+        cfg = dataclasses.replace(cfg, cells=keep)
     prof = load_profile(a.profile)
     prof.check_experiment(cfg.exp_id)
     prof.apply_env()

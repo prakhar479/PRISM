@@ -378,6 +378,78 @@ def p8(rec, n_boot):
     return {"P8_gaps": g, "P8_capture": t, "P8_keep": k}, ("GO (second model usable)" if len(tasks_ok) >= 2 and gap_pos else "NO-GO / fallback Llama-3.2-1B"), lines
 
 
+def family_of(sae: str) -> str:
+    """P12 / P13 dictionary family from the cell's SAE key (registry names of scripts/build_dict_registry.py)."""
+    name = sae.split("_", 1)[1] if sae.startswith("L") else sae
+    if not name.startswith(("gs2_1bc_", "gs2_1bitc_")):                     # residual SAE (Gemma Scope 2 resid_post)
+        return "resid_seed2" if name.endswith("seed_1") else "resid"
+    k = name.split("_L", 1)[1].split("_", 1)[1]
+    fam = "xc" if k.startswith("xc") else "clt" if k.startswith("clt") else "mlpsae_all" if k.startswith("mlpsae") \
+        else "tc_single" if k.endswith("_single") else "tc_all"
+    return fam + ("+attn" if "+attn" in k else "")
+
+
+def p12(rec, n_boot):
+    t = capture_table(rec, ["das8v2_kl"], ("feat_A_along_U",), n_boot)
+    g = gap_table(rec, ("feat_A_errB", "feat_A_meanPos", "feat_B_errA"))
+    for df in (t, g):
+        if len(df):
+            df["family"] = df.sae.map(family_of)
+    cap, lines = "capture_feat_A_along_U", []
+    go_a = go_b = False
+    for (task, L), gt in (t.groupby(["task", "layer"]) if cap in t else []):
+        fam = gt.groupby("family")[cap].median().sort_values()
+        lines.append(f"- {task} L{L}: median capture by family " + ", ".join(f"{k} {v:.3f}" for k, v in fam.items()))
+        lo, hi = gt.loc[gt[cap].idxmin()], gt.loc[gt[cap].idxmax()]
+        sep = bool(hi[f"{cap}_lo"] > lo[f"{cap}_hi"])
+        spread = float(hi[cap] - lo[cap])
+        go_a |= bool(L == 13 and spread >= 0.10 and sep and hi.family != lo.family)
+        lines.append(f"  spread {spread:.3f} ({lo.sae} {lo[cap]:.3f} .. {hi.sae} {hi[cap]:.3f}; CIs separate: {sep})")
+        s1 = gt[gt.family == "resid_seed2"]
+        s0 = gt[gt.sae.str.contains("_262k_medium") & (gt.family == "resid")]
+        if len(s1) and len(s0):
+            lines.append(f"  seed floor (262k medium, two seeds): |delta capture| = {abs(float(s1[cap].iloc[0] - s0[cap].iloc[0])):.3f}")
+    for (task, L), gg in (g.groupby(["task", "layer"]) if len(g) else []):
+        rep = gg[gg.family.isin(["tc_all", "clt", "tc_all+attn", "clt+attn", "mlpsae_all"])]
+        for r in rep.itertuples():
+            gap, err = getattr(r, "gap_feat_A_errB_nldr", np.nan), getattr(r, "feat_B_errA_nldr", np.nan)
+            go_b |= bool(L == 13 and gap >= 0.10 and err >= 0.10)
+        if len(rep):
+            best = rep.sort_values("gap_feat_A_errB_nldr").iloc[-1]
+            lines.append(f"- {task} L{L}: replacement models: largest feature-only gap {best.gap_feat_A_errB_nldr:.3f} ({best.sae}; "
+                         f"error-only NLDR {best.get('feat_B_errA_nldr', np.nan):.3f})")
+    v = "GO (" + ", ".join(x for x, y in (("dictionary family matters", go_a), ("replacement-model error nodes carry task state", go_b)) if y) + ")" \
+        if (go_a or go_b) else "NO-GO (families agree; error nodes carry little task state)"
+    return {"P12_capture": t, "P12_gaps": g}, v, lines
+
+
+def p13(rec, n_boot):
+    t = capture_table(rec, ["diffmean", "das1v2_kl", "das4v2_kl", "das8v2_kl", "pca_pooled"], ("feat_A_along_U",), n_boot)
+    g = gap_table(rec, ("feat_A_errB", "feat_A_meanPos", "feat_B_errA", "feat_B_noise"))
+    k = keep_rates(rec)
+    for df in (t, g):
+        if len(df):
+            df["family"] = df.sae.map(family_of)
+    lines, cap = [], "capture_feat_A_along_U"
+    usable = float(k.keep_test.dropna().median()) if len(k) and k.keep_test.notna().any() else np.nan
+    lines.append(f"- usable test pairs (median keep rate over cells): {usable:.2f}")
+    dark = light = False
+    for r in g.sort_values(["layer", "sae"]).itertuples():
+        gap, err = getattr(r, "gap_feat_A_errB_nldr", np.nan), getattr(r, "feat_B_errA_nldr", np.nan)
+        lines.append(f"- L{r.layer} {r.sae}: full_A {r.full_A_nldr:.3f}, feature-only gap {gap:.3f}, error-only {err:.3f}, n {r.n_pairs}")
+        dark |= bool(gap >= 0.10 or err >= 0.10)
+    for r in (t[t.estimator.isin(["diffmean", "das1v2_kl"])].sort_values(["layer", "sae", "estimator"]).itertuples() if cap in t else []):
+        c, lo, hi = getattr(r, cap), getattr(r, f"{cap}_lo"), getattr(r, f"{cap}_hi")
+        lines.append(f"  L{r.layer} {r.sae} {r.estimator} r{r.r}: capture {c:.3f} [{lo:.3f}, {hi:.3f}] (full NLDR {r.full_nldr:.3f}, "
+                     f"random p95 {r.random_p95_full_nldr:.3f})")
+        dark |= bool(r.estimator == "diffmean" and hi < 0.9 and r.full_nldr > r.random_p95_full_nldr)
+        light |= bool(r.estimator == "diffmean" and lo >= 0.9)
+    gate = np.isfinite(usable) and usable >= 0.3
+    v = ("GO (refusal state partly in the SAE error)" if dark else "GO as a negative result (features carry refusal)" if light
+         else "UNCLEAR") if gate else "NO-GO (too few pairs refuse / comply as built)"
+    return {"P13_capture": t, "P13_gaps": g}, v, lines
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--runs", required=True)
@@ -396,13 +468,15 @@ def main() -> int:
     report = ["# Breadth pilot verdicts (exploratory, post hoc; scripts/make_pilot.py)", ""]
     jobs = {"P0": lambda r: p0(r, a.boot), "P1": lambda r: p1(r, a.boot), "P2": lambda r: p2(r, a.boot, pf.get("P2")),
             "P4": lambda r: p4(r, a.boot, pf.get("P4")), "P5": lambda r: p5(r, a.boot), "P7": lambda r: p7(r, a.boot),
-            "P8": lambda r: p8(r, a.boot)}
+            "P8": lambda r: p8(r, a.boot), "P12": lambda r: p12(r, a.boot), "P13": lambda r: p13(r, a.boot)}
     if "P11" in runs:
         from harness import tasks as T
         ps = runs["P11"]["manifest"]["prompt_sets"].get("entity_track", {}).get("file")
         rows = T.load_set(Path(a.data_root) / ps)[0] if ps and (Path(a.data_root) / ps).exists() else None
         jobs["P11"] = lambda r, rows=rows: p11(r, a.boot, rows)
-    for e in ("P0", "P11", "P1", "P2", "P4", "P5", "P7", "P8"):
+    for e in ("P0", "P11", "P1", "P2", "P4", "P5", "P7", "P8", "P12", "P13"):
+        if e not in runs and e in ("P12", "P13"):
+            continue                                       # second set (branch pilot-g3): only when its results are ingested
         if e not in runs:
             report += [f"## {e}: no complete run", ""]
             continue

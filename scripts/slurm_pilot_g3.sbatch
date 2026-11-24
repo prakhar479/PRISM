@@ -7,7 +7,7 @@
 #   bash   scripts/slurm_pilot_g3.sbatch --check                           # pre-flight checks only (login node is fine)
 #   sbatch --time=04:00:00 scripts/slurm_pilot_g3.sbatch --smoke           # every path on the real models, tiny sizes (~1-2 h)
 #   sbatch scripts/slurm_pilot_g3.sbatch                                   # the whole set (4 GPUs, 96 h)
-#   sbatch --nodelist=<node> --gres=gpu:<n> scripts/slurm_pilot_g3.sbatch   # another node: override on the command line
+#   sbatch --nodelist=<node> scripts/slurm_pilot_g3.sbatch                  # pin a node (none pinned: any node with 4 GPUs)
 #   sbatch --export=ALL,ONLY=P13 scripts/slurm_pilot_g3.sbatch             # a subset (pilot ids or job ids + dependencies)
 #   bash   scripts/slurm_pilot_g3.sbatch --record                          # after the job: results branch + commit (no push)
 #   bash   scripts/slurm_pilot_g3.sbatch --clean-full                      # AFTER results are pushed: delete the activation caches
@@ -15,7 +15,6 @@
 # Read docs/PILOT_G3_PLAN.md ("Run") first. Needs the Gemma 3 licences (google/gemma-3-1b-pt AND google/gemma-3-1b-it) on the
 # token's account. Downloads ~200 GB of Gemma Scope 2 weights (composites read every layer's dictionary): keep HF on /scratch.
 #SBATCH --job-name=prism-g3
-#SBATCH --nodelist=gnode084
 #SBATCH --gres=gpu:4
 #SBATCH --cpus-per-task=16
 #SBATCH --mem=96G
@@ -24,7 +23,10 @@
 #SBATCH --open-mode=append
 set -uo pipefail
 
-REPO=${SLURM_SUBMIT_DIR:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}
+# the repo is the script's own checkout when run with `bash` (also inside an interactive Slurm session, where
+# SLURM_SUBMIT_DIR points elsewhere); under sbatch the script runs from Slurm's spool copy, so the submit directory is used
+SELF_REPO=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." 2>/dev/null && pwd)
+if [ -n "$SELF_REPO" ] && [ -f "$SELF_REPO/scripts/slurm_pilot_g3.sbatch" ]; then REPO=$SELF_REPO; else REPO=${SLURM_SUBMIT_DIR:-$PWD}; fi
 cd "$REPO" || { echo "cannot cd to $REPO"; exit 1; }
 export HL_PROFILE=server CUDA_DEVICE_ORDER=PCI_BUS_ID
 WORK=${PRISM_WORK:-/ssd_scratch/${USER:-$(id -un)}/prism}

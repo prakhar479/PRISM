@@ -23,7 +23,10 @@
 #SBATCH --open-mode=append
 set -uo pipefail
 
-REPO=${SLURM_SUBMIT_DIR:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}
+# the repo is the script's own checkout when run with `bash` (also inside an interactive Slurm session, where
+# SLURM_SUBMIT_DIR points elsewhere); under sbatch the script runs from Slurm's spool copy, so the submit directory is used
+SELF_REPO=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." 2>/dev/null && pwd)
+if [ -n "$SELF_REPO" ] && [ -f "$SELF_REPO/scripts/slurm_pilot.sbatch" ]; then REPO=$SELF_REPO; else REPO=${SLURM_SUBMIT_DIR:-$PWD}; fi
 cd "$REPO" || { echo "cannot cd to $REPO"; exit 1; }
 export HL_PROFILE=server CUDA_DEVICE_ORDER=PCI_BUS_ID
 WORK=${PRISM_WORK:-/ssd_scratch/${USER:-$(id -un)}/prism}

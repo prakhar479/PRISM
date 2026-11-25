@@ -1,0 +1,62 @@
+
+=== attempt 1 2026-11-23 11:51:16 slots=['3']: /home2/raveeshvyas1410/prism-run/.venv-harness/bin/python scripts/run_dict_fidelity.py --config configs/pilot/P4.yaml --extras
+2026-11-23 11:51:23,130 INFO PF: 10 dictionaries to do, 0 done
+Fetching 3 files:   0%|          | 0/3 [00:00<?, ?it/s]Fetching 3 files:  67%|██████▋   | 2/3 [01:13<00:36, 36.77s/it]Fetching 3 files: 100%|██████████| 3/3 [01:41<00:00, 32.90s/it]Fetching 3 files: 100%|██████████| 3/3 [01:41<00:00, 33.67s/it]
+Loading weights:   0%|          | 0/288 [00:00<?, ?it/s]Loading weights:   0%|          | 1/288 [00:31<2:30:49, 31.53s/it]Loading weights: 100%|██████████| 288/288 [00:31<00:00,  9.12it/s]
+2026-11-23 11:53:43,525 INFO HTTP Request: HEAD https://huggingface.co/google/gemma-2-2b/resolve/c5ebcd40d208330abc697524c919956e692655cf/generation_config.json "HTTP/1.1 200 OK"
+2026-11-23 11:53:44,094 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-23 11:53:44,356 INFO HTTP Request: HEAD https://huggingface.co/google/gemma-2-2b/resolve/c5ebcd40d208330abc697524c919956e692655cf/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-11-23 11:53:45,087 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-23 11:53:45,336 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-23 11:53:48,211 INFO HTTP Request: HEAD https://huggingface.co/google/gemma-2-2b/resolve/c5ebcd40d208330abc697524c919956e692655cf/added_tokens.json "HTTP/1.1 404 Not Found"
+2026-11-23 11:53:48,471 INFO HTTP Request: HEAD https://huggingface.co/google/gemma-2-2b/resolve/c5ebcd40d208330abc697524c919956e692655cf/special_tokens_map.json "HTTP/1.1 200 OK"
+2026-11-23 11:53:48,968 INFO HTTP Request: HEAD https://huggingface.co/google/gemma-2-2b/resolve/c5ebcd40d208330abc697524c919956e692655cf/chat_template.jinja "HTTP/1.1 404 Not Found"
+2026-11-23 11:53:50,635 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+Loaded pretrained model gemma-2-2b into HookedTransformer
+Traceback (most recent call last):
+  File "/home2/raveeshvyas1410/prism-run/scripts/run_dict_fidelity.py", line 133, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home2/raveeshvyas1410/prism-run/scripts/run_dict_fidelity.py", line 99, in main
+    S.stage1_generic(model, R.spec, R.generic["ids"], R.generic["hash"], need, R.generic["skip"], R.cache,
+  File "/home2/raveeshvyas1410/prism-run/harness/model/stages.py", line 411, in stage1_generic
+    return _stage1_generic_fill(model, spec, ids, corpus_hash, layers, skip, cache, budget, device, shard_docs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/raveeshvyas1410/prism-run/.venv-harness/lib/python3.12/site-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/raveeshvyas1410/prism-run/harness/model/stages.py", line 429, in _stage1_generic_fill
+    n = budget.rows_for(T)
+        ^^^^^^^^^^^^^^^^^^
+  File "/home2/raveeshvyas1410/prism-run/harness/batching.py", line 22, in rows_for
+    return max(1, min(self.max_rows, self.max_tokens // max(1, seq_len)))
+                                     ~~~~~~~~~~~~~~~~^^~~~~~~~~~~~~~~~~
+TypeError: unsupported operand type(s) for //: 'str' and 'int'
+
+=== attempt 2 2026-11-23 11:54:19 slots=['3']: /home2/raveeshvyas1410/prism-run/.venv-harness/bin/python scripts/run_dict_fidelity.py --config configs/pilot/P4.yaml --extras
+2026-11-23 11:54:27,651 INFO PF: 10 dictionaries to do, 0 done
+Loading weights:   0%|          | 0/288 [00:00<?, ?it/s]Loading weights:   0%|          | 1/288 [00:24<1:56:22, 24.33s/it]Loading weights: 100%|██████████| 288/288 [00:24<00:00, 11.83it/s]
+2026-11-23 11:55:01,236 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-23 11:55:01,518 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-23 11:55:01,776 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-23 11:55:03,252 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+Loaded pretrained model gemma-2-2b into HookedTransformer
+Traceback (most recent call last):
+  File "/home2/raveeshvyas1410/prism-run/scripts/run_dict_fidelity.py", line 133, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home2/raveeshvyas1410/prism-run/scripts/run_dict_fidelity.py", line 99, in main
+    S.stage1_generic(model, R.spec, R.generic["ids"], R.generic["hash"], need, R.generic["skip"], R.cache,
+  File "/home2/raveeshvyas1410/prism-run/harness/model/stages.py", line 411, in stage1_generic
+    return _stage1_generic_fill(model, spec, ids, corpus_hash, layers, skip, cache, budget, device, shard_docs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/raveeshvyas1410/prism-run/.venv-harness/lib/python3.12/site-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/raveeshvyas1410/prism-run/harness/model/stages.py", line 429, in _stage1_generic_fill
+    n = budget.rows_for(T)
+        ^^^^^^^^^^^^^^^^^^
+  File "/home2/raveeshvyas1410/prism-run/harness/batching.py", line 22, in rows_for
+    return max(1, min(self.max_rows, self.max_tokens // max(1, seq_len)))
+                                     ~~~~~~~~~~~~~~~~^^~~~~~~~~~~~~~~~~
+TypeError: unsupported operand type(s) for //: 'str' and 'int'

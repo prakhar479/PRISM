@@ -1,0 +1,49 @@
+{
+ "exp_id": "PD",
+ "run_hash": "frozendec_L19_16k",
+ "status": "complete",
+ "smoke": false,
+ "tiny": false,
+ "config": {
+  "name": "trained_dictionary",
+  "args": {
+   "mode": "frozen_decoder",
+   "layer": 19,
+   "width": "16k",
+   "l0": null,
+   "k": null,
+   "name": "frozendec_L19_16k",
+   "profile": "server",
+   "fit_set": "generic/pile10k_6000x128_skip100.json",
+   "eval_set": "generic/pile10k_100x128.json",
+   "epochs": 3.0,
+   "steps": null,
+   "batch": 4,
+   "lr": null,
+   "mse_coef": 1.0,
+   "kl_positions": 32,
+   "seed": 0,
+   "tiny": false,
+   "allow_dirty": false
+  }
+ },
+ "git": {
+  "commit": "c566c8648504ca8f8858a498ee24ad94507a67e9",
+  "branch": "HEAD",
+  "tags": [],
+  "dirty": false,
+  "dirty_files": []
+ },
+ "created": "2026-11-23T12:20:29+0000",
+ "packages": {
+  "torch": "2.14.1+cu130",
+  "transformers": "5.19.0",
+  "transformer-lens": "3.9.0",
+  "numpy": "2.5.4",
+  "pandas": "3.0.6",
+  "pyarrow": "26.0.0",
+  "safetensors": "0.8.0",
+  "huggingface-hub": "2.2.0",
+  "scipy": "1.18.1"
+ }
+}

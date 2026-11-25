@@ -1,0 +1,58 @@
+2026-11-23 13:35:03,755 INFO DAS: training das8v2_kl (k=8, 10 epochs, lr 0.01, seed 0) for add_chain L18 on 300 train pairs
+2026-11-23 13:35:10,291 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-23 13:35:10,557 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-23 13:35:10,813 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-23 13:35:12,263 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-23 13:37:20,012 INFO DAS v2 k=8 kl epoch 1/10: loss 0.7884
+2026-11-23 13:37:43,725 INFO DAS v2 k=8 kl epoch 2/10: loss 0.4304
+2026-11-23 13:38:07,469 INFO DAS v2 k=8 kl epoch 3/10: loss 0.3642
+2026-11-23 13:38:31,238 INFO DAS v2 k=8 kl epoch 4/10: loss 0.2683
+2026-11-23 13:38:55,039 INFO DAS v2 k=8 kl epoch 5/10: loss 0.1923
+2026-11-23 13:39:18,839 INFO DAS v2 k=8 kl epoch 6/10: loss 0.1783
+2026-11-23 13:39:42,671 INFO DAS v2 k=8 kl epoch 7/10: loss 0.2573
+2026-11-23 13:40:06,489 INFO DAS v2 k=8 kl epoch 8/10: loss 0.2283
+2026-11-23 13:40:30,310 INFO DAS v2 k=8 kl epoch 9/10: loss 0.1460
+2026-11-23 13:40:54,123 INFO DAS v2 k=8 kl epoch 10/10: loss 0.1252
+2026-11-23 13:41:12,854 INFO grad directions: add_chain L18 L18_16k_l074 on 300 train pairs
+2026-11-23 13:43:56,773 INFO add_chain_L18_16k_l074 unit 1/31 (8 conditions, 62.2s)
+2026-11-23 13:44:59,424 INFO add_chain_L18_16k_l074 unit 4/31 (8 conditions, 62.6s)
+2026-11-23 13:46:02,190 INFO add_chain_L18_16k_l074 unit 7/31 (8 conditions, 62.7s)
+2026-11-23 13:47:05,007 INFO add_chain_L18_16k_l074 unit 10/31 (8 conditions, 62.7s)
+2026-11-23 13:48:07,875 INFO add_chain_L18_16k_l074 unit 13/31 (8 conditions, 62.8s)
+2026-11-23 13:49:10,717 INFO add_chain_L18_16k_l074 unit 16/31 (8 conditions, 62.8s)
+2026-11-23 13:50:13,570 INFO add_chain_L18_16k_l074 unit 19/31 (8 conditions, 62.8s)
+2026-11-23 13:51:16,388 INFO add_chain_L18_16k_l074 unit 22/31 (8 conditions, 62.7s)
+2026-11-23 13:52:19,166 INFO add_chain_L18_16k_l074 unit 25/31 (8 conditions, 62.7s)
+2026-11-23 13:53:21,952 INFO add_chain_L18_16k_l074 unit 28/31 (8 conditions, 62.7s)
+2026-11-23 13:54:18,820 INFO add_chain_L18_16k_l074 unit 31/31 (7 conditions, 56.8s)
+2026-11-23 14:09:35,389 INFO people_cities_L12_16k_l082__fit-pc_en__eval-pc_en unit 1/31 (8 conditions, 115.9s)
+2026-11-23 14:11:35,605 INFO people_cities_L12_16k_l082__fit-pc_en__eval-pc_en unit 4/31 (8 conditions, 120.1s)
+2026-11-23 14:13:36,474 INFO people_cities_L12_16k_l082__fit-pc_en__eval-pc_en unit 7/31 (8 conditions, 120.7s)
+2026-11-23 14:15:37,307 INFO people_cities_L12_16k_l082__fit-pc_en__eval-pc_en unit 10/31 (8 conditions, 120.7s)
+2026-11-23 14:17:38,066 INFO people_cities_L12_16k_l082__fit-pc_en__eval-pc_en unit 13/31 (8 conditions, 120.6s)
+2026-11-23 14:19:38,819 INFO people_cities_L12_16k_l082__fit-pc_en__eval-pc_en unit 16/31 (8 conditions, 120.7s)
+2026-11-23 14:21:39,585 INFO people_cities_L12_16k_l082__fit-pc_en__eval-pc_en unit 19/31 (8 conditions, 120.7s)
+2026-11-23 14:23:40,393 INFO people_cities_L12_16k_l082__fit-pc_en__eval-pc_en unit 22/31 (8 conditions, 120.7s)
+2026-11-23 14:25:41,184 INFO people_cities_L12_16k_l082__fit-pc_en__eval-pc_en unit 25/31 (8 conditions, 120.7s)
+2026-11-23 14:27:41,976 INFO people_cities_L12_16k_l082__fit-pc_en__eval-pc_en unit 28/31 (8 conditions, 120.7s)
+2026-11-23 14:27:51,714 INFO DAS: training das8v2_kl (k=8, 10 epochs, lr 0.01, seed 0) for entity_track L12 on 300 train pairs
+2026-11-23 14:31:37,224 INFO DAS v2 k=8 kl epoch 1/10: loss 1.9804
+2026-11-23 14:32:53,513 INFO DAS v2 k=8 kl epoch 2/10: loss 1.7109
+2026-11-23 14:34:09,827 INFO DAS v2 k=8 kl epoch 3/10: loss 1.5346
+2026-11-23 14:35:26,089 INFO DAS v2 k=8 kl epoch 4/10: loss 1.4741
+2026-11-23 14:36:42,340 INFO DAS v2 k=8 kl epoch 5/10: loss 1.2015
+2026-11-23 14:37:58,565 INFO DAS v2 k=8 kl epoch 6/10: loss 0.9316
+2026-11-23 14:39:14,788 INFO DAS v2 k=8 kl epoch 7/10: loss 1.0785
+2026-11-23 14:40:30,972 INFO DAS v2 k=8 kl epoch 8/10: loss 0.8850
+2026-11-23 14:41:47,109 INFO DAS v2 k=8 kl epoch 9/10: loss 0.8436
+2026-11-23 14:43:03,228 INFO DAS v2 k=8 kl epoch 10/10: loss 0.6783
+2026-11-23 14:43:53,108 INFO grad directions: entity_track L12 L12_16k_l082 on 300 train pairs
+2026-11-23 14:55:18,703 INFO entity_track_L12_16k_l082__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 3/31 (8 conditions, 518.3s)
+2026-11-23 15:03:58,677 INFO entity_track_L12_16k_l082__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 6/31 (8 conditions, 519.6s)
+2026-11-23 15:12:39,144 INFO entity_track_L12_16k_l082__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 10/31 (8 conditions, 520.1s)
+2026-11-23 15:21:19,241 INFO entity_track_L12_16k_l082__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 14/31 (8 conditions, 519.7s)
+2026-11-23 15:29:59,433 INFO entity_track_L12_16k_l082__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 18/31 (8 conditions, 519.8s)
+2026-11-23 15:38:39,725 INFO entity_track_L12_16k_l082__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 22/31 (8 conditions, 519.9s)
+2026-11-23 15:47:20,414 INFO entity_track_L12_16k_l082__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 26/31 (8 conditions, 520.3s)
+2026-11-23 15:56:00,864 INFO entity_track_L12_16k_l082__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 30/31 (8 conditions, 520.2s)
+2026-11-23 15:56:01,000 INFO P7 -> /home2/raveeshvyas1410/prism-run/runs/P7/f0dd2ac58142 (worker_done)

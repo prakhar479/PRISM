@@ -1,0 +1,202 @@
+
+=== attempt 1 2026-11-22 21:46:19 slots=['2']: /home2/raveeshvyas1410/prism-run/.venv-harness/bin/python -m harness.run --config configs/pilot/P0.yaml --profile server --stage 3 --worker P0_s3-2
+2026-11-22 21:46:24,470 INFO DAS: training das4v2_kl_s1 (k=4, 10 epochs, lr 0.01, seed 1) for add_chain L18 on 300 train pairs
+Loading weights:   0%|          | 0/288 [00:00<?, ?it/s]Loading weights:   0%|          | 1/288 [00:00<01:56,  2.46it/s]Loading weights:  81%|████████▏ | 234/288 [00:00<00:00, 596.08it/s]Loading weights: 100%|██████████| 288/288 [00:00<00:00, 486.59it/s]
+2026-11-22 21:46:31,017 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-22 21:46:31,288 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-22 21:46:31,539 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-22 21:46:32,971 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-22 21:48:37,063 INFO DAS v2 k=4 kl epoch 1/10: loss 0.6929
+2026-11-22 21:49:00,065 INFO DAS v2 k=4 kl epoch 2/10: loss 0.5088
+2026-11-22 21:49:23,026 INFO DAS v2 k=4 kl epoch 3/10: loss 0.4056
+2026-11-22 21:49:46,008 INFO DAS v2 k=4 kl epoch 4/10: loss 0.6523
+2026-11-22 21:50:09,057 INFO DAS v2 k=4 kl epoch 5/10: loss 0.4429
+2026-11-22 21:50:32,109 INFO DAS v2 k=4 kl epoch 6/10: loss 0.3859
+2026-11-22 21:50:55,037 INFO DAS v2 k=4 kl epoch 7/10: loss 0.3072
+2026-11-22 21:51:17,986 INFO DAS v2 k=4 kl epoch 8/10: loss 0.2691
+2026-11-22 21:51:40,953 INFO DAS v2 k=4 kl epoch 9/10: loss 0.3916
+2026-11-22 21:52:03,947 INFO DAS v2 k=4 kl epoch 10/10: loss 0.2884
+2026-11-22 21:52:22,431 INFO DAS: training das8v2_ce_s2 (k=8, 10 epochs, lr 0.01, seed 2) for add_chain L18 on 300 train pairs
+2026-11-22 21:54:10,116 INFO DAS v2 k=8 ce epoch 1/10: loss 1.2808
+2026-11-22 21:54:33,378 INFO DAS v2 k=8 ce epoch 2/10: loss 0.6685
+2026-11-22 21:54:56,722 INFO DAS v2 k=8 ce epoch 3/10: loss 0.5715
+2026-11-22 21:55:20,019 INFO DAS v2 k=8 ce epoch 4/10: loss 0.5637
+2026-11-22 21:55:43,342 INFO DAS v2 k=8 ce epoch 5/10: loss 0.7745
+2026-11-22 21:56:06,725 INFO DAS v2 k=8 ce epoch 6/10: loss 0.6570
+2026-11-22 21:56:30,074 INFO DAS v2 k=8 ce epoch 7/10: loss 0.6038
+2026-11-22 21:56:53,411 INFO DAS v2 k=8 ce epoch 8/10: loss 0.3841
+2026-11-22 21:57:16,789 INFO DAS v2 k=8 ce epoch 9/10: loss 0.3127
+2026-11-22 21:57:40,073 INFO DAS v2 k=8 ce epoch 10/10: loss 0.4068
+2026-11-22 21:57:58,579 INFO DAS: training das8v2_kl_s0 (k=8, 10 epochs, lr 0.01, seed 0) for add_chain L18 on 300 train pairs
+2026-11-22 21:59:46,483 INFO DAS v2 k=8 kl epoch 1/10: loss 0.7642
+2026-11-22 22:00:10,035 INFO DAS v2 k=8 kl epoch 2/10: loss 0.2947
+2026-11-22 22:00:33,496 INFO DAS v2 k=8 kl epoch 3/10: loss 0.1889
+2026-11-22 22:00:57,053 INFO DAS v2 k=8 kl epoch 4/10: loss 0.1612
+2026-11-22 22:01:20,540 INFO DAS v2 k=8 kl epoch 5/10: loss 0.2626
+2026-11-22 22:01:44,074 INFO DAS v2 k=8 kl epoch 6/10: loss 0.3307
+2026-11-22 22:02:07,656 INFO DAS v2 k=8 kl epoch 7/10: loss 0.2239
+2026-11-22 22:02:31,151 INFO DAS v2 k=8 kl epoch 8/10: loss 0.1256
+2026-11-22 22:02:54,733 INFO DAS v2 k=8 kl epoch 9/10: loss 0.2448
+2026-11-22 22:03:18,208 INFO DAS v2 k=8 kl epoch 10/10: loss 0.1859
+2026-11-22 22:03:36,683 INFO DAS: training das16v2_ce_s1 (k=16, 10 epochs, lr 0.01, seed 1) for add_chain L18 on 300 train pairs
+2026-11-22 22:05:25,450 INFO DAS v2 k=16 ce epoch 1/10: loss 1.0007
+2026-11-22 22:05:49,866 INFO DAS v2 k=16 ce epoch 2/10: loss 0.5814
+2026-11-22 22:06:14,317 INFO DAS v2 k=16 ce epoch 3/10: loss 0.3749
+2026-11-22 22:06:38,713 INFO DAS v2 k=16 ce epoch 4/10: loss 0.4224
+2026-11-22 22:07:03,125 INFO DAS v2 k=16 ce epoch 5/10: loss 0.4218
+2026-11-22 22:07:27,551 INFO DAS v2 k=16 ce epoch 6/10: loss 0.2844
+2026-11-22 22:07:51,977 INFO DAS v2 k=16 ce epoch 7/10: loss 0.3617
+2026-11-22 22:08:16,383 INFO DAS v2 k=16 ce epoch 8/10: loss 0.3886
+2026-11-22 22:08:40,777 INFO DAS v2 k=16 ce epoch 9/10: loss 0.2719
+2026-11-22 22:09:05,188 INFO DAS v2 k=16 ce epoch 10/10: loss 0.2941
+2026-11-22 22:09:23,646 INFO DAS: training das16v2_ld_s2 (k=16, 10 epochs, lr 0.01, seed 2) for add_chain L18 on 300 train pairs
+2026-11-22 22:11:12,286 INFO DAS v2 k=16 ld epoch 1/10: loss 0.1269
+2026-11-22 22:11:36,576 INFO DAS v2 k=16 ld epoch 2/10: loss 0.0210
+2026-11-22 22:12:00,920 INFO DAS v2 k=16 ld epoch 3/10: loss 0.0141
+2026-11-22 22:12:25,218 INFO DAS v2 k=16 ld epoch 4/10: loss 0.0595
+2026-11-22 22:12:49,512 INFO DAS v2 k=16 ld epoch 5/10: loss 0.0430
+2026-11-22 22:13:13,874 INFO DAS v2 k=16 ld epoch 6/10: loss 0.0169
+2026-11-22 22:13:38,153 INFO DAS v2 k=16 ld epoch 7/10: loss 0.0089
+2026-11-22 22:14:02,474 INFO DAS v2 k=16 ld epoch 8/10: loss 0.0075
+2026-11-22 22:14:26,792 INFO DAS v2 k=16 ld epoch 9/10: loss 0.0041
+2026-11-22 22:14:51,084 INFO DAS v2 k=16 ld epoch 10/10: loss 0.0047
+2026-11-22 22:21:46,879 INFO add_chain_L18_16k_l074 unit 2/35 (8 conditions, 59.0s)
+2026-11-22 22:22:47,678 INFO add_chain_L18_16k_l074 unit 6/35 (8 conditions, 60.7s)
+2026-11-22 22:23:49,047 INFO add_chain_L18_16k_l074 unit 10/35 (8 conditions, 61.3s)
+2026-11-22 22:24:50,619 INFO add_chain_L18_16k_l074 unit 14/35 (8 conditions, 61.5s)
+2026-11-22 22:25:52,254 INFO add_chain_L18_16k_l074 unit 18/35 (8 conditions, 61.6s)
+2026-11-22 22:26:53,978 INFO add_chain_L18_16k_l074 unit 22/35 (8 conditions, 61.6s)
+2026-11-22 22:28:02,213 INFO add_chain_L18_16k_l074 unit 26/35 (8 conditions, 61.3s)
+2026-11-22 22:29:10,775 INFO add_chain_L18_16k_l074 unit 30/35 (8 conditions, 61.2s)
+2026-11-22 22:30:19,303 INFO add_chain_L18_16k_l074 unit 34/35 (8 conditions, 61.2s)
+2026-11-22 22:30:21,346 INFO DAS: training das4v2_ld_s0 (k=4, 10 epochs, lr 0.01, seed 0) for people_cities L12 on 300 train pairs
+2026-11-22 22:33:07,363 INFO DAS v2 k=4 ld epoch 1/10: loss 0.6187
+2026-11-22 22:33:59,250 INFO DAS v2 k=4 ld epoch 2/10: loss 0.5002
+2026-11-22 22:34:51,160 INFO DAS v2 k=4 ld epoch 3/10: loss 0.5284
+2026-11-22 22:35:43,099 INFO DAS v2 k=4 ld epoch 4/10: loss 0.5086
+2026-11-22 22:36:34,989 INFO DAS v2 k=4 ld epoch 5/10: loss 0.5003
+2026-11-22 22:37:26,873 INFO DAS v2 k=4 ld epoch 6/10: loss 0.4805
+2026-11-22 22:38:18,758 INFO DAS v2 k=4 ld epoch 7/10: loss 0.5001
+2026-11-22 22:39:10,664 INFO DAS v2 k=4 ld epoch 8/10: loss 0.5404
+2026-11-22 22:40:02,560 INFO DAS v2 k=4 ld epoch 9/10: loss 0.5083
+2026-11-22 22:40:54,470 INFO DAS v2 k=4 ld epoch 10/10: loss 0.4910
+2026-11-22 22:41:32,938 INFO DAS: training das4v2_ld_s2 (k=4, 10 epochs, lr 0.01, seed 2) for people_cities L12 on 300 train pairs
+2026-11-22 22:44:19,401 INFO DAS v2 k=4 ld epoch 1/10: loss 0.6376
+2026-11-22 22:45:11,339 INFO DAS v2 k=4 ld epoch 2/10: loss 0.5303
+2026-11-22 22:46:03,208 INFO DAS v2 k=4 ld epoch 3/10: loss 0.5305
+2026-11-22 22:46:55,101 INFO DAS v2 k=4 ld epoch 4/10: loss 0.5370
+2026-11-22 22:47:46,979 INFO DAS v2 k=4 ld epoch 5/10: loss 0.5638
+2026-11-22 22:48:38,828 INFO DAS v2 k=4 ld epoch 6/10: loss 0.5003
+2026-11-22 22:49:30,709 INFO DAS v2 k=4 ld epoch 7/10: loss 0.5017
+2026-11-22 22:50:22,600 INFO DAS v2 k=4 ld epoch 8/10: loss 0.5161
+2026-11-22 22:51:14,481 INFO DAS v2 k=4 ld epoch 9/10: loss 0.5158
+2026-11-22 22:52:06,393 INFO DAS v2 k=4 ld epoch 10/10: loss 0.5233
+2026-11-22 22:52:44,865 INFO DAS: training das8v2_ce_s0 (k=8, 10 epochs, lr 0.01, seed 0) for people_cities L12 on 300 train pairs
+2026-11-22 22:55:32,003 INFO DAS v2 k=8 ce epoch 1/10: loss 2.9788
+2026-11-22 22:56:24,605 INFO DAS v2 k=8 ce epoch 2/10: loss 2.0094
+2026-11-22 22:57:17,154 INFO DAS v2 k=8 ce epoch 3/10: loss 1.9467
+2026-11-22 22:58:09,716 INFO DAS v2 k=8 ce epoch 4/10: loss 1.9292
+2026-11-22 22:59:02,305 INFO DAS v2 k=8 ce epoch 5/10: loss 1.7526
+2026-11-22 22:59:54,908 INFO DAS v2 k=8 ce epoch 6/10: loss 1.4905
+2026-11-22 23:00:47,500 INFO DAS v2 k=8 ce epoch 7/10: loss 1.4361
+2026-11-22 23:01:40,061 INFO DAS v2 k=8 ce epoch 8/10: loss 1.3127
+2026-11-22 23:02:32,625 INFO DAS v2 k=8 ce epoch 9/10: loss 1.2078
+2026-11-22 23:03:25,222 INFO DAS v2 k=8 ce epoch 10/10: loss 1.2081
+2026-11-22 23:04:03,634 INFO DAS: training das8v2_ld_s1 (k=8, 10 epochs, lr 0.01, seed 1) for people_cities L12 on 300 train pairs
+2026-11-22 23:06:50,470 INFO DAS v2 k=8 ld epoch 1/10: loss 0.3868
+2026-11-22 23:07:42,801 INFO DAS v2 k=8 ld epoch 2/10: loss 0.2662
+2026-11-22 23:08:35,107 INFO DAS v2 k=8 ld epoch 3/10: loss 0.2474
+2026-11-22 23:09:27,414 INFO DAS v2 k=8 ld epoch 4/10: loss 0.2153
+2026-11-22 23:10:19,729 INFO DAS v2 k=8 ld epoch 5/10: loss 0.2888
+2026-11-22 23:11:12,038 INFO DAS v2 k=8 ld epoch 6/10: loss 0.2381
+2026-11-22 23:12:04,345 INFO DAS v2 k=8 ld epoch 7/10: loss 0.2612
+2026-11-22 23:12:56,667 INFO DAS v2 k=8 ld epoch 8/10: loss 0.2630
+2026-11-22 23:13:48,992 INFO DAS v2 k=8 ld epoch 9/10: loss 0.2459
+2026-11-22 23:14:41,276 INFO DAS v2 k=8 ld epoch 10/10: loss 0.2738
+2026-11-22 23:15:19,692 INFO DAS: training das8v2_kl_s2 (k=8, 10 epochs, lr 0.01, seed 2) for people_cities L12 on 300 train pairs
+2026-11-22 23:18:06,958 INFO DAS v2 k=8 kl epoch 1/10: loss 2.0377
+2026-11-22 23:18:59,630 INFO DAS v2 k=8 kl epoch 2/10: loss 1.3176
+2026-11-22 23:19:52,344 INFO DAS v2 k=8 kl epoch 3/10: loss 1.1021
+2026-11-22 23:20:45,062 INFO DAS v2 k=8 kl epoch 4/10: loss 1.1672
+2026-11-22 23:21:37,788 INFO DAS v2 k=8 kl epoch 5/10: loss 1.2689
+2026-11-22 23:22:30,475 INFO DAS v2 k=8 kl epoch 6/10: loss 1.1786
+2026-11-22 23:23:23,212 INFO DAS v2 k=8 kl epoch 7/10: loss 1.1549
+2026-11-22 23:24:15,928 INFO DAS v2 k=8 kl epoch 8/10: loss 1.4290
+2026-11-22 23:25:08,666 INFO DAS v2 k=8 kl epoch 9/10: loss 1.2235
+2026-11-22 23:26:01,385 INFO DAS v2 k=8 kl epoch 10/10: loss 1.4380
+2026-11-22 23:26:39,847 INFO DAS: training das16v2_ld_s0 (k=16, 10 epochs, lr 0.01, seed 0) for people_cities L12 on 300 train pairs
+2026-11-22 23:29:27,800 INFO DAS v2 k=16 ld epoch 1/10: loss 0.2846
+2026-11-22 23:30:21,273 INFO DAS v2 k=16 ld epoch 2/10: loss 0.0389
+2026-11-22 23:31:14,688 INFO DAS v2 k=16 ld epoch 3/10: loss 0.0233
+2026-11-22 23:32:08,133 INFO DAS v2 k=16 ld epoch 4/10: loss 0.0345
+2026-11-22 23:33:01,590 INFO DAS v2 k=16 ld epoch 5/10: loss 0.0361
+2026-11-22 23:33:55,056 INFO DAS v2 k=16 ld epoch 6/10: loss 0.0182
+2026-11-22 23:34:48,536 INFO DAS v2 k=16 ld epoch 7/10: loss 0.0140
+2026-11-22 23:35:41,971 INFO DAS v2 k=16 ld epoch 8/10: loss 0.0137
+2026-11-22 23:36:35,385 INFO DAS v2 k=16 ld epoch 9/10: loss 0.0077
+2026-11-22 23:37:28,854 INFO DAS v2 k=16 ld epoch 10/10: loss 0.0091
+2026-11-22 23:38:07,247 INFO DAS: training das16v2_kl_s1 (k=16, 10 epochs, lr 0.01, seed 1) for people_cities L12 on 300 train pairs
+2026-11-22 23:40:55,429 INFO DAS v2 k=16 kl epoch 1/10: loss 0.8241
+2026-11-22 23:41:49,149 INFO DAS v2 k=16 kl epoch 2/10: loss 0.3331
+2026-11-22 23:42:42,799 INFO DAS v2 k=16 kl epoch 3/10: loss 0.2930
+2026-11-22 23:43:36,443 INFO DAS v2 k=16 kl epoch 4/10: loss 0.4595
+2026-11-22 23:44:30,143 INFO DAS v2 k=16 kl epoch 5/10: loss 0.1588
+2026-11-22 23:45:23,878 INFO DAS v2 k=16 kl epoch 6/10: loss 0.0838
+2026-11-22 23:46:17,531 INFO DAS v2 k=16 kl epoch 7/10: loss 0.0634
+2026-11-22 23:47:11,207 INFO DAS v2 k=16 kl epoch 8/10: loss 0.0507
+2026-11-22 23:48:04,864 INFO DAS v2 k=16 kl epoch 9/10: loss 0.0393
+2026-11-22 23:48:58,535 INFO DAS v2 k=16 kl epoch 10/10: loss 0.0445
+2026-11-22 23:55:28,333 INFO people_cities_L12_16k_l082__fit-pc_en__eval-pc_en unit 3/35 (8 conditions, 114.8s)
+2026-11-22 23:57:26,507 INFO people_cities_L12_16k_l082__fit-pc_en__eval-pc_en unit 6/35 (8 conditions, 118.1s)
+
+=== attempt 1 2026-11-23 02:51:49 slots=['2']: /home2/raveeshvyas1410/prism-run/.venv-harness/bin/python -m harness.run --config configs/pilot/P0.yaml --profile server --stage 3 --worker P0_s3-2
+Loading weights:   0%|          | 0/288 [00:00<?, ?it/s]Loading weights:   0%|          | 1/288 [00:00<02:35,  1.85it/s]Loading weights:  97%|█████████▋| 278/288 [00:00<00:00, 561.51it/s]Loading weights: 100%|██████████| 288/288 [00:00<00:00, 437.21it/s]
+2026-11-23 02:52:07,114 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-23 02:52:07,390 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-23 02:52:07,628 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-23 02:52:08,982 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-23 02:54:23,225 INFO people_cities_L12_16k_l082__fit-pc_en__eval-pc_en unit 10/35 (8 conditions, 114.8s)
+2026-11-23 02:56:21,270 INFO people_cities_L12_16k_l082__fit-pc_en__eval-pc_en unit 14/35 (8 conditions, 117.9s)
+2026-11-23 02:58:19,835 INFO people_cities_L12_16k_l082__fit-pc_en__eval-pc_en unit 18/35 (8 conditions, 118.5s)
+2026-11-23 03:00:18,487 INFO people_cities_L12_16k_l082__fit-pc_en__eval-pc_en unit 22/35 (8 conditions, 118.5s)
+2026-11-23 03:02:26,915 INFO people_cities_L12_16k_l082__fit-pc_en__eval-pc_en unit 26/35 (8 conditions, 118.1s)
+2026-11-23 03:04:35,844 INFO people_cities_L12_16k_l082__fit-pc_en__eval-pc_en unit 30/35 (8 conditions, 118.0s)
+2026-11-23 03:06:44,646 INFO people_cities_L12_16k_l082__fit-pc_en__eval-pc_en unit 34/35 (8 conditions, 117.9s)
+2026-11-23 03:06:44,767 INFO P0 -> /home2/raveeshvyas1410/prism-run/runs/P0/c35acd1113a3 (worker_done)
+Loaded pretrained model gemma-2-2b into HookedTransformer
+
+=== attempt 1 2026-11-23 11:48:05 slots=['2']: /home2/raveeshvyas1410/prism-run/.venv-harness/bin/python -m harness.run --config configs/pilot/P0.yaml --profile server --stage 3 --worker P0_s3-2
+2026-11-23 11:48:10,322 ERROR run failed
+Traceback (most recent call last):
+  File "/home2/raveeshvyas1410/prism-run/harness/run.py", line 1022, in main
+    {"1": R.run_stage1, "2": R.run_stage2, "3": R.run_stage3}[s]()
+  File "/home2/raveeshvyas1410/prism-run/harness/run.py", line 757, in run_stage3
+    cl, fl = self.flags(cell.task)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/raveeshvyas1410/prism-run/harness/run.py", line 432, in flags
+    cl = S.load_clean(ent, len(rows))
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/raveeshvyas1410/prism-run/harness/model/stages.py", line 133, in load_clean
+    entry.require_complete()
+  File "/home2/raveeshvyas1410/prism-run/harness/cache.py", line 128, in require_complete
+    raise FileNotFoundError(f"cache {self.kind}/{self.key} is missing or incomplete ({self.dir})")
+FileNotFoundError: cache clean_out/cd2eef7c615217f3e7d8 is missing or incomplete (/ssd_scratch/raveeshvyas1410/prism/cache/clean_out/cd2eef7c615217f3e7d8)
+2026-11-23 11:48:10,425 INFO P0 -> /home2/raveeshvyas1410/prism-run/runs/P0/4f79bee96a4c (failed)
+
+=== attempt 2 2026-11-23 11:48:11 slots=['2']: /home2/raveeshvyas1410/prism-run/.venv-harness/bin/python -m harness.run --config configs/pilot/P0.yaml --profile server --stage 3 --worker P0_s3-2
+2026-11-23 11:48:16,707 ERROR run failed
+Traceback (most recent call last):
+  File "/home2/raveeshvyas1410/prism-run/harness/run.py", line 1022, in main
+    {"1": R.run_stage1, "2": R.run_stage2, "3": R.run_stage3}[s]()
+  File "/home2/raveeshvyas1410/prism-run/harness/run.py", line 757, in run_stage3
+    cl, fl = self.flags(cell.task)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/raveeshvyas1410/prism-run/harness/run.py", line 432, in flags
+    cl = S.load_clean(ent, len(rows))
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/raveeshvyas1410/prism-run/harness/model/stages.py", line 133, in load_clean
+    entry.require_complete()
+  File "/home2/raveeshvyas1410/prism-run/harness/cache.py", line 128, in require_complete
+    raise FileNotFoundError(f"cache {self.kind}/{self.key} is missing or incomplete ({self.dir})")
+FileNotFoundError: cache clean_out/cd2eef7c615217f3e7d8 is missing or incomplete (/ssd_scratch/raveeshvyas1410/prism/cache/clean_out/cd2eef7c615217f3e7d8)
+2026-11-23 11:48:16,830 INFO P0 -> /home2/raveeshvyas1410/prism-run/runs/P0/4f79bee96a4c (failed)

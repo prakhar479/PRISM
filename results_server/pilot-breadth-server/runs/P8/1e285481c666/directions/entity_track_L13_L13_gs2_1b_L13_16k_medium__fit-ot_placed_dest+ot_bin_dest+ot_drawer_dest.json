@@ -1,0 +1,112 @@
+{
+ "das4v2_kl": {
+  "estimator": "das4v2_kl",
+  "fit_digest": "03d3eed1dbc87cd8",
+  "n_fit_rows": 300,
+  "evr": null,
+  "meta": {
+   "k": 4,
+   "version": 2,
+   "objective": "kl",
+   "epochs": 10,
+   "lr": 0.01,
+   "seed": 0,
+   "init_seed": 332113129,
+   "holdout": 0.2,
+   "step_tokens": 1024,
+   "n_train": 300,
+   "n_fit": 240,
+   "n_val": 60,
+   "losses": [
+    1.5251225395749013,
+    1.2415087221811214,
+    1.241759479790926,
+    1.306402301353713,
+    1.2766276439651847,
+    1.3021936068932216,
+    1.2881984726215403,
+    1.1939807360991836,
+    1.2839784347762664,
+    1.2531362647811572
+   ],
+   "loss_first_epoch": 1.5251225395749013,
+   "loss_last_epoch": 1.2531362647811572,
+   "fit": {
+    "n": 240,
+    "iia": 0.175,
+    "nldr_mean": 0.28624902446162964,
+    "nldr_median": 0.23332147304750045,
+    "share_above_full": 0.0,
+    "full_iia": 1.0
+   },
+   "val": {
+    "n": 60,
+    "iia": 0.13333333333333333,
+    "nldr_mean": 0.21617781400031913,
+    "nldr_median": 0.18561584840654607,
+    "share_above_full": 0.0,
+    "full_iia": 0.9833333333333333
+   },
+   "train_interchange_acc": 0.175,
+   "val_interchange_acc": 0.13333333333333333
+  }
+ },
+ "das8v2_kl": {
+  "estimator": "das8v2_kl",
+  "fit_digest": "03d3eed1dbc87cd8",
+  "n_fit_rows": 300,
+  "evr": null,
+  "meta": {
+   "k": 8,
+   "version": 2,
+   "objective": "kl",
+   "epochs": 10,
+   "lr": 0.01,
+   "seed": 0,
+   "init_seed": 332113129,
+   "holdout": 0.2,
+   "step_tokens": 1024,
+   "n_train": 300,
+   "n_fit": 240,
+   "n_val": 60,
+   "losses": [
+    1.081820263961951,
+    0.7187819275849809,
+    0.618250050706168,
+    0.667930383918186,
+    0.5867436112836003,
+    0.5604883844653765,
+    0.4869848248315975,
+    0.42522615933946023,
+    0.46856059349762896,
+    0.34420642990929384
+   ],
+   "loss_first_epoch": 1.081820263961951,
+   "loss_last_epoch": 0.34420642990929384,
+   "fit": {
+    "n": 240,
+    "iia": 0.48333333333333334,
+    "nldr_mean": 0.6020520363692365,
+    "nldr_median": 0.6684397163120568,
+    "share_above_full": 0.016666666666666666,
+    "full_iia": 1.0
+   },
+   "val": {
+    "n": 60,
+    "iia": 0.38333333333333336,
+    "nldr_mean": 0.59148179213334,
+    "nldr_median": 0.6491228070175439,
+    "share_above_full": 0.03333333333333333,
+    "full_iia": 0.9833333333333333
+   },
+   "train_interchange_acc": 0.48333333333333334,
+   "val_interchange_acc": 0.38333333333333336
+  }
+ },
+ "_cosines": {},
+ "_fitset": {
+  "digest": "03d3eed1dbc87cd8",
+  "n_pairs": 300,
+  "filter": "f_pilot"
+ }
+}

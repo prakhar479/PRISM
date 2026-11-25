@@ -1,0 +1,23 @@
+2026-11-23 05:02:37,756 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-23 05:02:38,009 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-23 05:02:38,258 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-23 05:02:39,754 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-23 05:13:27,092 INFO entity_track_L8_16k_l071__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 2/23 (8 conditions, 626.7s)
+2026-11-23 05:23:58,786 INFO entity_track_L8_16k_l071__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 6/23 (8 conditions, 631.5s)
+2026-11-23 05:34:30,543 INFO entity_track_L8_16k_l071__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 10/23 (8 conditions, 631.6s)
+2026-11-23 05:45:02,398 INFO entity_track_L8_16k_l071__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 14/23 (8 conditions, 631.6s)
+2026-11-23 05:55:34,507 INFO entity_track_L8_16k_l071__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 18/23 (8 conditions, 631.9s)
+2026-11-23 06:06:06,504 INFO entity_track_L8_16k_l071__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 22/23 (8 conditions, 631.8s)
+2026-11-23 06:27:53,577 INFO entity_track_L12_16k_l082__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 3/23 (8 conditions, 504.7s)
+2026-11-23 06:36:24,542 INFO entity_track_L12_16k_l082__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 6/23 (8 conditions, 510.7s)
+2026-11-23 06:44:55,657 INFO entity_track_L12_16k_l082__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 10/23 (8 conditions, 510.9s)
+2026-11-23 06:53:26,084 INFO entity_track_L12_16k_l082__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 14/23 (8 conditions, 510.2s)
+2026-11-23 07:01:56,471 INFO entity_track_L12_16k_l082__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 18/23 (8 conditions, 510.1s)
+2026-11-23 07:10:26,630 INFO entity_track_L12_16k_l082__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 22/23 (8 conditions, 509.8s)
+2026-11-23 07:25:45,421 INFO entity_track_L16_16k_l078__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 1/23 (8 conditions, 383.3s)
+2026-11-23 07:32:14,652 INFO entity_track_L16_16k_l078__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 6/23 (8 conditions, 389.0s)
+2026-11-23 07:38:44,054 INFO entity_track_L16_16k_l078__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 10/23 (8 conditions, 389.2s)
+2026-11-23 07:45:13,296 INFO entity_track_L16_16k_l078__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 14/23 (8 conditions, 389.0s)
+2026-11-23 07:51:42,349 INFO entity_track_L16_16k_l078__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 18/23 (8 conditions, 388.8s)
+2026-11-23 07:58:11,669 INFO entity_track_L16_16k_l078__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 22/23 (8 conditions, 389.0s)
+2026-11-23 07:58:11,786 INFO P11 -> /home2/raveeshvyas1410/prism-run/runs/P11/5d1b285d70e1 (worker_done)

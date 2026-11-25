@@ -1,0 +1,1004 @@
+{
+ "queue": "queue/pilot-breadth-server.yaml",
+ "tag": "pilot-breadth-server",
+ "files": [
+  {
+   "repo": "google/gemma-2-2b",
+   "file": "config.json",
+   "revision": "c5ebcd40d208330abc697524c919956e692655cf",
+   "bytes": 818,
+   "seconds": 0.3
+  },
+  {
+   "repo": "google/gemma-2-2b",
+   "file": "generation_config.json",
+   "revision": "c5ebcd40d208330abc697524c919956e692655cf",
+   "bytes": 168,
+   "seconds": 0.2
+  },
+  {
+   "repo": "google/gemma-2-2b",
+   "file": "model-00001-of-00003.safetensors",
+   "revision": "c5ebcd40d208330abc697524c919956e692655cf",
+   "bytes": 4992576136,
+   "sha256": "1425aa066ec77e3eb79aac14a5bdea3ebcec46aa5c96cd40608c5c1fd70d193d",
+   "sha256_ok": true,
+   "seconds": 38.6
+  },
+  {
+   "repo": "google/gemma-2-2b",
+   "file": "model-00002-of-00003.safetensors",
+   "revision": "c5ebcd40d208330abc697524c919956e692655cf",
+   "bytes": 4983443424,
+   "sha256": "96c111d3dcdbde9271595e463b5d9f7fc4810ad8b79e736309c0a1833e6c0d35",
+   "sha256_ok": true,
+   "seconds": 24.4
+  },
+  {
+   "repo": "google/gemma-2-2b",
+   "file": "model-00003-of-00003.safetensors",
+   "revision": "c5ebcd40d208330abc697524c919956e692655cf",
+   "bytes": 481381384,
+   "sha256": "4e08abc64d1767fdacd2c94da7f2ec4b8c65b25b19a53e87d19dc432901b5f02",
+   "sha256_ok": true,
+   "seconds": 1.5
+  },
+  {
+   "repo": "google/gemma-2-2b",
+   "file": "model.safetensors.index.json",
+   "revision": "c5ebcd40d208330abc697524c919956e692655cf",
+   "bytes": 24224,
+   "seconds": 0.3
+  },
+  {
+   "repo": "google/gemma-2-2b",
+   "file": "special_tokens_map.json",
+   "revision": "c5ebcd40d208330abc697524c919956e692655cf",
+   "bytes": 636,
+   "seconds": 0.2
+  },
+  {
+   "repo": "google/gemma-2-2b",
+   "file": "tokenizer.json",
+   "revision": "c5ebcd40d208330abc697524c919956e692655cf",
+   "bytes": 17525357,
+   "sha256": "3f289bc05132635a8bc7aca7aa21255efd5e18f3710f43e3cdb96bcd41be4922",
+   "sha256_ok": true,
+   "seconds": 0.5
+  },
+  {
+   "repo": "google/gemma-2-2b",
+   "file": "tokenizer.model",
+   "revision": "c5ebcd40d208330abc697524c919956e692655cf",
+   "bytes": 4241003,
+   "sha256": "61a7b147390c64585d6c3543dd6fc636906c9af3865a5548f27f31aee1d4c8e2",
+   "sha256_ok": true,
+   "seconds": 0.3
+  },
+  {
+   "repo": "google/gemma-2-2b",
+   "file": "tokenizer_config.json",
+   "revision": "c5ebcd40d208330abc697524c919956e692655cf",
+   "bytes": 46379,
+   "seconds": 0.3
+  },
+  {
+   "repo": "google/gemma-3-1b-pt",
+   "file": "config.json",
+   "revision": "fcf18a2a879aab110ca39f8bffbccd5d49d8eb29",
+   "bytes": 880,
+   "seconds": 0.8
+  },
+  {
+   "repo": "google/gemma-3-1b-pt",
+   "file": "generation_config.json",
+   "revision": "fcf18a2a879aab110ca39f8bffbccd5d49d8eb29",
+   "bytes": 215,
+   "seconds": 0.8
+  },
+  {
+   "repo": "google/gemma-3-1b-pt",
+   "file": "model.safetensors",
+   "revision": "fcf18a2a879aab110ca39f8bffbccd5d49d8eb29",
+   "bytes": 1999811208,
+   "sha256": "ee5250f6eb1aa7cfb729dfd4dc8d9964fd772324776c6d00bf2bc674c069cb27",
+   "sha256_ok": true,
+   "seconds": 78.4
+  },
+  {
+   "repo": "google/gemma-3-1b-pt",
+   "file": "special_tokens_map.json",
+   "revision": "fcf18a2a879aab110ca39f8bffbccd5d49d8eb29",
+   "bytes": 662,
+   "seconds": 0.8
+  },
+  {
+   "repo": "google/gemma-3-1b-pt",
+   "file": "tokenizer.json",
+   "revision": "fcf18a2a879aab110ca39f8bffbccd5d49d8eb29",
+   "bytes": 33384570,
+   "sha256": "7d4046bf0505a327dd5a0abbb427ecd4fc82f99c2ceaa170bc61ecde12809b0c",
+   "sha256_ok": true,
+   "seconds": 3.3
+  },
+  {
+   "repo": "google/gemma-3-1b-pt",
+   "file": "tokenizer.model",
+   "revision": "fcf18a2a879aab110ca39f8bffbccd5d49d8eb29",
+   "bytes": 4689074,
+   "sha256": "1299c11d7cf632ef3b4e11937501358ada021bbdf7c47638d13c0ee982f2e79c",
+   "sha256_ok": true,
+   "seconds": 2.6
+  },
+  {
+   "repo": "google/gemma-3-1b-pt",
+   "file": "tokenizer_config.json",
+   "revision": "fcf18a2a879aab110ca39f8bffbccd5d49d8eb29",
+   "bytes": 1155349,
+   "seconds": 0.8
+  },
+  {
+   "repo": "google/gemma-scope-2b-pt-res",
+   "file": "layer_18/width_16k/average_l0_74/params.npz",
+   "revision": "fd571b47c1c64851e9b1989792367b9babb4af63",
+   "bytes": 302131416,
+   "sha256": "6779e94af81ea79f631c2a0c27cb0e78c08bfdda5037ea3381112e9d714991d6",
+   "sha256_ok": true,
+   "seconds": 3.5
+  },
+  {
+   "repo": "google/gemma-scope-2b-pt-res",
+   "file": "layer_12/width_16k/average_l0_82/params.npz",
+   "revision": "fd571b47c1c64851e9b1989792367b9babb4af63",
+   "bytes": 302131416,
+   "sha256": "afae57c7fdfe6faace4b97d9fe9a184deb08bda8852a4c40b308cf6c72ed8384",
+   "sha256_ok": true,
+   "seconds": 3.1
+  },
+  {
+   "repo": "google/gemma-scope-2b-pt-res",
+   "file": "layer_8/width_16k/average_l0_71/params.npz",
+   "revision": "fd571b47c1c64851e9b1989792367b9babb4af63",
+   "bytes": 302131416,
+   "sha256": "43a3c3ad66d97890a1965780ea4d73f844b8b7ac9ea4562a0f5bc98c4a06c264",
+   "sha256_ok": true,
+   "seconds": 3.8
+  },
+  {
+   "repo": "google/gemma-scope-2b-pt-res",
+   "file": "layer_16/width_16k/average_l0_78/params.npz",
+   "revision": "fd571b47c1c64851e9b1989792367b9babb4af63",
+   "bytes": 302131416,
+   "sha256": "3e1558c7f0ecb6f954f63c287bb342cca38961a8fa249d5a3d60dcd5bcb54865",
+   "sha256_ok": true,
+   "seconds": 3.7
+  },
+  {
+   "repo": "google/gemma-scope-2b-pt-res",
+   "file": "layer_8/width_65k/average_l0_59/params.npz",
+   "revision": "fd571b47c1c64851e9b1989792367b9babb4af63",
+   "bytes": 1208494296,
+   "sha256": "4b814410aed6ea767943246ed2ca3afff9ba43f9dddb64469e4ed7e6c755954c",
+   "sha256_ok": true,
+   "seconds": 47.9
+  },
+  {
+   "repo": "google/gemma-scope-2b-pt-res",
+   "file": "layer_12/width_65k/average_l0_72/params.npz",
+   "revision": "fd571b47c1c64851e9b1989792367b9babb4af63",
+   "bytes": 1208494296,
+   "sha256": "aca961dd911a607911829f5b7342decd739b5daee61635693f28e08dac7db12c",
+   "sha256_ok": true,
+   "seconds": 49.4
+  },
+  {
+   "repo": "google/gemma-scope-2b-pt-res",
+   "file": "layer_16/width_65k/average_l0_69/params.npz",
+   "revision": "fd571b47c1c64851e9b1989792367b9babb4af63",
+   "bytes": 1208494296,
+   "sha256": "3a9dd0b654ddafd3d18909aa47476fc99eb8706e661b2fb0dc5093a912e30d07",
+   "sha256_ok": true,
+   "seconds": 45.3
+  },
+  {
+   "repo": "google/gemma-scope-2b-pt-res",
+   "file": "layer_18/width_65k/average_l0_64/params.npz",
+   "revision": "fd571b47c1c64851e9b1989792367b9babb4af63",
+   "bytes": 1208494296,
+   "sha256": "8d5abeb2a0ff2fbc2c2854f2898e88bc2995de911a79623d5f26783221c67a30",
+   "sha256_ok": true,
+   "seconds": 43.7
+  },
+  {
+   "repo": "google/gemma-scope-2b-pt-res",
+   "file": "layer_19/width_16k/average_l0_73/params.npz",
+   "revision": "fd571b47c1c64851e9b1989792367b9babb4af63",
+   "bytes": 302131416,
+   "sha256": "7a9fe27c2d8c1e570c926f2ef7ba3aad46ba836e50c1965333890d7e0be45978",
+   "sha256_ok": true,
+   "seconds": 17.5
+  },
+  {
+   "repo": "google/gemma-scope-2b-pt-res",
+   "file": "layer_19/width_65k/average_l0_63/params.npz",
+   "revision": "fd571b47c1c64851e9b1989792367b9babb4af63",
+   "bytes": 1208494296,
+   "sha256": "b26fa220cedb813353e796f85ae4c63229f1b03f87ff9210aeb91924a73f1d06",
+   "sha256_ok": true,
+   "seconds": 47.3
+  },
+  {
+   "repo": "google/gemma-scope-2b-pt-res",
+   "file": "layer_19/width_1m/average_l0_88/params.npz",
+   "revision": "fd571b47c1c64851e9b1989792367b9babb4af63",
+   "bytes": 19335752056,
+   "sha256": "10b3a79cb6a9bfd960eac40d2cdbcd7191e02fb54729d76e3bfb9c9b66a9ed06",
+   "sha256_ok": true,
+   "seconds": 640.0
+  },
+  {
+   "repo": "google/gemma-scope-2b-pt-res",
+   "file": "layer_12/width_262k/average_l0_67/params.npz",
+   "revision": "fd571b47c1c64851e9b1989792367b9babb4af63",
+   "bytes": 4833945976,
+   "sha256": "e1fd607fdcc4bbf80022ed70d84af057f21ba6b1268e656033c8bc1c197b1c34",
+   "sha256_ok": true,
+   "seconds": 190.0
+  },
+  {
+   "repo": "canrager/saebench_gemma-2-2b_width-2pow14_date-0107",
+   "file": "gemma-2-2b_batch_top_k_width-2pow14_date-0107/resid_post_layer_12/trainer_7/ae.pt",
+   "revision": "21f96e4b95d345d97f9d0c7d014ac685034edff1",
+   "bytes": 302066710,
+   "sha256": "5477b613d15f981e2767354521bafe5cbc85e33189b6064b0a327d0ff40f04bd",
+   "sha256_ok": true,
+   "seconds": 28.0
+  },
+  {
+   "repo": "canrager/saebench_gemma-2-2b_width-2pow14_date-0107",
+   "file": "gemma-2-2b_batch_top_k_width-2pow14_date-0107/resid_post_layer_12/trainer_7/config.json",
+   "revision": "21f96e4b95d345d97f9d0c7d014ac685034edff1",
+   "bytes": 882,
+   "seconds": 1.0
+  },
+  {
+   "repo": "canrager/saebench_gemma-2-2b_width-2pow14_date-0107",
+   "file": "gemma-2-2b_batch_top_k_width-2pow14_date-0107/resid_post_layer_12/trainer_8/ae.pt",
+   "revision": "21f96e4b95d345d97f9d0c7d014ac685034edff1",
+   "bytes": 302066710,
+   "sha256": "7dab4effd204e72a9f6df3c3ba4ae455f86864b10c10541f26f83cb8ed961a49",
+   "sha256_ok": true,
+   "seconds": 20.4
+  },
+  {
+   "repo": "canrager/saebench_gemma-2-2b_width-2pow14_date-0107",
+   "file": "gemma-2-2b_batch_top_k_width-2pow14_date-0107/resid_post_layer_12/trainer_8/config.json",
+   "revision": "21f96e4b95d345d97f9d0c7d014ac685034edff1",
+   "bytes": 882,
+   "seconds": 1.0
+  },
+  {
+   "repo": "adamkarvonen/saebench_gemma-2-2b_width-2pow12_date-0108",
+   "file": "BatchTopK_gemma-2-2b__0108/resid_post_layer_12/trainer_1/ae.pt",
+   "revision": "b002828539c1b99e3f43f8307fc145a6aa9d393f",
+   "bytes": 75525142,
+   "sha256": "4040775dd6a9059c152c05d266fe006157b31297152227a072b4d51408c53809",
+   "sha256_ok": true,
+   "seconds": 8.3
+  },
+  {
+   "repo": "adamkarvonen/saebench_gemma-2-2b_width-2pow12_date-0108",
+   "file": "BatchTopK_gemma-2-2b__0108/resid_post_layer_12/trainer_1/config.json",
+   "revision": "b002828539c1b99e3f43f8307fc145a6aa9d393f",
+   "bytes": 881,
+   "seconds": 1.0
+  },
+  {
+   "repo": "adamkarvonen/saebench_gemma-2-2b_width-2pow12_date-0108",
+   "file": "BatchTopK_gemma-2-2b__0108/resid_post_layer_12/trainer_2/ae.pt",
+   "revision": "b002828539c1b99e3f43f8307fc145a6aa9d393f",
+   "bytes": 75525142,
+   "sha256": "5e609d9ad8b04890412881b51171fd7f30e6f7aeb781bf68d1037ace553e8ff3",
+   "sha256_ok": true,
+   "seconds": 8.1
+  },
+  {
+   "repo": "adamkarvonen/saebench_gemma-2-2b_width-2pow12_date-0108",
+   "file": "BatchTopK_gemma-2-2b__0108/resid_post_layer_12/trainer_2/config.json",
+   "revision": "b002828539c1b99e3f43f8307fc145a6aa9d393f",
+   "bytes": 881,
+   "seconds": 1.0
+  },
+  {
+   "repo": "canrager/saebench_gemma-2-2b_width-2pow16_date-0107",
+   "file": "gemma-2-2b_batch_top_k_width-2pow16_date-0107/resid_post_layer_12/trainer_1/ae.pt",
+   "revision": "3acb8a99076cfce446d0f74d89c635fab779deb8",
+   "bytes": 1208232982,
+   "sha256": "f45e986147e03f388b0d3717c828ad9b27d84d01124c2b08c7a626ab2cc198da",
+   "sha256_ok": true,
+   "seconds": 55.5
+  },
+  {
+   "repo": "canrager/saebench_gemma-2-2b_width-2pow16_date-0107",
+   "file": "gemma-2-2b_batch_top_k_width-2pow16_date-0107/resid_post_layer_12/trainer_1/config.json",
+   "revision": "3acb8a99076cfce446d0f74d89c635fab779deb8",
+   "bytes": 883,
+   "seconds": 1.0
+  },
+  {
+   "repo": "canrager/saebench_gemma-2-2b_width-2pow16_date-0107",
+   "file": "gemma-2-2b_batch_top_k_width-2pow16_date-0107/resid_post_layer_12/trainer_2/ae.pt",
+   "revision": "3acb8a99076cfce446d0f74d89c635fab779deb8",
+   "bytes": 1208232982,
+   "sha256": "46e207243cf01ffd8187d9a3867ee2475a8004d09dc55f51ea65b3f6546fa0c5",
+   "sha256_ok": true,
+   "seconds": 62.3
+  },
+  {
+   "repo": "canrager/saebench_gemma-2-2b_width-2pow16_date-0107",
+   "file": "gemma-2-2b_batch_top_k_width-2pow16_date-0107/resid_post_layer_12/trainer_2/config.json",
+   "revision": "3acb8a99076cfce446d0f74d89c635fab779deb8",
+   "bytes": 883,
+   "seconds": 1.0
+  },
+  {
+   "repo": "canrager/saebench_gemma-2-2b_width-2pow14_date-0107",
+   "file": "gemma-2-2b_gated_width-2pow14_date-0107/resid_post_layer_12/trainer_5/ae.pt",
+   "revision": "21f96e4b95d345d97f9d0c7d014ac685034edff1",
+   "bytes": 302197782,
+   "sha256": "3011a95ed3e3364e73dfbbb3181516f548b0147029c93c0824f742ddb86f27e1",
+   "sha256_ok": true,
+   "seconds": 22.6
+  },
+  {
+   "repo": "canrager/saebench_gemma-2-2b_width-2pow14_date-0107",
+   "file": "gemma-2-2b_gated_width-2pow14_date-0107/resid_post_layer_12/trainer_5/config.json",
+   "revision": "21f96e4b95d345d97f9d0c7d014ac685034edff1",
+   "bytes": 779,
+   "seconds": 1.0
+  },
+  {
+   "repo": "canrager/saebench_gemma-2-2b_width-2pow14_date-0107",
+   "file": "gemma-2-2b_gated_width-2pow14_date-0107/resid_post_layer_12/trainer_4/ae.pt",
+   "revision": "21f96e4b95d345d97f9d0c7d014ac685034edff1",
+   "bytes": 302197782,
+   "sha256": "4b58965d0f7561e87d32762cd99b8b8f70b57f14c3299b3b347aa8ba3ebf1a9f",
+   "sha256_ok": true,
+   "seconds": 24.4
+  },
+  {
+   "repo": "canrager/saebench_gemma-2-2b_width-2pow14_date-0107",
+   "file": "gemma-2-2b_gated_width-2pow14_date-0107/resid_post_layer_12/trainer_4/config.json",
+   "revision": "21f96e4b95d345d97f9d0c7d014ac685034edff1",
+   "bytes": 779,
+   "seconds": 1.0
+  },
+  {
+   "repo": "adamkarvonen/saebench_gemma-2-2b_width-2pow12_date-0108",
+   "file": "GatedSAE_gemma-2-2b__0108/resid_post_layer_12/trainer_2/ae.pt",
+   "revision": "b002828539c1b99e3f43f8307fc145a6aa9d393f",
+   "bytes": 75557910,
+   "sha256": "d3a1ccf2baa4e2b0beb1067dac78261662b1cae85c812b93e6ca52609a3f8c46",
+   "sha256_ok": true,
+   "seconds": 9.3
+  },
+  {
+   "repo": "adamkarvonen/saebench_gemma-2-2b_width-2pow12_date-0108",
+   "file": "GatedSAE_gemma-2-2b__0108/resid_post_layer_12/trainer_2/config.json",
+   "revision": "b002828539c1b99e3f43f8307fc145a6aa9d393f",
+   "bytes": 778,
+   "seconds": 1.0
+  },
+  {
+   "repo": "adamkarvonen/saebench_gemma-2-2b_width-2pow12_date-0108",
+   "file": "GatedSAE_gemma-2-2b__0108/resid_post_layer_12/trainer_3/ae.pt",
+   "revision": "b002828539c1b99e3f43f8307fc145a6aa9d393f",
+   "bytes": 75557910,
+   "sha256": "bf6049a877d63d090059682d7f31d4f9abeb567e8363adb2c8f1c0947b0fcdc4",
+   "sha256_ok": true,
+   "seconds": 8.8
+  },
+  {
+   "repo": "adamkarvonen/saebench_gemma-2-2b_width-2pow12_date-0108",
+   "file": "GatedSAE_gemma-2-2b__0108/resid_post_layer_12/trainer_3/config.json",
+   "revision": "b002828539c1b99e3f43f8307fc145a6aa9d393f",
+   "bytes": 777,
+   "seconds": 1.0
+  },
+  {
+   "repo": "canrager/saebench_gemma-2-2b_width-2pow16_date-0107",
+   "file": "gemma-2-2b_gated_width-2pow16_date-0107/resid_post_layer_12/trainer_2/ae.pt",
+   "revision": "3acb8a99076cfce446d0f74d89c635fab779deb8",
+   "bytes": 1208757270,
+   "sha256": "15f684a0e05e33edd1f8335bafc7b078637f8ea3a4496f766c66ecaf3e35f1dd",
+   "sha256_ok": true,
+   "seconds": 58.2
+  },
+  {
+   "repo": "canrager/saebench_gemma-2-2b_width-2pow16_date-0107",
+   "file": "gemma-2-2b_gated_width-2pow16_date-0107/resid_post_layer_12/trainer_2/config.json",
+   "revision": "3acb8a99076cfce446d0f74d89c635fab779deb8",
+   "bytes": 779,
+   "seconds": 1.0
+  },
+  {
+   "repo": "canrager/saebench_gemma-2-2b_width-2pow16_date-0107",
+   "file": "gemma-2-2b_gated_width-2pow16_date-0107/resid_post_layer_12/trainer_3/ae.pt",
+   "revision": "3acb8a99076cfce446d0f74d89c635fab779deb8",
+   "bytes": 1208757270,
+   "sha256": "314c78abe9db9d8e5fed0fd008787408ba2c7181901e4e9172a98f654dc9e677",
+   "sha256_ok": true,
+   "seconds": 71.3
+  },
+  {
+   "repo": "canrager/saebench_gemma-2-2b_width-2pow16_date-0107",
+   "file": "gemma-2-2b_gated_width-2pow16_date-0107/resid_post_layer_12/trainer_3/config.json",
+   "revision": "3acb8a99076cfce446d0f74d89c635fab779deb8",
+   "bytes": 778,
+   "seconds": 1.0
+  },
+  {
+   "repo": "canrager/saebench_gemma-2-2b_width-2pow14_date-0107",
+   "file": "gemma-2-2b_jump_relu_width-2pow14_date-0107/resid_post_layer_12/trainer_1/ae.pt",
+   "revision": "21f96e4b95d345d97f9d0c7d014ac685034edff1",
+   "bytes": 302131999,
+   "sha256": "0f15befe7b10ab0a0fa4d5e58a678357a580fb35544e0bea5f2d6ec5cee68ac4",
+   "sha256_ok": true,
+   "seconds": 17.7
+  },
+  {
+   "repo": "canrager/saebench_gemma-2-2b_width-2pow14_date-0107",
+   "file": "gemma-2-2b_jump_relu_width-2pow14_date-0107/resid_post_layer_12/trainer_1/config.json",
+   "revision": "21f96e4b95d345d97f9d0c7d014ac685034edff1",
+   "bytes": 807,
+   "seconds": 1.0
+  },
+  {
+   "repo": "canrager/saebench_gemma-2-2b_width-2pow14_date-0107",
+   "file": "gemma-2-2b_jump_relu_width-2pow14_date-0107/resid_post_layer_12/trainer_2/ae.pt",
+   "revision": "21f96e4b95d345d97f9d0c7d014ac685034edff1",
+   "bytes": 302131999,
+   "sha256": "9d485ccd0f8e03ea8d05b5aeebe1f3ba06b1d3c11a4f0a479319718d073dd2e1",
+   "sha256_ok": true,
+   "seconds": 27.5
+  },
+  {
+   "repo": "canrager/saebench_gemma-2-2b_width-2pow14_date-0107",
+   "file": "gemma-2-2b_jump_relu_width-2pow14_date-0107/resid_post_layer_12/trainer_2/config.json",
+   "revision": "21f96e4b95d345d97f9d0c7d014ac685034edff1",
+   "bytes": 807,
+   "seconds": 1.0
+  },
+  {
+   "repo": "adamkarvonen/saebench_gemma-2-2b_width-2pow12_date-0108",
+   "file": "JumpRelu_gemma-2-2b__0108/resid_post_layer_12/trainer_1/ae.pt",
+   "revision": "b002828539c1b99e3f43f8307fc145a6aa9d393f",
+   "bytes": 75541279,
+   "sha256": "7bda0e5d0830cd179667d094b99d53dd44c49830f942806414a37426f0df7622",
+   "sha256_ok": true,
+   "seconds": 9.7
+  },
+  {
+   "repo": "adamkarvonen/saebench_gemma-2-2b_width-2pow12_date-0108",
+   "file": "JumpRelu_gemma-2-2b__0108/resid_post_layer_12/trainer_1/config.json",
+   "revision": "b002828539c1b99e3f43f8307fc145a6aa9d393f",
+   "bytes": 805,
+   "seconds": 1.0
+  },
+  {
+   "repo": "adamkarvonen/saebench_gemma-2-2b_width-2pow12_date-0108",
+   "file": "JumpRelu_gemma-2-2b__0108/resid_post_layer_12/trainer_2/ae.pt",
+   "revision": "b002828539c1b99e3f43f8307fc145a6aa9d393f",
+   "bytes": 75541279,
+   "sha256": "e79b0318df990fbc84587edd10612be6b8cbb84638e3bc4cb5780c31833ea8ea",
+   "sha256_ok": true,
+   "seconds": 9.8
+  },
+  {
+   "repo": "adamkarvonen/saebench_gemma-2-2b_width-2pow12_date-0108",
+   "file": "JumpRelu_gemma-2-2b__0108/resid_post_layer_12/trainer_2/config.json",
+   "revision": "b002828539c1b99e3f43f8307fc145a6aa9d393f",
+   "bytes": 805,
+   "seconds": 1.0
+  },
+  {
+   "repo": "canrager/saebench_gemma-2-2b_width-2pow16_date-0107",
+   "file": "gemma-2-2b_jump_relu_width-2pow16_date-0107/resid_post_layer_12/trainer_1/ae.pt",
+   "revision": "3acb8a99076cfce446d0f74d89c635fab779deb8",
+   "bytes": 1208494943,
+   "sha256": "df2340a3ef70e6c0648f722b163e36dd9a84e143a46325c86c60084ed5003d4c",
+   "sha256_ok": true,
+   "seconds": 69.1
+  },
+  {
+   "repo": "canrager/saebench_gemma-2-2b_width-2pow16_date-0107",
+   "file": "gemma-2-2b_jump_relu_width-2pow16_date-0107/resid_post_layer_12/trainer_1/config.json",
+   "revision": "3acb8a99076cfce446d0f74d89c635fab779deb8",
+   "bytes": 806,
+   "seconds": 1.0
+  },
+  {
+   "repo": "canrager/saebench_gemma-2-2b_width-2pow16_date-0107",
+   "file": "gemma-2-2b_jump_relu_width-2pow16_date-0107/resid_post_layer_12/trainer_2/ae.pt",
+   "revision": "3acb8a99076cfce446d0f74d89c635fab779deb8",
+   "bytes": 1208494943,
+   "sha256": "b993d95673d7e79ad0e087d9f74d203e69b66b77f658e0d9c08ecf82f490b7d1",
+   "sha256_ok": true,
+   "seconds": 53.5
+  },
+  {
+   "repo": "canrager/saebench_gemma-2-2b_width-2pow16_date-0107",
+   "file": "gemma-2-2b_jump_relu_width-2pow16_date-0107/resid_post_layer_12/trainer_2/config.json",
+   "revision": "3acb8a99076cfce446d0f74d89c635fab779deb8",
+   "bytes": 806,
+   "seconds": 1.0
+  },
+  {
+   "repo": "canrager/saebench_gemma-2-2b_width-2pow14_date-0107",
+   "file": "gemma-2-2b_matryoshka_batch_top_k_width-2pow14_date-0107/resid_post_layer_12/trainer_1/ae.pt",
+   "revision": "21f96e4b95d345d97f9d0c7d014ac685034edff1",
+   "bytes": 302066957,
+   "sha256": "71bc78aea52479e90c2d38f64a497efecdf73dedc273591cbdf733f2792d85b2",
+   "sha256_ok": true,
+   "seconds": 18.1
+  },
+  {
+   "repo": "canrager/saebench_gemma-2-2b_width-2pow14_date-0107",
+   "file": "gemma-2-2b_matryoshka_batch_top_k_width-2pow14_date-0107/resid_post_layer_12/trainer_1/config.json",
+   "revision": "21f96e4b95d345d97f9d0c7d014ac685034edff1",
+   "bytes": 1296,
+   "seconds": 1.0
+  },
+  {
+   "repo": "canrager/saebench_gemma-2-2b_width-2pow14_date-0107",
+   "file": "gemma-2-2b_matryoshka_batch_top_k_width-2pow14_date-0107/resid_post_layer_12/trainer_2/ae.pt",
+   "revision": "21f96e4b95d345d97f9d0c7d014ac685034edff1",
+   "bytes": 302066957,
+   "sha256": "885f617a318d69a2de76860450ddf2ae7450504ce2bd5c11cea990d7681b4182",
+   "sha256_ok": true,
+   "seconds": 23.4
+  },
+  {
+   "repo": "canrager/saebench_gemma-2-2b_width-2pow14_date-0107",
+   "file": "gemma-2-2b_matryoshka_batch_top_k_width-2pow14_date-0107/resid_post_layer_12/trainer_2/config.json",
+   "revision": "21f96e4b95d345d97f9d0c7d014ac685034edff1",
+   "bytes": 1296,
+   "seconds": 1.0
+  },
+  {
+   "repo": "adamkarvonen/saebench_gemma-2-2b_width-2pow12_date-0108",
+   "file": "MatryoshkaBatchTopK_gemma-2-2b__0108/resid_post_layer_12/trainer_1/ae.pt",
+   "revision": "b002828539c1b99e3f43f8307fc145a6aa9d393f",
+   "bytes": 75525389,
+   "sha256": "aab2f197a8147551383f2a0cfcc51cfcd3cb6f0665bdb14a8f0795844845e0fd",
+   "sha256_ok": true,
+   "seconds": 9.0
+  },
+  {
+   "repo": "adamkarvonen/saebench_gemma-2-2b_width-2pow12_date-0108",
+   "file": "MatryoshkaBatchTopK_gemma-2-2b__0108/resid_post_layer_12/trainer_1/config.json",
+   "revision": "b002828539c1b99e3f43f8307fc145a6aa9d393f",
+   "bytes": 1293,
+   "seconds": 1.0
+  },
+  {
+   "repo": "adamkarvonen/saebench_gemma-2-2b_width-2pow12_date-0108",
+   "file": "MatryoshkaBatchTopK_gemma-2-2b__0108/resid_post_layer_12/trainer_2/ae.pt",
+   "revision": "b002828539c1b99e3f43f8307fc145a6aa9d393f",
+   "bytes": 75525389,
+   "sha256": "7d79220f9f948fcc54831133d709d09411b0dfd5eaf3388ce2a6f7ab820490dc",
+   "sha256_ok": true,
+   "seconds": 10.1
+  },
+  {
+   "repo": "adamkarvonen/saebench_gemma-2-2b_width-2pow12_date-0108",
+   "file": "MatryoshkaBatchTopK_gemma-2-2b__0108/resid_post_layer_12/trainer_2/config.json",
+   "revision": "b002828539c1b99e3f43f8307fc145a6aa9d393f",
+   "bytes": 1293,
+   "seconds": 1.0
+  },
+  {
+   "repo": "canrager/saebench_gemma-2-2b_width-2pow16_date-0107",
+   "file": "gemma-2-2b_matryoshka_batch_top_k_width-2pow16_date-0107/resid_post_layer_12/trainer_1/ae.pt",
+   "revision": "3acb8a99076cfce446d0f74d89c635fab779deb8",
+   "bytes": 1208233229,
+   "sha256": "d728b510d44a6580920e4fce147e43cf63f633b9b58a19ff54a9cf7dd7420058",
+   "sha256_ok": true,
+   "seconds": 60.9
+  },
+  {
+   "repo": "canrager/saebench_gemma-2-2b_width-2pow16_date-0107",
+   "file": "gemma-2-2b_matryoshka_batch_top_k_width-2pow16_date-0107/resid_post_layer_12/trainer_1/config.json",
+   "revision": "3acb8a99076cfce446d0f74d89c635fab779deb8",
+   "bytes": 1299,
+   "seconds": 1.1
+  },
+  {
+   "repo": "canrager/saebench_gemma-2-2b_width-2pow16_date-0107",
+   "file": "gemma-2-2b_matryoshka_batch_top_k_width-2pow16_date-0107/resid_post_layer_12/trainer_2/ae.pt",
+   "revision": "3acb8a99076cfce446d0f74d89c635fab779deb8",
+   "bytes": 1208233229,
+   "sha256": "ef5058daa335e30857960bcd0d243a174129f089c229fa84e4f8274dbaa06afc",
+   "sha256_ok": true,
+   "seconds": 55.0
+  },
+  {
+   "repo": "canrager/saebench_gemma-2-2b_width-2pow16_date-0107",
+   "file": "gemma-2-2b_matryoshka_batch_top_k_width-2pow16_date-0107/resid_post_layer_12/trainer_2/config.json",
+   "revision": "3acb8a99076cfce446d0f74d89c635fab779deb8",
+   "bytes": 1299,
+   "seconds": 1.0
+  },
+  {
+   "repo": "canrager/saebench_gemma-2-2b_width-2pow14_date-0107",
+   "file": "gemma-2-2b_p_anneal_width-2pow14_date-0107/resid_post_layer_12/trainer_5/ae.pt",
+   "revision": "21f96e4b95d345d97f9d0c7d014ac685034edff1",
+   "bytes": 302066344,
+   "sha256": "26cae6cec7ed899fc5fe9ace87bb75112c4a449ccd0fcebaf32e06327fde63f3",
+   "sha256_ok": true,
+   "seconds": 22.2
+  },
+  {
+   "repo": "canrager/saebench_gemma-2-2b_width-2pow14_date-0107",
+   "file": "gemma-2-2b_p_anneal_width-2pow14_date-0107/resid_post_layer_12/trainer_5/config.json",
+   "revision": "21f96e4b95d345d97f9d0c7d014ac685034edff1",
+   "bytes": 996,
+   "seconds": 1.0
+  },
+  {
+   "repo": "canrager/saebench_gemma-2-2b_width-2pow14_date-0107",
+   "file": "gemma-2-2b_p_anneal_width-2pow14_date-0107/resid_post_layer_12/trainer_4/ae.pt",
+   "revision": "21f96e4b95d345d97f9d0c7d014ac685034edff1",
+   "bytes": 302066344,
+   "sha256": "ddc51ca50cf38d6069e83c75800c61f924737c267fa53d33714a711302d1f564",
+   "sha256_ok": true,
+   "seconds": 19.2
+  },
+  {
+   "repo": "canrager/saebench_gemma-2-2b_width-2pow14_date-0107",
+   "file": "gemma-2-2b_p_anneal_width-2pow14_date-0107/resid_post_layer_12/trainer_4/config.json",
+   "revision": "21f96e4b95d345d97f9d0c7d014ac685034edff1",
+   "bytes": 995,
+   "seconds": 1.0
+  },
+  {
+   "repo": "adamkarvonen/saebench_gemma-2-2b_width-2pow12_date-0108",
+   "file": "PAnneal_gemma-2-2b__0108/resid_post_layer_12/trainer_5/ae.pt",
+   "revision": "b002828539c1b99e3f43f8307fc145a6aa9d393f",
+   "bytes": 75524776,
+   "sha256": "2347792806f7bdb1be9925e34fc43abbeb1a3de7bc2b3451fc8fea16db797af5",
+   "sha256_ok": true,
+   "seconds": 11.3
+  },
+  {
+   "repo": "adamkarvonen/saebench_gemma-2-2b_width-2pow12_date-0108",
+   "file": "PAnneal_gemma-2-2b__0108/resid_post_layer_12/trainer_5/config.json",
+   "revision": "b002828539c1b99e3f43f8307fc145a6aa9d393f",
+   "bytes": 994,
+   "seconds": 1.0
+  },
+  {
+   "repo": "adamkarvonen/saebench_gemma-2-2b_width-2pow12_date-0108",
+   "file": "PAnneal_gemma-2-2b__0108/resid_post_layer_12/trainer_4/ae.pt",
+   "revision": "b002828539c1b99e3f43f8307fc145a6aa9d393f",
+   "bytes": 75524776,
+   "sha256": "e97e13f77ae26ca96a6fbf2ded67661da894acaff5fd9b81869e740fe3d3b10b",
+   "sha256_ok": true,
+   "seconds": 9.6
+  },
+  {
+   "repo": "adamkarvonen/saebench_gemma-2-2b_width-2pow12_date-0108",
+   "file": "PAnneal_gemma-2-2b__0108/resid_post_layer_12/trainer_4/config.json",
+   "revision": "b002828539c1b99e3f43f8307fc145a6aa9d393f",
+   "bytes": 993,
+   "seconds": 1.0
+  },
+  {
+   "repo": "canrager/saebench_gemma-2-2b_width-2pow16_date-0107",
+   "file": "gemma-2-2b_p_anneal_width-2pow16_date-0107/resid_post_layer_12/trainer_2/ae.pt",
+   "revision": "3acb8a99076cfce446d0f74d89c635fab779deb8",
+   "bytes": 1208232616,
+   "sha256": "402435cfa316d9c0fe32751946b6d8d4b8983829387ce3fc55d2b7719fa7f153",
+   "sha256_ok": true,
+   "seconds": 56.0
+  },
+  {
+   "repo": "canrager/saebench_gemma-2-2b_width-2pow16_date-0107",
+   "file": "gemma-2-2b_p_anneal_width-2pow16_date-0107/resid_post_layer_12/trainer_2/config.json",
+   "revision": "3acb8a99076cfce446d0f74d89c635fab779deb8",
+   "bytes": 994,
+   "seconds": 1.0
+  },
+  {
+   "repo": "canrager/saebench_gemma-2-2b_width-2pow16_date-0107",
+   "file": "gemma-2-2b_p_anneal_width-2pow16_date-0107/resid_post_layer_12/trainer_3/ae.pt",
+   "revision": "3acb8a99076cfce446d0f74d89c635fab779deb8",
+   "bytes": 1208232616,
+   "sha256": "0df4418d116cb763743f6c8b095c9fddd2e7778d18a18c18e9d2ee7657811801",
+   "sha256_ok": true,
+   "seconds": 64.5
+  },
+  {
+   "repo": "canrager/saebench_gemma-2-2b_width-2pow16_date-0107",
+   "file": "gemma-2-2b_p_anneal_width-2pow16_date-0107/resid_post_layer_12/trainer_3/config.json",
+   "revision": "3acb8a99076cfce446d0f74d89c635fab779deb8",
+   "bytes": 995,
+   "seconds": 1.0
+  },
+  {
+   "repo": "canrager/saebench_gemma-2-2b_width-2pow14_date-0107",
+   "file": "gemma-2-2b_standard_new_width-2pow14_date-0107/resid_post_layer_12/trainer_4/ae.pt",
+   "revision": "21f96e4b95d345d97f9d0c7d014ac685034edff1",
+   "bytes": 302066344,
+   "sha256": "33886287fb4b075249a1f21cda686f030080a949d9eefc432f18abfd8348c347",
+   "sha256_ok": true,
+   "seconds": 17.4
+  },
+  {
+   "repo": "canrager/saebench_gemma-2-2b_width-2pow14_date-0107",
+   "file": "gemma-2-2b_standard_new_width-2pow14_date-0107/resid_post_layer_12/trainer_4/config.json",
+   "revision": "21f96e4b95d345d97f9d0c7d014ac685034edff1",
+   "bytes": 816,
+   "seconds": 1.0
+  },
+  {
+   "repo": "canrager/saebench_gemma-2-2b_width-2pow14_date-0107",
+   "file": "gemma-2-2b_standard_new_width-2pow14_date-0107/resid_post_layer_12/trainer_5/ae.pt",
+   "revision": "21f96e4b95d345d97f9d0c7d014ac685034edff1",
+   "bytes": 302066344,
+   "sha256": "dd2cb5ae599f0784fa4db5c67bfa935913eb24c128e420b312f7c71f74961b03",
+   "sha256_ok": true,
+   "seconds": 22.6
+  },
+  {
+   "repo": "canrager/saebench_gemma-2-2b_width-2pow14_date-0107",
+   "file": "gemma-2-2b_standard_new_width-2pow14_date-0107/resid_post_layer_12/trainer_5/config.json",
+   "revision": "21f96e4b95d345d97f9d0c7d014ac685034edff1",
+   "bytes": 816,
+   "seconds": 1.0
+  },
+  {
+   "repo": "adamkarvonen/saebench_gemma-2-2b_width-2pow12_date-0108",
+   "file": "Standard_gemma-2-2b__0108/resid_post_layer_12/trainer_5/ae.pt",
+   "revision": "b002828539c1b99e3f43f8307fc145a6aa9d393f",
+   "bytes": 75524776,
+   "sha256": "1ed200814789373a94bcce1b3d95b8d98f79041d726910f972669b0b46201b50",
+   "sha256_ok": true,
+   "seconds": 10.4
+  },
+  {
+   "repo": "adamkarvonen/saebench_gemma-2-2b_width-2pow12_date-0108",
+   "file": "Standard_gemma-2-2b__0108/resid_post_layer_12/trainer_5/config.json",
+   "revision": "b002828539c1b99e3f43f8307fc145a6aa9d393f",
+   "bytes": 814,
+   "seconds": 1.0
+  },
+  {
+   "repo": "adamkarvonen/saebench_gemma-2-2b_width-2pow12_date-0108",
+   "file": "Standard_gemma-2-2b__0108/resid_post_layer_12/trainer_4/ae.pt",
+   "revision": "b002828539c1b99e3f43f8307fc145a6aa9d393f",
+   "bytes": 75524776,
+   "sha256": "2c58ab3f9c6023a99832bd9d44e1af6e2975d16014f6b9c1e3d24b7ee7132036",
+   "sha256_ok": true,
+   "seconds": 8.5
+  },
+  {
+   "repo": "adamkarvonen/saebench_gemma-2-2b_width-2pow12_date-0108",
+   "file": "Standard_gemma-2-2b__0108/resid_post_layer_12/trainer_4/config.json",
+   "revision": "b002828539c1b99e3f43f8307fc145a6aa9d393f",
+   "bytes": 814,
+   "seconds": 1.0
+  },
+  {
+   "repo": "canrager/saebench_gemma-2-2b_width-2pow16_date-0107",
+   "file": "gemma-2-2b_standard_new_width-2pow16_date-0107/resid_post_layer_12/trainer_2/ae.pt",
+   "revision": "3acb8a99076cfce446d0f74d89c635fab779deb8",
+   "bytes": 1208232616,
+   "sha256": "5d7f25c03e00e068cd26cd7e2008a9ce2951f2e82c8bbd11658b8c3cb7aff371",
+   "sha256_ok": true,
+   "seconds": 55.6
+  },
+  {
+   "repo": "canrager/saebench_gemma-2-2b_width-2pow16_date-0107",
+   "file": "gemma-2-2b_standard_new_width-2pow16_date-0107/resid_post_layer_12/trainer_2/config.json",
+   "revision": "3acb8a99076cfce446d0f74d89c635fab779deb8",
+   "bytes": 815,
+   "seconds": 1.0
+  },
+  {
+   "repo": "canrager/saebench_gemma-2-2b_width-2pow16_date-0107",
+   "file": "gemma-2-2b_standard_new_width-2pow16_date-0107/resid_post_layer_12/trainer_3/ae.pt",
+   "revision": "3acb8a99076cfce446d0f74d89c635fab779deb8",
+   "bytes": 1208232616,
+   "sha256": "7cfa47437c4f2701b8d0d5f07a6ae4ac90b66b96bbff6b6825c2adf05eed45da",
+   "sha256_ok": true,
+   "seconds": 60.4
+  },
+  {
+   "repo": "canrager/saebench_gemma-2-2b_width-2pow16_date-0107",
+   "file": "gemma-2-2b_standard_new_width-2pow16_date-0107/resid_post_layer_12/trainer_3/config.json",
+   "revision": "3acb8a99076cfce446d0f74d89c635fab779deb8",
+   "bytes": 815,
+   "seconds": 1.0
+  },
+  {
+   "repo": "canrager/saebench_gemma-2-2b_width-2pow14_date-0107",
+   "file": "gemma-2-2b_top_k_width-2pow14_date-0107/resid_post_layer_12/trainer_1/ae.pt",
+   "revision": "21f96e4b95d345d97f9d0c7d014ac685034edff1",
+   "bytes": 302066710,
+   "sha256": "4b0757ae9e45d28c0f15487b22b32bd47e8a2f3ebfb7f3ef2c6ed01dcf848de0",
+   "sha256_ok": true,
+   "seconds": 21.7
+  },
+  {
+   "repo": "canrager/saebench_gemma-2-2b_width-2pow14_date-0107",
+   "file": "gemma-2-2b_top_k_width-2pow14_date-0107/resid_post_layer_12/trainer_1/config.json",
+   "revision": "21f96e4b95d345d97f9d0c7d014ac685034edff1",
+   "bytes": 848,
+   "seconds": 1.0
+  },
+  {
+   "repo": "canrager/saebench_gemma-2-2b_width-2pow14_date-0107",
+   "file": "gemma-2-2b_top_k_width-2pow14_date-0107/resid_post_layer_12/trainer_2/ae.pt",
+   "revision": "21f96e4b95d345d97f9d0c7d014ac685034edff1",
+   "bytes": 302066710,
+   "sha256": "683749246f05b505533f29b04e9f04f4e2260dacb0c6e329422ed5a2934992f6",
+   "sha256_ok": true,
+   "seconds": 18.8
+  },
+  {
+   "repo": "canrager/saebench_gemma-2-2b_width-2pow14_date-0107",
+   "file": "gemma-2-2b_top_k_width-2pow14_date-0107/resid_post_layer_12/trainer_2/config.json",
+   "revision": "21f96e4b95d345d97f9d0c7d014ac685034edff1",
+   "bytes": 848,
+   "seconds": 1.0
+  },
+  {
+   "repo": "adamkarvonen/saebench_gemma-2-2b_width-2pow12_date-0108",
+   "file": "TopK_gemma-2-2b__0108/resid_post_layer_12/trainer_1/ae.pt",
+   "revision": "b002828539c1b99e3f43f8307fc145a6aa9d393f",
+   "bytes": 75525142,
+   "sha256": "863489fde311444f5b91e2d06a4280097234ac6b07480af55140a770d13c4efd",
+   "sha256_ok": true,
+   "seconds": 12.0
+  },
+  {
+   "repo": "adamkarvonen/saebench_gemma-2-2b_width-2pow12_date-0108",
+   "file": "TopK_gemma-2-2b__0108/resid_post_layer_12/trainer_1/config.json",
+   "revision": "b002828539c1b99e3f43f8307fc145a6aa9d393f",
+   "bytes": 847,
+   "seconds": 1.0
+  },
+  {
+   "repo": "adamkarvonen/saebench_gemma-2-2b_width-2pow12_date-0108",
+   "file": "TopK_gemma-2-2b__0108/resid_post_layer_12/trainer_2/ae.pt",
+   "revision": "b002828539c1b99e3f43f8307fc145a6aa9d393f",
+   "bytes": 75525142,
+   "sha256": "7d5ef98388f5902401b904d46f13a98f712573fe7edc452091a19ef80edc9c09",
+   "sha256_ok": true,
+   "seconds": 9.5
+  },
+  {
+   "repo": "adamkarvonen/saebench_gemma-2-2b_width-2pow12_date-0108",
+   "file": "TopK_gemma-2-2b__0108/resid_post_layer_12/trainer_2/config.json",
+   "revision": "b002828539c1b99e3f43f8307fc145a6aa9d393f",
+   "bytes": 847,
+   "seconds": 1.1
+  },
+  {
+   "repo": "canrager/saebench_gemma-2-2b_width-2pow16_date-0107",
+   "file": "gemma-2-2b_top_k_width-2pow16_date-0107/resid_post_layer_12/trainer_1/ae.pt",
+   "revision": "3acb8a99076cfce446d0f74d89c635fab779deb8",
+   "bytes": 1208232982,
+   "sha256": "518c90cf4938307d83d515e22854a98233209fb35b8e43e1d8293a2c0c02a8ae",
+   "sha256_ok": true,
+   "seconds": 56.9
+  },
+  {
+   "repo": "canrager/saebench_gemma-2-2b_width-2pow16_date-0107",
+   "file": "gemma-2-2b_top_k_width-2pow16_date-0107/resid_post_layer_12/trainer_1/config.json",
+   "revision": "3acb8a99076cfce446d0f74d89c635fab779deb8",
+   "bytes": 849,
+   "seconds": 1.0
+  },
+  {
+   "repo": "canrager/saebench_gemma-2-2b_width-2pow16_date-0107",
+   "file": "gemma-2-2b_top_k_width-2pow16_date-0107/resid_post_layer_12/trainer_2/ae.pt",
+   "revision": "3acb8a99076cfce446d0f74d89c635fab779deb8",
+   "bytes": 1208232982,
+   "sha256": "a28b8282811eb196bbca92cbf7b285305691987d554ad166eb7b2cb1e617e020",
+   "sha256_ok": true,
+   "seconds": 55.0
+  },
+  {
+   "repo": "canrager/saebench_gemma-2-2b_width-2pow16_date-0107",
+   "file": "gemma-2-2b_top_k_width-2pow16_date-0107/resid_post_layer_12/trainer_2/config.json",
+   "revision": "3acb8a99076cfce446d0f74d89c635fab779deb8",
+   "bytes": 849,
+   "seconds": 1.0
+  },
+  {
+   "repo": "alex-oesterling/temporal-saes",
+   "file": "trainer_0/ae.pt",
+   "revision": "d37599750af4e10c1f7100fa2b6f6508dc1d19a1",
+   "bytes": 302067806,
+   "sha256": "2f9cab2c567bb0c68594d01b706f59b01eb4c94de9ba378e5c6d973762812581",
+   "sha256_ok": true,
+   "seconds": 19.3
+  },
+  {
+   "repo": "alex-oesterling/temporal-saes",
+   "file": "trainer_0/config.json",
+   "revision": "d37599750af4e10c1f7100fa2b6f6508dc1d19a1",
+   "bytes": 1137,
+   "seconds": 1.0
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "resid_post/layer_13_width_16k_l0_medium/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "2b57a8bfb01d73b5cb7d26b48d6d8f1ec5c2b1d8554488e5a81796a4b710829d",
+   "sha256_ok": true,
+   "seconds": 12.2
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "resid_post/layer_13_width_16k_l0_medium/config.json",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 247,
+   "seconds": 1.0
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "resid_post/layer_17_width_16k_l0_medium/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "96150bbb6625547ca053e94ca46831b52e4f38cb250a470dd9e232acc3762456",
+   "sha256_ok": true,
+   "seconds": 12.1
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "resid_post/layer_17_width_16k_l0_medium/config.json",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 247,
+   "seconds": 1.0
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "resid_post/layer_22_width_16k_l0_medium/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "817f25110301e056d89dcec355b181d069681e137d914557ddffcd9398906469",
+   "sha256_ok": true,
+   "seconds": 14.6
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "resid_post/layer_22_width_16k_l0_medium/config.json",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 247,
+   "seconds": 1.0
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "resid_post/layer_7_width_16k_l0_medium/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "ed375d8bf47a45419c6c3b180deb71486acc44a36a8d10bd8b3a06e914dce36b",
+   "sha256_ok": true,
+   "seconds": 16.0
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "resid_post/layer_7_width_16k_l0_medium/config.json",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 245,
+   "seconds": 1.0
+  }
+ ],
+ "errors": [],
+ "started": "2026-11-22T19:59:27+0530",
+ "total_gb": 62.73
+}

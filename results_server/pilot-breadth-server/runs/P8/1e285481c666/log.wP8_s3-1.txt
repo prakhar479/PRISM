@@ -1,0 +1,116 @@
+2026-11-23 03:52:24,014 WARNING cell add_chain_L13_gs2_1b_L13_16k_medium__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story skipped: add_chain_L13_gs2_1b_L13_16k_medium__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story: 1 test pairs
+2026-11-23 03:52:24,879 INFO DAS: training das8v2_kl (k=8, 10 epochs, lr 0.01, seed 0) for people_cities L13 on 300 train pairs
+2026-11-23 03:52:30,630 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-pt/tree/fcf18a2a879aab110ca39f8bffbccd5d49d8eb29/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-23 03:52:30,872 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-pt/tree/fcf18a2a879aab110ca39f8bffbccd5d49d8eb29?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-23 03:52:33,025 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-pt "HTTP/1.1 200 OK"
+2026-11-23 03:52:33,776 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-pt "HTTP/1.1 200 OK"
+2026-11-23 03:52:34,136 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-pt/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-23 03:52:34,375 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-pt/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-23 03:52:36,659 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-pt "HTTP/1.1 200 OK"
+2026-11-23 03:53:46,863 INFO DAS v2 k=8 kl epoch 1/10: loss 1.9481
+2026-11-23 03:54:06,124 INFO DAS v2 k=8 kl epoch 2/10: loss 1.1401
+2026-11-23 03:54:25,430 INFO DAS v2 k=8 kl epoch 3/10: loss 1.1423
+2026-11-23 03:54:44,738 INFO DAS v2 k=8 kl epoch 4/10: loss 1.0837
+2026-11-23 03:55:04,063 INFO DAS v2 k=8 kl epoch 5/10: loss 1.1613
+2026-11-23 03:55:23,391 INFO DAS v2 k=8 kl epoch 6/10: loss 1.0170
+2026-11-23 03:55:42,703 INFO DAS v2 k=8 kl epoch 7/10: loss 1.0829
+2026-11-23 03:56:02,030 INFO DAS v2 k=8 kl epoch 8/10: loss 1.0194
+2026-11-23 03:56:21,318 INFO DAS v2 k=8 kl epoch 9/10: loss 1.0806
+2026-11-23 03:56:40,537 INFO DAS v2 k=8 kl epoch 10/10: loss 1.2610
+2026-11-23 03:57:36,370 INFO people_cities_L13_gs2_1b_L13_16k_medium__fit-pc_en__eval-pc_en unit 2/4 (8 conditions, 41.0s)
+2026-11-23 03:58:17,456 INFO people_cities_L13_gs2_1b_L13_16k_medium__fit-pc_en__eval-pc_en unit 3/4 (8 conditions, 41.0s)
+2026-11-23 03:58:18,419 INFO DAS: training das8v2_kl (k=8, 10 epochs, lr 0.01, seed 0) for entity_track L13 on 300 train pairs
+2026-11-23 03:59:41,249 INFO DAS v2 k=8 kl epoch 1/10: loss 1.0818
+2026-11-23 04:00:08,990 INFO DAS v2 k=8 kl epoch 2/10: loss 0.7188
+2026-11-23 04:00:36,752 INFO DAS v2 k=8 kl epoch 3/10: loss 0.6183
+2026-11-23 04:01:04,497 INFO DAS v2 k=8 kl epoch 4/10: loss 0.6679
+2026-11-23 04:01:32,262 INFO DAS v2 k=8 kl epoch 5/10: loss 0.5867
+2026-11-23 04:02:00,049 INFO DAS v2 k=8 kl epoch 6/10: loss 0.5605
+2026-11-23 04:02:27,804 INFO DAS v2 k=8 kl epoch 7/10: loss 0.4870
+2026-11-23 04:02:55,583 INFO DAS v2 k=8 kl epoch 8/10: loss 0.4252
+2026-11-23 04:03:23,357 INFO DAS v2 k=8 kl epoch 9/10: loss 0.4686
+2026-11-23 04:03:51,101 INFO DAS v2 k=8 kl epoch 10/10: loss 0.3442
+2026-11-23 04:07:18,694 INFO entity_track_L13_gs2_1b_L13_16k_medium__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 2/4 (8 conditions, 174.2s)
+2026-11-23 04:10:13,776 INFO entity_track_L13_gs2_1b_L13_16k_medium__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 3/4 (8 conditions, 175.0s)
+2026-11-23 04:10:13,811 WARNING cell add_chain_L17_gs2_1b_L17_16k_medium__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story skipped: add_chain_L17_gs2_1b_L17_16k_medium__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story: 1 test pairs
+2026-11-23 04:10:14,646 INFO DAS: training das8v2_kl (k=8, 10 epochs, lr 0.01, seed 0) for people_cities L17 on 300 train pairs
+2026-11-23 04:11:08,713 INFO DAS v2 k=8 kl epoch 1/10: loss 2.0265
+2026-11-23 04:11:22,359 INFO DAS v2 k=8 kl epoch 2/10: loss 1.0183
+2026-11-23 04:11:36,012 INFO DAS v2 k=8 kl epoch 3/10: loss 0.8868
+2026-11-23 04:11:49,683 INFO DAS v2 k=8 kl epoch 4/10: loss 1.0263
+2026-11-23 04:12:03,341 INFO DAS v2 k=8 kl epoch 5/10: loss 0.8630
+2026-11-23 04:12:17,001 INFO DAS v2 k=8 kl epoch 6/10: loss 0.8650
+2026-11-23 04:12:30,668 INFO DAS v2 k=8 kl epoch 7/10: loss 0.6880
+2026-11-23 04:12:44,344 INFO DAS v2 k=8 kl epoch 8/10: loss 0.6470
+2026-11-23 04:12:58,016 INFO DAS v2 k=8 kl epoch 9/10: loss 0.5864
+2026-11-23 04:13:11,699 INFO DAS v2 k=8 kl epoch 10/10: loss 0.5649
+2026-11-23 04:14:05,119 INFO people_cities_L17_gs2_1b_L17_16k_medium__fit-pc_en__eval-pc_en unit 2/4 (8 conditions, 30.2s)
+2026-11-23 04:14:35,596 INFO people_cities_L17_gs2_1b_L17_16k_medium__fit-pc_en__eval-pc_en unit 3/4 (8 conditions, 30.4s)
+2026-11-23 04:14:36,537 INFO DAS: training das4v2_kl (k=4, 10 epochs, lr 0.01, seed 0) for entity_track L17 on 300 train pairs
+2026-11-23 04:15:45,425 INFO DAS v2 k=4 kl epoch 1/10: loss 1.5452
+2026-11-23 04:16:04,818 INFO DAS v2 k=4 kl epoch 2/10: loss 1.2781
+2026-11-23 04:16:24,242 INFO DAS v2 k=4 kl epoch 3/10: loss 1.2251
+2026-11-23 04:16:43,677 INFO DAS v2 k=4 kl epoch 4/10: loss 1.2569
+2026-11-23 04:17:03,101 INFO DAS v2 k=4 kl epoch 5/10: loss 1.2387
+2026-11-23 04:17:22,525 INFO DAS v2 k=4 kl epoch 6/10: loss 1.2341
+2026-11-23 04:17:41,952 INFO DAS v2 k=4 kl epoch 7/10: loss 1.2325
+2026-11-23 04:18:01,402 INFO DAS v2 k=4 kl epoch 8/10: loss 1.2084
+2026-11-23 04:18:20,822 INFO DAS v2 k=4 kl epoch 9/10: loss 1.2364
+2026-11-23 04:18:40,253 INFO DAS v2 k=4 kl epoch 10/10: loss 1.2144
+2026-11-23 04:21:18,647 INFO entity_track_L17_gs2_1b_L17_16k_medium__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 2/4 (8 conditions, 129.7s)
+2026-11-23 04:23:29,454 INFO entity_track_L17_gs2_1b_L17_16k_medium__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 3/4 (8 conditions, 130.7s)
+2026-11-23 04:23:29,490 WARNING cell add_chain_L22_gs2_1b_L22_16k_medium__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story skipped: add_chain_L22_gs2_1b_L22_16k_medium__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story: 1 test pairs
+2026-11-23 04:23:32,640 INFO DAS: training das8v2_kl (k=8, 10 epochs, lr 0.01, seed 0) for people_cities L22 on 300 train pairs
+2026-11-23 04:24:14,129 INFO DAS v2 k=8 kl epoch 1/10: loss 1.4665
+2026-11-23 04:24:20,740 INFO DAS v2 k=8 kl epoch 2/10: loss 0.8351
+2026-11-23 04:24:27,362 INFO DAS v2 k=8 kl epoch 3/10: loss 0.7025
+2026-11-23 04:24:33,985 INFO DAS v2 k=8 kl epoch 4/10: loss 0.7216
+2026-11-23 04:24:40,605 INFO DAS v2 k=8 kl epoch 5/10: loss 0.8315
+2026-11-23 04:24:47,219 INFO DAS v2 k=8 kl epoch 6/10: loss 0.9256
+2026-11-23 04:24:53,849 INFO DAS v2 k=8 kl epoch 7/10: loss 0.9232
+2026-11-23 04:25:00,482 INFO DAS v2 k=8 kl epoch 8/10: loss 0.8105
+2026-11-23 04:25:07,152 INFO DAS v2 k=8 kl epoch 9/10: loss 0.8178
+2026-11-23 04:25:13,786 INFO DAS v2 k=8 kl epoch 10/10: loss 0.8126
+2026-11-23 04:25:39,327 INFO people_cities_L22_gs2_1b_L22_16k_medium__fit-pc_en__eval-pc_en unit 2/4 (8 conditions, 17.6s)
+2026-11-23 04:25:57,009 INFO people_cities_L22_gs2_1b_L22_16k_medium__fit-pc_en__eval-pc_en unit 3/4 (8 conditions, 17.6s)
+2026-11-23 04:26:01,534 INFO DAS: training das8v2_kl (k=8, 10 epochs, lr 0.01, seed 0) for entity_track L22 on 300 train pairs
+2026-11-23 04:26:53,358 INFO DAS v2 k=8 kl epoch 1/10: loss 0.8716
+2026-11-23 04:27:02,725 INFO DAS v2 k=8 kl epoch 2/10: loss 0.5170
+2026-11-23 04:27:12,109 INFO DAS v2 k=8 kl epoch 3/10: loss 0.5653
+2026-11-23 04:27:21,464 INFO DAS v2 k=8 kl epoch 4/10: loss 0.5191
+2026-11-23 04:27:30,826 INFO DAS v2 k=8 kl epoch 5/10: loss 0.5874
+2026-11-23 04:27:40,189 INFO DAS v2 k=8 kl epoch 6/10: loss 0.5468
+2026-11-23 04:27:49,536 INFO DAS v2 k=8 kl epoch 7/10: loss 0.4954
+2026-11-23 04:27:58,890 INFO DAS v2 k=8 kl epoch 8/10: loss 0.5426
+2026-11-23 04:28:08,275 INFO DAS v2 k=8 kl epoch 9/10: loss 0.5608
+2026-11-23 04:28:17,721 INFO DAS v2 k=8 kl epoch 10/10: loss 0.5561
+2026-11-23 04:29:43,772 INFO entity_track_L22_gs2_1b_L22_16k_medium__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 2/4 (8 conditions, 75.3s)
+2026-11-23 04:30:59,589 INFO entity_track_L22_gs2_1b_L22_16k_medium__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 3/4 (8 conditions, 75.7s)
+2026-11-23 04:30:59,629 WARNING cell add_chain_L7_gs2_1b_L7_16k_medium__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story skipped: add_chain_L7_gs2_1b_L7_16k_medium__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story: 1 test pairs
+2026-11-23 04:31:01,419 INFO DAS: training das4v2_kl (k=4, 10 epochs, lr 0.01, seed 0) for people_cities L7 on 300 train pairs
+2026-11-23 04:32:28,095 INFO DAS v2 k=4 kl epoch 1/10: loss 3.1808
+2026-11-23 04:32:55,859 INFO DAS v2 k=4 kl epoch 2/10: loss 2.8093
+2026-11-23 04:33:23,695 INFO DAS v2 k=4 kl epoch 3/10: loss 2.6324
+2026-11-23 04:33:51,396 INFO DAS v2 k=4 kl epoch 4/10: loss 2.6504
+2026-11-23 04:34:19,142 INFO DAS v2 k=4 kl epoch 5/10: loss 2.7474
+2026-11-23 04:34:46,856 INFO DAS v2 k=4 kl epoch 6/10: loss 2.8175
+2026-11-23 04:35:14,617 INFO DAS v2 k=4 kl epoch 7/10: loss 2.7496
+2026-11-23 04:35:42,372 INFO DAS v2 k=4 kl epoch 8/10: loss 2.5659
+2026-11-23 04:36:10,105 INFO DAS v2 k=4 kl epoch 9/10: loss 2.6186
+2026-11-23 04:36:38,508 INFO DAS v2 k=4 kl epoch 10/10: loss 2.5560
+2026-11-23 04:38:06,863 INFO people_cities_L7_gs2_1b_L7_16k_medium__fit-pc_en__eval-pc_en unit 2/4 (8 conditions, 56.0s)
+2026-11-23 04:39:03,356 INFO people_cities_L7_gs2_1b_L7_16k_medium__fit-pc_en__eval-pc_en unit 3/4 (8 conditions, 56.4s)
+2026-11-23 04:39:05,016 INFO DAS: training das8v2_kl (k=8, 10 epochs, lr 0.01, seed 0) for entity_track L7 on 300 train pairs
+2026-11-23 04:40:48,437 INFO DAS v2 k=8 kl epoch 1/10: loss 1.2899
+2026-11-23 04:41:28,501 INFO DAS v2 k=8 kl epoch 2/10: loss 0.7383
+2026-11-23 04:42:08,559 INFO DAS v2 k=8 kl epoch 3/10: loss 0.7746
+2026-11-23 04:42:48,616 INFO DAS v2 k=8 kl epoch 4/10: loss 0.6444
+2026-11-23 04:43:28,712 INFO DAS v2 k=8 kl epoch 5/10: loss 1.0864
+2026-11-23 04:44:08,902 INFO DAS v2 k=8 kl epoch 6/10: loss 0.7202
+2026-11-23 04:44:49,738 INFO DAS v2 k=8 kl epoch 7/10: loss 0.4801
+2026-11-23 04:45:30,011 INFO DAS v2 k=8 kl epoch 8/10: loss 0.3602
+2026-11-23 04:46:10,321 INFO DAS v2 k=8 kl epoch 9/10: loss 0.2972
+2026-11-23 04:46:50,483 INFO DAS v2 k=8 kl epoch 10/10: loss 0.2854
+2026-11-23 04:51:37,635 INFO entity_track_L7_gs2_1b_L7_16k_medium__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 2/4 (8 conditions, 240.4s)
+2026-11-23 04:55:39,430 INFO entity_track_L7_gs2_1b_L7_16k_medium__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 3/4 (8 conditions, 241.7s)
+2026-11-23 04:55:39,559 INFO P8 -> /home2/raveeshvyas1410/prism-run/runs/P8/1e285481c666 (worker_done)

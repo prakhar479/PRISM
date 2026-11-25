@@ -1,0 +1,227 @@
+{
+ "ridge_value": {
+  "estimator": "ridge_value",
+  "fit_digest": "7cc34e25b8356245",
+  "n_fit_rows": 600,
+  "evr": null,
+  "meta": {
+   "train_r2": 0.9994996896486333,
+   "n_values": 7
+  }
+ },
+ "fourier_T10": {
+  "estimator": "fourier_T10",
+  "fit_digest": "7cc34e25b8356245",
+  "n_fit_rows": 600,
+  "evr": null,
+  "meta": {
+   "train_r2": 0.9977734236088471,
+   "n_values": 7
+  }
+ },
+ "fourier_T5": {
+  "estimator": "fourier_T5",
+  "fit_digest": "7cc34e25b8356245",
+  "n_fit_rows": 600,
+  "evr": null,
+  "meta": {
+   "train_r2": 0.9869497712740498,
+   "n_values": 7
+  }
+ },
+ "fourier_T2": {
+  "estimator": "fourier_T2",
+  "fit_digest": "7cc34e25b8356245",
+  "n_fit_rows": 600,
+  "evr": null,
+  "meta": {
+   "train_r2": 0.9781117942748357,
+   "n_values": 7
+  }
+ },
+ "das4v2_kl": {
+  "estimator": "das4v2_kl",
+  "fit_digest": "7cc34e25b8356245",
+  "n_fit_rows": 300,
+  "evr": null,
+  "meta": {
+   "k": 4,
+   "version": 2,
+   "objective": "kl",
+   "epochs": 10,
+   "lr": 0.01,
+   "seed": 0,
+   "init_seed": 408893423,
+   "holdout": 0.2,
+   "step_tokens": 1024,
+   "n_train": 300,
+   "n_fit": 240,
+   "n_val": 60,
+   "losses": [
+    1.0044842300315697,
+    0.5733025558292866,
+    0.646087779601415,
+    0.49025069205090405,
+    0.3172639460923771,
+    0.4261130499343077,
+    0.48180973368386426,
+    0.35942230752358834,
+    0.33181514606500667,
+    0.33647816522667806
+   ],
+   "loss_first_epoch": 1.0044842300315697,
+   "loss_last_epoch": 0.33647816522667806,
+   "fit": {
+    "n": 240,
+    "iia": 0.85,
+    "nldr_mean": 0.8307856896893993,
+    "nldr_median": 0.8700908849776706,
+    "share_above_full": 0.04583333333333333,
+    "full_iia": 1.0
+   },
+   "val": {
+    "n": 60,
+    "iia": 0.7166666666666667,
+    "nldr_mean": 0.7616574689390632,
+    "nldr_median": 0.8422995752945417,
+    "share_above_full": 0.05,
+    "full_iia": 1.0
+   },
+   "train_interchange_acc": 0.85,
+   "val_interchange_acc": 0.7166666666666667
+  }
+ },
+ "das8v2_kl": {
+  "estimator": "das8v2_kl",
+  "fit_digest": "7cc34e25b8356245",
+  "n_fit_rows": 300,
+  "evr": null,
+  "meta": {
+   "k": 8,
+   "version": 2,
+   "objective": "kl",
+   "epochs": 10,
+   "lr": 0.01,
+   "seed": 0,
+   "init_seed": 408893423,
+   "holdout": 0.2,
+   "step_tokens": 1024,
+   "n_train": 300,
+   "n_fit": 240,
+   "n_val": 60,
+   "losses": [
+    0.8323155326147874,
+    0.3190712573782851,
+    0.3768331205782791,
+    0.3061247844559451,
+    0.2683364119070272,
+    0.2912515096987287,
+    0.3866385128349066,
+    0.1687299863745769,
+    0.14049919142077366,
+    0.15289248094583552
+   ],
+   "loss_first_epoch": 0.8323155326147874,
+   "loss_last_epoch": 0.15289248094583552,
+   "fit": {
+    "n": 240,
+    "iia": 0.8875,
+    "nldr_mean": 0.8382214723148558,
+    "nldr_median": 0.8677063277292669,
+    "share_above_full": 0.07916666666666666,
+    "full_iia": 1.0
+   },
+   "val": {
+    "n": 60,
+    "iia": 0.7833333333333333,
+    "nldr_mean": 0.7626631273796398,
+    "nldr_median": 0.8180266463825312,
+    "share_above_full": 0.08333333333333333,
+    "full_iia": 1.0
+   },
+   "train_interchange_acc": 0.8875,
+   "val_interchange_acc": 0.7833333333333333
+  }
+ },
+ "pca_pooled": {
+  "estimator": "pca_pooled",
+  "fit_digest": "7cc34e25b8356245",
+  "n_fit_rows": 600,
+  "evr": [
+   0.1849321486076527,
+   0.12074291891957743,
+   0.0885876203598758,
+   0.05997165573172807,
+   0.04955857670484586,
+   0.04015336838592421,
+   0.03359154059162686,
+   0.02262478873173393
+  ],
+  "meta": {}
+ },
+ "_cosines": {
+  "ridge_value|fourier_T10|r1": [
+   0.7602363704055064
+  ],
+  "ridge_value|fourier_T5|r1": [
+   0.23174660513447332
+  ],
+  "ridge_value|fourier_T2|r1": [
+   0.042102412242113266
+  ],
+  "ridge_value|pca_pooled|r1": [
+   0.027983071896515242
+  ],
+  "fourier_T10|fourier_T5|r1": [
+   0.0045426763314493045
+  ],
+  "fourier_T10|fourier_T5|r2": [
+   0.9114672516805733,
+   0.6875528226622944
+  ],
+  "fourier_T10|fourier_T2|r1": [
+   0.0636281023256995
+  ],
+  "fourier_T10|pca_pooled|r1": [
+   0.017175243699312052
+  ],
+  "fourier_T10|pca_pooled|r2": [
+   0.05090226471954782,
+   0.025911196087624107
+  ],
+  "fourier_T5|fourier_T2|r1": [
+   0.05590218094611028
+  ],
+  "fourier_T5|pca_pooled|r1": [
+   0.014166135775216637
+  ],
+  "fourier_T5|pca_pooled|r2": [
+   0.046191263184596244,
+   0.005203050998419932
+  ],
+  "fourier_T2|pca_pooled|r1": [
+   0.016069385560402258
+  ],
+  "das4v2_kl|pca_pooled|r4": [
+   0.17866281282691357,
+   0.0893232736395293,
+   0.031186199525994263,
+   0.011684880555926765
+  ],
+  "das8v2_kl|pca_pooled|r8": [
+   0.2833232281988241,
+   0.17382693364393567,
+   0.13862035886612062,
+   0.11875538712278248,
+   0.07868349708815085,
+   0.055051619430078365,
+   0.027677997171200952,
+   0.005748951953721346
+  ]
+ },
+ "_fitset": {
+  "digest": "7cc34e25b8356245",
+  "n_pairs": 300,
+  "filter": "f_pilot"
+ }
+}

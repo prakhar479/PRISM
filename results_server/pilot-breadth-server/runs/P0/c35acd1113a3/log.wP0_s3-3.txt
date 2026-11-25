@@ -1,0 +1,147 @@
+2026-11-22 21:50:05,295 INFO DAS: training das8v2_ce_s0 (k=8, 10 epochs, lr 0.01, seed 0) for add_chain L18 on 300 train pairs
+2026-11-22 21:50:11,938 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-22 21:50:12,195 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-22 21:50:12,450 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-22 21:50:13,898 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-22 21:52:24,934 INFO DAS v2 k=8 ce epoch 1/10: loss 1.1682
+2026-11-22 21:52:49,722 INFO DAS v2 k=8 ce epoch 2/10: loss 0.7748
+2026-11-22 21:53:14,467 INFO DAS v2 k=8 ce epoch 3/10: loss 0.7151
+2026-11-22 21:53:39,259 INFO DAS v2 k=8 ce epoch 4/10: loss 0.5624
+2026-11-22 21:54:04,041 INFO DAS v2 k=8 ce epoch 5/10: loss 0.4392
+2026-11-22 21:54:28,804 INFO DAS v2 k=8 ce epoch 6/10: loss 0.6604
+2026-11-22 21:54:53,585 INFO DAS v2 k=8 ce epoch 7/10: loss 0.4669
+2026-11-22 21:55:18,375 INFO DAS v2 k=8 ce epoch 8/10: loss 0.3746
+2026-11-22 21:55:43,105 INFO DAS v2 k=8 ce epoch 9/10: loss 0.3440
+2026-11-22 21:56:07,905 INFO DAS v2 k=8 ce epoch 10/10: loss 0.3844
+2026-11-22 21:56:27,386 INFO DAS: training das8v2_ld_s1 (k=8, 10 epochs, lr 0.01, seed 1) for add_chain L18 on 300 train pairs
+2026-11-22 21:58:20,969 INFO DAS v2 k=8 ld epoch 1/10: loss 0.1518
+2026-11-22 21:58:45,671 INFO DAS v2 k=8 ld epoch 2/10: loss 0.0819
+2026-11-22 21:59:10,303 INFO DAS v2 k=8 ld epoch 3/10: loss 0.0710
+2026-11-22 21:59:35,015 INFO DAS v2 k=8 ld epoch 4/10: loss 0.0538
+2026-11-22 21:59:59,699 INFO DAS v2 k=8 ld epoch 5/10: loss 0.0403
+2026-11-22 22:00:24,351 INFO DAS v2 k=8 ld epoch 6/10: loss 0.0282
+2026-11-22 22:00:49,086 INFO DAS v2 k=8 ld epoch 7/10: loss 0.0244
+2026-11-22 22:01:13,728 INFO DAS v2 k=8 ld epoch 8/10: loss 0.0199
+2026-11-22 22:01:38,460 INFO DAS v2 k=8 ld epoch 9/10: loss 0.0173
+2026-11-22 22:02:03,160 INFO DAS v2 k=8 ld epoch 10/10: loss 0.0196
+2026-11-22 22:02:22,639 INFO DAS: training das8v2_kl_s2 (k=8, 10 epochs, lr 0.01, seed 2) for add_chain L18 on 300 train pairs
+2026-11-22 22:04:16,628 INFO DAS v2 k=8 kl epoch 1/10: loss 1.0805
+2026-11-22 22:04:41,579 INFO DAS v2 k=8 kl epoch 2/10: loss 0.3530
+2026-11-22 22:05:06,494 INFO DAS v2 k=8 kl epoch 3/10: loss 0.3747
+2026-11-22 22:05:31,415 INFO DAS v2 k=8 kl epoch 4/10: loss 0.2712
+2026-11-22 22:05:56,386 INFO DAS v2 k=8 kl epoch 5/10: loss 0.1606
+2026-11-22 22:06:21,327 INFO DAS v2 k=8 kl epoch 6/10: loss 0.2213
+2026-11-22 22:06:46,299 INFO DAS v2 k=8 kl epoch 7/10: loss 0.2471
+2026-11-22 22:07:11,258 INFO DAS v2 k=8 kl epoch 8/10: loss 0.2490
+2026-11-22 22:07:36,171 INFO DAS v2 k=8 kl epoch 9/10: loss 0.1795
+2026-11-22 22:08:01,113 INFO DAS v2 k=8 kl epoch 10/10: loss 0.2128
+2026-11-22 22:08:20,631 INFO DAS: training das16v2_ld_s0 (k=16, 10 epochs, lr 0.01, seed 0) for add_chain L18 on 300 train pairs
+2026-11-22 22:10:15,358 INFO DAS v2 k=16 ld epoch 1/10: loss 0.1200
+2026-11-22 22:10:41,139 INFO DAS v2 k=16 ld epoch 2/10: loss 0.0526
+2026-11-22 22:11:06,883 INFO DAS v2 k=16 ld epoch 3/10: loss 0.0697
+2026-11-22 22:11:32,589 INFO DAS v2 k=16 ld epoch 4/10: loss 0.0322
+2026-11-22 22:11:58,355 INFO DAS v2 k=16 ld epoch 5/10: loss 0.0227
+2026-11-22 22:12:24,115 INFO DAS v2 k=16 ld epoch 6/10: loss 0.0146
+2026-11-22 22:12:49,860 INFO DAS v2 k=16 ld epoch 7/10: loss 0.0079
+2026-11-22 22:13:15,573 INFO DAS v2 k=16 ld epoch 8/10: loss 0.0086
+2026-11-22 22:13:41,275 INFO DAS v2 k=16 ld epoch 9/10: loss 0.0711
+2026-11-22 22:14:07,031 INFO DAS v2 k=16 ld epoch 10/10: loss 0.0243
+2026-11-22 22:14:26,502 INFO DAS: training das16v2_kl_s1 (k=16, 10 epochs, lr 0.01, seed 1) for add_chain L18 on 300 train pairs
+2026-11-22 22:16:21,287 INFO DAS v2 k=16 kl epoch 1/10: loss 0.6021
+2026-11-22 22:16:47,235 INFO DAS v2 k=16 kl epoch 2/10: loss 0.2645
+2026-11-22 22:17:13,152 INFO DAS v2 k=16 kl epoch 3/10: loss 0.2332
+2026-11-22 22:17:39,109 INFO DAS v2 k=16 kl epoch 4/10: loss 0.3921
+2026-11-22 22:18:05,010 INFO DAS v2 k=16 kl epoch 5/10: loss 0.1690
+2026-11-22 22:18:30,997 INFO DAS v2 k=16 kl epoch 6/10: loss 0.1145
+2026-11-22 22:18:56,884 INFO DAS v2 k=16 kl epoch 7/10: loss 0.0596
+2026-11-22 22:19:22,836 INFO DAS v2 k=16 kl epoch 8/10: loss 0.0484
+2026-11-22 22:19:48,725 INFO DAS v2 k=16 kl epoch 9/10: loss 0.0267
+2026-11-22 22:20:14,655 INFO DAS v2 k=16 kl epoch 10/10: loss 0.0263
+2026-11-22 22:21:53,319 INFO add_chain_L18_16k_l074 unit 4/35 (8 conditions, 65.3s)
+2026-11-22 22:22:59,203 INFO add_chain_L18_16k_l074 unit 8/35 (8 conditions, 65.8s)
+2026-11-22 22:24:05,165 INFO add_chain_L18_16k_l074 unit 12/35 (8 conditions, 65.9s)
+2026-11-22 22:25:11,078 INFO add_chain_L18_16k_l074 unit 16/35 (8 conditions, 65.8s)
+2026-11-22 22:26:17,051 INFO add_chain_L18_16k_l074 unit 20/35 (8 conditions, 65.9s)
+2026-11-22 22:27:27,952 INFO add_chain_L18_16k_l074 unit 24/35 (8 conditions, 65.7s)
+2026-11-22 22:28:41,236 INFO add_chain_L18_16k_l074 unit 28/35 (8 conditions, 65.5s)
+2026-11-22 22:29:54,709 INFO add_chain_L18_16k_l074 unit 32/35 (8 conditions, 65.6s)
+2026-11-22 22:29:57,129 INFO DAS: training das4v2_ce_s1 (k=4, 10 epochs, lr 0.01, seed 1) for people_cities L12 on 300 train pairs
+2026-11-22 22:32:53,802 INFO DAS v2 k=4 ce epoch 1/10: loss 3.9547
+2026-11-22 22:33:49,002 INFO DAS v2 k=4 ce epoch 2/10: loss 3.5302
+2026-11-22 22:34:44,255 INFO DAS v2 k=4 ce epoch 3/10: loss 3.6807
+2026-11-22 22:35:39,538 INFO DAS v2 k=4 ce epoch 4/10: loss 3.4516
+2026-11-22 22:36:34,793 INFO DAS v2 k=4 ce epoch 5/10: loss 3.4877
+2026-11-22 22:37:30,036 INFO DAS v2 k=4 ce epoch 6/10: loss 3.4886
+2026-11-22 22:38:25,321 INFO DAS v2 k=4 ce epoch 7/10: loss 3.6213
+2026-11-22 22:39:20,590 INFO DAS v2 k=4 ce epoch 8/10: loss 3.5914
+2026-11-22 22:40:15,865 INFO DAS v2 k=4 ce epoch 9/10: loss 3.5771
+2026-11-22 22:41:11,131 INFO DAS v2 k=4 ce epoch 10/10: loss 3.6847
+2026-11-22 22:41:52,027 INFO DAS: training das4v2_kl_s0 (k=4, 10 epochs, lr 0.01, seed 0) for people_cities L12 on 300 train pairs
+2026-11-22 22:44:48,972 INFO DAS v2 k=4 kl epoch 1/10: loss 3.0121
+2026-11-22 22:45:44,507 INFO DAS v2 k=4 kl epoch 2/10: loss 2.3940
+2026-11-22 22:46:40,020 INFO DAS v2 k=4 kl epoch 3/10: loss 2.4795
+2026-11-22 22:47:35,563 INFO DAS v2 k=4 kl epoch 4/10: loss 2.4688
+2026-11-22 22:48:31,140 INFO DAS v2 k=4 kl epoch 5/10: loss 2.4333
+2026-11-22 22:49:26,654 INFO DAS v2 k=4 kl epoch 6/10: loss 2.5198
+2026-11-22 22:50:22,075 INFO DAS v2 k=4 kl epoch 7/10: loss 2.3915
+2026-11-22 22:51:17,552 INFO DAS v2 k=4 kl epoch 8/10: loss 2.4542
+2026-11-22 22:52:13,066 INFO DAS v2 k=4 kl epoch 9/10: loss 2.4643
+2026-11-22 22:53:08,513 INFO DAS v2 k=4 kl epoch 10/10: loss 2.3450
+2026-11-22 22:53:49,241 INFO DAS: training das8v2_ce_s1 (k=8, 10 epochs, lr 0.01, seed 1) for people_cities L12 on 300 train pairs
+2026-11-22 22:56:46,214 INFO DAS v2 k=8 ce epoch 1/10: loss 2.4845
+2026-11-22 22:57:42,005 INFO DAS v2 k=8 ce epoch 2/10: loss 1.9607
+2026-11-22 22:58:37,782 INFO DAS v2 k=8 ce epoch 3/10: loss 1.7515
+2026-11-22 22:59:33,579 INFO DAS v2 k=8 ce epoch 4/10: loss 2.1437
+2026-11-22 23:00:29,367 INFO DAS v2 k=8 ce epoch 5/10: loss 1.9537
+2026-11-22 23:01:25,152 INFO DAS v2 k=8 ce epoch 6/10: loss 1.9058
+2026-11-22 23:02:20,938 INFO DAS v2 k=8 ce epoch 7/10: loss 1.9515
+2026-11-22 23:03:16,776 INFO DAS v2 k=8 ce epoch 8/10: loss 1.9223
+2026-11-22 23:04:12,586 INFO DAS v2 k=8 ce epoch 9/10: loss 1.9787
+2026-11-22 23:05:08,415 INFO DAS v2 k=8 ce epoch 10/10: loss 2.1176
+2026-11-22 23:05:49,152 INFO DAS: training das8v2_kl_s0 (k=8, 10 epochs, lr 0.01, seed 0) for people_cities L12 on 300 train pairs
+2026-11-22 23:08:46,308 INFO DAS v2 k=8 kl epoch 1/10: loss 2.1975
+2026-11-22 23:09:42,259 INFO DAS v2 k=8 kl epoch 2/10: loss 1.1910
+2026-11-22 23:10:38,207 INFO DAS v2 k=8 kl epoch 3/10: loss 1.2601
+2026-11-22 23:11:34,146 INFO DAS v2 k=8 kl epoch 4/10: loss 1.1026
+2026-11-22 23:12:30,083 INFO DAS v2 k=8 kl epoch 5/10: loss 0.8553
+2026-11-22 23:13:26,008 INFO DAS v2 k=8 kl epoch 6/10: loss 0.8431
+2026-11-22 23:14:21,977 INFO DAS v2 k=8 kl epoch 7/10: loss 0.7777
+2026-11-22 23:15:17,986 INFO DAS v2 k=8 kl epoch 8/10: loss 0.7245
+2026-11-22 23:16:14,037 INFO DAS v2 k=8 kl epoch 9/10: loss 0.6804
+2026-11-22 23:17:10,099 INFO DAS v2 k=8 kl epoch 10/10: loss 0.6660
+2026-11-22 23:17:50,903 INFO DAS: training das16v2_ce_s1 (k=16, 10 epochs, lr 0.01, seed 1) for people_cities L12 on 300 train pairs
+2026-11-22 23:20:49,245 INFO DAS v2 k=16 ce epoch 1/10: loss 1.3957
+2026-11-22 23:21:46,050 INFO DAS v2 k=16 ce epoch 2/10: loss 0.9720
+2026-11-22 23:22:42,883 INFO DAS v2 k=16 ce epoch 3/10: loss 0.6362
+2026-11-22 23:23:39,728 INFO DAS v2 k=16 ce epoch 4/10: loss 0.6912
+2026-11-22 23:24:36,603 INFO DAS v2 k=16 ce epoch 5/10: loss 0.4219
+2026-11-22 23:25:33,450 INFO DAS v2 k=16 ce epoch 6/10: loss 0.4811
+2026-11-22 23:26:30,303 INFO DAS v2 k=16 ce epoch 7/10: loss 0.4356
+2026-11-22 23:27:27,101 INFO DAS v2 k=16 ce epoch 8/10: loss 0.2972
+2026-11-22 23:28:23,930 INFO DAS v2 k=16 ce epoch 9/10: loss 0.2308
+2026-11-22 23:29:20,747 INFO DAS v2 k=16 ce epoch 10/10: loss 0.2317
+2026-11-22 23:30:01,529 INFO DAS: training das16v2_ld_s2 (k=16, 10 epochs, lr 0.01, seed 2) for people_cities L12 on 300 train pairs
+2026-11-22 23:32:59,683 INFO DAS v2 k=16 ld epoch 1/10: loss 0.2018
+2026-11-22 23:33:56,477 INFO DAS v2 k=16 ld epoch 2/10: loss 0.0385
+2026-11-22 23:34:53,221 INFO DAS v2 k=16 ld epoch 3/10: loss 0.0365
+2026-11-22 23:35:49,917 INFO DAS v2 k=16 ld epoch 4/10: loss 0.0314
+2026-11-22 23:36:46,637 INFO DAS v2 k=16 ld epoch 5/10: loss 0.0322
+2026-11-22 23:37:43,390 INFO DAS v2 k=16 ld epoch 6/10: loss 0.0216
+2026-11-22 23:38:40,077 INFO DAS v2 k=16 ld epoch 7/10: loss 0.0159
+2026-11-22 23:39:36,789 INFO DAS v2 k=16 ld epoch 8/10: loss 0.0118
+2026-11-22 23:40:33,520 INFO DAS v2 k=16 ld epoch 9/10: loss 0.0163
+2026-11-22 23:41:30,281 INFO DAS v2 k=16 ld epoch 10/10: loss 0.0098
+2026-11-22 23:42:11,082 INFO DAS: training das8 (k=8, 3 epochs, lr 0.01, seed 0) for people_cities L12 on 300 train pairs
+2026-11-22 23:55:37,650 INFO people_cities_L12_16k_l082__fit-pc_en__eval-pc_en unit 4/35 (8 conditions, 124.0s)
+2026-11-22 23:57:44,593 INFO people_cities_L12_16k_l082__fit-pc_en__eval-pc_en unit 7/35 (8 conditions, 126.8s)
+2026-11-23 02:52:08,201 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-23 02:52:08,452 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-23 02:52:08,697 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-23 02:52:10,352 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-23 02:54:32,216 INFO people_cities_L12_16k_l082__fit-pc_en__eval-pc_en unit 12/35 (8 conditions, 123.4s)
+2026-11-23 02:56:38,925 INFO people_cities_L12_16k_l082__fit-pc_en__eval-pc_en unit 15/35 (8 conditions, 126.6s)
+2026-11-23 02:58:46,161 INFO people_cities_L12_16k_l082__fit-pc_en__eval-pc_en unit 20/35 (8 conditions, 127.1s)
+2026-11-23 03:01:00,173 INFO people_cities_L12_16k_l082__fit-pc_en__eval-pc_en unit 24/35 (8 conditions, 126.5s)
+2026-11-23 03:03:17,149 INFO people_cities_L12_16k_l082__fit-pc_en__eval-pc_en unit 28/35 (8 conditions, 126.3s)
+2026-11-23 03:05:34,153 INFO people_cities_L12_16k_l082__fit-pc_en__eval-pc_en unit 32/35 (8 conditions, 126.2s)
+2026-11-23 03:05:34,263 INFO P0 -> /home2/raveeshvyas1410/prism-run/runs/P0/c35acd1113a3 (worker_done)

@@ -1,0 +1,18 @@
+
+=== attempt 1 2026-11-23 14:27:10 slots=['1']: /home2/raveeshvyas1410/prism-run/.venv-harness/bin/python -m harness.run --config configs/pilot/P7.yaml --profile server --stage 3 --worker P7_s3-3
+Loading weights:   0%|          | 0/288 [00:00<?, ?it/s]Loading weights:   0%|          | 1/288 [00:00<02:08,  2.23it/s]Loading weights:  97%|█████████▋| 278/288 [00:00<00:00, 664.74it/s]Loading weights: 100%|██████████| 288/288 [00:00<00:00, 517.85it/s]
+2026-11-23 14:27:30,319 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-23 14:27:30,600 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-23 14:27:30,870 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-23 14:27:32,252 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-23 14:29:38,930 INFO people_cities_L12_16k_l082__fit-pc_en__eval-pc_en unit 31/31 (7 conditions, 105.4s)
+2026-11-23 14:55:15,444 INFO entity_track_L12_16k_l082__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 4/31 (8 conditions, 514.9s)
+2026-11-23 15:03:53,795 INFO entity_track_L12_16k_l082__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 5/31 (8 conditions, 517.9s)
+2026-11-23 15:12:32,242 INFO entity_track_L12_16k_l082__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 9/31 (8 conditions, 518.0s)
+2026-11-23 15:21:10,426 INFO entity_track_L12_16k_l082__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 13/31 (8 conditions, 517.7s)
+2026-11-23 15:29:48,564 INFO entity_track_L12_16k_l082__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 17/31 (8 conditions, 517.7s)
+2026-11-23 15:38:26,866 INFO entity_track_L12_16k_l082__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 21/31 (8 conditions, 517.9s)
+2026-11-23 15:47:05,213 INFO entity_track_L12_16k_l082__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 25/31 (8 conditions, 517.9s)
+2026-11-23 15:55:43,679 INFO entity_track_L12_16k_l082__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 29/31 (8 conditions, 518.0s)
+2026-11-23 15:55:43,808 INFO P7 -> /home2/raveeshvyas1410/prism-run/runs/P7/f0dd2ac58142 (worker_done)
+Loaded pretrained model gemma-2-2b into HookedTransformer

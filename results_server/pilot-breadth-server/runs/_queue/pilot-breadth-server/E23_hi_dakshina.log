@@ -1,0 +1,17 @@
+
+=== attempt 1 2026-11-23 03:29:08 slots=['0']: /home2/raveeshvyas1410/prism-run/.venv-harness/bin/python scripts/run_fidelity.py --sets hi_deva_dakshina,hi_latn_dakshina --layers 12 18 --extras --tokens
+2026-11-23 03:29:11,201 INFO E12: 4 (set, layer) pairs to do, 0 already done; device cuda:0
+Loading weights:   0%|          | 0/288 [00:00<?, ?it/s]Loading weights:   0%|          | 1/288 [00:00<02:07,  2.25it/s]Loading weights:  89%|████████▉ | 256/288 [00:00<00:00, 618.07it/s]Loading weights: 100%|██████████| 288/288 [00:00<00:00, 491.61it/s]
+2026-11-23 03:29:18,069 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-23 03:29:18,350 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-23 03:29:18,618 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-23 03:29:20,066 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-23 03:51:08,561 INFO hi_deva_dakshina L12: CE clean 2.983 splice 3.265, recovered(mean) 0.932 [0.932, 0.933], FVU 0.332  (1290s)
+2026-11-23 04:12:39,615 INFO hi_latn_dakshina L12: CE clean 5.016 splice 5.132, recovered(mean) 0.966 [0.965, 0.966], FVU 0.344  (1291s)
+2026-11-23 04:34:12,166 INFO hi_deva_dakshina L18: CE clean 2.983 splice 3.346, recovered(mean) 0.912 [0.911, 0.913], FVU 0.287  (1292s)
+2026-11-23 04:55:43,874 INFO hi_latn_dakshina L18: CE clean 5.016 splice 5.256, recovered(mean) 0.927 [0.926, 0.929], FVU 0.292  (1292s)
+2026-11-23 04:55:44,585 INFO E12 0d62c6d93d03 -> /home2/raveeshvyas1410/prism-run/runs/E12/0d62c6d93d03 (complete)
+Loaded pretrained model gemma-2-2b into HookedTransformer
+
+=== attempt 1 2026-11-23 12:20:36 slots=['1']: /home2/raveeshvyas1410/prism-run/.venv-harness/bin/python scripts/run_fidelity.py --sets hi_deva_dakshina,hi_latn_dakshina --layers 12 18 --extras --tokens
+2026-11-23 12:20:38,718 INFO E12: 0 (set, layer) pairs to do, 4 already done; device cuda:0

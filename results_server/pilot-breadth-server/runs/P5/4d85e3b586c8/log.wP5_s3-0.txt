@@ -1,0 +1,73 @@
+2026-11-23 15:49:35,452 INFO DAS: training das4v2_kl (k=4, 10 epochs, lr 0.01, seed 0) for add_chain L16 on 300 train pairs
+2026-11-23 15:49:41,112 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-23 15:49:41,391 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-23 15:49:41,688 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-23 15:49:43,117 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-23 15:52:07,376 INFO DAS v2 k=4 kl epoch 1/10: loss 1.3007
+2026-11-23 15:52:37,858 INFO DAS v2 k=4 kl epoch 2/10: loss 0.5426
+2026-11-23 15:53:08,366 INFO DAS v2 k=4 kl epoch 3/10: loss 0.5028
+2026-11-23 15:53:38,883 INFO DAS v2 k=4 kl epoch 4/10: loss 0.5736
+2026-11-23 15:54:09,387 INFO DAS v2 k=4 kl epoch 5/10: loss 0.5408
+2026-11-23 15:54:39,902 INFO DAS v2 k=4 kl epoch 6/10: loss 0.5424
+2026-11-23 15:55:10,435 INFO DAS v2 k=4 kl epoch 7/10: loss 0.5053
+2026-11-23 15:55:40,979 INFO DAS v2 k=4 kl epoch 8/10: loss 0.4827
+2026-11-23 15:56:11,592 INFO DAS v2 k=4 kl epoch 9/10: loss 0.4201
+2026-11-23 15:56:42,133 INFO DAS v2 k=4 kl epoch 10/10: loss 0.9654
+2026-11-23 16:04:15,299 INFO add_chain_L16_16k_l078 unit 2/27 (8 conditions, 72.5s)
+2026-11-23 16:05:30,796 INFO add_chain_L16_16k_l078 unit 5/27 (8 conditions, 75.4s)
+2026-11-23 16:06:47,405 INFO add_chain_L16_16k_l078 unit 9/27 (8 conditions, 76.5s)
+2026-11-23 16:08:04,637 INFO add_chain_L16_16k_l078 unit 14/27 (8 conditions, 77.1s)
+2026-11-23 16:09:22,037 INFO add_chain_L16_16k_l078 unit 18/27 (8 conditions, 77.2s)
+2026-11-23 16:10:39,484 INFO add_chain_L16_16k_l078 unit 22/27 (8 conditions, 77.3s)
+2026-11-23 16:11:56,959 INFO add_chain_L16_16k_l078 unit 26/27 (8 conditions, 77.3s)
+2026-11-23 16:13:17,068 INFO add_chain_L16_65k_l069 unit 3/27 (8 conditions, 77.0s)
+2026-11-23 16:14:34,247 INFO add_chain_L16_65k_l069 unit 7/27 (8 conditions, 77.1s)
+2026-11-23 16:15:51,431 INFO add_chain_L16_65k_l069 unit 12/27 (8 conditions, 77.1s)
+2026-11-23 16:17:08,708 INFO add_chain_L16_65k_l069 unit 16/27 (8 conditions, 77.1s)
+2026-11-23 16:18:25,952 INFO add_chain_L16_65k_l069 unit 20/27 (8 conditions, 77.1s)
+2026-11-23 16:19:43,173 INFO add_chain_L16_65k_l069 unit 25/27 (8 conditions, 77.1s)
+2026-11-23 16:26:20,095 INFO add_chain_L18_16k_l074 unit 1/27 (8 conditions, 61.5s)
+2026-11-23 16:27:24,077 INFO add_chain_L18_16k_l074 unit 7/27 (8 conditions, 63.9s)
+2026-11-23 16:28:28,848 INFO add_chain_L18_16k_l074 unit 12/27 (8 conditions, 64.7s)
+2026-11-23 16:29:33,894 INFO add_chain_L18_16k_l074 unit 16/27 (8 conditions, 64.9s)
+2026-11-23 16:30:39,035 INFO add_chain_L18_16k_l074 unit 20/27 (8 conditions, 65.0s)
+2026-11-23 16:31:44,187 INFO add_chain_L18_16k_l074 unit 24/27 (8 conditions, 65.0s)
+2026-11-23 16:32:52,083 INFO add_chain_L18_65k_l064 unit 1/27 (8 conditions, 64.9s)
+2026-11-23 16:33:57,127 INFO add_chain_L18_65k_l064 unit 5/27 (8 conditions, 65.0s)
+2026-11-23 16:35:02,151 INFO add_chain_L18_65k_l064 unit 9/27 (8 conditions, 64.9s)
+2026-11-23 16:36:07,214 INFO add_chain_L18_65k_l064 unit 13/27 (8 conditions, 65.0s)
+2026-11-23 16:37:12,336 INFO add_chain_L18_65k_l064 unit 17/27 (8 conditions, 65.0s)
+2026-11-23 16:38:17,501 INFO add_chain_L18_65k_l064 unit 21/27 (8 conditions, 65.0s)
+2026-11-23 16:39:22,687 INFO add_chain_L18_65k_l064 unit 25/27 (8 conditions, 65.0s)
+2026-11-23 16:39:25,398 INFO DAS: training das8v2_kl (k=8, 10 epochs, lr 0.01, seed 0) for add_chain L19 on 300 train pairs
+2026-11-23 16:41:12,746 INFO DAS v2 k=8 kl epoch 1/10: loss 0.8323
+2026-11-23 16:41:34,304 INFO DAS v2 k=8 kl epoch 2/10: loss 0.3191
+2026-11-23 16:41:55,862 INFO DAS v2 k=8 kl epoch 3/10: loss 0.3768
+2026-11-23 16:42:17,408 INFO DAS v2 k=8 kl epoch 4/10: loss 0.3061
+2026-11-23 16:42:38,952 INFO DAS v2 k=8 kl epoch 5/10: loss 0.2683
+2026-11-23 16:43:00,482 INFO DAS v2 k=8 kl epoch 6/10: loss 0.2913
+2026-11-23 16:43:22,006 INFO DAS v2 k=8 kl epoch 7/10: loss 0.3866
+2026-11-23 16:43:43,536 INFO DAS v2 k=8 kl epoch 8/10: loss 0.1687
+2026-11-23 16:44:05,036 INFO DAS v2 k=8 kl epoch 9/10: loss 0.1405
+2026-11-23 16:44:26,525 INFO DAS v2 k=8 kl epoch 10/10: loss 0.1529
+2026-11-23 16:45:42,230 INFO add_chain_L19_16k_l073 unit 2/27 (8 conditions, 58.7s)
+2026-11-23 16:46:41,091 INFO add_chain_L19_16k_l073 unit 8/27 (8 conditions, 58.8s)
+2026-11-23 16:47:40,003 INFO add_chain_L19_16k_l073 unit 12/27 (8 conditions, 58.8s)
+2026-11-23 16:48:39,020 INFO add_chain_L19_16k_l073 unit 16/27 (8 conditions, 58.9s)
+2026-11-23 16:49:38,089 INFO add_chain_L19_16k_l073 unit 20/27 (8 conditions, 58.9s)
+2026-11-23 16:50:37,155 INFO add_chain_L19_16k_l073 unit 24/27 (8 conditions, 58.9s)
+2026-11-23 16:51:39,799 INFO add_chain_L19_65k_l063 unit 1/27 (8 conditions, 58.9s)
+2026-11-23 16:52:38,862 INFO add_chain_L19_65k_l063 unit 5/27 (8 conditions, 59.0s)
+2026-11-23 16:53:37,928 INFO add_chain_L19_65k_l063 unit 9/27 (8 conditions, 59.0s)
+2026-11-23 16:54:37,071 INFO add_chain_L19_65k_l063 unit 13/27 (8 conditions, 59.1s)
+2026-11-23 16:55:36,251 INFO add_chain_L19_65k_l063 unit 17/27 (8 conditions, 59.0s)
+2026-11-23 16:56:35,448 INFO add_chain_L19_65k_l063 unit 21/27 (8 conditions, 59.0s)
+2026-11-23 16:57:34,626 INFO add_chain_L19_65k_l063 unit 25/27 (8 conditions, 59.0s)
+2026-11-23 16:58:36,622 INFO add_chain_L19_1m_l088 unit 2/27 (8 conditions, 58.9s)
+2026-11-23 16:59:35,655 INFO add_chain_L19_1m_l088 unit 6/27 (8 conditions, 58.9s)
+2026-11-23 17:00:34,719 INFO add_chain_L19_1m_l088 unit 10/27 (8 conditions, 59.0s)
+2026-11-23 17:01:33,803 INFO add_chain_L19_1m_l088 unit 14/27 (8 conditions, 59.0s)
+2026-11-23 17:02:32,939 INFO add_chain_L19_1m_l088 unit 18/27 (8 conditions, 59.0s)
+2026-11-23 17:03:32,084 INFO add_chain_L19_1m_l088 unit 22/27 (8 conditions, 59.0s)
+2026-11-23 17:04:31,219 INFO add_chain_L19_1m_l088 unit 26/27 (8 conditions, 59.0s)
+2026-11-23 17:04:31,327 INFO P5 -> /home2/raveeshvyas1410/prism-run/runs/P5/4d85e3b586c8 (worker_done)

@@ -1,0 +1,52 @@
+
+=== attempt 1 2026-11-23 07:54:00 slots=['3']: /home2/raveeshvyas1410/prism-run/.venv-harness/bin/python -m harness.run --config configs/pilot/P1.yaml --profile server --stage 1
+Loading weights:   0%|          | 0/288 [00:00<?, ?it/s]Loading weights:   0%|          | 1/288 [00:03<18:23,  3.84s/it]Loading weights:  12%|█▎        | 36/288 [00:06<00:35,  7.12it/s]Loading weights:  13%|█▎        | 37/288 [00:07<00:41,  5.98it/s]Loading weights:  15%|█▌        | 44/288 [00:07<00:36,  6.60it/s]Loading weights:  16%|█▋        | 47/288 [00:12<01:24,  2.87it/s]Loading weights:  17%|█▋        | 49/288 [00:12<01:21,  2.92it/s]Loading weights:  20%|██        | 58/288 [00:16<01:26,  2.65it/s]Loading weights:  23%|██▎       | 67/288 [00:16<00:52,  4.22it/s]Loading weights:  24%|██▍       | 70/288 [00:21<01:35,  2.28it/s]Loading weights:  28%|██▊       | 80/288 [00:25<01:31,  2.26it/s]Loading weights:  28%|██▊       | 82/288 [00:26<01:23,  2.48it/s]Loading weights:  32%|███▏      | 92/288 [00:31<01:28,  2.22it/s]Loading weights:  47%|████▋     | 135/288 [00:31<00:20,  7.47it/s]Loading weights:  51%|█████     | 146/288 [00:32<00:17,  8.26it/s]Loading weights:  73%|███████▎  | 210/288 [00:32<00:03, 22.19it/s]Loading weights:  81%|████████▏ | 234/288 [00:33<00:02, 26.88it/s]Loading weights:  87%|████████▋ | 251/288 [00:34<00:01, 23.77it/s]Loading weights:  92%|█████████▏| 264/288 [00:34<00:00, 26.08it/s]Loading weights:  95%|█████████▌| 274/288 [00:35<00:00, 21.44it/s]Loading weights: 100%|██████████| 288/288 [00:35<00:00,  8.15it/s]
+2026-11-23 07:54:46,225 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-23 07:54:46,491 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-23 07:54:46,737 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-23 07:54:48,188 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-23 07:55:40,390 INFO stage1 shard 1/43 (96 pairs)
+2026-11-23 07:56:15,547 INFO stage1 shard 2/43 (96 pairs)
+2026-11-23 07:56:51,053 INFO stage1 shard 3/43 (96 pairs)
+2026-11-23 07:57:26,641 INFO stage1 shard 4/43 (96 pairs)
+2026-11-23 07:58:02,115 INFO stage1 shard 5/43 (96 pairs)
+2026-11-23 07:58:37,632 INFO stage1 shard 6/43 (96 pairs)
+2026-11-23 07:59:13,165 INFO stage1 shard 7/43 (96 pairs)
+2026-11-23 07:59:48,716 INFO stage1 shard 8/43 (96 pairs)
+2026-11-23 08:00:24,302 INFO stage1 shard 9/43 (96 pairs)
+2026-11-23 08:00:59,906 INFO stage1 shard 10/43 (96 pairs)
+2026-11-23 08:01:35,684 INFO stage1 shard 11/43 (96 pairs)
+2026-11-23 08:02:11,288 INFO stage1 shard 12/43 (96 pairs)
+2026-11-23 08:02:46,895 INFO stage1 shard 13/43 (96 pairs)
+2026-11-23 08:03:22,471 INFO stage1 shard 14/43 (96 pairs)
+2026-11-23 08:03:58,050 INFO stage1 shard 15/43 (96 pairs)
+2026-11-23 08:04:33,635 INFO stage1 shard 16/43 (96 pairs)
+2026-11-23 08:05:09,219 INFO stage1 shard 17/43 (96 pairs)
+2026-11-23 08:05:44,823 INFO stage1 shard 18/43 (96 pairs)
+2026-11-23 08:06:20,391 INFO stage1 shard 19/43 (96 pairs)
+2026-11-23 08:06:55,967 INFO stage1 shard 20/43 (96 pairs)
+2026-11-23 08:07:31,536 INFO stage1 shard 21/43 (96 pairs)
+2026-11-23 08:08:07,074 INFO stage1 shard 22/43 (96 pairs)
+2026-11-23 08:08:42,559 INFO stage1 shard 23/43 (96 pairs)
+2026-11-23 08:09:18,090 INFO stage1 shard 24/43 (96 pairs)
+2026-11-23 08:09:54,031 INFO stage1 shard 25/43 (96 pairs)
+2026-11-23 08:10:29,997 INFO stage1 shard 26/43 (96 pairs)
+2026-11-23 08:11:05,966 INFO stage1 shard 27/43 (96 pairs)
+2026-11-23 08:11:41,959 INFO stage1 shard 28/43 (96 pairs)
+2026-11-23 08:12:18,142 INFO stage1 shard 29/43 (96 pairs)
+2026-11-23 08:12:54,349 INFO stage1 shard 30/43 (96 pairs)
+2026-11-23 08:13:30,545 INFO stage1 shard 31/43 (96 pairs)
+2026-11-23 08:14:06,745 INFO stage1 shard 32/43 (96 pairs)
+2026-11-23 08:14:42,970 INFO stage1 shard 33/43 (96 pairs)
+2026-11-23 08:15:19,183 INFO stage1 shard 34/43 (96 pairs)
+2026-11-23 08:15:55,399 INFO stage1 shard 35/43 (96 pairs)
+2026-11-23 08:16:31,612 INFO stage1 shard 36/43 (96 pairs)
+2026-11-23 08:17:07,788 INFO stage1 shard 37/43 (96 pairs)
+2026-11-23 08:17:43,987 INFO stage1 shard 38/43 (96 pairs)
+2026-11-23 08:18:20,170 INFO stage1 shard 39/43 (96 pairs)
+2026-11-23 08:18:56,400 INFO stage1 shard 40/43 (96 pairs)
+2026-11-23 08:19:32,621 INFO stage1 shard 41/43 (96 pairs)
+2026-11-23 08:20:08,818 INFO stage1 shard 42/43 (96 pairs)
+2026-11-23 08:20:15,648 INFO stage1 shard 43/43 (18 pairs)
+2026-11-23 08:20:16,522 INFO P1 -> /home2/raveeshvyas1410/prism-run/runs/P1/c7f82629ee3f (stage1_complete)
+Loaded pretrained model gemma-2-2b into HookedTransformer

@@ -1,0 +1,106 @@
+
+=== attempt 1 2026-11-22 21:21:28 slots=['2']: /home2/raveeshvyas1410/prism-run/.venv-harness/bin/python scripts/train_dictionary.py --mode klft --layer 18 --width 16k --name klft_L18_16k --epochs 1
+Loading weights:   0%|          | 0/288 [00:00<?, ?it/s]Loading weights:   0%|          | 1/288 [00:00<01:56,  2.45it/s]Loading weights:  51%|█████     | 146/288 [00:00<00:00, 368.49it/s]Loading weights:  78%|███████▊  | 224/288 [00:00<00:00, 376.32it/s]Loading weights:  99%|█████████▊| 284/288 [00:00<00:00, 422.10it/s]Loading weights: 100%|██████████| 288/288 [00:00<00:00, 348.92it/s]
+2026-11-22 21:21:38,640 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-22 21:21:38,911 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-22 21:21:39,181 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-22 21:21:40,698 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-22 21:22:28,480 INFO klft_L18_16k before: {'ce_clean': 2.3738727153995174, 'ce_splice': 2.545164739097037, 'ce_delta': 0.1712920236975197}
+/home2/raveeshvyas1410/prism-run/scripts/train_dictionary.py:201: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /__w/pytorch/pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:820.)
+  losses.append({"step": step, "loss": float(loss), "kl": float(kl), "mse": float(mse), "fvu": float(fvu)})
+2026-11-22 21:22:29,609 INFO klft_L18_16k step 1/1500 loss 4.2685 kl 0.2124 mse 4.2685 (1s)
+2026-11-22 21:23:14,988 INFO klft_L18_16k step 51/1500 loss 4.2361 kl 0.1553 mse 4.2361 (47s)
+2026-11-22 21:24:01,233 INFO klft_L18_16k step 101/1500 loss 4.0569 kl 0.1030 mse 4.0569 (93s)
+2026-11-22 21:24:47,876 INFO klft_L18_16k step 151/1500 loss 4.5217 kl 0.1664 mse 4.5217 (139s)
+2026-11-22 21:25:34,689 INFO klft_L18_16k step 201/1500 loss 4.1065 kl 0.1396 mse 4.1065 (186s)
+2026-11-22 21:26:21,584 INFO klft_L18_16k step 251/1500 loss 4.1935 kl 0.1401 mse 4.1935 (233s)
+2026-11-22 21:27:08,544 INFO klft_L18_16k step 301/1500 loss 3.9633 kl 0.1145 mse 3.9633 (280s)
+2026-11-22 21:27:55,425 INFO klft_L18_16k step 351/1500 loss 3.7633 kl 0.2548 mse 3.7633 (327s)
+2026-11-22 21:28:42,356 INFO klft_L18_16k step 401/1500 loss 5.3663 kl 0.1872 mse 5.3663 (374s)
+2026-11-22 21:29:29,300 INFO klft_L18_16k step 451/1500 loss 3.7423 kl 0.0937 mse 3.7423 (421s)
+2026-11-22 21:30:16,163 INFO klft_L18_16k step 501/1500 loss 3.7644 kl 0.0789 mse 3.7644 (468s)
+2026-11-22 21:31:03,085 INFO klft_L18_16k step 551/1500 loss 4.3561 kl 0.0902 mse 4.3561 (515s)
+2026-11-22 21:31:49,990 INFO klft_L18_16k step 601/1500 loss 3.8190 kl 0.1060 mse 3.8190 (562s)
+2026-11-22 21:32:36,895 INFO klft_L18_16k step 651/1500 loss 4.2512 kl 0.1763 mse 4.2512 (608s)
+2026-11-22 21:33:23,792 INFO klft_L18_16k step 701/1500 loss 3.8937 kl 0.1745 mse 3.8937 (655s)
+2026-11-22 21:34:10,654 INFO klft_L18_16k step 751/1500 loss 4.0396 kl 0.0877 mse 4.0396 (702s)
+2026-11-22 21:34:57,562 INFO klft_L18_16k step 801/1500 loss 3.6953 kl 0.0922 mse 3.6953 (749s)
+2026-11-22 21:35:44,496 INFO klft_L18_16k step 851/1500 loss 4.5534 kl 0.1184 mse 4.5534 (796s)
+2026-11-22 21:36:31,407 INFO klft_L18_16k step 901/1500 loss 5.0423 kl 0.4363 mse 5.0423 (843s)
+2026-11-22 21:37:18,365 INFO klft_L18_16k step 951/1500 loss 3.8195 kl 0.0801 mse 3.8195 (890s)
+2026-11-22 21:38:05,254 INFO klft_L18_16k step 1001/1500 loss 5.8243 kl 0.2141 mse 5.8243 (937s)
+2026-11-22 21:38:52,170 INFO klft_L18_16k step 1051/1500 loss 3.9757 kl 0.1772 mse 3.9757 (984s)
+2026-11-22 21:39:39,174 INFO klft_L18_16k step 1101/1500 loss 4.1295 kl 0.1037 mse 4.1295 (1031s)
+2026-11-22 21:40:26,140 INFO klft_L18_16k step 1151/1500 loss 4.4242 kl 0.1083 mse 4.4242 (1078s)
+2026-11-22 21:41:13,069 INFO klft_L18_16k step 1201/1500 loss 4.2245 kl 0.1205 mse 4.2245 (1125s)
+2026-11-22 21:42:00,042 INFO klft_L18_16k step 1251/1500 loss 6.6599 kl 0.1657 mse 6.6599 (1172s)
+2026-11-22 21:42:47,020 INFO klft_L18_16k step 1301/1500 loss 4.1378 kl 0.1066 mse 4.1378 (1219s)
+2026-11-22 21:43:34,001 INFO klft_L18_16k step 1351/1500 loss 4.0513 kl 0.1039 mse 4.0513 (1266s)
+2026-11-22 21:44:20,976 INFO klft_L18_16k step 1401/1500 loss 4.6367 kl 0.1987 mse 4.6367 (1312s)
+2026-11-22 21:45:07,965 INFO klft_L18_16k step 1451/1500 loss 4.0085 kl 0.1140 mse 4.0085 (1359s)
+2026-11-22 21:45:54,012 INFO klft_L18_16k step 1500/1500 loss 3.9098 kl 0.0903 mse 3.9098 (1406s)
+2026-11-22 21:46:15,445 INFO klft_L18_16k after: {'ce_clean': 2.3738727153995174, 'ce_splice': 2.4997383316164092, 'ce_delta': 0.12586561621689216}
+2026-11-22 21:46:16,037 INFO klft_L18_16k -> /ssd_scratch/raveeshvyas1410/prism/cache/trained_dicts/klft_L18_16k
+Loaded pretrained model gemma-2-2b into HookedTransformer
+
+=== attempt 1 2026-11-23 11:48:18 slots=['1']: /home2/raveeshvyas1410/prism-run/.venv-harness/bin/python scripts/train_dictionary.py --mode klft --layer 18 --width 16k --name klft_L18_16k --epochs 1
+2026-11-23 11:48:34,949 INFO HTTP Request: GET https://huggingface.co/api/agent-harnesses "HTTP/1.1 200 OK"
+2026-11-23 11:48:35,204 INFO HTTP Request: HEAD https://huggingface.co/google/gemma-2-2b/resolve/c5ebcd40d208330abc697524c919956e692655cf/model.safetensors "HTTP/1.1 404 Not Found"
+2026-11-23 11:48:35,452 INFO HTTP Request: HEAD https://huggingface.co/google/gemma-2-2b/resolve/c5ebcd40d208330abc697524c919956e692655cf/model.safetensors.index.json "HTTP/1.1 200 OK"
+2026-11-23 11:48:35,807 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/c5ebcd40d208330abc697524c919956e692655cf?recursive=true&expand=false "HTTP/1.1 200 OK"
+Fetching 3 files:   0%|          | 0/3 [00:00<?, ?it/s]2026-11-23 11:48:36,068 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/xet-read-token/c5ebcd40d208330abc697524c919956e692655cf "HTTP/1.1 200 OK"
+Fetching 3 files:  33%|███▎      | 1/3 [02:16<04:33, 136.81s/it]Fetching 3 files:  67%|██████▋   | 2/3 [04:07<02:01, 121.20s/it]Fetching 3 files: 100%|██████████| 3/3 [04:34<00:00, 78.40s/it] Fetching 3 files: 100%|██████████| 3/3 [04:34<00:00, 91.52s/it]
+Loading weights:   0%|          | 0/288 [00:00<?, ?it/s]Loading weights:   0%|          | 1/288 [00:31<2:31:06, 31.59s/it]Loading weights: 100%|██████████| 288/288 [00:31<00:00,  9.11it/s]
+2026-11-23 11:53:43,050 INFO HTTP Request: HEAD https://huggingface.co/google/gemma-2-2b/resolve/c5ebcd40d208330abc697524c919956e692655cf/generation_config.json "HTTP/1.1 200 OK"
+2026-11-23 11:53:43,296 INFO HTTP Request: GET https://huggingface.co/google/gemma-2-2b/resolve/c5ebcd40d208330abc697524c919956e692655cf/generation_config.json "HTTP/1.1 200 OK"
+2026-11-23 11:53:43,779 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-23 11:53:44,262 INFO HTTP Request: HEAD https://huggingface.co/google/gemma-2-2b/resolve/c5ebcd40d208330abc697524c919956e692655cf/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-11-23 11:53:44,527 INFO HTTP Request: GET https://huggingface.co/google/gemma-2-2b/resolve/c5ebcd40d208330abc697524c919956e692655cf/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-11-23 11:53:45,041 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-23 11:53:45,332 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-23 11:53:48,190 INFO HTTP Request: HEAD https://huggingface.co/google/gemma-2-2b/resolve/c5ebcd40d208330abc697524c919956e692655cf/added_tokens.json "HTTP/1.1 404 Not Found"
+2026-11-23 11:53:48,449 INFO HTTP Request: HEAD https://huggingface.co/google/gemma-2-2b/resolve/c5ebcd40d208330abc697524c919956e692655cf/special_tokens_map.json "HTTP/1.1 200 OK"
+2026-11-23 11:53:48,691 INFO HTTP Request: GET https://huggingface.co/google/gemma-2-2b/resolve/c5ebcd40d208330abc697524c919956e692655cf/special_tokens_map.json "HTTP/1.1 200 OK"
+2026-11-23 11:53:48,938 INFO HTTP Request: HEAD https://huggingface.co/google/gemma-2-2b/resolve/c5ebcd40d208330abc697524c919956e692655cf/chat_template.jinja "HTTP/1.1 404 Not Found"
+2026-11-23 11:53:50,550 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-23 11:54:14,245 INFO HTTP Request: HEAD https://huggingface.co/google/gemma-scope-2b-pt-res/resolve/fd571b47c1c64851e9b1989792367b9babb4af63/layer_18/width_16k/average_l0_74/params.npz "HTTP/1.1 302 Found"
+2026-11-23 11:54:14,767 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/xet-read-token/fd571b47c1c64851e9b1989792367b9babb4af63 "HTTP/1.1 200 OK"
+2026-11-23 11:55:11,089 INFO klft_L18_16k before: {'ce_clean': 2.3738727153995174, 'ce_splice': 2.545164739097037, 'ce_delta': 0.1712920236975197}
+/home2/raveeshvyas1410/prism-run/scripts/train_dictionary.py:201: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /__w/pytorch/pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:820.)
+  losses.append({"step": step, "loss": float(loss), "kl": float(kl), "mse": float(mse), "fvu": float(fvu)})
+2026-11-23 11:55:12,226 INFO klft_L18_16k step 1/1500 loss 4.2685 kl 0.2124 mse 4.2685 (1s)
+2026-11-23 11:55:58,760 INFO klft_L18_16k step 51/1500 loss 4.2361 kl 0.1553 mse 4.2361 (48s)
+2026-11-23 11:56:45,815 INFO klft_L18_16k step 101/1500 loss 4.0569 kl 0.1030 mse 4.0569 (95s)
+2026-11-23 11:57:33,100 INFO klft_L18_16k step 151/1500 loss 4.5217 kl 0.1664 mse 4.5217 (142s)
+2026-11-23 11:58:20,491 INFO klft_L18_16k step 201/1500 loss 4.1065 kl 0.1396 mse 4.1065 (189s)
+2026-11-23 11:59:07,935 INFO klft_L18_16k step 251/1500 loss 4.1935 kl 0.1401 mse 4.1935 (237s)
+2026-11-23 11:59:55,400 INFO klft_L18_16k step 301/1500 loss 3.9633 kl 0.1145 mse 3.9633 (284s)
+2026-11-23 12:00:42,864 INFO klft_L18_16k step 351/1500 loss 3.7633 kl 0.2548 mse 3.7633 (332s)
+2026-11-23 12:01:30,371 INFO klft_L18_16k step 401/1500 loss 5.3663 kl 0.1872 mse 5.3663 (379s)
+2026-11-23 12:02:17,870 INFO klft_L18_16k step 451/1500 loss 3.7423 kl 0.0937 mse 3.7423 (427s)
+2026-11-23 12:03:05,402 INFO klft_L18_16k step 501/1500 loss 3.7644 kl 0.0789 mse 3.7644 (474s)
+2026-11-23 12:03:52,927 INFO klft_L18_16k step 551/1500 loss 4.3561 kl 0.0902 mse 4.3561 (522s)
+2026-11-23 12:04:40,502 INFO klft_L18_16k step 601/1500 loss 3.8190 kl 0.1060 mse 3.8190 (569s)
+2026-11-23 12:05:28,080 INFO klft_L18_16k step 651/1500 loss 4.2512 kl 0.1763 mse 4.2512 (617s)
+2026-11-23 12:06:15,682 INFO klft_L18_16k step 701/1500 loss 3.8937 kl 0.1745 mse 3.8937 (665s)
+2026-11-23 12:07:03,256 INFO klft_L18_16k step 751/1500 loss 4.0396 kl 0.0877 mse 4.0396 (712s)
+2026-11-23 12:07:50,797 INFO klft_L18_16k step 801/1500 loss 3.6953 kl 0.0922 mse 3.6953 (760s)
+2026-11-23 12:08:38,350 INFO klft_L18_16k step 851/1500 loss 4.5534 kl 0.1184 mse 4.5534 (807s)
+2026-11-23 12:09:25,892 INFO klft_L18_16k step 901/1500 loss 5.0423 kl 0.4363 mse 5.0423 (855s)
+2026-11-23 12:10:13,446 INFO klft_L18_16k step 951/1500 loss 3.8195 kl 0.0801 mse 3.8195 (902s)
+2026-11-23 12:11:01,010 INFO klft_L18_16k step 1001/1500 loss 5.8243 kl 0.2141 mse 5.8243 (950s)
+2026-11-23 12:11:48,491 INFO klft_L18_16k step 1051/1500 loss 3.9757 kl 0.1772 mse 3.9757 (997s)
+2026-11-23 12:12:36,016 INFO klft_L18_16k step 1101/1500 loss 4.1295 kl 0.1037 mse 4.1295 (1045s)
+2026-11-23 12:13:23,570 INFO klft_L18_16k step 1151/1500 loss 4.4242 kl 0.1083 mse 4.4242 (1092s)
+2026-11-23 12:14:11,136 INFO klft_L18_16k step 1201/1500 loss 4.2245 kl 0.1205 mse 4.2245 (1140s)
+2026-11-23 12:14:58,706 INFO klft_L18_16k step 1251/1500 loss 6.6599 kl 0.1657 mse 6.6599 (1188s)
+2026-11-23 12:15:46,292 INFO klft_L18_16k step 1301/1500 loss 4.1378 kl 0.1066 mse 4.1378 (1235s)
+2026-11-23 12:16:33,865 INFO klft_L18_16k step 1351/1500 loss 4.0513 kl 0.1039 mse 4.0513 (1283s)
+2026-11-23 12:17:21,448 INFO klft_L18_16k step 1401/1500 loss 4.6367 kl 0.1987 mse 4.6367 (1330s)
+2026-11-23 12:18:09,020 INFO klft_L18_16k step 1451/1500 loss 4.0085 kl 0.1140 mse 4.0085 (1378s)
+2026-11-23 12:18:55,667 INFO klft_L18_16k step 1500/1500 loss 3.9098 kl 0.0903 mse 3.9098 (1425s)
+2026-11-23 12:19:17,442 INFO klft_L18_16k after: {'ce_clean': 2.3738727153995174, 'ce_splice': 2.4997383316164092, 'ce_delta': 0.12586561621689216}
+2026-11-23 12:19:18,126 INFO klft_L18_16k -> /ssd_scratch/raveeshvyas1410/prism/cache/trained_dicts/klft_L18_16k
+Loaded pretrained model gemma-2-2b into HookedTransformer

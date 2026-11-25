@@ -1,0 +1,4 @@
+
+=== attempt 1 2026-11-23 08:28:42 slots=['2']: /home2/raveeshvyas1410/prism-run/.venv-harness/bin/python -m harness.run --config configs/pilot/P4.yaml --profile server --stage 2 --stage2-slice 0/4
+2026-11-23 08:29:17,025 INFO add-on L18_16k_l074__pcx24 fitted on 262144 generic rows (22s)
+2026-11-23 08:29:18,462 INFO P4 -> /home2/raveeshvyas1410/prism-run/runs/P4/fbf1ca9a0436 (stage2_complete)

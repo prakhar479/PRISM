@@ -1,0 +1,36 @@
+
+=== attempt 1 2026-11-23 11:51:00 slots=['3']: /home2/raveeshvyas1410/prism-run/.venv-harness/bin/python -m harness.run --config configs/pilot/P4.yaml --profile server --stage 3 --worker P4_s3-3
+2026-11-23 11:51:06,764 ERROR run failed
+Traceback (most recent call last):
+  File "/home2/raveeshvyas1410/prism-run/harness/run.py", line 1022, in main
+    {"1": R.run_stage1, "2": R.run_stage2, "3": R.run_stage3}[s]()
+  File "/home2/raveeshvyas1410/prism-run/harness/run.py", line 757, in run_stage3
+    cl, fl = self.flags(cell.task)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/raveeshvyas1410/prism-run/harness/run.py", line 432, in flags
+    cl = S.load_clean(ent, len(rows))
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/raveeshvyas1410/prism-run/harness/model/stages.py", line 133, in load_clean
+    entry.require_complete()
+  File "/home2/raveeshvyas1410/prism-run/harness/cache.py", line 128, in require_complete
+    raise FileNotFoundError(f"cache {self.kind}/{self.key} is missing or incomplete ({self.dir})")
+FileNotFoundError: cache clean_out/cd2eef7c615217f3e7d8 is missing or incomplete (/ssd_scratch/raveeshvyas1410/prism/cache/clean_out/cd2eef7c615217f3e7d8)
+2026-11-23 11:51:06,889 INFO P4 -> /home2/raveeshvyas1410/prism-run/runs/P4/e4cc5fc1e845 (failed)
+
+=== attempt 2 2026-11-23 11:51:08 slots=['3']: /home2/raveeshvyas1410/prism-run/.venv-harness/bin/python -m harness.run --config configs/pilot/P4.yaml --profile server --stage 3 --worker P4_s3-3
+2026-11-23 11:51:14,988 ERROR run failed
+Traceback (most recent call last):
+  File "/home2/raveeshvyas1410/prism-run/harness/run.py", line 1022, in main
+    {"1": R.run_stage1, "2": R.run_stage2, "3": R.run_stage3}[s]()
+  File "/home2/raveeshvyas1410/prism-run/harness/run.py", line 757, in run_stage3
+    cl, fl = self.flags(cell.task)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/raveeshvyas1410/prism-run/harness/run.py", line 432, in flags
+    cl = S.load_clean(ent, len(rows))
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/raveeshvyas1410/prism-run/harness/model/stages.py", line 133, in load_clean
+    entry.require_complete()
+  File "/home2/raveeshvyas1410/prism-run/harness/cache.py", line 128, in require_complete
+    raise FileNotFoundError(f"cache {self.kind}/{self.key} is missing or incomplete ({self.dir})")
+FileNotFoundError: cache clean_out/cd2eef7c615217f3e7d8 is missing or incomplete (/ssd_scratch/raveeshvyas1410/prism/cache/clean_out/cd2eef7c615217f3e7d8)
+2026-11-23 11:51:15,119 INFO P4 -> /home2/raveeshvyas1410/prism-run/runs/P4/e4cc5fc1e845 (failed)

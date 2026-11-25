@@ -1,0 +1,317 @@
+
+=== attempt 1 2026-11-23 08:22:21 slots=['3']: /home2/raveeshvyas1410/prism-run/.venv-harness/bin/python -m harness.run --config configs/pilot/P1.yaml --profile server --stage 3 --worker P1_s3-0
+2026-11-23 08:22:28,471 INFO DAS: training das4v2_kl (k=4, 10 epochs, lr 0.01, seed 0) for people_cities L8 on 300 train pairs
+Loading weights:   0%|          | 0/288 [00:00<?, ?it/s]Loading weights:   0%|          | 1/288 [00:00<01:58,  2.42it/s]Loading weights:  89%|████████▉ | 256/288 [00:00<00:00, 651.36it/s]Loading weights: 100%|██████████| 288/288 [00:00<00:00, 519.84it/s]
+2026-11-23 08:22:34,088 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-23 08:22:34,341 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-23 08:22:34,585 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-23 08:22:35,947 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-23 08:26:16,152 INFO DAS v2 k=4 kl epoch 1/10: loss 3.1967
+2026-11-23 08:27:27,683 INFO DAS v2 k=4 kl epoch 2/10: loss 2.5393
+2026-11-23 08:28:39,244 INFO DAS v2 k=4 kl epoch 3/10: loss 2.6707
+2026-11-23 08:29:50,889 INFO DAS v2 k=4 kl epoch 4/10: loss 2.7059
+2026-11-23 08:31:02,502 INFO DAS v2 k=4 kl epoch 5/10: loss 2.5625
+2026-11-23 08:32:14,172 INFO DAS v2 k=4 kl epoch 6/10: loss 2.5841
+2026-11-23 08:33:25,632 INFO DAS v2 k=4 kl epoch 7/10: loss 2.6125
+2026-11-23 08:34:37,107 INFO DAS v2 k=4 kl epoch 8/10: loss 2.5351
+2026-11-23 08:35:48,601 INFO DAS v2 k=4 kl epoch 9/10: loss 2.5428
+2026-11-23 08:37:00,063 INFO DAS v2 k=4 kl epoch 10/10: loss 2.4940
+2026-11-23 08:37:52,826 INFO DAS: training das16v2_kl (k=16, 10 epochs, lr 0.01, seed 0) for people_cities L8 on 300 train pairs
+2026-11-23 08:41:18,771 INFO DAS v2 k=16 kl epoch 1/10: loss 1.1607
+2026-11-23 08:42:31,759 INFO DAS v2 k=16 kl epoch 2/10: loss 0.1892
+2026-11-23 08:43:44,769 INFO DAS v2 k=16 kl epoch 3/10: loss 0.1523
+2026-11-23 08:44:57,789 INFO DAS v2 k=16 kl epoch 4/10: loss 0.0683
+2026-11-23 08:46:10,801 INFO DAS v2 k=16 kl epoch 5/10: loss 0.0618
+2026-11-23 08:47:23,673 INFO DAS v2 k=16 kl epoch 6/10: loss 0.1020
+2026-11-23 08:48:36,524 INFO DAS v2 k=16 kl epoch 7/10: loss 0.1644
+2026-11-23 08:49:49,254 INFO DAS v2 k=16 kl epoch 8/10: loss 0.0860
+2026-11-23 08:51:02,014 INFO DAS v2 k=16 kl epoch 9/10: loss 0.0456
+
+=== attempt 1 2026-11-23 11:49:22 slots=['3']: /home2/raveeshvyas1410/prism-run/.venv-harness/bin/python -m harness.run --config configs/pilot/P1.yaml --profile server --stage 3 --worker P1_s3-0
+2026-11-23 11:49:27,082 ERROR run failed
+Traceback (most recent call last):
+  File "/home2/raveeshvyas1410/prism-run/harness/run.py", line 1022, in main
+    {"1": R.run_stage1, "2": R.run_stage2, "3": R.run_stage3}[s]()
+  File "/home2/raveeshvyas1410/prism-run/harness/run.py", line 757, in run_stage3
+    cl, fl = self.flags(cell.task)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/raveeshvyas1410/prism-run/harness/run.py", line 432, in flags
+    cl = S.load_clean(ent, len(rows))
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/raveeshvyas1410/prism-run/harness/model/stages.py", line 133, in load_clean
+    entry.require_complete()
+  File "/home2/raveeshvyas1410/prism-run/harness/cache.py", line 128, in require_complete
+    raise FileNotFoundError(f"cache {self.kind}/{self.key} is missing or incomplete ({self.dir})")
+FileNotFoundError: cache clean_out/e406dca3f50c8cdd1949 is missing or incomplete (/ssd_scratch/raveeshvyas1410/prism/cache/clean_out/e406dca3f50c8cdd1949)
+2026-11-23 11:49:27,203 INFO P1 -> /home2/raveeshvyas1410/prism-run/runs/P1/73612e6cdb8e (failed)
+
+=== attempt 2 2026-11-23 11:49:28 slots=['3']: /home2/raveeshvyas1410/prism-run/.venv-harness/bin/python -m harness.run --config configs/pilot/P1.yaml --profile server --stage 3 --worker P1_s3-0
+2026-11-23 11:49:32,081 ERROR run failed
+Traceback (most recent call last):
+  File "/home2/raveeshvyas1410/prism-run/harness/run.py", line 1022, in main
+    {"1": R.run_stage1, "2": R.run_stage2, "3": R.run_stage3}[s]()
+  File "/home2/raveeshvyas1410/prism-run/harness/run.py", line 757, in run_stage3
+    cl, fl = self.flags(cell.task)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/raveeshvyas1410/prism-run/harness/run.py", line 432, in flags
+    cl = S.load_clean(ent, len(rows))
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/raveeshvyas1410/prism-run/harness/model/stages.py", line 133, in load_clean
+    entry.require_complete()
+  File "/home2/raveeshvyas1410/prism-run/harness/cache.py", line 128, in require_complete
+    raise FileNotFoundError(f"cache {self.kind}/{self.key} is missing or incomplete ({self.dir})")
+FileNotFoundError: cache clean_out/e406dca3f50c8cdd1949 is missing or incomplete (/ssd_scratch/raveeshvyas1410/prism/cache/clean_out/e406dca3f50c8cdd1949)
+2026-11-23 11:49:32,189 INFO P1 -> /home2/raveeshvyas1410/prism-run/runs/P1/73612e6cdb8e (failed)
+
+=== attempt 1 2026-11-25 02:26:07 slots=['0']: /home2/raveeshvyas1410/prism-run/.venv-harness/bin/python -m harness.run --config configs/pilot/P1.yaml --profile server --stage 3 --worker P1_s3-0
+2026-11-25 02:26:16,910 INFO DAS: training das16v2_kl (k=16, 10 epochs, lr 0.01, seed 0) for people_cities L8 on 300 train pairs
+Loading weights:   0%|          | 0/288 [00:00<?, ?it/s]Loading weights:   0%|          | 1/288 [00:00<02:06,  2.26it/s]Loading weights:  76%|███████▌  | 219/288 [00:00<00:00, 484.34it/s]Loading weights: 100%|██████████| 288/288 [00:06<00:00, 42.05it/s] 
+2026-11-25 02:26:29,037 INFO HTTP Request: GET https://huggingface.co/api/agent-harnesses "HTTP/1.1 200 OK"
+2026-11-25 02:26:29,291 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-25 02:26:29,552 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-25 02:26:29,802 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-25 02:26:31,177 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-25 02:29:50,763 INFO DAS v2 k=16 kl epoch 1/10: loss 1.1478
+2026-11-25 02:30:56,559 INFO DAS v2 k=16 kl epoch 2/10: loss 0.1421
+2026-11-25 02:32:02,402 INFO DAS v2 k=16 kl epoch 3/10: loss 0.1539
+2026-11-25 02:33:08,276 INFO DAS v2 k=16 kl epoch 4/10: loss 0.1200
+2026-11-25 02:34:14,154 INFO DAS v2 k=16 kl epoch 5/10: loss 0.1294
+2026-11-25 02:35:20,180 INFO DAS v2 k=16 kl epoch 6/10: loss 0.1243
+2026-11-25 02:36:26,193 INFO DAS v2 k=16 kl epoch 7/10: loss 0.1126
+2026-11-25 02:37:32,200 INFO DAS v2 k=16 kl epoch 8/10: loss 0.1286
+2026-11-25 02:38:38,200 INFO DAS v2 k=16 kl epoch 9/10: loss 0.0671
+2026-11-25 02:39:44,207 INFO DAS v2 k=16 kl epoch 10/10: loss 0.0853
+2026-11-25 02:42:54,134 INFO people_cities_L8_16k_l071__fit-pc_en__eval-pc_en unit 1/31 (8 conditions, 139.7s)
+2026-11-25 02:45:14,148 INFO people_cities_L8_16k_l071__fit-pc_en__eval-pc_en unit 5/31 (8 conditions, 139.9s)
+2026-11-25 02:47:34,307 INFO people_cities_L8_16k_l071__fit-pc_en__eval-pc_en unit 9/31 (8 conditions, 140.0s)
+2026-11-25 02:49:54,463 INFO people_cities_L8_16k_l071__fit-pc_en__eval-pc_en unit 13/31 (8 conditions, 140.0s)
+2026-11-25 02:52:14,642 INFO people_cities_L8_16k_l071__fit-pc_en__eval-pc_en unit 17/31 (8 conditions, 140.1s)
+2026-11-25 02:54:34,846 INFO people_cities_L8_16k_l071__fit-pc_en__eval-pc_en unit 21/31 (8 conditions, 140.1s)
+2026-11-25 02:56:55,042 INFO people_cities_L8_16k_l071__fit-pc_en__eval-pc_en unit 25/31 (8 conditions, 140.1s)
+2026-11-25 02:59:15,263 INFO people_cities_L8_16k_l071__fit-pc_en__eval-pc_en unit 29/31 (8 conditions, 140.1s)
+2026-11-25 03:01:41,438 INFO people_cities_L8_65k_l059__fit-pc_en__eval-pc_en unit 1/31 (8 conditions, 139.7s)
+2026-11-25 03:04:01,703 INFO people_cities_L8_65k_l059__fit-pc_en__eval-pc_en unit 5/31 (8 conditions, 140.1s)
+2026-11-25 03:06:21,938 INFO people_cities_L8_65k_l059__fit-pc_en__eval-pc_en unit 9/31 (8 conditions, 140.1s)
+2026-11-25 03:08:42,130 INFO people_cities_L8_65k_l059__fit-pc_en__eval-pc_en unit 13/31 (8 conditions, 140.1s)
+2026-11-25 03:11:02,307 INFO people_cities_L8_65k_l059__fit-pc_en__eval-pc_en unit 16/31 (8 conditions, 140.1s)
+2026-11-25 03:13:22,597 INFO people_cities_L8_65k_l059__fit-pc_en__eval-pc_en unit 20/31 (8 conditions, 140.2s)
+2026-11-25 03:15:42,920 INFO people_cities_L8_65k_l059__fit-pc_en__eval-pc_en unit 24/31 (8 conditions, 140.2s)
+2026-11-25 03:18:03,264 INFO people_cities_L8_65k_l059__fit-pc_en__eval-pc_en unit 28/31 (8 conditions, 140.2s)
+2026-11-25 03:18:08,656 INFO DAS: training das4v2_kl (k=4, 10 epochs, lr 0.01, seed 0) for people_cities L12 on 300 train pairs
+2026-11-25 03:20:48,510 INFO DAS v2 k=4 kl epoch 1/10: loss 3.0072
+2026-11-25 03:21:38,548 INFO DAS v2 k=4 kl epoch 2/10: loss 2.3923
+2026-11-25 03:22:28,587 INFO DAS v2 k=4 kl epoch 3/10: loss 2.3437
+2026-11-25 03:23:18,612 INFO DAS v2 k=4 kl epoch 4/10: loss 2.4059
+2026-11-25 03:24:08,643 INFO DAS v2 k=4 kl epoch 5/10: loss 2.4604
+2026-11-25 03:24:58,673 INFO DAS v2 k=4 kl epoch 6/10: loss 2.5367
+2026-11-25 03:25:48,673 INFO DAS v2 k=4 kl epoch 7/10: loss 2.3901
+2026-11-25 03:26:38,690 INFO DAS v2 k=4 kl epoch 8/10: loss 2.4316
+2026-11-25 03:27:28,689 INFO DAS v2 k=4 kl epoch 9/10: loss 2.3057
+2026-11-25 03:28:18,696 INFO DAS v2 k=4 kl epoch 10/10: loss 2.3825
+2026-11-25 03:33:03,065 INFO people_cities_L12_16k_l082__fit-pc_en__eval-pc_en unit 1/31 (8 conditions, 110.8s)
+2026-11-25 03:34:55,864 INFO people_cities_L12_16k_l082__fit-pc_en__eval-pc_en unit 5/31 (8 conditions, 112.7s)
+2026-11-25 03:36:49,012 INFO people_cities_L12_16k_l082__fit-pc_en__eval-pc_en unit 9/31 (8 conditions, 113.0s)
+2026-11-25 03:38:42,361 INFO people_cities_L12_16k_l082__fit-pc_en__eval-pc_en unit 13/31 (8 conditions, 113.2s)
+2026-11-25 03:40:35,720 INFO people_cities_L12_16k_l082__fit-pc_en__eval-pc_en unit 17/31 (8 conditions, 113.2s)
+2026-11-25 03:42:28,965 INFO people_cities_L12_16k_l082__fit-pc_en__eval-pc_en unit 21/31 (8 conditions, 113.1s)
+2026-11-25 03:44:22,165 INFO people_cities_L12_16k_l082__fit-pc_en__eval-pc_en unit 25/31 (8 conditions, 113.1s)
+2026-11-25 03:46:15,372 INFO people_cities_L12_16k_l082__fit-pc_en__eval-pc_en unit 29/31 (8 conditions, 113.1s)
+2026-11-25 03:48:11,945 INFO people_cities_L12_65k_l072__fit-pc_en__eval-pc_en unit 2/31 (8 conditions, 112.7s)
+2026-11-25 03:50:05,202 INFO people_cities_L12_65k_l072__fit-pc_en__eval-pc_en unit 6/31 (8 conditions, 113.1s)
+2026-11-25 03:51:58,454 INFO people_cities_L12_65k_l072__fit-pc_en__eval-pc_en unit 9/31 (8 conditions, 113.1s)
+2026-11-25 03:53:51,713 INFO people_cities_L12_65k_l072__fit-pc_en__eval-pc_en unit 13/31 (8 conditions, 113.1s)
+2026-11-25 03:55:44,985 INFO people_cities_L12_65k_l072__fit-pc_en__eval-pc_en unit 17/31 (8 conditions, 113.2s)
+2026-11-25 03:57:38,209 INFO people_cities_L12_65k_l072__fit-pc_en__eval-pc_en unit 20/31 (8 conditions, 113.1s)
+2026-11-25 03:59:31,502 INFO people_cities_L12_65k_l072__fit-pc_en__eval-pc_en unit 24/31 (8 conditions, 113.2s)
+2026-11-25 04:01:24,818 INFO people_cities_L12_65k_l072__fit-pc_en__eval-pc_en unit 28/31 (8 conditions, 113.2s)
+2026-11-25 04:01:30,117 INFO DAS: training das4v2_kl (k=4, 10 epochs, lr 0.01, seed 0) for people_cities L16 on 300 train pairs
+2026-11-25 04:03:44,309 INFO DAS v2 k=4 kl epoch 1/10: loss 3.1133
+2026-11-25 04:04:19,849 INFO DAS v2 k=4 kl epoch 2/10: loss 2.6665
+2026-11-25 04:04:55,390 INFO DAS v2 k=4 kl epoch 3/10: loss 2.7325
+2026-11-25 04:05:30,944 INFO DAS v2 k=4 kl epoch 4/10: loss 2.7051
+2026-11-25 04:06:06,490 INFO DAS v2 k=4 kl epoch 5/10: loss 2.6737
+2026-11-25 04:06:42,003 INFO DAS v2 k=4 kl epoch 6/10: loss 2.7470
+2026-11-25 04:07:17,545 INFO DAS v2 k=4 kl epoch 7/10: loss 2.6677
+2026-11-25 04:07:53,085 INFO DAS v2 k=4 kl epoch 8/10: loss 2.5795
+2026-11-25 04:08:28,624 INFO DAS v2 k=4 kl epoch 9/10: loss 2.4913
+2026-11-25 04:09:04,153 INFO DAS v2 k=4 kl epoch 10/10: loss 2.6425
+2026-11-25 04:12:30,695 INFO people_cities_L16_16k_l078__fit-pc_en__eval-pc_en unit 1/31 (8 conditions, 84.2s)
+2026-11-25 04:13:56,651 INFO people_cities_L16_16k_l078__fit-pc_en__eval-pc_en unit 5/31 (8 conditions, 85.8s)
+2026-11-25 04:15:22,812 INFO people_cities_L16_16k_l078__fit-pc_en__eval-pc_en unit 9/31 (8 conditions, 86.0s)
+2026-11-25 04:16:49,090 INFO people_cities_L16_16k_l078__fit-pc_en__eval-pc_en unit 13/31 (8 conditions, 86.2s)
+2026-11-25 04:18:15,410 INFO people_cities_L16_16k_l078__fit-pc_en__eval-pc_en unit 17/31 (8 conditions, 86.2s)
+2026-11-25 04:19:41,665 INFO people_cities_L16_16k_l078__fit-pc_en__eval-pc_en unit 21/31 (8 conditions, 86.1s)
+2026-11-25 04:21:08,003 INFO people_cities_L16_16k_l078__fit-pc_en__eval-pc_en unit 25/31 (8 conditions, 86.2s)
+2026-11-25 04:22:34,429 INFO people_cities_L16_16k_l078__fit-pc_en__eval-pc_en unit 29/31 (8 conditions, 86.3s)
+2026-11-25 04:24:04,327 INFO people_cities_L16_65k_l069__fit-pc_en__eval-pc_en unit 2/31 (8 conditions, 86.0s)
+2026-11-25 04:25:30,673 INFO people_cities_L16_65k_l069__fit-pc_en__eval-pc_en unit 5/31 (8 conditions, 86.2s)
+2026-11-25 04:26:57,037 INFO people_cities_L16_65k_l069__fit-pc_en__eval-pc_en unit 9/31 (8 conditions, 86.2s)
+2026-11-25 04:28:23,404 INFO people_cities_L16_65k_l069__fit-pc_en__eval-pc_en unit 13/31 (8 conditions, 86.3s)
+2026-11-25 04:29:49,823 INFO people_cities_L16_65k_l069__fit-pc_en__eval-pc_en unit 17/31 (8 conditions, 86.3s)
+2026-11-25 04:31:16,205 INFO people_cities_L16_65k_l069__fit-pc_en__eval-pc_en unit 20/31 (8 conditions, 86.3s)
+2026-11-25 04:32:42,575 INFO people_cities_L16_65k_l069__fit-pc_en__eval-pc_en unit 24/31 (8 conditions, 86.2s)
+2026-11-25 04:34:08,951 INFO people_cities_L16_65k_l069__fit-pc_en__eval-pc_en unit 28/31 (8 conditions, 86.2s)
+2026-11-25 04:34:12,019 INFO DAS: training das4v2_kl (k=4, 10 epochs, lr 0.01, seed 0) for people_cities L8 on 300 train pairs
+2026-11-25 04:37:16,362 INFO DAS v2 k=4 kl epoch 1/10: loss 2.8390
+2026-11-25 04:38:20,080 INFO DAS v2 k=4 kl epoch 2/10: loss 2.2003
+2026-11-25 04:39:23,780 INFO DAS v2 k=4 kl epoch 3/10: loss 1.9904
+2026-11-25 04:40:27,488 INFO DAS v2 k=4 kl epoch 4/10: loss 2.2090
+2026-11-25 04:41:31,192 INFO DAS v2 k=4 kl epoch 5/10: loss 2.0729
+2026-11-25 04:42:34,914 INFO DAS v2 k=4 kl epoch 6/10: loss 2.1553
+2026-11-25 04:43:38,632 INFO DAS v2 k=4 kl epoch 7/10: loss 2.1556
+2026-11-25 04:44:42,321 INFO DAS v2 k=4 kl epoch 8/10: loss 1.9852
+2026-11-25 04:45:46,012 INFO DAS v2 k=4 kl epoch 9/10: loss 2.0420
+2026-11-25 04:46:49,706 INFO DAS v2 k=4 kl epoch 10/10: loss 1.9260
+2026-11-25 04:51:48,729 INFO people_cities_L8_16k_l071__fit-pc_en_swap__eval-pc_en_swap unit 1/31 (8 conditions, 136.5s)
+2026-11-25 04:54:07,503 INFO people_cities_L8_16k_l071__fit-pc_en_swap__eval-pc_en_swap unit 5/31 (8 conditions, 138.6s)
+2026-11-25 04:56:26,372 INFO people_cities_L8_16k_l071__fit-pc_en_swap__eval-pc_en_swap unit 9/31 (8 conditions, 138.7s)
+2026-11-25 04:58:45,173 INFO people_cities_L8_16k_l071__fit-pc_en_swap__eval-pc_en_swap unit 13/31 (8 conditions, 138.7s)
+2026-11-25 05:01:03,962 INFO people_cities_L8_16k_l071__fit-pc_en_swap__eval-pc_en_swap unit 17/31 (8 conditions, 138.7s)
+2026-11-25 05:03:22,849 INFO people_cities_L8_16k_l071__fit-pc_en_swap__eval-pc_en_swap unit 21/31 (8 conditions, 138.7s)
+2026-11-25 05:05:41,803 INFO people_cities_L8_16k_l071__fit-pc_en_swap__eval-pc_en_swap unit 25/31 (8 conditions, 138.8s)
+2026-11-25 05:08:00,752 INFO people_cities_L8_16k_l071__fit-pc_en_swap__eval-pc_en_swap unit 29/31 (8 conditions, 138.8s)
+2026-11-25 05:10:23,575 INFO people_cities_L8_65k_l059__fit-pc_en_swap__eval-pc_en_swap unit 2/31 (8 conditions, 138.6s)
+2026-11-25 05:12:42,564 INFO people_cities_L8_65k_l059__fit-pc_en_swap__eval-pc_en_swap unit 6/31 (8 conditions, 138.8s)
+2026-11-25 05:15:01,498 INFO people_cities_L8_65k_l059__fit-pc_en_swap__eval-pc_en_swap unit 9/31 (8 conditions, 138.7s)
+2026-11-25 05:17:20,438 INFO people_cities_L8_65k_l059__fit-pc_en_swap__eval-pc_en_swap unit 13/31 (8 conditions, 138.8s)
+2026-11-25 05:19:39,335 INFO people_cities_L8_65k_l059__fit-pc_en_swap__eval-pc_en_swap unit 17/31 (8 conditions, 138.8s)
+2026-11-25 05:21:58,301 INFO people_cities_L8_65k_l059__fit-pc_en_swap__eval-pc_en_swap unit 20/31 (8 conditions, 138.8s)
+2026-11-25 05:24:17,271 INFO people_cities_L8_65k_l059__fit-pc_en_swap__eval-pc_en_swap unit 24/31 (8 conditions, 138.8s)
+2026-11-25 05:26:36,257 INFO people_cities_L8_65k_l059__fit-pc_en_swap__eval-pc_en_swap unit 28/31 (8 conditions, 138.8s)
+2026-11-25 05:26:39,302 INFO DAS: training das4v2_kl (k=4, 10 epochs, lr 0.01, seed 0) for people_cities L12 on 300 train pairs
+2026-11-25 05:29:18,582 INFO DAS v2 k=4 kl epoch 1/10: loss 2.6229
+2026-11-25 05:30:08,098 INFO DAS v2 k=4 kl epoch 2/10: loss 2.2066
+2026-11-25 05:30:57,586 INFO DAS v2 k=4 kl epoch 3/10: loss 2.0153
+2026-11-25 05:31:47,104 INFO DAS v2 k=4 kl epoch 4/10: loss 2.1270
+2026-11-25 05:32:36,601 INFO DAS v2 k=4 kl epoch 5/10: loss 2.1711
+2026-11-25 05:33:26,079 INFO DAS v2 k=4 kl epoch 6/10: loss 2.0813
+2026-11-25 05:34:15,559 INFO DAS v2 k=4 kl epoch 7/10: loss 1.8833
+2026-11-25 05:35:05,033 INFO DAS v2 k=4 kl epoch 8/10: loss 1.6612
+2026-11-25 05:35:54,537 INFO DAS v2 k=4 kl epoch 9/10: loss 1.6947
+2026-11-25 05:36:44,005 INFO DAS v2 k=4 kl epoch 10/10: loss 1.5747
+2026-11-25 05:41:13,256 INFO people_cities_L12_16k_l082__fit-pc_en_swap__eval-pc_en_swap unit 2/31 (8 conditions, 109.9s)
+2026-11-25 05:43:05,391 INFO people_cities_L12_16k_l082__fit-pc_en_swap__eval-pc_en_swap unit 5/31 (8 conditions, 112.0s)
+2026-11-25 05:44:57,757 INFO people_cities_L12_16k_l082__fit-pc_en_swap__eval-pc_en_swap unit 9/31 (8 conditions, 112.2s)
+2026-11-25 05:46:50,092 INFO people_cities_L12_16k_l082__fit-pc_en_swap__eval-pc_en_swap unit 13/31 (8 conditions, 112.2s)
+2026-11-25 05:48:42,392 INFO people_cities_L12_16k_l082__fit-pc_en_swap__eval-pc_en_swap unit 17/31 (8 conditions, 112.2s)
+2026-11-25 05:50:34,627 INFO people_cities_L12_16k_l082__fit-pc_en_swap__eval-pc_en_swap unit 21/31 (8 conditions, 112.1s)
+2026-11-25 05:52:26,892 INFO people_cities_L12_16k_l082__fit-pc_en_swap__eval-pc_en_swap unit 25/31 (8 conditions, 112.1s)
+2026-11-25 05:54:19,238 INFO people_cities_L12_16k_l082__fit-pc_en_swap__eval-pc_en_swap unit 29/31 (8 conditions, 112.2s)
+2026-11-25 05:56:15,441 INFO people_cities_L12_65k_l072__fit-pc_en_swap__eval-pc_en_swap unit 2/31 (8 conditions, 111.9s)
+2026-11-25 05:58:07,739 INFO people_cities_L12_65k_l072__fit-pc_en_swap__eval-pc_en_swap unit 6/31 (8 conditions, 112.1s)
+2026-11-25 06:00:00,037 INFO people_cities_L12_65k_l072__fit-pc_en_swap__eval-pc_en_swap unit 9/31 (8 conditions, 112.1s)
+2026-11-25 06:01:52,367 INFO people_cities_L12_65k_l072__fit-pc_en_swap__eval-pc_en_swap unit 13/31 (8 conditions, 112.2s)
+2026-11-25 06:03:44,664 INFO people_cities_L12_65k_l072__fit-pc_en_swap__eval-pc_en_swap unit 17/31 (8 conditions, 112.1s)
+2026-11-25 06:05:36,930 INFO people_cities_L12_65k_l072__fit-pc_en_swap__eval-pc_en_swap unit 20/31 (8 conditions, 112.1s)
+2026-11-25 06:07:29,230 INFO people_cities_L12_65k_l072__fit-pc_en_swap__eval-pc_en_swap unit 24/31 (8 conditions, 112.1s)
+2026-11-25 06:09:21,522 INFO people_cities_L12_65k_l072__fit-pc_en_swap__eval-pc_en_swap unit 28/31 (8 conditions, 112.1s)
+2026-11-25 06:09:24,511 INFO DAS: training das4v2_kl (k=4, 10 epochs, lr 0.01, seed 0) for people_cities L16 on 300 train pairs
+2026-11-25 06:11:38,291 INFO DAS v2 k=4 kl epoch 1/10: loss 2.4730
+2026-11-25 06:12:13,363 INFO DAS v2 k=4 kl epoch 2/10: loss 2.1951
+2026-11-25 06:12:48,438 INFO DAS v2 k=4 kl epoch 3/10: loss 2.0645
+2026-11-25 06:13:23,509 INFO DAS v2 k=4 kl epoch 4/10: loss 2.2077
+2026-11-25 06:13:58,583 INFO DAS v2 k=4 kl epoch 5/10: loss 2.1710
+2026-11-25 06:14:33,666 INFO DAS v2 k=4 kl epoch 6/10: loss 2.0446
+2026-11-25 06:15:08,742 INFO DAS v2 k=4 kl epoch 7/10: loss 1.9186
+2026-11-25 06:15:43,821 INFO DAS v2 k=4 kl epoch 8/10: loss 1.8997
+2026-11-25 06:16:18,890 INFO DAS v2 k=4 kl epoch 9/10: loss 1.9754
+2026-11-25 06:16:53,972 INFO DAS v2 k=4 kl epoch 10/10: loss 1.8547
+2026-11-25 06:20:24,721 INFO people_cities_L16_16k_l078__fit-pc_en_swap__eval-pc_en_swap unit 2/31 (8 conditions, 83.6s)
+2026-11-25 06:21:50,055 INFO people_cities_L16_16k_l078__fit-pc_en_swap__eval-pc_en_swap unit 5/31 (8 conditions, 85.2s)
+2026-11-25 06:23:15,609 INFO people_cities_L16_16k_l078__fit-pc_en_swap__eval-pc_en_swap unit 9/31 (8 conditions, 85.4s)
+2026-11-25 06:24:41,242 INFO people_cities_L16_16k_l078__fit-pc_en_swap__eval-pc_en_swap unit 13/31 (8 conditions, 85.5s)
+2026-11-25 06:26:06,851 INFO people_cities_L16_16k_l078__fit-pc_en_swap__eval-pc_en_swap unit 17/31 (8 conditions, 85.4s)
+2026-11-25 06:27:32,458 INFO people_cities_L16_16k_l078__fit-pc_en_swap__eval-pc_en_swap unit 21/31 (8 conditions, 85.5s)
+2026-11-25 06:28:58,069 INFO people_cities_L16_16k_l078__fit-pc_en_swap__eval-pc_en_swap unit 25/31 (8 conditions, 85.5s)
+2026-11-25 06:30:23,692 INFO people_cities_L16_16k_l078__fit-pc_en_swap__eval-pc_en_swap unit 29/31 (8 conditions, 85.4s)
+2026-11-25 06:31:53,264 INFO people_cities_L16_65k_l069__fit-pc_en_swap__eval-pc_en_swap unit 2/31 (8 conditions, 85.3s)
+2026-11-25 06:33:18,864 INFO people_cities_L16_65k_l069__fit-pc_en_swap__eval-pc_en_swap unit 6/31 (8 conditions, 85.4s)
+2026-11-25 06:34:44,487 INFO people_cities_L16_65k_l069__fit-pc_en_swap__eval-pc_en_swap unit 9/31 (8 conditions, 85.4s)
+2026-11-25 06:36:10,078 INFO people_cities_L16_65k_l069__fit-pc_en_swap__eval-pc_en_swap unit 13/31 (8 conditions, 85.5s)
+2026-11-25 06:37:35,638 INFO people_cities_L16_65k_l069__fit-pc_en_swap__eval-pc_en_swap unit 17/31 (8 conditions, 85.4s)
+2026-11-25 06:39:01,198 INFO people_cities_L16_65k_l069__fit-pc_en_swap__eval-pc_en_swap unit 20/31 (8 conditions, 85.4s)
+2026-11-25 06:40:26,762 INFO people_cities_L16_65k_l069__fit-pc_en_swap__eval-pc_en_swap unit 24/31 (8 conditions, 85.4s)
+2026-11-25 06:41:52,353 INFO people_cities_L16_65k_l069__fit-pc_en_swap__eval-pc_en_swap unit 28/31 (8 conditions, 85.4s)
+2026-11-25 06:41:54,317 INFO DAS: training das4v2_kl (k=4, 10 epochs, lr 0.01, seed 0) for people_cities L8 on 300 train pairs
+2026-11-25 06:44:58,253 INFO DAS v2 k=4 kl epoch 1/10: loss 3.3986
+2026-11-25 06:46:01,559 INFO DAS v2 k=4 kl epoch 2/10: loss 2.0887
+2026-11-25 06:47:04,859 INFO DAS v2 k=4 kl epoch 3/10: loss 2.7758
+2026-11-25 06:48:08,136 INFO DAS v2 k=4 kl epoch 4/10: loss 3.2450
+2026-11-25 06:49:11,416 INFO DAS v2 k=4 kl epoch 5/10: loss 3.1077
+2026-11-25 06:50:14,699 INFO DAS v2 k=4 kl epoch 6/10: loss 3.1697
+2026-11-25 06:51:17,967 INFO DAS v2 k=4 kl epoch 7/10: loss 2.7229
+2026-11-25 06:52:21,244 INFO DAS v2 k=4 kl epoch 8/10: loss 2.5131
+2026-11-25 06:53:24,543 INFO DAS v2 k=4 kl epoch 9/10: loss 2.1848
+2026-11-25 06:54:27,833 INFO DAS v2 k=4 kl epoch 10/10: loss 1.8993
+2026-11-25 06:59:23,686 INFO people_cities_L8_16k_l071__fit-pc_en_query__eval-pc_en_query unit 2/31 (8 conditions, 135.8s)
+2026-11-25 07:01:41,716 INFO people_cities_L8_16k_l071__fit-pc_en_query__eval-pc_en_query unit 5/31 (8 conditions, 138.0s)
+2026-11-25 07:03:59,768 INFO people_cities_L8_16k_l071__fit-pc_en_query__eval-pc_en_query unit 9/31 (8 conditions, 138.0s)
+2026-11-25 07:06:17,815 INFO people_cities_L8_16k_l071__fit-pc_en_query__eval-pc_en_query unit 13/31 (8 conditions, 138.0s)
+2026-11-25 07:08:35,956 INFO people_cities_L8_16k_l071__fit-pc_en_query__eval-pc_en_query unit 17/31 (8 conditions, 138.1s)
+2026-11-25 07:10:54,041 INFO people_cities_L8_16k_l071__fit-pc_en_query__eval-pc_en_query unit 21/31 (8 conditions, 138.0s)
+2026-11-25 07:13:12,241 INFO people_cities_L8_16k_l071__fit-pc_en_query__eval-pc_en_query unit 25/31 (8 conditions, 138.1s)
+2026-11-25 07:15:30,455 INFO people_cities_L8_16k_l071__fit-pc_en_query__eval-pc_en_query unit 29/31 (8 conditions, 138.2s)
+2026-11-25 07:17:51,494 INFO people_cities_L8_65k_l059__fit-pc_en_query__eval-pc_en_query unit 2/31 (8 conditions, 138.0s)
+2026-11-25 07:20:09,696 INFO people_cities_L8_65k_l059__fit-pc_en_query__eval-pc_en_query unit 6/31 (8 conditions, 138.1s)
+2026-11-25 07:22:27,904 INFO people_cities_L8_65k_l059__fit-pc_en_query__eval-pc_en_query unit 9/31 (8 conditions, 138.1s)
+2026-11-25 07:24:46,149 INFO people_cities_L8_65k_l059__fit-pc_en_query__eval-pc_en_query unit 13/31 (8 conditions, 138.2s)
+2026-11-25 07:27:04,376 INFO people_cities_L8_65k_l059__fit-pc_en_query__eval-pc_en_query unit 17/31 (8 conditions, 138.2s)
+2026-11-25 07:29:22,589 INFO people_cities_L8_65k_l059__fit-pc_en_query__eval-pc_en_query unit 21/31 (8 conditions, 138.2s)
+2026-11-25 07:31:40,836 INFO people_cities_L8_65k_l059__fit-pc_en_query__eval-pc_en_query unit 24/31 (8 conditions, 138.2s)
+2026-11-25 07:33:59,091 INFO people_cities_L8_65k_l059__fit-pc_en_query__eval-pc_en_query unit 28/31 (8 conditions, 138.2s)
+2026-11-25 07:34:01,026 INFO DAS: training das4v2_kl (k=4, 10 epochs, lr 0.01, seed 0) for people_cities L12 on 300 train pairs
+2026-11-25 07:36:39,842 INFO DAS v2 k=4 kl epoch 1/10: loss 1.7878
+2026-11-25 07:37:28,904 INFO DAS v2 k=4 kl epoch 2/10: loss 1.1210
+2026-11-25 07:38:17,988 INFO DAS v2 k=4 kl epoch 3/10: loss 0.8847
+2026-11-25 07:39:07,055 INFO DAS v2 k=4 kl epoch 4/10: loss 0.9413
+2026-11-25 07:39:56,115 INFO DAS v2 k=4 kl epoch 5/10: loss 0.9399
+2026-11-25 07:40:45,204 INFO DAS v2 k=4 kl epoch 6/10: loss 1.0722
+2026-11-25 07:41:34,272 INFO DAS v2 k=4 kl epoch 7/10: loss 1.1749
+2026-11-25 07:42:23,324 INFO DAS v2 k=4 kl epoch 8/10: loss 1.1129
+2026-11-25 07:43:12,382 INFO DAS v2 k=4 kl epoch 9/10: loss 0.9427
+2026-11-25 07:44:01,436 INFO DAS v2 k=4 kl epoch 10/10: loss 0.8226
+2026-11-25 07:48:25,614 INFO people_cities_L12_16k_l082__fit-pc_en_query__eval-pc_en_query unit 2/31 (8 conditions, 109.4s)
+2026-11-25 07:50:17,016 INFO people_cities_L12_16k_l082__fit-pc_en_query__eval-pc_en_query unit 5/31 (8 conditions, 111.3s)
+2026-11-25 07:52:08,636 INFO people_cities_L12_16k_l082__fit-pc_en_query__eval-pc_en_query unit 9/31 (8 conditions, 111.6s)
+2026-11-25 07:54:00,282 INFO people_cities_L12_16k_l082__fit-pc_en_query__eval-pc_en_query unit 13/31 (8 conditions, 111.6s)
+2026-11-25 07:55:51,926 INFO people_cities_L12_16k_l082__fit-pc_en_query__eval-pc_en_query unit 17/31 (8 conditions, 111.6s)
+2026-11-25 07:57:43,550 INFO people_cities_L12_16k_l082__fit-pc_en_query__eval-pc_en_query unit 21/31 (8 conditions, 111.6s)
+2026-11-25 07:59:35,171 INFO people_cities_L12_16k_l082__fit-pc_en_query__eval-pc_en_query unit 25/31 (8 conditions, 111.6s)
+2026-11-25 08:01:26,774 INFO people_cities_L12_16k_l082__fit-pc_en_query__eval-pc_en_query unit 29/31 (8 conditions, 111.5s)
+2026-11-25 08:03:21,227 INFO people_cities_L12_65k_l072__fit-pc_en_query__eval-pc_en_query unit 2/31 (8 conditions, 111.4s)
+2026-11-25 08:05:12,834 INFO people_cities_L12_65k_l072__fit-pc_en_query__eval-pc_en_query unit 6/31 (8 conditions, 111.6s)
+2026-11-25 08:07:04,419 INFO people_cities_L12_65k_l072__fit-pc_en_query__eval-pc_en_query unit 9/31 (8 conditions, 111.5s)
+2026-11-25 08:08:56,015 INFO people_cities_L12_65k_l072__fit-pc_en_query__eval-pc_en_query unit 13/31 (8 conditions, 111.5s)
+2026-11-25 08:10:47,602 INFO people_cities_L12_65k_l072__fit-pc_en_query__eval-pc_en_query unit 17/31 (8 conditions, 111.5s)
+2026-11-25 08:12:39,215 INFO people_cities_L12_65k_l072__fit-pc_en_query__eval-pc_en_query unit 20/31 (8 conditions, 111.6s)
+2026-11-25 08:14:30,818 INFO people_cities_L12_65k_l072__fit-pc_en_query__eval-pc_en_query unit 24/31 (8 conditions, 111.5s)
+2026-11-25 08:16:22,448 INFO people_cities_L12_65k_l072__fit-pc_en_query__eval-pc_en_query unit 28/31 (8 conditions, 111.6s)
+2026-11-25 08:16:24,392 INFO DAS: training das4v2_kl (k=4, 10 epochs, lr 0.01, seed 0) for people_cities L16 on 300 train pairs
+2026-11-25 08:18:38,040 INFO DAS v2 k=4 kl epoch 1/10: loss 2.5850
+2026-11-25 08:19:12,914 INFO DAS v2 k=4 kl epoch 2/10: loss 2.0759
+2026-11-25 08:19:47,735 INFO DAS v2 k=4 kl epoch 3/10: loss 2.0365
+2026-11-25 08:20:22,571 INFO DAS v2 k=4 kl epoch 4/10: loss 1.9991
+2026-11-25 08:20:57,374 INFO DAS v2 k=4 kl epoch 5/10: loss 2.0036
+2026-11-25 08:21:32,192 INFO DAS v2 k=4 kl epoch 6/10: loss 2.0235
+2026-11-25 08:22:06,991 INFO DAS v2 k=4 kl epoch 7/10: loss 1.8503
+2026-11-25 08:22:41,797 INFO DAS v2 k=4 kl epoch 8/10: loss 1.9244
+2026-11-25 08:23:16,625 INFO DAS v2 k=4 kl epoch 9/10: loss 1.9201
+2026-11-25 08:23:51,423 INFO DAS v2 k=4 kl epoch 10/10: loss 2.0010
+2026-11-25 08:27:18,789 INFO people_cities_L16_16k_l078__fit-pc_en_query__eval-pc_en_query unit 1/31 (8 conditions, 83.1s)
+2026-11-25 08:28:43,532 INFO people_cities_L16_16k_l078__fit-pc_en_query__eval-pc_en_query unit 5/31 (8 conditions, 84.7s)
+2026-11-25 08:30:08,532 INFO people_cities_L16_16k_l078__fit-pc_en_query__eval-pc_en_query unit 9/31 (8 conditions, 84.9s)
+2026-11-25 08:31:33,591 INFO people_cities_L16_16k_l078__fit-pc_en_query__eval-pc_en_query unit 13/31 (8 conditions, 85.0s)
+2026-11-25 08:32:58,653 INFO people_cities_L16_16k_l078__fit-pc_en_query__eval-pc_en_query unit 17/31 (8 conditions, 85.0s)
+2026-11-25 08:34:23,727 INFO people_cities_L16_16k_l078__fit-pc_en_query__eval-pc_en_query unit 21/31 (8 conditions, 85.0s)
+2026-11-25 08:35:48,746 INFO people_cities_L16_16k_l078__fit-pc_en_query__eval-pc_en_query unit 25/31 (8 conditions, 85.0s)
+2026-11-25 08:37:13,808 INFO people_cities_L16_16k_l078__fit-pc_en_query__eval-pc_en_query unit 29/31 (8 conditions, 85.0s)
+2026-11-25 08:38:41,794 INFO people_cities_L16_65k_l069__fit-pc_en_query__eval-pc_en_query unit 2/31 (8 conditions, 84.9s)
+2026-11-25 08:40:06,871 INFO people_cities_L16_65k_l069__fit-pc_en_query__eval-pc_en_query unit 6/31 (8 conditions, 85.0s)
+2026-11-25 08:41:31,978 INFO people_cities_L16_65k_l069__fit-pc_en_query__eval-pc_en_query unit 9/31 (8 conditions, 85.0s)
+2026-11-25 08:42:57,019 INFO people_cities_L16_65k_l069__fit-pc_en_query__eval-pc_en_query unit 13/31 (8 conditions, 85.0s)
+2026-11-25 08:44:22,064 INFO people_cities_L16_65k_l069__fit-pc_en_query__eval-pc_en_query unit 17/31 (8 conditions, 85.0s)
+2026-11-25 08:45:47,145 INFO people_cities_L16_65k_l069__fit-pc_en_query__eval-pc_en_query unit 20/31 (8 conditions, 85.0s)
+2026-11-25 08:47:12,249 INFO people_cities_L16_65k_l069__fit-pc_en_query__eval-pc_en_query unit 24/31 (8 conditions, 85.0s)
+2026-11-25 08:48:37,325 INFO people_cities_L16_65k_l069__fit-pc_en_query__eval-pc_en_query unit 28/31 (8 conditions, 85.0s)
+2026-11-25 08:48:37,736 INFO P1 -> /home2/raveeshvyas1410/prism-run/runs/P1/431a8b4f4cc2 (worker_done)
+Loaded pretrained model gemma-2-2b into HookedTransformer

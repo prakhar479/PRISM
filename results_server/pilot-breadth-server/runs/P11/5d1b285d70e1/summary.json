@@ -1,0 +1,300 @@
+{
+ "exp_id": "P11",
+ "run_hash": "5d1b285d70e1",
+ "n_rows": 243000,
+ "hook_checks": [
+  {
+   "cell": "entity_track_8_L8_16k_l071_ot_placed_dest+ot_bin_dest+ot_drawer_dest",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "entity_track_8_L8_16k_l071_ot_placed_dest+ot_bin_dest+ot_drawer_dest",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "entity_track_12_L12_16k_l082_ot_placed_dest+ot_bin_dest+ot_drawer_dest",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "entity_track_12_L12_16k_l082_ot_placed_dest+ot_bin_dest+ot_drawer_dest",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "entity_track_16_L16_16k_l078_ot_placed_dest+ot_bin_dest+ot_drawer_dest",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "entity_track_16_L16_16k_l078_ot_placed_dest+ot_bin_dest+ot_drawer_dest",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  }
+ ],
+ "cells": [
+  {
+   "cell": "entity_track_L8_16k_l071__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest",
+   "role": "exploratory",
+   "sae": {
+    "layer": 8,
+    "width": "16k",
+    "l0": 71,
+    "repo": "google/gemma-scope-2b-pt-res",
+    "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+   },
+   "fit_families": [
+    "ot_placed_dest",
+    "ot_bin_dest",
+    "ot_drawer_dest"
+   ],
+   "eval_families": [
+    "ot_placed_dest",
+    "ot_bin_dest",
+    "ot_drawer_dest"
+   ],
+   "n_test_by_filter": {
+    "f_pilot": 450
+   },
+   "n_test_union": 450,
+   "n_train": 300,
+   "fitset_digest": "6c10851239e55f57",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 0.7507,
+     "f_both_correct": 0.6496,
+     "f_pilot": 0.7472
+    },
+    "train:ot_bin_dest": {
+     "f_none": 1.0,
+     "f_A_correct": 0.7633,
+     "f_both_correct": 0.6594,
+     "f_pilot": 0.7583
+    },
+    "train:ot_drawer_dest": {
+     "f_none": 1.0,
+     "f_A_correct": 0.6661,
+     "f_both_correct": 0.565,
+     "f_pilot": 0.6606
+    },
+    "train:ot_placed_dest": {
+     "f_none": 1.0,
+     "f_A_correct": 0.8228,
+     "f_both_correct": 0.7244,
+     "f_pilot": 0.8228
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 0.75,
+     "f_both_correct": 0.6556,
+     "f_pilot": 0.7448
+    },
+    "test:ot_bin_dest": {
+     "f_none": 1.0,
+     "f_A_correct": 0.7844,
+     "f_both_correct": 0.69,
+     "f_pilot": 0.78
+    },
+    "test:ot_drawer_dest": {
+     "f_none": 1.0,
+     "f_A_correct": 0.6444,
+     "f_both_correct": 0.5589,
+     "f_pilot": 0.6333
+    },
+    "test:ot_placed_dest": {
+     "f_none": 1.0,
+     "f_A_correct": 0.8211,
+     "f_both_correct": 0.7178,
+     "f_pilot": 0.8211
+    }
+   },
+   "mean_l0_test": [
+    66.35286712646484,
+    66.27501678466797
+   ],
+   "rel_err_norm_test": 0.416251540184021,
+   "mean_pos_coverage": {
+    "slot": 1688,
+    "offset": 3039,
+    "task": 0
+   }
+  },
+  {
+   "cell": "entity_track_L12_16k_l082__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest",
+   "role": "exploratory",
+   "sae": {
+    "layer": 12,
+    "width": "16k",
+    "l0": 82,
+    "repo": "google/gemma-scope-2b-pt-res",
+    "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+   },
+   "fit_families": [
+    "ot_placed_dest",
+    "ot_bin_dest",
+    "ot_drawer_dest"
+   ],
+   "eval_families": [
+    "ot_placed_dest",
+    "ot_bin_dest",
+    "ot_drawer_dest"
+   ],
+   "n_test_by_filter": {
+    "f_pilot": 450
+   },
+   "n_test_union": 450,
+   "n_train": 300,
+   "fitset_digest": "6c10851239e55f57",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 0.7507,
+     "f_both_correct": 0.6496,
+     "f_pilot": 0.7472
+    },
+    "train:ot_bin_dest": {
+     "f_none": 1.0,
+     "f_A_correct": 0.7633,
+     "f_both_correct": 0.6594,
+     "f_pilot": 0.7583
+    },
+    "train:ot_drawer_dest": {
+     "f_none": 1.0,
+     "f_A_correct": 0.6661,
+     "f_both_correct": 0.565,
+     "f_pilot": 0.6606
+    },
+    "train:ot_placed_dest": {
+     "f_none": 1.0,
+     "f_A_correct": 0.8228,
+     "f_both_correct": 0.7244,
+     "f_pilot": 0.8228
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 0.75,
+     "f_both_correct": 0.6556,
+     "f_pilot": 0.7448
+    },
+    "test:ot_bin_dest": {
+     "f_none": 1.0,
+     "f_A_correct": 0.7844,
+     "f_both_correct": 0.69,
+     "f_pilot": 0.78
+    },
+    "test:ot_drawer_dest": {
+     "f_none": 1.0,
+     "f_A_correct": 0.6444,
+     "f_both_correct": 0.5589,
+     "f_pilot": 0.6333
+    },
+    "test:ot_placed_dest": {
+     "f_none": 1.0,
+     "f_A_correct": 0.8211,
+     "f_both_correct": 0.7178,
+     "f_pilot": 0.8211
+    }
+   },
+   "mean_l0_test": [
+    83.1004867553711,
+    83.18722534179688
+   ],
+   "rel_err_norm_test": 0.4196808934211731,
+   "mean_pos_coverage": {
+    "slot": 1688,
+    "offset": 3039,
+    "task": 0
+   }
+  },
+  {
+   "cell": "entity_track_L16_16k_l078__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest",
+   "role": "exploratory",
+   "sae": {
+    "layer": 16,
+    "width": "16k",
+    "l0": 78,
+    "repo": "google/gemma-scope-2b-pt-res",
+    "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+   },
+   "fit_families": [
+    "ot_placed_dest",
+    "ot_bin_dest",
+    "ot_drawer_dest"
+   ],
+   "eval_families": [
+    "ot_placed_dest",
+    "ot_bin_dest",
+    "ot_drawer_dest"
+   ],
+   "n_test_by_filter": {
+    "f_pilot": 450
+   },
+   "n_test_union": 450,
+   "n_train": 300,
+   "fitset_digest": "6c10851239e55f57",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 0.7507,
+     "f_both_correct": 0.6496,
+     "f_pilot": 0.7472
+    },
+    "train:ot_bin_dest": {
+     "f_none": 1.0,
+     "f_A_correct": 0.7633,
+     "f_both_correct": 0.6594,
+     "f_pilot": 0.7583
+    },
+    "train:ot_drawer_dest": {
+     "f_none": 1.0,
+     "f_A_correct": 0.6661,
+     "f_both_correct": 0.565,
+     "f_pilot": 0.6606
+    },
+    "train:ot_placed_dest": {
+     "f_none": 1.0,
+     "f_A_correct": 0.8228,
+     "f_both_correct": 0.7244,
+     "f_pilot": 0.8228
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 0.75,
+     "f_both_correct": 0.6556,
+     "f_pilot": 0.7448
+    },
+    "test:ot_bin_dest": {
+     "f_none": 1.0,
+     "f_A_correct": 0.7844,
+     "f_both_correct": 0.69,
+     "f_pilot": 0.78
+    },
+    "test:ot_drawer_dest": {
+     "f_none": 1.0,
+     "f_A_correct": 0.6444,
+     "f_both_correct": 0.5589,
+     "f_pilot": 0.6333
+    },
+    "test:ot_placed_dest": {
+     "f_none": 1.0,
+     "f_A_correct": 0.8211,
+     "f_both_correct": 0.7178,
+     "f_pilot": 0.8211
+    }
+   },
+   "mean_l0_test": [
+    78.20584106445312,
+    78.2811508178711
+   ],
+   "rel_err_norm_test": 0.4067395329475403,
+   "mean_pos_coverage": {
+    "slot": 1688,
+    "offset": 3039,
+    "task": 0
+   }
+  }
+ ]
+}

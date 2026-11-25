@@ -1,0 +1,3 @@
+2026-11-23 14:26:11,233 INFO HTTP Request: HEAD https://huggingface.co/google/gemma-scope-2b-pt-res/resolve/fd571b47c1c64851e9b1989792367b9babb4af63/layer_18/width_65k/average_l0_64/params.npz "HTTP/1.1 302 Found"
+2026-11-23 14:26:11,544 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/xet-read-token/fd571b47c1c64851e9b1989792367b9babb4af63 "HTTP/1.1 200 OK"
+2026-11-23 14:27:07,835 INFO P5 -> /home2/raveeshvyas1410/prism-run/runs/P5/4d85e3b586c8 (stage2_complete)

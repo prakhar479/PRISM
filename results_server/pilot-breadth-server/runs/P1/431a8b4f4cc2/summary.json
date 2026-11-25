@@ -1,0 +1,1683 @@
+{
+ "exp_id": "P1",
+ "run_hash": "431a8b4f4cc2",
+ "n_rows": 666900,
+ "hook_checks": [
+  {
+   "cell": "people_cities_8_L8_16k_l071_pc_en",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "people_cities_8_L8_16k_l071_pc_en",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "people_cities_8_L8_16k_l071_pc_en_query",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "people_cities_8_L8_16k_l071_pc_en_query",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "people_cities_8_L8_16k_l071_pc_en_swap",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "people_cities_8_L8_16k_l071_pc_en_swap",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "people_cities_8_L8_65k_l059_pc_en",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "people_cities_8_L8_65k_l059_pc_en",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "people_cities_8_L8_65k_l059_pc_en_query",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "people_cities_8_L8_65k_l059_pc_en_query",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "people_cities_8_L8_65k_l059_pc_en_swap",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "people_cities_8_L8_65k_l059_pc_en_swap",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "people_cities_12_L12_16k_l082_pc_en",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "people_cities_12_L12_16k_l082_pc_en",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "people_cities_12_L12_16k_l082_pc_en_query",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "people_cities_12_L12_16k_l082_pc_en_query",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "people_cities_12_L12_16k_l082_pc_en_swap",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "people_cities_12_L12_16k_l082_pc_en_swap",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "people_cities_12_L12_65k_l072_pc_en",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "people_cities_12_L12_65k_l072_pc_en",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "people_cities_12_L12_65k_l072_pc_en_query",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "people_cities_12_L12_65k_l072_pc_en_query",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "people_cities_12_L12_65k_l072_pc_en_swap",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "people_cities_12_L12_65k_l072_pc_en_swap",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "people_cities_16_L16_16k_l078_pc_en",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "people_cities_16_L16_16k_l078_pc_en",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "people_cities_16_L16_16k_l078_pc_en_query",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "people_cities_16_L16_16k_l078_pc_en_query",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "people_cities_16_L16_16k_l078_pc_en_swap",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "people_cities_16_L16_16k_l078_pc_en_swap",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "people_cities_16_L16_65k_l069_pc_en",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "people_cities_16_L16_65k_l069_pc_en",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "people_cities_16_L16_65k_l069_pc_en_query",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "people_cities_16_L16_65k_l069_pc_en_query",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "people_cities_16_L16_65k_l069_pc_en_swap",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "people_cities_16_L16_65k_l069_pc_en_swap",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  }
+ ],
+ "cells": [
+  {
+   "cell": "people_cities_L8_16k_l071__fit-pc_en__eval-pc_en",
+   "role": "exploratory",
+   "sae": {
+    "layer": 8,
+    "width": "16k",
+    "l0": 71,
+    "repo": "google/gemma-scope-2b-pt-res",
+    "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+   },
+   "fit_families": [
+    "pc_en"
+   ],
+   "eval_families": [
+    "pc_en"
+   ],
+   "n_test_by_filter": {
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "fa37ceac4259eb86",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9548,
+     "f_both_correct": 0.9178,
+     "f_pilot": 0.8678
+    },
+    "train:pc_en": {
+     "f_none": 1.0,
+     "f_A_correct": 0.95,
+     "f_both_correct": 0.9222,
+     "f_pilot": 0.9178
+    },
+    "train:pc_en_query": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9522,
+     "f_both_correct": 0.8956,
+     "f_pilot": 0.8611
+    },
+    "train:pc_en_swap": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9622,
+     "f_both_correct": 0.9356,
+     "f_pilot": 0.8244
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9578,
+     "f_both_correct": 0.923,
+     "f_pilot": 0.8607
+    },
+    "test:pc_en": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9578,
+     "f_both_correct": 0.94,
+     "f_pilot": 0.9378
+    },
+    "test:pc_en_query": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9511,
+     "f_both_correct": 0.8978,
+     "f_pilot": 0.8289
+    },
+    "test:pc_en_swap": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9644,
+     "f_both_correct": 0.9311,
+     "f_pilot": 0.8156
+    }
+   },
+   "mean_l0_test": [
+    75.70598602294922,
+    75.66813659667969
+   ],
+   "rel_err_norm_test": 0.41943642497062683,
+   "mean_pos_coverage": {
+    "slot": 718,
+    "offset": 1554,
+    "task": 0
+   }
+  },
+  {
+   "cell": "people_cities_L8_65k_l059__fit-pc_en__eval-pc_en",
+   "role": "exploratory",
+   "sae": {
+    "layer": 8,
+    "width": "65k",
+    "l0": 59,
+    "repo": "google/gemma-scope-2b-pt-res",
+    "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+   },
+   "fit_families": [
+    "pc_en"
+   ],
+   "eval_families": [
+    "pc_en"
+   ],
+   "n_test_by_filter": {
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "fa37ceac4259eb86",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9548,
+     "f_both_correct": 0.9178,
+     "f_pilot": 0.8678
+    },
+    "train:pc_en": {
+     "f_none": 1.0,
+     "f_A_correct": 0.95,
+     "f_both_correct": 0.9222,
+     "f_pilot": 0.9178
+    },
+    "train:pc_en_query": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9522,
+     "f_both_correct": 0.8956,
+     "f_pilot": 0.8611
+    },
+    "train:pc_en_swap": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9622,
+     "f_both_correct": 0.9356,
+     "f_pilot": 0.8244
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9578,
+     "f_both_correct": 0.923,
+     "f_pilot": 0.8607
+    },
+    "test:pc_en": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9578,
+     "f_both_correct": 0.94,
+     "f_pilot": 0.9378
+    },
+    "test:pc_en_query": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9511,
+     "f_both_correct": 0.8978,
+     "f_pilot": 0.8289
+    },
+    "test:pc_en_swap": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9644,
+     "f_both_correct": 0.9311,
+     "f_pilot": 0.8156
+    }
+   },
+   "mean_l0_test": [
+    58.73063278198242,
+    58.74559783935547
+   ],
+   "rel_err_norm_test": 0.40410465002059937,
+   "mean_pos_coverage": {
+    "slot": 718,
+    "offset": 1554,
+    "task": 0
+   }
+  },
+  {
+   "cell": "people_cities_L12_16k_l082__fit-pc_en__eval-pc_en",
+   "role": "exploratory",
+   "sae": {
+    "layer": 12,
+    "width": "16k",
+    "l0": 82,
+    "repo": "google/gemma-scope-2b-pt-res",
+    "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+   },
+   "fit_families": [
+    "pc_en"
+   ],
+   "eval_families": [
+    "pc_en"
+   ],
+   "n_test_by_filter": {
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "fa37ceac4259eb86",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9548,
+     "f_both_correct": 0.9178,
+     "f_pilot": 0.8678
+    },
+    "train:pc_en": {
+     "f_none": 1.0,
+     "f_A_correct": 0.95,
+     "f_both_correct": 0.9222,
+     "f_pilot": 0.9178
+    },
+    "train:pc_en_query": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9522,
+     "f_both_correct": 0.8956,
+     "f_pilot": 0.8611
+    },
+    "train:pc_en_swap": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9622,
+     "f_both_correct": 0.9356,
+     "f_pilot": 0.8244
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9578,
+     "f_both_correct": 0.923,
+     "f_pilot": 0.8607
+    },
+    "test:pc_en": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9578,
+     "f_both_correct": 0.94,
+     "f_pilot": 0.9378
+    },
+    "test:pc_en_query": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9511,
+     "f_both_correct": 0.8978,
+     "f_pilot": 0.8289
+    },
+    "test:pc_en_swap": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9644,
+     "f_both_correct": 0.9311,
+     "f_pilot": 0.8156
+    }
+   },
+   "mean_l0_test": [
+    88.25704193115234,
+    88.19894409179688
+   ],
+   "rel_err_norm_test": 0.41759127378463745,
+   "mean_pos_coverage": {
+    "slot": 718,
+    "offset": 1554,
+    "task": 0
+   }
+  },
+  {
+   "cell": "people_cities_L12_65k_l072__fit-pc_en__eval-pc_en",
+   "role": "exploratory",
+   "sae": {
+    "layer": 12,
+    "width": "65k",
+    "l0": 72,
+    "repo": "google/gemma-scope-2b-pt-res",
+    "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+   },
+   "fit_families": [
+    "pc_en"
+   ],
+   "eval_families": [
+    "pc_en"
+   ],
+   "n_test_by_filter": {
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "fa37ceac4259eb86",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9548,
+     "f_both_correct": 0.9178,
+     "f_pilot": 0.8678
+    },
+    "train:pc_en": {
+     "f_none": 1.0,
+     "f_A_correct": 0.95,
+     "f_both_correct": 0.9222,
+     "f_pilot": 0.9178
+    },
+    "train:pc_en_query": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9522,
+     "f_both_correct": 0.8956,
+     "f_pilot": 0.8611
+    },
+    "train:pc_en_swap": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9622,
+     "f_both_correct": 0.9356,
+     "f_pilot": 0.8244
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9578,
+     "f_both_correct": 0.923,
+     "f_pilot": 0.8607
+    },
+    "test:pc_en": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9578,
+     "f_both_correct": 0.94,
+     "f_pilot": 0.9378
+    },
+    "test:pc_en_query": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9511,
+     "f_both_correct": 0.8978,
+     "f_pilot": 0.8289
+    },
+    "test:pc_en_swap": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9644,
+     "f_both_correct": 0.9311,
+     "f_pilot": 0.8156
+    }
+   },
+   "mean_l0_test": [
+    83.17826080322266,
+    83.04533386230469
+   ],
+   "rel_err_norm_test": 0.4014515280723572,
+   "mean_pos_coverage": {
+    "slot": 718,
+    "offset": 1554,
+    "task": 0
+   }
+  },
+  {
+   "cell": "people_cities_L16_16k_l078__fit-pc_en__eval-pc_en",
+   "role": "exploratory",
+   "sae": {
+    "layer": 16,
+    "width": "16k",
+    "l0": 78,
+    "repo": "google/gemma-scope-2b-pt-res",
+    "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+   },
+   "fit_families": [
+    "pc_en"
+   ],
+   "eval_families": [
+    "pc_en"
+   ],
+   "n_test_by_filter": {
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "fa37ceac4259eb86",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9548,
+     "f_both_correct": 0.9178,
+     "f_pilot": 0.8678
+    },
+    "train:pc_en": {
+     "f_none": 1.0,
+     "f_A_correct": 0.95,
+     "f_both_correct": 0.9222,
+     "f_pilot": 0.9178
+    },
+    "train:pc_en_query": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9522,
+     "f_both_correct": 0.8956,
+     "f_pilot": 0.8611
+    },
+    "train:pc_en_swap": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9622,
+     "f_both_correct": 0.9356,
+     "f_pilot": 0.8244
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9578,
+     "f_both_correct": 0.923,
+     "f_pilot": 0.8607
+    },
+    "test:pc_en": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9578,
+     "f_both_correct": 0.94,
+     "f_pilot": 0.9378
+    },
+    "test:pc_en_query": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9511,
+     "f_both_correct": 0.8978,
+     "f_pilot": 0.8289
+    },
+    "test:pc_en_swap": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9644,
+     "f_both_correct": 0.9311,
+     "f_pilot": 0.8156
+    }
+   },
+   "mean_l0_test": [
+    72.01144409179688,
+    71.80149841308594
+   ],
+   "rel_err_norm_test": 0.40877318382263184,
+   "mean_pos_coverage": {
+    "slot": 718,
+    "offset": 1554,
+    "task": 0
+   }
+  },
+  {
+   "cell": "people_cities_L16_65k_l069__fit-pc_en__eval-pc_en",
+   "role": "exploratory",
+   "sae": {
+    "layer": 16,
+    "width": "65k",
+    "l0": 69,
+    "repo": "google/gemma-scope-2b-pt-res",
+    "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+   },
+   "fit_families": [
+    "pc_en"
+   ],
+   "eval_families": [
+    "pc_en"
+   ],
+   "n_test_by_filter": {
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "fa37ceac4259eb86",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9548,
+     "f_both_correct": 0.9178,
+     "f_pilot": 0.8678
+    },
+    "train:pc_en": {
+     "f_none": 1.0,
+     "f_A_correct": 0.95,
+     "f_both_correct": 0.9222,
+     "f_pilot": 0.9178
+    },
+    "train:pc_en_query": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9522,
+     "f_both_correct": 0.8956,
+     "f_pilot": 0.8611
+    },
+    "train:pc_en_swap": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9622,
+     "f_both_correct": 0.9356,
+     "f_pilot": 0.8244
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9578,
+     "f_both_correct": 0.923,
+     "f_pilot": 0.8607
+    },
+    "test:pc_en": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9578,
+     "f_both_correct": 0.94,
+     "f_pilot": 0.9378
+    },
+    "test:pc_en_query": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9511,
+     "f_both_correct": 0.8978,
+     "f_pilot": 0.8289
+    },
+    "test:pc_en_swap": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9644,
+     "f_both_correct": 0.9311,
+     "f_pilot": 0.8156
+    }
+   },
+   "mean_l0_test": [
+    65.61443328857422,
+    65.49559783935547
+   ],
+   "rel_err_norm_test": 0.39428216218948364,
+   "mean_pos_coverage": {
+    "slot": 718,
+    "offset": 1554,
+    "task": 0
+   }
+  },
+  {
+   "cell": "people_cities_L8_16k_l071__fit-pc_en_swap__eval-pc_en_swap",
+   "role": "exploratory",
+   "sae": {
+    "layer": 8,
+    "width": "16k",
+    "l0": 71,
+    "repo": "google/gemma-scope-2b-pt-res",
+    "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+   },
+   "fit_families": [
+    "pc_en_swap"
+   ],
+   "eval_families": [
+    "pc_en_swap"
+   ],
+   "n_test_by_filter": {
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "b3c5442ebe5286a8",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9548,
+     "f_both_correct": 0.9178,
+     "f_pilot": 0.8678
+    },
+    "train:pc_en": {
+     "f_none": 1.0,
+     "f_A_correct": 0.95,
+     "f_both_correct": 0.9222,
+     "f_pilot": 0.9178
+    },
+    "train:pc_en_query": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9522,
+     "f_both_correct": 0.8956,
+     "f_pilot": 0.8611
+    },
+    "train:pc_en_swap": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9622,
+     "f_both_correct": 0.9356,
+     "f_pilot": 0.8244
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9578,
+     "f_both_correct": 0.923,
+     "f_pilot": 0.8607
+    },
+    "test:pc_en": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9578,
+     "f_both_correct": 0.94,
+     "f_pilot": 0.9378
+    },
+    "test:pc_en_query": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9511,
+     "f_both_correct": 0.8978,
+     "f_pilot": 0.8289
+    },
+    "test:pc_en_swap": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9644,
+     "f_both_correct": 0.9311,
+     "f_pilot": 0.8156
+    }
+   },
+   "mean_l0_test": [
+    76.73548126220703,
+    76.60511016845703
+   ],
+   "rel_err_norm_test": 0.4160636365413666,
+   "mean_pos_coverage": {
+    "slot": 942,
+    "offset": 2226,
+    "task": 0
+   }
+  },
+  {
+   "cell": "people_cities_L8_65k_l059__fit-pc_en_swap__eval-pc_en_swap",
+   "role": "exploratory",
+   "sae": {
+    "layer": 8,
+    "width": "65k",
+    "l0": 59,
+    "repo": "google/gemma-scope-2b-pt-res",
+    "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+   },
+   "fit_families": [
+    "pc_en_swap"
+   ],
+   "eval_families": [
+    "pc_en_swap"
+   ],
+   "n_test_by_filter": {
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "b3c5442ebe5286a8",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9548,
+     "f_both_correct": 0.9178,
+     "f_pilot": 0.8678
+    },
+    "train:pc_en": {
+     "f_none": 1.0,
+     "f_A_correct": 0.95,
+     "f_both_correct": 0.9222,
+     "f_pilot": 0.9178
+    },
+    "train:pc_en_query": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9522,
+     "f_both_correct": 0.8956,
+     "f_pilot": 0.8611
+    },
+    "train:pc_en_swap": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9622,
+     "f_both_correct": 0.9356,
+     "f_pilot": 0.8244
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9578,
+     "f_both_correct": 0.923,
+     "f_pilot": 0.8607
+    },
+    "test:pc_en": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9578,
+     "f_both_correct": 0.94,
+     "f_pilot": 0.9378
+    },
+    "test:pc_en_query": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9511,
+     "f_both_correct": 0.8978,
+     "f_pilot": 0.8289
+    },
+    "test:pc_en_swap": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9644,
+     "f_both_correct": 0.9311,
+     "f_pilot": 0.8156
+    }
+   },
+   "mean_l0_test": [
+    59.77935791015625,
+    59.70770263671875
+   ],
+   "rel_err_norm_test": 0.4005299508571625,
+   "mean_pos_coverage": {
+    "slot": 942,
+    "offset": 2226,
+    "task": 0
+   }
+  },
+  {
+   "cell": "people_cities_L12_16k_l082__fit-pc_en_swap__eval-pc_en_swap",
+   "role": "exploratory",
+   "sae": {
+    "layer": 12,
+    "width": "16k",
+    "l0": 82,
+    "repo": "google/gemma-scope-2b-pt-res",
+    "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+   },
+   "fit_families": [
+    "pc_en_swap"
+   ],
+   "eval_families": [
+    "pc_en_swap"
+   ],
+   "n_test_by_filter": {
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "b3c5442ebe5286a8",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9548,
+     "f_both_correct": 0.9178,
+     "f_pilot": 0.8678
+    },
+    "train:pc_en": {
+     "f_none": 1.0,
+     "f_A_correct": 0.95,
+     "f_both_correct": 0.9222,
+     "f_pilot": 0.9178
+    },
+    "train:pc_en_query": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9522,
+     "f_both_correct": 0.8956,
+     "f_pilot": 0.8611
+    },
+    "train:pc_en_swap": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9622,
+     "f_both_correct": 0.9356,
+     "f_pilot": 0.8244
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9578,
+     "f_both_correct": 0.923,
+     "f_pilot": 0.8607
+    },
+    "test:pc_en": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9578,
+     "f_both_correct": 0.94,
+     "f_pilot": 0.9378
+    },
+    "test:pc_en_query": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9511,
+     "f_both_correct": 0.8978,
+     "f_pilot": 0.8289
+    },
+    "test:pc_en_swap": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9644,
+     "f_both_correct": 0.9311,
+     "f_pilot": 0.8156
+    }
+   },
+   "mean_l0_test": [
+    88.99494934082031,
+    89.02020263671875
+   ],
+   "rel_err_norm_test": 0.4151574671268463,
+   "mean_pos_coverage": {
+    "slot": 942,
+    "offset": 2226,
+    "task": 0
+   }
+  },
+  {
+   "cell": "people_cities_L12_65k_l072__fit-pc_en_swap__eval-pc_en_swap",
+   "role": "exploratory",
+   "sae": {
+    "layer": 12,
+    "width": "65k",
+    "l0": 72,
+    "repo": "google/gemma-scope-2b-pt-res",
+    "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+   },
+   "fit_families": [
+    "pc_en_swap"
+   ],
+   "eval_families": [
+    "pc_en_swap"
+   ],
+   "n_test_by_filter": {
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "b3c5442ebe5286a8",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9548,
+     "f_both_correct": 0.9178,
+     "f_pilot": 0.8678
+    },
+    "train:pc_en": {
+     "f_none": 1.0,
+     "f_A_correct": 0.95,
+     "f_both_correct": 0.9222,
+     "f_pilot": 0.9178
+    },
+    "train:pc_en_query": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9522,
+     "f_both_correct": 0.8956,
+     "f_pilot": 0.8611
+    },
+    "train:pc_en_swap": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9622,
+     "f_both_correct": 0.9356,
+     "f_pilot": 0.8244
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9578,
+     "f_both_correct": 0.923,
+     "f_pilot": 0.8607
+    },
+    "test:pc_en": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9578,
+     "f_both_correct": 0.94,
+     "f_pilot": 0.9378
+    },
+    "test:pc_en_query": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9511,
+     "f_both_correct": 0.8978,
+     "f_pilot": 0.8289
+    },
+    "test:pc_en_swap": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9644,
+     "f_both_correct": 0.9311,
+     "f_pilot": 0.8156
+    }
+   },
+   "mean_l0_test": [
+    84.17234802246094,
+    84.05239868164062
+   ],
+   "rel_err_norm_test": 0.3995921313762665,
+   "mean_pos_coverage": {
+    "slot": 942,
+    "offset": 2226,
+    "task": 0
+   }
+  },
+  {
+   "cell": "people_cities_L16_16k_l078__fit-pc_en_swap__eval-pc_en_swap",
+   "role": "exploratory",
+   "sae": {
+    "layer": 16,
+    "width": "16k",
+    "l0": 78,
+    "repo": "google/gemma-scope-2b-pt-res",
+    "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+   },
+   "fit_families": [
+    "pc_en_swap"
+   ],
+   "eval_families": [
+    "pc_en_swap"
+   ],
+   "n_test_by_filter": {
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "b3c5442ebe5286a8",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9548,
+     "f_both_correct": 0.9178,
+     "f_pilot": 0.8678
+    },
+    "train:pc_en": {
+     "f_none": 1.0,
+     "f_A_correct": 0.95,
+     "f_both_correct": 0.9222,
+     "f_pilot": 0.9178
+    },
+    "train:pc_en_query": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9522,
+     "f_both_correct": 0.8956,
+     "f_pilot": 0.8611
+    },
+    "train:pc_en_swap": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9622,
+     "f_both_correct": 0.9356,
+     "f_pilot": 0.8244
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9578,
+     "f_both_correct": 0.923,
+     "f_pilot": 0.8607
+    },
+    "test:pc_en": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9578,
+     "f_both_correct": 0.94,
+     "f_pilot": 0.9378
+    },
+    "test:pc_en_query": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9511,
+     "f_both_correct": 0.8978,
+     "f_pilot": 0.8289
+    },
+    "test:pc_en_swap": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9644,
+     "f_both_correct": 0.9311,
+     "f_pilot": 0.8156
+    }
+   },
+   "mean_l0_test": [
+    71.71054077148438,
+    71.62689208984375
+   ],
+   "rel_err_norm_test": 0.4091111719608307,
+   "mean_pos_coverage": {
+    "slot": 942,
+    "offset": 2226,
+    "task": 0
+   }
+  },
+  {
+   "cell": "people_cities_L16_65k_l069__fit-pc_en_swap__eval-pc_en_swap",
+   "role": "exploratory",
+   "sae": {
+    "layer": 16,
+    "width": "65k",
+    "l0": 69,
+    "repo": "google/gemma-scope-2b-pt-res",
+    "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+   },
+   "fit_families": [
+    "pc_en_swap"
+   ],
+   "eval_families": [
+    "pc_en_swap"
+   ],
+   "n_test_by_filter": {
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "b3c5442ebe5286a8",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9548,
+     "f_both_correct": 0.9178,
+     "f_pilot": 0.8678
+    },
+    "train:pc_en": {
+     "f_none": 1.0,
+     "f_A_correct": 0.95,
+     "f_both_correct": 0.9222,
+     "f_pilot": 0.9178
+    },
+    "train:pc_en_query": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9522,
+     "f_both_correct": 0.8956,
+     "f_pilot": 0.8611
+    },
+    "train:pc_en_swap": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9622,
+     "f_both_correct": 0.9356,
+     "f_pilot": 0.8244
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9578,
+     "f_both_correct": 0.923,
+     "f_pilot": 0.8607
+    },
+    "test:pc_en": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9578,
+     "f_both_correct": 0.94,
+     "f_pilot": 0.9378
+    },
+    "test:pc_en_query": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9511,
+     "f_both_correct": 0.8978,
+     "f_pilot": 0.8289
+    },
+    "test:pc_en_swap": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9644,
+     "f_both_correct": 0.9311,
+     "f_pilot": 0.8156
+    }
+   },
+   "mean_l0_test": [
+    64.90719604492188,
+    64.90940856933594
+   ],
+   "rel_err_norm_test": 0.3949645161628723,
+   "mean_pos_coverage": {
+    "slot": 942,
+    "offset": 2226,
+    "task": 0
+   }
+  },
+  {
+   "cell": "people_cities_L8_16k_l071__fit-pc_en_query__eval-pc_en_query",
+   "role": "exploratory",
+   "sae": {
+    "layer": 8,
+    "width": "16k",
+    "l0": 71,
+    "repo": "google/gemma-scope-2b-pt-res",
+    "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+   },
+   "fit_families": [
+    "pc_en_query"
+   ],
+   "eval_families": [
+    "pc_en_query"
+   ],
+   "n_test_by_filter": {
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "4e31ffeb6af7e09c",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9548,
+     "f_both_correct": 0.9178,
+     "f_pilot": 0.8678
+    },
+    "train:pc_en": {
+     "f_none": 1.0,
+     "f_A_correct": 0.95,
+     "f_both_correct": 0.9222,
+     "f_pilot": 0.9178
+    },
+    "train:pc_en_query": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9522,
+     "f_both_correct": 0.8956,
+     "f_pilot": 0.8611
+    },
+    "train:pc_en_swap": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9622,
+     "f_both_correct": 0.9356,
+     "f_pilot": 0.8244
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9578,
+     "f_both_correct": 0.923,
+     "f_pilot": 0.8607
+    },
+    "test:pc_en": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9578,
+     "f_both_correct": 0.94,
+     "f_pilot": 0.9378
+    },
+    "test:pc_en_query": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9511,
+     "f_both_correct": 0.8978,
+     "f_pilot": 0.8289
+    },
+    "test:pc_en_swap": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9644,
+     "f_both_correct": 0.9311,
+     "f_pilot": 0.8156
+    }
+   },
+   "mean_l0_test": [
+    70.30000305175781,
+    70.27333068847656
+   ],
+   "rel_err_norm_test": 0.4227025806903839,
+   "mean_pos_coverage": {
+    "slot": 300,
+    "offset": 600,
+    "task": 0
+   }
+  },
+  {
+   "cell": "people_cities_L8_65k_l059__fit-pc_en_query__eval-pc_en_query",
+   "role": "exploratory",
+   "sae": {
+    "layer": 8,
+    "width": "65k",
+    "l0": 59,
+    "repo": "google/gemma-scope-2b-pt-res",
+    "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+   },
+   "fit_families": [
+    "pc_en_query"
+   ],
+   "eval_families": [
+    "pc_en_query"
+   ],
+   "n_test_by_filter": {
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "4e31ffeb6af7e09c",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9548,
+     "f_both_correct": 0.9178,
+     "f_pilot": 0.8678
+    },
+    "train:pc_en": {
+     "f_none": 1.0,
+     "f_A_correct": 0.95,
+     "f_both_correct": 0.9222,
+     "f_pilot": 0.9178
+    },
+    "train:pc_en_query": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9522,
+     "f_both_correct": 0.8956,
+     "f_pilot": 0.8611
+    },
+    "train:pc_en_swap": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9622,
+     "f_both_correct": 0.9356,
+     "f_pilot": 0.8244
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9578,
+     "f_both_correct": 0.923,
+     "f_pilot": 0.8607
+    },
+    "test:pc_en": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9578,
+     "f_both_correct": 0.94,
+     "f_pilot": 0.9378
+    },
+    "test:pc_en_query": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9511,
+     "f_both_correct": 0.8978,
+     "f_pilot": 0.8289
+    },
+    "test:pc_en_swap": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9644,
+     "f_both_correct": 0.9311,
+     "f_pilot": 0.8156
+    }
+   },
+   "mean_l0_test": [
+    56.84222412109375,
+    56.76777648925781
+   ],
+   "rel_err_norm_test": 0.41037607192993164,
+   "mean_pos_coverage": {
+    "slot": 300,
+    "offset": 600,
+    "task": 0
+   }
+  },
+  {
+   "cell": "people_cities_L12_16k_l082__fit-pc_en_query__eval-pc_en_query",
+   "role": "exploratory",
+   "sae": {
+    "layer": 12,
+    "width": "16k",
+    "l0": 82,
+    "repo": "google/gemma-scope-2b-pt-res",
+    "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+   },
+   "fit_families": [
+    "pc_en_query"
+   ],
+   "eval_families": [
+    "pc_en_query"
+   ],
+   "n_test_by_filter": {
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "4e31ffeb6af7e09c",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9548,
+     "f_both_correct": 0.9178,
+     "f_pilot": 0.8678
+    },
+    "train:pc_en": {
+     "f_none": 1.0,
+     "f_A_correct": 0.95,
+     "f_both_correct": 0.9222,
+     "f_pilot": 0.9178
+    },
+    "train:pc_en_query": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9522,
+     "f_both_correct": 0.8956,
+     "f_pilot": 0.8611
+    },
+    "train:pc_en_swap": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9622,
+     "f_both_correct": 0.9356,
+     "f_pilot": 0.8244
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9578,
+     "f_both_correct": 0.923,
+     "f_pilot": 0.8607
+    },
+    "test:pc_en": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9578,
+     "f_both_correct": 0.94,
+     "f_pilot": 0.9378
+    },
+    "test:pc_en_query": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9511,
+     "f_both_correct": 0.8978,
+     "f_pilot": 0.8289
+    },
+    "test:pc_en_swap": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9644,
+     "f_both_correct": 0.9311,
+     "f_pilot": 0.8156
+    }
+   },
+   "mean_l0_test": [
+    85.73444366455078,
+    84.98666381835938
+   ],
+   "rel_err_norm_test": 0.4341143071651459,
+   "mean_pos_coverage": {
+    "slot": 300,
+    "offset": 600,
+    "task": 0
+   }
+  },
+  {
+   "cell": "people_cities_L12_65k_l072__fit-pc_en_query__eval-pc_en_query",
+   "role": "exploratory",
+   "sae": {
+    "layer": 12,
+    "width": "65k",
+    "l0": 72,
+    "repo": "google/gemma-scope-2b-pt-res",
+    "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+   },
+   "fit_families": [
+    "pc_en_query"
+   ],
+   "eval_families": [
+    "pc_en_query"
+   ],
+   "n_test_by_filter": {
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "4e31ffeb6af7e09c",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9548,
+     "f_both_correct": 0.9178,
+     "f_pilot": 0.8678
+    },
+    "train:pc_en": {
+     "f_none": 1.0,
+     "f_A_correct": 0.95,
+     "f_both_correct": 0.9222,
+     "f_pilot": 0.9178
+    },
+    "train:pc_en_query": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9522,
+     "f_both_correct": 0.8956,
+     "f_pilot": 0.8611
+    },
+    "train:pc_en_swap": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9622,
+     "f_both_correct": 0.9356,
+     "f_pilot": 0.8244
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9578,
+     "f_both_correct": 0.923,
+     "f_pilot": 0.8607
+    },
+    "test:pc_en": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9578,
+     "f_both_correct": 0.94,
+     "f_pilot": 0.9378
+    },
+    "test:pc_en_query": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9511,
+     "f_both_correct": 0.8978,
+     "f_pilot": 0.8289
+    },
+    "test:pc_en_swap": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9644,
+     "f_both_correct": 0.9311,
+     "f_pilot": 0.8156
+    }
+   },
+   "mean_l0_test": [
+    83.07555389404297,
+    83.04888916015625
+   ],
+   "rel_err_norm_test": 0.41446176171302795,
+   "mean_pos_coverage": {
+    "slot": 300,
+    "offset": 600,
+    "task": 0
+   }
+  },
+  {
+   "cell": "people_cities_L16_16k_l078__fit-pc_en_query__eval-pc_en_query",
+   "role": "exploratory",
+   "sae": {
+    "layer": 16,
+    "width": "16k",
+    "l0": 78,
+    "repo": "google/gemma-scope-2b-pt-res",
+    "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+   },
+   "fit_families": [
+    "pc_en_query"
+   ],
+   "eval_families": [
+    "pc_en_query"
+   ],
+   "n_test_by_filter": {
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "4e31ffeb6af7e09c",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9548,
+     "f_both_correct": 0.9178,
+     "f_pilot": 0.8678
+    },
+    "train:pc_en": {
+     "f_none": 1.0,
+     "f_A_correct": 0.95,
+     "f_both_correct": 0.9222,
+     "f_pilot": 0.9178
+    },
+    "train:pc_en_query": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9522,
+     "f_both_correct": 0.8956,
+     "f_pilot": 0.8611
+    },
+    "train:pc_en_swap": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9622,
+     "f_both_correct": 0.9356,
+     "f_pilot": 0.8244
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9578,
+     "f_both_correct": 0.923,
+     "f_pilot": 0.8607
+    },
+    "test:pc_en": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9578,
+     "f_both_correct": 0.94,
+     "f_pilot": 0.9378
+    },
+    "test:pc_en_query": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9511,
+     "f_both_correct": 0.8978,
+     "f_pilot": 0.8289
+    },
+    "test:pc_en_swap": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9644,
+     "f_both_correct": 0.9311,
+     "f_pilot": 0.8156
+    }
+   },
+   "mean_l0_test": [
+    72.49222564697266,
+    71.34889221191406
+   ],
+   "rel_err_norm_test": 0.42973214387893677,
+   "mean_pos_coverage": {
+    "slot": 300,
+    "offset": 600,
+    "task": 0
+   }
+  },
+  {
+   "cell": "people_cities_L16_65k_l069__fit-pc_en_query__eval-pc_en_query",
+   "role": "exploratory",
+   "sae": {
+    "layer": 16,
+    "width": "65k",
+    "l0": 69,
+    "repo": "google/gemma-scope-2b-pt-res",
+    "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+   },
+   "fit_families": [
+    "pc_en_query"
+   ],
+   "eval_families": [
+    "pc_en_query"
+   ],
+   "n_test_by_filter": {
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "4e31ffeb6af7e09c",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9548,
+     "f_both_correct": 0.9178,
+     "f_pilot": 0.8678
+    },
+    "train:pc_en": {
+     "f_none": 1.0,
+     "f_A_correct": 0.95,
+     "f_both_correct": 0.9222,
+     "f_pilot": 0.9178
+    },
+    "train:pc_en_query": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9522,
+     "f_both_correct": 0.8956,
+     "f_pilot": 0.8611
+    },
+    "train:pc_en_swap": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9622,
+     "f_both_correct": 0.9356,
+     "f_pilot": 0.8244
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9578,
+     "f_both_correct": 0.923,
+     "f_pilot": 0.8607
+    },
+    "test:pc_en": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9578,
+     "f_both_correct": 0.94,
+     "f_pilot": 0.9378
+    },
+    "test:pc_en_query": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9511,
+     "f_both_correct": 0.8978,
+     "f_pilot": 0.8289
+    },
+    "test:pc_en_swap": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9644,
+     "f_both_correct": 0.9311,
+     "f_pilot": 0.8156
+    }
+   },
+   "mean_l0_test": [
+    65.37333679199219,
+    64.38888549804688
+   ],
+   "rel_err_norm_test": 0.4206182658672333,
+   "mean_pos_coverage": {
+    "slot": 300,
+    "offset": 600,
+    "task": 0
+   }
+  }
+ ]
+}

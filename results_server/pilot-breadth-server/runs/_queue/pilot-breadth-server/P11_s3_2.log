@@ -1,0 +1,63 @@
+
+=== attempt 1 2026-11-23 04:55:42 slots=['2']: /home2/raveeshvyas1410/prism-run/.venv-harness/bin/python -m harness.run --config configs/pilot/P11.yaml --profile server --stage 3 --worker P11_s3-2
+Loading weights:   0%|          | 0/288 [00:00<?, ?it/s]Loading weights:   0%|          | 1/288 [00:00<02:15,  2.11it/s]Loading weights:  70%|██████▉   | 201/288 [00:00<00:00, 457.94it/s]Loading weights: 100%|██████████| 288/288 [00:00<00:00, 392.46it/s]
+2026-11-23 05:02:37,756 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-23 05:02:38,009 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-23 05:02:38,258 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-23 05:02:39,754 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-23 05:13:27,092 INFO entity_track_L8_16k_l071__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 2/23 (8 conditions, 626.7s)
+2026-11-23 05:23:58,786 INFO entity_track_L8_16k_l071__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 6/23 (8 conditions, 631.5s)
+2026-11-23 05:34:30,543 INFO entity_track_L8_16k_l071__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 10/23 (8 conditions, 631.6s)
+2026-11-23 05:45:02,398 INFO entity_track_L8_16k_l071__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 14/23 (8 conditions, 631.6s)
+2026-11-23 05:55:34,507 INFO entity_track_L8_16k_l071__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 18/23 (8 conditions, 631.9s)
+2026-11-23 06:06:06,504 INFO entity_track_L8_16k_l071__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 22/23 (8 conditions, 631.8s)
+2026-11-23 06:27:53,577 INFO entity_track_L12_16k_l082__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 3/23 (8 conditions, 504.7s)
+2026-11-23 06:36:24,542 INFO entity_track_L12_16k_l082__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 6/23 (8 conditions, 510.7s)
+2026-11-23 06:44:55,657 INFO entity_track_L12_16k_l082__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 10/23 (8 conditions, 510.9s)
+2026-11-23 06:53:26,084 INFO entity_track_L12_16k_l082__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 14/23 (8 conditions, 510.2s)
+2026-11-23 07:01:56,471 INFO entity_track_L12_16k_l082__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 18/23 (8 conditions, 510.1s)
+2026-11-23 07:10:26,630 INFO entity_track_L12_16k_l082__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 22/23 (8 conditions, 509.8s)
+2026-11-23 07:25:45,421 INFO entity_track_L16_16k_l078__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 1/23 (8 conditions, 383.3s)
+2026-11-23 07:32:14,652 INFO entity_track_L16_16k_l078__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 6/23 (8 conditions, 389.0s)
+2026-11-23 07:38:44,054 INFO entity_track_L16_16k_l078__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 10/23 (8 conditions, 389.2s)
+2026-11-23 07:45:13,296 INFO entity_track_L16_16k_l078__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 14/23 (8 conditions, 389.0s)
+2026-11-23 07:51:42,349 INFO entity_track_L16_16k_l078__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 18/23 (8 conditions, 388.8s)
+2026-11-23 07:58:11,669 INFO entity_track_L16_16k_l078__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 22/23 (8 conditions, 389.0s)
+2026-11-23 07:58:11,786 INFO P11 -> /home2/raveeshvyas1410/prism-run/runs/P11/5d1b285d70e1 (worker_done)
+Loaded pretrained model gemma-2-2b into HookedTransformer
+
+=== attempt 1 2026-11-23 11:48:50 slots=['3']: /home2/raveeshvyas1410/prism-run/.venv-harness/bin/python -m harness.run --config configs/pilot/P11.yaml --profile server --stage 3 --worker P11_s3-2
+2026-11-23 11:48:56,151 ERROR run failed
+Traceback (most recent call last):
+  File "/home2/raveeshvyas1410/prism-run/harness/run.py", line 1022, in main
+    {"1": R.run_stage1, "2": R.run_stage2, "3": R.run_stage3}[s]()
+  File "/home2/raveeshvyas1410/prism-run/harness/run.py", line 757, in run_stage3
+    cl, fl = self.flags(cell.task)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/raveeshvyas1410/prism-run/harness/run.py", line 432, in flags
+    cl = S.load_clean(ent, len(rows))
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/raveeshvyas1410/prism-run/harness/model/stages.py", line 133, in load_clean
+    entry.require_complete()
+  File "/home2/raveeshvyas1410/prism-run/harness/cache.py", line 128, in require_complete
+    raise FileNotFoundError(f"cache {self.kind}/{self.key} is missing or incomplete ({self.dir})")
+FileNotFoundError: cache clean_out/ca11b20638f6d2f1a402 is missing or incomplete (/ssd_scratch/raveeshvyas1410/prism/cache/clean_out/ca11b20638f6d2f1a402)
+2026-11-23 11:48:56,277 INFO P11 -> /home2/raveeshvyas1410/prism-run/runs/P11/3823712fcbf2 (failed)
+
+=== attempt 2 2026-11-23 11:48:58 slots=['3']: /home2/raveeshvyas1410/prism-run/.venv-harness/bin/python -m harness.run --config configs/pilot/P11.yaml --profile server --stage 3 --worker P11_s3-2
+2026-11-23 11:49:04,272 ERROR run failed
+Traceback (most recent call last):
+  File "/home2/raveeshvyas1410/prism-run/harness/run.py", line 1022, in main
+    {"1": R.run_stage1, "2": R.run_stage2, "3": R.run_stage3}[s]()
+  File "/home2/raveeshvyas1410/prism-run/harness/run.py", line 757, in run_stage3
+    cl, fl = self.flags(cell.task)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/raveeshvyas1410/prism-run/harness/run.py", line 432, in flags
+    cl = S.load_clean(ent, len(rows))
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/raveeshvyas1410/prism-run/harness/model/stages.py", line 133, in load_clean
+    entry.require_complete()
+  File "/home2/raveeshvyas1410/prism-run/harness/cache.py", line 128, in require_complete
+    raise FileNotFoundError(f"cache {self.kind}/{self.key} is missing or incomplete ({self.dir})")
+FileNotFoundError: cache clean_out/ca11b20638f6d2f1a402 is missing or incomplete (/ssd_scratch/raveeshvyas1410/prism/cache/clean_out/ca11b20638f6d2f1a402)
+2026-11-23 11:49:04,398 INFO P11 -> /home2/raveeshvyas1410/prism-run/runs/P11/3823712fcbf2 (failed)

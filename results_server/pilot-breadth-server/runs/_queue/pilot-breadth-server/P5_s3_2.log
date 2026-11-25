@@ -1,0 +1,78 @@
+
+=== attempt 1 2026-11-23 15:55:47 slots=['1']: /home2/raveeshvyas1410/prism-run/.venv-harness/bin/python -m harness.run --config configs/pilot/P5.yaml --profile server --stage 3 --worker P5_s3-2
+Loading weights:   0%|          | 0/288 [00:00<?, ?it/s]Loading weights:   0%|          | 1/288 [00:00<02:17,  2.08it/s]Loading weights:  82%|████████▏ | 236/288 [00:00<00:00, 540.40it/s]Loading weights: 100%|██████████| 288/288 [00:00<00:00, 430.35it/s]
+2026-11-23 16:03:08,802 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-23 16:03:09,067 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-23 16:03:09,319 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-23 16:03:10,778 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-23 16:04:47,481 INFO add_chain_L16_16k_l078 unit 3/27 (8 conditions, 72.1s)
+2026-11-23 16:06:01,047 INFO add_chain_L16_16k_l078 unit 8/27 (8 conditions, 73.5s)
+2026-11-23 16:07:15,027 INFO add_chain_L16_16k_l078 unit 12/27 (8 conditions, 73.9s)
+2026-11-23 16:08:29,209 INFO add_chain_L16_16k_l078 unit 16/27 (8 conditions, 74.0s)
+2026-11-23 16:09:43,449 INFO add_chain_L16_16k_l078 unit 20/27 (8 conditions, 74.1s)
+2026-11-23 16:10:57,700 INFO add_chain_L16_16k_l078 unit 24/27 (8 conditions, 74.1s)
+2026-11-23 16:12:14,499 INFO add_chain_L16_65k_l069 unit 1/27 (8 conditions, 74.1s)
+2026-11-23 16:13:28,674 INFO add_chain_L16_65k_l069 unit 5/27 (8 conditions, 74.1s)
+2026-11-23 16:14:42,850 INFO add_chain_L16_65k_l069 unit 9/27 (8 conditions, 74.1s)
+2026-11-23 16:15:57,074 INFO add_chain_L16_65k_l069 unit 13/27 (8 conditions, 74.2s)
+2026-11-23 16:17:11,304 INFO add_chain_L16_65k_l069 unit 17/27 (8 conditions, 74.1s)
+2026-11-23 16:18:25,528 INFO add_chain_L16_65k_l069 unit 21/27 (8 conditions, 74.1s)
+2026-11-23 16:19:39,717 INFO add_chain_L16_65k_l069 unit 24/27 (8 conditions, 74.0s)
+2026-11-23 16:19:42,164 INFO DAS: training das4v2_kl (k=4, 10 epochs, lr 0.01, seed 0) for add_chain L18 on 300 train pairs
+2026-11-23 16:21:30,934 INFO DAS v2 k=4 kl epoch 1/10: loss 1.1336
+2026-11-23 16:21:54,197 INFO DAS v2 k=4 kl epoch 2/10: loss 0.4366
+2026-11-23 16:22:17,407 INFO DAS v2 k=4 kl epoch 3/10: loss 0.4001
+2026-11-23 16:22:40,613 INFO DAS v2 k=4 kl epoch 4/10: loss 0.3710
+2026-11-23 16:23:03,815 INFO DAS v2 k=4 kl epoch 5/10: loss 0.5852
+2026-11-23 16:23:27,010 INFO DAS v2 k=4 kl epoch 6/10: loss 0.7641
+2026-11-23 16:23:50,173 INFO DAS v2 k=4 kl epoch 7/10: loss 0.6292
+2026-11-23 16:24:13,342 INFO DAS v2 k=4 kl epoch 8/10: loss 0.3925
+2026-11-23 16:24:36,490 INFO DAS v2 k=4 kl epoch 9/10: loss 0.4407
+2026-11-23 16:24:59,618 INFO DAS v2 k=4 kl epoch 10/10: loss 0.3559
+2026-11-23 16:26:20,802 INFO add_chain_L18_16k_l074 unit 4/27 (8 conditions, 62.2s)
+2026-11-23 16:27:23,208 INFO add_chain_L18_16k_l074 unit 8/27 (8 conditions, 62.3s)
+2026-11-23 16:28:25,677 INFO add_chain_L18_16k_l074 unit 11/27 (8 conditions, 62.4s)
+2026-11-23 16:29:28,270 INFO add_chain_L18_16k_l074 unit 15/27 (8 conditions, 62.4s)
+2026-11-23 16:30:30,897 INFO add_chain_L18_16k_l074 unit 19/27 (8 conditions, 62.5s)
+2026-11-23 16:31:33,526 INFO add_chain_L18_16k_l074 unit 23/27 (8 conditions, 62.5s)
+2026-11-23 16:32:36,136 INFO add_chain_L18_16k_l074 unit 26/27 (8 conditions, 62.5s)
+2026-11-23 16:33:41,426 INFO add_chain_L18_65k_l064 unit 4/27 (8 conditions, 62.4s)
+2026-11-23 16:34:43,983 INFO add_chain_L18_65k_l064 unit 8/27 (8 conditions, 62.5s)
+2026-11-23 16:35:46,591 INFO add_chain_L18_65k_l064 unit 12/27 (8 conditions, 62.5s)
+2026-11-23 16:36:49,226 INFO add_chain_L18_65k_l064 unit 16/27 (8 conditions, 62.5s)
+2026-11-23 16:37:51,884 INFO add_chain_L18_65k_l064 unit 20/27 (8 conditions, 62.5s)
+2026-11-23 16:38:54,528 INFO add_chain_L18_65k_l064 unit 24/27 (8 conditions, 62.5s)
+2026-11-23 16:38:57,247 INFO DAS: training das4v2_kl (k=4, 10 epochs, lr 0.01, seed 0) for add_chain L19 on 300 train pairs
+2026-11-23 16:40:40,215 INFO DAS v2 k=4 kl epoch 1/10: loss 1.0045
+2026-11-23 16:41:00,487 INFO DAS v2 k=4 kl epoch 2/10: loss 0.5733
+2026-11-23 16:41:20,738 INFO DAS v2 k=4 kl epoch 3/10: loss 0.6461
+2026-11-23 16:41:40,966 INFO DAS v2 k=4 kl epoch 4/10: loss 0.4903
+2026-11-23 16:42:01,178 INFO DAS v2 k=4 kl epoch 5/10: loss 0.3173
+2026-11-23 16:42:21,383 INFO DAS v2 k=4 kl epoch 6/10: loss 0.4261
+2026-11-23 16:42:41,597 INFO DAS v2 k=4 kl epoch 7/10: loss 0.4818
+2026-11-23 16:43:01,797 INFO DAS v2 k=4 kl epoch 8/10: loss 0.3594
+2026-11-23 16:43:22,001 INFO DAS v2 k=4 kl epoch 9/10: loss 0.3318
+2026-11-23 16:43:42,187 INFO DAS v2 k=4 kl epoch 10/10: loss 0.3365
+2026-11-23 16:45:38,858 INFO add_chain_L19_16k_l073 unit 1/27 (8 conditions, 55.3s)
+2026-11-23 16:46:35,252 INFO add_chain_L19_16k_l073 unit 7/27 (8 conditions, 56.3s)
+2026-11-23 16:47:31,892 INFO add_chain_L19_16k_l073 unit 11/27 (8 conditions, 56.6s)
+2026-11-23 16:48:28,652 INFO add_chain_L19_16k_l073 unit 14/27 (8 conditions, 56.7s)
+2026-11-23 16:49:25,495 INFO add_chain_L19_16k_l073 unit 18/27 (8 conditions, 56.7s)
+2026-11-23 16:50:22,355 INFO add_chain_L19_16k_l073 unit 22/27 (8 conditions, 56.7s)
+2026-11-23 16:51:19,284 INFO add_chain_L19_16k_l073 unit 26/27 (8 conditions, 56.8s)
+2026-11-23 16:52:19,163 INFO add_chain_L19_65k_l063 unit 4/27 (8 conditions, 56.7s)
+2026-11-23 16:53:15,983 INFO add_chain_L19_65k_l063 unit 8/27 (8 conditions, 56.7s)
+2026-11-23 16:54:12,813 INFO add_chain_L19_65k_l063 unit 12/27 (8 conditions, 56.7s)
+2026-11-23 16:55:09,789 INFO add_chain_L19_65k_l063 unit 16/27 (8 conditions, 56.8s)
+2026-11-23 16:56:06,710 INFO add_chain_L19_65k_l063 unit 19/27 (8 conditions, 56.8s)
+2026-11-23 16:57:03,651 INFO add_chain_L19_65k_l063 unit 23/27 (8 conditions, 56.8s)
+2026-11-23 16:57:55,538 INFO add_chain_L19_65k_l063 unit 27/27 (7 conditions, 51.7s)
+2026-11-23 16:58:55,325 INFO add_chain_L19_1m_l088 unit 3/27 (8 conditions, 56.8s)
+2026-11-23 16:59:52,197 INFO add_chain_L19_1m_l088 unit 7/27 (8 conditions, 56.8s)
+2026-11-23 17:00:49,084 INFO add_chain_L19_1m_l088 unit 11/27 (8 conditions, 56.8s)
+2026-11-23 17:01:46,047 INFO add_chain_L19_1m_l088 unit 15/27 (8 conditions, 56.8s)
+2026-11-23 17:02:42,982 INFO add_chain_L19_1m_l088 unit 19/27 (8 conditions, 56.8s)
+2026-11-23 17:03:39,927 INFO add_chain_L19_1m_l088 unit 23/27 (8 conditions, 56.8s)
+2026-11-23 17:04:31,843 INFO add_chain_L19_1m_l088 unit 27/27 (7 conditions, 51.8s)
+2026-11-23 17:04:31,961 INFO P5 -> /home2/raveeshvyas1410/prism-run/runs/P5/4d85e3b586c8 (worker_done)
+Loaded pretrained model gemma-2-2b into HookedTransformer

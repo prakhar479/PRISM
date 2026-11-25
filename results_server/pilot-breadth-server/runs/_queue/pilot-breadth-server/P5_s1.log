@@ -1,0 +1,24 @@
+
+=== attempt 1 2026-11-23 13:34:33 slots=['1']: /home2/raveeshvyas1410/prism-run/.venv-harness/bin/python -m harness.run --config configs/pilot/P5.yaml --profile server --stage 1
+Loading weights:   0%|          | 0/288 [00:00<?, ?it/s]Loading weights:   0%|          | 1/288 [00:00<02:19,  2.06it/s]Loading weights:  97%|█████████▋| 278/288 [00:00<00:00, 621.23it/s]Loading weights: 100%|██████████| 288/288 [00:00<00:00, 480.46it/s]
+2026-11-23 13:34:44,875 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-23 13:34:45,131 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-23 13:34:45,386 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-23 13:34:46,970 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-23 13:35:33,724 INFO stage1 shard 1/15 (96 pairs)
+2026-11-23 13:36:00,195 INFO stage1 shard 2/15 (96 pairs)
+2026-11-23 13:36:26,898 INFO stage1 shard 3/15 (96 pairs)
+2026-11-23 13:36:53,745 INFO stage1 shard 4/15 (96 pairs)
+2026-11-23 13:37:20,677 INFO stage1 shard 5/15 (96 pairs)
+2026-11-23 13:37:47,827 INFO stage1 shard 6/15 (96 pairs)
+2026-11-23 13:38:15,692 INFO stage1 shard 7/15 (96 pairs)
+2026-11-23 13:38:43,596 INFO stage1 shard 8/15 (96 pairs)
+2026-11-23 13:39:11,550 INFO stage1 shard 9/15 (96 pairs)
+2026-11-23 13:39:39,491 INFO stage1 shard 10/15 (96 pairs)
+2026-11-23 13:40:07,414 INFO stage1 shard 11/15 (96 pairs)
+2026-11-23 13:40:35,338 INFO stage1 shard 12/15 (96 pairs)
+2026-11-23 13:41:03,277 INFO stage1 shard 13/15 (96 pairs)
+2026-11-23 13:41:31,202 INFO stage1 shard 14/15 (96 pairs)
+2026-11-23 13:41:33,120 INFO stage1 shard 15/15 (6 pairs)
+2026-11-23 13:41:33,893 INFO P5 -> /home2/raveeshvyas1410/prism-run/runs/P5/4d85e3b586c8 (stage1_complete)
+Loaded pretrained model gemma-2-2b into HookedTransformer

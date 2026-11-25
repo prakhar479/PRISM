@@ -1,0 +1,81 @@
+
+=== attempt 1 2026-11-23 13:48:45 slots=['1']: /home2/raveeshvyas1410/prism-run/.venv-harness/bin/python -m harness.run --config configs/pilot/P2.yaml --profile server --stage 2 --stage2-slice 0/4
+2026-11-23 13:48:51,296 INFO HTTP Request: HEAD https://huggingface.co/canrager/saebench_gemma-2-2b_width-2pow14_date-0107/resolve/21f96e4b95d345d97f9d0c7d014ac685034edff1/gemma-2-2b_batch_top_k_width-2pow14_date-0107/resid_post_layer_12/trainer_7/ae.pt "HTTP/1.1 302 Found"
+2026-11-23 13:48:51,584 INFO HTTP Request: GET https://huggingface.co/api/models/canrager/saebench_gemma-2-2b_width-2pow14_date-0107/xet-read-token/21f96e4b95d345d97f9d0c7d014ac685034edff1 "HTTP/1.1 200 OK"
+2026-11-23 13:49:08,510 INFO HTTP Request: HEAD https://huggingface.co/canrager/saebench_gemma-2-2b_width-2pow14_date-0107/resolve/21f96e4b95d345d97f9d0c7d014ac685034edff1/gemma-2-2b_batch_top_k_width-2pow14_date-0107/resid_post_layer_12/trainer_7/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-11-23 13:49:08,780 INFO HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/canrager/saebench_gemma-2-2b_width-2pow14_date-0107/21f96e4b95d345d97f9d0c7d014ac685034edff1/gemma-2-2b_batch_top_k_width-2pow14_date-0107%2Fresid_post_layer_12%2Ftrainer_7%2Fconfig.json?%2Fcanrager%2Fsaebench_gemma-2-2b_width-2pow14_date-0107%2Fresolve%2F21f96e4b95d345d97f9d0c7d014ac685034edff1%2Fgemma-2-2b_batch_top_k_width-2pow14_date-0107%2Fresid_post_layer_12%2Ftrainer_7%2Fconfig.json=&etag=%22195d1869c1db052fec38dc6f0df57aa604a324d3%22 "HTTP/1.1 200 OK"
+2026-11-23 13:49:08,822 INFO HTTP Request: GET https://huggingface.co/api/resolve-cache/models/canrager/saebench_gemma-2-2b_width-2pow14_date-0107/21f96e4b95d345d97f9d0c7d014ac685034edff1/gemma-2-2b_batch_top_k_width-2pow14_date-0107%2Fresid_post_layer_12%2Ftrainer_7%2Fconfig.json?%2Fcanrager%2Fsaebench_gemma-2-2b_width-2pow14_date-0107%2Fresolve%2F21f96e4b95d345d97f9d0c7d014ac685034edff1%2Fgemma-2-2b_batch_top_k_width-2pow14_date-0107%2Fresid_post_layer_12%2Ftrainer_7%2Fconfig.json=&etag=%22195d1869c1db052fec38dc6f0df57aa604a324d3%22 "HTTP/1.1 200 OK"
+2026-11-23 13:49:11,889 INFO HTTP Request: HEAD https://huggingface.co/canrager/saebench_gemma-2-2b_width-2pow16_date-0107/resolve/3acb8a99076cfce446d0f74d89c635fab779deb8/gemma-2-2b_batch_top_k_width-2pow16_date-0107/resid_post_layer_12/trainer_1/ae.pt "HTTP/1.1 302 Found"
+2026-11-23 13:49:12,135 INFO HTTP Request: GET https://huggingface.co/api/models/canrager/saebench_gemma-2-2b_width-2pow16_date-0107/xet-read-token/3acb8a99076cfce446d0f74d89c635fab779deb8 "HTTP/1.1 200 OK"
+2026-11-23 13:49:58,759 INFO HTTP Request: HEAD https://huggingface.co/canrager/saebench_gemma-2-2b_width-2pow16_date-0107/resolve/3acb8a99076cfce446d0f74d89c635fab779deb8/gemma-2-2b_batch_top_k_width-2pow16_date-0107/resid_post_layer_12/trainer_1/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-11-23 13:49:58,800 INFO HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/canrager/saebench_gemma-2-2b_width-2pow16_date-0107/3acb8a99076cfce446d0f74d89c635fab779deb8/gemma-2-2b_batch_top_k_width-2pow16_date-0107%2Fresid_post_layer_12%2Ftrainer_1%2Fconfig.json?%2Fcanrager%2Fsaebench_gemma-2-2b_width-2pow16_date-0107%2Fresolve%2F3acb8a99076cfce446d0f74d89c635fab779deb8%2Fgemma-2-2b_batch_top_k_width-2pow16_date-0107%2Fresid_post_layer_12%2Ftrainer_1%2Fconfig.json=&etag=%228f26eda00c267f4c0f46da113f3c03f6c5b7b392%22 "HTTP/1.1 200 OK"
+2026-11-23 13:49:58,840 INFO HTTP Request: GET https://huggingface.co/api/resolve-cache/models/canrager/saebench_gemma-2-2b_width-2pow16_date-0107/3acb8a99076cfce446d0f74d89c635fab779deb8/gemma-2-2b_batch_top_k_width-2pow16_date-0107%2Fresid_post_layer_12%2Ftrainer_1%2Fconfig.json?%2Fcanrager%2Fsaebench_gemma-2-2b_width-2pow16_date-0107%2Fresolve%2F3acb8a99076cfce446d0f74d89c635fab779deb8%2Fgemma-2-2b_batch_top_k_width-2pow16_date-0107%2Fresid_post_layer_12%2Ftrainer_1%2Fconfig.json=&etag=%228f26eda00c267f4c0f46da113f3c03f6c5b7b392%22 "HTTP/1.1 200 OK"
+2026-11-23 13:50:07,013 INFO HTTP Request: HEAD https://huggingface.co/adamkarvonen/saebench_gemma-2-2b_width-2pow12_date-0108/resolve/b002828539c1b99e3f43f8307fc145a6aa9d393f/GatedSAE_gemma-2-2b__0108/resid_post_layer_12/trainer_2/ae.pt "HTTP/1.1 302 Found"
+2026-11-23 13:50:07,264 INFO HTTP Request: GET https://huggingface.co/api/models/adamkarvonen/saebench_gemma-2-2b_width-2pow12_date-0108/xet-read-token/b002828539c1b99e3f43f8307fc145a6aa9d393f "HTTP/1.1 200 OK"
+2026-11-23 13:50:16,280 INFO HTTP Request: HEAD https://huggingface.co/adamkarvonen/saebench_gemma-2-2b_width-2pow12_date-0108/resolve/b002828539c1b99e3f43f8307fc145a6aa9d393f/GatedSAE_gemma-2-2b__0108/resid_post_layer_12/trainer_2/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-11-23 13:50:16,319 INFO HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/adamkarvonen/saebench_gemma-2-2b_width-2pow12_date-0108/b002828539c1b99e3f43f8307fc145a6aa9d393f/GatedSAE_gemma-2-2b__0108%2Fresid_post_layer_12%2Ftrainer_2%2Fconfig.json?%2Fadamkarvonen%2Fsaebench_gemma-2-2b_width-2pow12_date-0108%2Fresolve%2Fb002828539c1b99e3f43f8307fc145a6aa9d393f%2FGatedSAE_gemma-2-2b__0108%2Fresid_post_layer_12%2Ftrainer_2%2Fconfig.json=&etag=%226237fe610712a5a19914a74bd279d69818bd08ad%22 "HTTP/1.1 200 OK"
+2026-11-23 13:50:16,359 INFO HTTP Request: GET https://huggingface.co/api/resolve-cache/models/adamkarvonen/saebench_gemma-2-2b_width-2pow12_date-0108/b002828539c1b99e3f43f8307fc145a6aa9d393f/GatedSAE_gemma-2-2b__0108%2Fresid_post_layer_12%2Ftrainer_2%2Fconfig.json?%2Fadamkarvonen%2Fsaebench_gemma-2-2b_width-2pow12_date-0108%2Fresolve%2Fb002828539c1b99e3f43f8307fc145a6aa9d393f%2FGatedSAE_gemma-2-2b__0108%2Fresid_post_layer_12%2Ftrainer_2%2Fconfig.json=&etag=%226237fe610712a5a19914a74bd279d69818bd08ad%22 "HTTP/1.1 200 OK"
+2026-11-23 13:50:18,898 ERROR run failed
+Traceback (most recent call last):
+  File "/home2/raveeshvyas1410/prism-run/harness/run.py", line 1022, in main
+    {"1": R.run_stage1, "2": R.run_stage2, "3": R.run_stage3}[s]()
+  File "/home2/raveeshvyas1410/prism-run/harness/run.py", line 389, in run_stage2
+    self._stage2_group(sid, jobs, est)
+  File "/home2/raveeshvyas1410/prism-run/harness/run.py", line 408, in _stage2_group
+    S.stage2_generic(self.cache, r, sae, self.sae_key(sid), dev, est.block_latents)
+  File "/home2/raveeshvyas1410/prism-run/harness/model/stages.py", line 455, in stage2_generic
+    return _stage2_generic_fill(cache, ent, sae, sae_key, device, block_latents)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/raveeshvyas1410/prism-run/.venv-harness/lib/python3.12/site-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/raveeshvyas1410/prism-run/harness/model/stages.py", line 468, in _stage2_generic_fill
+    xh, eps, l0 = decompose(sae, x, block_latents=block_latents, device=device)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/raveeshvyas1410/prism-run/.venv-harness/lib/python3.12/site-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/raveeshvyas1410/prism-run/harness/sae/__init__.py", line 113, in decompose
+    return custom(X, block_latents=block_latents, device=device)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/raveeshvyas1410/prism-run/.venv-harness/lib/python3.12/site-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/raveeshvyas1410/prism-run/harness/dicts.py", line 175, in _decompose_rows
+    x_hat[r:r + rb] = torch.einsum("rk,rkd->rd", v, Wd[i].float())
+                                                    ~~^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 14.12 GiB. GPU 0 has a total capacity of 10.58 GiB of which 10.21 GiB is free. Including non-PyTorch memory, this process has 372.00 MiB memory in use. 9.98 GiB allowed; Of the allocated memory 133.91 MiB is allocated by PyTorch, and 48.09 MiB is reserved by PyTorch but unallocated.
+2026-11-23 13:50:19,008 INFO P2 -> /home2/raveeshvyas1410/prism-run/runs/P2/016294bb2240 (failed)
+
+=== attempt 2 2026-11-23 13:50:20 slots=['1']: /home2/raveeshvyas1410/prism-run/.venv-harness/bin/python -m harness.run --config configs/pilot/P2.yaml --profile server --stage 2 --stage2-slice 0/4
+2026-11-23 13:50:23,966 ERROR run failed
+Traceback (most recent call last):
+  File "/home2/raveeshvyas1410/prism-run/harness/run.py", line 1022, in main
+    {"1": R.run_stage1, "2": R.run_stage2, "3": R.run_stage3}[s]()
+  File "/home2/raveeshvyas1410/prism-run/harness/run.py", line 389, in run_stage2
+    self._stage2_group(sid, jobs, est)
+  File "/home2/raveeshvyas1410/prism-run/harness/run.py", line 408, in _stage2_group
+    S.stage2_generic(self.cache, r, sae, self.sae_key(sid), dev, est.block_latents)
+  File "/home2/raveeshvyas1410/prism-run/harness/model/stages.py", line 455, in stage2_generic
+    return _stage2_generic_fill(cache, ent, sae, sae_key, device, block_latents)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/raveeshvyas1410/prism-run/.venv-harness/lib/python3.12/site-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/raveeshvyas1410/prism-run/harness/model/stages.py", line 468, in _stage2_generic_fill
+    xh, eps, l0 = decompose(sae, x, block_latents=block_latents, device=device)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/raveeshvyas1410/prism-run/.venv-harness/lib/python3.12/site-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/raveeshvyas1410/prism-run/harness/sae/__init__.py", line 113, in decompose
+    return custom(X, block_latents=block_latents, device=device)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/raveeshvyas1410/prism-run/.venv-harness/lib/python3.12/site-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/raveeshvyas1410/prism-run/harness/dicts.py", line 175, in _decompose_rows
+    x_hat[r:r + rb] = torch.einsum("rk,rkd->rd", v, Wd[i].float())
+                                                    ~~^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 14.12 GiB. GPU 0 has a total capacity of 10.58 GiB of which 10.21 GiB is free. Including non-PyTorch memory, this process has 372.00 MiB memory in use. 9.98 GiB allowed; Of the allocated memory 133.91 MiB is allocated by PyTorch, and 48.09 MiB is reserved by PyTorch but unallocated.
+2026-11-23 13:50:24,070 INFO P2 -> /home2/raveeshvyas1410/prism-run/runs/P2/016294bb2240 (failed)

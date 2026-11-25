@@ -1,0 +1,43 @@
+
+=== attempt 1 2026-11-23 07:56:48 slots=['1']: /home2/raveeshvyas1410/prism-run/.venv-harness/bin/python -m harness.run --config configs/pilot/P8.yaml --profile server --stage 3 --worker P8_s3-3
+2026-11-23 07:56:56,421 WARNING cell add_chain_L13_gs2_1b_L13_16k_medium__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story skipped: add_chain_L13_gs2_1b_L13_16k_medium__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story: 1 test pairs
+2026-11-23 07:57:00,957 WARNING cell add_chain_L17_gs2_1b_L17_16k_medium__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story skipped: add_chain_L17_gs2_1b_L17_16k_medium__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story: 1 test pairs
+2026-11-23 07:57:03,989 WARNING cell add_chain_L22_gs2_1b_L22_16k_medium__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story skipped: add_chain_L22_gs2_1b_L22_16k_medium__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story: 1 test pairs
+2026-11-23 07:57:07,090 WARNING cell add_chain_L7_gs2_1b_L7_16k_medium__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story skipped: add_chain_L7_gs2_1b_L7_16k_medium__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story: 1 test pairs
+2026-11-23 07:57:10,210 INFO P8 -> /home2/raveeshvyas1410/prism-run/runs/P8/1e285481c666 (worker_done)
+
+=== attempt 1 2026-11-23 12:20:22 slots=['1']: /home2/raveeshvyas1410/prism-run/.venv-harness/bin/python -m harness.run --config configs/pilot/P8.yaml --profile server --stage 3 --worker P8_s3-3
+2026-11-23 12:20:29,887 ERROR run failed
+Traceback (most recent call last):
+  File "/home2/raveeshvyas1410/prism-run/harness/run.py", line 1022, in main
+    {"1": R.run_stage1, "2": R.run_stage2, "3": R.run_stage3}[s]()
+  File "/home2/raveeshvyas1410/prism-run/harness/run.py", line 757, in run_stage3
+    cl, fl = self.flags(cell.task)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/raveeshvyas1410/prism-run/harness/run.py", line 432, in flags
+    cl = S.load_clean(ent, len(rows))
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/raveeshvyas1410/prism-run/harness/model/stages.py", line 133, in load_clean
+    entry.require_complete()
+  File "/home2/raveeshvyas1410/prism-run/harness/cache.py", line 128, in require_complete
+    raise FileNotFoundError(f"cache {self.kind}/{self.key} is missing or incomplete ({self.dir})")
+FileNotFoundError: cache clean_out/2049f1751c01ce3d14d7 is missing or incomplete (/ssd_scratch/raveeshvyas1410/prism/cache/clean_out/2049f1751c01ce3d14d7)
+2026-11-23 12:20:29,990 INFO P8 -> /home2/raveeshvyas1410/prism-run/runs/P8/723dd7f9f145 (failed)
+
+=== attempt 2 2026-11-23 12:20:32 slots=['3']: /home2/raveeshvyas1410/prism-run/.venv-harness/bin/python -m harness.run --config configs/pilot/P8.yaml --profile server --stage 3 --worker P8_s3-3
+2026-11-23 12:20:40,319 ERROR run failed
+Traceback (most recent call last):
+  File "/home2/raveeshvyas1410/prism-run/harness/run.py", line 1022, in main
+    {"1": R.run_stage1, "2": R.run_stage2, "3": R.run_stage3}[s]()
+  File "/home2/raveeshvyas1410/prism-run/harness/run.py", line 757, in run_stage3
+    cl, fl = self.flags(cell.task)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/raveeshvyas1410/prism-run/harness/run.py", line 432, in flags
+    cl = S.load_clean(ent, len(rows))
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/raveeshvyas1410/prism-run/harness/model/stages.py", line 133, in load_clean
+    entry.require_complete()
+  File "/home2/raveeshvyas1410/prism-run/harness/cache.py", line 128, in require_complete
+    raise FileNotFoundError(f"cache {self.kind}/{self.key} is missing or incomplete ({self.dir})")
+FileNotFoundError: cache clean_out/2049f1751c01ce3d14d7 is missing or incomplete (/ssd_scratch/raveeshvyas1410/prism/cache/clean_out/2049f1751c01ce3d14d7)
+2026-11-23 12:20:40,438 INFO P8 -> /home2/raveeshvyas1410/prism-run/runs/P8/723dd7f9f145 (failed)

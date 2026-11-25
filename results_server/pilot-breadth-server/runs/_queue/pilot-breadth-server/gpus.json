@@ -1,0 +1,103 @@
+{
+ "budget_ok": {
+  "0": 9216,
+  "1": 9216,
+  "2": 9216,
+  "3": 9216
+ },
+ "gpus_failed": [],
+ "per_gpu": {
+  "0": {
+   "cuda_visible_devices": "0",
+   "memory": {
+    "free_bytes": 10938744832,
+    "total_bytes": 11346575360,
+    "name": "NVIDIA GeForce RTX 2080 Ti"
+   },
+   "load_s": 24.1,
+   "hooks_ok": true,
+   "budget_ok": 9216,
+   "rows": 24,
+   "tokens_per_s": 1779.8,
+   "peak_gb": 5.75,
+   "tried": [
+    {
+     "tokens": 9216,
+     "rows": 24,
+     "ok": true,
+     "peak_gb": 5.75
+    }
+   ],
+   "ok": true
+  },
+  "1": {
+   "cuda_visible_devices": "1",
+   "memory": {
+    "free_bytes": 11179917312,
+    "total_bytes": 11346575360,
+    "name": "NVIDIA GeForce RTX 2080 Ti"
+   },
+   "load_s": 24.1,
+   "hooks_ok": true,
+   "budget_ok": 9216,
+   "rows": 24,
+   "tokens_per_s": 1634.1,
+   "peak_gb": 5.75,
+   "tried": [
+    {
+     "tokens": 9216,
+     "rows": 24,
+     "ok": true,
+     "peak_gb": 5.75
+    }
+   ],
+   "ok": true
+  },
+  "2": {
+   "cuda_visible_devices": "2",
+   "memory": {
+    "free_bytes": 11179917312,
+    "total_bytes": 11346575360,
+    "name": "NVIDIA GeForce RTX 2080 Ti"
+   },
+   "load_s": 24.0,
+   "hooks_ok": true,
+   "budget_ok": 9216,
+   "rows": 24,
+   "tokens_per_s": 1748.2,
+   "peak_gb": 5.75,
+   "tried": [
+    {
+     "tokens": 9216,
+     "rows": 24,
+     "ok": true,
+     "peak_gb": 5.75
+    }
+   ],
+   "ok": true
+  },
+  "3": {
+   "cuda_visible_devices": "3",
+   "memory": {
+    "free_bytes": 11179917312,
+    "total_bytes": 11346575360,
+    "name": "NVIDIA GeForce RTX 2080 Ti"
+   },
+   "load_s": 24.6,
+   "hooks_ok": true,
+   "budget_ok": 9216,
+   "rows": 24,
+   "tokens_per_s": 1621.7,
+   "peak_gb": 5.75,
+   "tried": [
+    {
+     "tokens": 9216,
+     "rows": 24,
+     "ok": true,
+     "peak_gb": 5.75
+    }
+   ],
+   "ok": true
+  }
+ }
+}

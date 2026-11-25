@@ -1,0 +1,5 @@
+
+=== attempt 1 2026-11-23 17:14:32 slots=[]: /home2/raveeshvyas1410/prism-run/.venv-harness/bin/python scripts/publish_results.py --tag pilot-breadth-server --queue queue/pilot-breadth-server.yaml
+published 528 files (67.8 MiB), 36 runs -> /home2/raveeshvyas1410/prism-run/results_server/pilot-breadth-server
+
+=== attempt 1 2026-11-25 09:18:38 slots=[]: /home2/raveeshvyas1410/prism-run/.venv-harness/bin/python scripts/publish_results.py --tag pilot-breadth-server --queue queue/pilot-breadth-server.yaml

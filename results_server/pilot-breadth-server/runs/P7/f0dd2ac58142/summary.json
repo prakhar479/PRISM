@@ -1,0 +1,216 @@
+{
+ "exp_id": "P7",
+ "run_hash": "f0dd2ac58142",
+ "n_rows": 186000,
+ "hook_checks": [
+  {
+   "cell": "add_chain_18_L18_16k_l074_pilot",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "add_chain_18_L18_16k_l074_pilot",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "entity_track_12_L12_16k_l082_ot_placed_dest+ot_bin_dest+ot_drawer_dest",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "entity_track_12_L12_16k_l082_ot_placed_dest+ot_bin_dest+ot_drawer_dest",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "people_cities_12_L12_16k_l082_pc_en",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "people_cities_12_L12_16k_l082_pc_en",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  }
+ ],
+ "cells": [
+  {
+   "cell": "add_chain_L18_16k_l074",
+   "role": "exploratory",
+   "sae": {
+    "layer": 18,
+    "width": "16k",
+    "l0": 74,
+    "repo": "google/gemma-scope-2b-pt-res",
+    "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "7cc34e25b8356245",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9689,
+     "f_both_correct": 0.9411,
+     "f_pilot": 0.6989
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9622,
+     "f_both_correct": 0.9356,
+     "f_pilot": 0.6133
+    }
+   },
+   "mean_l0_test": [
+    67.15076446533203,
+    66.92697143554688
+   ],
+   "rel_err_norm_test": 0.3899652361869812,
+   "mean_pos_coverage": {
+    "slot": 739,
+    "offset": 959,
+    "task": 0
+   }
+  },
+  {
+   "cell": "people_cities_L12_16k_l082__fit-pc_en__eval-pc_en",
+   "role": "exploratory",
+   "sae": {
+    "layer": 12,
+    "width": "16k",
+    "l0": 82,
+    "repo": "google/gemma-scope-2b-pt-res",
+    "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+   },
+   "fit_families": [
+    "pc_en"
+   ],
+   "eval_families": [
+    "pc_en"
+   ],
+   "n_test_by_filter": {
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "fa37ceac4259eb86",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 0.95,
+     "f_both_correct": 0.9222,
+     "f_pilot": 0.9178
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 0.9578,
+     "f_both_correct": 0.94,
+     "f_pilot": 0.9378
+    }
+   },
+   "mean_l0_test": [
+    88.25704193115234,
+    88.19894409179688
+   ],
+   "rel_err_norm_test": 0.41759130358695984,
+   "mean_pos_coverage": {
+    "slot": 718,
+    "offset": 1554,
+    "task": 0
+   }
+  },
+  {
+   "cell": "entity_track_L12_16k_l082__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest",
+   "role": "exploratory",
+   "sae": {
+    "layer": 12,
+    "width": "16k",
+    "l0": 82,
+    "repo": "google/gemma-scope-2b-pt-res",
+    "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+   },
+   "fit_families": [
+    "ot_placed_dest",
+    "ot_bin_dest",
+    "ot_drawer_dest"
+   ],
+   "eval_families": [
+    "ot_placed_dest",
+    "ot_bin_dest",
+    "ot_drawer_dest"
+   ],
+   "n_test_by_filter": {
+    "f_pilot": 450
+   },
+   "n_test_union": 450,
+   "n_train": 300,
+   "fitset_digest": "6c10851239e55f57",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 0.7507,
+     "f_both_correct": 0.6496,
+     "f_pilot": 0.7472
+    },
+    "train:ot_bin_dest": {
+     "f_none": 1.0,
+     "f_A_correct": 0.7633,
+     "f_both_correct": 0.6594,
+     "f_pilot": 0.7583
+    },
+    "train:ot_drawer_dest": {
+     "f_none": 1.0,
+     "f_A_correct": 0.6661,
+     "f_both_correct": 0.565,
+     "f_pilot": 0.6606
+    },
+    "train:ot_placed_dest": {
+     "f_none": 1.0,
+     "f_A_correct": 0.8228,
+     "f_both_correct": 0.7244,
+     "f_pilot": 0.8228
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 0.75,
+     "f_both_correct": 0.6556,
+     "f_pilot": 0.7448
+    },
+    "test:ot_bin_dest": {
+     "f_none": 1.0,
+     "f_A_correct": 0.7844,
+     "f_both_correct": 0.69,
+     "f_pilot": 0.78
+    },
+    "test:ot_drawer_dest": {
+     "f_none": 1.0,
+     "f_A_correct": 0.6444,
+     "f_both_correct": 0.5589,
+     "f_pilot": 0.6333
+    },
+    "test:ot_placed_dest": {
+     "f_none": 1.0,
+     "f_A_correct": 0.8211,
+     "f_both_correct": 0.7178,
+     "f_pilot": 0.8211
+    }
+   },
+   "mean_l0_test": [
+    83.1004867553711,
+    83.18722534179688
+   ],
+   "rel_err_norm_test": 0.4196808934211731,
+   "mean_pos_coverage": {
+    "slot": 1688,
+    "offset": 3039,
+    "task": 0
+   }
+  }
+ ]
+}

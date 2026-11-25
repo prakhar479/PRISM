@@ -1,0 +1,220 @@
+
+=== attempt 1 2026-11-22 21:21:28 slots=['1']: /home2/raveeshvyas1410/prism-run/.venv-harness/bin/python scripts/train_dictionary.py --mode frozen_decoder --layer 12 --width 16k --name frozendec_L12_16k --epochs 3
+Loading weights:   0%|          | 0/288 [00:00<?, ?it/s]Loading weights:   0%|          | 1/288 [00:00<01:56,  2.46it/s]Loading weights:  47%|████▋     | 136/288 [00:00<00:00, 346.60it/s]Loading weights:  73%|███████▎  | 211/288 [00:00<00:00, 359.52it/s]Loading weights:  93%|█████████▎| 269/288 [00:00<00:00, 374.39it/s]Loading weights: 100%|██████████| 288/288 [00:00<00:00, 325.42it/s]
+2026-11-22 21:21:38,632 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-22 21:21:38,917 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-22 21:21:39,172 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-22 21:21:40,672 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-22 21:22:37,655 INFO frozendec_L12_16k before: {'ce_clean': 2.3738727153995174, 'ce_splice': 9.991923550241362, 'ce_delta': 7.618050834841845}
+/home2/raveeshvyas1410/prism-run/scripts/train_dictionary.py:201: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /__w/pytorch/pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:820.)
+  losses.append({"step": step, "loss": float(loss), "kl": float(kl), "mse": float(mse), "fvu": float(fvu)})
+2026-11-22 21:22:37,934 INFO frozendec_L12_16k step 1/4500 loss 0.9812 kl 0.0000 mse 0.9812 (0s)
+2026-11-22 21:22:48,193 INFO frozendec_L12_16k step 51/4500 loss 0.9344 kl 0.0000 mse 0.9344 (11s)
+2026-11-22 21:22:58,492 INFO frozendec_L12_16k step 101/4500 loss 0.9284 kl 0.0000 mse 0.9284 (21s)
+2026-11-22 21:23:08,854 INFO frozendec_L12_16k step 151/4500 loss 0.9166 kl 0.0000 mse 0.9166 (31s)
+2026-11-22 21:23:19,233 INFO frozendec_L12_16k step 201/4500 loss 0.9006 kl 0.0000 mse 0.9006 (42s)
+2026-11-22 21:23:29,631 INFO frozendec_L12_16k step 251/4500 loss 0.8833 kl 0.0000 mse 0.8833 (52s)
+2026-11-22 21:23:40,046 INFO frozendec_L12_16k step 301/4500 loss 0.8792 kl 0.0000 mse 0.8792 (62s)
+2026-11-22 21:23:50,479 INFO frozendec_L12_16k step 351/4500 loss 0.9056 kl 0.0000 mse 0.9056 (73s)
+2026-11-22 21:24:00,933 INFO frozendec_L12_16k step 401/4500 loss 0.9003 kl 0.0000 mse 0.9003 (83s)
+2026-11-22 21:24:11,394 INFO frozendec_L12_16k step 451/4500 loss 0.8869 kl 0.0000 mse 0.8869 (94s)
+2026-11-22 21:24:21,872 INFO frozendec_L12_16k step 501/4500 loss 0.8792 kl 0.0000 mse 0.8792 (104s)
+2026-11-22 21:24:32,366 INFO frozendec_L12_16k step 551/4500 loss 0.8796 kl 0.0000 mse 0.8796 (115s)
+2026-11-22 21:24:42,859 INFO frozendec_L12_16k step 601/4500 loss 0.8704 kl 0.0000 mse 0.8704 (125s)
+2026-11-22 21:24:53,363 INFO frozendec_L12_16k step 651/4500 loss 0.8775 kl 0.0000 mse 0.8775 (136s)
+2026-11-22 21:25:03,876 INFO frozendec_L12_16k step 701/4500 loss 0.8769 kl 0.0000 mse 0.8769 (146s)
+2026-11-22 21:25:14,393 INFO frozendec_L12_16k step 751/4500 loss 0.9003 kl 0.0000 mse 0.9003 (157s)
+2026-11-22 21:25:24,913 INFO frozendec_L12_16k step 801/4500 loss 0.8828 kl 0.0000 mse 0.8828 (167s)
+2026-11-22 21:25:35,432 INFO frozendec_L12_16k step 851/4500 loss 0.8880 kl 0.0000 mse 0.8880 (178s)
+2026-11-22 21:25:45,991 INFO frozendec_L12_16k step 901/4500 loss 0.8876 kl 0.0000 mse 0.8876 (188s)
+2026-11-22 21:25:56,496 INFO frozendec_L12_16k step 951/4500 loss 0.8861 kl 0.0000 mse 0.8861 (199s)
+2026-11-22 21:26:07,009 INFO frozendec_L12_16k step 1001/4500 loss 1.0412 kl 0.0000 mse 1.0412 (209s)
+2026-11-22 21:26:17,529 INFO frozendec_L12_16k step 1051/4500 loss 0.9012 kl 0.0000 mse 0.9012 (220s)
+2026-11-22 21:26:28,103 INFO frozendec_L12_16k step 1101/4500 loss 0.8670 kl 0.0000 mse 0.8670 (230s)
+2026-11-22 21:26:38,626 INFO frozendec_L12_16k step 1151/4500 loss 0.8710 kl 0.0000 mse 0.8710 (241s)
+2026-11-22 21:26:49,150 INFO frozendec_L12_16k step 1201/4500 loss 0.8969 kl 0.0000 mse 0.8969 (251s)
+2026-11-22 21:26:59,698 INFO frozendec_L12_16k step 1251/4500 loss 0.9531 kl 0.0000 mse 0.9531 (262s)
+2026-11-22 21:27:10,254 INFO frozendec_L12_16k step 1301/4500 loss 0.8825 kl 0.0000 mse 0.8825 (273s)
+2026-11-22 21:27:20,775 INFO frozendec_L12_16k step 1351/4500 loss 0.8741 kl 0.0000 mse 0.8741 (283s)
+2026-11-22 21:27:31,308 INFO frozendec_L12_16k step 1401/4500 loss 0.9174 kl 0.0000 mse 0.9174 (294s)
+2026-11-22 21:27:41,894 INFO frozendec_L12_16k step 1451/4500 loss 0.8779 kl 0.0000 mse 0.8779 (304s)
+2026-11-22 21:27:52,414 INFO frozendec_L12_16k step 1501/4500 loss 0.8754 kl 0.0000 mse 0.8754 (315s)
+2026-11-22 21:28:02,944 INFO frozendec_L12_16k step 1551/4500 loss 0.8992 kl 0.0000 mse 0.8992 (325s)
+2026-11-22 21:28:13,528 INFO frozendec_L12_16k step 1601/4500 loss 0.8704 kl 0.0000 mse 0.8704 (336s)
+2026-11-22 21:28:24,058 INFO frozendec_L12_16k step 1651/4500 loss 0.9258 kl 0.0000 mse 0.9258 (346s)
+2026-11-22 21:28:34,587 INFO frozendec_L12_16k step 1701/4500 loss 0.8740 kl 0.0000 mse 0.8740 (357s)
+2026-11-22 21:28:45,165 INFO frozendec_L12_16k step 1751/4500 loss 0.8696 kl 0.0000 mse 0.8696 (368s)
+2026-11-22 21:28:55,682 INFO frozendec_L12_16k step 1801/4500 loss 0.8784 kl 0.0000 mse 0.8784 (378s)
+2026-11-22 21:29:06,205 INFO frozendec_L12_16k step 1851/4500 loss 0.8821 kl 0.0000 mse 0.8821 (389s)
+2026-11-22 21:29:16,776 INFO frozendec_L12_16k step 1901/4500 loss 0.8896 kl 0.0000 mse 0.8896 (399s)
+2026-11-22 21:29:27,290 INFO frozendec_L12_16k step 1951/4500 loss 0.8700 kl 0.0000 mse 0.8700 (410s)
+2026-11-22 21:29:37,825 INFO frozendec_L12_16k step 2001/4500 loss 0.8769 kl 0.0000 mse 0.8769 (420s)
+2026-11-22 21:29:48,394 INFO frozendec_L12_16k step 2051/4500 loss 0.8837 kl 0.0000 mse 0.8837 (431s)
+2026-11-22 21:29:58,903 INFO frozendec_L12_16k step 2101/4500 loss 0.8787 kl 0.0000 mse 0.8787 (441s)
+2026-11-22 21:30:09,438 INFO frozendec_L12_16k step 2151/4500 loss 0.8846 kl 0.0000 mse 0.8846 (452s)
+2026-11-22 21:30:19,984 INFO frozendec_L12_16k step 2201/4500 loss 0.8818 kl 0.0000 mse 0.8818 (462s)
+2026-11-22 21:30:30,492 INFO frozendec_L12_16k step 2251/4500 loss 0.9262 kl 0.0000 mse 0.9262 (473s)
+2026-11-22 21:30:41,050 INFO frozendec_L12_16k step 2301/4500 loss 0.8797 kl 0.0000 mse 0.8797 (483s)
+2026-11-22 21:30:51,554 INFO frozendec_L12_16k step 2351/4500 loss 0.8876 kl 0.0000 mse 0.8876 (494s)
+2026-11-22 21:31:02,063 INFO frozendec_L12_16k step 2401/4500 loss 0.8974 kl 0.0000 mse 0.8974 (504s)
+2026-11-22 21:31:12,635 INFO frozendec_L12_16k step 2451/4500 loss 0.8784 kl 0.0000 mse 0.8784 (515s)
+2026-11-22 21:31:23,137 INFO frozendec_L12_16k step 2501/4500 loss 0.8849 kl 0.0000 mse 0.8849 (525s)
+2026-11-22 21:31:33,649 INFO frozendec_L12_16k step 2551/4500 loss 0.8695 kl 0.0000 mse 0.8695 (536s)
+2026-11-22 21:31:44,212 INFO frozendec_L12_16k step 2601/4500 loss 0.8684 kl 0.0000 mse 0.8684 (547s)
+2026-11-22 21:31:54,723 INFO frozendec_L12_16k step 2651/4500 loss 0.8851 kl 0.0000 mse 0.8851 (557s)
+2026-11-22 21:32:05,242 INFO frozendec_L12_16k step 2701/4500 loss 0.8828 kl 0.0000 mse 0.8828 (568s)
+2026-11-22 21:32:15,805 INFO frozendec_L12_16k step 2751/4500 loss 0.8794 kl 0.0000 mse 0.8794 (578s)
+2026-11-22 21:32:26,316 INFO frozendec_L12_16k step 2801/4500 loss 0.8735 kl 0.0000 mse 0.8735 (589s)
+2026-11-22 21:32:36,873 INFO frozendec_L12_16k step 2851/4500 loss 0.8867 kl 0.0000 mse 0.8867 (599s)
+2026-11-22 21:32:47,392 INFO frozendec_L12_16k step 2901/4500 loss 0.8864 kl 0.0000 mse 0.8864 (610s)
+2026-11-22 21:32:57,905 INFO frozendec_L12_16k step 2951/4500 loss 0.8892 kl 0.0000 mse 0.8892 (620s)
+2026-11-22 21:33:08,461 INFO frozendec_L12_16k step 3001/4500 loss 0.8890 kl 0.0000 mse 0.8890 (631s)
+2026-11-22 21:33:18,987 INFO frozendec_L12_16k step 3051/4500 loss 0.8846 kl 0.0000 mse 0.8846 (641s)
+2026-11-22 21:33:29,504 INFO frozendec_L12_16k step 3101/4500 loss 0.8779 kl 0.0000 mse 0.8779 (652s)
+2026-11-22 21:33:40,072 INFO frozendec_L12_16k step 3151/4500 loss 0.8756 kl 0.0000 mse 0.8756 (662s)
+2026-11-22 21:33:50,573 INFO frozendec_L12_16k step 3201/4500 loss 0.8871 kl 0.0000 mse 0.8871 (673s)
+2026-11-22 21:34:01,085 INFO frozendec_L12_16k step 3251/4500 loss 0.8957 kl 0.0000 mse 0.8957 (683s)
+2026-11-22 21:34:11,656 INFO frozendec_L12_16k step 3301/4500 loss 0.8726 kl 0.0000 mse 0.8726 (694s)
+2026-11-22 21:34:22,176 INFO frozendec_L12_16k step 3351/4500 loss 0.8747 kl 0.0000 mse 0.8747 (705s)
+2026-11-22 21:34:32,715 INFO frozendec_L12_16k step 3401/4500 loss 0.8852 kl 0.0000 mse 0.8852 (715s)
+2026-11-22 21:34:43,308 INFO frozendec_L12_16k step 3451/4500 loss 0.8799 kl 0.0000 mse 0.8799 (726s)
+2026-11-22 21:34:53,823 INFO frozendec_L12_16k step 3501/4500 loss 0.8888 kl 0.0000 mse 0.8888 (736s)
+2026-11-22 21:35:04,360 INFO frozendec_L12_16k step 3551/4500 loss 0.8873 kl 0.0000 mse 0.8873 (747s)
+2026-11-22 21:35:14,941 INFO frozendec_L12_16k step 3601/4500 loss 0.8675 kl 0.0000 mse 0.8675 (757s)
+2026-11-22 21:35:25,464 INFO frozendec_L12_16k step 3651/4500 loss 0.8761 kl 0.0000 mse 0.8761 (768s)
+2026-11-22 21:35:36,028 INFO frozendec_L12_16k step 3701/4500 loss 0.8660 kl 0.0000 mse 0.8660 (778s)
+2026-11-22 21:35:46,585 INFO frozendec_L12_16k step 3751/4500 loss 0.8695 kl 0.0000 mse 0.8695 (789s)
+2026-11-22 21:35:57,110 INFO frozendec_L12_16k step 3801/4500 loss 0.8770 kl 0.0000 mse 0.8770 (799s)
+2026-11-22 21:36:07,656 INFO frozendec_L12_16k step 3851/4500 loss 0.8733 kl 0.0000 mse 0.8733 (810s)
+2026-11-22 21:36:18,227 INFO frozendec_L12_16k step 3901/4500 loss 0.8687 kl 0.0000 mse 0.8687 (821s)
+2026-11-22 21:36:28,743 INFO frozendec_L12_16k step 3951/4500 loss 0.8826 kl 0.0000 mse 0.8826 (831s)
+2026-11-22 21:36:39,268 INFO frozendec_L12_16k step 4001/4500 loss 0.9048 kl 0.0000 mse 0.9048 (842s)
+2026-11-22 21:36:49,844 INFO frozendec_L12_16k step 4051/4500 loss 0.8758 kl 0.0000 mse 0.8758 (852s)
+2026-11-22 21:37:00,353 INFO frozendec_L12_16k step 4101/4500 loss 0.8703 kl 0.0000 mse 0.8703 (863s)
+2026-11-22 21:37:10,875 INFO frozendec_L12_16k step 4151/4500 loss 0.8685 kl 0.0000 mse 0.8685 (873s)
+2026-11-22 21:37:21,418 INFO frozendec_L12_16k step 4201/4500 loss 0.9139 kl 0.0000 mse 0.9139 (884s)
+2026-11-22 21:37:31,985 INFO frozendec_L12_16k step 4251/4500 loss 0.8748 kl 0.0000 mse 0.8748 (894s)
+2026-11-22 21:37:42,504 INFO frozendec_L12_16k step 4301/4500 loss 0.8833 kl 0.0000 mse 0.8833 (905s)
+2026-11-22 21:37:53,038 INFO frozendec_L12_16k step 4351/4500 loss 0.8822 kl 0.0000 mse 0.8822 (915s)
+2026-11-22 21:38:03,619 INFO frozendec_L12_16k step 4401/4500 loss 0.8989 kl 0.0000 mse 0.8989 (926s)
+2026-11-22 21:38:14,132 INFO frozendec_L12_16k step 4451/4500 loss 0.8691 kl 0.0000 mse 0.8691 (936s)
+2026-11-22 21:38:24,448 INFO frozendec_L12_16k step 4500/4500 loss 0.8752 kl 0.0000 mse 0.8752 (947s)
+2026-11-22 21:38:46,956 INFO frozendec_L12_16k after: {'ce_clean': 2.3738727153995174, 'ce_splice': 7.2995436307085235, 'ce_delta': 4.925670915309007}
+2026-11-22 21:38:47,561 INFO frozendec_L12_16k -> /ssd_scratch/raveeshvyas1410/prism/cache/trained_dicts/frozendec_L12_16k
+Loaded pretrained model gemma-2-2b into HookedTransformer
+
+=== attempt 1 2026-11-23 11:48:18 slots=['0']: /home2/raveeshvyas1410/prism-run/.venv-harness/bin/python scripts/train_dictionary.py --mode frozen_decoder --layer 12 --width 16k --name frozendec_L12_16k --epochs 3
+2026-11-23 11:48:34,955 INFO HTTP Request: GET https://huggingface.co/api/agent-harnesses "HTTP/1.1 200 OK"
+2026-11-23 11:48:35,213 INFO HTTP Request: HEAD https://huggingface.co/google/gemma-2-2b/resolve/c5ebcd40d208330abc697524c919956e692655cf/model.safetensors "HTTP/1.1 404 Not Found"
+2026-11-23 11:48:35,459 INFO HTTP Request: HEAD https://huggingface.co/google/gemma-2-2b/resolve/c5ebcd40d208330abc697524c919956e692655cf/model.safetensors.index.json "HTTP/1.1 200 OK"
+2026-11-23 11:48:35,813 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/c5ebcd40d208330abc697524c919956e692655cf?recursive=true&expand=false "HTTP/1.1 200 OK"
+Fetching 3 files:   0%|          | 0/3 [00:00<?, ?it/s]Fetching 3 files:  33%|███▎      | 1/3 [02:16<04:33, 136.80s/it]Fetching 3 files:  67%|██████▋   | 2/3 [04:07<02:01, 121.22s/it]Fetching 3 files: 100%|██████████| 3/3 [04:34<00:00, 78.42s/it] Fetching 3 files: 100%|██████████| 3/3 [04:34<00:00, 91.53s/it]
+Loading weights:   0%|          | 0/288 [00:00<?, ?it/s]Loading weights:   0%|          | 1/288 [00:31<2:30:52, 31.54s/it]Loading weights: 100%|██████████| 288/288 [00:31<00:00,  9.11it/s]
+2026-11-23 11:53:43,475 INFO HTTP Request: HEAD https://huggingface.co/google/gemma-2-2b/resolve/c5ebcd40d208330abc697524c919956e692655cf/generation_config.json "HTTP/1.1 200 OK"
+2026-11-23 11:53:44,025 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-23 11:53:44,269 INFO HTTP Request: HEAD https://huggingface.co/google/gemma-2-2b/resolve/c5ebcd40d208330abc697524c919956e692655cf/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-11-23 11:53:45,090 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-23 11:53:45,349 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-23 11:53:48,225 INFO HTTP Request: HEAD https://huggingface.co/google/gemma-2-2b/resolve/c5ebcd40d208330abc697524c919956e692655cf/added_tokens.json "HTTP/1.1 404 Not Found"
+2026-11-23 11:53:48,469 INFO HTTP Request: HEAD https://huggingface.co/google/gemma-2-2b/resolve/c5ebcd40d208330abc697524c919956e692655cf/special_tokens_map.json "HTTP/1.1 200 OK"
+2026-11-23 11:53:48,980 INFO HTTP Request: HEAD https://huggingface.co/google/gemma-2-2b/resolve/c5ebcd40d208330abc697524c919956e692655cf/chat_template.jinja "HTTP/1.1 404 Not Found"
+2026-11-23 11:53:50,570 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-23 11:54:45,997 INFO frozendec_L12_16k before: {'ce_clean': 2.3738727153995174, 'ce_splice': 9.991923550241362, 'ce_delta': 7.618050834841845}
+/home2/raveeshvyas1410/prism-run/scripts/train_dictionary.py:201: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /__w/pytorch/pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:820.)
+  losses.append({"step": step, "loss": float(loss), "kl": float(kl), "mse": float(mse), "fvu": float(fvu)})
+2026-11-23 11:54:46,337 INFO frozendec_L12_16k step 1/4500 loss 0.9812 kl 0.0000 mse 0.9812 (0s)
+2026-11-23 11:54:56,081 INFO frozendec_L12_16k step 51/4500 loss 0.9344 kl 0.0000 mse 0.9344 (10s)
+2026-11-23 11:55:05,924 INFO frozendec_L12_16k step 101/4500 loss 0.9284 kl 0.0000 mse 0.9284 (20s)
+2026-11-23 11:55:15,855 INFO frozendec_L12_16k step 151/4500 loss 0.9166 kl 0.0000 mse 0.9166 (30s)
+2026-11-23 11:55:25,827 INFO frozendec_L12_16k step 201/4500 loss 0.9006 kl 0.0000 mse 0.9006 (40s)
+2026-11-23 11:55:35,837 INFO frozendec_L12_16k step 251/4500 loss 0.8833 kl 0.0000 mse 0.8833 (50s)
+2026-11-23 11:55:45,858 INFO frozendec_L12_16k step 301/4500 loss 0.8792 kl 0.0000 mse 0.8792 (60s)
+2026-11-23 11:55:55,899 INFO frozendec_L12_16k step 351/4500 loss 0.9056 kl 0.0000 mse 0.9056 (70s)
+2026-11-23 11:56:05,955 INFO frozendec_L12_16k step 401/4500 loss 0.9003 kl 0.0000 mse 0.9003 (80s)
+2026-11-23 11:56:16,032 INFO frozendec_L12_16k step 451/4500 loss 0.8869 kl 0.0000 mse 0.8869 (90s)
+2026-11-23 11:56:26,139 INFO frozendec_L12_16k step 501/4500 loss 0.8792 kl 0.0000 mse 0.8792 (100s)
+2026-11-23 11:56:36,242 INFO frozendec_L12_16k step 551/4500 loss 0.8796 kl 0.0000 mse 0.8796 (110s)
+2026-11-23 11:56:46,352 INFO frozendec_L12_16k step 601/4500 loss 0.8704 kl 0.0000 mse 0.8704 (120s)
+2026-11-23 11:56:56,468 INFO frozendec_L12_16k step 651/4500 loss 0.8775 kl 0.0000 mse 0.8775 (130s)
+2026-11-23 11:57:06,593 INFO frozendec_L12_16k step 701/4500 loss 0.8769 kl 0.0000 mse 0.8769 (141s)
+2026-11-23 11:57:16,737 INFO frozendec_L12_16k step 751/4500 loss 0.9003 kl 0.0000 mse 0.9003 (151s)
+2026-11-23 11:57:26,890 INFO frozendec_L12_16k step 801/4500 loss 0.8828 kl 0.0000 mse 0.8828 (161s)
+2026-11-23 11:57:37,049 INFO frozendec_L12_16k step 851/4500 loss 0.8880 kl 0.0000 mse 0.8880 (171s)
+2026-11-23 11:57:47,207 INFO frozendec_L12_16k step 901/4500 loss 0.8876 kl 0.0000 mse 0.8876 (181s)
+2026-11-23 11:57:57,374 INFO frozendec_L12_16k step 951/4500 loss 0.8861 kl 0.0000 mse 0.8861 (191s)
+2026-11-23 11:58:07,548 INFO frozendec_L12_16k step 1001/4500 loss 1.0412 kl 0.0000 mse 1.0412 (202s)
+2026-11-23 11:58:17,721 INFO frozendec_L12_16k step 1051/4500 loss 0.9012 kl 0.0000 mse 0.9012 (212s)
+2026-11-23 11:58:27,889 INFO frozendec_L12_16k step 1101/4500 loss 0.8670 kl 0.0000 mse 0.8670 (222s)
+2026-11-23 11:58:38,060 INFO frozendec_L12_16k step 1151/4500 loss 0.8710 kl 0.0000 mse 0.8710 (232s)
+2026-11-23 11:58:48,242 INFO frozendec_L12_16k step 1201/4500 loss 0.8969 kl 0.0000 mse 0.8969 (242s)
+2026-11-23 11:58:58,421 INFO frozendec_L12_16k step 1251/4500 loss 0.9531 kl 0.0000 mse 0.9531 (252s)
+2026-11-23 11:59:08,603 INFO frozendec_L12_16k step 1301/4500 loss 0.8825 kl 0.0000 mse 0.8825 (263s)
+2026-11-23 11:59:18,785 INFO frozendec_L12_16k step 1351/4500 loss 0.8741 kl 0.0000 mse 0.8741 (273s)
+2026-11-23 11:59:28,964 INFO frozendec_L12_16k step 1401/4500 loss 0.9174 kl 0.0000 mse 0.9174 (283s)
+2026-11-23 11:59:39,137 INFO frozendec_L12_16k step 1451/4500 loss 0.8779 kl 0.0000 mse 0.8779 (293s)
+2026-11-23 11:59:49,325 INFO frozendec_L12_16k step 1501/4500 loss 0.8754 kl 0.0000 mse 0.8754 (303s)
+2026-11-23 11:59:59,502 INFO frozendec_L12_16k step 1551/4500 loss 0.8992 kl 0.0000 mse 0.8992 (314s)
+2026-11-23 12:00:09,680 INFO frozendec_L12_16k step 1601/4500 loss 0.8704 kl 0.0000 mse 0.8704 (324s)
+2026-11-23 12:00:19,859 INFO frozendec_L12_16k step 1651/4500 loss 0.9258 kl 0.0000 mse 0.9258 (334s)
+2026-11-23 12:00:30,046 INFO frozendec_L12_16k step 1701/4500 loss 0.8740 kl 0.0000 mse 0.8740 (344s)
+2026-11-23 12:00:40,235 INFO frozendec_L12_16k step 1751/4500 loss 0.8696 kl 0.0000 mse 0.8696 (354s)
+2026-11-23 12:00:50,417 INFO frozendec_L12_16k step 1801/4500 loss 0.8784 kl 0.0000 mse 0.8784 (364s)
+2026-11-23 12:01:00,606 INFO frozendec_L12_16k step 1851/4500 loss 0.8821 kl 0.0000 mse 0.8821 (375s)
+2026-11-23 12:01:10,800 INFO frozendec_L12_16k step 1901/4500 loss 0.8896 kl 0.0000 mse 0.8896 (385s)
+2026-11-23 12:01:20,994 INFO frozendec_L12_16k step 1951/4500 loss 0.8700 kl 0.0000 mse 0.8700 (395s)
+2026-11-23 12:01:31,192 INFO frozendec_L12_16k step 2001/4500 loss 0.8769 kl 0.0000 mse 0.8769 (405s)
+2026-11-23 12:01:41,391 INFO frozendec_L12_16k step 2051/4500 loss 0.8837 kl 0.0000 mse 0.8837 (415s)
+2026-11-23 12:01:51,585 INFO frozendec_L12_16k step 2101/4500 loss 0.8787 kl 0.0000 mse 0.8787 (426s)
+2026-11-23 12:02:01,779 INFO frozendec_L12_16k step 2151/4500 loss 0.8846 kl 0.0000 mse 0.8846 (436s)
+2026-11-23 12:02:11,971 INFO frozendec_L12_16k step 2201/4500 loss 0.8818 kl 0.0000 mse 0.8818 (446s)
+2026-11-23 12:02:22,162 INFO frozendec_L12_16k step 2251/4500 loss 0.9262 kl 0.0000 mse 0.9262 (456s)
+2026-11-23 12:02:32,354 INFO frozendec_L12_16k step 2301/4500 loss 0.8797 kl 0.0000 mse 0.8797 (466s)
+2026-11-23 12:02:42,543 INFO frozendec_L12_16k step 2351/4500 loss 0.8876 kl 0.0000 mse 0.8876 (477s)
+2026-11-23 12:02:52,732 INFO frozendec_L12_16k step 2401/4500 loss 0.8974 kl 0.0000 mse 0.8974 (487s)
+2026-11-23 12:03:02,927 INFO frozendec_L12_16k step 2451/4500 loss 0.8784 kl 0.0000 mse 0.8784 (497s)
+2026-11-23 12:03:13,122 INFO frozendec_L12_16k step 2501/4500 loss 0.8849 kl 0.0000 mse 0.8849 (507s)
+2026-11-23 12:03:23,312 INFO frozendec_L12_16k step 2551/4500 loss 0.8695 kl 0.0000 mse 0.8695 (517s)
+2026-11-23 12:03:33,501 INFO frozendec_L12_16k step 2601/4500 loss 0.8684 kl 0.0000 mse 0.8684 (528s)
+2026-11-23 12:03:43,695 INFO frozendec_L12_16k step 2651/4500 loss 0.8851 kl 0.0000 mse 0.8851 (538s)
+2026-11-23 12:03:53,885 INFO frozendec_L12_16k step 2701/4500 loss 0.8828 kl 0.0000 mse 0.8828 (548s)
+2026-11-23 12:04:04,079 INFO frozendec_L12_16k step 2751/4500 loss 0.8794 kl 0.0000 mse 0.8794 (558s)
+2026-11-23 12:04:14,273 INFO frozendec_L12_16k step 2801/4500 loss 0.8735 kl 0.0000 mse 0.8735 (568s)
+2026-11-23 12:04:24,465 INFO frozendec_L12_16k step 2851/4500 loss 0.8867 kl 0.0000 mse 0.8867 (578s)
+2026-11-23 12:04:34,649 INFO frozendec_L12_16k step 2901/4500 loss 0.8864 kl 0.0000 mse 0.8864 (589s)
+2026-11-23 12:04:44,837 INFO frozendec_L12_16k step 2951/4500 loss 0.8892 kl 0.0000 mse 0.8892 (599s)
+2026-11-23 12:04:55,028 INFO frozendec_L12_16k step 3001/4500 loss 0.8890 kl 0.0000 mse 0.8890 (609s)
+2026-11-23 12:05:05,218 INFO frozendec_L12_16k step 3051/4500 loss 0.8846 kl 0.0000 mse 0.8846 (619s)
+2026-11-23 12:05:15,409 INFO frozendec_L12_16k step 3101/4500 loss 0.8779 kl 0.0000 mse 0.8779 (629s)
+2026-11-23 12:05:25,608 INFO frozendec_L12_16k step 3151/4500 loss 0.8756 kl 0.0000 mse 0.8756 (640s)
+2026-11-23 12:05:35,812 INFO frozendec_L12_16k step 3201/4500 loss 0.8871 kl 0.0000 mse 0.8871 (650s)
+2026-11-23 12:05:46,005 INFO frozendec_L12_16k step 3251/4500 loss 0.8957 kl 0.0000 mse 0.8957 (660s)
+2026-11-23 12:05:56,196 INFO frozendec_L12_16k step 3301/4500 loss 0.8726 kl 0.0000 mse 0.8726 (670s)
+2026-11-23 12:06:06,390 INFO frozendec_L12_16k step 3351/4500 loss 0.8747 kl 0.0000 mse 0.8747 (680s)
+2026-11-23 12:06:16,589 INFO frozendec_L12_16k step 3401/4500 loss 0.8852 kl 0.0000 mse 0.8852 (691s)
+2026-11-23 12:06:26,790 INFO frozendec_L12_16k step 3451/4500 loss 0.8799 kl 0.0000 mse 0.8799 (701s)
+2026-11-23 12:06:36,991 INFO frozendec_L12_16k step 3501/4500 loss 0.8888 kl 0.0000 mse 0.8888 (711s)
+2026-11-23 12:06:47,191 INFO frozendec_L12_16k step 3551/4500 loss 0.8873 kl 0.0000 mse 0.8873 (721s)
+2026-11-23 12:06:57,383 INFO frozendec_L12_16k step 3601/4500 loss 0.8675 kl 0.0000 mse 0.8675 (731s)
+2026-11-23 12:07:07,575 INFO frozendec_L12_16k step 3651/4500 loss 0.8761 kl 0.0000 mse 0.8761 (742s)
+2026-11-23 12:07:17,770 INFO frozendec_L12_16k step 3701/4500 loss 0.8660 kl 0.0000 mse 0.8660 (752s)
+2026-11-23 12:07:27,974 INFO frozendec_L12_16k step 3751/4500 loss 0.8695 kl 0.0000 mse 0.8695 (762s)
+2026-11-23 12:07:38,177 INFO frozendec_L12_16k step 3801/4500 loss 0.8770 kl 0.0000 mse 0.8770 (772s)
+2026-11-23 12:07:48,373 INFO frozendec_L12_16k step 3851/4500 loss 0.8733 kl 0.0000 mse 0.8733 (782s)
+2026-11-23 12:07:58,565 INFO frozendec_L12_16k step 3901/4500 loss 0.8687 kl 0.0000 mse 0.8687 (793s)
+2026-11-23 12:08:08,757 INFO frozendec_L12_16k step 3951/4500 loss 0.8826 kl 0.0000 mse 0.8826 (803s)
+2026-11-23 12:08:18,960 INFO frozendec_L12_16k step 4001/4500 loss 0.9048 kl 0.0000 mse 0.9048 (813s)
+2026-11-23 12:08:29,162 INFO frozendec_L12_16k step 4051/4500 loss 0.8758 kl 0.0000 mse 0.8758 (823s)
+2026-11-23 12:08:39,358 INFO frozendec_L12_16k step 4101/4500 loss 0.8703 kl 0.0000 mse 0.8703 (833s)
+2026-11-23 12:08:49,557 INFO frozendec_L12_16k step 4151/4500 loss 0.8685 kl 0.0000 mse 0.8685 (844s)
+2026-11-23 12:08:59,759 INFO frozendec_L12_16k step 4201/4500 loss 0.9139 kl 0.0000 mse 0.9139 (854s)
+2026-11-23 12:09:09,959 INFO frozendec_L12_16k step 4251/4500 loss 0.8748 kl 0.0000 mse 0.8748 (864s)
+2026-11-23 12:09:20,158 INFO frozendec_L12_16k step 4301/4500 loss 0.8833 kl 0.0000 mse 0.8833 (874s)
+2026-11-23 12:09:30,359 INFO frozendec_L12_16k step 4351/4500 loss 0.8822 kl 0.0000 mse 0.8822 (884s)
+2026-11-23 12:09:40,555 INFO frozendec_L12_16k step 4401/4500 loss 0.8989 kl 0.0000 mse 0.8989 (895s)
+2026-11-23 12:09:50,748 INFO frozendec_L12_16k step 4451/4500 loss 0.8691 kl 0.0000 mse 0.8691 (905s)
+2026-11-23 12:10:00,735 INFO frozendec_L12_16k step 4500/4500 loss 0.8752 kl 0.0000 mse 0.8752 (915s)
+2026-11-23 12:10:22,430 INFO frozendec_L12_16k after: {'ce_clean': 2.3738727153995174, 'ce_splice': 7.2995436307085235, 'ce_delta': 4.925670915309007}
+2026-11-23 12:10:23,035 INFO frozendec_L12_16k -> /ssd_scratch/raveeshvyas1410/prism/cache/trained_dicts/frozendec_L12_16k
+Loaded pretrained model gemma-2-2b into HookedTransformer

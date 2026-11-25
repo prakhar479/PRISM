@@ -1,0 +1,5 @@
+
+=== attempt 1 2026-11-23 14:14:18 slots=['1']: /home2/raveeshvyas1410/prism-run/.venv-harness/bin/python -m harness.run --config configs/pilot/P5.yaml --profile server --stage 2 --stage2-slice 0/4
+2026-11-23 14:14:22,626 INFO HTTP Request: HEAD https://huggingface.co/google/gemma-scope-2b-pt-res/resolve/fd571b47c1c64851e9b1989792367b9babb4af63/layer_16/width_16k/average_l0_78/params.npz "HTTP/1.1 302 Found"
+2026-11-23 14:14:22,888 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-scope-2b-pt-res/xet-read-token/fd571b47c1c64851e9b1989792367b9babb4af63 "HTTP/1.1 200 OK"
+2026-11-23 14:14:37,846 INFO P5 -> /home2/raveeshvyas1410/prism-run/runs/P5/4d85e3b586c8 (stage2_complete)

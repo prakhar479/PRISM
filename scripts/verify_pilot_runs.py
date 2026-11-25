@@ -187,6 +187,7 @@ def main() -> int:
     ap.add_argument("--queue", required=True)
     ap.add_argument("--runs", default="runs")
     ap.add_argument("--only", default=None, help="comma list of experiment ids")
+    ap.add_argument("--published", default=None, help="PUBLISHED.json to compare with (default results_server/<queue tag>/PUBLISHED.json)")
     ap.add_argument("--allow-smoke", action="store_true", help="plumbing test on tiny / smoke runs: downgrade those flags")
     a = ap.parse_args()
     q = Queue.load(a.queue)
@@ -213,14 +214,15 @@ def main() -> int:
             rep("INFO", f"partial run directory {md.name}: not finalized (ignored by publish / make_pilot; safe to delete)")
         if len(complete) > 1:
             rep("INFO", f"{len(complete)} complete runs of {cfg.exp_id} (different commits): the latest by time is the one make_pilot reads")
-    pub = Path("results_server") / q.tag / "PUBLISHED.json"
+    pub = Path(a.published) if a.published else Path("results_server") / q.tag / "PUBLISHED.json"
     print(f"== published ({pub})")
     if pub.exists():
         p = json.loads(pub.read_text())
         listed = {(r["exp_id"], r["run_hash"]): r for r in p["runs"]}
         smoke = [k for k, r in listed.items() if r.get("smoke")]
         missing = sorted(set(seen) - set(listed))
-        extra = sorted(k for k in set(listed) - set(seen) if not want or k[0] in want)
+        exps = {ExpConfig.load(c).exp_id for c in q.configs()}          # script-job runs (E12 fidelity, PD, PF) are not configs
+        extra = sorted(k for k in set(listed) - set(seen) if k[0] in exps and (not want or k[0] in want))
         rep("OK" if not (smoke or missing or extra) else "FAIL",
             f"published runs {sorted(listed)}" if not (smoke or missing or extra)
             else f"published vs complete mismatch: smoke {smoke}, complete but not published {missing}, published but not complete {extra}")

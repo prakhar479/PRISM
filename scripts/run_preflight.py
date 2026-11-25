@@ -313,12 +313,16 @@ def per_gpu(a, prof, q, probe) -> dict:
 
 
 def queue_revision(q) -> str:
-    """Model revision a queue runs: its first experiment config's, or (a queue of script jobs only, e.g. release 3) the
-    `prefetch: model_revision` block."""
+    """gemma-2-2b revision preflight checks (its golden fixtures and hooks are gemma-2-2b's): the queue's `prefetch:
+    model_revision` when it names one, else the first experiment config's. The first config's revision is only right for a
+    gemma-2-2b queue: pilot-g3 starts with a Gemma 3 config, whose commit is not a gemma-2-2b commit."""
     from harness.config import ExpConfig
+    pre = (q.prefetch or {}).get("model_revision")
+    if pre:
+        return pre
     if q.configs():
         return ExpConfig.load(REPO_ROOT / q.configs()[0]).model_revision
-    return (q.prefetch or {}).get("model_revision")
+    return None
 
 
 def main() -> int:

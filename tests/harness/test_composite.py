@@ -234,3 +234,15 @@ def test_only_sae_filters_cells_and_changes_the_run_hash(capsys):
     assert R.main(["--config", p, "--profile", "server", "--dry-run", "--smoke", "--only-sae", "gs2_1bc_L13_xc"]) in (0, 2)
     part = json.loads(capsys.readouterr().out)
     assert part["run_hash"] != full["run_hash"] and len(part["jobs"]) < len(full["jobs"])
+
+
+def test_preflight_checks_the_gemma2_revision_of_a_gemma3_first_queue():
+    """pilot-g3's first config is a Gemma 3 one: preflight must still load gemma-2-2b at its own pinned commit."""
+    import sys
+    sys.path.insert(0, str(ROOT / "scripts"))
+    import run_preflight as pf
+    from harness.queue import Queue
+    g3 = Queue.load(ROOT / "queue" / "pilot-g3-server.yaml")
+    assert pf.queue_revision(g3) == "c5ebcd40d208330abc697524c919956e692655cf"
+    assert pf.queue_revision(Queue.load(ROOT / "queue" / "pilot-breadth-server.yaml")) == pf.queue_revision(g3)
+    assert pf.queue_revision(Queue.load(ROOT / "queue" / "release2-server.yaml")) == "c5ebcd40d208330abc697524c919956e692655cf"

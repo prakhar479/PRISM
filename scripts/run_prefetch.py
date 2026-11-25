@@ -93,13 +93,24 @@ def main() -> int:
         files += [(repo_m, f, rev) for f in names]
     for s_ in t["saes"]:
         files += list(getattr(s_, "repo_files", lambda: ((s_.repo, s_.path_in_repo, s_.revision),))())
+    def retry(fn, tries=4):
+        """A 280 GB download meets dropped connections (RemoteProtocolError / timeouts): retry with a growing pause."""
+        for k in range(tries):
+            try:
+                return fn()
+            except Exception as e:  # noqa: BLE001
+                gated = type(e).__name__ in ("GatedRepoError", "RepositoryNotFoundError", "EntryNotFoundError", "RevisionNotFoundError")
+                if k == tries - 1 or gated or isinstance(e, (FileNotFoundError, PermissionError)):
+                    raise
+                time.sleep(5 * 3 ** k)
+
     for repo, f, rev in files:
         rec = {"repo": repo, "file": f, "revision": rev}
         t0 = time.time()
         try:
-            p = Path(hf_hub_download(repo, f, revision=rev, local_files_only=a.verify_only))
+            p = Path(retry(lambda: hf_hub_download(repo, f, revision=rev, local_files_only=a.verify_only)))
             rec["bytes"] = p.stat().st_size
-            info = None if offline else next(iter(api.get_paths_info(repo, [f], revision=rev)), None)
+            info = None if offline else next(iter(retry(lambda: api.get_paths_info(repo, [f], revision=rev))), None)
             lfs = getattr(info, "lfs", None) if info else None
             if lfs is not None:
                 want = lfs.sha256 if hasattr(lfs, "sha256") else lfs.get("sha256")

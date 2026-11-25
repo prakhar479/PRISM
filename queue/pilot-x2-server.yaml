@@ -1,0 +1,80 @@
+# Batch 2, branch batch2-repair (docs/NEXT_BATCH_PLAN.md): H1 (a generic-text sensitivity subspace repairs the task), H2 (decoder vs
+# information), H5 (second model), H6 (stacks with KL fine-tuning). One Slurm job: scripts/slurm_batch2.sbatch (4 x RTX 2080 Ti, 96 h;
+# designed for ~36 h). Exploratory, post hoc. Resumable.
+#   S_g2 / S_g3   generic-text Fisher of the LM loss (Gemma 2: layers 6/12/18/24; Gemma 3: 7/13/17/22)
+#   T_klft_*      KL+MSE fine-tuned 16k dictionaries (P27)
+#   P23 Gemma 2 2B   repair curves at RS L18 / PC L12 / OT L12 (16k): var, fis, sens, rnd (predicted + oracle) x k = 2, 8, 32, 128   102 cells
+#   P24 Gemma 2 2B   the same at 65k, k = 8, 32                                                                                      30 cells
+#   P25 Gemma 2 2B   layer sweep 6/12/18/24 of sens32 vs var32 vs rnd32 (+ oracle)                                                   60 cells
+#   P26 Gemma 3 1B   replicate on people-cities / object tracking / IOI at L13, L17                                                  60 cells
+#   P27 Gemma 2 2B   clin / mlp / cmlp, klft with and without sens32                                                                 24 cells
+#   PF_*  CE / FVU / L0 (+ noise-normalised cost) of every add-on dictionary: the CE price of each repair
+# Priority order: P23, P27, P25, P26, P24. If time runs out the later units are the ones left undone.
+tag: pilot-x2-server
+profile: server
+parallel: true
+prefetch:
+  model_revision: c5ebcd40d208330abc697524c919956e692655cf
+  saes: [[12, 16k, 82], [18, 16k, 74]]          # train_dictionary.py (klft) uses these directly
+jobs:
+  - {id: prefetch, kind: script, script: scripts/run_prefetch.py, args: [--queue, queue/pilot-x2-server.yaml]}
+  - {id: preflight, kind: script, script: scripts/run_preflight.py, gpu: all,
+     args: [--queue, queue/pilot-x2-server.yaml, --golden, golden/R2, --per-gpu], depends_on: [prefetch]}
+
+  # ---- the generic-text Fisher (one backward pass per batch serves every layer of a model) and the KL fine-tuned dictionaries
+  - {id: S_g2, kind: script, script: scripts/fit_sensitivity.py, gpu: one, priority: 10,
+     args: [--model, gemma-2-2b, --revision, c5ebcd40d208330abc697524c919956e692655cf, --layers, "6", "12", "18", "24",
+            --generic, generic/pile10k_6000x128_skip100.json], depends_on: [preflight]}
+  - {id: S_g3, kind: script, script: scripts/fit_sensitivity.py, gpu: one, priority: 8,
+     args: [--model, gemma-3-1b-pt, --revision, fcf18a2a879aab110ca39f8bffbccd5d49d8eb29, --layers, "7", "13", "17", "22",
+            --generic, generic/pile10k_6000x128_skip100_g3.json], depends_on: [preflight]}
+  - {id: T_klft_L18, kind: script, script: scripts/train_dictionary.py, gpu: one, priority: 9,
+     args: [--mode, klft, --layer, "18", --width, 16k, --name, klft_L18_16k, --epochs, "1"], depends_on: [preflight]}
+  - {id: T_klft_L12, kind: script, script: scripts/train_dictionary.py, gpu: one, priority: 9,
+     args: [--mode, klft, --layer, "12", --width, 16k, --name, klft_L12_16k, --epochs, "1"], depends_on: [preflight]}
+
+  # ---- stage 1 (chained where experiments share a model and prompt sets: one writer per cache entry; Gemma 3 has its own caches)
+  - {id: P23_s1, config: configs/batch2/P23.yaml, stage: "1", priority: 10, depends_on: [preflight]}
+  - {id: P25_s1, config: configs/batch2/P25.yaml, stage: "1", priority: 8, depends_on: [P23_s1]}
+  - {id: P24_s1, config: configs/batch2/P24.yaml, stage: "1", priority: 6, depends_on: [P25_s1]}
+  - {id: P27_s1, config: configs/batch2/P27.yaml, stage: "1", priority: 9, depends_on: [P24_s1]}
+  - {id: P26_s1, config: configs/batch2/P26.yaml, stage: "1", priority: 8, depends_on: [preflight]}
+
+  # ---- stage 2 (the add-ons are fitted here from the cached generic residuals and the Fisher: they wait for S_*; P27 for the fine-tunes)
+  - {id: P23_s2, config: configs/batch2/P23.yaml, stage: "2", slices: auto, priority: 10, depends_on: [P23_s1, S_g2]}
+  - {id: P27_s2, config: configs/batch2/P27.yaml, stage: "2", slices: auto, priority: 9, depends_on: [P27_s1, S_g2, T_klft_L18, T_klft_L12]}
+  - {id: P25_s2, config: configs/batch2/P25.yaml, stage: "2", slices: auto, priority: 8, depends_on: [P25_s1, S_g2]}
+  - {id: P26_s2, config: configs/batch2/P26.yaml, stage: "2", slices: auto, priority: 8, depends_on: [P26_s1, S_g3]}
+  - {id: P24_s2, config: configs/batch2/P24.yaml, stage: "2", slices: auto, priority: 6, depends_on: [P24_s1, S_g2]}
+
+  # ---- stage 3 (claiming workers; DAS rotations are shared by every dictionary and add-on of a task and layer)
+  - {id: P23_s3, config: configs/batch2/P23.yaml, stage: "3", workers: auto, priority: 10, depends_on: [P23_s2]}
+  - {id: P27_s3, config: configs/batch2/P27.yaml, stage: "3", workers: auto, priority: 9, depends_on: [P27_s2]}
+  - {id: P25_s3, config: configs/batch2/P25.yaml, stage: "3", workers: auto, priority: 8, depends_on: [P25_s2]}
+  - {id: P26_s3, config: configs/batch2/P26.yaml, stage: "3", workers: auto, priority: 8, depends_on: [P26_s2]}
+  - {id: P24_s3, config: configs/batch2/P24.yaml, stage: "3", workers: auto, priority: 6, depends_on: [P24_s2]}
+
+  # ---- ordinary-text fidelity of every add-on dictionary (reads the maps stage 2 fitted); noise controls where the alignment matters
+  - {id: PF_P23, kind: script, script: scripts/run_dict_fidelity.py, gpu: one, priority: 9,
+     args: [--config, configs/batch2/P23.yaml, --extras], depends_on: [P23_s2]}
+  - {id: PF_P27, kind: script, script: scripts/run_dict_fidelity.py, gpu: one, priority: 8,
+     args: [--config, configs/batch2/P27.yaml, --extras], depends_on: [P27_s2]}
+  - {id: PF_P25, kind: script, script: scripts/run_dict_fidelity.py, gpu: one, priority: 7,
+     args: [--config, configs/batch2/P25.yaml], depends_on: [P25_s2]}
+  - {id: PF_P26, kind: script, script: scripts/run_dict_fidelity.py, gpu: one, priority: 7,
+     args: [--config, configs/batch2/P26.yaml, --eval-set, generic/pile10k_100x128_g3.json], depends_on: [P26_s2]}
+  - {id: PF_P24, kind: script, script: scripts/run_dict_fidelity.py, gpu: one, priority: 5,
+     args: [--config, configs/batch2/P24.yaml], depends_on: [P24_s2]}
+
+  # ---- finalize (CPU)
+  - {id: P23_fin, config: configs/batch2/P23.yaml, stage: "3", gpu: none, args: [--finalize-only], depends_on: [P23_s3]}
+  - {id: P27_fin, config: configs/batch2/P27.yaml, stage: "3", gpu: none, args: [--finalize-only], depends_on: [P27_s3]}
+  - {id: P25_fin, config: configs/batch2/P25.yaml, stage: "3", gpu: none, args: [--finalize-only], depends_on: [P25_s3]}
+  - {id: P26_fin, config: configs/batch2/P26.yaml, stage: "3", gpu: none, args: [--finalize-only], depends_on: [P26_s3]}
+  - {id: P24_fin, config: configs/batch2/P24.yaml, stage: "3", gpu: none, args: [--finalize-only], depends_on: [P24_s3]}
+
+  - {id: bundle, kind: script, script: scripts/bundle_results.py, args: [--tag, pilot-x2-server, --queue, queue/pilot-x2-server.yaml],
+     after_failed: true, depends_on: [P23_fin, P27_fin, P25_fin, P26_fin, P24_fin, PF_P23, PF_P27, PF_P25, PF_P26, PF_P24,
+                                      S_g2, S_g3, T_klft_L18, T_klft_L12]}
+  - {id: publish, kind: script, script: scripts/publish_results.py, args: [--tag, pilot-x2-server, --queue, queue/pilot-x2-server.yaml],
+     after_failed: true, depends_on: [bundle]}

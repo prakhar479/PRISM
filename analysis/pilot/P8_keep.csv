@@ -1,0 +1,13 @@
+cell,keep_test,n_test,n_train,skipped
+add_chain_L13_gs2_1b_L13_16k_medium__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story,,,,add_chain_L13_gs2_1b_L13_16k_medium__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story: 1 test pairs
+people_cities_L13_gs2_1b_L13_16k_medium__fit-pc_en__eval-pc_en,0.3963,150.0,300.0,
+entity_track_L13_gs2_1b_L13_16k_medium__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest,0.6078,450.0,300.0,
+add_chain_L17_gs2_1b_L17_16k_medium__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story,,,,add_chain_L17_gs2_1b_L17_16k_medium__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story: 1 test pairs
+people_cities_L17_gs2_1b_L17_16k_medium__fit-pc_en__eval-pc_en,0.3963,150.0,300.0,
+entity_track_L17_gs2_1b_L17_16k_medium__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest,0.6078,450.0,300.0,
+add_chain_L22_gs2_1b_L22_16k_medium__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story,,,,add_chain_L22_gs2_1b_L22_16k_medium__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story: 1 test pairs
+people_cities_L22_gs2_1b_L22_16k_medium__fit-pc_en__eval-pc_en,0.3963,150.0,300.0,
+entity_track_L22_gs2_1b_L22_16k_medium__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest,0.6078,450.0,300.0,
+add_chain_L7_gs2_1b_L7_16k_medium__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story,,,,add_chain_L7_gs2_1b_L7_16k_medium__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story: 1 test pairs
+people_cities_L7_gs2_1b_L7_16k_medium__fit-pc_en__eval-pc_en,0.3963,150.0,300.0,
+entity_track_L7_gs2_1b_L7_16k_medium__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest,0.6078,450.0,300.0,

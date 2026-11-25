@@ -55,6 +55,16 @@ CANDIDATES = ["I", "Okay", "Here", "Sure", "**", "Absolutely", "Let", "This", "U
               "Making", "Okay,", "Alright"]
 
 
+def unify_candidates(rows):
+    """One candidate list for the whole set: stage 1 stacks every row's `cand_ids` into one tensor, so all rows need the same
+    count. The list is the ordered union of every row's candidates (the fixed CANDIDATES first tokens plus every answer token
+    the model produced), so each row's own answers are still in it."""
+    union = list(dict.fromkeys(c for r in rows for c in r["cand_ids"]))
+    for r in rows:
+        r["cand_ids"] = list(union)
+    return rows
+
+
 def chat_ids(tok, msg):
     return tok(CHAT.format(msg=msg), add_special_tokens=True).input_ids
 
@@ -142,6 +152,7 @@ def main() -> int:
         firsts = [r["clean_target"] for r in rows if r["split"] == split]
         info_split[split] = {"candidates": len(cands), "kept": kept,
                              "A_first_tokens": {k: firsts.count(k) for k in sorted(set(firsts), key=firsts.count, reverse=True)[:8]}}
+    unify_candidates(rows)
     bad = [b for b in T.check_invariants(rows) if "few-shot prefixes" not in b]
     if bad:
         print(f"{len(bad)} invariant violations, e.g. {bad[:3]}")

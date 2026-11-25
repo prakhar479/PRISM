@@ -246,3 +246,21 @@ def test_preflight_checks_the_gemma2_revision_of_a_gemma3_first_queue():
     assert pf.queue_revision(g3) == "c5ebcd40d208330abc697524c919956e692655cf"
     assert pf.queue_revision(Queue.load(ROOT / "queue" / "pilot-breadth-server.yaml")) == pf.queue_revision(g3)
     assert pf.queue_revision(Queue.load(ROOT / "queue" / "release2-server.yaml")) == "c5ebcd40d208330abc697524c919956e692655cf"
+
+
+def test_every_committed_pilot_set_has_one_candidate_count():
+    """Stage 1 stacks each row's cand_ids into one tensor: a set with rows of different candidate counts fails at the first
+    batch that mixes them (P13's refusal set did: 15 vs 16)."""
+    from harness import tasks as T
+    for f in sorted((ROOT / "data" / "prompt_sets").glob("*.jsonl.gz")):
+        rows, _ = T.load_set(f)
+        assert len({len(r["cand_ids"]) for r in rows}) == 1, f.name
+        assert all(r["ans_A"] in r["cand_ids"] and r["ans_B"] in r["cand_ids"] for r in rows), f.name
+
+
+def test_refusal_builder_unifies_candidates():
+    import sys
+    sys.path.insert(0, str(ROOT / "scripts"))
+    import build_refusal_set as b
+    rows = b.unify_candidates([{"cand_ids": [1, 2, 3, 9]}, {"cand_ids": [1, 2, 3]}, {"cand_ids": [1, 2, 7, 3]}])
+    assert {tuple(r["cand_ids"]) for r in rows} == {(1, 2, 3, 9, 7)}

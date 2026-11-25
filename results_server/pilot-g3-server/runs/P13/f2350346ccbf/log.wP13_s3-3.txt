@@ -1,0 +1,94 @@
+2026-11-25 22:14:54,616 INFO DAS: training das1v2_kl (k=1, 10 epochs, lr 0.01, seed 0) for refusal L7 on 300 train pairs
+2026-11-25 22:14:59,954 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-it/tree/dcc83ea841ab6100d6b47a070329e1ba4cf78752/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-25 22:15:00,227 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-it/tree/dcc83ea841ab6100d6b47a070329e1ba4cf78752?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-25 22:15:02,534 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-it "HTTP/1.1 200 OK"
+2026-11-25 22:15:10,791 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-it "HTTP/1.1 200 OK"
+2026-11-25 22:15:11,274 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-it/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-25 22:15:11,534 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-it/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-25 22:15:13,863 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-it "HTTP/1.1 200 OK"
+2026-11-25 22:16:33,033 INFO DAS v2 k=1 kl epoch 1/10: loss 7.5638
+2026-11-25 22:16:36,141 INFO DAS v2 k=1 kl epoch 2/10: loss 2.3721
+2026-11-25 22:16:39,248 INFO DAS v2 k=1 kl epoch 3/10: loss 2.1945
+2026-11-25 22:16:42,354 INFO DAS v2 k=1 kl epoch 4/10: loss 1.7429
+2026-11-25 22:16:45,466 INFO DAS v2 k=1 kl epoch 5/10: loss 1.2773
+2026-11-25 22:16:48,585 INFO DAS v2 k=1 kl epoch 6/10: loss 0.7412
+2026-11-25 22:16:51,705 INFO DAS v2 k=1 kl epoch 7/10: loss 0.4424
+2026-11-25 22:16:54,828 INFO DAS v2 k=1 kl epoch 8/10: loss 0.4944
+2026-11-25 22:16:57,974 INFO DAS v2 k=1 kl epoch 9/10: loss 0.4623
+2026-11-25 22:17:01,107 INFO DAS v2 k=1 kl epoch 10/10: loss 0.5159
+2026-11-25 22:17:27,665 INFO refusal_L7_gs2_1bit_L7_16k_medium unit 2/15 (8 conditions, 5.0s)
+2026-11-25 22:17:32,854 INFO refusal_L7_gs2_1bit_L7_16k_medium unit 6/15 (8 conditions, 5.2s)
+2026-11-25 22:17:37,975 INFO refusal_L7_gs2_1bit_L7_16k_medium unit 9/15 (8 conditions, 5.1s)
+2026-11-25 22:17:43,030 INFO refusal_L7_gs2_1bit_L7_16k_medium unit 12/15 (8 conditions, 5.0s)
+2026-11-25 22:17:46,851 INFO refusal_L7_gs2_1bit_L7_16k_medium unit 15/15 (6 conditions, 3.8s)
+2026-11-25 22:17:52,583 INFO refusal_L7_gs2_1bit_L7_262k_medium unit 3/15 (8 conditions, 4.9s)
+2026-11-25 22:17:57,526 INFO refusal_L7_gs2_1bit_L7_262k_medium unit 7/15 (8 conditions, 4.9s)
+2026-11-25 22:18:02,470 INFO refusal_L7_gs2_1bit_L7_262k_medium unit 11/15 (8 conditions, 4.9s)
+2026-11-25 22:18:06,253 INFO refusal_L7_gs2_1bit_L7_262k_medium unit 15/15 (6 conditions, 3.8s)
+2026-11-25 22:18:06,956 INFO DAS: training das8v2_kl (k=8, 10 epochs, lr 0.01, seed 0) for refusal L13 on 300 train pairs
+2026-11-25 22:18:47,387 INFO DAS v2 k=8 kl epoch 1/10: loss 2.2167
+2026-11-25 22:18:50,311 INFO DAS v2 k=8 kl epoch 2/10: loss 0.0002
+2026-11-25 22:18:53,166 INFO DAS v2 k=8 kl epoch 3/10: loss 0.0000
+2026-11-25 22:18:56,009 INFO DAS v2 k=8 kl epoch 4/10: loss 0.0000
+2026-11-25 22:18:58,845 INFO DAS v2 k=8 kl epoch 5/10: loss 0.0000
+2026-11-25 22:19:01,671 INFO DAS v2 k=8 kl epoch 6/10: loss 0.0000
+2026-11-25 22:19:04,490 INFO DAS v2 k=8 kl epoch 7/10: loss 0.0000
+2026-11-25 22:19:07,308 INFO DAS v2 k=8 kl epoch 8/10: loss 0.0000
+2026-11-25 22:19:10,147 INFO DAS v2 k=8 kl epoch 9/10: loss 0.0000
+2026-11-25 22:19:12,990 INFO DAS v2 k=8 kl epoch 10/10: loss 0.0000
+2026-11-25 22:19:41,641 INFO refusal_L13_gs2_1bit_L13_16k_medium unit 3/15 (8 conditions, 3.7s)
+2026-11-25 22:19:45,485 INFO refusal_L13_gs2_1bit_L13_16k_medium unit 6/15 (8 conditions, 3.8s)
+2026-11-25 22:19:49,393 INFO refusal_L13_gs2_1bit_L13_16k_medium unit 11/15 (8 conditions, 3.9s)
+2026-11-25 22:19:52,462 INFO refusal_L13_gs2_1bit_L13_16k_medium unit 15/15 (6 conditions, 3.0s)
+2026-11-25 22:19:57,038 INFO refusal_L13_gs2_1bit_L13_262k_medium unit 2/15 (8 conditions, 3.7s)
+2026-11-25 22:20:00,864 INFO refusal_L13_gs2_1bit_L13_262k_medium unit 6/15 (8 conditions, 3.8s)
+2026-11-25 22:20:04,670 INFO refusal_L13_gs2_1bit_L13_262k_medium unit 10/15 (8 conditions, 3.8s)
+2026-11-25 22:20:08,502 INFO refusal_L13_gs2_1bit_L13_262k_medium unit 14/15 (8 conditions, 3.8s)
+2026-11-25 22:20:13,031 INFO refusal_L13_gs2_1bitc_L13_clt262k_medium unit 4/15 (8 conditions, 3.7s)
+2026-11-25 22:20:16,787 INFO refusal_L13_gs2_1bitc_L13_clt262k_medium unit 8/15 (8 conditions, 3.7s)
+2026-11-25 22:20:20,560 INFO refusal_L13_gs2_1bitc_L13_clt262k_medium unit 12/15 (8 conditions, 3.7s)
+2026-11-25 22:20:25,538 INFO refusal_L13_gs2_1bitc_L13_tc16k_small_all unit 1/15 (8 conditions, 3.7s)
+2026-11-25 22:20:29,303 INFO refusal_L13_gs2_1bitc_L13_tc16k_small_all unit 5/15 (8 conditions, 3.7s)
+2026-11-25 22:20:33,063 INFO refusal_L13_gs2_1bitc_L13_tc16k_small_all unit 9/15 (8 conditions, 3.7s)
+2026-11-25 22:20:36,842 INFO refusal_L13_gs2_1bitc_L13_tc16k_small_all unit 13/15 (8 conditions, 3.7s)
+2026-11-25 22:20:41,418 INFO refusal_L13_gs2_1bitc_L13_xc65k_medium unit 1/15 (8 conditions, 3.7s)
+2026-11-25 22:20:45,189 INFO refusal_L13_gs2_1bitc_L13_xc65k_medium unit 5/15 (8 conditions, 3.7s)
+2026-11-25 22:20:48,971 INFO refusal_L13_gs2_1bitc_L13_xc65k_medium unit 9/15 (8 conditions, 3.7s)
+2026-11-25 22:20:52,764 INFO refusal_L13_gs2_1bitc_L13_xc65k_medium unit 13/15 (8 conditions, 3.8s)
+2026-11-25 22:20:53,473 INFO DAS: training das4v2_kl (k=4, 10 epochs, lr 0.01, seed 0) for refusal L17 on 300 train pairs
+2026-11-25 22:21:29,811 INFO DAS v2 k=4 kl epoch 1/10: loss 2.1660
+2026-11-25 22:21:31,906 INFO DAS v2 k=4 kl epoch 2/10: loss 0.0013
+2026-11-25 22:21:33,983 INFO DAS v2 k=4 kl epoch 3/10: loss 0.0001
+2026-11-25 22:21:36,055 INFO DAS v2 k=4 kl epoch 4/10: loss 0.0000
+2026-11-25 22:21:38,120 INFO DAS v2 k=4 kl epoch 5/10: loss 0.0000
+2026-11-25 22:21:40,184 INFO DAS v2 k=4 kl epoch 6/10: loss 0.0000
+2026-11-25 22:21:42,246 INFO DAS v2 k=4 kl epoch 7/10: loss 0.0000
+2026-11-25 22:21:44,301 INFO DAS v2 k=4 kl epoch 8/10: loss 0.0000
+2026-11-25 22:21:46,362 INFO DAS v2 k=4 kl epoch 9/10: loss 0.0000
+2026-11-25 22:21:48,420 INFO DAS v2 k=4 kl epoch 10/10: loss 0.0000
+2026-11-25 22:22:07,686 INFO refusal_L17_gs2_1bit_L17_16k_medium unit 3/15 (8 conditions, 2.9s)
+2026-11-25 22:22:10,819 INFO refusal_L17_gs2_1bit_L17_16k_medium unit 6/15 (8 conditions, 3.1s)
+2026-11-25 22:22:14,000 INFO refusal_L17_gs2_1bit_L17_16k_medium unit 11/15 (8 conditions, 3.1s)
+2026-11-25 22:22:16,571 INFO refusal_L17_gs2_1bit_L17_16k_medium unit 15/15 (6 conditions, 2.5s)
+2026-11-25 22:22:20,482 INFO refusal_L17_gs2_1bit_L17_262k_medium unit 3/15 (8 conditions, 3.0s)
+2026-11-25 22:22:23,556 INFO refusal_L17_gs2_1bit_L17_262k_medium unit 8/15 (8 conditions, 3.0s)
+2026-11-25 22:22:26,627 INFO refusal_L17_gs2_1bit_L17_262k_medium unit 12/15 (8 conditions, 3.0s)
+2026-11-25 22:22:27,713 INFO DAS: training das1v2_kl (k=1, 10 epochs, lr 0.01, seed 0) for refusal L22 on 300 train pairs
+2026-11-25 22:22:58,838 INFO DAS v2 k=1 kl epoch 1/10: loss 2.3775
+2026-11-25 22:23:00,082 INFO DAS v2 k=1 kl epoch 2/10: loss 0.0018
+2026-11-25 22:23:01,328 INFO DAS v2 k=1 kl epoch 3/10: loss 0.0007
+2026-11-25 22:23:02,571 INFO DAS v2 k=1 kl epoch 4/10: loss 0.0005
+2026-11-25 22:23:03,815 INFO DAS v2 k=1 kl epoch 5/10: loss 0.0004
+2026-11-25 22:23:05,063 INFO DAS v2 k=1 kl epoch 6/10: loss 0.0004
+2026-11-25 22:23:06,311 INFO DAS v2 k=1 kl epoch 7/10: loss 0.0003
+2026-11-25 22:23:07,565 INFO DAS v2 k=1 kl epoch 8/10: loss 0.0003
+2026-11-25 22:23:08,816 INFO DAS v2 k=1 kl epoch 9/10: loss 0.0003
+2026-11-25 22:23:10,065 INFO DAS v2 k=1 kl epoch 10/10: loss 0.0002
+2026-11-25 22:23:29,915 INFO refusal_L22_gs2_1bit_L22_16k_medium unit 3/15 (8 conditions, 1.9s)
+2026-11-25 22:23:31,859 INFO refusal_L22_gs2_1bit_L22_16k_medium unit 6/15 (8 conditions, 1.9s)
+2026-11-25 22:23:33,831 INFO refusal_L22_gs2_1bit_L22_16k_medium unit 10/15 (8 conditions, 1.9s)
+2026-11-25 22:23:35,851 INFO refusal_L22_gs2_1bit_L22_16k_medium unit 14/15 (8 conditions, 2.0s)
+2026-11-25 22:23:38,749 INFO refusal_L22_gs2_1bit_L22_262k_medium unit 4/15 (8 conditions, 1.9s)
+2026-11-25 22:23:40,726 INFO refusal_L22_gs2_1bit_L22_262k_medium unit 8/15 (8 conditions, 2.0s)
+2026-11-25 22:23:42,734 INFO refusal_L22_gs2_1bit_L22_262k_medium unit 12/15 (8 conditions, 2.0s)
+2026-11-25 22:23:42,827 INFO P13 -> /home2/prakhar2218/PRISM/runs/P13/f2350346ccbf (worker_done)

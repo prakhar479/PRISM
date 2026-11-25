@@ -1,0 +1,3169 @@
+{
+ "queue": "queue/pilot-g3-server.yaml",
+ "tag": "pilot-g3-server",
+ "files": [
+  {
+   "repo": "google/gemma-2-2b",
+   "file": "config.json",
+   "revision": "c5ebcd40d208330abc697524c919956e692655cf",
+   "bytes": 818,
+   "seconds": 0.3
+  },
+  {
+   "repo": "google/gemma-2-2b",
+   "file": "generation_config.json",
+   "revision": "c5ebcd40d208330abc697524c919956e692655cf",
+   "bytes": 168,
+   "seconds": 0.3
+  },
+  {
+   "repo": "google/gemma-2-2b",
+   "file": "model-00001-of-00003.safetensors",
+   "revision": "c5ebcd40d208330abc697524c919956e692655cf",
+   "bytes": 4992576136,
+   "sha256": "1425aa066ec77e3eb79aac14a5bdea3ebcec46aa5c96cd40608c5c1fd70d193d",
+   "sha256_ok": true,
+   "seconds": 50.6
+  },
+  {
+   "repo": "google/gemma-2-2b",
+   "file": "model-00002-of-00003.safetensors",
+   "revision": "c5ebcd40d208330abc697524c919956e692655cf",
+   "bytes": 4983443424,
+   "sha256": "96c111d3dcdbde9271595e463b5d9f7fc4810ad8b79e736309c0a1833e6c0d35",
+   "sha256_ok": true,
+   "seconds": 64.1
+  },
+  {
+   "repo": "google/gemma-2-2b",
+   "file": "model-00003-of-00003.safetensors",
+   "revision": "c5ebcd40d208330abc697524c919956e692655cf",
+   "bytes": 481381384,
+   "sha256": "4e08abc64d1767fdacd2c94da7f2ec4b8c65b25b19a53e87d19dc432901b5f02",
+   "sha256_ok": true,
+   "seconds": 6.3
+  },
+  {
+   "repo": "google/gemma-2-2b",
+   "file": "model.safetensors.index.json",
+   "revision": "c5ebcd40d208330abc697524c919956e692655cf",
+   "bytes": 24224,
+   "seconds": 0.6
+  },
+  {
+   "repo": "google/gemma-2-2b",
+   "file": "special_tokens_map.json",
+   "revision": "c5ebcd40d208330abc697524c919956e692655cf",
+   "bytes": 636,
+   "seconds": 0.2
+  },
+  {
+   "repo": "google/gemma-2-2b",
+   "file": "tokenizer.json",
+   "revision": "c5ebcd40d208330abc697524c919956e692655cf",
+   "bytes": 17525357,
+   "sha256": "3f289bc05132635a8bc7aca7aa21255efd5e18f3710f43e3cdb96bcd41be4922",
+   "sha256_ok": true,
+   "seconds": 0.5
+  },
+  {
+   "repo": "google/gemma-2-2b",
+   "file": "tokenizer.model",
+   "revision": "c5ebcd40d208330abc697524c919956e692655cf",
+   "bytes": 4241003,
+   "sha256": "61a7b147390c64585d6c3543dd6fc636906c9af3865a5548f27f31aee1d4c8e2",
+   "sha256_ok": true,
+   "seconds": 0.3
+  },
+  {
+   "repo": "google/gemma-2-2b",
+   "file": "tokenizer_config.json",
+   "revision": "c5ebcd40d208330abc697524c919956e692655cf",
+   "bytes": 46379,
+   "seconds": 0.2
+  },
+  {
+   "repo": "google/gemma-3-1b-it",
+   "file": "added_tokens.json",
+   "revision": "dcc83ea841ab6100d6b47a070329e1ba4cf78752",
+   "bytes": 35,
+   "seconds": 0.5
+  },
+  {
+   "repo": "google/gemma-3-1b-it",
+   "file": "config.json",
+   "revision": "dcc83ea841ab6100d6b47a070329e1ba4cf78752",
+   "bytes": 899,
+   "seconds": 0.3
+  },
+  {
+   "repo": "google/gemma-3-1b-it",
+   "file": "generation_config.json",
+   "revision": "dcc83ea841ab6100d6b47a070329e1ba4cf78752",
+   "bytes": 215,
+   "seconds": 0.3
+  },
+  {
+   "repo": "google/gemma-3-1b-it",
+   "file": "model.safetensors",
+   "revision": "dcc83ea841ab6100d6b47a070329e1ba4cf78752",
+   "bytes": 1999811208,
+   "sha256": "3d4ef8d71c14db7e448a09ebe891cfb6bf32c57a9b44499ae0d1c098e48516b6",
+   "sha256_ok": true,
+   "seconds": 27.2
+  },
+  {
+   "repo": "google/gemma-3-1b-it",
+   "file": "special_tokens_map.json",
+   "revision": "dcc83ea841ab6100d6b47a070329e1ba4cf78752",
+   "bytes": 662,
+   "seconds": 0.4
+  },
+  {
+   "repo": "google/gemma-3-1b-it",
+   "file": "tokenizer.json",
+   "revision": "dcc83ea841ab6100d6b47a070329e1ba4cf78752",
+   "bytes": 33384568,
+   "sha256": "4667f2089529e8e7657cfb6d1c19910ae71ff5f28aa7ab2ff2763330affad795",
+   "sha256_ok": true,
+   "seconds": 0.7
+  },
+  {
+   "repo": "google/gemma-3-1b-it",
+   "file": "tokenizer.model",
+   "revision": "dcc83ea841ab6100d6b47a070329e1ba4cf78752",
+   "bytes": 4689074,
+   "sha256": "1299c11d7cf632ef3b4e11937501358ada021bbdf7c47638d13c0ee982f2e79c",
+   "sha256_ok": true,
+   "seconds": 0.3
+  },
+  {
+   "repo": "google/gemma-3-1b-it",
+   "file": "tokenizer_config.json",
+   "revision": "dcc83ea841ab6100d6b47a070329e1ba4cf78752",
+   "bytes": 1156999,
+   "seconds": 0.9
+  },
+  {
+   "repo": "google/gemma-3-1b-pt",
+   "file": "added_tokens.json",
+   "revision": "fcf18a2a879aab110ca39f8bffbccd5d49d8eb29",
+   "bytes": 35,
+   "seconds": 0.3
+  },
+  {
+   "repo": "google/gemma-3-1b-pt",
+   "file": "config.json",
+   "revision": "fcf18a2a879aab110ca39f8bffbccd5d49d8eb29",
+   "bytes": 880,
+   "seconds": 0.3
+  },
+  {
+   "repo": "google/gemma-3-1b-pt",
+   "file": "generation_config.json",
+   "revision": "fcf18a2a879aab110ca39f8bffbccd5d49d8eb29",
+   "bytes": 215,
+   "seconds": 0.3
+  },
+  {
+   "repo": "google/gemma-3-1b-pt",
+   "file": "model.safetensors",
+   "revision": "fcf18a2a879aab110ca39f8bffbccd5d49d8eb29",
+   "bytes": 1999811208,
+   "sha256": "ee5250f6eb1aa7cfb729dfd4dc8d9964fd772324776c6d00bf2bc674c069cb27",
+   "sha256_ok": true,
+   "seconds": 7.4
+  },
+  {
+   "repo": "google/gemma-3-1b-pt",
+   "file": "special_tokens_map.json",
+   "revision": "fcf18a2a879aab110ca39f8bffbccd5d49d8eb29",
+   "bytes": 662,
+   "seconds": 0.3
+  },
+  {
+   "repo": "google/gemma-3-1b-pt",
+   "file": "tokenizer.json",
+   "revision": "fcf18a2a879aab110ca39f8bffbccd5d49d8eb29",
+   "bytes": 33384570,
+   "sha256": "7d4046bf0505a327dd5a0abbb427ecd4fc82f99c2ceaa170bc61ecde12809b0c",
+   "sha256_ok": true,
+   "seconds": 0.6
+  },
+  {
+   "repo": "google/gemma-3-1b-pt",
+   "file": "tokenizer.model",
+   "revision": "fcf18a2a879aab110ca39f8bffbccd5d49d8eb29",
+   "bytes": 4689074,
+   "sha256": "1299c11d7cf632ef3b4e11937501358ada021bbdf7c47638d13c0ee982f2e79c",
+   "sha256_ok": true,
+   "seconds": 0.3
+  },
+  {
+   "repo": "google/gemma-3-1b-pt",
+   "file": "tokenizer_config.json",
+   "revision": "fcf18a2a879aab110ca39f8bffbccd5d49d8eb29",
+   "bytes": 1155349,
+   "seconds": 0.3
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-it",
+   "file": "resid_post/layer_7_width_16k_l0_medium/params.safetensors",
+   "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+   "bytes": 151131000,
+   "sha256": "9fe6dcb1cf718c90afb73980b3e9155f739b619306e05457dba160cd45c811e9",
+   "sha256_ok": true,
+   "seconds": 1.8
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-it",
+   "file": "resid_post/layer_7_width_16k_l0_medium/config.json",
+   "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+   "bytes": 245,
+   "seconds": 0.3
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-it",
+   "file": "resid_post/layer_7_width_262k_l0_medium/params.safetensors",
+   "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+   "bytes": 2418021256,
+   "sha256": "2fcdbd9a6e6594b0f0e09a43f3519ccce0bc3a429871bd7c4d3907f84b5a2bf8",
+   "sha256_ok": true,
+   "seconds": 24.9
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-it",
+   "file": "resid_post/layer_7_width_262k_l0_medium/config.json",
+   "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+   "bytes": 246,
+   "seconds": 0.3
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-it",
+   "file": "resid_post/layer_13_width_16k_l0_medium/params.safetensors",
+   "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+   "bytes": 151131000,
+   "sha256": "6be6fbfed9850588adb1826bcc9fc89551d9eaf573311e95b21307fd4a281cd5",
+   "sha256_ok": true,
+   "seconds": 1.8
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-it",
+   "file": "resid_post/layer_13_width_16k_l0_medium/config.json",
+   "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+   "bytes": 247,
+   "seconds": 0.2
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-it",
+   "file": "resid_post/layer_13_width_262k_l0_medium/params.safetensors",
+   "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+   "bytes": 2418021256,
+   "sha256": "79be7a49e931ff897cdcf5a63e1e654b83d9e5beb6fd6a76155be59b000c5d80",
+   "sha256_ok": true,
+   "seconds": 33.3
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-it",
+   "file": "resid_post/layer_13_width_262k_l0_medium/config.json",
+   "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+   "bytes": 248,
+   "seconds": 0.3
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-it",
+   "file": "clt/width_262k_l0_medium/params_layer_0.safetensors",
+   "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+   "bytes": 1254198912,
+   "sha256": "6ca266fc1ea2477b30c3a5d607458569700206c15685d5efdd3cef1a044f77a5",
+   "sha256_ok": true,
+   "seconds": 18.9
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-it",
+   "file": "clt/width_262k_l0_medium/params_layer_1.safetensors",
+   "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+   "bytes": 1254198912,
+   "sha256": "cf14b40cce6551ef3c7e85b91c64a3a7b827da05e30cf15415ec0c6cd13ece25",
+   "sha256_ok": true,
+   "seconds": 18.8
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-it",
+   "file": "clt/width_262k_l0_medium/params_layer_2.safetensors",
+   "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+   "bytes": 1254198912,
+   "sha256": "d9ec7c490a861e3bff9bba0b43c0ce43f107d0f439f4cfbafef6dfb1beeb2e65",
+   "sha256_ok": true,
+   "seconds": 19.1
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-it",
+   "file": "clt/width_262k_l0_medium/params_layer_3.safetensors",
+   "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+   "bytes": 1254198912,
+   "sha256": "2af928cb03af14861e30517b68d79a70181f6973b1f848686507523d0c6fbfb9",
+   "sha256_ok": true,
+   "seconds": 19.1
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-it",
+   "file": "clt/width_262k_l0_medium/params_layer_4.safetensors",
+   "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+   "bytes": 1254198912,
+   "sha256": "f6e1839a151752213d98a0812d60dbecce4b43d048ba898b40768175a713645b",
+   "sha256_ok": true,
+   "seconds": 19.1
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-it",
+   "file": "clt/width_262k_l0_medium/params_layer_5.safetensors",
+   "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+   "bytes": 1254198912,
+   "sha256": "659993e3b0835bf230ebd6facd9b9e341567aadd159e249cd16235b95c304d70",
+   "sha256_ok": true,
+   "seconds": 19.3
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-it",
+   "file": "clt/width_262k_l0_medium/params_layer_6.safetensors",
+   "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+   "bytes": 1254198912,
+   "sha256": "4e2d394b9790323cfd2c2086de56b4a75d77fc3e3bd23e104cd703b848661c8b",
+   "sha256_ok": true,
+   "seconds": 19.1
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-it",
+   "file": "clt/width_262k_l0_medium/params_layer_7.safetensors",
+   "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+   "bytes": 1254198912,
+   "sha256": "4313531b1b7dcb3a90eae3410a01002e1dfc120defad9e47f01c056a0b8f518c",
+   "sha256_ok": true,
+   "seconds": 20.0
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-it",
+   "file": "clt/width_262k_l0_medium/params_layer_8.safetensors",
+   "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+   "bytes": 1254198912,
+   "sha256": "8c8ca5da8774cfbeebd4cdeda7fb115aeb34fc823c206159e95ceda035c65cfc",
+   "sha256_ok": true,
+   "seconds": 19.1
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-it",
+   "file": "clt/width_262k_l0_medium/params_layer_9.safetensors",
+   "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+   "bytes": 1254198912,
+   "sha256": "c94bf6da4ef02ff1d6cf665c890e6862363236c9ed3de370bd111711ba9755dd",
+   "sha256_ok": true,
+   "seconds": 18.9
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-it",
+   "file": "clt/width_262k_l0_medium/params_layer_10.safetensors",
+   "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+   "bytes": 1254198912,
+   "sha256": "9f1ff37cb24bb90760eb7daf0d8fdfad79c75679b256039578c54011956f0d13",
+   "sha256_ok": true,
+   "seconds": 19.2
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-it",
+   "file": "clt/width_262k_l0_medium/params_layer_11.safetensors",
+   "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+   "bytes": 1254198912,
+   "sha256": "fb33621422495225d2b4ab04bdc51371d9302d45f5150826a55aadb09f0a663e",
+   "sha256_ok": true,
+   "seconds": 19.3
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-it",
+   "file": "clt/width_262k_l0_medium/params_layer_12.safetensors",
+   "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+   "bytes": 1254198912,
+   "sha256": "40646fcd39328deee4122d11b3fba99a22a929b49a5174969e3220237d1bf18c",
+   "sha256_ok": true,
+   "seconds": 19.1
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-it",
+   "file": "clt/width_262k_l0_medium/params_layer_13.safetensors",
+   "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+   "bytes": 1254198912,
+   "sha256": "68e11c242f0103e175b629d1a3f8059d34d142e19cda2e6c9a1fd5dbe55ca972",
+   "sha256_ok": true,
+   "seconds": 19.0
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-it",
+   "file": "transcoder_all/layer_0_width_16k_l0_small/params.safetensors",
+   "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+   "bytes": 151131000,
+   "sha256": "2e5e8f0612a4fea226002f8ddfd8aef9863164bf081441f5c5fabf4a8cb52e0c",
+   "sha256_ok": true,
+   "seconds": 2.6
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-it",
+   "file": "transcoder_all/layer_1_width_16k_l0_small/params.safetensors",
+   "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+   "bytes": 151131000,
+   "sha256": "8589f0fa4bc4744c3fe6442336df7c04b91132c842d339ab52ecccacb3920464",
+   "sha256_ok": true,
+   "seconds": 2.5
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-it",
+   "file": "transcoder_all/layer_2_width_16k_l0_small/params.safetensors",
+   "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+   "bytes": 151131000,
+   "sha256": "5687c67ec3a70f6f125cd4bb19041b8b18931b58022867b1611357c35b5f70f2",
+   "sha256_ok": true,
+   "seconds": 2.6
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-it",
+   "file": "transcoder_all/layer_3_width_16k_l0_small/params.safetensors",
+   "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+   "bytes": 151131000,
+   "sha256": "52e8b6f9c95f1f3755121a0d968b0a2019e9312627f3ba6bd8c09763f67226a4",
+   "sha256_ok": true,
+   "seconds": 2.5
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-it",
+   "file": "transcoder_all/layer_4_width_16k_l0_small/params.safetensors",
+   "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+   "bytes": 151131000,
+   "sha256": "5c136614ea5c508f0c8f26d110f2d01c2dbdead15d2289959074ffa46f696a89",
+   "sha256_ok": true,
+   "seconds": 2.5
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-it",
+   "file": "transcoder_all/layer_5_width_16k_l0_small/params.safetensors",
+   "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+   "bytes": 151131000,
+   "sha256": "d056187b8e6d0a5b6f6c23f527acac845a908ecfddba92451bc56844084d0fa4",
+   "sha256_ok": true,
+   "seconds": 2.5
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-it",
+   "file": "transcoder_all/layer_6_width_16k_l0_small/params.safetensors",
+   "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+   "bytes": 151131000,
+   "sha256": "0730da36a1db69012fac35b01b77e053cb8c3eeb49446c4cadf7cf254135c637",
+   "sha256_ok": true,
+   "seconds": 2.5
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-it",
+   "file": "transcoder_all/layer_7_width_16k_l0_small/params.safetensors",
+   "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+   "bytes": 151131000,
+   "sha256": "492d4fd5e63dcc0bc400cb582fa78d74910dc4a0bd27c13fb90753fffea82feb",
+   "sha256_ok": true,
+   "seconds": 2.5
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-it",
+   "file": "transcoder_all/layer_8_width_16k_l0_small/params.safetensors",
+   "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+   "bytes": 151131000,
+   "sha256": "5c5ab6c644c2921a92210b2cd131cad03b1e360b2315bbbf147dedfe93cd0344",
+   "sha256_ok": true,
+   "seconds": 2.5
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-it",
+   "file": "transcoder_all/layer_9_width_16k_l0_small/params.safetensors",
+   "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+   "bytes": 151131000,
+   "sha256": "ef21b1821f145a53aaf3721d3386fc9567713e4e9cc37923c6f4c7e4438ea770",
+   "sha256_ok": true,
+   "seconds": 2.5
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-it",
+   "file": "transcoder_all/layer_10_width_16k_l0_small/params.safetensors",
+   "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+   "bytes": 151131000,
+   "sha256": "ef3075cabe5dcc1b22db7d537f0bf709c05ae449a2416a3f4f4886af51fa1d93",
+   "sha256_ok": true,
+   "seconds": 2.5
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-it",
+   "file": "transcoder_all/layer_11_width_16k_l0_small/params.safetensors",
+   "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+   "bytes": 151131000,
+   "sha256": "148417914e4ce95232739bc9ad30a77090144ede27eff30c8600da8b6f63979c",
+   "sha256_ok": true,
+   "seconds": 2.5
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-it",
+   "file": "transcoder_all/layer_12_width_16k_l0_small/params.safetensors",
+   "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+   "bytes": 151131000,
+   "sha256": "7c3e75e2e51cf26dea0e965099bb18f37831868f0122aedbcec5762a056f8c05",
+   "sha256_ok": true,
+   "seconds": 2.5
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-it",
+   "file": "transcoder_all/layer_13_width_16k_l0_small/params.safetensors",
+   "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+   "bytes": 151131000,
+   "sha256": "72017598f5d0cadd85530c3e777edbf06383a4098871ccafd869079faac9798f",
+   "sha256_ok": true,
+   "seconds": 2.5
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-it",
+   "file": "crosscoder/layer_7_13_17_22_width_65k_l0_medium/params_layer_0.safetensors",
+   "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+   "bytes": 377623424,
+   "sha256": "ff610c20469e1f8c37dbbc3507d3b23bae9612879e154ffd5656b4b186b81010",
+   "sha256_ok": true,
+   "seconds": 5.8
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-it",
+   "file": "crosscoder/layer_7_13_17_22_width_65k_l0_medium/params_layer_1.safetensors",
+   "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+   "bytes": 377623424,
+   "sha256": "1918a823777cb3b9cd599c72a22667d490c4da651d3dbf46e4ecb807ac095bc6",
+   "sha256_ok": true,
+   "seconds": 4.9
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-it",
+   "file": "resid_post/layer_17_width_16k_l0_medium/params.safetensors",
+   "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+   "bytes": 151131000,
+   "sha256": "69139fc0f21df30aa3590a8c3c0b482ff028284ad66467fc1435eeb1a70c4908",
+   "sha256_ok": true,
+   "seconds": 2.0
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-it",
+   "file": "resid_post/layer_17_width_16k_l0_medium/config.json",
+   "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+   "bytes": 247,
+   "seconds": 0.3
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-it",
+   "file": "resid_post/layer_17_width_262k_l0_medium/params.safetensors",
+   "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+   "bytes": 2418021256,
+   "sha256": "a6f12b7e373ab3daba226094fe400ffb844a39b067ca75635f0e49738b7baccb",
+   "sha256_ok": true,
+   "seconds": 27.7
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-it",
+   "file": "resid_post/layer_17_width_262k_l0_medium/config.json",
+   "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+   "bytes": 248,
+   "seconds": 0.3
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-it",
+   "file": "resid_post/layer_22_width_16k_l0_medium/params.safetensors",
+   "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+   "bytes": 151131000,
+   "sha256": "a82bd2dc477f6879bcb33191ebbdf82d64f3852ffb88d7fb77597e96ed1d603f",
+   "sha256_ok": true,
+   "seconds": 2.0
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-it",
+   "file": "resid_post/layer_22_width_16k_l0_medium/config.json",
+   "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+   "bytes": 247,
+   "seconds": 0.3
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-it",
+   "file": "resid_post/layer_22_width_262k_l0_medium/params.safetensors",
+   "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+   "bytes": 2418021256,
+   "sha256": "ab0ca17288e968898779b045e15111c00744110f2df36b41b5f02ea7b4077b16",
+   "sha256_ok": true,
+   "seconds": 27.8
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-it",
+   "file": "resid_post/layer_22_width_262k_l0_medium/config.json",
+   "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+   "bytes": 248,
+   "seconds": 0.3
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "resid_post/layer_13_width_16k_l0_big/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "347dbb6e18c4a4c82bb7b400df901a54f4a1900d958ed068e75ab1b6761394ad",
+   "sha256_ok": true,
+   "seconds": 2.1
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "resid_post/layer_13_width_16k_l0_big/config.json",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 248,
+   "seconds": 0.3
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "resid_post/layer_13_width_16k_l0_medium/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "2b57a8bfb01d73b5cb7d26b48d6d8f1ec5c2b1d8554488e5a81796a4b710829d",
+   "sha256_ok": true,
+   "seconds": 2.1
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "resid_post/layer_13_width_16k_l0_medium/config.json",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 247,
+   "seconds": 0.3
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "resid_post/layer_13_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "400c0d4b1e19cb06cc4d905a1a0e211912df157438598e4e1988062cd8c13f64",
+   "sha256_ok": true,
+   "seconds": 2.0
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "resid_post/layer_13_width_16k_l0_small/config.json",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 247,
+   "seconds": 0.2
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "resid_post/layer_13_width_1m_l0_big/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 9672070024,
+   "sha256": "4d364674ca89cf69590a94cb78d4dcee2c93c5ff46a254bec7e78d1e3515c55b",
+   "sha256_ok": true,
+   "seconds": 110.2
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "resid_post/layer_13_width_1m_l0_big/config.json",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 250,
+   "seconds": 0.3
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "resid_post/layer_13_width_1m_l0_medium/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 9672070024,
+   "sha256": "d34f80ff7e7e0cc3c6c90ee7a2a23f21c9a17f71c4c9ab05e99bb0e9e427589b",
+   "sha256_ok": true,
+   "seconds": 110.6
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "resid_post/layer_13_width_1m_l0_medium/config.json",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 249,
+   "seconds": 0.3
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "resid_post/layer_13_width_1m_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 9672070024,
+   "sha256": "f91807fdb6e06d779eaafa94093d84f7a7d3fb025e089943159d2c839ed19140",
+   "sha256_ok": true,
+   "seconds": 109.3
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "resid_post/layer_13_width_1m_l0_small/config.json",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 249,
+   "seconds": 0.3
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "resid_post/layer_13_width_262k_l0_big/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 2418021256,
+   "sha256": "db070e0714b0e4c44446f0a45cd02f8fbfd7bec7b8685b22f480e1971e292fbc",
+   "sha256_ok": true,
+   "seconds": 27.8
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "resid_post/layer_13_width_262k_l0_big/config.json",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 249,
+   "seconds": 0.3
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "resid_post/layer_13_width_262k_l0_medium/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 2418021256,
+   "sha256": "1ca624bd71e0465fd9caf7e7740bbcbb1faa4b1ddf1c120357b497c091969d09",
+   "sha256_ok": true,
+   "seconds": 28.1
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "resid_post/layer_13_width_262k_l0_medium/config.json",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 248,
+   "seconds": 0.3
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "resid_post/layer_13_width_262k_l0_medium_seed_1/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 2418021256,
+   "sha256": "2a68c2226e557c17aff023b32fae40cb0d63a445c8b04882fb118e1669d4c448",
+   "sha256_ok": true,
+   "seconds": 27.7
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "resid_post/layer_13_width_262k_l0_medium_seed_1/config.json",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 248,
+   "seconds": 0.3
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "resid_post/layer_13_width_262k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 2418021256,
+   "sha256": "61c12b3bf1e5ca4f0d62582e042f7a6cbdab82cd66ab4f717b0c3dbb680d8d04",
+   "sha256_ok": true,
+   "seconds": 27.0
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "resid_post/layer_13_width_262k_l0_small/config.json",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 248,
+   "seconds": 0.3
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "resid_post/layer_13_width_65k_l0_big/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 604509056,
+   "sha256": "f64eea8a43826f30b437f41b2314428d33415ceb99e9b149e8074acb1aea9287",
+   "sha256_ok": true,
+   "seconds": 7.2
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "resid_post/layer_13_width_65k_l0_big/config.json",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 248,
+   "seconds": 0.3
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "resid_post/layer_13_width_65k_l0_medium/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 604509056,
+   "sha256": "f8a4dd46db38d71f63552e8ed60261eca508be77a94f33bfcd0b3355ae7cbb2b",
+   "sha256_ok": true,
+   "seconds": 7.0
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "resid_post/layer_13_width_65k_l0_medium/config.json",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 247,
+   "seconds": 0.3
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "resid_post/layer_13_width_65k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 604509056,
+   "sha256": "2510181fda1fbf9c059ee3f7e4e4bb0410825ee7147ee02fb420b7cfe9af76fb",
+   "sha256_ok": true,
+   "seconds": 7.3
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "resid_post/layer_13_width_65k_l0_small/config.json",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 247,
+   "seconds": 0.3
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "clt/width_262k_l0_medium/params_layer_0.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 1254198912,
+   "sha256": "5aab1e94830915a0962e697b69be51186df9738e99c77913239e90260144ce36",
+   "sha256_ok": true,
+   "seconds": 3.7
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "clt/width_262k_l0_medium/params_layer_1.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 1254198912,
+   "sha256": "90c16ea10f6cca120e3d04c968f8c7b18f2f632941e5d6c39b031b8c95681b71",
+   "sha256_ok": true,
+   "seconds": 3.4
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "clt/width_262k_l0_medium/params_layer_2.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 1254198912,
+   "sha256": "3c8050b99b4412b8cffcd86180b9f6ed956d485a81adecb0d32f3c538ad8940d",
+   "sha256_ok": true,
+   "seconds": 3.4
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "clt/width_262k_l0_medium/params_layer_3.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 1254198912,
+   "sha256": "574349f8c4f3057059d1d61f4327de7ce1ed57bf3ef3b37396c11137ec259c43",
+   "sha256_ok": true,
+   "seconds": 3.5
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "clt/width_262k_l0_medium/params_layer_4.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 1254198912,
+   "sha256": "6f87c3302c7dc557523dd4d5f18520f395e15a8b67e12c88162ec4a737556d57",
+   "sha256_ok": true,
+   "seconds": 10.2
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "clt/width_262k_l0_medium/params_layer_5.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 1254198912,
+   "sha256": "058bd108f79f9c9711f4a2747153cfdc98299ea966f8b4d1d67db1a40cd09a7e",
+   "sha256_ok": true,
+   "seconds": 13.1
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "clt/width_262k_l0_medium/params_layer_6.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 1254198912,
+   "sha256": "4e23a3a1e5d5169225cb79a546ac6fb8ec072b619e99f55b328d56ddc380abd1",
+   "sha256_ok": true,
+   "seconds": 12.4
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "clt/width_262k_l0_medium/params_layer_7.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 1254198912,
+   "sha256": "54a9cc1d1580721b95dd5576498b7a9a4c6ecbdf3e026111bf2bc03ab92873b4",
+   "sha256_ok": true,
+   "seconds": 11.5
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "clt/width_262k_l0_medium/params_layer_8.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 1254198912,
+   "sha256": "f1c64b268170fe2f2bd915225265c48a2811dd80a878a04df9fc266c676fefd0",
+   "sha256_ok": true,
+   "seconds": 14.0
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "clt/width_262k_l0_medium/params_layer_9.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 1254198912,
+   "sha256": "33f919bf184fee818860f48da0d26c0fae19e55bca39d945a905d89e3355982a",
+   "sha256_ok": true,
+   "seconds": 10.3
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "clt/width_262k_l0_medium/params_layer_10.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 1254198912,
+   "sha256": "31891f7200f67579a500c2eab327140e538416d1791fbc94eaa0fc4678849c91",
+   "sha256_ok": true,
+   "seconds": 13.5
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "clt/width_262k_l0_medium/params_layer_11.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 1254198912,
+   "sha256": "991364d59260a34139bd394385958a1514a401d91310653b1feaaee49a79c23e",
+   "sha256_ok": true,
+   "seconds": 11.6
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "clt/width_262k_l0_medium/params_layer_12.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 1254198912,
+   "sha256": "db0b66602fc380da73ea44482e61e1180873b042dc8d901ab548d38b6d6259ad",
+   "sha256_ok": true,
+   "seconds": 14.8
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "clt/width_262k_l0_medium/params_layer_13.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 1254198912,
+   "sha256": "787e640a6a71bacce4f24ff890574525750f42ae4a00e39bdb78560ed422f24a",
+   "sha256_ok": true,
+   "seconds": 12.3
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "clt/width_262k_l0_medium/params_layer_0.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 1254198912,
+   "sha256": "5aab1e94830915a0962e697b69be51186df9738e99c77913239e90260144ce36",
+   "sha256_ok": true,
+   "seconds": 3.4
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "clt/width_262k_l0_medium/params_layer_1.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 1254198912,
+   "sha256": "90c16ea10f6cca120e3d04c968f8c7b18f2f632941e5d6c39b031b8c95681b71",
+   "sha256_ok": true,
+   "seconds": 3.4
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "clt/width_262k_l0_medium/params_layer_2.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 1254198912,
+   "sha256": "3c8050b99b4412b8cffcd86180b9f6ed956d485a81adecb0d32f3c538ad8940d",
+   "sha256_ok": true,
+   "seconds": 3.4
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "clt/width_262k_l0_medium/params_layer_3.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 1254198912,
+   "sha256": "574349f8c4f3057059d1d61f4327de7ce1ed57bf3ef3b37396c11137ec259c43",
+   "sha256_ok": true,
+   "seconds": 3.4
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "clt/width_262k_l0_medium/params_layer_4.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 1254198912,
+   "sha256": "6f87c3302c7dc557523dd4d5f18520f395e15a8b67e12c88162ec4a737556d57",
+   "sha256_ok": true,
+   "seconds": 3.4
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "clt/width_262k_l0_medium/params_layer_5.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 1254198912,
+   "sha256": "058bd108f79f9c9711f4a2747153cfdc98299ea966f8b4d1d67db1a40cd09a7e",
+   "sha256_ok": true,
+   "seconds": 3.4
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "clt/width_262k_l0_medium/params_layer_6.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 1254198912,
+   "sha256": "4e23a3a1e5d5169225cb79a546ac6fb8ec072b619e99f55b328d56ddc380abd1",
+   "sha256_ok": true,
+   "seconds": 3.4
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "clt/width_262k_l0_medium/params_layer_7.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 1254198912,
+   "sha256": "54a9cc1d1580721b95dd5576498b7a9a4c6ecbdf3e026111bf2bc03ab92873b4",
+   "sha256_ok": true,
+   "seconds": 3.4
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "clt/width_262k_l0_medium/params_layer_8.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 1254198912,
+   "sha256": "f1c64b268170fe2f2bd915225265c48a2811dd80a878a04df9fc266c676fefd0",
+   "sha256_ok": true,
+   "seconds": 3.8
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "clt/width_262k_l0_medium/params_layer_9.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 1254198912,
+   "sha256": "33f919bf184fee818860f48da0d26c0fae19e55bca39d945a905d89e3355982a",
+   "sha256_ok": true,
+   "seconds": 3.4
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "clt/width_262k_l0_medium/params_layer_10.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 1254198912,
+   "sha256": "31891f7200f67579a500c2eab327140e538416d1791fbc94eaa0fc4678849c91",
+   "sha256_ok": true,
+   "seconds": 3.4
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "clt/width_262k_l0_medium/params_layer_11.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 1254198912,
+   "sha256": "991364d59260a34139bd394385958a1514a401d91310653b1feaaee49a79c23e",
+   "sha256_ok": true,
+   "seconds": 3.4
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "clt/width_262k_l0_medium/params_layer_12.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 1254198912,
+   "sha256": "db0b66602fc380da73ea44482e61e1180873b042dc8d901ab548d38b6d6259ad",
+   "sha256_ok": true,
+   "seconds": 3.4
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "clt/width_262k_l0_medium/params_layer_13.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 1254198912,
+   "sha256": "787e640a6a71bacce4f24ff890574525750f42ae4a00e39bdb78560ed422f24a",
+   "sha256_ok": true,
+   "seconds": 3.4
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "attn_out_all/layer_0_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 134353272,
+   "sha256": "35f78fc089cbe38e165b5faebedadb73e969dc18f0092a98c55274e5a7a5c66e",
+   "sha256_ok": true,
+   "seconds": 1.8
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "attn_out_all/layer_1_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 134353272,
+   "sha256": "565166a8542b3d5587cd4d6eb8c3c8175f66ba2cdb33cab653f5c9b95776816b",
+   "sha256_ok": true,
+   "seconds": 1.6
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "attn_out_all/layer_2_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 134353272,
+   "sha256": "2c77b0095ceaef81b8331d8aad2bfc584b34834a9459db1d7fa24cc8a971f0a2",
+   "sha256_ok": true,
+   "seconds": 1.8
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "attn_out_all/layer_3_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 134353272,
+   "sha256": "14e391a361087ad182b07a8c0c76434c92f3b9dda2bcf1b92a4f49937bf23b0d",
+   "sha256_ok": true,
+   "seconds": 1.4
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "attn_out_all/layer_4_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 134353272,
+   "sha256": "be49f631bae7a73e73dfaa2d67b03ca1341dba387ba6136ed90a995249e740f8",
+   "sha256_ok": true,
+   "seconds": 1.8
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "attn_out_all/layer_5_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 134353272,
+   "sha256": "3da5f8846d89cc4a291a8841313f12f48e21f12185e6c50a37603e3f6fe49745",
+   "sha256_ok": true,
+   "seconds": 1.7
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "attn_out_all/layer_6_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 134353272,
+   "sha256": "f0f87d2a933866ec9e2534fbc0ef5300955c1cde026b631aababab9894cbd69c",
+   "sha256_ok": true,
+   "seconds": 16.3
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "attn_out_all/layer_7_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 134353272,
+   "sha256": "5f903c8fb86ae2ea3a81e2766ac09eafd35c06a5a48369669f133378d3aefba3",
+   "sha256_ok": true,
+   "seconds": 1.4
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "attn_out_all/layer_8_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 134353272,
+   "sha256": "4820eb6654ec06ae28cf66549bbd224518d401bda6d6996628fe9187cc346570",
+   "sha256_ok": true,
+   "seconds": 1.4
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "attn_out_all/layer_9_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 134353272,
+   "sha256": "3ee308f97eb13635a29e5140259f1bfb0647104a0523c7f752628e8516020517",
+   "sha256_ok": true,
+   "seconds": 1.5
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "attn_out_all/layer_10_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 134353272,
+   "sha256": "ad8ef731abce603131a39aead8cc6c35dec238a07df2b0d59b86e083740bf526",
+   "sha256_ok": true,
+   "seconds": 1.6
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "attn_out_all/layer_11_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 134353272,
+   "sha256": "c29e95f6174a4ed263106bb6f243532f4aa2605d31774a36e23b9ddeb2f56339",
+   "sha256_ok": true,
+   "seconds": 1.4
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "attn_out_all/layer_12_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 134353272,
+   "sha256": "5d7f3efddbbb0e68fa6aa324c40c277f5642fccc9a1d60ac4e950ec4c5aae8d0",
+   "sha256_ok": true,
+   "seconds": 1.7
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "attn_out_all/layer_13_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 134353272,
+   "sha256": "719c97f69888a59c37a210454ff5e05b732309c2d455753470eefaaf4c32dc21",
+   "sha256_ok": true,
+   "seconds": 1.8
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "clt/width_262k_l0_medium_affine/params_layer_0.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 1259507432,
+   "sha256": "d1efff29fa05a87392270d3a6699b068ccc4ee51bcdfdc579c2820df667294be",
+   "sha256_ok": true,
+   "seconds": 14.8
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "clt/width_262k_l0_medium_affine/params_layer_1.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 1259507432,
+   "sha256": "5838d5905f38d1655c0a056b65db940be3c4f9c2badc0d579debed91cb9f5bf2",
+   "sha256_ok": true,
+   "seconds": 13.6
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "clt/width_262k_l0_medium_affine/params_layer_2.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 1259507432,
+   "sha256": "feca8e6f5f02463dfe699b452d7b629380923076f80ee52353deac695731f3d3",
+   "sha256_ok": true,
+   "seconds": 10.4
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "clt/width_262k_l0_medium_affine/params_layer_3.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 1259507432,
+   "sha256": "7f79ff52111d458a5f2116cb0ee06f3ee789589f83d2d6648a106683e694cb9e",
+   "sha256_ok": true,
+   "seconds": 12.3
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "clt/width_262k_l0_medium_affine/params_layer_4.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 1259507432,
+   "sha256": "c6977fd9227af2faf943bff13d690bea96df539ba65e9eba3095d0898c09b4af",
+   "sha256_ok": true,
+   "seconds": 4.2
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "clt/width_262k_l0_medium_affine/params_layer_5.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 1259507432,
+   "sha256": "7096a8f69f92c957ea7d58ad777d665a50ecfa6e638c319db87a2a39ff98b8c6",
+   "sha256_ok": true,
+   "seconds": 4.9
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "clt/width_262k_l0_medium_affine/params_layer_6.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 1259507432,
+   "sha256": "330a8a55fb41a2eadfca92bb45bea04d0a2e4d67d8e1705dc599c9119de04fd8",
+   "sha256_ok": true,
+   "seconds": 5.5
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "clt/width_262k_l0_medium_affine/params_layer_7.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 1259507432,
+   "sha256": "eddd4a9b3c57940f8061394865b5afa763720551c6fdf042b03142594ed6dc0d",
+   "sha256_ok": true,
+   "seconds": 4.5
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "clt/width_262k_l0_medium_affine/params_layer_8.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 1259507432,
+   "sha256": "45ccac810a8d4c4c8ec54e7b4d564a0f5d1b30d26d415cc1386ac3069a471b97",
+   "sha256_ok": true,
+   "seconds": 5.4
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "clt/width_262k_l0_medium_affine/params_layer_9.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 1259507432,
+   "sha256": "b42295997d91cb492cf2b1edbeced420a5f8a97e47cd48eaebd8dacb9a02fa31",
+   "sha256_ok": true,
+   "seconds": 5.0
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "clt/width_262k_l0_medium_affine/params_layer_10.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 1259507432,
+   "sha256": "e48c0442b718cf9d05938ea86f4cc4bf1616708f86dd7e01a273f08be34e615b",
+   "sha256_ok": true,
+   "seconds": 5.1
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "clt/width_262k_l0_medium_affine/params_layer_11.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 1259507432,
+   "sha256": "ef59c101acb444ec28b3b58b81ed8cacd462bbd5a22b008df8567b01bc8bd64f",
+   "sha256_ok": true,
+   "seconds": 3.5
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "clt/width_262k_l0_medium_affine/params_layer_12.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 1259507432,
+   "sha256": "7336baceacc01987a3395d3fe1b05675f39bcbd45df1a360f5e367f808276168",
+   "sha256_ok": true,
+   "seconds": 4.9
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "clt/width_262k_l0_medium_affine/params_layer_13.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 1259507432,
+   "sha256": "c94f2818cb2ac567b42df258f508dae40f9d644983161e000aab6b76e738ee3b",
+   "sha256_ok": true,
+   "seconds": 4.6
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "clt/width_524k_l0_medium/params_layer_0.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 2508392832,
+   "sha256": "383870ee6f8c8cb472c56430c5f18d2b53e90acad0a4032bbdfca45783682084",
+   "sha256_ok": true,
+   "seconds": 19.5
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "clt/width_524k_l0_medium/params_layer_1.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 2508392832,
+   "sha256": "23382dc5c6edf5a914e4a1ac0fc30c80fb8999d50fb13d10d69523f3d439062a",
+   "sha256_ok": true,
+   "seconds": 20.0
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "clt/width_524k_l0_medium/params_layer_2.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 2508392832,
+   "sha256": "670dbb7886a70cc61f831926fbb8b6928541b56c6eb5b342ce93eec89d7882eb",
+   "sha256_ok": true,
+   "seconds": 27.5
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "clt/width_524k_l0_medium/params_layer_3.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 2508392832,
+   "sha256": "8f839c6169339832ca56a39b77ec725df08d890251d4642ab1f1b4bd620cc458",
+   "sha256_ok": true,
+   "seconds": 13.1
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "clt/width_524k_l0_medium/params_layer_4.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 2508392832,
+   "sha256": "da9eef0ac0139e9e67ac8d8b3e536c0b30cecd41778151e1f87eccb58d909863",
+   "sha256_ok": true,
+   "seconds": 9.2
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "clt/width_524k_l0_medium/params_layer_5.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 2508392832,
+   "sha256": "64759e56e4ea8d6bd5e36ae90738b9ec29fc1fa372a39ea3fe2e29f08ee0e3e7",
+   "sha256_ok": true,
+   "seconds": 11.6
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "clt/width_524k_l0_medium/params_layer_6.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 2508392832,
+   "sha256": "969b9db3b7d956922d73f744f1535a90fe8e47d3e6ea4c78f400eaa90a13a7a9",
+   "sha256_ok": true,
+   "seconds": 22.5
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "clt/width_524k_l0_medium/params_layer_7.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 2508392832,
+   "sha256": "00b472081f2e69ecfcde3b24b97b574d8e65bf157445a57bfacaf60a61c27715",
+   "sha256_ok": true,
+   "seconds": 29.6
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "clt/width_524k_l0_medium/params_layer_8.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 2508392832,
+   "sha256": "7033d712a5c9058e32d1735fe4b0f70b8b6a39a2be8f09170ae599f195f3974d",
+   "sha256_ok": true,
+   "seconds": 30.3
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "clt/width_524k_l0_medium/params_layer_9.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 2508392832,
+   "sha256": "cdb360319a9ad1753da6b9264cb3f4f4b0bebd334cf4fe26685594b1e6e7c713",
+   "sha256_ok": true,
+   "seconds": 29.5
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "clt/width_524k_l0_medium/params_layer_10.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 2508392832,
+   "sha256": "0650f19b5562cb1f9465b6b01e04708006467d0e22f35ed86b001415617e64ee",
+   "sha256_ok": true,
+   "seconds": 29.2
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "clt/width_524k_l0_medium/params_layer_11.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 2508392832,
+   "sha256": "222fda193e1d8f09dbcc905519bf7a53618f65d6baf5f77ec60e02b786da1bce",
+   "sha256_ok": true,
+   "seconds": 31.1
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "clt/width_524k_l0_medium/params_layer_12.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 2508392832,
+   "sha256": "6bc83307633eee8dbacebe6ae95acf3f2ef2b874ae2f4c0536b39859ed9b2f59",
+   "sha256_ok": true,
+   "seconds": 29.3
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "clt/width_524k_l0_medium/params_layer_13.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 2508392832,
+   "sha256": "515f44bee2f338177cc7a21914461e8bdefcedf5cbd0f53a0dcc19d65b17c31a",
+   "sha256_ok": true,
+   "seconds": 29.5
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "mlp_out_all/layer_0_width_16k_l0_big/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "9ca373e1a0bd7bb45c0df62402b8b43a72f18842422dcb8ccfed36b56654619c",
+   "sha256_ok": true,
+   "seconds": 2.3
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "mlp_out_all/layer_1_width_16k_l0_big/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "810cb2bc3b337eafd4d544e05748014024a9a5a6aca29b1133c8c24983ab5ca5",
+   "sha256_ok": true,
+   "seconds": 2.2
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "mlp_out_all/layer_2_width_16k_l0_big/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "3391f3f1af596bdf3b925c9c198c684d01dd74532e58d0cd6649c92a44bd885c",
+   "sha256_ok": true,
+   "seconds": 2.0
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "mlp_out_all/layer_3_width_16k_l0_big/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "05624d7de693d89481882c6fa4d70f6f65e1469064369a14f21c050d5398329a",
+   "sha256_ok": true,
+   "seconds": 2.0
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "mlp_out_all/layer_4_width_16k_l0_big/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "57f5f63bdf387b1c59294e101772ccb06b9cb2126d83bd6c76c767e9ccee451f",
+   "sha256_ok": true,
+   "seconds": 2.0
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "mlp_out_all/layer_5_width_16k_l0_big/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "afd2de00bcf713c2f6cd2b7b3e056fe878f6aeed50b8953068f495c02e61403d",
+   "sha256_ok": true,
+   "seconds": 1.9
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "mlp_out_all/layer_6_width_16k_l0_big/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "cf096cf4218c030cb299daa4e5008a4176156e4bc9d2c401759a645f270b6773",
+   "sha256_ok": true,
+   "seconds": 2.1
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "mlp_out_all/layer_7_width_16k_l0_big/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "5d4484abb23e4fa9b64bb4722e0cde3dbb634767e706a606117bebc667a4007b",
+   "sha256_ok": true,
+   "seconds": 2.1
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "mlp_out_all/layer_8_width_16k_l0_big/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "6eed5adfc4c042e7f24b6aa6d46bc8c561d9b81550eb03d66de675f8633a4a57",
+   "sha256_ok": true,
+   "seconds": 2.1
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "mlp_out_all/layer_9_width_16k_l0_big/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "5b3c107466f6f8bf8c1cd7d4675de0297260440affcdcd5628b6baf3d6c66a92",
+   "sha256_ok": true,
+   "seconds": 2.0
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "mlp_out_all/layer_10_width_16k_l0_big/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "f3c93beb9b30aef18cdcc4f200530b8c8d56025b20a8adac656d9aa657713c91",
+   "sha256_ok": true,
+   "seconds": 2.1
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "mlp_out_all/layer_11_width_16k_l0_big/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "9159f1af713fefcaa4c58634b6a15f024092563c3a12ccf898dd114369d0f165",
+   "sha256_ok": true,
+   "seconds": 2.0
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "mlp_out_all/layer_12_width_16k_l0_big/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "b6e79f38d827a2c6f2af8bdc4f46706bd78653a3b222e2116e3d736e58aece76",
+   "sha256_ok": true,
+   "seconds": 1.8
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "mlp_out_all/layer_13_width_16k_l0_big/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "835c99fd88bd2cef5f24be33201c6f253eba10b8c965773dbc4424d485839006",
+   "sha256_ok": true,
+   "seconds": 2.0
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "mlp_out_all/layer_0_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "3f7ee090651d6d4da101e75dbebeae65052772ccc0f67b9861c6bf6f21c4b767",
+   "sha256_ok": true,
+   "seconds": 2.0
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "mlp_out_all/layer_1_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "bfa5d0967840ef0476d0753d64665ba0bbc852af7a17614336a76b7eeb46a047",
+   "sha256_ok": true,
+   "seconds": 2.0
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "mlp_out_all/layer_2_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "07e3cdb5d8fe9545a98762502e9f0ea31327b435fc045f9fab9edfe164bde948",
+   "sha256_ok": true,
+   "seconds": 2.0
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "mlp_out_all/layer_3_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "6d01eb307382327509fecad421622b7e8ab8ae8fc90598b8062772608ab6ee7b",
+   "sha256_ok": true,
+   "seconds": 1.6
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "mlp_out_all/layer_4_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "e3685482c8014557e71bdf91c71074d831a1c481faeb79d6ffa3298f46227df2",
+   "sha256_ok": true,
+   "seconds": 0.7
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "mlp_out_all/layer_5_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "797913c5127a67712e03bc765b5d28a57dffffa757942506236226971b5bfd73",
+   "sha256_ok": true,
+   "seconds": 0.7
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "mlp_out_all/layer_6_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "2318fe935012a444a604aeb02315619ad1ba1de44172ffd02fe25ba5a8763758",
+   "sha256_ok": true,
+   "seconds": 1.8
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "mlp_out_all/layer_7_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "e3172038570a1f4245a8a140409e3d4017f1c7edc377ea8c226d3e2f2204ecf0",
+   "sha256_ok": true,
+   "seconds": 0.8
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "mlp_out_all/layer_8_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "fd77bc50c96557d49fff9b1e7550db8eac42f5acaf84b802fb1a0dde80394306",
+   "sha256_ok": true,
+   "seconds": 0.6
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "mlp_out_all/layer_9_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "dcde9a94cdbdceed47deb2cb7b802c56f9a557017982fdb6fad0efa1ffae6537",
+   "sha256_ok": true,
+   "seconds": 1.3
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "mlp_out_all/layer_10_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "1ad7192c63aa025ec1a54747c77ce1275b7326628bea3de289d160d4b484f9ec",
+   "sha256_ok": true,
+   "seconds": 0.8
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "mlp_out_all/layer_11_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "aaec93f215c07602dab284c61e3cad13aa325cfa90604eb9074ed73c71bf0731",
+   "sha256_ok": true,
+   "seconds": 0.7
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "mlp_out_all/layer_12_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "484c02d07af673df013724ebe05b45794c34994c757c526ef9f1572370b6d64a",
+   "sha256_ok": true,
+   "seconds": 1.4
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "mlp_out_all/layer_13_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "1b4a980ec893762cdf3f467fb8cc0d9f8ab5e745babcbbe09f3bfcac3a0fb8a5",
+   "sha256_ok": true,
+   "seconds": 2.0
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_0_width_16k_l0_big_affine/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 156439520,
+   "sha256": "c46bee6b67cd5db88e2463716fe2bdcfef700267abb989118e1a133b1ffb405c",
+   "sha256_ok": true,
+   "seconds": 0.8
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_1_width_16k_l0_big_affine/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 156439520,
+   "sha256": "e52e019f56a1ef910190f9dac90d36fa2ad008681c70446909248a9e5e6c2a04",
+   "sha256_ok": true,
+   "seconds": 0.7
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_2_width_16k_l0_big_affine/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 156439520,
+   "sha256": "e78413e83085c7f9e43bf5e0c6dde42607d1a9bfcd36b486b1e119aa139d57fa",
+   "sha256_ok": true,
+   "seconds": 0.7
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_3_width_16k_l0_big_affine/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 156439520,
+   "sha256": "1a8ec6b84e8e5ccc5f458f0ff2b70f3b27a6ab94a5c0dd4e0c42e83f18152d20",
+   "sha256_ok": true,
+   "seconds": 0.6
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_4_width_16k_l0_big_affine/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 156439520,
+   "sha256": "b22f8804b4da517311af15dc20d954b5ad860a09416f61bf12aae994551d2a13",
+   "sha256_ok": true,
+   "seconds": 2.1
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_5_width_16k_l0_big_affine/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 156439520,
+   "sha256": "1ddf2f745806a9680f4a20c06de8d4c1b2ac3df04a2d4a5841ca5414d3916003",
+   "sha256_ok": true,
+   "seconds": 2.1
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_6_width_16k_l0_big_affine/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 156439520,
+   "sha256": "3b7f438f567041a5434b642f4f750af9687b863663e939a61721e5a1edbd4a8a",
+   "sha256_ok": true,
+   "seconds": 2.1
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_7_width_16k_l0_big_affine/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 156439520,
+   "sha256": "06a999316b2acf48410c636bb3780a963da479199c6ab38575e3c73c2dd2368f",
+   "sha256_ok": true,
+   "seconds": 2.1
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_8_width_16k_l0_big_affine/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 156439520,
+   "sha256": "4fcff2df714d38219a23a39fb3c77d0e9c18ed90558615b6b16a7720132e5394",
+   "sha256_ok": true,
+   "seconds": 2.1
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_9_width_16k_l0_big_affine/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 156439520,
+   "sha256": "cb8d5632bd556b9d558998347ec44b771665659badd5326a232ce6cf0eb1eecd",
+   "sha256_ok": true,
+   "seconds": 2.1
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_10_width_16k_l0_big_affine/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 156439520,
+   "sha256": "b205b088351a93c01bfe6bfe9a000f01ecbf687c3839299687ca6f0e0c737f22",
+   "sha256_ok": true,
+   "seconds": 2.1
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_11_width_16k_l0_big_affine/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 156439520,
+   "sha256": "b11cb5c62d427f8923f193a0877f66c4d8ca14e9e8bed943ddb576b1909ba864",
+   "sha256_ok": true,
+   "seconds": 2.1
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_12_width_16k_l0_big_affine/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 156439520,
+   "sha256": "15b3b54b5b634dbb64b50f337ccacd310ed5f955e3676bc610d7b7211c9e693f",
+   "sha256_ok": true,
+   "seconds": 2.2
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_13_width_16k_l0_big_affine/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 156439520,
+   "sha256": "1f61aaa7efddbea51ba4f64d555aa64ce1f7c03707fab17263970af92c3d8caf",
+   "sha256_ok": true,
+   "seconds": 2.1
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_0_width_16k_l0_big/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "f8af860e9f3e0799adc65d52b6c0bb5d29fdd7e04187e660b9ddc2ffd780b220",
+   "sha256_ok": true,
+   "seconds": 2.0
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_1_width_16k_l0_big/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "8df0f17c7b9048610e247e1445f3c25807f552b66a566772096ec10e575d9b83",
+   "sha256_ok": true,
+   "seconds": 2.1
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_2_width_16k_l0_big/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "40800aa8f608d9f6b7ecac1c9b0e3c006e23cf1670b589e6166f298a05092c28",
+   "sha256_ok": true,
+   "seconds": 2.0
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_3_width_16k_l0_big/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "8410be1a6d5674c6f2e61cf92c55ce9e3a2fede8e0b214f6f1a85ca4af37112d",
+   "sha256_ok": true,
+   "seconds": 2.0
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_4_width_16k_l0_big/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "dcb68fb683197c4ed17b0d4486828f429441106e8234ff57820dd9694e919513",
+   "sha256_ok": true,
+   "seconds": 2.1
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_5_width_16k_l0_big/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "e0a01703c8b236a68965b37f40328acc5d8437e3f10b750204e784d057bf3f31",
+   "sha256_ok": true,
+   "seconds": 0.8
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_6_width_16k_l0_big/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "354abc7961d925b50d9b91743886df2a28f7b7105f7ed3e04a46dc2a52d16dd8",
+   "sha256_ok": true,
+   "seconds": 0.7
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_7_width_16k_l0_big/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "b7182567708c8c8e452aecc23f8e493f0680c6cfab99e60bc5713697423c1bfc",
+   "sha256_ok": true,
+   "seconds": 0.6
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_8_width_16k_l0_big/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "d70b7aa2380e22673648dc2bb71c634e61cbaedd64b17ffa63c6ffc7ababda38",
+   "sha256_ok": true,
+   "seconds": 0.8
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_9_width_16k_l0_big/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "2381ac1c5e03c950346eb944802e03025a1d4608382e66620595c48a3b2801cc",
+   "sha256_ok": true,
+   "seconds": 0.7
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_10_width_16k_l0_big/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "48a7e4d5a05c47b786817d0c2cef8526852e26e48862a2155639eb9bfad3965e",
+   "sha256_ok": true,
+   "seconds": 1.1
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_11_width_16k_l0_big/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "d8c5b98ad209d29085e2db81f73fd465e1035f55bec6e1c3a78a81d87816cbe0",
+   "sha256_ok": true,
+   "seconds": 0.7
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_12_width_16k_l0_big/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "edfd3aa41f0bc27ec15bff4456b67bcc706324b5c25e7e4348a1043e7ab628a9",
+   "sha256_ok": true,
+   "seconds": 0.6
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_13_width_16k_l0_big/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "864a85318c77f2ddbb29e4519ab465ed760ceb38f1637067eda7a9ac3e918bef",
+   "sha256_ok": true,
+   "seconds": 1.8
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder/layer_13_width_16k_l0_medium_affine/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 156439520,
+   "sha256": "0bf9f3c7da86d0b6d67f3553a8c056c8c4215885fe8965848ef3a5ed34e5b5ac",
+   "sha256_ok": true,
+   "seconds": 2.1
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder/layer_13_width_16k_l0_medium/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "b1d6d9b5fff87020d9406e47ae7f8bd5a21e4e2f350b0e591abddbb2ed254101",
+   "sha256_ok": true,
+   "seconds": 2.0
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_0_width_16k_l0_small_affine/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 156439520,
+   "sha256": "ffac2eea3c82ef2c220ecb9cb839f5799373c523b0842ab3ff40a71f5628b6ba",
+   "sha256_ok": true,
+   "seconds": 2.1
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_1_width_16k_l0_small_affine/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 156439520,
+   "sha256": "4e0a65cf638064c9e72dff1a1e167a4b136ddc253c5e5e22e655c82f4eb69da3",
+   "sha256_ok": true,
+   "seconds": 2.1
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_2_width_16k_l0_small_affine/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 156439520,
+   "sha256": "51fef9660d38da579ebf5f2090c6ddf287fff869105c3aebd793a77e85587742",
+   "sha256_ok": true,
+   "seconds": 2.1
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_3_width_16k_l0_small_affine/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 156439520,
+   "sha256": "55435ff262a6675302b0e3d2557d7ff323948017d1907970bc9493d8d0cc3f4f",
+   "sha256_ok": true,
+   "seconds": 2.1
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_4_width_16k_l0_small_affine/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 156439520,
+   "sha256": "a6a98fd3812382ad5d4bcd9d68f190bb55652c49365897cd731b754e6ecebfda",
+   "sha256_ok": true,
+   "seconds": 2.1
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_5_width_16k_l0_small_affine/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 156439520,
+   "sha256": "9baa4b8ee053224e4675ce9dc9fd7dd4a17142cb81df0ddcc7e46a4e42d6d33e",
+   "sha256_ok": true,
+   "seconds": 2.0
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_6_width_16k_l0_small_affine/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 156439520,
+   "sha256": "6f856ddbd0c7b5b990c9171905a71ae8557bd3dc06d596a2e0d32437270a11e5",
+   "sha256_ok": true,
+   "seconds": 2.1
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_7_width_16k_l0_small_affine/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 156439520,
+   "sha256": "ee6136e02db7fe7f8995ca3010a57e3ed056922bdd3f4df3602705364cee8a12",
+   "sha256_ok": true,
+   "seconds": 2.1
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_8_width_16k_l0_small_affine/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 156439520,
+   "sha256": "e074741382a3b46d913fd3373e99031f72432a19f2058b816a8a6b60abbdd711",
+   "sha256_ok": true,
+   "seconds": 1.9
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_9_width_16k_l0_small_affine/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 156439520,
+   "sha256": "4b07a4de6bded890001943d060f045d0252ace1d84a2bb522e3af5f961336d33",
+   "sha256_ok": true,
+   "seconds": 1.7
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_10_width_16k_l0_small_affine/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 156439520,
+   "sha256": "ee7c23445d333466626a56fbfff732c8cb5de00f545829b24a574cbe9cb723b3",
+   "sha256_ok": true,
+   "seconds": 2.1
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_11_width_16k_l0_small_affine/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 156439520,
+   "sha256": "83f1475273cd5dd9830fb808348900db4db1d82009ab9ce4e6cc3ada69a96f37",
+   "sha256_ok": true,
+   "seconds": 2.0
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_12_width_16k_l0_small_affine/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 156439520,
+   "sha256": "75f28e372174cf34fd6b1f7622a4a28f528091ad0655769c8dd331f84fba2735",
+   "sha256_ok": true,
+   "seconds": 2.1
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_13_width_16k_l0_small_affine/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 156439520,
+   "sha256": "72931853e27ad3911e5bae9d0660e924df488945e464e8cbb1a8a1f5ca94b1c5",
+   "sha256_ok": true,
+   "seconds": 2.1
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_0_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "49b154bee91f03dc961f49326359436d0256d12e321673792a29cc49863ade9e",
+   "sha256_ok": true,
+   "seconds": 1.6
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_1_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "bef3b238f0f94a3cfe4a9ba9ba412c290cdea9c3dd5d01627f2bbde6cd697225",
+   "sha256_ok": true,
+   "seconds": 1.4
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_2_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "d5ba4abede2204f2999fa66c5204fd4174b69ab94214c5b125fc5fbeaa6e7231",
+   "sha256_ok": true,
+   "seconds": 1.2
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_3_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "f11e083ca047b6050a892312d8a9f927d8315a220a428274d0d6510e782a6269",
+   "sha256_ok": true,
+   "seconds": 1.2
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_4_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "82b61a27a99f67070a2e442c3350b891974d8b95857c14da22ce30f7cc3665b0",
+   "sha256_ok": true,
+   "seconds": 1.3
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_5_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "e7272d3eae71d2b83765fcea7ba929bfb699776da9f2026606c6279dc51d7db5",
+   "sha256_ok": true,
+   "seconds": 1.5
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_6_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "c4801cf06fb4c4270e35e5073476e182c5a931fbb0b966e27a83a90dec993529",
+   "sha256_ok": true,
+   "seconds": 1.3
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_7_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "338ad335800d4ea88f3b2dcf26065ac8c0a84aead93af783c1ec6922fc10da67",
+   "sha256_ok": true,
+   "seconds": 1.2
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_8_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "35f40153d8dc99d806498b09b1c1b7ca05fb0b443255c04b8c0f6dc82fdb859f",
+   "sha256_ok": true,
+   "seconds": 1.5
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_9_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "d43bef979f88e881d714d07761376c6842ebee921aa599227495c646b2623a9e",
+   "sha256_ok": true,
+   "seconds": 1.4
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_10_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "0175ca898cbc602eb498822da47c648f03b3d5ed8f82c6415da156fbdfa9e5d5",
+   "sha256_ok": true,
+   "seconds": 1.6
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_11_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "509606421e0cd0c9a236c6eafcf352c751d0b616fd611849e55fa265e0b593da",
+   "sha256_ok": true,
+   "seconds": 1.4
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_12_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "abe83283df94fe2a81faa6fcdf8c405daa7fd9f4c9fd98a143e99afd8ad756cc",
+   "sha256_ok": true,
+   "seconds": 1.4
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_13_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "eef09abfa060a5474125cdc382e2b15431c17f249bb56517b0a7e80ab0376b2b",
+   "sha256_ok": true,
+   "seconds": 1.5
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_0_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "49b154bee91f03dc961f49326359436d0256d12e321673792a29cc49863ade9e",
+   "sha256_ok": true,
+   "seconds": 0.8
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_1_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "bef3b238f0f94a3cfe4a9ba9ba412c290cdea9c3dd5d01627f2bbde6cd697225",
+   "sha256_ok": true,
+   "seconds": 0.7
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_2_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "d5ba4abede2204f2999fa66c5204fd4174b69ab94214c5b125fc5fbeaa6e7231",
+   "sha256_ok": true,
+   "seconds": 0.6
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_3_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "f11e083ca047b6050a892312d8a9f927d8315a220a428274d0d6510e782a6269",
+   "sha256_ok": true,
+   "seconds": 0.6
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_4_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "82b61a27a99f67070a2e442c3350b891974d8b95857c14da22ce30f7cc3665b0",
+   "sha256_ok": true,
+   "seconds": 0.7
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_5_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "e7272d3eae71d2b83765fcea7ba929bfb699776da9f2026606c6279dc51d7db5",
+   "sha256_ok": true,
+   "seconds": 0.6
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_6_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "c4801cf06fb4c4270e35e5073476e182c5a931fbb0b966e27a83a90dec993529",
+   "sha256_ok": true,
+   "seconds": 0.6
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_7_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "338ad335800d4ea88f3b2dcf26065ac8c0a84aead93af783c1ec6922fc10da67",
+   "sha256_ok": true,
+   "seconds": 0.6
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_8_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "35f40153d8dc99d806498b09b1c1b7ca05fb0b443255c04b8c0f6dc82fdb859f",
+   "sha256_ok": true,
+   "seconds": 0.7
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_9_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "d43bef979f88e881d714d07761376c6842ebee921aa599227495c646b2623a9e",
+   "sha256_ok": true,
+   "seconds": 0.6
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_10_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "0175ca898cbc602eb498822da47c648f03b3d5ed8f82c6415da156fbdfa9e5d5",
+   "sha256_ok": true,
+   "seconds": 0.6
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_11_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "509606421e0cd0c9a236c6eafcf352c751d0b616fd611849e55fa265e0b593da",
+   "sha256_ok": true,
+   "seconds": 0.6
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_12_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "abe83283df94fe2a81faa6fcdf8c405daa7fd9f4c9fd98a143e99afd8ad756cc",
+   "sha256_ok": true,
+   "seconds": 0.6
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_13_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "eef09abfa060a5474125cdc382e2b15431c17f249bb56517b0a7e80ab0376b2b",
+   "sha256_ok": true,
+   "seconds": 0.6
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "attn_out_all/layer_0_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 134353272,
+   "sha256": "35f78fc089cbe38e165b5faebedadb73e969dc18f0092a98c55274e5a7a5c66e",
+   "sha256_ok": true,
+   "seconds": 1.8
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "attn_out_all/layer_1_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 134353272,
+   "sha256": "565166a8542b3d5587cd4d6eb8c3c8175f66ba2cdb33cab653f5c9b95776816b",
+   "sha256_ok": true,
+   "seconds": 1.6
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "attn_out_all/layer_2_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 134353272,
+   "sha256": "2c77b0095ceaef81b8331d8aad2bfc584b34834a9459db1d7fa24cc8a971f0a2",
+   "sha256_ok": true,
+   "seconds": 1.8
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "attn_out_all/layer_3_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 134353272,
+   "sha256": "14e391a361087ad182b07a8c0c76434c92f3b9dda2bcf1b92a4f49937bf23b0d",
+   "sha256_ok": true,
+   "seconds": 1.6
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "attn_out_all/layer_4_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 134353272,
+   "sha256": "be49f631bae7a73e73dfaa2d67b03ca1341dba387ba6136ed90a995249e740f8",
+   "sha256_ok": true,
+   "seconds": 1.8
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "attn_out_all/layer_5_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 134353272,
+   "sha256": "3da5f8846d89cc4a291a8841313f12f48e21f12185e6c50a37603e3f6fe49745",
+   "sha256_ok": true,
+   "seconds": 1.7
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "attn_out_all/layer_6_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 134353272,
+   "sha256": "f0f87d2a933866ec9e2534fbc0ef5300955c1cde026b631aababab9894cbd69c",
+   "sha256_ok": true,
+   "seconds": 1.6
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "attn_out_all/layer_7_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 134353272,
+   "sha256": "5f903c8fb86ae2ea3a81e2766ac09eafd35c06a5a48369669f133378d3aefba3",
+   "sha256_ok": true,
+   "seconds": 1.4
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "attn_out_all/layer_8_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 134353272,
+   "sha256": "4820eb6654ec06ae28cf66549bbd224518d401bda6d6996628fe9187cc346570",
+   "sha256_ok": true,
+   "seconds": 1.4
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "attn_out_all/layer_9_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 134353272,
+   "sha256": "3ee308f97eb13635a29e5140259f1bfb0647104a0523c7f752628e8516020517",
+   "sha256_ok": true,
+   "seconds": 1.5
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "attn_out_all/layer_10_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 134353272,
+   "sha256": "ad8ef731abce603131a39aead8cc6c35dec238a07df2b0d59b86e083740bf526",
+   "sha256_ok": true,
+   "seconds": 1.6
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "attn_out_all/layer_11_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 134353272,
+   "sha256": "c29e95f6174a4ed263106bb6f243532f4aa2605d31774a36e23b9ddeb2f56339",
+   "sha256_ok": true,
+   "seconds": 1.3
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "attn_out_all/layer_12_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 134353272,
+   "sha256": "5d7f3efddbbb0e68fa6aa324c40c277f5642fccc9a1d60ac4e950ec4c5aae8d0",
+   "sha256_ok": true,
+   "seconds": 1.6
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "attn_out_all/layer_13_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 134353272,
+   "sha256": "719c97f69888a59c37a210454ff5e05b732309c2d455753470eefaaf4c32dc21",
+   "sha256_ok": true,
+   "seconds": 1.9
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder/layer_13_width_262k_l0_medium/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 2418021256,
+   "sha256": "4861548f5017707565227f777874a6c12ebf262f692133fb763664fd5dae1fc1",
+   "sha256_ok": true,
+   "seconds": 12.1
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_0_width_262k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 2418021256,
+   "sha256": "8df2eefdae4a56f02c714e212dbee4abfc4de5b92f7eb8fe0877b463eca9fe76",
+   "sha256_ok": true,
+   "seconds": 28.6
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_1_width_262k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 2418021256,
+   "sha256": "6b581290edfb40124f9bafd22e81b25f33ae1aaf0ef15ddc95dde4ece262a8e6",
+   "sha256_ok": true,
+   "seconds": 29.1
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_2_width_262k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 2418021256,
+   "sha256": "8624bf8df0d479ccf53177e6a59c1e4ef912d53e6162fb93ea0c784a6f7a51db",
+   "sha256_ok": true,
+   "seconds": 28.0
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_3_width_262k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 2418021256,
+   "sha256": "f482bc3ac4f7e4decb80d76b9e85ce91163424c24ad1d3e5c60e15d8ca5c4d21",
+   "sha256_ok": true,
+   "seconds": 28.4
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_4_width_262k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 2418021256,
+   "sha256": "66699dccf6120c1dab4cb8488a3934c8c3058c32373dee807bb923f5dd4c5e68",
+   "sha256_ok": true,
+   "seconds": 28.9
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_5_width_262k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 2418021256,
+   "sha256": "3e9db0550c2e4d1889714046eabac68d3cdf9e14602736c243b8547ff86741de",
+   "sha256_ok": true,
+   "seconds": 28.9
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_6_width_262k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 2418021256,
+   "sha256": "6f6d17fe2826d0f34145195d893148e95dbff35b307f23e2c5a55652de6c7176",
+   "sha256_ok": true,
+   "seconds": 29.0
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_7_width_262k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 2418021256,
+   "sha256": "e7648ed02b83476b8fa75de263399de3c1a40ead4464d7cde89aa863b79ed3e8",
+   "sha256_ok": true,
+   "seconds": 29.1
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_8_width_262k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 2418021256,
+   "sha256": "cd416468e2efbc13748b5c71b3a195b3d259442b918058cda9b8f37093441805",
+   "sha256_ok": true,
+   "seconds": 28.5
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_9_width_262k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 2418021256,
+   "sha256": "7502984a9467f5a82405e8fd9fa975c37bd2504d0d5107366f1b36c11211e341",
+   "sha256_ok": true,
+   "seconds": 27.7
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_10_width_262k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 2418021256,
+   "sha256": "b732ea222fcd28c82ecf5328c327f29f4924d9da182a42281594857cbc3e5531",
+   "sha256_ok": true,
+   "seconds": 26.9
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_11_width_262k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 2418021256,
+   "sha256": "581e48af45550fb29627978c341e1887e5768f4ce8a006f3672c5c0390360d1a",
+   "sha256_ok": true,
+   "seconds": 27.5
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_12_width_262k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 2418021256,
+   "sha256": "fadd721aa1c3adfc8ca1f324c37d67b699d176e652af45aed1d6fe7d344e5edf",
+   "sha256_ok": true,
+   "seconds": 27.5
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_13_width_262k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 2418021256,
+   "sha256": "fb3ac2cd512e189a6352146cbd2865b5dade085bb81bcc0c98592b70b15bc25b",
+   "sha256_ok": true,
+   "seconds": 24.3
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder/layer_13_width_65k_l0_medium/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 604509056,
+   "sha256": "ea8d2701db72f21a6d4710e436acfde2f1d66f0b7ff3aa75d6eee7a8f2d0386b",
+   "sha256_ok": true,
+   "seconds": 7.0
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "crosscoder/layer_7_13_17_22_width_1m_l0_medium/params_layer_0.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 6041899912,
+   "sha256": "bdf9fec97d8cf46d6197f98f34cc3a76659feea39f43608daa59f32eec86e071",
+   "sha256_ok": true,
+   "seconds": 25.8
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "crosscoder/layer_7_13_17_22_width_1m_l0_medium/params_layer_1.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 6041899912,
+   "sha256": "74e32ae49726c632966f128b5d185e6a0f13d73bd67d5fa10b4935675269536f",
+   "sha256_ok": true,
+   "seconds": 26.4
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "crosscoder/layer_7_13_17_22_width_262k_l0_big/params_layer_0.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 1510478720,
+   "sha256": "f5a46142fbb60f62716b553c1bb30f1ca566b87fc180657c45ae4f9214937d9c",
+   "sha256_ok": true,
+   "seconds": 8.4
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "crosscoder/layer_7_13_17_22_width_262k_l0_big/params_layer_1.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 1510478720,
+   "sha256": "b6d410e300090345068af567552f6cc161e9cadce350b836389fe8593590d97a",
+   "sha256_ok": true,
+   "seconds": 6.6
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "crosscoder/layer_7_13_17_22_width_262k_l0_medium/params_layer_0.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 1510478720,
+   "sha256": "0e6601e7ad1526bc36804840bb107db5d08f805301c7a588573dfc96e52a482b",
+   "sha256_ok": true,
+   "seconds": 7.7
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "crosscoder/layer_7_13_17_22_width_262k_l0_medium/params_layer_1.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 1510478720,
+   "sha256": "6b9cf9228314d9399056fe4b1ec3aa6767d79a1538cc5e1afa977ee5d3b17779",
+   "sha256_ok": true,
+   "seconds": 8.4
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "crosscoder/layer_7_13_17_22_width_524k_l0_medium/params_layer_0.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 3020952456,
+   "sha256": "5157dbe2bd3b436d7331c7406b260dda2751b009346b3451584d622efff21ca5",
+   "sha256_ok": true,
+   "seconds": 13.2
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "crosscoder/layer_7_13_17_22_width_524k_l0_medium/params_layer_1.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 3020952456,
+   "sha256": "2572d6c53ede9a777d29207c9d46b08486ff4e64532d9c042f38bb10e54e8815",
+   "sha256_ok": true,
+   "seconds": 7.9
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "crosscoder/layer_7_13_17_22_width_65k_l0_big/params_layer_0.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 377623424,
+   "sha256": "5284453a253fbd41bef81a5794e77e3071107310e220c60a30f6dfed31f58bbc",
+   "sha256_ok": true,
+   "seconds": 1.3
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "crosscoder/layer_7_13_17_22_width_65k_l0_big/params_layer_1.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 377623424,
+   "sha256": "ec492264b76ca1b7f71038a86975dec578ee2d4da6ce3ca1218bb19eebba3f7f",
+   "sha256_ok": true,
+   "seconds": 1.2
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "crosscoder/layer_7_13_17_22_width_65k_l0_medium/params_layer_0.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 377623424,
+   "sha256": "228dddcb01dfb89e7b3bf2ba5fd23636fed7ae5c6154b3b2f4a552bdbb4552dc",
+   "sha256_ok": true,
+   "seconds": 2.1
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "crosscoder/layer_7_13_17_22_width_65k_l0_medium/params_layer_1.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 377623424,
+   "sha256": "c0a12e3e58b00bb84980118b571d40aaefa0e6b0ddbdf4c817b8c0ee67543aec",
+   "sha256_ok": true,
+   "seconds": 1.6
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "resid_post/layer_17_width_16k_l0_medium/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "96150bbb6625547ca053e94ca46831b52e4f38cb250a470dd9e232acc3762456",
+   "sha256_ok": true,
+   "seconds": 1.7
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "resid_post/layer_17_width_16k_l0_medium/config.json",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 247,
+   "seconds": 0.2
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "resid_post/layer_17_width_1m_l0_medium/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 9672070024,
+   "sha256": "b8d3d0ad9611baf246b54603f6fbc4eff570a3d9c413f007679c38caf8e0d49a",
+   "sha256_ok": true,
+   "seconds": 93.9
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "resid_post/layer_17_width_1m_l0_medium/config.json",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 249,
+   "seconds": 0.3
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "resid_post/layer_17_width_262k_l0_medium/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 2418021256,
+   "sha256": "31475e5780aeb54c9b0d26f64643bae485f8eba39a194f94eab654339c06527d",
+   "sha256_ok": true,
+   "seconds": 27.1
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "resid_post/layer_17_width_262k_l0_medium/config.json",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 248,
+   "seconds": 0.4
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "resid_post/layer_17_width_65k_l0_medium/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 604509056,
+   "sha256": "da9ce915ed23f2a97eb28ae3d9593d25d98d98ac0459c222d44ddd5627d7deab",
+   "sha256_ok": true,
+   "seconds": 3.0
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "resid_post/layer_17_width_65k_l0_medium/config.json",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 247,
+   "seconds": 0.2
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "clt/width_262k_l0_medium/params_layer_0.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 1254198912,
+   "sha256": "5aab1e94830915a0962e697b69be51186df9738e99c77913239e90260144ce36",
+   "sha256_ok": true,
+   "seconds": 10.5
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "clt/width_262k_l0_medium/params_layer_1.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 1254198912,
+   "sha256": "90c16ea10f6cca120e3d04c968f8c7b18f2f632941e5d6c39b031b8c95681b71",
+   "sha256_ok": true,
+   "seconds": 11.3
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "clt/width_262k_l0_medium/params_layer_2.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 1254198912,
+   "sha256": "3c8050b99b4412b8cffcd86180b9f6ed956d485a81adecb0d32f3c538ad8940d",
+   "sha256_ok": true,
+   "seconds": 9.9
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "clt/width_262k_l0_medium/params_layer_3.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 1254198912,
+   "sha256": "574349f8c4f3057059d1d61f4327de7ce1ed57bf3ef3b37396c11137ec259c43",
+   "sha256_ok": true,
+   "seconds": 8.3
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "clt/width_262k_l0_medium/params_layer_4.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 1254198912,
+   "sha256": "6f87c3302c7dc557523dd4d5f18520f395e15a8b67e12c88162ec4a737556d57",
+   "sha256_ok": true,
+   "seconds": 9.3
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "clt/width_262k_l0_medium/params_layer_5.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 1254198912,
+   "sha256": "058bd108f79f9c9711f4a2747153cfdc98299ea966f8b4d1d67db1a40cd09a7e",
+   "sha256_ok": true,
+   "seconds": 11.0
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "clt/width_262k_l0_medium/params_layer_6.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 1254198912,
+   "sha256": "4e23a3a1e5d5169225cb79a546ac6fb8ec072b619e99f55b328d56ddc380abd1",
+   "sha256_ok": true,
+   "seconds": 10.1
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "clt/width_262k_l0_medium/params_layer_7.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 1254198912,
+   "sha256": "54a9cc1d1580721b95dd5576498b7a9a4c6ecbdf3e026111bf2bc03ab92873b4",
+   "sha256_ok": true,
+   "seconds": 10.5
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "clt/width_262k_l0_medium/params_layer_8.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 1254198912,
+   "sha256": "f1c64b268170fe2f2bd915225265c48a2811dd80a878a04df9fc266c676fefd0",
+   "sha256_ok": true,
+   "seconds": 10.1
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "clt/width_262k_l0_medium/params_layer_9.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 1254198912,
+   "sha256": "33f919bf184fee818860f48da0d26c0fae19e55bca39d945a905d89e3355982a",
+   "sha256_ok": true,
+   "seconds": 10.0
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "clt/width_262k_l0_medium/params_layer_10.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 1254198912,
+   "sha256": "31891f7200f67579a500c2eab327140e538416d1791fbc94eaa0fc4678849c91",
+   "sha256_ok": true,
+   "seconds": 9.5
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "clt/width_262k_l0_medium/params_layer_11.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 1254198912,
+   "sha256": "991364d59260a34139bd394385958a1514a401d91310653b1feaaee49a79c23e",
+   "sha256_ok": true,
+   "seconds": 10.7
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "clt/width_262k_l0_medium/params_layer_12.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 1254198912,
+   "sha256": "db0b66602fc380da73ea44482e61e1180873b042dc8d901ab548d38b6d6259ad",
+   "sha256_ok": true,
+   "seconds": 9.5
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "clt/width_262k_l0_medium/params_layer_13.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 1254198912,
+   "sha256": "787e640a6a71bacce4f24ff890574525750f42ae4a00e39bdb78560ed422f24a",
+   "sha256_ok": true,
+   "seconds": 9.8
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "clt/width_262k_l0_medium/params_layer_14.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 1254198912,
+   "sha256": "93fac2ba67d2c1a6a312130b4d9b3bdba3039dd2e9de8f4678d3d126bda119d1",
+   "sha256_ok": true,
+   "seconds": 15.2
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "clt/width_262k_l0_medium/params_layer_15.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 1254198912,
+   "sha256": "188acaed45bc5514033175581fa1db8ddb342cdfba63332f1c83296b654d3fae",
+   "sha256_ok": true,
+   "seconds": 15.3
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "clt/width_262k_l0_medium/params_layer_16.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 1254198912,
+   "sha256": "2145e0b3e7db75d1cffa129aab43349494bafe300bec2979a466bfb82094e827",
+   "sha256_ok": true,
+   "seconds": 15.3
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "clt/width_262k_l0_medium/params_layer_17.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 1254198912,
+   "sha256": "15877b961fef17c052a3e3533e6a1496044e242bff3c670ab26b1602c0026af2",
+   "sha256_ok": true,
+   "seconds": 15.4
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_0_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "49b154bee91f03dc961f49326359436d0256d12e321673792a29cc49863ade9e",
+   "sha256_ok": true,
+   "seconds": 1.2
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_1_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "bef3b238f0f94a3cfe4a9ba9ba412c290cdea9c3dd5d01627f2bbde6cd697225",
+   "sha256_ok": true,
+   "seconds": 1.4
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_2_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "d5ba4abede2204f2999fa66c5204fd4174b69ab94214c5b125fc5fbeaa6e7231",
+   "sha256_ok": true,
+   "seconds": 1.2
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_3_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "f11e083ca047b6050a892312d8a9f927d8315a220a428274d0d6510e782a6269",
+   "sha256_ok": true,
+   "seconds": 1.3
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_4_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "82b61a27a99f67070a2e442c3350b891974d8b95857c14da22ce30f7cc3665b0",
+   "sha256_ok": true,
+   "seconds": 1.3
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_5_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "e7272d3eae71d2b83765fcea7ba929bfb699776da9f2026606c6279dc51d7db5",
+   "sha256_ok": true,
+   "seconds": 1.3
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_6_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "c4801cf06fb4c4270e35e5073476e182c5a931fbb0b966e27a83a90dec993529",
+   "sha256_ok": true,
+   "seconds": 1.6
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_7_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "338ad335800d4ea88f3b2dcf26065ac8c0a84aead93af783c1ec6922fc10da67",
+   "sha256_ok": true,
+   "seconds": 1.2
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_8_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "35f40153d8dc99d806498b09b1c1b7ca05fb0b443255c04b8c0f6dc82fdb859f",
+   "sha256_ok": true,
+   "seconds": 1.4
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_9_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "d43bef979f88e881d714d07761376c6842ebee921aa599227495c646b2623a9e",
+   "sha256_ok": true,
+   "seconds": 1.4
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_10_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "0175ca898cbc602eb498822da47c648f03b3d5ed8f82c6415da156fbdfa9e5d5",
+   "sha256_ok": true,
+   "seconds": 1.5
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_11_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "509606421e0cd0c9a236c6eafcf352c751d0b616fd611849e55fa265e0b593da",
+   "sha256_ok": true,
+   "seconds": 1.1
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_12_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "abe83283df94fe2a81faa6fcdf8c405daa7fd9f4c9fd98a143e99afd8ad756cc",
+   "sha256_ok": true,
+   "seconds": 1.0
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_13_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "eef09abfa060a5474125cdc382e2b15431c17f249bb56517b0a7e80ab0376b2b",
+   "sha256_ok": true,
+   "seconds": 1.5
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_14_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "da0ee9afeee4fda9ed61c24d4d98907a6aaf21047783400ea7fad64fa4c7b8e6",
+   "sha256_ok": true,
+   "seconds": 2.0
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_15_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "42ff87f30ef8dfd71f40a9f8f433a04e1c468e6407f03eeee902e99b4d42943a",
+   "sha256_ok": true,
+   "seconds": 2.1
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_16_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "6c2edb95c612a1554c5445aded2c7d79a19021914920760f8c3051890d66f1b9",
+   "sha256_ok": true,
+   "seconds": 2.0
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "transcoder_all/layer_17_width_16k_l0_small/params.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 151131000,
+   "sha256": "4877a9dfcc350ffa8824b13f549a429774c0a9ee151cd1eb3adbea4573099d06",
+   "sha256_ok": true,
+   "seconds": 2.0
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "crosscoder/layer_7_13_17_22_width_262k_l0_medium/params_layer_0.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 1510478720,
+   "sha256": "0e6601e7ad1526bc36804840bb107db5d08f805301c7a588573dfc96e52a482b",
+   "sha256_ok": true,
+   "seconds": 4.5
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "crosscoder/layer_7_13_17_22_width_262k_l0_medium/params_layer_1.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 1510478720,
+   "sha256": "6b9cf9228314d9399056fe4b1ec3aa6767d79a1538cc5e1afa977ee5d3b17779",
+   "sha256_ok": true,
+   "seconds": 4.1
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "crosscoder/layer_7_13_17_22_width_262k_l0_medium/params_layer_2.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 1510478720,
+   "sha256": "f9b9d3e7bb93e86d341a2ee2a003fd85e3dbcd42102438da8591b7b19716c5e0",
+   "sha256_ok": true,
+   "seconds": 18.3
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "crosscoder/layer_7_13_17_22_width_65k_l0_medium/params_layer_0.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 377623424,
+   "sha256": "228dddcb01dfb89e7b3bf2ba5fd23636fed7ae5c6154b3b2f4a552bdbb4552dc",
+   "sha256_ok": true,
+   "seconds": 2.1
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "crosscoder/layer_7_13_17_22_width_65k_l0_medium/params_layer_1.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 377623424,
+   "sha256": "c0a12e3e58b00bb84980118b571d40aaefa0e6b0ddbdf4c817b8c0ee67543aec",
+   "sha256_ok": true,
+   "seconds": 1.4
+  },
+  {
+   "repo": "google/gemma-scope-2-1b-pt",
+   "file": "crosscoder/layer_7_13_17_22_width_65k_l0_medium/params_layer_2.safetensors",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "bytes": 377623424,
+   "sha256": "8af44b18e50dcd4c2228879ad7d4a0e01bd687c8c1fcd2c020cd9a877704cef3",
+   "sha256_ok": true,
+   "seconds": 4.8
+  }
+ ],
+ "errors": [],
+ "started": "2026-11-25T15:47:12+0530",
+ "total_gb": 278.91
+}

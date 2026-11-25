@@ -1,0 +1,119 @@
+
+=== attempt 1 2026-11-25 01:28:47 slots=['0', '1', '2', '3']: /home2/prakhar2218/PRISM/.venv-harness/bin/python scripts/run_preflight.py --queue queue/pilot-g3-server.yaml --golden golden/R2 --per-gpu
+resources: {"gpu_mem_cap_gb": 9.98, "offload_embed": true, "max_batch_tokens": 9216, "max_batch_size": 72} ({'gpu_mem_cap_gb': 'total 10.58 GiB - headroom 0.6', 'offload_embed': 'GPU under 16 GiB', 'batch': 'auto_budget(cap 9.98 GiB): 40% of the memory after the model'})
+[PASS] 1. packages match requirements/harness.lock: 0 errors, 0 warnings
+[PASS] 1. accelerator: NVIDIA GeForce RTX 2080 Ti, free 10.43 / 10.58 GB
+[PASS] 1. RAM and disk: RAM available 122.1 GB; disk free over cache tiers 2167 GB (/ssd_scratch/prakhar2218/prism/cache: 724, /scratch/prakhar2218/prism/cache: 1443; need > 10); at runs root 49 GB (need > 2)
+[PASS] 2. prefetch targets cached with matching sha256: 360 files, 278.91 GB, 0 errors
+[FAIL] 0. preflight crashed: ValueError: Unrecognized model in google/gemma-2-2b. Should have a `model_type` key in its config.json.
+[SKIP] 6. HF top-1 agreement (informational): {'add_chain/A': 1.0, 'add_chain/B': 1.0, 'entity_track/A': 1.0, 'entity_track/B': 0.917, 'ioi_control/A': 1.0, 'ioi_control/B': 1.0, 'var_binding/A': 1.0, 'var_binding/B': 1.0} (see pilot-g3-server_20261125_012851_hf/report.md)
+[FAIL] 9. GPU 0: ValueError: Unrecognized model in google/gemma-2-2b. Should have a `model_type` key in its config.json.
+[FAIL] 9. GPU 1: ValueError: Unrecognized model in google/gemma-2-2b. Should have a `model_type` key in its config.json.
+[FAIL] 9. GPU 2: ValueError: Unrecognized model in google/gemma-2-2b. Should have a `model_type` key in its config.json.
+[FAIL] 9. GPU 3: ValueError: Unrecognized model in google/gemma-2-2b. Should have a `model_type` key in its config.json.
+[FAIL] 3. per-GPU checks: at least one GPU usable: 0/4 GPUs passed -> runs/_queue/pilot-g3-server/gpus.json
+[PASS] 8. smoke E1_split: ok
+[PASS] 8. smoke E2: ok
+# Preflight pilot-g3-server 20261125_012851: FAILED
+
+| # | status | check | detail |
+|---|---|---|---|
+| 1 | PASS | packages match requirements/harness.lock | 0 errors, 0 warnings |
+| 1 | PASS | accelerator | NVIDIA GeForce RTX 2080 Ti, free 10.43 / 10.58 GB |
+| 1 | PASS | RAM and disk | RAM available 122.1 GB; disk free over cache tiers 2167 GB (/ssd_scratch/prakhar2218/prism/cache: 724, /scratch/prakhar2218/prism/cache: 1443; need > 10); at runs root 49 GB (need > 2) |
+| 2 | PASS | prefetch targets cached with matching sha256 | 360 files, 278.91 GB, 0 errors |
+| 0 | FAIL | preflight crashed | ValueError: Unrecognized model in google/gemma-2-2b. Should have a `model_type` key in its config.json. |
+| 6 | SKIP | HF top-1 agreement (informational) | {'add_chain/A': 1.0, 'add_chain/B': 1.0, 'entity_track/A': 1.0, 'entity_track/B': 0.917, 'ioi_control/A': 1.0, 'ioi_control/B': 1.0, 'var_binding/A': 1.0, 'var_binding/B': 1.0} (see pilot-g3-server_20261125_012851_hf/report.md) |
+| 9 | FAIL | GPU 0 | ValueError: Unrecognized model in google/gemma-2-2b. Should have a `model_type` key in its config.json. |
+| 9 | FAIL | GPU 1 | ValueError: Unrecognized model in google/gemma-2-2b. Should have a `model_type` key in its config.json. |
+| 9 | FAIL | GPU 2 | ValueError: Unrecognized model in google/gemma-2-2b. Should have a `model_type` key in its config.json. |
+| 9 | FAIL | GPU 3 | ValueError: Unrecognized model in google/gemma-2-2b. Should have a `model_type` key in its config.json. |
+| 3 | FAIL | per-GPU checks: at least one GPU usable | 0/4 GPUs passed -> runs/_queue/pilot-g3-server/gpus.json |
+| 8 | PASS | smoke E1_split | ok |
+| 8 | PASS | smoke E2 | ok |
+
+=== attempt 2 2026-11-25 02:40:46 slots=['0', '1', '2', '3']: /home2/prakhar2218/PRISM/.venv-harness/bin/python scripts/run_preflight.py --queue queue/pilot-g3-server.yaml --golden golden/R2 --per-gpu
+resources: {"gpu_mem_cap_gb": 9.98, "offload_embed": true, "max_batch_tokens": 9216, "max_batch_size": 72} ({'gpu_mem_cap_gb': 'total 10.58 GiB - headroom 0.6', 'offload_embed': 'GPU under 16 GiB', 'batch': 'auto_budget(cap 9.98 GiB): 40% of the memory after the model'})
+[PASS] 1. packages match requirements/harness.lock: 0 errors, 0 warnings
+[PASS] 1. accelerator: NVIDIA GeForce RTX 2080 Ti, free 10.43 / 10.58 GB
+[PASS] 1. RAM and disk: RAM available 122.0 GB; disk free over cache tiers 2164 GB (/ssd_scratch/prakhar2218/prism/cache: 724, /scratch/prakhar2218/prism/cache: 1440; need > 10); at runs root 49 GB (need > 2)
+[FAIL] 2. prefetch targets cached with matching sha256: 360 files, 278.91 GB, 1 errors
+[FAIL] 0. preflight crashed: ValueError: Unrecognized model in google/gemma-2-2b. Should have a `model_type` key in its config.json.
+[SKIP] 6. HF top-1 agreement (informational): {'add_chain/A': 1.0, 'add_chain/B': 1.0, 'entity_track/A': 1.0, 'entity_track/B': 0.917, 'ioi_control/A': 1.0, 'ioi_control/B': 1.0, 'var_binding/A': 1.0, 'var_binding/B': 1.0} (see pilot-g3-server_20261125_024048_hf/report.md)
+[FAIL] 9. GPU 0: ValueError: Unrecognized model in google/gemma-2-2b. Should have a `model_type` key in its config.json.
+[FAIL] 9. GPU 1: ValueError: Unrecognized model in google/gemma-2-2b. Should have a `model_type` key in its config.json.
+[FAIL] 9. GPU 2: ValueError: Unrecognized model in google/gemma-2-2b. Should have a `model_type` key in its config.json.
+[FAIL] 9. GPU 3: ValueError: Unrecognized model in google/gemma-2-2b. Should have a `model_type` key in its config.json.
+[FAIL] 3. per-GPU checks: at least one GPU usable: 0/4 GPUs passed -> runs/_queue/pilot-g3-server/gpus.json
+[PASS] 8. smoke E1_split: ok
+[PASS] 8. smoke E2: ok
+# Preflight pilot-g3-server 20261125_024048: FAILED
+
+| # | status | check | detail |
+|---|---|---|---|
+| 1 | PASS | packages match requirements/harness.lock | 0 errors, 0 warnings |
+| 1 | PASS | accelerator | NVIDIA GeForce RTX 2080 Ti, free 10.43 / 10.58 GB |
+| 1 | PASS | RAM and disk | RAM available 122.0 GB; disk free over cache tiers 2164 GB (/ssd_scratch/prakhar2218/prism/cache: 724, /scratch/prakhar2218/prism/cache: 1440; need > 10); at runs root 49 GB (need > 2) |
+| 2 | FAIL | prefetch targets cached with matching sha256 | 360 files, 278.91 GB, 1 errors |
+| 0 | FAIL | preflight crashed | ValueError: Unrecognized model in google/gemma-2-2b. Should have a `model_type` key in its config.json. |
+| 6 | SKIP | HF top-1 agreement (informational) | {'add_chain/A': 1.0, 'add_chain/B': 1.0, 'entity_track/A': 1.0, 'entity_track/B': 0.917, 'ioi_control/A': 1.0, 'ioi_control/B': 1.0, 'var_binding/A': 1.0, 'var_binding/B': 1.0} (see pilot-g3-server_20261125_024048_hf/report.md) |
+| 9 | FAIL | GPU 0 | ValueError: Unrecognized model in google/gemma-2-2b. Should have a `model_type` key in its config.json. |
+| 9 | FAIL | GPU 1 | ValueError: Unrecognized model in google/gemma-2-2b. Should have a `model_type` key in its config.json. |
+| 9 | FAIL | GPU 2 | ValueError: Unrecognized model in google/gemma-2-2b. Should have a `model_type` key in its config.json. |
+| 9 | FAIL | GPU 3 | ValueError: Unrecognized model in google/gemma-2-2b. Should have a `model_type` key in its config.json. |
+| 3 | FAIL | per-GPU checks: at least one GPU usable | 0/4 GPUs passed -> runs/_queue/pilot-g3-server/gpus.json |
+| 8 | PASS | smoke E1_split | ok |
+| 8 | PASS | smoke E2 | ok |
+
+=== attempt 1 2026-11-25 15:47:08 slots=['0', '1', '2', '3']: /home2/prakhar2218/PRISM/.venv-harness/bin/python scripts/run_preflight.py --queue queue/pilot-g3-server.yaml --golden golden/R2 --per-gpu
+resources: {"gpu_mem_cap_gb": 9.97, "offload_embed": true, "max_batch_tokens": 9216, "max_batch_size": 72} ({'gpu_mem_cap_gb': 'total 10.57 GiB - headroom 0.6', 'offload_embed': 'GPU under 16 GiB', 'batch': 'auto_budget(cap 9.97 GiB): 40% of the memory after the model'})
+[PASS] 1. packages match requirements/harness-cu126.lock: 0 errors, 0 warnings
+[PASS] 1. accelerator: NVIDIA GeForce RTX 2080 Ti, free 10.42 / 10.57 GB
+[PASS] 1. RAM and disk: RAM available 122.2 GB; disk free over cache tiers 2221 GB (/ssd_scratch/prakhar2218/prism/cache: 849, /scratch/prakhar2218/prism/cache: 1372; need > 10); at runs root 49 GB (need > 2)
+[PASS] 2. prefetch targets cached with matching sha256: 360 files, 278.91 GB, 0 errors
+Loading weights:   0%|          | 0/288 [00:00<?, ?it/s]Loading weights:   0%|          | 1/288 [01:13<5:49:39, 73.10s/it]Loading weights:  55%|█████▍    | 157/288 [01:15<00:44,  2.91it/s]Loading weights:  57%|█████▋    | 164/288 [01:17<00:41,  2.99it/s]Loading weights:  58%|█████▊    | 168/288 [01:19<00:41,  2.87it/s]Loading weights:  58%|█████▊    | 168/288 [01:30<00:41,  2.87it/s]Loading weights:  59%|█████▉    | 170/288 [01:34<01:07,  1.75it/s]Loading weights:  70%|███████   | 203/288 [01:37<00:31,  2.69it/s]Loading weights:  74%|███████▎  | 212/288 [01:38<00:25,  3.03it/s]Loading weights:  74%|███████▍  | 214/288 [01:38<00:24,  3.08it/s]Loading weights:  76%|███████▌  | 219/288 [01:39<00:21,  3.23it/s]Loading weights:  76%|███████▋  | 220/288 [01:40<00:22,  3.00it/s]Loading weights:  77%|███████▋  | 223/288 [01:42<00:22,  2.85it/s]Loading weights:  78%|███████▊  | 224/288 [01:43<00:26,  2.37it/s]Loading weights:  78%|███████▊  | 225/288 [01:48<00:48,  1.29it/s]Loading weights:  85%|████████▌ | 245/288 [01:51<00:14,  2.97it/s]Loading weights:  85%|████████▌ | 246/288 [01:51<00:14,  2.96it/s]Loading weights:  89%|████████▉ | 256/288 [01:55<00:10,  3.03it/s]Loading weights:  92%|█████████▏| 265/288 [01:55<00:05,  4.33it/s]Loading weights:  93%|█████████▎| 267/288 [01:58<00:07,  2.97it/s]Loading weights:  93%|█████████▎| 269/288 [01:59<00:06,  2.76it/s]Loading weights:  97%|█████████▋| 278/288 [02:01<00:03,  3.13it/s]Loading weights: 100%|██████████| 288/288 [02:01<00:00,  2.37it/s]
+Loaded pretrained model gemma-2-2b into HookedTransformer
+[PASS] 3. model load: 149 s, 4.92 GB allocated
+[PASS] 3. last-position head == full forward last logits: max |dlogit| 0.121 (tol 0.25 = 2 bfloat16 ulp at max |logit| 28.4); argmax equal True
+[PASS] 4. hook identity (OT L12, 4 pairs): full_B == clean_B, resumed clean_B == stage 1: max |dD| full_B 0, resumed clean_B 0
+[PASS] 4. full_A reproduces clean A (NLDR = 1): max |dD| 0
+[PASS] 5. entity_track_L12: golden pair ids and token ids == harness prompt set: 16 pairs
+[PASS] 5. entity_track_L12: span residuals vs golden (relative): max relative row error 0.0314 (median 0.0153; tol 0.05); pilot's own batch-1 vs batched: max 0.0269
+[PASS] 5. entity_track_L12: SAE variant == the one the golden export loaded: harness layer_12/width_16k/average_l0_82/params.npz; golden layer_12/width_16k/average_l0_82/params.npz
+[PASS] 5. entity_track_L12: SAE x_hat on golden residuals: max |dx_hat| 0.000214 (GPU fp32 vs golden)
+[PASS] 5. entity_track_L12: per-condition D vs golden: max |dD| feat_A_errB 0.122, feat_B_errA 0.0868, feat_A_zero 0.0994, full_A 0.115, repair_pca_pooled_r1 0.104, repair_pca_pooled_r2 0.134
+[PASS] 7. throughput: forward tokens/s by rows {1: 1321.2, 2: 1462.7, 4: 1571.8, 24: 1684.0} -> throughput_pilot-g3-server_20261125_154710.json
+[SKIP] 6. HF top-1 agreement (informational): {'add_chain/A': 1.0, 'add_chain/B': 1.0, 'entity_track/A': 1.0, 'entity_track/B': 0.917, 'ioi_control/A': 1.0, 'ioi_control/B': 1.0, 'var_binding/A': 1.0, 'var_binding/B': 1.0} (see pilot-g3-server_20261125_154710_hf/report.md)
+[PASS] 9. GPU 0: budget 9216 tokens x 24 rows, peak 5.75 GB, 1680.3 tok/s
+[PASS] 9. GPU 1: budget 9216 tokens x 24 rows, peak 5.75 GB, 1723.0 tok/s
+[PASS] 9. GPU 2: budget 9216 tokens x 24 rows, peak 5.75 GB, 1846.2 tok/s
+[PASS] 9. GPU 3: budget 9216 tokens x 24 rows, peak 5.75 GB, 1722.0 tok/s
+[PASS] 3. per-GPU checks: at least one GPU usable: 4/4 GPUs passed -> runs/_queue/pilot-g3-server/gpus.json
+[PASS] 8. smoke E1_split: ok
+[PASS] 8. smoke E2: ok
+# Preflight pilot-g3-server 20261125_154710: OK
+
+| # | status | check | detail |
+|---|---|---|---|
+| 1 | PASS | packages match requirements/harness-cu126.lock | 0 errors, 0 warnings |
+| 1 | PASS | accelerator | NVIDIA GeForce RTX 2080 Ti, free 10.42 / 10.57 GB |
+| 1 | PASS | RAM and disk | RAM available 122.2 GB; disk free over cache tiers 2221 GB (/ssd_scratch/prakhar2218/prism/cache: 849, /scratch/prakhar2218/prism/cache: 1372; need > 10); at runs root 49 GB (need > 2) |
+| 2 | PASS | prefetch targets cached with matching sha256 | 360 files, 278.91 GB, 0 errors |
+| 3 | PASS | model load | 149 s, 4.92 GB allocated |
+| 3 | PASS | last-position head == full forward last logits | max /dlogit/ 0.121 (tol 0.25 = 2 bfloat16 ulp at max /logit/ 28.4); argmax equal True |
+| 4 | PASS | hook identity (OT L12, 4 pairs): full_B == clean_B, resumed clean_B == stage 1 | max /dD/ full_B 0, resumed clean_B 0 |
+| 4 | PASS | full_A reproduces clean A (NLDR = 1) | max /dD/ 0 |
+| 5 | PASS | entity_track_L12: golden pair ids and token ids == harness prompt set | 16 pairs |
+| 5 | PASS | entity_track_L12: span residuals vs golden (relative) | max relative row error 0.0314 (median 0.0153; tol 0.05); pilot's own batch-1 vs batched: max 0.0269 |
+| 5 | PASS | entity_track_L12: SAE variant == the one the golden export loaded | harness layer_12/width_16k/average_l0_82/params.npz; golden layer_12/width_16k/average_l0_82/params.npz |
+| 5 | PASS | entity_track_L12: SAE x_hat on golden residuals | max /dx_hat/ 0.000214 (GPU fp32 vs golden) |
+| 5 | PASS | entity_track_L12: per-condition D vs golden | max /dD/ feat_A_errB 0.122, feat_B_errA 0.0868, feat_A_zero 0.0994, full_A 0.115, repair_pca_pooled_r1 0.104, repair_pca_pooled_r2 0.134 |
+| 7 | PASS | throughput | forward tokens/s by rows {1: 1321.2, 2: 1462.7, 4: 1571.8, 24: 1684.0} -> throughput_pilot-g3-server_20261125_154710.json |
+| 6 | SKIP | HF top-1 agreement (informational) | {'add_chain/A': 1.0, 'add_chain/B': 1.0, 'entity_track/A': 1.0, 'entity_track/B': 0.917, 'ioi_control/A': 1.0, 'ioi_control/B': 1.0, 'var_binding/A': 1.0, 'var_binding/B': 1.0} (see pilot-g3-server_20261125_154710_hf/report.md) |
+| 9 | PASS | GPU 0 | budget 9216 tokens x 24 rows, peak 5.75 GB, 1680.3 tok/s |
+| 9 | PASS | GPU 1 | budget 9216 tokens x 24 rows, peak 5.75 GB, 1723.0 tok/s |
+| 9 | PASS | GPU 2 | budget 9216 tokens x 24 rows, peak 5.75 GB, 1846.2 tok/s |
+| 9 | PASS | GPU 3 | budget 9216 tokens x 24 rows, peak 5.75 GB, 1722.0 tok/s |
+| 3 | PASS | per-GPU checks: at least one GPU usable | 4/4 GPUs passed -> runs/_queue/pilot-g3-server/gpus.json |
+| 8 | PASS | smoke E1_split | ok |
+| 8 | PASS | smoke E2 | ok |

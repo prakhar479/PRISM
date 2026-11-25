@@ -1,0 +1,172 @@
+{
+ "prefetch": {
+  "status": "done",
+  "attempts": 0,
+  "note": "",
+  "slots": []
+ },
+ "preflight": {
+  "status": "done",
+  "attempts": 0,
+  "note": "",
+  "slots": []
+ },
+ "P13_s1": {
+  "status": "done",
+  "attempts": 1,
+  "note": "1.3 min",
+  "slots": [
+   "0"
+  ]
+ },
+ "P12_s1": {
+  "status": "done",
+  "attempts": 0,
+  "note": "",
+  "slots": []
+ },
+ "P13_s2[0]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "0.5 min",
+  "slots": [
+   "3"
+  ]
+ },
+ "P13_s2[1]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "1.5 min",
+  "slots": [
+   "1"
+  ]
+ },
+ "P13_s2[2]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "3.0 min",
+  "slots": [
+   "2"
+  ]
+ },
+ "P13_s2[3]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "0.3 min",
+  "slots": [
+   "0"
+  ]
+ },
+ "P12_s2[0]": {
+  "status": "done",
+  "attempts": 0,
+  "note": "",
+  "slots": []
+ },
+ "P12_s2[1]": {
+  "status": "done",
+  "attempts": 0,
+  "note": "",
+  "slots": []
+ },
+ "P12_s2[2]": {
+  "status": "done",
+  "attempts": 0,
+  "note": "",
+  "slots": []
+ },
+ "P12_s2[3]": {
+  "status": "done",
+  "attempts": 0,
+  "note": "",
+  "slots": []
+ },
+ "P13_s3[0]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "9.0 min",
+  "slots": [
+   "0"
+  ]
+ },
+ "P13_s3[1]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "9.0 min",
+  "slots": [
+   "3"
+  ]
+ },
+ "P13_s3[2]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "9.0 min",
+  "slots": [
+   "1"
+  ]
+ },
+ "P13_s3[3]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "9.0 min",
+  "slots": [
+   "2"
+  ]
+ },
+ "P12_s3[0]": {
+  "status": "failed",
+  "attempts": 2,
+  "note": "exit 1",
+  "slots": [
+   "1"
+  ]
+ },
+ "P12_s3[1]": {
+  "status": "failed",
+  "attempts": 2,
+  "note": "exit 1",
+  "slots": [
+   "2"
+  ]
+ },
+ "P12_s3[2]": {
+  "status": "failed",
+  "attempts": 2,
+  "note": "exit 1",
+  "slots": [
+   "3"
+  ]
+ },
+ "P12_s3[3]": {
+  "status": "failed",
+  "attempts": 2,
+  "note": "exit 1",
+  "slots": [
+   "2"
+  ]
+ },
+ "P13_fin": {
+  "status": "done",
+  "attempts": 1,
+  "note": "8.5 min",
+  "slots": []
+ },
+ "P12_fin": {
+  "status": "skipped",
+  "attempts": 0,
+  "note": "a dependency failed",
+  "slots": []
+ },
+ "bundle": {
+  "status": "done",
+  "attempts": 1,
+  "note": "0.1 min",
+  "slots": []
+ },
+ "publish": {
+  "status": "running",
+  "attempts": 1,
+  "note": "",
+  "slots": []
+ }
+}

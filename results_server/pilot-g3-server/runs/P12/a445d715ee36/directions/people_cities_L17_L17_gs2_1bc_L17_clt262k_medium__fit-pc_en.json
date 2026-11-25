@@ -1,0 +1,61 @@
+{
+ "das8v2_kl": {
+  "estimator": "das8v2_kl",
+  "fit_digest": "d225ec2a10f16685",
+  "n_fit_rows": 300,
+  "evr": null,
+  "meta": {
+   "k": 8,
+   "version": 2,
+   "objective": "kl",
+   "epochs": 10,
+   "lr": 0.01,
+   "seed": 0,
+   "init_seed": 633348803,
+   "holdout": 0.2,
+   "step_tokens": 1024,
+   "oom_backoffs": 0,
+   "n_train": 300,
+   "n_fit": 240,
+   "n_val": 60,
+   "losses": [
+    1.9953277007987102,
+    1.0694477741296093,
+    1.0309318782761694,
+    1.0405267599349222,
+    0.8257376406341791,
+    0.8573537432588637,
+    0.8573078852767746,
+    0.6146853334115198,
+    0.5777306769819309,
+    0.5271030457224697
+   ],
+   "loss_first_epoch": 1.9953277007987102,
+   "loss_last_epoch": 0.5271030457224697,
+   "fit": {
+    "n": 240,
+    "iia": 0.75,
+    "nldr_mean": 0.7081876417642451,
+    "nldr_median": 0.7014656931171481,
+    "share_above_full": 0.03333333333333333,
+    "full_iia": 1.0
+   },
+   "val": {
+    "n": 60,
+    "iia": 0.65,
+    "nldr_mean": 0.6728645746960169,
+    "nldr_median": 0.6877862845177333,
+    "share_above_full": 0.03333333333333333,
+    "full_iia": 1.0
+   },
+   "train_interchange_acc": 0.75,
+   "val_interchange_acc": 0.65
+  }
+ },
+ "_cosines": {},
+ "_fitset": {
+  "digest": "d225ec2a10f16685",
+  "n_pairs": 300,
+  "filter": "f_pilot"
+ }
+}

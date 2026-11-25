@@ -1,0 +1,134 @@
+
+=== attempt 1 2026-11-25 18:23:10 slots=['0']: /home2/prakhar2218/PRISM/.venv-harness/bin/python -m harness.run --config configs/pilot/P12.yaml --profile server --stage 3 --worker P12_s3-1
+2026-11-25 18:23:18,982 WARNING cell add_chain_L13_gs2_1b_L13_16k_big__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story skipped: add_chain_L13_gs2_1b_L13_16k_big__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story: 1 test pairs
+2026-11-25 18:23:23,082 INFO DAS: training das8v2_kl (k=8, 10 epochs, lr 0.01, seed 0) for people_cities L13 on 300 train pairs
+2026-11-25 18:23:30,934 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-pt/tree/fcf18a2a879aab110ca39f8bffbccd5d49d8eb29/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-25 18:23:31,199 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-pt/tree/fcf18a2a879aab110ca39f8bffbccd5d49d8eb29?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-25 18:23:33,800 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-pt "HTTP/1.1 200 OK"
+Loading weights:   0%|          | 0/340 [00:00<?, ?it/s]Loading weights:  19%|█▉        | 64/340 [00:00<00:00, 579.59it/s]Loading weights:  36%|███▌      | 122/340 [00:00<00:00, 574.07it/s]Loading weights:  53%|█████▎    | 180/340 [00:00<00:00, 287.43it/s]Loading weights:  65%|██████▍   | 220/340 [00:00<00:00, 278.87it/s]Loading weights:  75%|███████▌  | 255/340 [00:00<00:00, 270.74it/s]Loading weights:  87%|████████▋ | 296/340 [00:00<00:00, 296.66it/s]Loading weights: 100%|██████████| 340/340 [00:01<00:00, 337.57it/s]
+2026-11-25 18:23:45,041 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-pt "HTTP/1.1 200 OK"
+2026-11-25 18:23:45,491 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-pt/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-25 18:23:45,741 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-pt/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-25 18:23:48,179 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-pt "HTTP/1.1 200 OK"
+2026-11-25 18:25:22,119 INFO DAS v2 k=8 kl epoch 1/10: loss 1.8935
+2026-11-25 18:25:42,962 INFO DAS v2 k=8 kl epoch 2/10: loss 1.2364
+2026-11-25 18:26:04,014 INFO DAS v2 k=8 kl epoch 3/10: loss 1.1295
+2026-11-25 18:26:25,116 INFO DAS v2 k=8 kl epoch 4/10: loss 1.1007
+2026-11-25 18:26:46,117 INFO DAS v2 k=8 kl epoch 5/10: loss 1.0117
+2026-11-25 18:27:07,094 INFO DAS v2 k=8 kl epoch 6/10: loss 1.1477
+2026-11-25 18:27:28,081 INFO DAS v2 k=8 kl epoch 7/10: loss 1.1288
+2026-11-25 18:27:49,191 INFO DAS v2 k=8 kl epoch 8/10: loss 1.0125
+2026-11-25 18:28:10,273 INFO DAS v2 k=8 kl epoch 9/10: loss 1.0304
+2026-11-25 18:28:31,272 INFO DAS v2 k=8 kl epoch 10/10: loss 0.9671
+2026-11-25 18:29:28,824 INFO people_cities_L13_gs2_1b_L13_16k_big__fit-pc_en__eval-pc_en unit 1/3 (8 conditions, 41.2s)
+2026-11-25 18:29:28,883 WARNING cell add_chain_L13_gs2_1b_L13_16k_medium__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story skipped: add_chain_L13_gs2_1b_L13_16k_medium__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story: 1 test pairs
+2026-11-25 18:30:11,380 INFO people_cities_L13_gs2_1b_L13_16k_medium__fit-pc_en__eval-pc_en unit 2/3 (8 conditions, 41.1s)
+2026-11-25 18:30:11,458 WARNING cell add_chain_L13_gs2_1b_L13_16k_small__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story skipped: add_chain_L13_gs2_1b_L13_16k_small__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story: 1 test pairs
+2026-11-25 18:30:53,557 INFO people_cities_L13_gs2_1b_L13_16k_small__fit-pc_en__eval-pc_en unit 2/3 (8 conditions, 41.1s)
+2026-11-25 18:30:53,591 WARNING cell add_chain_L13_gs2_1b_L13_1m_big__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story skipped: add_chain_L13_gs2_1b_L13_1m_big__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story: 1 test pairs
+2026-11-25 18:30:54,460 WARNING cell add_chain_L13_gs2_1b_L13_1m_medium__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story skipped: add_chain_L13_gs2_1b_L13_1m_medium__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story: 1 test pairs
+2026-11-25 18:31:37,725 INFO people_cities_L13_gs2_1b_L13_1m_medium__fit-pc_en__eval-pc_en unit 1/3 (8 conditions, 41.0s)
+2026-11-25 18:31:37,760 WARNING cell add_chain_L13_gs2_1b_L13_1m_small__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story skipped: add_chain_L13_gs2_1b_L13_1m_small__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story: 1 test pairs
+2026-11-25 18:31:52,704 INFO people_cities_L13_gs2_1b_L13_1m_small__fit-pc_en__eval-pc_en unit 3/3 (2 conditions, 14.2s)
+2026-11-25 18:31:52,727 WARNING cell add_chain_L13_gs2_1b_L13_262k_big__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story skipped: add_chain_L13_gs2_1b_L13_262k_big__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story: 1 test pairs
+2026-11-25 18:32:07,637 INFO people_cities_L13_gs2_1b_L13_262k_big__fit-pc_en__eval-pc_en unit 3/3 (2 conditions, 14.2s)
+2026-11-25 18:32:07,673 WARNING cell add_chain_L13_gs2_1b_L13_262k_medium__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story skipped: add_chain_L13_gs2_1b_L13_262k_medium__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story: 1 test pairs
+2026-11-25 18:32:49,724 INFO people_cities_L13_gs2_1b_L13_262k_medium__fit-pc_en__eval-pc_en unit 2/3 (8 conditions, 41.1s)
+2026-11-25 18:32:49,748 WARNING cell add_chain_L13_gs2_1b_L13_262k_medium_seed_1__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story skipped: add_chain_L13_gs2_1b_L13_262k_medium_seed_1__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story: 1 test pairs
+2026-11-25 18:32:50,518 WARNING cell add_chain_L13_gs2_1b_L13_262k_small__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story skipped: add_chain_L13_gs2_1b_L13_262k_small__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story: 1 test pairs
+2026-11-25 18:33:33,878 INFO people_cities_L13_gs2_1b_L13_262k_small__fit-pc_en__eval-pc_en unit 1/3 (8 conditions, 41.0s)
+2026-11-25 18:33:33,912 WARNING cell add_chain_L13_gs2_1b_L13_65k_big__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story skipped: add_chain_L13_gs2_1b_L13_65k_big__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story: 1 test pairs
+2026-11-25 18:33:48,876 INFO people_cities_L13_gs2_1b_L13_65k_big__fit-pc_en__eval-pc_en unit 3/3 (2 conditions, 14.2s)
+2026-11-25 18:33:48,898 WARNING cell add_chain_L13_gs2_1b_L13_65k_medium__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story skipped: add_chain_L13_gs2_1b_L13_65k_medium__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story: 1 test pairs
+2026-11-25 18:34:30,728 INFO people_cities_L13_gs2_1b_L13_65k_medium__fit-pc_en__eval-pc_en unit 2/3 (8 conditions, 41.1s)
+2026-11-25 18:34:30,763 WARNING cell add_chain_L13_gs2_1b_L13_65k_small__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story skipped: add_chain_L13_gs2_1b_L13_65k_small__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story: 1 test pairs
+2026-11-25 18:34:31,588 WARNING cell add_chain_L13_gs2_1bc_L13_clt262k_medium__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story skipped: add_chain_L13_gs2_1bc_L13_clt262k_medium__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story: 1 test pairs
+2026-11-25 18:35:14,927 INFO people_cities_L13_gs2_1bc_L13_clt262k_medium__fit-pc_en__eval-pc_en unit 1/3 (8 conditions, 41.1s)
+2026-11-25 18:35:14,963 WARNING cell add_chain_L13_gs2_1bc_L13_clt262k_medium+attn16k_small__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story skipped: add_chain_L13_gs2_1bc_L13_clt262k_medium+attn16k_small__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story: 1 test pairs
+2026-11-25 18:35:29,990 INFO people_cities_L13_gs2_1bc_L13_clt262k_medium+attn16k_small__fit-pc_en__eval-pc_en unit 3/3 (2 conditions, 14.2s)
+2026-11-25 18:35:30,013 WARNING cell add_chain_L13_gs2_1bc_L13_clt262k_medium_aff__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story skipped: add_chain_L13_gs2_1bc_L13_clt262k_medium_aff__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story: 1 test pairs
+2026-11-25 18:36:11,882 INFO people_cities_L13_gs2_1bc_L13_clt262k_medium_aff__fit-pc_en__eval-pc_en unit 2/3 (8 conditions, 41.1s)
+2026-11-25 18:36:11,949 WARNING cell add_chain_L13_gs2_1bc_L13_clt524k_medium__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story skipped: add_chain_L13_gs2_1bc_L13_clt524k_medium__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story: 1 test pairs
+2026-11-25 18:36:12,811 WARNING cell add_chain_L13_gs2_1bc_L13_mlpsae16k_big_all__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story skipped: add_chain_L13_gs2_1bc_L13_mlpsae16k_big_all__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story: 1 test pairs
+2026-11-25 18:36:56,235 INFO people_cities_L13_gs2_1bc_L13_mlpsae16k_big_all__fit-pc_en__eval-pc_en unit 1/3 (8 conditions, 41.1s)
+2026-11-25 18:36:56,271 WARNING cell add_chain_L13_gs2_1bc_L13_mlpsae16k_small_all__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story skipped: add_chain_L13_gs2_1bc_L13_mlpsae16k_small_all__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story: 1 test pairs
+2026-11-25 18:37:11,305 INFO people_cities_L13_gs2_1bc_L13_mlpsae16k_small_all__fit-pc_en__eval-pc_en unit 3/3 (2 conditions, 14.2s)
+2026-11-25 18:37:11,332 WARNING cell add_chain_L13_gs2_1bc_L13_tc16k_big_aff_all__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story skipped: add_chain_L13_gs2_1bc_L13_tc16k_big_aff_all__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story: 1 test pairs
+2026-11-25 18:37:53,319 INFO people_cities_L13_gs2_1bc_L13_tc16k_big_aff_all__fit-pc_en__eval-pc_en unit 2/3 (8 conditions, 41.1s)
+2026-11-25 18:37:53,389 WARNING cell add_chain_L13_gs2_1bc_L13_tc16k_big_all__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story skipped: add_chain_L13_gs2_1bc_L13_tc16k_big_all__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story: 1 test pairs
+2026-11-25 18:37:54,369 WARNING cell add_chain_L13_gs2_1bc_L13_tc16k_medium_aff_single__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story skipped: add_chain_L13_gs2_1bc_L13_tc16k_medium_aff_single__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story: 1 test pairs
+2026-11-25 18:38:37,907 INFO people_cities_L13_gs2_1bc_L13_tc16k_medium_aff_single__fit-pc_en__eval-pc_en unit 1/3 (8 conditions, 41.1s)
+2026-11-25 18:38:37,942 WARNING cell add_chain_L13_gs2_1bc_L13_tc16k_medium_single__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story skipped: add_chain_L13_gs2_1bc_L13_tc16k_medium_single__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story: 1 test pairs
+2026-11-25 18:38:53,020 INFO people_cities_L13_gs2_1bc_L13_tc16k_medium_single__fit-pc_en__eval-pc_en unit 3/3 (2 conditions, 14.2s)
+2026-11-25 18:38:53,043 WARNING cell add_chain_L13_gs2_1bc_L13_tc16k_small_aff_all__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story skipped: add_chain_L13_gs2_1bc_L13_tc16k_small_aff_all__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story: 1 test pairs
+2026-11-25 18:39:35,077 INFO people_cities_L13_gs2_1bc_L13_tc16k_small_aff_all__fit-pc_en__eval-pc_en unit 2/3 (8 conditions, 41.1s)
+2026-11-25 18:39:35,112 WARNING cell add_chain_L13_gs2_1bc_L13_tc16k_small_all__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story skipped: add_chain_L13_gs2_1bc_L13_tc16k_small_all__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story: 1 test pairs
+2026-11-25 18:39:36,089 WARNING cell add_chain_L13_gs2_1bc_L13_tc16k_small_all+attn16k_small__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story skipped: add_chain_L13_gs2_1bc_L13_tc16k_small_all+attn16k_small__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story: 1 test pairs
+2026-11-25 18:40:19,694 INFO people_cities_L13_gs2_1bc_L13_tc16k_small_all+attn16k_small__fit-pc_en__eval-pc_en unit 1/3 (8 conditions, 41.1s)
+2026-11-25 18:40:19,732 WARNING cell add_chain_L13_gs2_1bc_L13_tc262k_medium_single__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story skipped: add_chain_L13_gs2_1bc_L13_tc262k_medium_single__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story: 1 test pairs
+2026-11-25 18:40:34,869 INFO people_cities_L13_gs2_1bc_L13_tc262k_medium_single__fit-pc_en__eval-pc_en unit 3/3 (2 conditions, 14.2s)
+2026-11-25 18:40:34,893 WARNING cell add_chain_L13_gs2_1bc_L13_tc262k_small_all__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story skipped: add_chain_L13_gs2_1bc_L13_tc262k_small_all__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story: 1 test pairs
+2026-11-25 18:41:16,953 INFO people_cities_L13_gs2_1bc_L13_tc262k_small_all__fit-pc_en__eval-pc_en unit 2/3 (8 conditions, 41.1s)
+2026-11-25 18:41:16,990 WARNING cell add_chain_L13_gs2_1bc_L13_tc65k_medium_single__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story skipped: add_chain_L13_gs2_1bc_L13_tc65k_medium_single__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story: 1 test pairs
+2026-11-25 18:41:18,007 WARNING cell add_chain_L13_gs2_1bc_L13_xc1m_medium__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story skipped: add_chain_L13_gs2_1bc_L13_xc1m_medium__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story: 1 test pairs
+2026-11-25 18:42:01,716 INFO people_cities_L13_gs2_1bc_L13_xc1m_medium__fit-pc_en__eval-pc_en unit 1/3 (8 conditions, 41.1s)
+2026-11-25 18:42:01,752 WARNING cell add_chain_L13_gs2_1bc_L13_xc262k_big__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story skipped: add_chain_L13_gs2_1bc_L13_xc262k_big__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story: 1 test pairs
+2026-11-25 18:42:16,930 INFO people_cities_L13_gs2_1bc_L13_xc262k_big__fit-pc_en__eval-pc_en unit 3/3 (2 conditions, 14.2s)
+2026-11-25 18:42:16,953 WARNING cell add_chain_L13_gs2_1bc_L13_xc262k_medium__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story skipped: add_chain_L13_gs2_1bc_L13_xc262k_medium__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story: 1 test pairs
+2026-11-25 18:42:59,031 INFO people_cities_L13_gs2_1bc_L13_xc262k_medium__fit-pc_en__eval-pc_en unit 2/3 (8 conditions, 41.1s)
+2026-11-25 18:42:59,068 WARNING cell add_chain_L13_gs2_1bc_L13_xc524k_medium__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story skipped: add_chain_L13_gs2_1bc_L13_xc524k_medium__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story: 1 test pairs
+2026-11-25 18:43:00,095 WARNING cell add_chain_L13_gs2_1bc_L13_xc65k_big__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story skipped: add_chain_L13_gs2_1bc_L13_xc65k_big__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story: 1 test pairs
+2026-11-25 18:43:43,822 INFO people_cities_L13_gs2_1bc_L13_xc65k_big__fit-pc_en__eval-pc_en unit 1/3 (8 conditions, 41.1s)
+2026-11-25 18:43:43,856 WARNING cell add_chain_L13_gs2_1bc_L13_xc65k_medium__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story skipped: add_chain_L13_gs2_1bc_L13_xc65k_medium__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story: 1 test pairs
+2026-11-25 18:43:59,204 INFO people_cities_L13_gs2_1bc_L13_xc65k_medium__fit-pc_en__eval-pc_en unit 3/3 (2 conditions, 14.2s)
+2026-11-25 18:43:59,242 WARNING cell add_chain_L17_gs2_1b_L17_16k_medium__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story skipped: add_chain_L17_gs2_1b_L17_16k_medium__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story: 1 test pairs
+2026-11-25 18:47:36,188 INFO people_cities_L17_gs2_1b_L17_16k_medium__fit-pc_en__eval-pc_en unit 1/3 (8 conditions, 30.3s)
+2026-11-25 18:47:36,214 WARNING cell add_chain_L17_gs2_1b_L17_1m_medium__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story skipped: add_chain_L17_gs2_1b_L17_1m_medium__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story: 1 test pairs
+2026-11-25 18:47:37,191 WARNING cell add_chain_L17_gs2_1b_L17_262k_medium__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story skipped: add_chain_L17_gs2_1b_L17_262k_medium__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story: 1 test pairs
+2026-11-25 18:48:10,328 INFO people_cities_L17_gs2_1b_L17_262k_medium__fit-pc_en__eval-pc_en unit 2/3 (8 conditions, 30.2s)
+2026-11-25 18:48:10,370 WARNING cell add_chain_L17_gs2_1b_L17_65k_medium__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story skipped: add_chain_L17_gs2_1b_L17_65k_medium__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story: 1 test pairs
+2026-11-25 18:48:11,527 WARNING cell add_chain_L17_gs2_1bc_L17_clt262k_medium__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story skipped: add_chain_L17_gs2_1bc_L17_clt262k_medium__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story: 1 test pairs
+2026-11-25 18:48:44,397 INFO people_cities_L17_gs2_1bc_L17_clt262k_medium__fit-pc_en__eval-pc_en unit 1/3 (8 conditions, 30.3s)
+2026-11-25 18:48:44,430 WARNING cell add_chain_L17_gs2_1bc_L17_tc16k_small_all__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story skipped: add_chain_L17_gs2_1bc_L17_tc16k_small_all__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story: 1 test pairs
+2026-11-25 18:48:58,027 INFO people_cities_L17_gs2_1bc_L17_tc16k_small_all__fit-pc_en__eval-pc_en unit 3/3 (2 conditions, 12.6s)
+2026-11-25 18:48:58,050 WARNING cell add_chain_L17_gs2_1bc_L17_xc262k_medium__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story skipped: add_chain_L17_gs2_1bc_L17_xc262k_medium__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story: 1 test pairs
+2026-11-25 18:49:29,642 INFO people_cities_L17_gs2_1bc_L17_xc262k_medium__fit-pc_en__eval-pc_en unit 2/3 (8 conditions, 30.6s)
+2026-11-25 18:49:29,675 WARNING cell add_chain_L17_gs2_1bc_L17_xc65k_medium__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story skipped: add_chain_L17_gs2_1bc_L17_xc65k_medium__fit-rs_en+rs_plus+rs_story__eval-rs_en+rs_plus+rs_story: 1 test pairs
+2026-11-25 18:49:30,761 INFO P12 -> /home2/prakhar2218/PRISM/runs/P12/a445d715ee36 (worker_done)
+Loaded pretrained model gemma-3-1b-pt into HookedTransformer
+
+=== attempt 1 2026-11-25 22:10:27 slots=['2']: /home2/prakhar2218/PRISM/.venv-harness/bin/python -m harness.run --config configs/pilot/P12.yaml --profile server --stage 3 --worker P12_s3-1
+2026-11-25 22:10:33,668 ERROR run failed
+Traceback (most recent call last):
+  File "/home2/prakhar2218/PRISM/harness/run.py", line 1156, in main
+    {"1": R.run_stage1, "2": R.run_stage2, "3": R.run_stage3}[s]()
+  File "/home2/prakhar2218/PRISM/harness/run.py", line 880, in run_stage3
+    cl, fl = self.flags(cell.task)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/harness/run.py", line 553, in flags
+    cl = S.load_clean(ent, len(rows))
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/harness/model/stages.py", line 192, in load_clean
+    entry.require_complete()
+  File "/home2/prakhar2218/PRISM/harness/cache.py", line 128, in require_complete
+    raise FileNotFoundError(f"cache {self.kind}/{self.key} is missing or incomplete ({self.dir})")
+FileNotFoundError: cache clean_out/2049f1751c01ce3d14d7 is missing or incomplete (/ssd_scratch/prakhar2218/prism/cache/clean_out/2049f1751c01ce3d14d7)
+2026-11-25 22:10:33,777 INFO P12 -> /home2/prakhar2218/PRISM/runs/P12/218788b0dbc4 (failed)
+
+=== attempt 2 2026-11-25 22:10:35 slots=['2']: /home2/prakhar2218/PRISM/.venv-harness/bin/python -m harness.run --config configs/pilot/P12.yaml --profile server --stage 3 --worker P12_s3-1
+2026-11-25 22:10:40,670 ERROR run failed
+Traceback (most recent call last):
+  File "/home2/prakhar2218/PRISM/harness/run.py", line 1156, in main
+    {"1": R.run_stage1, "2": R.run_stage2, "3": R.run_stage3}[s]()
+  File "/home2/prakhar2218/PRISM/harness/run.py", line 880, in run_stage3
+    cl, fl = self.flags(cell.task)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/harness/run.py", line 553, in flags
+    cl = S.load_clean(ent, len(rows))
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/harness/model/stages.py", line 192, in load_clean
+    entry.require_complete()
+  File "/home2/prakhar2218/PRISM/harness/cache.py", line 128, in require_complete
+    raise FileNotFoundError(f"cache {self.kind}/{self.key} is missing or incomplete ({self.dir})")
+FileNotFoundError: cache clean_out/2049f1751c01ce3d14d7 is missing or incomplete (/ssd_scratch/prakhar2218/prism/cache/clean_out/2049f1751c01ce3d14d7)
+2026-11-25 22:10:40,778 INFO P12 -> /home2/prakhar2218/PRISM/runs/P12/218788b0dbc4 (failed)

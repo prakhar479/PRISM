@@ -1,0 +1,9 @@
+
+=== attempt 1 2026-11-25 03:36:24 slots=[]: /home2/prakhar2218/PRISM/.venv-harness/bin/python scripts/bundle_results.py --tag pilot-g3-server --queue queue/pilot-g3-server.yaml
+0 runs, 24 files -> /home2/prakhar2218/PRISM/bundles/pilot-g3-server_20261125_033627.tar.gz (0.1 MB)
+
+=== attempt 1 2026-11-25 18:55:30 slots=[]: /home2/prakhar2218/PRISM/.venv-harness/bin/python scripts/bundle_results.py --tag pilot-g3-server --queue queue/pilot-g3-server.yaml
+1 runs, 165 files -> /home2/prakhar2218/PRISM/bundles/pilot-g3-server_20261125_185533.tar.gz (3.6 MB)
+
+=== attempt 1 2026-11-25 22:32:19 slots=[]: /home2/prakhar2218/PRISM/.venv-harness/bin/python scripts/bundle_results.py --tag pilot-g3-server --queue queue/pilot-g3-server.yaml
+2 runs, 231 files -> /home2/prakhar2218/PRISM/bundles/pilot-g3-server_20261125_223222.tar.gz (9.7 MB)

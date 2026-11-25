@@ -1,0 +1,11 @@
+
+=== attempt 1 2026-11-25 03:36:28 slots=[]: /home2/prakhar2218/PRISM/.venv-harness/bin/python scripts/publish_results.py --tag pilot-g3-server --queue queue/pilot-g3-server.yaml
+published 26 files (0.3 MiB), 0 runs -> /home2/prakhar2218/PRISM/results_server/pilot-g3-server
+
+=== attempt 2 2026-11-25 03:36:32 slots=[]: /home2/prakhar2218/PRISM/.venv-harness/bin/python scripts/publish_results.py --tag pilot-g3-server --queue queue/pilot-g3-server.yaml
+published 26 files (0.3 MiB), 0 runs -> /home2/prakhar2218/PRISM/results_server/pilot-g3-server
+
+=== attempt 1 2026-11-25 18:55:34 slots=[]: /home2/prakhar2218/PRISM/.venv-harness/bin/python scripts/publish_results.py --tag pilot-g3-server --queue queue/pilot-g3-server.yaml
+published 166 files (6.2 MiB), 1 runs -> /home2/prakhar2218/PRISM/results_server/pilot-g3-server
+
+=== attempt 1 2026-11-25 22:32:23 slots=[]: /home2/prakhar2218/PRISM/.venv-harness/bin/python scripts/publish_results.py --tag pilot-g3-server --queue queue/pilot-g3-server.yaml

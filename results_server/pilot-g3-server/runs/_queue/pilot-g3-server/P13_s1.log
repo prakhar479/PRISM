@@ -1,0 +1,92 @@
+
+=== attempt 1 2026-11-25 17:12:06 slots=['0']: /home2/prakhar2218/PRISM/.venv-harness/bin/python -m harness.run --config configs/pilot/P13.yaml --profile server --stage 1
+2026-11-25 17:12:19,443 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-it/tree/dcc83ea841ab6100d6b47a070329e1ba4cf78752/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-25 17:12:19,716 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-it/tree/dcc83ea841ab6100d6b47a070329e1ba4cf78752?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-25 17:12:22,309 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-it "HTTP/1.1 200 OK"
+Loading weights:   0%|          | 0/340 [00:00<?, ?it/s]Loading weights:  10%|█         | 35/340 [00:00<00:00, 332.62it/s]Loading weights:  20%|██        | 69/340 [00:00<00:01, 254.56it/s]Loading weights:  28%|██▊       | 96/340 [00:00<00:01, 242.25it/s]Loading weights:  36%|███▌      | 122/340 [00:00<00:01, 215.48it/s]Loading weights:  46%|████▌     | 155/340 [00:00<00:00, 247.16it/s]Loading weights:  53%|█████▎    | 181/340 [00:00<00:00, 228.35it/s]Loading weights:  61%|██████    | 207/340 [00:00<00:00, 222.30it/s]Loading weights:  68%|██████▊   | 230/340 [00:01<00:00, 207.52it/s]Loading weights:  74%|███████▍  | 252/340 [00:01<00:00, 165.01it/s]Loading weights:  79%|███████▉  | 270/340 [00:01<00:00, 132.09it/s]Loading weights:  84%|████████▍ | 285/340 [00:01<00:00, 116.61it/s]Loading weights:  88%|████████▊ | 298/340 [00:01<00:00, 103.74it/s]Loading weights:  91%|█████████ | 310/340 [00:01<00:00, 103.02it/s]Loading weights:  94%|█████████▍| 321/340 [00:02<00:00, 91.72it/s] Loading weights:  97%|█████████▋| 331/340 [00:02<00:00, 88.64it/s]Loading weights: 100%|██████████| 340/340 [00:02<00:00, 153.80it/s]
+2026-11-25 17:12:34,698 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-it "HTTP/1.1 200 OK"
+2026-11-25 17:12:35,494 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-it/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-25 17:12:35,742 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-it/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-25 17:12:37,944 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-it "HTTP/1.1 200 OK"
+2026-11-25 17:13:24,351 ERROR run failed
+Traceback (most recent call last):
+  File "/home2/prakhar2218/PRISM/harness/run.py", line 1156, in main
+    {"1": R.run_stage1, "2": R.run_stage2, "3": R.run_stage3}[s]()
+  File "/home2/prakhar2218/PRISM/harness/run.py", line 321, in run_stage1
+    S.stage1(model, self.spec, self.rows[task], self.set_meta[task]["hash"], layers, self.cache, self.budget, self.device)
+  File "/home2/prakhar2218/PRISM/harness/model/stages.py", line 126, in stage1
+    return _stage1_fill(model, spec, rows, set_hash, layers, cache, budget, device, shard_pairs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/harness/model/stages.py", line 153, in _stage1_fill
+    cand = _tok(rows, b, "cand_ids", device)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/harness/model/stages.py", line 32, in _tok
+    return torch.tensor([rows[i][key] for i in idx], dtype=torch.long, device=device)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: expected sequence of length 15 at dim 1 (got 16)
+2026-11-25 17:13:24,453 INFO P13 -> /home2/prakhar2218/PRISM/runs/P13/d27fe4617948 (failed)
+Loaded pretrained model gemma-3-1b-it into HookedTransformer
+
+=== attempt 2 2026-11-25 17:13:26 slots=['2']: /home2/prakhar2218/PRISM/.venv-harness/bin/python -m harness.run --config configs/pilot/P13.yaml --profile server --stage 1
+2026-11-25 17:13:34,452 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-it/tree/dcc83ea841ab6100d6b47a070329e1ba4cf78752/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-25 17:13:34,711 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-it/tree/dcc83ea841ab6100d6b47a070329e1ba4cf78752?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-25 17:13:36,768 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-it "HTTP/1.1 200 OK"
+Loading weights:   0%|          | 0/340 [00:00<?, ?it/s]Loading weights: 100%|██████████| 340/340 [00:00<00:00, 4767.37it/s]
+2026-11-25 17:13:37,443 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-it "HTTP/1.1 200 OK"
+2026-11-25 17:13:37,820 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-it/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-25 17:13:38,081 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-it/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-25 17:13:40,153 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-it "HTTP/1.1 200 OK"
+2026-11-25 17:13:48,432 ERROR run failed
+Traceback (most recent call last):
+  File "/home2/prakhar2218/PRISM/harness/run.py", line 1156, in main
+    {"1": R.run_stage1, "2": R.run_stage2, "3": R.run_stage3}[s]()
+  File "/home2/prakhar2218/PRISM/harness/run.py", line 321, in run_stage1
+    S.stage1(model, self.spec, self.rows[task], self.set_meta[task]["hash"], layers, self.cache, self.budget, self.device)
+  File "/home2/prakhar2218/PRISM/harness/model/stages.py", line 126, in stage1
+    return _stage1_fill(model, spec, rows, set_hash, layers, cache, budget, device, shard_pairs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/harness/model/stages.py", line 153, in _stage1_fill
+    cand = _tok(rows, b, "cand_ids", device)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/harness/model/stages.py", line 32, in _tok
+    return torch.tensor([rows[i][key] for i in idx], dtype=torch.long, device=device)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: expected sequence of length 15 at dim 1 (got 16)
+2026-11-25 17:13:48,530 INFO P13 -> /home2/prakhar2218/PRISM/runs/P13/d27fe4617948 (failed)
+Loaded pretrained model gemma-3-1b-it into HookedTransformer
+
+=== attempt 1 2026-11-25 22:10:27 slots=['0']: /home2/prakhar2218/PRISM/.venv-harness/bin/python -m harness.run --config configs/pilot/P13.yaml --profile server --stage 1
+2026-11-25 22:10:46,195 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-it/tree/dcc83ea841ab6100d6b47a070329e1ba4cf78752/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-25 22:10:46,455 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-it/tree/dcc83ea841ab6100d6b47a070329e1ba4cf78752?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-25 22:10:46,728 INFO HTTP Request: HEAD https://huggingface.co/google/gemma-3-1b-it/resolve/dcc83ea841ab6100d6b47a070329e1ba4cf78752/added_tokens.json "HTTP/1.1 200 OK"
+2026-11-25 22:10:46,980 INFO HTTP Request: GET https://huggingface.co/google/gemma-3-1b-it/resolve/dcc83ea841ab6100d6b47a070329e1ba4cf78752/added_tokens.json "HTTP/1.1 200 OK"
+2026-11-25 22:10:47,229 INFO HTTP Request: HEAD https://huggingface.co/google/gemma-3-1b-it/resolve/dcc83ea841ab6100d6b47a070329e1ba4cf78752/chat_template.jinja "HTTP/1.1 404 Not Found"
+2026-11-25 22:10:49,775 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-it "HTTP/1.1 200 OK"
+Loading weights:   0%|          | 0/340 [00:00<?, ?it/s]Loading weights:   9%|▉         | 32/340 [00:00<00:01, 305.24it/s]Loading weights:  19%|█▊        | 63/340 [00:00<00:00, 298.29it/s]Loading weights:  27%|██▋       | 93/340 [00:00<00:00, 253.35it/s]Loading weights:  37%|███▋      | 127/340 [00:00<00:00, 280.29it/s]Loading weights:  49%|████▉     | 166/340 [00:00<00:00, 314.70it/s]Loading weights:  60%|██████    | 204/340 [00:00<00:00, 330.76it/s]Loading weights:  71%|███████   | 240/340 [00:00<00:00, 334.35it/s]Loading weights:  81%|████████  | 276/340 [00:00<00:00, 341.00it/s]Loading weights:  91%|█████████▏| 311/340 [00:00<00:00, 336.69it/s]Loading weights: 100%|██████████| 340/340 [00:01<00:00, 321.90it/s]
+2026-11-25 22:10:57,159 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-it "HTTP/1.1 200 OK"
+2026-11-25 22:10:57,644 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-it/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-25 22:10:57,894 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-it/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-25 22:10:59,925 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-it "HTTP/1.1 200 OK"
+2026-11-25 22:11:26,823 INFO stage1 shard 1/15 (96 pairs)
+2026-11-25 22:11:27,944 INFO stage1 shard 2/15 (96 pairs)
+2026-11-25 22:11:29,107 INFO stage1 shard 3/15 (96 pairs)
+2026-11-25 22:11:30,273 INFO stage1 shard 4/15 (96 pairs)
+2026-11-25 22:11:31,657 INFO stage1 shard 5/15 (96 pairs)
+2026-11-25 22:11:32,883 INFO stage1 shard 6/15 (96 pairs)
+2026-11-25 22:11:34,104 INFO stage1 shard 7/15 (96 pairs)
+2026-11-25 22:11:35,348 INFO stage1 shard 8/15 (96 pairs)
+2026-11-25 22:11:36,602 INFO stage1 shard 9/15 (96 pairs)
+2026-11-25 22:11:37,858 INFO stage1 shard 10/15 (96 pairs)
+2026-11-25 22:11:39,100 INFO stage1 shard 11/15 (96 pairs)
+2026-11-25 22:11:40,390 INFO stage1 shard 12/15 (96 pairs)
+2026-11-25 22:11:41,860 INFO stage1 shard 13/15 (96 pairs)
+2026-11-25 22:11:43,359 INFO stage1 shard 14/15 (96 pairs)
+2026-11-25 22:11:43,826 INFO stage1 shard 15/15 (6 pairs)
+2026-11-25 22:11:44,444 INFO P13 -> /home2/prakhar2218/PRISM/runs/P13/f2350346ccbf (stage1_complete)
+Loaded pretrained model gemma-3-1b-it into HookedTransformer

@@ -1,0 +1,26 @@
+2026-11-25 22:10:46,195 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-it/tree/dcc83ea841ab6100d6b47a070329e1ba4cf78752/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-25 22:10:46,455 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-it/tree/dcc83ea841ab6100d6b47a070329e1ba4cf78752?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-25 22:10:46,728 INFO HTTP Request: HEAD https://huggingface.co/google/gemma-3-1b-it/resolve/dcc83ea841ab6100d6b47a070329e1ba4cf78752/added_tokens.json "HTTP/1.1 200 OK"
+2026-11-25 22:10:46,980 INFO HTTP Request: GET https://huggingface.co/google/gemma-3-1b-it/resolve/dcc83ea841ab6100d6b47a070329e1ba4cf78752/added_tokens.json "HTTP/1.1 200 OK"
+2026-11-25 22:10:47,229 INFO HTTP Request: HEAD https://huggingface.co/google/gemma-3-1b-it/resolve/dcc83ea841ab6100d6b47a070329e1ba4cf78752/chat_template.jinja "HTTP/1.1 404 Not Found"
+2026-11-25 22:10:49,775 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-it "HTTP/1.1 200 OK"
+2026-11-25 22:10:57,159 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-it "HTTP/1.1 200 OK"
+2026-11-25 22:10:57,644 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-it/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-25 22:10:57,894 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-it/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-25 22:10:59,925 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-it "HTTP/1.1 200 OK"
+2026-11-25 22:11:26,823 INFO stage1 shard 1/15 (96 pairs)
+2026-11-25 22:11:27,944 INFO stage1 shard 2/15 (96 pairs)
+2026-11-25 22:11:29,107 INFO stage1 shard 3/15 (96 pairs)
+2026-11-25 22:11:30,273 INFO stage1 shard 4/15 (96 pairs)
+2026-11-25 22:11:31,657 INFO stage1 shard 5/15 (96 pairs)
+2026-11-25 22:11:32,883 INFO stage1 shard 6/15 (96 pairs)
+2026-11-25 22:11:34,104 INFO stage1 shard 7/15 (96 pairs)
+2026-11-25 22:11:35,348 INFO stage1 shard 8/15 (96 pairs)
+2026-11-25 22:11:36,602 INFO stage1 shard 9/15 (96 pairs)
+2026-11-25 22:11:37,858 INFO stage1 shard 10/15 (96 pairs)
+2026-11-25 22:11:39,100 INFO stage1 shard 11/15 (96 pairs)
+2026-11-25 22:11:40,390 INFO stage1 shard 12/15 (96 pairs)
+2026-11-25 22:11:41,860 INFO stage1 shard 13/15 (96 pairs)
+2026-11-25 22:11:43,359 INFO stage1 shard 14/15 (96 pairs)
+2026-11-25 22:11:43,826 INFO stage1 shard 15/15 (6 pairs)
+2026-11-25 22:11:44,444 INFO P13 -> /home2/prakhar2218/PRISM/runs/P13/f2350346ccbf (stage1_complete)

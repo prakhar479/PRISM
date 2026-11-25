@@ -63,7 +63,7 @@ checks() {   # everything that would otherwise fail hours in; exits non-zero on 
   if [ -z "${HF_TOKEN:-}" ] && [ -r "$HOME/.hf_token" ]; then HF_TOKEN=$(<"$HOME/.hf_token"); fi
   if [ -n "${HF_TOKEN:-}" ]; then export HF_TOKEN; say "HF token: found"; else echo "ERROR: HF_TOKEN not set and ~/.hf_token missing (Gemma-2 is gated)"; ok=0; fi
   for q in $QUEUES; do [ -f "$q" ] || { echo "ERROR: queue $q not in this checkout"; ok=0; }; done
-  for f in configs/dict_registry.yaml configs/pilot/P12.yaml configs/pilot/P13.yaml data/prompt_sets/add_chain_p8_g3.jsonl.gz \
+  for f in configs/dict_registry.yaml configs/pilot/P12.yaml configs/pilot/P13.yaml configs/pilot/P14.yaml data/prompt_sets/add_chain_p8_g3.jsonl.gz data/prompt_sets/entity_track_p11_g3.jsonl.gz \
            data/prompt_sets/people_cities_p1_g3.jsonl.gz data/prompt_sets/refusal_p13_g3it.jsonl.gz; do
     [ -f "$f" ] || { echo "ERROR: $f missing (pilot-g3 inputs are committed; wrong checkout?)"; ok=0; }
   done

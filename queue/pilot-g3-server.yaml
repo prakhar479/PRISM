@@ -6,6 +6,8 @@
 #       Running sum and people-cities (the P8 sets), 86 cells.
 #   P13 refusal state in Gemma 3 1B-IT: harmful vs harmless minimal chat requests; residual SAEs at L7/13/17/22 (16k / 262k)
 #       and three composites at L13; difference-of-means refusal direction vs DAS; 11 cells.
+#   P14 the P12 dictionaries on object tracking (added after P12's running-sum cells were all skipped: Gemma 3 1B is at chance on
+#       that task, 0 of 60 pairs pass the filter; object tracking passes on 62-70 %). 43 cells. Resubmit with ONLY=P14.
 # Estimated ~35-60 GPU-h (stage 2 of the composites reads ~200 GB of weights; DAS v2 per task/layer as in P8).
 tag: pilot-g3-server
 profile: server
@@ -20,20 +22,24 @@ jobs:
   # ---- stage 1 (P12 caches every sublayer site its composites read: ~14 layers x 3 sites per task)
   - {id: P13_s1, config: configs/pilot/P13.yaml, stage: "1", priority: 10, depends_on: [preflight]}
   - {id: P12_s1, config: configs/pilot/P12.yaml, stage: "1", priority: 9, depends_on: [preflight]}
+  - {id: P14_s1, config: configs/pilot/P14.yaml, stage: "1", priority: 8, depends_on: [preflight]}
 
   # ---- stage 2 (composites stream one weight file at a time; slices spread the dictionaries over the GPUs)
   - {id: P13_s2, config: configs/pilot/P13.yaml, stage: "2", slices: auto, priority: 10, depends_on: [P13_s1]}
   - {id: P12_s2, config: configs/pilot/P12.yaml, stage: "2", slices: auto, priority: 9, depends_on: [P12_s1]}
+  - {id: P14_s2, config: configs/pilot/P14.yaml, stage: "2", slices: auto, priority: 8, depends_on: [P14_s1]}
 
   # ---- stage 3 (workers share each run; DAS v2 rotations are cached per task / layer, so every dictionary reuses them)
   - {id: P13_s3, config: configs/pilot/P13.yaml, stage: "3", workers: auto, priority: 10, depends_on: [P13_s2]}
   - {id: P12_s3, config: configs/pilot/P12.yaml, stage: "3", workers: auto, priority: 9, depends_on: [P12_s2]}
+  - {id: P14_s3, config: configs/pilot/P14.yaml, stage: "3", workers: auto, priority: 8, depends_on: [P14_s2]}
 
   # ---- finalize (CPU)
   - {id: P13_fin, config: configs/pilot/P13.yaml, stage: "3", gpu: none, args: [--finalize-only], depends_on: [P13_s3]}
   - {id: P12_fin, config: configs/pilot/P12.yaml, stage: "3", gpu: none, args: [--finalize-only], depends_on: [P12_s3]}
+  - {id: P14_fin, config: configs/pilot/P14.yaml, stage: "3", gpu: none, args: [--finalize-only], depends_on: [P14_s3]}
 
   - {id: bundle, kind: script, script: scripts/bundle_results.py, args: [--tag, pilot-g3-server, --queue, queue/pilot-g3-server.yaml],
-     after_failed: true, depends_on: [P13_fin, P12_fin]}
+     after_failed: true, depends_on: [P13_fin, P12_fin, P14_fin]}
   - {id: publish, kind: script, script: scripts/publish_results.py, args: [--tag, pilot-g3-server, --queue, queue/pilot-g3-server.yaml],
      after_failed: true, depends_on: [bundle]}

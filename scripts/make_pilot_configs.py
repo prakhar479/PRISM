@@ -208,6 +208,21 @@ def configs() -> dict:
                           conditions=["feat_A_errB", "feat_A_meanPos", "feat_B_errA"],
                           directions={"conditions": ["feat_A_along_U", "full_along_U"], "ranks": [8], "estimators": ["das8v2_kl"],
                                       "sources": ["same_task"], "random_seeds": 5, "r_max": 8})
+    # ---------------------------------------------------------------- P14: the P12 dictionaries on object tracking (Gemma 3 1B)
+    # P12's running-sum cells were all skipped: Gemma 3 1B is at chance on that task (0 of 60 pairs pass f_pilot; probe on DEV,
+    # 2026-11-25), while object tracking passes on 62-70 % of pairs. Same dictionaries, same site, same DAS recipe; P12 is untouched.
+    if r12 and c12:
+        cells = []
+        for n in sorted(names, key=lambda n: (int(reg_all[n]["layer"]), reg_all[n]["arch"], n)):
+            cells.append(ot(int(reg_all[n]["layer"]), {"dict": n}))
+        out["P14"] = base("P14", "dictionary_families_gemma3_tracking",
+                          "P12's question on object tracking (both runs move the queried object, three box vocabularies): Gemma 3 1B, the "
+                          "residual after L13 (subset at L17), residual SAEs / transcoders / CLTs / MLP- and attention-SAEs / crosscoders "
+                          "scored at the same site (harness/composite.py); one DAS rank-8 subspace per layer scores every dictionary.",
+                          {"entity_track": "prompt_sets/entity_track_p11_g3.jsonl.gz"}, model="gemma-3-1b-pt", model_revision=G3_REV,
+                          cells=cells, conditions=["feat_A_errB", "feat_A_meanPos", "feat_B_errA"],
+                          directions={"conditions": ["feat_A_along_U", "full_along_U"], "ranks": [8], "estimators": ["das8v2_kl"],
+                                      "sources": ["same_task"], "random_seeds": 5, "r_max": 8})
     # ---------------------------------------------------------------- P13: refusal state in Gemma 3 1B-IT
     r13, c13 = registry("p13_resid"), registry("p13_comp")
     if r13:

@@ -468,14 +468,15 @@ def main() -> int:
     report = ["# Breadth pilot verdicts (exploratory, post hoc; scripts/make_pilot.py)", ""]
     jobs = {"P0": lambda r: p0(r, a.boot), "P1": lambda r: p1(r, a.boot), "P2": lambda r: p2(r, a.boot, pf.get("P2")),
             "P4": lambda r: p4(r, a.boot, pf.get("P4")), "P5": lambda r: p5(r, a.boot), "P7": lambda r: p7(r, a.boot),
-            "P8": lambda r: p8(r, a.boot), "P12": lambda r: p12(r, a.boot), "P13": lambda r: p13(r, a.boot)}
+            "P8": lambda r: p8(r, a.boot), "P12": lambda r: p12(r, a.boot), "P13": lambda r: p13(r, a.boot),
+            "P14": lambda r: p12(r, a.boot)}
     if "P11" in runs:
         from harness import tasks as T
         ps = runs["P11"]["manifest"]["prompt_sets"].get("entity_track", {}).get("file")
         rows = T.load_set(Path(a.data_root) / ps)[0] if ps and (Path(a.data_root) / ps).exists() else None
         jobs["P11"] = lambda r, rows=rows: p11(r, a.boot, rows)
-    for e in ("P0", "P11", "P1", "P2", "P4", "P5", "P7", "P8", "P12", "P13"):
-        if e not in runs and e in ("P12", "P13"):
+    for e in ("P0", "P11", "P1", "P2", "P4", "P5", "P7", "P8", "P12", "P13", "P14"):
+        if e not in runs and e in ("P12", "P13", "P14"):
             continue                                       # second set (branch pilot-g3): only when its results are ingested
         if e not in runs:
             report += [f"## {e}: no complete run", ""]

@@ -212,7 +212,7 @@ def test_g3_queue_configs_and_prefetch_targets():
     from harness.config import ExpConfig
     from harness.queue import Queue
     q = Queue.load(ROOT / "queue" / "pilot-g3-server.yaml")
-    assert set(q.configs()) == {"configs/pilot/P12.yaml", "configs/pilot/P13.yaml"}
+    assert set(q.configs()) == {"configs/pilot/P12.yaml", "configs/pilot/P13.yaml", "configs/pilot/P14.yaml"}
     t = rp.targets(q)
     assert {"google/gemma-3-1b-pt", "google/gemma-3-1b-it", "google/gemma-2-2b"} <= {m[0] for m in t["models"]}
     files = {f for s in t["saes"] for f in s.repo_files()}
@@ -292,3 +292,12 @@ def test_verify_classifies_capability_skips_apart_from_failures():
     cap, other = v.classify_skips(cells)
     assert [c["cell"] for c in cap] == ["add_chain_L13_x", "people_cities_L13_x"] and [c["cell"] for c in other] == ["refusal_L7_y"]
     assert v.cell_task("people_cities_L13_x") == "people_cities" and v.cell_task("add_chain_L13_x") == "add_chain"
+
+
+def test_p14_runs_the_p12_dictionaries_on_object_tracking():
+    from harness.config import ExpConfig
+    p12, p14 = ExpConfig.load(ROOT / "configs/pilot/P12.yaml"), ExpConfig.load(ROOT / "configs/pilot/P14.yaml")
+    assert {c.task for c in p14.cells} == {"entity_track"} and len(p14.cells) == len(p12.cells) // 2
+    assert {c.sae.dict for c in p14.cells} == {c.sae.dict for c in p12.cells}            # the same dictionaries
+    assert p14.model == p12.model and p14.model_revision == p12.model_revision
+    assert all(c.fit_families == ["ot_placed_dest", "ot_bin_dest", "ot_drawer_dest"] for c in p14.cells)

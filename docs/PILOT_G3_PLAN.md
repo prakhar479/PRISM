@@ -82,6 +82,29 @@ subspace per task and layer. That subspace scores every dictionary, with 5 rando
 - CE / FVU on generic text per composite (paper B's fidelity axis). Gemma Scope 2 configs record the target L0.
 - Object tracking: the set is large, and P8 will tell whether Gemma 3 does it.
 
+## P14. The P12 dictionaries on object tracking (added 2026-11-25)
+
+**Why.** P12's run (tag g3c) skipped all 43 running-sum cells: only 1 test pair passed the strict filter, so the capability gate
+fired. The filter depends only on the model's own answers. A DEV probe of Gemma 3 1B (CPU, 60 pairs per family, the harness's
+f_pilot) gives, as share of pairs passing:
+
+| Task | Passes filter |
+|---|---|
+| Running sum `rs_en` / `rs_plus` / `rs_story` | 0 / 0 / 0 % (answer correct 10 / 15 / 28 %, chance 10 %) |
+| Variable binding | 2 % |
+| People-cities | 40 % (P12 run) |
+| Object tracking `ot_placed_dest` / `ot_bin_dest` | 62 / 70 % |
+| IOI | 100 % (ceiling control; not used) |
+
+So the finished P12 is a comparison of dictionary types on people-cities only. P14 adds the other task the model can do and that
+tracks state over a long context, like the running sum did: the same 43 dictionaries and DAS recipe (rank 8, 5 random seeds) on
+`entity_track_p11_g3` (the three `*_dest` families). P12.yaml and its finished run are not touched.
+
+**Run** (same box, same checkout as P12; stage-1/2 caches and downloads are reused): `sbatch --export=ALL,ONLY=P14
+scripts/slurm_pilot_g3.sbatch`. `ONLY` counts P12 and P13 as done, so their finished runs are neither redone nor overwritten. Cost:
+about 3-6 h on 4 GPUs (object-tracking prompts are ~400 tokens, three families, so ~4x the people-cities cells). Verdict: scripts/make_pilot.py
+applies P12's rule (go if capture differs by >= 0.10 between families, or replacement-model error nodes carry task state).
+
 ## P13. Refusal state in Gemma 3 1B-IT
 
 **Data (`scripts/build_refusal_set.py`).**

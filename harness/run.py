@@ -211,9 +211,17 @@ class Runner:
     def sae_key(self, sid: SAEId) -> dict:
         k = {**sid.to_dict(), "tiny": self.tiny}
         if getattr(sid, "addon", ""):
-            from harness.dicts import ADDON_LAMBDA
+            from harness.dicts import ADDON_LAMBDA, parse_addon
             k["addon_fit"] = {"corpus": self.generic["hash"] if self.generic else None, "lam": ADDON_LAMBDA}
+            p = parse_addon(sid.addon)
+            if p["needs_F"] and self.generic:              # the add-on follows the Fisher it was chosen with
+                k["addon_fit"]["sens"] = self.sensitivity_entry(sid.layer).key
         return k
+
+    def sensitivity_entry(self, layer: int):
+        """Generic-text Fisher of the LM loss at `layer` (harness.sensitivity; filled by scripts/fit_sensitivity.py)."""
+        from harness import sensitivity as Sn
+        return Sn.entry(self.cache, self.spec, self.generic["hash"], layer, self.generic["skip"])
 
     def need_codes(self) -> bool:
         """Active codes of A and B are cached in stage 2 when a code-level condition is evaluated (P0)."""
@@ -341,7 +349,7 @@ class Runner:
         if getattr(sid, "addon", ""):
             base = self.get_sae(sid.base())
             fit = self.addon_map(sid, base)
-            return Dct.AddonDict(base, sid.addon, fit["W"], fit.get("c"), fit.get("info"))
+            return Dct.AddonDict(base, sid.addon, fit["W"], fit.get("c"), fit.get("info"), fit.get("extra"))
         source = getattr(sid, "source", "gemma_scope")
         if self.is_composite(sid):
             from harness import composite as Cm
@@ -414,9 +422,14 @@ class Runner:
 
     def addon_entry(self, sid):
         r, _ = self.generic_entries(sid.layer, sid.base())
-        from harness.dicts import ADDON_LAMBDA, ADDON_MAX_ROWS
-        return self.cache.entry("addon", resid=r.key, base=self.sae_key(sid.base()), mode=sid.addon, lam=ADDON_LAMBDA,
-                                max_rows=ADDON_MAX_ROWS)
+        from harness.dicts import ADDON_LAMBDA, ADDON_MAX_ROWS, parse_addon
+        parts = dict(resid=r.key, base=self.sae_key(sid.base()), mode=sid.addon, lam=ADDON_LAMBDA, max_rows=ADDON_MAX_ROWS)
+        p = parse_addon(sid.addon)
+        if p["kind"] not in ("lin", "pcx"):                 # batch-2 modes: keyed by their inputs and fit version
+            parts["fit_version"] = 2
+            if p["needs_F"]:
+                parts["sens"] = self.sensitivity_entry(sid.layer).key
+        return self.cache.entry("addon", **parts)
 
     def addon_map(self, sid, base) -> dict:
         """The add-on's fitted map (cached; fitted once from the generic set's cached residuals at the cell's layer)."""
@@ -433,13 +446,25 @@ class Runner:
                     dev = self.device if not self.tiny else torch.device("cpu")
                     chunks = self._capped_shards(r, Dct.ADDON_MAX_ROWS)
                     t0 = time.time()
-                    fit = Dct.fit_addon(base, chunks, sid.addon, device=dev)
-                    ent.write_shard(0, {"W": fit["W"], **({"c": fit["c"]} if fit["c"] is not None else {})})
+                    F = None
+                    if Dct.parse_addon(sid.addon)["needs_F"]:
+                        from harness import sensitivity as Sn
+                        se = self.sensitivity_entry(sid.layer)
+                        if not se.complete:
+                            raise FileNotFoundError(f"{sid.key}: no generic-text Fisher for layer {sid.layer}: run "
+                                                    f"scripts/fit_sensitivity.py (queue job S_*) before stage 2")
+                        F = Sn.load(se)
+                    import zlib
+                    seed = zlib.crc32(sid.addon.encode()) % 100_000 + int(sid.layer)
+                    fit = Dct.fit_addon(base, chunks, sid.addon, device=dev, F=F, seed=seed)
+                    ent.write_shard(0, {"W": fit["W"], **({"c": fit["c"]} if fit["c"] is not None else {}),
+                                        **{f"x_{k}": v for k, v in (fit.get("extra") or {}).items()}})
                     ent.write_json("info.json", fit["info"])
                     ent.mark_complete(fit["info"])
                     log.info("add-on %s fitted on %d generic rows (%.0fs)", sid.key, fit["info"]["n_rows"], time.time() - t0)
         sh = ent.read_shard(0)
-        return {"W": sh["W"], "c": sh.get("c"), "info": ent.read_json("info.json")}
+        return {"W": sh["W"], "c": sh.get("c"), "info": ent.read_json("info.json"),
+                "extra": {k[2:]: v for k, v in sh.items() if k.startswith("x_")}}
 
     def spans_entry(self, task, layer):
         return self.cache.entry("spans", model=self.spec.key(), set_hash=self.set_meta[task]["hash"], layer=int(layer),

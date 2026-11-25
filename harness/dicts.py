@@ -13,6 +13,15 @@ Wrappers:
     AddonDict  x_hat' = x_hat + A(x, eps), eps' = eps - A    (P4/P6): 'lin' A = [x, 1] W (ridge of eps on x: the linearly
                predictable error, Engels et al.), 'pcx<r>' A = eps P_r with P_r the top-r eigenvectors of the uncentered second
                moment of x (the dense low-rank 'scaffold' of Deng et al.; pcx1 = the massive-activation direction alone).
+    Batch 2 (docs/NEXT_BATCH_PLAN.md, H1 / H2): the correction is a k-dimensional piece of the error.
+      var<k> / fis<k> / sens<k> / rnd<k>   A = [x, 1] W P_U, the ridge predictor of eps from x restricted to the k-dim subspace U
+               chosen by error variance (top eigenvectors of Cov eps), by output sensitivity alone (top eigenvectors of the
+               generic-text Fisher F of harness/sensitivity.py), by both (top eigenvectors of sym(Cov(eps) F): the directions
+               where unrepaired error costs most), or at random;
+      ovar / ofis / osens / ornd <k>       the same subspaces as ORACLE projections A = eps P_U (the true error, no predictor):
+               an upper bound that separates 'wrong subspace' from 'badly predicted';
+      clin     A = [f, 1] W2: the decoder refit by ridge on the frozen codes f (is the missing part linear in the codes?);
+      mlp<h> / cmlp<h>   A = a one-hidden-layer GELU network of x (mlp) or of the codes (cmlp): the nonlinear references.
 Identifiers: DictId extends SAEId. Gemma Scope dictionaries keep SAEId's key and to_dict() exactly, so cached stage-2 outputs
 of earlier runs stay valid; other sources are named in configs/dict_registry.yaml or trained by scripts/train_dictionary.py.
 """
@@ -20,6 +29,7 @@ from __future__ import annotations
 
 import dataclasses
 import json
+import re
 from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Dict, Iterable, Optional, Tuple
@@ -34,6 +44,29 @@ REGISTRY = REPO_ROOT / "configs" / "dict_registry.yaml"
 ADDON_LAMBDA = 1e-2            # ridge strength for 'lin', relative to the mean diagonal of X^T X
 ADDON_MAX_ROWS = 262_144       # generic rows an add-on is fitted on (the first shards of the generic set)
 KINDS = ("jumprelu", "topk", "gated")
+
+
+# --------------------------------------------------------------------------- add-on names
+_ADDON_RE = re.compile(r"^(?:(lin)|(clin)|(mlp|cmlp)(\d+)|(o?)(var|fis|sens|rnd|pcx)(\d+))$")
+SUBSPACE_KINDS = ("var", "fis", "sens", "rnd")
+
+
+def parse_addon(mode: str) -> dict:
+    """'lin' | 'clin' | 'mlp<h>' | 'cmlp<h>' | '[o](var|fis|sens|rnd)<k>' | 'pcx<r>' -> {kind, k, oracle, needs_F, needs_codes}.
+    pcx is an oracle projection (eps P_r) by construction; k >= 1."""
+    m = _ADDON_RE.match(mode or "")
+    if not m or (m.group(7) is not None and int(m.group(7)) < 1) or (m.group(4) is not None and int(m.group(4)) < 1):
+        raise ValueError(f"unknown addon {mode!r} (lin | clin | mlp<h> | cmlp<h> | [o]var|fis|sens|rnd<k> | pcx<r>)")
+    if m.group(1):
+        kind, k, oracle = "lin", 0, False
+    elif m.group(2):
+        kind, k, oracle = "clin", 0, False
+    elif m.group(3):
+        kind, k, oracle = m.group(3), int(m.group(4)), False
+    else:
+        kind, k = m.group(6), int(m.group(7))
+        oracle = bool(m.group(5)) or kind == "pcx"
+    return {"kind": kind, "k": k, "oracle": oracle, "needs_F": kind in ("fis", "sens"), "needs_codes": kind in ("clin", "cmlp")}
 
 
 # --------------------------------------------------------------------------- identifiers
@@ -91,8 +124,8 @@ def resolve(layer: int, spec, inventory: dict, sae_revision: Optional[str], regi
     """A cell's SAESpec -> DictId. spec.dict names a registry or trained dictionary; otherwise Gemma Scope (width, l0 rule)."""
     name = getattr(spec, "dict", None)
     addon = getattr(spec, "addon", None) or ""
-    if addon and not (addon == "lin" or (addon.startswith("pcx") and addon[3:].isdigit() and int(addon[3:]) >= 1)):
-        raise ValueError(f"unknown addon {addon!r} (lin | pcx<r>)")
+    if addon:
+        parse_addon(addon)
     if not name:
         did = DictId(layer, spec.width, spec.resolve(layer, inventory), revision=sae_revision)
     elif name.startswith("trained:"):
@@ -210,12 +243,17 @@ class Dictionary(_jumprelu_cls()):
 
 
 class AddonDict:
-    """base dictionary + an affine add-on fitted on generic text (see module doc). Codes are the base's."""
+    """base dictionary + a correction fitted on generic text (see module doc). Codes are the base's."""
 
-    def __init__(self, base, mode: str, W: torch.Tensor, c: Optional[torch.Tensor] = None, info: Optional[dict] = None):
+    def __init__(self, base, mode: str, W: torch.Tensor, c: Optional[torch.Tensor] = None, info: Optional[dict] = None,
+                 extra: Optional[Dict[str, torch.Tensor]] = None):
         self.base, self.mode, self.W, self.c, self.info = base, mode, W.float(), (None if c is None else c.float()), info or {}
+        self.extra = {k: v.float() for k, v in (extra or {}).items()}
+        self.spec = parse_addon(mode)
         self.width, self.layer = getattr(base, "width", "?"), getattr(base, "layer", -1)
         self.streamed = False
+        if self.spec["needs_codes"] and (not hasattr(base, "W_enc_T") or getattr(base, "kind", "jumprelu") != "jumprelu"):
+            raise ValueError(f"add-on {mode} needs a JumpReLU base (it reads the codes z * 1[z > threshold])")
         if getattr(base, "encode_active", None) is not None:      # TopK / gated base: its own active codes; a JumpReLU base
             self.encode_active = base.encode_active               # goes through encode_sparse (alpha_min kept, z > thr filter)
 
@@ -244,13 +282,38 @@ class AddonDict:
         self.W = self.W.to(device)
         if self.c is not None:
             self.c = self.c.to(device)
+        self.extra = {k: v.to(device) for k, v in self.extra.items()}
         return self
 
+    def codes(self, x32: torch.Tensor) -> torch.Tensor:
+        """Dense JumpReLU codes f = z * 1[z > threshold] of rows x32 [R, d] (the arithmetic of harness.sae.decompose)."""
+        b = self.base
+        We, be, th = b.W_enc_T.to(x32.device), b.b_enc.to(x32.device), b.threshold.to(x32.device)
+        z = x32.to(We.dtype) @ We.T + be
+        return (z * (z > th)).float()
+
+    def _rows_step(self) -> int:
+        n = int(self.base.W_enc_T.shape[0]) if self.spec["needs_codes"] else int(self.W.shape[0])
+        return max(1, (256 * 2 ** 20) // max(1, n * 4 * 3))
+
     def addon(self, x32: torch.Tensor, eps: torch.Tensor) -> torch.Tensor:
-        W = self.W.to(x32.device)
-        if self.mode == "lin":
-            return x32 @ W + self.c.to(x32.device)
-        return eps @ W                                    # pcx: W = U U^T
+        sp, W = self.spec, self.W.to(x32.device)
+        if sp["oracle"]:
+            return eps @ W                                # pcx / o<kind><k>: W = U U^T applied to the TRUE error
+        if sp["kind"] in ("lin",) + SUBSPACE_KINDS:
+            return x32 @ W + self.c.to(x32.device)        # lin: W d x d; var / fis / sens / rnd: W = W_lin U U^T (predictor)
+        out = torch.empty_like(x32)
+        step = self._rows_step()
+        for a in range(0, len(x32), step):
+            xs = x32[a:a + step]
+            f = self.codes(xs) if sp["needs_codes"] else xs
+            if sp["kind"] == "clin":
+                out[a:a + step] = f @ W + self.c.to(x32.device)
+            else:                                          # mlp / cmlp
+                e = {k: v.to(x32.device) for k, v in self.extra.items()}
+                h = torch.nn.functional.gelu((f / e["scale_in"]) @ W + e["b1"])
+                out[a:a + step] = (h @ e["W2"] + e["b2"]) * e["scale_out"]
+        return out
 
     @torch.inference_mode()
     def decompose_rows(self, X: torch.Tensor, block_latents=None, device=None):
@@ -263,43 +326,197 @@ class AddonDict:
 
 
 
-# --------------------------------------------------------------------------- add-on fitting (P4 / P6)
-@torch.inference_mode()
-def fit_addon(base, chunks: Iterable[torch.Tensor], mode: str, lam: float = ADDON_LAMBDA, device=None) -> dict:
-    """Fit the add-on map of `mode` from generic residual chunks [N, d] (one streaming pass, float64 sums).
-    lin: W, c minimise sum |eps - x W - c|^2 + lam * mean(diag X^T X) * |W|^2 (bias not penalised).
-    pcx<r>: W = U U^T with U the top-r eigenvectors of sum x x^T (uncentered)."""
+# --------------------------------------------------------------------------- add-on fitting (P4 / P6; batch 2)
+def _moments(base, chunks, device, need_ee: bool):
+    """Streaming float64 moments of (x, eps) over generic residual chunks: XtX, XtE, [EtE], sum x, sum eps, n."""
     from harness.sae import decompose
-    r = int(mode[3:]) if mode.startswith("pcx") else 0
-    XtX = XtE = sx = se = None
+    XtX = XtE = EtE = sx = se = None
     n = 0
     for X in chunks:
         x = X.reshape(-1, X.shape[-1]).float()
-        if mode == "lin":
-            _, eps, _ = decompose(base, x, device=device)
-            x64, e64 = x.to(eps.device).double(), eps.double()
-            XtX = x64.T @ x64 if XtX is None else XtX + x64.T @ x64
-            XtE = x64.T @ e64 if XtE is None else XtE + x64.T @ e64
-            sx = x64.sum(0) if sx is None else sx + x64.sum(0)
-            se = e64.sum(0) if se is None else se + e64.sum(0)
-        else:
-            x64 = x.double()
-            XtX = x64.T @ x64 if XtX is None else XtX + x64.T @ x64
+        _, eps, _ = decompose(base, x, device=device)
+        x64, e64 = x.to(eps.device).double(), eps.double()
+        XtX = x64.T @ x64 if XtX is None else XtX + x64.T @ x64
+        XtE = x64.T @ e64 if XtE is None else XtE + x64.T @ e64
+        if need_ee:
+            EtE = e64.T @ e64 if EtE is None else EtE + e64.T @ e64
+        sx = x64.sum(0) if sx is None else sx + x64.sum(0)
+        se = e64.sum(0) if se is None else se + e64.sum(0)
         n += len(x)
     if n == 0:
         raise ValueError("fit_addon: no rows")
-    if mode == "lin":
-        mx, me = sx / n, se / n
-        C = XtX / n - torch.outer(mx, mx)                 # centered: the bias absorbs the means
-        Ce = XtE / n - torch.outer(mx, me)
-        reg = lam * float(torch.diagonal(C).mean())
+    return XtX, XtE, EtE, sx, se, n
+
+
+def _top_eigvecs(M: torch.Tensor, k: int) -> torch.Tensor:
+    ev, V = torch.linalg.eigh(M.cpu().double())
+    return V[:, torch.argsort(ev, descending=True)[:k]]
+
+
+def error_subspace(kind: str, k: int, Cee: torch.Tensor, F: Optional[torch.Tensor], seed: int = 0) -> torch.Tensor:
+    """U [d, k] orthonormal: var = top eigenvectors of Cov(eps); fis = of the Fisher F; sens = of sym(Cov(eps) F); rnd = Haar."""
+    d = Cee.shape[0]
+    k = min(k, d)
+    if kind == "var":
+        return _top_eigvecs(Cee, k)
+    if kind == "fis":
+        return _top_eigvecs(F, k)
+    if kind == "sens":
+        S = Cee.cpu().double() @ F.cpu().double()
+        return _top_eigvecs(0.5 * (S + S.T), k)
+    g = torch.Generator().manual_seed(int(seed))
+    Q, _ = torch.linalg.qr(torch.randn(d, k, generator=g, dtype=torch.float64))
+    return Q
+
+
+@torch.inference_mode()
+def fit_addon(base, chunks: Iterable[torch.Tensor], mode: str, lam: float = ADDON_LAMBDA, device=None,
+              F: Optional[torch.Tensor] = None, seed: int = 0) -> dict:
+    """Fit the add-on map of `mode` from generic residual chunks [N, d] (one streaming pass, float64 sums).
+    lin: W, c minimise sum |eps - x W - c|^2 + lam * mean(diag X^T X) * |W|^2 (bias not penalised).
+    pcx<r>: W = U U^T with U the top-r eigenvectors of sum x x^T (uncentered).
+    var / fis / sens / rnd <k>: U = error_subspace(...); W = W_lin U U^T, c = c_lin U U^T (the predictor of the k coefficients is
+        the corresponding columns of the ridge solution: least squares decomposes per output direction); o<kind><k>: W = U U^T.
+        fis / sens need F (the generic Fisher of harness.sensitivity); info records the share of Cov(eps) and of F in U and the
+        predictor's R^2 on the generic fit rows.
+    clin: W2, c2 = ridge of eps on the dense JumpReLU codes (the decoder refit on frozen codes).
+    mlp<h> / cmlp<h>: one-hidden-layer GELU network eps ~ g(x) / g(codes), Adam, 10 % of rows held out for the reported R^2."""
+    sp = parse_addon(mode)
+    kind, k = sp["kind"], sp["k"]
+    if sp["needs_F"] and F is None:
+        raise ValueError(f"add-on {mode} needs the generic-text Fisher (scripts/fit_sensitivity.py) for layer {getattr(base, 'layer', '?')}")
+    if kind == "pcx":
+        XtX = None
+        n = 0
+        for X in chunks:
+            x64 = X.reshape(-1, X.shape[-1]).double()
+            XtX = x64.T @ x64 if XtX is None else XtX + x64.T @ x64
+            n += len(x64)
+        if n == 0:
+            raise ValueError("fit_addon: no rows")
+        ev, V = torch.linalg.eigh((XtX / n).cpu())
+        U = V[:, torch.argsort(ev, descending=True)[:k]]
+        share = float(ev.sort(descending=True).values[:k].sum() / ev.sum())
+        return {"W": (U @ U.T).float(), "c": None, "info": {"mode": mode, "n_rows": n, "rank": k, "second_moment_share": share}}
+    if kind in ("clin", "mlp", "cmlp"):
+        return _fit_codes_or_mlp(base, chunks, mode, sp, lam, device, seed)
+    # ---- linear-like: lin and the k-dimensional subspaces
+    XtX, XtE, EtE, sx, se, n = _moments(base, chunks, device, need_ee=kind in SUBSPACE_KINDS)
+    mx, me = sx / n, se / n
+    C = XtX / n - torch.outer(mx, mx)                     # centered: the bias absorbs the means
+    Ce = XtE / n - torch.outer(mx, me)
+    reg = lam * float(torch.diagonal(C).mean())
+    info = {"mode": mode, "n_rows": n, "lam": lam, "reg": reg}
+    if not sp["oracle"] or kind == "lin":
         W = torch.linalg.solve(C + reg * torch.eye(C.shape[0], dtype=C.dtype, device=C.device), Ce)
         c = me - mx @ W
-        return {"W": W.float().cpu(), "c": c.float().cpu(), "info": {"mode": mode, "n_rows": n, "lam": lam, "reg": reg}}
-    ev, V = torch.linalg.eigh((XtX / n).cpu())
-    U = V[:, torch.argsort(ev, descending=True)[:r]]
-    share = float(ev.sort(descending=True).values[:r].sum() / ev.sum())
-    return {"W": (U @ U.T).float(), "c": None, "info": {"mode": mode, "n_rows": n, "rank": r, "second_moment_share": share}}
+    if kind == "lin":
+        return {"W": W.float().cpu(), "c": c.float().cpu(), "info": info}
+    Cee = EtE / n - torch.outer(me, me)
+    U = error_subspace(kind, k, Cee, F, seed=seed)
+    P = (U @ U.T).cpu().double()
+    Cee_c, tr = Cee.cpu().double(), float(torch.trace(Cee))
+    info.update({"kind": kind, "k": int(U.shape[1]), "oracle": sp["oracle"], "eps_var_share": float(torch.trace(P @ Cee_c)) / tr})
+    if F is not None:
+        info["fisher_share"] = float(torch.trace(P @ F.cpu().double())) / float(torch.trace(F))
+        info["cost_share"] = float(torch.trace(P @ (Cee_c @ F.cpu().double()))) / float(torch.trace(Cee_c @ F.cpu().double()))
+    if sp["oracle"]:
+        return {"W": P.float(), "c": None, "info": info}
+    Wc, Cxe = W.cpu().double(), Ce.cpu().double()
+    Cov_r = Cee_c - Wc.T @ Cxe - Cxe.T @ Wc + Wc.T @ C.cpu().double() @ Wc       # Cov(eps - x W)
+    info["r2_predictor"] = 1.0 - float(torch.trace(P @ Cov_r)) / float(torch.trace(P @ Cee_c))
+    return {"W": (W.cpu().double() @ P).float(), "c": (c.cpu().double() @ P).float(), "info": info}
+
+
+@torch.inference_mode(False)                        # the networks train with autograd (fit_addon itself runs in inference mode)
+def _fit_codes_or_mlp(base, chunks, mode: str, sp: dict, lam: float, device, seed: int) -> dict:
+    """clin (ridge on codes) and mlp / cmlp (network on x / codes). The base must be JumpReLU for the codes-based ones."""
+    from harness.sae import decompose
+    dev = torch.device(device) if device is not None else base.W_enc_T.device
+    tmp = AddonDict(base, mode, torch.zeros(1, 1))                # only for .codes()
+    tmp.to_device(dev) if hasattr(base, "to_device") and sp["needs_codes"] else None
+    kind = sp["kind"]
+    if kind == "clin":
+        n = int(base.W_enc_T.shape[0])
+        FtF = FtE = sf = se = None
+        rows = 0
+        for X in chunks:
+            x = X.reshape(-1, X.shape[-1]).float().to(dev)
+            _, eps, _ = decompose(base, x, device=dev)
+            step = max(1, (256 * 2 ** 20) // max(1, n * 4 * 3))
+            for a in range(0, len(x), step):
+                f = tmp.codes(x[a:a + step])
+                e = eps[a:a + step]
+                ftf, fte = (f.T @ f).double(), (f.T @ e).double()
+                FtF = ftf if FtF is None else FtF + ftf
+                FtE = fte if FtE is None else FtE + fte
+                sf = f.double().sum(0) if sf is None else sf + f.double().sum(0)
+                se = e.double().sum(0) if se is None else se + e.double().sum(0)
+            rows += len(x)
+        mf, me = sf / rows, se / rows
+        C = FtF / rows - torch.outer(mf, mf)
+        Ce = FtE / rows - torch.outer(mf, me)
+        reg = lam * float(torch.diagonal(C).mean())
+        C.diagonal().add_(reg)
+        L = torch.linalg.cholesky(C)
+        W2 = torch.cholesky_solve(Ce, L)
+        c2 = me - mf @ W2
+        return {"W": W2.float().cpu(), "c": c2.float().cpu(), "info": {"mode": mode, "n_rows": rows, "lam": lam, "reg": reg, "n_codes": n}}
+    # mlp / cmlp: materialise (x, eps) on the CPU, train on the device
+    xs, es = [], []
+    for X in chunks:
+        x = X.reshape(-1, X.shape[-1]).float()
+        _, eps, _ = decompose(base, x.to(dev), device=dev)
+        xs.append(x.cpu())
+        es.append(eps.cpu())
+    x, e = torch.cat(xs).clone(), torch.cat(es).clone()          # plain tensors: inference tensors cannot be saved for backward
+    N, d = x.shape
+    g = torch.Generator().manual_seed(int(seed))
+    perm = torch.randperm(N, generator=g)
+    n_val = max(1, N // 10)
+    va, tr = perm[:n_val], perm[n_val:]
+    h = int(sp["k"])
+    n_in = int(base.W_enc_T.shape[0]) if sp["needs_codes"] else d
+    with torch.no_grad():
+        sample = x[tr[:2048]].to(dev)
+        s_in = float((tmp.codes(sample) if sp["needs_codes"] else sample).pow(2).mean().sqrt()) + 1e-6
+    s_out = float(e[tr[:20000]].pow(2).mean().sqrt()) + 1e-6
+    torch.manual_seed(int(seed))
+    W1 = (torch.randn(n_in, h, device=dev) / n_in ** 0.5).requires_grad_(True)
+    b1 = torch.zeros(h, device=dev, requires_grad=True)
+    W2 = (torch.randn(h, d, device=dev) / h ** 0.5 * 0.1).requires_grad_(True)
+    b2 = e[tr].mean(0).to(dev).div(s_out).clone().requires_grad_(True)
+    params = [W1, b1, W2, b2]
+    opt = torch.optim.Adam(params, lr=1e-3)
+    epochs, bs = 6, 2048
+    steps = epochs * max(1, (len(tr) + bs - 1) // bs)
+    sched = torch.optim.lr_scheduler.CosineAnnealingLR(opt, steps)
+
+    def fwd(xb):
+        f = tmp.codes(xb) if sp["needs_codes"] else xb
+        return torch.nn.functional.gelu((f / s_in) @ W1 + b1) @ W2 + b2
+
+    with torch.enable_grad():
+        for ep in range(epochs):
+            order = tr[torch.randperm(len(tr), generator=g)]
+            for a in range(0, len(order), bs):
+                idx = order[a:a + bs]
+                loss = (fwd(x[idx].to(dev)) - e[idx].to(dev) / s_out).pow(2).mean()
+                opt.zero_grad(set_to_none=True)
+                loss.backward()
+                opt.step()
+                sched.step()
+    with torch.no_grad():
+        num = den = 0.0
+        for a in range(0, len(va), 4096):
+            idx = va[a:a + 4096]
+            ev_ = e[idx].to(dev)
+            num += float(((fwd(x[idx].to(dev)) * s_out - ev_) ** 2).sum())
+            den += float(((ev_ - e[tr].mean(0).to(dev)) ** 2).sum())
+    info = {"mode": mode, "n_rows": int(N), "hidden": h, "epochs": epochs, "r2_heldout": 1.0 - num / den, "scale_in": s_in, "scale_out": s_out}
+    extra = {"b1": b1.detach().cpu(), "W2": W2.detach().cpu(), "b2": b2.detach().cpu(),
+             "scale_in": torch.tensor(s_in), "scale_out": torch.tensor(s_out)}
+    return {"W": W1.detach().cpu(), "c": None, "extra": extra, "info": info}
 
 
 # --------------------------------------------------------------------------- loading

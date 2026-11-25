@@ -264,3 +264,18 @@ def test_refusal_builder_unifies_candidates():
     import build_refusal_set as b
     rows = b.unify_candidates([{"cand_ids": [1, 2, 3, 9]}, {"cand_ids": [1, 2, 3]}, {"cand_ids": [1, 2, 7, 3]}])
     assert {tuple(r["cand_ids"]) for r in rows} == {(1, 2, 3, 9, 7)}
+
+
+def test_verify_pilot_runs_accepts_a_consistent_tiny_run_and_rejects_it_as_a_real_one():
+    """scripts/verify_pilot_runs.py: a tiny smoke run passes only with --allow-smoke (it is not a real run); strict mode fails it."""
+    import subprocess
+    import sys
+    runs = ROOT / "tests" / "_tiny_runs" / "P13"
+    done = [m for m in runs.glob("*/manifest.json") if json.loads(m.read_text()).get("status") == "complete"]
+    if not done:
+        pytest.skip("no tiny P13 run in tests/_tiny_runs (test_tiny_run_with_composite_cells_and_diffmean builds P12 only)")
+    cmd = [sys.executable, "scripts/verify_pilot_runs.py", "--queue", "queue/pilot-g3-server.yaml", "--runs", "tests/_tiny_runs", "--only", "P13"]
+    ok = subprocess.run(cmd + ["--allow-smoke"], cwd=ROOT, capture_output=True, text=True)
+    assert ok.returncode == 0, ok.stdout[-1500:] + ok.stderr[-500:]
+    strict = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True)
+    assert strict.returncode == 1 and "not a real run" in strict.stdout

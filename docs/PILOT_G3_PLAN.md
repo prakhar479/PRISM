@@ -141,7 +141,16 @@ P12 can also run alone: `sbatch --export=ALL,ONLY=P12 scripts/slurm_pilot_g3.sba
    grep -E "SMOKE (OK|FAIL)|smoke (finished|passed)" slurm-prism-g3-<jobid>.out
    sbatch scripts/slurm_pilot_g3.sbatch                             # resubmit the same command after a time limit
    ```
-3. **After:** run `bash scripts/slurm_pilot_g3.sbatch --record`, then `git push -u origin HEAD`. That creates the
+3. **Check, then record.** First `.venv-harness/bin/python scripts/verify_pilot_runs.py --queue queue/pilot-g3-server.yaml`
+   (no GPU): provenance, config equality, cell coverage, random nulls, usable pairs, the write-back identity check, direction files
+   and the published list; exit 1 on any FAIL.
+
+   **A new tag re-runs stage 3.** Stage-1/2 caches are content-addressed, but stage-3 and finalize markers and run hashes include the
+   commit. After a re-tag, the same `sbatch` redoes every experiment's stage 3, even if the new commit changed nothing it reads.
+   To finish only what is missing, use `ONLY=<ids>` (the other experiments count as done); to change nothing, do not resubmit:
+   `--record` ships every complete run of the queue at any commit. Partial run directories from a re-tag are ignored.
+
+   Then run `bash scripts/slurm_pilot_g3.sbatch --record`, then `git push -u origin HEAD`. That creates the
    `results/pilot-g3-<tag>` branch. On DEV, ingest it and run `python scripts/make_pilot.py --runs <...>/runs`, which adds P12
    and P13 to VERDICTS.md.
 

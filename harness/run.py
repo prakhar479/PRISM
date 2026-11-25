@@ -82,6 +82,27 @@ def pick_device(prof, args) -> torch.device:
 MIN_TRAIN_PAIRS = 20        # fewer train pairs than this: the cell is skipped (recorded), never fitted on a handful of pairs
 
 
+def select_cells(cells, selectors):
+    """Cells matching ANY selector (smoke / test subsets; `--only-sae`). A selector is a dictionary-name prefix, or key=value:
+    layer=13, task=entity_track, width=65k, addon=sens8 (prefix of the add-on name; addon=NONE: cells without one), dict=<prefix>."""
+    def match(c, sel):
+        k, _, v = sel.partition("=")
+        if not _:
+            return (c.sae.dict or "").startswith(sel)
+        if k == "layer":
+            return c.layer == int(v)
+        if k == "task":
+            return c.task == v
+        if k == "width":
+            return c.sae.width == v
+        if k == "dict":
+            return (c.sae.dict or "").startswith(v)
+        if k == "addon":
+            return not c.sae.addon if v == "NONE" else (c.sae.addon or "").startswith(v)
+        raise ValueError(f"unknown selector {sel!r} (prefix | layer= | task= | width= | dict= | addon=)")
+    return [c for c in cells if any(match(c, sel) for sel in selectors)]
+
+
 class CellSkip(RuntimeError):
     """A cell that cannot be computed for a data reason (too few train pairs passing the fit filter, e.g. a language the
     model cannot do). Stage 3 and finalize record it in the cell's checks and move on; every other error still fails."""
@@ -1110,7 +1131,8 @@ def main(argv=None) -> int:
     ap.add_argument("--stage2-slice", default=None, help="i/n: only the i-th of n disjoint SAE groups (stage 2)")
     ap.add_argument("--max-batch-tokens", type=int, default=None, help="pin the token budget (overrides auto)")
     ap.add_argument("--only-sae", action="append", default=None,
-                    help="smoke only: keep the cells whose dictionary name starts with this prefix (repeatable); the run hash "
+                    help="smoke only: keep the cells matching this selector (repeatable; a dictionary-name prefix or layer= / task= / width= / "
+                         "dict= / addon= key=value, see select_cells); the run hash "
                          "follows the reduced cell list, so several smoke processes of one config never share a run")
     a = ap.parse_args(argv)
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s", force=True)
@@ -1119,7 +1141,7 @@ def main(argv=None) -> int:
         if not (a.smoke or a.tiny):
             raise SystemExit("--only-sae is for smoke runs (a real run keeps its config's cells)")
         import dataclasses
-        keep = [c for c in cfg.cells if (c.sae.dict or "").startswith(tuple(a.only_sae))]
+        keep = select_cells(cfg.cells, a.only_sae)
         if not keep:
             raise SystemExit(f"--only-sae {a.only_sae}: no cell matches")
         cfg = dataclasses.replace(cfg, cells=keep)

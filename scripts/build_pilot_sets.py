@@ -10,6 +10,7 @@ people_cities (P1): pc_en (content), pc_en_swap (binding swap), pc_en_query (que
 depth 3, x3 candidates). entity_track (P11): ot_placed_dest, ot_bin_dest, ot_drawer_dest; the pilot's object-tracking settings
 (depth 2, x6 candidates). add_chain (P8 only): rs_en, rs_plus, rs_story. Needs the real tokenizer (local HF cache is enough).
 P8's Gemma 3 sets: --tokenizer google/gemma-3-1b-pt --tokenizer-revision <rev> --suffix _g3 --tasks people_cities,entity_track,add_chain
+Batch 2: --tasks ioi_control (the pilot generator, family "pilot") -> ioi_control_x1[_g3].jsonl.gz
 """
 import argparse
 import copy
@@ -25,7 +26,9 @@ MODEL_REVISION = "c5ebcd40d208330abc697524c919956e692655cf"
 SETS = {"people_cities": ("people_cities_p1", PF.P1_FAMILIES, {"n_shots": 8, "candidate_multiplier": 3, "gen_kwargs": {"depth": 3}}),
         "entity_track": ("entity_track_p11", PF.P11_FAMILIES, {"candidate_multiplier": 6}),
         # P8 (second model): running sum from the fresh / English families (the pilot's own generator is Gemma-2-specific)
-        "add_chain": ("add_chain_p8", ("rs_en", "rs_plus", "rs_story"), {"candidate_multiplier": 3})}
+        "add_chain": ("add_chain_p8", ("rs_en", "rs_plus", "rs_story"), {"candidate_multiplier": 3}),
+        # batch 2 (atlas): IOI through the pilot's own generator (no template families): Gemma 3's token ids
+        "ioi_control": ("ioi_control_x1", ("pilot",), {})}
 
 
 def main() -> int:
@@ -49,7 +52,10 @@ def main() -> int:
         t0 = time.time()
         rows, fams = [], {}
         for fid in fids:
-            fr = T.build_family_candidates(task, fid, tok, cfg, n_train=a.n_train, n_test=a.n_test)
+            if fid == "pilot":
+                fr = T.build_pilot_candidates(task, tok, cfg, n_train=a.n_train, n_test=a.n_test)
+            else:
+                fr = T.build_family_candidates(task, fid, tok, cfg, n_train=a.n_train, n_test=a.n_test)
             mult = T.task_settings(cfg, task)["candidate_multiplier"] or 3
             gen = {s: int(n * mult) for s, n in (("train", a.n_train), ("test", a.n_test))}
             kept = {s: sum(r["split"] == s for r in fr) for s in gen}
@@ -61,7 +67,7 @@ def main() -> int:
             return 1
         info = {"task": task, "kind": "pilot_counterfactual_families", "settings": T.task_settings(cfg, task),
                 "tokenizer": {"name": a.tokenizer, "revision": a.tokenizer_revision}, "families": fams,
-                "source": "harness.tasks.build_family_candidates over harness.pilotfamilies",
+                "source": "harness.tasks.build_family_candidates over harness.pilotfamilies (pilot tasks: build_pilot_candidates)",
                 "created": time.strftime("%Y-%m-%d %H:%M:%S %Z")}
         p = T.save_set(rows, out / f"{stem}{a.suffix}.jsonl.gz", info)
         print(f"{task}: {len(rows)} candidates -> {p} ({p.stat().st_size / 2**20:.1f} MB, {time.time() - t0:.0f}s)")

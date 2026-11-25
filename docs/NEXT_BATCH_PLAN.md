@@ -54,9 +54,11 @@ Both branch off `batch2-base`, which holds the shared harness upgrades below. ID
 | P20 | Gemma 3 1B depth atlas: people-cities, object tracking, IOI, all 26 layers, Gemma Scope 2 16k small / big | 156 |
 | P21 | Gemma 2 2B depth atlas: running sum, people-cities, object tracking, 12 layers, 16k and 65k at matched L0 | 72 |
 | P22 | Gemma 3 1B-IT refusal depth atlas: 26 layers, 16k small / big; difference of means vs DAS | 52 |
-| PF_* | CE / FVU / L0 / noise-normalised cost on generic text for every dictionary above (the H4 predictors) | ~130 dictionaries |
+| P28 | Gemma 3 1B width x sparsity grid at L7 / 13 / 17 / 22: 16k / 65k / 262k x small / medium / big (36 dictionaries) x 3 tasks | 108 |
+| PF_* | CE / FVU / L0 / noise-normalised cost on generic text for every dictionary above (the H4 predictors) | ~190 dictionaries |
 Protocol: DAS v2 kl rank 8 with 3 independent seeds (rank 1 / 4 / 8 for refusal), held-out validity, 5 random-subspace nulls per cell.
-Verdicts: `scripts/make_atlas.py` (capture vs depth with seed spread, per-task minimum, metric correlations).
+Verdicts: `scripts/make_atlas.py` (capture vs depth with seed spread, per-task minimum, metric correlations pooled and within layer, and the
+noise floor from independently trained dictionaries at the four layers where P20 and P28 overlap).
 
 ### Branch `batch2-repair` (queue `queue/pilot-x2-server.yaml`): H1, H2, H5, H6
 | id | content | cells |
@@ -80,8 +82,13 @@ Verdicts: `scripts/make_repair.py` (gap and capture closure vs k, with seed spre
 
 ## 5. Decision rules (written before the run)
 
-- **H1 go** if, pooled over the three Gemma 2 canonical cells at k <= 32, `sens` or `fis` closes >= 2x the gap that `var` closes and
-  exceeds the `rnd` p95, at <= 10 % of the CE delta (PF) the KL fine-tune adds. Otherwise D+ is dropped as a method and kept as a negative.
+- **H1 go** if, for >= 2 of the 3 Gemma 2 canonical cells (those with a base gap >= 0.05; a ratio over a tiny gap is never counted),
+  at >= 2 of k = 2, 8, 32 the better of `sens` / `fis` (predicted) closes >= 2x the gap `var` closes (floor 0.05) and exceeds the upper
+  CI of `rnd`, and the add-on does not raise the held-out CE delta by more than 0.01 nats. Otherwise D+ is dropped as a method and kept
+  as a negative result (the task-relevant error is task-specific). Computed by scripts/make_repair.py.
+- **H2:** decoder problem if the network on the codes recovers >= half of what the network on x does and the refit decoder >= half of
+  that; information problem if the network on x recovers >= 2x the one on the codes. **H6:** stacks if KL fine-tune + `sens32` closes
+  >= 0.05 more than the better of either alone.
 - **H3 go** if the capture minimum falls in the middle third of depth for >= 2 of 3 tasks in both models, with seed spread < the dip.
 - **H4 go** if one cheap metric has |Spearman| >= 0.7 with capture across the atlas and beats FVU; **no-go** if FVU already does.
 - Any difference below the protocol noise (0.1, S10) is reported as a tie.

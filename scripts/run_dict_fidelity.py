@@ -47,6 +47,8 @@ def main(argv=None) -> int:
     ap.add_argument("--n-boot", type=int, default=2000)
     ap.add_argument("--tiny", action="store_true")
     ap.add_argument("--allow-dirty", action="store_true")
+    ap.add_argument("--only-sae", action="append", default=None,
+                    help="smoke subsets: only the dictionaries of cells matching this selector (harness.run.select_cells; repeatable)")
     a = ap.parse_args(argv)
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s", force=True)
     import torch
@@ -57,6 +59,13 @@ def main(argv=None) -> int:
     from harness.run import Runner
 
     cfg = ExpConfig.load(a.config)
+    if a.only_sae:
+        import dataclasses
+        from harness.run import select_cells
+        keep = select_cells(cfg.cells, a.only_sae)
+        if not keep:
+            raise SystemExit(f"--only-sae {a.only_sae}: no cell matches")
+        cfg = dataclasses.replace(cfg, cells=keep)
     prof = load_profile("dev" if a.tiny else a.profile)
     prof.apply_env()
     args = types.SimpleNamespace(tiny=a.tiny, smoke=False, dry_run=False, finalize_only=False, worker=None, config=a.config,

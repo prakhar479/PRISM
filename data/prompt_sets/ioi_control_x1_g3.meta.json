@@ -1,0 +1,40 @@
+{
+ "task": "ioi_control",
+ "kind": "pilot_counterfactual_families",
+ "settings": {
+  "n_train": 300,
+  "n_test": 150,
+  "seed": 0,
+  "candidate_multiplier": 2,
+  "n_shots": 2,
+  "answer_format": "auto",
+  "filter_mode": "strict",
+  "min_logit_diff": 2.0,
+  "gen_kwargs": null
+ },
+ "tokenizer": {
+  "name": "google/gemma-3-1b-pt",
+  "revision": "fcf18a2a879aab110ca39f8bffbccd5d49d8eb29"
+ },
+ "families": {
+  "pilot": {
+   "generated": {
+    "train": 600,
+    "test": 300
+   },
+   "kept": {
+    "train": 600,
+    "test": 300
+   },
+   "length_matching_success": {
+    "train": 1.0,
+    "test": 1.0
+   }
+  }
+ },
+ "source": "harness.tasks.build_family_candidates over harness.pilotfamilies (pilot tasks: build_pilot_candidates)",
+ "created": "2026-11-25 20:13:19 UTC",
+ "n": 900,
+ "hash": "df101c57818e810e",
+ "file": "ioi_control_x1_g3.jsonl.gz"
+}

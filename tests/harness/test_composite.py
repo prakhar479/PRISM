@@ -301,3 +301,16 @@ def test_p14_runs_the_p12_dictionaries_on_object_tracking():
     assert {c.sae.dict for c in p14.cells} == {c.sae.dict for c in p12.cells}            # the same dictionaries
     assert p14.model == p12.model and p14.model_revision == p12.model_revision
     assert all(c.fit_families == ["ot_placed_dest", "ot_bin_dest", "ot_drawer_dest"] for c in p14.cells)
+
+
+def test_select_cells_selectors():
+    from harness.config import ExpConfig
+    from harness.run import select_cells
+    c = ExpConfig.load(ROOT / "configs/batch2/P23.yaml").cells
+    assert len(select_cells(c, ["addon=sens8"])) == 3 and len(select_cells(c, ["addon=osens"])) == 12
+    assert len(select_cells(c, ["addon=NONE"])) == 3 and {x.task for x in select_cells(c, ["task=entity_track"])} == {"entity_track"}
+    assert len(select_cells(c, ["addon=NONE", "layer=18"])) == 36 and select_cells(c, ["width=65k"]) == []
+    d = ExpConfig.load(ROOT / "configs/batch2/P20.yaml").cells
+    assert len(select_cells(d, ["gs2_1b_all_L13_"])) == 6 and len(select_cells(d, ["gs2_1b_all_L0_", "gs2_1b_all_L25_"])) == 12
+    with pytest.raises(ValueError):
+        select_cells(c, ["bogus=1"])

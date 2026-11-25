@@ -17,7 +17,9 @@ Prints OK / WARN / FAIL lines; exit code 1 when anything FAILs. Partial run dire
 e.g. after a re-tag) are listed as INFO: the publisher and scripts/make_pilot.py ignore them.
 """
 import argparse
+import collections
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -42,6 +44,19 @@ class Rep:
     def __call__(self, level, text):
         self.n[level] += 1
         print(f"  [{level}] {text}")
+
+
+def classify_skips(cells):
+    """(capability skips, other skips). A capability skip is the harness's own gate: too few TRAIN pairs pass the behavioural
+    filter to fit directions on ('only N train pairs pass f_pilot ...') or too few test pairs: the model does not do that task
+    well enough, which is a result. Anything else (a dictionary that could not load or fit in memory, a crash) is a failure."""
+    skips = [c for c in cells if c.get("skipped")]
+    cap = [c for c in skips if re.search(r"train pairs pass|\d+ test pairs", str(c["skipped"]))]
+    return cap, [c for c in skips if c not in cap]
+
+
+def cell_task(name: str) -> str:
+    return name.split("_L")[0]
 
 
 def jsonable(x):
@@ -70,9 +85,19 @@ def check_run(rep, cfg: ExpConfig, d: Path, m: dict, allow_smoke: bool):
     # ---- coverage
     summ = json.loads((d / "summary.json").read_text()) if (d / "summary.json").exists() else {"cells": []}
     cells = summ["cells"]
-    skipped = [c["cell"] for c in cells if c.get("skipped")]
-    rep("OK" if len(cells) == len(cfg.cells) and not skipped else "FAIL",
-        f"{len(cells)} cells checked of {len(cfg.cells)} configured" + (f"; SKIPPED: {skipped[:5]}" if skipped else ""))
+    cap, other = classify_skips(cells)
+    n_skip = len(cap) + len(other)
+    rep("OK" if len(cells) == len(cfg.cells) else "FAIL", f"{len(cells)} cells checked of {len(cfg.cells)} configured")
+    if cap:
+        by_task = collections.Counter(cell_task(c["cell"]) for c in cap)
+        done_task = collections.Counter(cell_task(c["cell"]) for c in cells if not c.get("skipped"))
+        rep("WARN", f"{len(cap)} cells skipped by the capability gate (too few usable pairs: the model does not do the task well "
+                    f"enough): {dict(by_task)}; cells that ran: {dict(done_task)}")
+        for reason in list(dict.fromkeys(str(c["skipped"]).split(": ", 1)[-1] for c in cap))[:3]:
+            rep("INFO", f"skip reason: {reason[:230]}")
+    if other:
+        rep("FAIL", f"{len(other)} cells skipped for another reason: " + "; ".join(sorted({str(c['skipped'])[:160] for c in other})[:3]))
+    expected = len(cfg.cells) - n_skip
     hooks = summ.get("hook_checks") or []
     badh = [h for h in hooks if isinstance(h, dict) and (h.get("status") == "FAIL" or h.get("ok") is False)]
     rep("OK" if not badh else "FAIL", f"{len(hooks)} hook / model checks" + (f", failing: {badh[:2]}" if badh else ", none failing"))
@@ -82,7 +107,8 @@ def check_run(rep, cfg: ExpConfig, d: Path, m: dict, allow_smoke: bool):
         return
     pp = pd.read_parquet(pq)
     cells_pp = pp[CELL].drop_duplicates()
-    rep("OK" if len(cells_pp) == len(cfg.cells) else "FAIL", f"{len(cells_pp)} cells in per_pair.parquet ({len(pp):,} rows)")
+    rep("OK" if len(cells_pp) == expected else "FAIL",
+        f"{len(cells_pp)} cells in per_pair.parquet ({len(pp):,} rows); expected {expected} = {len(cfg.cells)} configured - {n_skip} skipped")
     errs = validate_per_pair(pp)
     rep("OK" if not errs else "FAIL", "per_pair schema ok" if not errs else f"schema: {errs[:3]}")
     nonfin = int((~np.isfinite(pp[["logit_A", "logit_B", "lse"]].to_numpy(float))).any(axis=1).sum())
@@ -92,23 +118,25 @@ def check_run(rep, cfg: ExpConfig, d: Path, m: dict, allow_smoke: bool):
     miss = sorted(want_c - have_c - {"repair_mean"})
     rep("OK" if not miss else "FAIL", f"all {len(want_c)} configured conditions present" if not miss else f"conditions missing: {miss}")
     # ---- usable pairs
-    te = [c["n_test_union"] for c in cells if c.get("n_test_union") is not None]
-    tr = [c["n_train"] for c in cells if c.get("n_train") is not None]
-    keep = [(c.get("keep_rates") or {}).get("test", {}).get("f_pilot") for c in cells]
+    ran = [c for c in cells if not c.get("skipped")]
+    te = [c["n_test_union"] for c in ran if c.get("n_test_union") is not None]
+    tr = [c["n_train"] for c in ran if c.get("n_train") is not None]
+    keep = [(c.get("keep_rates") or {}).get("test", {}).get("f_pilot") for c in ran]
     keep = [k for k in keep if k is not None]
-    low = [c["cell"] for c in cells if (c.get("n_test_union") or 0) < MIN_TEST]
+    low = [c["cell"] for c in ran if (c.get("n_test_union") or 0) < MIN_TEST]
     if te:
         rep("OK" if not low else ("FAIL" if min(te) < 10 else "WARN"),
-            f"usable test pairs per cell: min {min(te)}, median {int(np.median(te))}, max {max(te)}; train min {min(tr)}"
+            f"usable test pairs per cell that ran: min {min(te)}, median {int(np.median(te))}, max {max(te)}; train min {min(tr)}"
             f"; test keep rate (f_pilot) median {np.median(keep):.2f}" + (f"; below {MIN_TEST}: {len(low)} cells, e.g. {low[:3]}" if low else ""))
     # ---- random nulls
     if cfg.directions and cfg.directions.random_seeds:
         rnd = pp[pp.estimator == "random"]
         per = cell_df(rnd).seed.nunique() if len(rnd) else pd.Series(dtype=int)
         short = per[per != cfg.directions.random_seeds]
-        rep("OK" if len(per) == len(cfg.cells) and short.empty else "FAIL",
-            f"random-subspace nulls: {cfg.directions.random_seeds} seeds at every cell" if short.empty and len(per) == len(cfg.cells)
-            else f"random nulls wrong at {len(short) + len(cfg.cells) - len(per)} cells (want {cfg.directions.random_seeds} seeds)")
+        rep("OK" if len(per) == expected and short.empty else "FAIL",
+            f"random-subspace nulls: {cfg.directions.random_seeds} seeds at every one of the {expected} cells that ran"
+            if short.empty and len(per) == expected
+            else f"random nulls wrong at {len(short) + abs(expected - len(per))} cells (want {cfg.directions.random_seeds} seeds)")
     # ---- machinery: full patch = the other run's own output; baselines predict their own answers
     f = pp[pp.f_pilot] if "f_pilot" in pp else pp
     dl = lambda df: (df.logit_A - df.logit_B)

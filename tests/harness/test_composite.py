@@ -279,3 +279,16 @@ def test_verify_pilot_runs_accepts_a_consistent_tiny_run_and_rejects_it_as_a_rea
     assert ok.returncode == 0, ok.stdout[-1500:] + ok.stderr[-500:]
     strict = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True)
     assert strict.returncode == 1 and "not a real run" in strict.stdout
+
+
+def test_verify_classifies_capability_skips_apart_from_failures():
+    import sys
+    sys.path.insert(0, str(ROOT / "scripts"))
+    import verify_pilot_runs as v
+    cells = [{"cell": "add_chain_L13_x", "skipped": "add_chain L13: only 3 train pairs pass f_pilot in families ['rs_en'] (need 20)"},
+             {"cell": "people_cities_L13_x", "skipped": "people_cities_L13_x: 4 test pairs"},
+             {"cell": "refusal_L7_y", "skipped": "needs 31.0 GiB host RAM (x1.5 margin), 20.0 GiB available"},
+             {"cell": "refusal_L13_z"}]
+    cap, other = v.classify_skips(cells)
+    assert [c["cell"] for c in cap] == ["add_chain_L13_x", "people_cities_L13_x"] and [c["cell"] for c in other] == ["refusal_L7_y"]
+    assert v.cell_task("people_cities_L13_x") == "people_cities" and v.cell_task("add_chain_L13_x") == "add_chain"

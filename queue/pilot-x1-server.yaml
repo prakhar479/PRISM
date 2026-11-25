@@ -1,0 +1,56 @@
+# Batch 2, branch batch2-atlas (docs/NEXT_BATCH_PLAN.md): H3 (capture vs depth), H4 (which metric predicts it), H5 (two models).
+# One Slurm job: scripts/slurm_batch2.sbatch (4 x RTX 2080 Ti, 96 h; designed for ~36 h). Exploratory, post hoc. Resumable.
+#   P20 Gemma 3 1B    people-cities / object tracking / IOI x 26 layers x Gemma Scope 2 16k small, big   156 cells
+#   P21 Gemma 2 2B    running sum / people-cities / object tracking / IOI x 12 layers x 16k, 65k           96 cells
+#   P22 Gemma 3 1B-IT refusal x 26 layers x 16k small, big (difference of means vs DAS)                    52 cells
+#   P28 Gemma 3 1B    width x sparsity grid at L7/13/17/22 (36 dictionaries) x 3 tasks                      108 cells
+#   PF_*  CE / FVU / L0 / noise-normalised cost of every dictionary on generic text (the H4 predictors)
+# Priority order: P20, P22, P28, P21, then the fidelity jobs. If time runs out the later units are the ones left undone.
+tag: pilot-x1-server
+profile: server
+parallel: true
+prefetch:
+  model_revision: c5ebcd40d208330abc697524c919956e692655cf      # gemma-2-2b: preflight's golden check runs on it
+jobs:
+  - {id: prefetch, kind: script, script: scripts/run_prefetch.py, args: [--queue, queue/pilot-x1-server.yaml]}
+  - {id: preflight, kind: script, script: scripts/run_preflight.py, gpu: all,
+     args: [--queue, queue/pilot-x1-server.yaml, --golden, golden/R2, --per-gpu], depends_on: [prefetch]}
+
+  # ---- stage 1 (one forward pass per model caches every layer's spans; the three experiments use three models / entries)
+  - {id: P20_s1, config: configs/batch2/P20.yaml, stage: "1", priority: 10, depends_on: [preflight]}
+  - {id: P22_s1, config: configs/batch2/P22.yaml, stage: "1", priority: 9, depends_on: [preflight]}
+  - {id: P28_s1, config: configs/batch2/P28.yaml, stage: "1", priority: 9, depends_on: [P20_s1]}      # same model, prompt sets and layers as P20
+  - {id: P21_s1, config: configs/batch2/P21.yaml, stage: "1", priority: 8, depends_on: [preflight]}
+
+  # ---- stage 2 (dictionary passes; slices spread the dictionaries over the GPUs)
+  - {id: P20_s2, config: configs/batch2/P20.yaml, stage: "2", slices: auto, priority: 10, depends_on: [P20_s1]}
+  - {id: P22_s2, config: configs/batch2/P22.yaml, stage: "2", slices: auto, priority: 9, depends_on: [P22_s1]}
+  - {id: P28_s2, config: configs/batch2/P28.yaml, stage: "2", slices: auto, priority: 9, depends_on: [P28_s1]}
+  - {id: P21_s2, config: configs/batch2/P21.yaml, stage: "2", slices: auto, priority: 8, depends_on: [P21_s1]}
+
+  # ---- stage 3 (claiming workers; a DAS rotation is trained by the first worker that needs it, then shared by every dictionary)
+  - {id: P20_s3, config: configs/batch2/P20.yaml, stage: "3", workers: auto, priority: 10, depends_on: [P20_s2]}
+  - {id: P22_s3, config: configs/batch2/P22.yaml, stage: "3", workers: auto, priority: 9, depends_on: [P22_s2]}
+  - {id: P28_s3, config: configs/batch2/P28.yaml, stage: "3", workers: auto, priority: 9, depends_on: [P28_s2]}
+  - {id: P21_s3, config: configs/batch2/P21.yaml, stage: "3", workers: auto, priority: 8, depends_on: [P21_s2]}
+
+  # ---- ordinary-text fidelity of every dictionary the atlas uses (no add-ons: independent of stage 2)
+  - {id: PF_P20, kind: script, script: scripts/run_dict_fidelity.py, gpu: one, priority: 7,
+     args: [--config, configs/batch2/P20.yaml, --eval-set, generic/pile10k_100x128_g3.json, --extras], depends_on: [preflight]}
+  - {id: PF_P22, kind: script, script: scripts/run_dict_fidelity.py, gpu: one, priority: 6,
+     args: [--config, configs/batch2/P22.yaml, --eval-set, generic/pile10k_100x128_g3.json, --extras], depends_on: [preflight]}
+  - {id: PF_P28, kind: script, script: scripts/run_dict_fidelity.py, gpu: one, priority: 7,
+     args: [--config, configs/batch2/P28.yaml, --eval-set, generic/pile10k_100x128_g3.json, --extras], depends_on: [preflight]}
+  - {id: PF_P21, kind: script, script: scripts/run_dict_fidelity.py, gpu: one, priority: 6,
+     args: [--config, configs/batch2/P21.yaml, --extras], depends_on: [preflight]}
+
+  # ---- finalize (CPU)
+  - {id: P20_fin, config: configs/batch2/P20.yaml, stage: "3", gpu: none, args: [--finalize-only], depends_on: [P20_s3]}
+  - {id: P22_fin, config: configs/batch2/P22.yaml, stage: "3", gpu: none, args: [--finalize-only], depends_on: [P22_s3]}
+  - {id: P28_fin, config: configs/batch2/P28.yaml, stage: "3", gpu: none, args: [--finalize-only], depends_on: [P28_s3]}
+  - {id: P21_fin, config: configs/batch2/P21.yaml, stage: "3", gpu: none, args: [--finalize-only], depends_on: [P21_s3]}
+
+  - {id: bundle, kind: script, script: scripts/bundle_results.py, args: [--tag, pilot-x1-server, --queue, queue/pilot-x1-server.yaml],
+     after_failed: true, depends_on: [P20_fin, P22_fin, P28_fin, P21_fin, PF_P20, PF_P22, PF_P28, PF_P21]}
+  - {id: publish, kind: script, script: scripts/publish_results.py, args: [--tag, pilot-x1-server, --queue, queue/pilot-x1-server.yaml],
+     after_failed: true, depends_on: [bundle]}

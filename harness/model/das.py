@@ -199,7 +199,12 @@ def fit_das_v2(model, layer: int, rows: Sequence[dict], train_idx: Sequence[int]
 
         def step(ps):
             """One optimizer step on batch ps; on a CUDA OOM the batch is split in halves (each its own step) and the token
-            budget of later batches is halved, so an 11 GB card degrades to v1's batch-1 steps instead of failing."""
+            budget of later batches is halved, so an 11 GB card degrades to v1's batch-1 steps instead of failing.
+            The retry runs AFTER the except block: inside it the exception's traceback still references the failed batch's whole
+            activation graph (several GB), so the half batches would run out of memory too (P21, 2026-11-26: running-sum DAS at
+            layer 2 backpropagates through 23 blocks) and the fit would fail at batch size 1."""
+            nonlocal step_tokens
+            loss = None
             try:
                 loss = loss_of(forward(ps, True), ps)
                 opt.zero_grad()
@@ -207,16 +212,17 @@ def fit_das_v2(model, layer: int, rows: Sequence[dict], train_idx: Sequence[int]
                 opt.step()
                 return float(loss.detach()) * len(ps)
             except Exception as e:  # noqa: BLE001 - re-raised unless it is an OOM we can back off from
-                from harness.device import empty_cache, is_oom
+                from harness.device import is_oom
                 if not is_oom(e) or len(ps) == 1:
                     raise
-                opt.zero_grad()
-                empty_cache()
-                oom["backoffs"] += 1
-                nonlocal step_tokens
-                step_tokens = max(1, step_tokens // 2)
-                h = len(ps) // 2
-                return step(ps[:h]) + step(ps[h:])
+            from harness.device import empty_cache
+            loss = None                                   # drop the graph of a failed backward before retrying
+            opt.zero_grad()
+            empty_cache()
+            oom["backoffs"] += 1
+            step_tokens = max(1, step_tokens // 2)
+            h = len(ps) // 2
+            return step(ps[:h]) + step(ps[h:])
 
         losses = []
         for ep in range(epochs):

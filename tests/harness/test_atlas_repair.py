@@ -163,3 +163,24 @@ def test_make_repair_on_tiny_runs(tmp_path):
     assert len(t) == 8 and set(t.kind) == {"base", "lin", "var", "sens", "rnd", "fis"} and t[t.addon == "osens4"].oracle.all()
     assert {"closure_ref", "closure_own", "dcapture", "ce_delta", "d_ce_delta"} <= set(t.columns)
     assert (out / "REPAIR.md").exists() and "H1 rule on P23" in (out / "REPAIR.md").read_text()
+
+
+def test_capture_is_masked_where_the_subspace_has_no_effect():
+    """P22: the difference-of-means direction does nothing below layer 6, so 'capture' there is a ratio of noise (-1.5 .. 7.9)."""
+    import make_atlas as ma
+    t = pd.DataFrame({"capture_feat_A_along_U": [3.2, 0.9, 0.8, 5.0], "full_nldr": [0.001, 0.6, 0.10, 0.5],
+                      "random_p95_full_nldr": [0.0, 0.01, 0.0, 0.48]})
+    m = ma.mask_low_effect(t)
+    assert list(m.no_effect) == [True, False, True, True]                  # tiny effect / not above the null + 0.05
+    assert np.isnan(m.capture_feat_A_along_U[[0, 2, 3]]).all() and m.capture_feat_A_along_U[1] == 0.9
+
+
+def test_grid_effects_separate_width_and_sparsity():
+    import make_atlas as ma
+    rows = []
+    for L in (7, 13):
+        for w, dw in (("16k", -0.05), ("65k", 0.0), ("262k", 0.05)):
+            for l0, dl in (("small", -0.1), ("medium", 0.0), ("big", 0.1)):
+                rows.append({"task": "t", "layer": L, "sae": f"L{L}_gs2_1b_L{L}_{w}_{l0}", "capture": 0.6 + dw + dl})
+    g = ma.grid_effects(pd.DataFrame(rows)).set_index(["factor", "level"]).capture_dev
+    assert abs(g[("l0v", "big")] - 0.1) < 1e-9 and abs(g[("l0v", "small")] + 0.1) < 1e-9 and abs(g[("width", "262k")] - 0.05) < 1e-9

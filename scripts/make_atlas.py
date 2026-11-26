@@ -28,6 +28,7 @@ import _bootstrap  # noqa: F401
 import make_pilot as mp
 
 N_LAYERS = 26
+EFFECT_MIN = 0.15        # a subspace whose own write-back moves the output by less than this (NLDR) has no capture to report: the ratio is noise
 METRICS = ["fvu", "eps_over_x", "ce_delta", "recovered_mean", "l0", "splice_over_noise"]
 SEED_RE = re.compile(r"_s(\d+)$")
 CAP = "capture_feat_A_along_U"
@@ -46,6 +47,16 @@ def capture_rows(rec, n_boot, ests=None):
     if not len(t):
         return t
     t["seed"] = t.estimator.map(lambda e: int(SEED_RE.search(e).group(1)) if SEED_RE.search(e) else 0)
+    return mask_low_effect(t)
+
+
+def mask_low_effect(t: pd.DataFrame) -> pd.DataFrame:
+    """capture = NLDR(features along U) / NLDR(full along U) is a ratio: where U itself barely moves the output (full NLDR below EFFECT_MIN,
+    or not above the random-subspace p95) it is noise (P22: the difference-of-means direction has no effect below layer 6 and 'captures'
+    -1.5 to 7.9 there). Such rows keep their numbers but their capture becomes NaN and `no_effect` is set; every aggregate skips them."""
+    t = t.copy()
+    t["no_effect"] = (t.full_nldr < EFFECT_MIN) | (t.full_nldr <= t.random_p95_full_nldr + 0.05)
+    t.loc[t.no_effect, CAP] = np.nan
     return t
 
 
@@ -53,8 +64,8 @@ def cell_table(cap: pd.DataFrame, gap: pd.DataFrame, group=("task", "layer", "sa
     """Seed mean / sd / min / max of capture per cell (rank-8 DAS or the given estimators) joined with the decision-level gap."""
     keys = list(group)
     g = cap.groupby(keys + list(extra)).agg(capture=(CAP, "mean"), capture_sd=(CAP, "std"), capture_min=(CAP, "min"),
-                                             capture_max=(CAP, "max"), n_seeds=(CAP, "size"), full_nldr=("full_nldr", "mean"),
-                                             random_p95=("random_p95_full_nldr", "mean")).reset_index()
+                                             capture_max=(CAP, "max"), n_seeds=(CAP, "count"), full_nldr=("full_nldr", "mean"),
+                                             random_p95=("random_p95_full_nldr", "mean"), no_effect=("no_effect", "mean")).reset_index()
     g["capture_sd"] = g.capture_sd.fillna(0.0)
     if len(gap):
         gcols = [c for c in ("full_A_nldr", "feat_A_errB_nldr", "gap_feat_A_errB_nldr", "gap_feat_A_errB_flip", "feat_B_errA_nldr", "n_pairs")
@@ -72,7 +83,7 @@ def h3_rows(cv: pd.DataFrame):
     """Per task: argmin layer, its normalised depth, the dip against the outer layers and the verdict inputs."""
     out = []
     for task, g in cv.groupby("task"):
-        g = g.sort_values("layer")
+        g = g.dropna(subset=["capture"]).sort_values("layer")
         if len(g) < 5:
             continue
         i = int(g.capture.to_numpy().argmin())
@@ -115,6 +126,38 @@ def metric_table(cells: pd.DataFrame, pf: pd.DataFrame, label: str) -> pd.DataFr
                 continue
             rows.append({"set": label, "task": task, "metric": met, "n": len(d), "spearman_pooled": float(d.corr(method="spearman").iloc[0, 1]),
                          "spearman_within_layer": rank_demeaned(g, "capture", met, ["task", "layer"])})
+    return pd.DataFrame(rows)
+
+
+def dictionary_level(cells: pd.DataFrame) -> pd.DataFrame:
+    """One row per dictionary: capture (and gap) averaged over the tasks and seeds the dictionary was scored on."""
+    return cells.groupby(["layer", "sae"]).agg(capture=("capture", "mean"), gap=("gap_feat_A_errB_nldr", "mean")).reset_index().assign(task="all tasks")
+
+
+def layer_metrics(cells: pd.DataFrame, pf: pd.DataFrame) -> pd.DataFrame:
+    """Per layer: mean capture and gap next to the mean fidelity metrics of the dictionaries scored there (the figure that shows whether
+    a metric follows the depth pattern)."""
+    if pf is None or not len(pf):
+        return pd.DataFrame()
+    f = pf.rename(columns={"dict": "sae"})
+    d = dictionary_level(cells).merge(f[["sae"] + [c for c in METRICS if c in f]], on="sae", how="inner")
+    return d.groupby("layer").mean(numeric_only=True).reset_index()
+
+
+def grid_effects(cells: pd.DataFrame) -> pd.DataFrame:
+    """Width and sparsity effects inside each (task, layer): capture minus the (task, layer) mean, averaged by width and by L0 variant."""
+    c = cells.copy()
+    m = c.sae.str.extract(r"_(\d+k)_(small|medium|big)$")
+    c["width"], c["l0v"] = m[0], m[1]
+    c = c[c.width.notna() & c.capture.notna()]
+    if not len(c):
+        return pd.DataFrame()
+    c["dev"] = c.capture - c.groupby(["task", "layer"]).capture.transform("mean")
+    rows = []
+    for col in ("width", "l0v"):
+        for v, g in c.groupby(col):
+            rows.append({"factor": col, "level": v, "n": len(g), "capture_dev": float(g.dev.mean()),
+                         "capture_dev_by_layer": ", ".join(f"L{L} {x:+.3f}" for L, x in g.groupby("layer").dev.mean().items())})
     return pd.DataFrame(rows)
 
 
@@ -196,8 +239,15 @@ def main() -> int:
             cells = cell_table(cap[cap.estimator.str.startswith("das8")], gap)
         cells.insert(0, "exp", exp)
         allcells.append(cells)
-        cv = curves(cells if exp != "P22" else cells[cells.est_kind == "diffmean"])
-        h3 = h3_rows(cv)
+        kinds = [None] if exp != "P22" else sorted(cells.est_kind.unique())
+        h3_all = []
+        for kind in kinds:
+            sub = cells if kind is None else cells[cells.est_kind == kind]
+            h3k = h3_rows(curves(sub))
+            if len(h3k):
+                h3_all.append(h3k.assign(task=h3k.task if kind is None else h3k.task + "/" + kind))
+        cv = curves(cells if exp != "P22" else cells[cells.est_kind == "das1v2_kl"])
+        h3 = pd.concat(h3_all) if h3_all else pd.DataFrame()
         report += [f"## {exp}", f"{len(cells)} cells, {cap.seed.nunique()} DAS seeds; capture range {cells.capture.min():.2f}-{cells.capture.max():.2f}; "
                    f"largest seed sd {cells.capture_sd.max():.3f}; mean n_seeds {cells.n_seeds.mean():.1f}", ""]
         if len(h3):
@@ -213,9 +263,24 @@ def main() -> int:
         cv.to_csv(out / f"atlas_curves_{exp}.csv", index=False)
         report.append("")
         key = {"P20": "P20", "P28": "P28", "P21": "P21", "P22": "P22"}[exp]
-        mt = metric_table(cells if exp != "P22" else cells[cells.est_kind == "diffmean"], pf.get(key), exp)
+        base_cells = cells if exp != "P22" else cells[cells.est_kind == "das1v2_kl"]
+        mt = metric_table(base_cells, pf.get(key), exp)
         if len(mt):
             allmet.append(mt)
+        dl = dictionary_level(base_cells)
+        mt2 = metric_table(dl, pf.get(key), f"{exp} per dictionary")
+        if len(mt2):
+            allmet.append(mt2)
+        lm = layer_metrics(base_cells, pf.get(key))
+        if len(lm):
+            lm.insert(0, "exp", exp)
+            lm.to_csv(out / f"atlas_layer_metrics_{exp}.csv", index=False)
+        ge = grid_effects(base_cells)
+        if len(ge):
+            ge.insert(0, "exp", exp)
+            ge.to_csv(out / f"atlas_grid_effects_{exp}.csv", index=False)
+            report += [f"Width / sparsity effects inside each (task, layer) ({exp}): " + "; ".join(
+                f"{r.factor} {r.level} {r.capture_dev:+.3f}" for r in ge.itertuples()), ""]
     # ---- pooled H4 over the Gemma 3 base sets (P20 + P28 share the model; P21 is Gemma 2) and per set
     mt = pd.concat(allmet) if allmet else pd.DataFrame()
     if len(mt):

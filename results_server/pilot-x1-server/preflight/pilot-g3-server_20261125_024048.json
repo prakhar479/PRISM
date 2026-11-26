@@ -1,0 +1,102 @@
+{
+ "tag": "pilot-g3-server",
+ "stamp": "20261125_024048",
+ "seconds": 3333.5,
+ "checks": [
+  {
+   "n": 1,
+   "check": "packages match requirements/harness.lock",
+   "status": "PASS",
+   "detail": "0 errors, 0 warnings",
+   "errors": [],
+   "warnings": []
+  },
+  {
+   "n": 1,
+   "check": "accelerator",
+   "status": "PASS",
+   "detail": "NVIDIA GeForce RTX 2080 Ti, free 10.43 / 10.58 GB",
+   "info": {
+    "device": "cuda:0",
+    "torch": "2.14.1+cu130",
+    "torch_cuda": "13.0",
+    "gpu_name": "NVIDIA GeForce RTX 2080 Ti",
+    "gpu_total_gb": 10.58,
+    "gpu_free_gb": 10.43,
+    "capability": "7.5",
+    "cudnn": 92400
+   }
+  },
+  {
+   "n": 1,
+   "check": "RAM and disk",
+   "status": "PASS",
+   "detail": "RAM available 122.0 GB; disk free over cache tiers 2164 GB (/ssd_scratch/prakhar2218/prism/cache: 724, /scratch/prakhar2218/prism/cache: 1440; need > 10); at runs root 49 GB (need > 2)"
+  },
+  {
+   "n": 2,
+   "check": "prefetch targets cached with matching sha256",
+   "status": "FAIL",
+   "detail": "360 files, 278.91 GB, 1 errors",
+   "errors": [
+    "google/gemma-scope-2-1b-pt/crosscoder/layer_7_13_17_22_width_262k_l0_big/params_layer_1.safetensors: RemoteProtocolError: Server disconnected without sending a response."
+   ]
+  },
+  {
+   "n": 0,
+   "check": "preflight crashed",
+   "status": "FAIL",
+   "detail": "ValueError: Unrecognized model in google/gemma-2-2b. Should have a `model_type` key in its config.json."
+  },
+  {
+   "n": 6,
+   "check": "HF top-1 agreement (informational)",
+   "status": "SKIP",
+   "detail": "{'add_chain/A': 1.0, 'add_chain/B': 1.0, 'entity_track/A': 1.0, 'entity_track/B': 0.917, 'ioi_control/A': 1.0, 'ioi_control/B': 1.0, 'var_binding/A': 1.0, 'var_binding/B': 1.0} (see pilot-g3-server_20261125_024048_hf/report.md)"
+  },
+  {
+   "n": 9,
+   "check": "GPU 0",
+   "status": "FAIL",
+   "detail": "ValueError: Unrecognized model in google/gemma-2-2b. Should have a `model_type` key in its config.json."
+  },
+  {
+   "n": 9,
+   "check": "GPU 1",
+   "status": "FAIL",
+   "detail": "ValueError: Unrecognized model in google/gemma-2-2b. Should have a `model_type` key in its config.json."
+  },
+  {
+   "n": 9,
+   "check": "GPU 2",
+   "status": "FAIL",
+   "detail": "ValueError: Unrecognized model in google/gemma-2-2b. Should have a `model_type` key in its config.json."
+  },
+  {
+   "n": 9,
+   "check": "GPU 3",
+   "status": "FAIL",
+   "detail": "ValueError: Unrecognized model in google/gemma-2-2b. Should have a `model_type` key in its config.json."
+  },
+  {
+   "n": 3,
+   "check": "per-GPU checks: at least one GPU usable",
+   "status": "FAIL",
+   "detail": "0/4 GPUs passed -> runs/_queue/pilot-g3-server/gpus.json"
+  },
+  {
+   "n": 8,
+   "check": "smoke E1_split",
+   "status": "PASS",
+   "detail": "ok"
+  },
+  {
+   "n": 8,
+   "check": "smoke E2",
+   "status": "PASS",
+   "detail": "ok"
+  }
+ ],
+ "ok": false,
+ "profile": "server"
+}

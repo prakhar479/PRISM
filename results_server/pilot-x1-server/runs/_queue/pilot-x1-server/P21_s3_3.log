@@ -1,0 +1,339 @@
+
+=== attempt 1 2026-11-26 15:45:29 slots=['0']: /home2/prakhar2218/PRISM/.venv-harness/bin/python -m harness.run --config configs/batch2/P21.yaml --profile server --stage 3 --worker P21_s3-3
+2026-11-26 15:50:29,081 INFO DAS: training das8v2_kl_s0 (k=8, 10 epochs, lr 0.01, seed 0) for add_chain L2 on 300 train pairs
+Loading weights:   0%|          | 0/288 [00:00<?, ?it/s]Loading weights:   0%|          | 1/288 [00:00<02:00,  2.38it/s]Loading weights:  85%|████████▌ | 245/288 [00:00<00:00, 610.46it/s]Loading weights: 100%|██████████| 288/288 [00:00<00:00, 494.26it/s]
+2026-11-26 15:50:38,175 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-26 15:50:38,433 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-26 15:50:38,674 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-26 15:50:40,230 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-26 15:53:15,653 ERROR run failed
+Traceback (most recent call last):
+  File "/home2/prakhar2218/PRISM/harness/model/das.py", line 204, in step
+    loss = loss_of(forward(ps, True), ps)
+                   ^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/harness/model/das.py", line 179, in forward
+    return runtime.last_logits_from(model, x, layer, tB)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/src/models/runtime.py", line 182, in last_logits_from
+    out = model.run_with_hooks(resid, fwd_hooks=[], start_at_layer=layer + 1, stop_at_layer=model.cfg.n_layers,
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/transformer_lens/HookedRootModule.py", line 324, in run_with_hooks
+    return hooked_model.forward(*model_args, **model_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/transformer_lens/HookedTransformer.py", line 663, in forward
+    residual = block(
+               ^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1783, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1794, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/transformer_lens/components/transformer_block.py", line 205, in forward
+    mlp_out = self.apply_mlp(normalized_resid_mid)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/transformer_lens/components/transformer_block.py", line 229, in apply_mlp
+    mlp_out = self.mlp(normalized_resid)  # [batch, pos, d_model]
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1783, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1794, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/transformer_lens/components/mlps/gated_mlp.py", line 76, in forward
+    return F.linear(post_act, self.W_out.T.contiguous(), self.b_out)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 42.00 MiB. GPU 0 has a total capacity of 10.57 GiB of which 396.06 MiB is free. Including non-PyTorch memory, this process has 10.18 GiB memory in use. 9.97 GiB allowed; Of the allocated memory 9.90 GiB is allocated by PyTorch, and 59.52 MiB is reserved by PyTorch but unallocated.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home2/prakhar2218/PRISM/harness/model/das.py", line 204, in step
+    loss = loss_of(forward(ps, True), ps)
+                   ^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/harness/model/das.py", line 179, in forward
+    return runtime.last_logits_from(model, x, layer, tB)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/src/models/runtime.py", line 182, in last_logits_from
+    out = model.run_with_hooks(resid, fwd_hooks=[], start_at_layer=layer + 1, stop_at_layer=model.cfg.n_layers,
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/transformer_lens/HookedRootModule.py", line 324, in run_with_hooks
+    return hooked_model.forward(*model_args, **model_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/transformer_lens/HookedTransformer.py", line 663, in forward
+    residual = block(
+               ^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1783, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1794, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/transformer_lens/components/transformer_block.py", line 171, in forward
+    self.attn(
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1783, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1794, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/transformer_lens/components/abstract_attention.py", line 243, in forward
+    q, k, v = self.calculate_qkv_matrices(query_input, key_input, value_input)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/transformer_lens/components/grouped_query_attention.py", line 128, in calculate_qkv_matrices
+    attn_fn(query_input, self.W_Q, self.b_Q)
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/transformer_lens/utilities/attention.py", line 24, in simple_attn_linear
+    w = einops.rearrange(w, "head_index d_model d_head -> (head_index d_head) d_model")
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/einops/einops.py", line 616, in rearrange
+    return reduce(tensor, pattern, reduction="rearrange", **axes_lengths)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/einops/einops.py", line 540, in reduce
+    return _apply_recipe(
+           ^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/einops/einops.py", line 251, in _apply_recipe
+    tensor = backend.reshape(tensor, final_shapes)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/einops/_backends.py", line 96, in reshape
+    return x.reshape(shape)
+           ^^^^^^^^^^^^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 20.00 MiB. GPU 0 has a total capacity of 10.57 GiB of which 396.06 MiB is free. Including non-PyTorch memory, this process has 10.18 GiB memory in use. 9.97 GiB allowed; Of the allocated memory 9.93 GiB is allocated by PyTorch, and 36.78 MiB is reserved by PyTorch but unallocated.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home2/prakhar2218/PRISM/harness/run.py", line 1203, in main
+    {"1": R.run_stage1, "2": R.run_stage2, "3": R.run_stage3}[s]()
+  File "/home2/prakhar2218/PRISM/harness/run.py", line 934, in run_stage3
+    bun = self.bundle(cell.task, cell.layer, sid, cell.fit_families)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/harness/run.py", line 655, in bundle
+    b.dirs[est] = self.das_direction(task, layer, rows, tr, sp, fs, est, blocking=blocking)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/harness/run.py", line 725, in das_direction
+    U, info = fit_das_v2(model, layer, rows, tr, sp, k, objective=spec["objective"], epochs=epochs, lr=lr,
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/harness/model/das.py", line 225, in fit_das_v2
+    tot += step(ps)
+           ^^^^^^^^
+  File "/home2/prakhar2218/PRISM/harness/model/das.py", line 219, in step
+    return step(ps[:h]) + step(ps[h:])
+           ^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/harness/model/das.py", line 219, in step
+    return step(ps[:h]) + step(ps[h:])
+           ^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/harness/model/das.py", line 204, in step
+    loss = loss_of(forward(ps, True), ps)
+                   ^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/harness/model/das.py", line 179, in forward
+    return runtime.last_logits_from(model, x, layer, tB)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/src/models/runtime.py", line 182, in last_logits_from
+    out = model.run_with_hooks(resid, fwd_hooks=[], start_at_layer=layer + 1, stop_at_layer=model.cfg.n_layers,
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/transformer_lens/HookedRootModule.py", line 324, in run_with_hooks
+    return hooked_model.forward(*model_args, **model_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/transformer_lens/HookedTransformer.py", line 663, in forward
+    residual = block(
+               ^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1783, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1794, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/transformer_lens/components/transformer_block.py", line 171, in forward
+    self.attn(
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1783, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1794, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/transformer_lens/components/abstract_attention.py", line 243, in forward
+    q, k, v = self.calculate_qkv_matrices(query_input, key_input, value_input)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/transformer_lens/components/grouped_query_attention.py", line 128, in calculate_qkv_matrices
+    attn_fn(query_input, self.W_Q, self.b_Q)
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/transformer_lens/utilities/attention.py", line 24, in simple_attn_linear
+    w = einops.rearrange(w, "head_index d_model d_head -> (head_index d_head) d_model")
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/einops/einops.py", line 616, in rearrange
+    return reduce(tensor, pattern, reduction="rearrange", **axes_lengths)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/einops/einops.py", line 540, in reduce
+    return _apply_recipe(
+           ^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/einops/einops.py", line 251, in _apply_recipe
+    tensor = backend.reshape(tensor, final_shapes)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/einops/_backends.py", line 96, in reshape
+    return x.reshape(shape)
+           ^^^^^^^^^^^^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 20.00 MiB. GPU 0 has a total capacity of 10.57 GiB of which 396.06 MiB is free. Including non-PyTorch memory, this process has 10.18 GiB memory in use. 9.97 GiB allowed; Of the allocated memory 9.94 GiB is allocated by PyTorch, and 25.42 MiB is reserved by PyTorch but unallocated.
+2026-11-26 15:53:15,777 INFO P21 -> /home2/prakhar2218/PRISM/runs/P21/b783867f3c0d (failed)
+Loaded pretrained model gemma-2-2b into HookedTransformer
+
+=== attempt 2 2026-11-26 15:53:18 slots=['0']: /home2/prakhar2218/PRISM/.venv-harness/bin/python -m harness.run --config configs/batch2/P21.yaml --profile server --stage 3 --worker P21_s3-3
+2026-11-26 15:53:27,995 INFO DAS: training das8v2_kl_s2 (k=8, 10 epochs, lr 0.01, seed 2) for add_chain L2 on 300 train pairs
+Loading weights:   0%|          | 0/288 [00:00<?, ?it/s]Loading weights:   0%|          | 1/288 [00:00<01:52,  2.55it/s]Loading weights:  85%|████████▌ | 245/288 [00:00<00:00, 637.69it/s]Loading weights: 100%|██████████| 288/288 [00:00<00:00, 518.37it/s]
+2026-11-26 15:53:36,111 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-26 15:53:36,401 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-26 15:53:36,649 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-26 15:53:38,056 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-26 15:56:12,873 ERROR run failed
+Traceback (most recent call last):
+  File "/home2/prakhar2218/PRISM/harness/model/das.py", line 204, in step
+    loss = loss_of(forward(ps, True), ps)
+                   ^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/harness/model/das.py", line 179, in forward
+    return runtime.last_logits_from(model, x, layer, tB)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/src/models/runtime.py", line 182, in last_logits_from
+    out = model.run_with_hooks(resid, fwd_hooks=[], start_at_layer=layer + 1, stop_at_layer=model.cfg.n_layers,
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/transformer_lens/HookedRootModule.py", line 324, in run_with_hooks
+    return hooked_model.forward(*model_args, **model_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/transformer_lens/HookedTransformer.py", line 663, in forward
+    residual = block(
+               ^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1783, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1794, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/transformer_lens/components/transformer_block.py", line 205, in forward
+    mlp_out = self.apply_mlp(normalized_resid_mid)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/transformer_lens/components/transformer_block.py", line 229, in apply_mlp
+    mlp_out = self.mlp(normalized_resid)  # [batch, pos, d_model]
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1783, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1794, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/transformer_lens/components/mlps/gated_mlp.py", line 69, in forward
+    F.linear(x, self.W_in.T.contiguous())  # [batch, pos, d_mlp]
+                ^^^^^^^^^^^^^^^^^^^^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 42.00 MiB. GPU 0 has a total capacity of 10.57 GiB of which 416.06 MiB is free. Including non-PyTorch memory, this process has 10.16 GiB memory in use. 9.97 GiB allowed; Of the allocated memory 9.90 GiB is allocated by PyTorch, and 42.26 MiB is reserved by PyTorch but unallocated.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home2/prakhar2218/PRISM/harness/model/das.py", line 204, in step
+    loss = loss_of(forward(ps, True), ps)
+                   ^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/harness/model/das.py", line 179, in forward
+    return runtime.last_logits_from(model, x, layer, tB)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/src/models/runtime.py", line 182, in last_logits_from
+    out = model.run_with_hooks(resid, fwd_hooks=[], start_at_layer=layer + 1, stop_at_layer=model.cfg.n_layers,
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/transformer_lens/HookedRootModule.py", line 324, in run_with_hooks
+    return hooked_model.forward(*model_args, **model_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/transformer_lens/HookedTransformer.py", line 663, in forward
+    residual = block(
+               ^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1783, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1794, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/transformer_lens/components/transformer_block.py", line 171, in forward
+    self.attn(
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1783, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1794, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/transformer_lens/components/abstract_attention.py", line 243, in forward
+    q, k, v = self.calculate_qkv_matrices(query_input, key_input, value_input)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/transformer_lens/components/grouped_query_attention.py", line 134, in calculate_qkv_matrices
+    else attn_fn(key_input, self._W_K, self._b_K)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/transformer_lens/utilities/attention.py", line 24, in simple_attn_linear
+    w = einops.rearrange(w, "head_index d_model d_head -> (head_index d_head) d_model")
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/einops/einops.py", line 616, in rearrange
+    return reduce(tensor, pattern, reduction="rearrange", **axes_lengths)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/einops/einops.py", line 540, in reduce
+    return _apply_recipe(
+           ^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/einops/einops.py", line 251, in _apply_recipe
+    tensor = backend.reshape(tensor, final_shapes)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/einops/_backends.py", line 96, in reshape
+    return x.reshape(shape)
+           ^^^^^^^^^^^^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 20.00 MiB. GPU 0 has a total capacity of 10.57 GiB of which 396.06 MiB is free. Including non-PyTorch memory, this process has 10.18 GiB memory in use. 9.97 GiB allowed; Of the allocated memory 9.93 GiB is allocated by PyTorch, and 27.83 MiB is reserved by PyTorch but unallocated.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home2/prakhar2218/PRISM/harness/run.py", line 1203, in main
+    {"1": R.run_stage1, "2": R.run_stage2, "3": R.run_stage3}[s]()
+  File "/home2/prakhar2218/PRISM/harness/run.py", line 934, in run_stage3
+    bun = self.bundle(cell.task, cell.layer, sid, cell.fit_families)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/harness/run.py", line 655, in bundle
+    b.dirs[est] = self.das_direction(task, layer, rows, tr, sp, fs, est, blocking=blocking)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/harness/run.py", line 725, in das_direction
+    U, info = fit_das_v2(model, layer, rows, tr, sp, k, objective=spec["objective"], epochs=epochs, lr=lr,
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/harness/model/das.py", line 225, in fit_das_v2
+    tot += step(ps)
+           ^^^^^^^^
+  File "/home2/prakhar2218/PRISM/harness/model/das.py", line 219, in step
+    return step(ps[:h]) + step(ps[h:])
+           ^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/harness/model/das.py", line 219, in step
+    return step(ps[:h]) + step(ps[h:])
+           ^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/harness/model/das.py", line 204, in step
+    loss = loss_of(forward(ps, True), ps)
+                   ^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/harness/model/das.py", line 179, in forward
+    return runtime.last_logits_from(model, x, layer, tB)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/src/models/runtime.py", line 182, in last_logits_from
+    out = model.run_with_hooks(resid, fwd_hooks=[], start_at_layer=layer + 1, stop_at_layer=model.cfg.n_layers,
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/transformer_lens/HookedRootModule.py", line 324, in run_with_hooks
+    return hooked_model.forward(*model_args, **model_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/transformer_lens/HookedTransformer.py", line 663, in forward
+    residual = block(
+               ^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1783, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1794, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/transformer_lens/components/transformer_block.py", line 174, in forward
+    key_input=self.ln1(key_input)
+              ^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1783, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1794, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/transformer_lens/components/rms_norm.py", line 48, in forward
+    (x.pow(2).mean(-1, keepdim=True) + self.eps).sqrt()
+     ^^^^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 20.00 MiB. GPU 0 has a total capacity of 10.57 GiB of which 394.06 MiB is free. Including non-PyTorch memory, this process has 10.18 GiB memory in use. 9.97 GiB allowed; Of the allocated memory 9.94 GiB is allocated by PyTorch, and 22.16 MiB is reserved by PyTorch but unallocated.
+2026-11-26 15:56:13,003 INFO P21 -> /home2/prakhar2218/PRISM/runs/P21/b783867f3c0d (failed)
+Loaded pretrained model gemma-2-2b into HookedTransformer

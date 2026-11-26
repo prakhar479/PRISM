@@ -1,0 +1,876 @@
+
+=== attempt 1 2026-11-26 04:55:28 slots=['0']: /home2/prakhar2218/PRISM/.venv-harness/bin/python -m harness.run --config configs/batch2/P20.yaml --profile server --stage 3 --worker P20_s3-0
+2026-11-26 04:55:38,059 INFO DAS: training das8v2_kl_s0 (k=8, 10 epochs, lr 0.01, seed 0) for people_cities L0 on 300 train pairs
+2026-11-26 04:55:49,091 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-pt/tree/fcf18a2a879aab110ca39f8bffbccd5d49d8eb29/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-26 04:55:49,334 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-pt/tree/fcf18a2a879aab110ca39f8bffbccd5d49d8eb29?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-26 04:55:52,154 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-pt "HTTP/1.1 200 OK"
+Loading weights:   0%|          | 0/340 [00:00<?, ?it/s]Loading weights:  16%|█▌        | 54/340 [00:00<00:00, 522.96it/s]Loading weights:  31%|███▏      | 107/340 [00:00<00:00, 300.85it/s]Loading weights:  53%|█████▎    | 179/340 [00:00<00:00, 435.44it/s]Loading weights:  68%|██████▊   | 231/340 [00:00<00:00, 385.95it/s]Loading weights:  81%|████████  | 276/340 [00:00<00:00, 346.72it/s]Loading weights:  93%|█████████▎| 315/340 [00:00<00:00, 310.04it/s]Loading weights: 100%|██████████| 340/340 [00:00<00:00, 351.24it/s]
+2026-11-26 04:55:59,971 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-pt "HTTP/1.1 200 OK"
+2026-11-26 04:56:00,425 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-pt/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-26 04:56:00,668 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-pt/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-26 04:56:03,274 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-pt "HTTP/1.1 200 OK"
+2026-11-26 04:58:12,699 INFO DAS v2 k=8 kl epoch 1/10: loss 2.6662
+2026-11-26 04:58:55,062 INFO DAS v2 k=8 kl epoch 2/10: loss 1.1648
+2026-11-26 04:59:37,312 INFO DAS v2 k=8 kl epoch 3/10: loss 0.7304
+2026-11-26 05:00:19,633 INFO DAS v2 k=8 kl epoch 4/10: loss 0.6557
+2026-11-26 05:01:02,006 INFO DAS v2 k=8 kl epoch 5/10: loss 0.4761
+2026-11-26 05:01:44,387 INFO DAS v2 k=8 kl epoch 6/10: loss 0.3290
+2026-11-26 05:02:26,747 INFO DAS v2 k=8 kl epoch 7/10: loss 0.3847
+2026-11-26 05:03:09,002 INFO DAS v2 k=8 kl epoch 8/10: loss 0.3511
+2026-11-26 05:03:51,797 INFO DAS v2 k=8 kl epoch 9/10: loss 0.4025
+2026-11-26 05:04:34,125 INFO DAS v2 k=8 kl epoch 10/10: loss 0.2303
+2026-11-26 05:05:06,347 INFO DAS: training das8v2_kl_s1 (k=8, 10 epochs, lr 0.01, seed 1) for people_cities L0 on 300 train pairs
+2026-11-26 05:06:55,029 INFO DAS v2 k=8 kl epoch 1/10: loss 2.7983
+2026-11-26 05:07:37,283 INFO DAS v2 k=8 kl epoch 2/10: loss 1.1306
+2026-11-26 05:08:19,609 INFO DAS v2 k=8 kl epoch 3/10: loss 0.7855
+2026-11-26 05:09:01,820 INFO DAS v2 k=8 kl epoch 4/10: loss 0.7117
+2026-11-26 05:09:44,106 INFO DAS v2 k=8 kl epoch 5/10: loss 0.7397
+2026-11-26 05:10:26,311 INFO DAS v2 k=8 kl epoch 6/10: loss 0.5698
+2026-11-26 05:11:08,618 INFO DAS v2 k=8 kl epoch 7/10: loss 0.4466
+2026-11-26 05:11:50,878 INFO DAS v2 k=8 kl epoch 8/10: loss 0.4243
+2026-11-26 05:12:33,814 INFO DAS v2 k=8 kl epoch 9/10: loss 0.4813
+2026-11-26 05:13:16,056 INFO DAS v2 k=8 kl epoch 10/10: loss 0.5048
+2026-11-26 05:13:48,271 INFO DAS: training das8v2_kl_s2 (k=8, 10 epochs, lr 0.01, seed 2) for people_cities L0 on 300 train pairs
+2026-11-26 05:15:37,471 INFO DAS v2 k=8 kl epoch 1/10: loss 2.6265
+2026-11-26 05:16:19,906 INFO DAS v2 k=8 kl epoch 2/10: loss 1.1385
+2026-11-26 05:17:02,296 INFO DAS v2 k=8 kl epoch 3/10: loss 0.7315
+2026-11-26 05:17:44,703 INFO DAS v2 k=8 kl epoch 4/10: loss 0.6011
+2026-11-26 05:18:27,146 INFO DAS v2 k=8 kl epoch 5/10: loss 0.6972
+2026-11-26 05:19:09,564 INFO DAS v2 k=8 kl epoch 6/10: loss 0.4682
+2026-11-26 05:19:52,043 INFO DAS v2 k=8 kl epoch 7/10: loss 0.4032
+2026-11-26 05:20:34,594 INFO DAS v2 k=8 kl epoch 8/10: loss 0.4414
+2026-11-26 05:21:17,630 INFO DAS v2 k=8 kl epoch 9/10: loss 0.2609
+2026-11-26 05:22:00,012 INFO DAS v2 k=8 kl epoch 10/10: loss 0.2105
+2026-11-26 05:23:52,602 INFO people_cities_L0_gs2_1b_all_L0_16k_small__fit-pc_en__eval-pc_en unit 1/3 (8 conditions, 79.9s)
+2026-11-26 05:25:12,697 INFO people_cities_L0_gs2_1b_all_L0_16k_small__fit-pc_en__eval-pc_en unit 2/3 (8 conditions, 80.0s)
+2026-11-26 05:26:12,854 INFO people_cities_L0_gs2_1b_all_L0_16k_small__fit-pc_en__eval-pc_en unit 3/3 (6 conditions, 60.1s)
+2026-11-26 05:27:35,389 INFO people_cities_L0_gs2_1b_all_L0_16k_big__fit-pc_en__eval-pc_en unit 1/3 (8 conditions, 79.9s)
+2026-11-26 05:28:55,425 INFO people_cities_L0_gs2_1b_all_L0_16k_big__fit-pc_en__eval-pc_en unit 2/3 (8 conditions, 80.0s)
+2026-11-26 05:29:55,589 INFO people_cities_L0_gs2_1b_all_L0_16k_big__fit-pc_en__eval-pc_en unit 3/3 (6 conditions, 60.1s)
+2026-11-26 05:29:58,852 INFO DAS: training das8v2_kl_s0 (k=8, 10 epochs, lr 0.01, seed 0) for entity_track L0 on 300 train pairs
+2026-11-26 05:32:21,379 INFO DAS v2 k=8 kl epoch 1/10: loss 1.3204
+2026-11-26 05:33:22,594 INFO DAS v2 k=8 kl epoch 2/10: loss 0.8869
+2026-11-26 05:34:24,039 INFO DAS v2 k=8 kl epoch 3/10: loss 0.6467
+2026-11-26 05:35:25,292 INFO DAS v2 k=8 kl epoch 4/10: loss 0.5740
+2026-11-26 05:36:26,508 INFO DAS v2 k=8 kl epoch 5/10: loss 0.3930
+2026-11-26 05:37:27,694 INFO DAS v2 k=8 kl epoch 6/10: loss 0.2465
+2026-11-26 05:38:29,438 INFO DAS v2 k=8 kl epoch 7/10: loss 0.2158
+2026-11-26 05:39:30,634 INFO DAS v2 k=8 kl epoch 8/10: loss 0.1673
+2026-11-26 05:40:31,721 INFO DAS v2 k=8 kl epoch 9/10: loss 0.1115
+2026-11-26 05:41:32,821 INFO DAS v2 k=8 kl epoch 10/10: loss 0.0817
+2026-11-26 05:50:51,351 INFO entity_track_L0_gs2_1b_all_L0_16k_small__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 3/3 (6 conditions, 253.9s)
+2026-11-26 05:56:34,348 INFO entity_track_L0_gs2_1b_all_L0_16k_big__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 2/3 (8 conditions, 341.4s)
+2026-11-26 05:57:38,783 INFO ioi_control_L0_gs2_1b_all_L0_16k_small unit 1/3 (8 conditions, 12.7s)
+2026-11-26 05:57:40,056 INFO DAS: training das8v2_kl_s1 (k=8, 10 epochs, lr 0.01, seed 1) for people_cities L1 on 300 train pairs
+2026-11-26 05:59:25,150 INFO DAS v2 k=8 kl epoch 1/10: loss 2.6065
+2026-11-26 06:00:05,895 INFO DAS v2 k=8 kl epoch 2/10: loss 1.0617
+2026-11-26 06:00:46,605 INFO DAS v2 k=8 kl epoch 3/10: loss 0.8665
+2026-11-26 06:01:27,337 INFO DAS v2 k=8 kl epoch 4/10: loss 0.8133
+2026-11-26 06:02:08,111 INFO DAS v2 k=8 kl epoch 5/10: loss 0.6660
+2026-11-26 06:02:48,884 INFO DAS v2 k=8 kl epoch 6/10: loss 0.5916
+2026-11-26 06:03:29,669 INFO DAS v2 k=8 kl epoch 7/10: loss 0.6445
+2026-11-26 06:04:10,430 INFO DAS v2 k=8 kl epoch 8/10: loss 0.4196
+2026-11-26 06:04:51,163 INFO DAS v2 k=8 kl epoch 9/10: loss 0.3899
+2026-11-26 06:05:32,447 INFO DAS v2 k=8 kl epoch 10/10: loss 0.2414
+2026-11-26 06:07:23,384 INFO people_cities_L1_gs2_1b_all_L1_16k_big__fit-pc_en__eval-pc_en unit 1/3 (8 conditions, 77.2s)
+2026-11-26 06:07:24,396 INFO DAS: training das8v2_kl_s1 (k=8, 10 epochs, lr 0.01, seed 1) for entity_track L1 on 300 train pairs
+2026-11-26 06:09:42,703 INFO DAS v2 k=8 kl epoch 1/10: loss 1.3987
+2026-11-26 06:10:41,704 INFO DAS v2 k=8 kl epoch 2/10: loss 0.7247
+2026-11-26 06:11:40,696 INFO DAS v2 k=8 kl epoch 3/10: loss 0.5714
+2026-11-26 06:12:39,739 INFO DAS v2 k=8 kl epoch 4/10: loss 0.4344
+2026-11-26 06:13:38,780 INFO DAS v2 k=8 kl epoch 5/10: loss 0.4146
+2026-11-26 06:14:37,761 INFO DAS v2 k=8 kl epoch 6/10: loss 0.2952
+2026-11-26 06:15:37,371 INFO DAS v2 k=8 kl epoch 7/10: loss 0.2520
+2026-11-26 06:16:36,355 INFO DAS v2 k=8 kl epoch 8/10: loss 0.1874
+2026-11-26 06:17:35,406 INFO DAS v2 k=8 kl epoch 9/10: loss 0.1194
+2026-11-26 06:18:34,385 INFO DAS v2 k=8 kl epoch 10/10: loss 0.1430
+2026-11-26 06:25:11,782 INFO entity_track_L1_gs2_1b_all_L1_16k_big__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 1/3 (8 conditions, 328.8s)
+2026-11-26 06:25:12,126 INFO DAS: training das8v2_kl_s1 (k=8, 10 epochs, lr 0.01, seed 1) for ioi_control L1 on 300 train pairs
+2026-11-26 06:26:09,148 INFO DAS v2 k=8 kl epoch 1/10: loss 1.8048
+2026-11-26 06:26:16,444 INFO DAS v2 k=8 kl epoch 2/10: loss 0.3100
+2026-11-26 06:26:23,750 INFO DAS v2 k=8 kl epoch 3/10: loss 0.2197
+2026-11-26 06:26:31,026 INFO DAS v2 k=8 kl epoch 4/10: loss 0.1456
+2026-11-26 06:26:38,329 INFO DAS v2 k=8 kl epoch 5/10: loss 0.1055
+2026-11-26 06:26:45,634 INFO DAS v2 k=8 kl epoch 6/10: loss 0.0800
+2026-11-26 06:26:52,896 INFO DAS v2 k=8 kl epoch 7/10: loss 0.0629
+2026-11-26 06:27:00,220 INFO DAS v2 k=8 kl epoch 8/10: loss 0.0512
+2026-11-26 06:27:07,495 INFO DAS v2 k=8 kl epoch 9/10: loss 0.0428
+2026-11-26 06:27:14,746 INFO DAS v2 k=8 kl epoch 10/10: loss 0.0366
+2026-11-26 06:27:38,184 INFO DAS: training das8v2_kl_s2 (k=8, 10 epochs, lr 0.01, seed 2) for ioi_control L1 on 300 train pairs
+2026-11-26 06:28:34,073 INFO DAS v2 k=8 kl epoch 1/10: loss 1.7954
+2026-11-26 06:28:41,345 INFO DAS v2 k=8 kl epoch 2/10: loss 0.3915
+2026-11-26 06:28:48,574 INFO DAS v2 k=8 kl epoch 3/10: loss 0.1868
+2026-11-26 06:28:55,838 INFO DAS v2 k=8 kl epoch 4/10: loss 0.1197
+2026-11-26 06:29:03,105 INFO DAS v2 k=8 kl epoch 5/10: loss 0.0856
+2026-11-26 06:29:10,325 INFO DAS v2 k=8 kl epoch 6/10: loss 0.0652
+2026-11-26 06:29:17,543 INFO DAS v2 k=8 kl epoch 7/10: loss 0.0510
+2026-11-26 06:29:24,783 INFO DAS v2 k=8 kl epoch 8/10: loss 0.0414
+2026-11-26 06:29:31,994 INFO DAS v2 k=8 kl epoch 9/10: loss 0.0333
+2026-11-26 06:29:39,288 INFO DAS v2 k=8 kl epoch 10/10: loss 0.0278
+2026-11-26 06:30:14,835 INFO ioi_control_L1_gs2_1b_all_L1_16k_big unit 1/3 (8 conditions, 12.8s)
+2026-11-26 06:30:15,952 INFO DAS: training das8v2_kl_s0 (k=8, 10 epochs, lr 0.01, seed 0) for people_cities L2 on 300 train pairs
+2026-11-26 06:31:58,766 INFO DAS v2 k=8 kl epoch 1/10: loss 2.4409
+2026-11-26 06:32:38,027 INFO DAS v2 k=8 kl epoch 2/10: loss 1.2033
+2026-11-26 06:33:17,282 INFO DAS v2 k=8 kl epoch 3/10: loss 0.9652
+2026-11-26 06:33:56,589 INFO DAS v2 k=8 kl epoch 4/10: loss 0.9373
+2026-11-26 06:34:35,837 INFO DAS v2 k=8 kl epoch 5/10: loss 1.0176
+2026-11-26 06:35:15,096 INFO DAS v2 k=8 kl epoch 6/10: loss 1.0917
+2026-11-26 06:35:54,352 INFO DAS v2 k=8 kl epoch 7/10: loss 1.0885
+2026-11-26 06:36:33,622 INFO DAS v2 k=8 kl epoch 8/10: loss 0.7626
+2026-11-26 06:37:12,875 INFO DAS v2 k=8 kl epoch 9/10: loss 0.9208
+2026-11-26 06:37:52,677 INFO DAS v2 k=8 kl epoch 10/10: loss 0.8842
+2026-11-26 06:39:18,998 INFO people_cities_L2_gs2_1b_all_L2_16k_small__fit-pc_en__eval-pc_en unit 3/3 (6 conditions, 56.1s)
+2026-11-26 06:40:34,704 INFO people_cities_L2_gs2_1b_all_L2_16k_big__fit-pc_en__eval-pc_en unit 2/3 (8 conditions, 74.5s)
+2026-11-26 06:55:23,971 INFO entity_track_L2_gs2_1b_all_L2_16k_small__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 3/3 (6 conditions, 236.8s)
+2026-11-26 07:00:43,523 INFO entity_track_L2_gs2_1b_all_L2_16k_big__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 2/3 (8 conditions, 317.9s)
+2026-11-26 07:01:45,896 INFO ioi_control_L2_gs2_1b_all_L2_16k_small unit 2/3 (8 conditions, 11.8s)
+2026-11-26 07:01:47,168 INFO DAS: training das8v2_kl_s1 (k=8, 10 epochs, lr 0.01, seed 1) for people_cities L3 on 300 train pairs
+2026-11-26 07:03:26,507 INFO DAS v2 k=8 kl epoch 1/10: loss 2.5732
+2026-11-26 07:04:04,131 INFO DAS v2 k=8 kl epoch 2/10: loss 1.2928
+2026-11-26 07:04:41,738 INFO DAS v2 k=8 kl epoch 3/10: loss 1.0856
+2026-11-26 07:05:19,440 INFO DAS v2 k=8 kl epoch 4/10: loss 0.9849
+2026-11-26 07:05:57,116 INFO DAS v2 k=8 kl epoch 5/10: loss 0.8655
+2026-11-26 07:06:34,794 INFO DAS v2 k=8 kl epoch 6/10: loss 0.9762
+2026-11-26 07:07:12,436 INFO DAS v2 k=8 kl epoch 7/10: loss 0.9702
+2026-11-26 07:07:50,117 INFO DAS v2 k=8 kl epoch 8/10: loss 0.8400
+2026-11-26 07:08:27,842 INFO DAS v2 k=8 kl epoch 9/10: loss 0.9000
+2026-11-26 07:09:06,140 INFO DAS v2 k=8 kl epoch 10/10: loss 0.9662
+2026-11-26 07:10:49,087 INFO people_cities_L3_gs2_1b_all_L3_16k_big__fit-pc_en__eval-pc_en unit 1/3 (8 conditions, 71.7s)
+2026-11-26 07:10:50,095 INFO DAS: training das8v2_kl_s1 (k=8, 10 epochs, lr 0.01, seed 1) for entity_track L3 on 300 train pairs
+2026-11-26 07:13:00,871 INFO DAS v2 k=8 kl epoch 1/10: loss 1.4169
+2026-11-26 07:13:55,431 INFO DAS v2 k=8 kl epoch 2/10: loss 0.8515
+2026-11-26 07:14:49,982 INFO DAS v2 k=8 kl epoch 3/10: loss 0.7124
+2026-11-26 07:15:44,468 INFO DAS v2 k=8 kl epoch 4/10: loss 0.6889
+2026-11-26 07:16:38,970 INFO DAS v2 k=8 kl epoch 5/10: loss 0.5575
+2026-11-26 07:17:33,488 INFO DAS v2 k=8 kl epoch 6/10: loss 0.5208
+2026-11-26 07:18:28,475 INFO DAS v2 k=8 kl epoch 7/10: loss 0.4052
+2026-11-26 07:19:23,002 INFO DAS v2 k=8 kl epoch 8/10: loss 0.3591
+2026-11-26 07:20:17,525 INFO DAS v2 k=8 kl epoch 9/10: loss 0.3090
+2026-11-26 07:21:12,090 INFO DAS v2 k=8 kl epoch 10/10: loss 0.2268
+2026-11-26 07:27:22,071 INFO entity_track_L3_gs2_1b_all_L3_16k_big__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 1/3 (8 conditions, 305.8s)
+2026-11-26 07:27:22,437 INFO DAS: training das8v2_kl_s1 (k=8, 10 epochs, lr 0.01, seed 1) for ioi_control L3 on 300 train pairs
+2026-11-26 07:28:16,780 INFO DAS v2 k=8 kl epoch 1/10: loss 1.6845
+2026-11-26 07:28:23,587 INFO DAS v2 k=8 kl epoch 2/10: loss 0.3757
+2026-11-26 07:28:30,399 INFO DAS v2 k=8 kl epoch 3/10: loss 0.2088
+2026-11-26 07:28:37,215 INFO DAS v2 k=8 kl epoch 4/10: loss 0.1260
+2026-11-26 07:28:43,971 INFO DAS v2 k=8 kl epoch 5/10: loss 0.0861
+2026-11-26 07:28:50,785 INFO DAS v2 k=8 kl epoch 6/10: loss 0.0600
+2026-11-26 07:28:57,566 INFO DAS v2 k=8 kl epoch 7/10: loss 0.0427
+2026-11-26 07:29:04,363 INFO DAS v2 k=8 kl epoch 8/10: loss 0.0321
+2026-11-26 07:29:11,109 INFO DAS v2 k=8 kl epoch 9/10: loss 0.0248
+2026-11-26 07:29:17,930 INFO DAS v2 k=8 kl epoch 10/10: loss 0.0192
+2026-11-26 07:29:39,308 INFO DAS: training das8v2_kl_s2 (k=8, 10 epochs, lr 0.01, seed 2) for ioi_control L3 on 300 train pairs
+2026-11-26 07:30:32,052 INFO DAS v2 k=8 kl epoch 1/10: loss 1.7779
+2026-11-26 07:30:38,848 INFO DAS v2 k=8 kl epoch 2/10: loss 0.3189
+2026-11-26 07:30:45,591 INFO DAS v2 k=8 kl epoch 3/10: loss 0.1684
+2026-11-26 07:30:52,361 INFO DAS v2 k=8 kl epoch 4/10: loss 0.1314
+2026-11-26 07:30:59,131 INFO DAS v2 k=8 kl epoch 5/10: loss 0.0772
+2026-11-26 07:31:05,857 INFO DAS v2 k=8 kl epoch 6/10: loss 0.0474
+2026-11-26 07:31:12,579 INFO DAS v2 k=8 kl epoch 7/10: loss 0.0336
+2026-11-26 07:31:19,327 INFO DAS v2 k=8 kl epoch 8/10: loss 0.0247
+2026-11-26 07:31:26,052 INFO DAS v2 k=8 kl epoch 9/10: loss 0.0192
+2026-11-26 07:31:32,813 INFO DAS v2 k=8 kl epoch 10/10: loss 0.0153
+2026-11-26 07:32:02,192 INFO ioi_control_L3_gs2_1b_all_L3_16k_small unit 3/3 (6 conditions, 9.0s)
+2026-11-26 07:32:14,499 INFO ioi_control_L3_gs2_1b_all_L3_16k_big unit 2/3 (8 conditions, 11.9s)
+2026-11-26 07:40:27,693 INFO people_cities_L4_gs2_1b_all_L4_16k_small__fit-pc_en__eval-pc_en unit 3/3 (6 conditions, 49.7s)
+2026-11-26 07:41:37,558 INFO people_cities_L4_gs2_1b_all_L4_16k_big__fit-pc_en__eval-pc_en unit 2/3 (8 conditions, 68.6s)
+2026-11-26 07:56:39,584 INFO entity_track_L4_gs2_1b_all_L4_16k_big__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 1/3 (8 conditions, 291.3s)
+2026-11-26 07:56:40,157 INFO DAS: training das8v2_kl_s0 (k=8, 10 epochs, lr 0.01, seed 0) for ioi_control L4 on 300 train pairs
+2026-11-26 07:57:47,913 INFO DAS v2 k=8 kl epoch 1/10: loss 2.0615
+2026-11-26 07:57:54,540 INFO DAS v2 k=8 kl epoch 2/10: loss 0.3936
+2026-11-26 07:58:01,159 INFO DAS v2 k=8 kl epoch 3/10: loss 0.2436
+2026-11-26 07:58:07,811 INFO DAS v2 k=8 kl epoch 4/10: loss 0.1425
+2026-11-26 07:58:14,414 INFO DAS v2 k=8 kl epoch 5/10: loss 0.0966
+2026-11-26 07:58:21,046 INFO DAS v2 k=8 kl epoch 6/10: loss 0.0687
+2026-11-26 07:58:27,670 INFO DAS v2 k=8 kl epoch 7/10: loss 0.0497
+2026-11-26 07:58:34,317 INFO DAS v2 k=8 kl epoch 8/10: loss 0.0376
+2026-11-26 07:58:40,930 INFO DAS v2 k=8 kl epoch 9/10: loss 0.0291
+2026-11-26 07:58:47,554 INFO DAS v2 k=8 kl epoch 10/10: loss 0.0238
+2026-11-26 08:01:21,418 INFO ioi_control_L4_gs2_1b_all_L4_16k_big unit 1/3 (8 conditions, 10.8s)
+2026-11-26 08:01:23,088 INFO DAS: training das8v2_kl_s1 (k=8, 10 epochs, lr 0.01, seed 1) for people_cities L5 on 300 train pairs
+2026-11-26 08:02:57,760 INFO DAS v2 k=8 kl epoch 1/10: loss 2.4062
+2026-11-26 08:03:32,442 INFO DAS v2 k=8 kl epoch 2/10: loss 0.9620
+2026-11-26 08:04:07,080 INFO DAS v2 k=8 kl epoch 3/10: loss 0.8448
+2026-11-26 08:04:41,831 INFO DAS v2 k=8 kl epoch 4/10: loss 1.0456
+2026-11-26 08:05:16,551 INFO DAS v2 k=8 kl epoch 5/10: loss 0.9516
+2026-11-26 08:05:51,261 INFO DAS v2 k=8 kl epoch 6/10: loss 0.8142
+2026-11-26 08:06:25,985 INFO DAS v2 k=8 kl epoch 7/10: loss 0.9353
+2026-11-26 08:07:00,706 INFO DAS v2 k=8 kl epoch 8/10: loss 0.9297
+2026-11-26 08:07:35,405 INFO DAS v2 k=8 kl epoch 9/10: loss 0.8927
+2026-11-26 08:08:10,704 INFO DAS v2 k=8 kl epoch 10/10: loss 0.9168
+2026-11-26 08:09:46,119 INFO people_cities_L5_gs2_1b_all_L5_16k_big__fit-pc_en__eval-pc_en unit 1/3 (8 conditions, 66.1s)
+2026-11-26 08:09:47,269 INFO DAS: training das8v2_kl_s1 (k=8, 10 epochs, lr 0.01, seed 1) for entity_track L5 on 300 train pairs
+2026-11-26 08:11:51,189 INFO DAS v2 k=8 kl epoch 1/10: loss 1.2949
+2026-11-26 08:12:41,443 INFO DAS v2 k=8 kl epoch 2/10: loss 0.6979
+2026-11-26 08:13:31,726 INFO DAS v2 k=8 kl epoch 3/10: loss 0.5990
+2026-11-26 08:14:21,989 INFO DAS v2 k=8 kl epoch 4/10: loss 0.5386
+2026-11-26 08:15:12,248 INFO DAS v2 k=8 kl epoch 5/10: loss 0.4011
+2026-11-26 08:16:02,487 INFO DAS v2 k=8 kl epoch 6/10: loss 0.2930
+2026-11-26 08:16:53,192 INFO DAS v2 k=8 kl epoch 7/10: loss 0.2783
+2026-11-26 08:17:43,465 INFO DAS v2 k=8 kl epoch 8/10: loss 0.2693
+2026-11-26 08:18:33,675 INFO DAS v2 k=8 kl epoch 9/10: loss 0.6131
+2026-11-26 08:19:23,725 INFO DAS v2 k=8 kl epoch 10/10: loss 0.3756
+2026-11-26 08:25:02,066 INFO entity_track_L5_gs2_1b_all_L5_16k_big__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 1/3 (8 conditions, 282.0s)
+2026-11-26 08:25:02,463 INFO DAS: training das8v2_kl_s1 (k=8, 10 epochs, lr 0.01, seed 1) for ioi_control L5 on 300 train pairs
+2026-11-26 08:26:08,651 INFO DAS v2 k=8 kl epoch 1/10: loss 1.3155
+2026-11-26 08:26:14,986 INFO DAS v2 k=8 kl epoch 2/10: loss 0.1824
+2026-11-26 08:26:21,258 INFO DAS v2 k=8 kl epoch 3/10: loss 0.0497
+2026-11-26 08:26:27,595 INFO DAS v2 k=8 kl epoch 4/10: loss 0.0172
+2026-11-26 08:26:33,902 INFO DAS v2 k=8 kl epoch 5/10: loss 0.0100
+2026-11-26 08:26:40,184 INFO DAS v2 k=8 kl epoch 6/10: loss 0.0063
+2026-11-26 08:26:46,531 INFO DAS v2 k=8 kl epoch 7/10: loss 0.0049
+2026-11-26 08:26:52,815 INFO DAS v2 k=8 kl epoch 8/10: loss 0.0042
+2026-11-26 08:26:59,155 INFO DAS v2 k=8 kl epoch 9/10: loss 0.0037
+2026-11-26 08:27:05,461 INFO DAS v2 k=8 kl epoch 10/10: loss 0.0032
+2026-11-26 08:29:19,762 INFO ioi_control_L5_gs2_1b_all_L5_16k_big unit 1/3 (8 conditions, 10.4s)
+2026-11-26 08:29:22,735 INFO DAS: training das8v2_kl_s0 (k=8, 10 epochs, lr 0.01, seed 0) for people_cities L6 on 300 train pairs
+2026-11-26 08:30:53,358 INFO DAS v2 k=8 kl epoch 1/10: loss 2.2004
+2026-11-26 08:31:26,445 INFO DAS v2 k=8 kl epoch 2/10: loss 1.1135
+2026-11-26 08:31:59,504 INFO DAS v2 k=8 kl epoch 3/10: loss 0.9869
+2026-11-26 08:32:32,614 INFO DAS v2 k=8 kl epoch 4/10: loss 1.0291
+2026-11-26 08:33:05,687 INFO DAS v2 k=8 kl epoch 5/10: loss 1.1074
+2026-11-26 08:33:38,794 INFO DAS v2 k=8 kl epoch 6/10: loss 1.1842
+2026-11-26 08:34:11,875 INFO DAS v2 k=8 kl epoch 7/10: loss 1.2546
+2026-11-26 08:34:44,960 INFO DAS v2 k=8 kl epoch 8/10: loss 0.9945
+2026-11-26 08:35:18,017 INFO DAS v2 k=8 kl epoch 9/10: loss 1.1983
+2026-11-26 08:35:51,677 INFO DAS v2 k=8 kl epoch 10/10: loss 1.4426
+2026-11-26 08:37:25,262 INFO people_cities_L6_gs2_1b_all_L6_16k_big__fit-pc_en__eval-pc_en unit 1/3 (8 conditions, 63.3s)
+2026-11-26 08:37:28,314 INFO DAS: training das8v2_kl_s1 (k=8, 10 epochs, lr 0.01, seed 1) for entity_track L6 on 300 train pairs
+2026-11-26 08:39:27,933 INFO DAS v2 k=8 kl epoch 1/10: loss 1.4684
+2026-11-26 08:40:15,949 INFO DAS v2 k=8 kl epoch 2/10: loss 0.9772
+2026-11-26 08:41:03,952 INFO DAS v2 k=8 kl epoch 3/10: loss 0.7290
+2026-11-26 08:41:52,010 INFO DAS v2 k=8 kl epoch 4/10: loss 0.7072
+2026-11-26 08:42:40,070 INFO DAS v2 k=8 kl epoch 5/10: loss 0.5012
+2026-11-26 08:43:28,134 INFO DAS v2 k=8 kl epoch 6/10: loss 0.4743
+2026-11-26 08:44:16,804 INFO DAS v2 k=8 kl epoch 7/10: loss 0.4522
+2026-11-26 08:45:04,863 INFO DAS v2 k=8 kl epoch 8/10: loss 0.3954
+2026-11-26 08:45:52,896 INFO DAS v2 k=8 kl epoch 9/10: loss 0.3360
+2026-11-26 08:46:40,957 INFO DAS v2 k=8 kl epoch 10/10: loss 0.3461
+2026-11-26 08:52:01,979 INFO entity_track_L6_gs2_1b_all_L6_16k_big__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 1/3 (8 conditions, 270.5s)
+2026-11-26 08:52:02,323 INFO DAS: training das8v2_kl_s1 (k=8, 10 epochs, lr 0.01, seed 1) for ioi_control L6 on 300 train pairs
+2026-11-26 08:52:53,688 INFO DAS v2 k=8 kl epoch 1/10: loss 1.6486
+2026-11-26 08:52:59,740 INFO DAS v2 k=8 kl epoch 2/10: loss 0.1674
+2026-11-26 08:53:05,799 INFO DAS v2 k=8 kl epoch 3/10: loss 0.0700
+2026-11-26 08:53:11,846 INFO DAS v2 k=8 kl epoch 4/10: loss 0.0332
+2026-11-26 08:53:17,901 INFO DAS v2 k=8 kl epoch 5/10: loss 0.0186
+2026-11-26 08:53:23,934 INFO DAS v2 k=8 kl epoch 6/10: loss 0.0112
+2026-11-26 08:53:30,037 INFO DAS v2 k=8 kl epoch 7/10: loss 0.0075
+2026-11-26 08:53:36,068 INFO DAS v2 k=8 kl epoch 8/10: loss 0.0058
+2026-11-26 08:53:42,159 INFO DAS v2 k=8 kl epoch 9/10: loss 0.0048
+2026-11-26 08:53:48,192 INFO DAS v2 k=8 kl epoch 10/10: loss 0.0039
+2026-11-26 08:54:07,151 INFO DAS: training das8v2_kl_s2 (k=8, 10 epochs, lr 0.01, seed 2) for ioi_control L6 on 300 train pairs
+2026-11-26 08:54:56,785 INFO DAS v2 k=8 kl epoch 1/10: loss 1.6163
+2026-11-26 08:55:02,805 INFO DAS v2 k=8 kl epoch 2/10: loss 0.1992
+2026-11-26 08:55:08,815 INFO DAS v2 k=8 kl epoch 3/10: loss 0.1279
+2026-11-26 08:55:14,829 INFO DAS v2 k=8 kl epoch 4/10: loss 0.0343
+2026-11-26 08:55:20,819 INFO DAS v2 k=8 kl epoch 5/10: loss 0.0227
+2026-11-26 08:55:26,811 INFO DAS v2 k=8 kl epoch 6/10: loss 0.0092
+2026-11-26 08:55:32,803 INFO DAS v2 k=8 kl epoch 7/10: loss 0.0057
+2026-11-26 08:55:38,808 INFO DAS v2 k=8 kl epoch 8/10: loss 0.0043
+2026-11-26 08:55:44,787 INFO DAS v2 k=8 kl epoch 9/10: loss 0.0036
+2026-11-26 08:55:50,782 INFO DAS v2 k=8 kl epoch 10/10: loss 0.0030
+2026-11-26 08:56:19,203 INFO ioi_control_L6_gs2_1b_all_L6_16k_small unit 2/3 (8 conditions, 10.5s)
+2026-11-26 08:56:21,177 INFO DAS: training das8v2_kl_s1 (k=8, 10 epochs, lr 0.01, seed 1) for people_cities L7 on 300 train pairs
+2026-11-26 08:57:49,956 INFO DAS v2 k=8 kl epoch 1/10: loss 1.9521
+2026-11-26 08:58:21,514 INFO DAS v2 k=8 kl epoch 2/10: loss 0.9273
+2026-11-26 08:58:53,057 INFO DAS v2 k=8 kl epoch 3/10: loss 1.0032
+2026-11-26 08:59:24,633 INFO DAS v2 k=8 kl epoch 4/10: loss 1.2026
+2026-11-26 08:59:56,192 INFO DAS v2 k=8 kl epoch 5/10: loss 1.0268
+2026-11-26 09:00:27,782 INFO DAS v2 k=8 kl epoch 6/10: loss 1.0711
+2026-11-26 09:00:59,336 INFO DAS v2 k=8 kl epoch 7/10: loss 0.9073
+2026-11-26 09:01:30,883 INFO DAS v2 k=8 kl epoch 8/10: loss 1.1095
+2026-11-26 09:02:02,465 INFO DAS v2 k=8 kl epoch 9/10: loss 0.9995
+2026-11-26 09:02:34,531 INFO DAS v2 k=8 kl epoch 10/10: loss 1.0278
+2026-11-26 09:03:44,777 INFO people_cities_L7_gs2_1b_all_L7_16k_small__fit-pc_en__eval-pc_en unit 3/3 (6 conditions, 46.3s)
+2026-11-26 09:04:46,708 INFO people_cities_L7_gs2_1b_all_L7_16k_big__fit-pc_en__eval-pc_en unit 2/3 (8 conditions, 60.7s)
+2026-11-26 09:16:51,940 INFO entity_track_L7_gs2_1b_all_L7_16k_small__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 3/3 (6 conditions, 194.5s)
+2026-11-26 09:21:12,404 INFO entity_track_L7_gs2_1b_all_L7_16k_big__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 2/3 (8 conditions, 258.7s)
+2026-11-26 09:22:01,260 INFO ioi_control_L7_gs2_1b_all_L7_16k_small unit 2/3 (8 conditions, 9.7s)
+2026-11-26 09:22:04,795 INFO DAS: training das8v2_kl_s1 (k=8, 10 epochs, lr 0.01, seed 1) for people_cities L8 on 300 train pairs
+2026-11-26 09:23:31,344 INFO DAS v2 k=8 kl epoch 1/10: loss 1.9907
+2026-11-26 09:24:01,285 INFO DAS v2 k=8 kl epoch 2/10: loss 1.0480
+2026-11-26 09:24:31,178 INFO DAS v2 k=8 kl epoch 3/10: loss 1.0352
+2026-11-26 09:25:01,164 INFO DAS v2 k=8 kl epoch 4/10: loss 1.1436
+2026-11-26 09:25:31,041 INFO DAS v2 k=8 kl epoch 5/10: loss 0.9604
+2026-11-26 09:26:00,991 INFO DAS v2 k=8 kl epoch 6/10: loss 0.9971
+2026-11-26 09:26:30,868 INFO DAS v2 k=8 kl epoch 7/10: loss 1.0695
+2026-11-26 09:27:00,795 INFO DAS v2 k=8 kl epoch 8/10: loss 1.0284
+2026-11-26 09:27:30,664 INFO DAS v2 k=8 kl epoch 9/10: loss 1.0362
+2026-11-26 09:28:00,592 INFO DAS v2 k=8 kl epoch 10/10: loss 0.9573
+2026-11-26 09:29:23,725 INFO people_cities_L8_gs2_1b_all_L8_16k_big__fit-pc_en__eval-pc_en unit 1/3 (8 conditions, 57.8s)
+2026-11-26 09:29:24,795 INFO DAS: training das8v2_kl_s1 (k=8, 10 epochs, lr 0.01, seed 1) for entity_track L8 on 300 train pairs
+2026-11-26 09:31:16,938 INFO DAS v2 k=8 kl epoch 1/10: loss 1.3247
+2026-11-26 09:32:00,441 INFO DAS v2 k=8 kl epoch 2/10: loss 0.8900
+2026-11-26 09:32:43,920 INFO DAS v2 k=8 kl epoch 3/10: loss 0.7491
+2026-11-26 09:33:27,480 INFO DAS v2 k=8 kl epoch 4/10: loss 0.6760
+2026-11-26 09:34:11,016 INFO DAS v2 k=8 kl epoch 5/10: loss 0.5755
+2026-11-26 09:34:54,581 INFO DAS v2 k=8 kl epoch 6/10: loss 0.5299
+2026-11-26 09:35:38,140 INFO DAS v2 k=8 kl epoch 7/10: loss 0.4743
+2026-11-26 09:36:21,723 INFO DAS v2 k=8 kl epoch 8/10: loss 0.4291
+2026-11-26 09:37:05,257 INFO DAS v2 k=8 kl epoch 9/10: loss 0.3696
+2026-11-26 09:37:48,863 INFO DAS v2 k=8 kl epoch 10/10: loss 0.4295
+2026-11-26 09:42:44,920 INFO entity_track_L8_gs2_1b_all_L8_16k_big__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 1/3 (8 conditions, 246.5s)
+2026-11-26 09:42:45,281 INFO DAS: training das8v2_kl_s1 (k=8, 10 epochs, lr 0.01, seed 1) for ioi_control L8 on 300 train pairs
+2026-11-26 09:43:34,739 INFO DAS v2 k=8 kl epoch 1/10: loss 1.5922
+2026-11-26 09:43:40,519 INFO DAS v2 k=8 kl epoch 2/10: loss 0.1942
+2026-11-26 09:43:46,355 INFO DAS v2 k=8 kl epoch 3/10: loss 0.0910
+2026-11-26 09:43:52,134 INFO DAS v2 k=8 kl epoch 4/10: loss 0.0437
+2026-11-26 09:43:57,951 INFO DAS v2 k=8 kl epoch 5/10: loss 0.0265
+2026-11-26 09:44:03,747 INFO DAS v2 k=8 kl epoch 6/10: loss 0.0169
+2026-11-26 09:44:09,545 INFO DAS v2 k=8 kl epoch 7/10: loss 0.0130
+2026-11-26 09:44:15,358 INFO DAS v2 k=8 kl epoch 8/10: loss 0.0108
+2026-11-26 09:44:21,128 INFO DAS v2 k=8 kl epoch 9/10: loss 0.0095
+2026-11-26 09:44:26,961 INFO DAS v2 k=8 kl epoch 10/10: loss 0.0084
+2026-11-26 09:46:45,698 INFO ioi_control_L8_gs2_1b_all_L8_16k_big unit 1/3 (8 conditions, 9.1s)
+2026-11-26 09:46:47,605 INFO DAS: training das8v2_kl_s1 (k=8, 10 epochs, lr 0.01, seed 1) for people_cities L9 on 300 train pairs
+2026-11-26 09:48:09,734 INFO DAS v2 k=8 kl epoch 1/10: loss 2.1048
+2026-11-26 09:48:38,135 INFO DAS v2 k=8 kl epoch 2/10: loss 1.0484
+2026-11-26 09:49:06,593 INFO DAS v2 k=8 kl epoch 3/10: loss 1.0859
+2026-11-26 09:49:35,015 INFO DAS v2 k=8 kl epoch 4/10: loss 1.1463
+2026-11-26 09:50:03,413 INFO DAS v2 k=8 kl epoch 5/10: loss 1.0052
+2026-11-26 09:50:31,823 INFO DAS v2 k=8 kl epoch 6/10: loss 1.0804
+2026-11-26 09:51:00,290 INFO DAS v2 k=8 kl epoch 7/10: loss 1.0031
+2026-11-26 09:51:28,679 INFO DAS v2 k=8 kl epoch 8/10: loss 0.9932
+2026-11-26 09:51:57,115 INFO DAS v2 k=8 kl epoch 9/10: loss 1.0745
+2026-11-26 09:52:25,540 INFO DAS v2 k=8 kl epoch 10/10: loss 1.0318
+2026-11-26 09:53:47,622 INFO people_cities_L9_gs2_1b_all_L9_16k_big__fit-pc_en__eval-pc_en unit 1/3 (8 conditions, 54.9s)
+2026-11-26 09:53:49,623 INFO DAS: training das8v2_kl_s1 (k=8, 10 epochs, lr 0.01, seed 1) for entity_track L9 on 300 train pairs
+2026-11-26 09:55:38,099 INFO DAS v2 k=8 kl epoch 1/10: loss 1.2330
+2026-11-26 09:56:19,429 INFO DAS v2 k=8 kl epoch 2/10: loss 0.8418
+2026-11-26 09:57:00,765 INFO DAS v2 k=8 kl epoch 3/10: loss 0.8025
+2026-11-26 09:57:42,089 INFO DAS v2 k=8 kl epoch 4/10: loss 0.6821
+2026-11-26 09:58:23,394 INFO DAS v2 k=8 kl epoch 5/10: loss 0.5174
+2026-11-26 09:59:04,688 INFO DAS v2 k=8 kl epoch 6/10: loss 0.4068
+2026-11-26 09:59:46,020 INFO DAS v2 k=8 kl epoch 7/10: loss 0.3951
+2026-11-26 10:00:27,319 INFO DAS v2 k=8 kl epoch 8/10: loss 0.4336
+2026-11-26 10:01:08,666 INFO DAS v2 k=8 kl epoch 9/10: loss 0.3479
+2026-11-26 10:01:50,007 INFO DAS v2 k=8 kl epoch 10/10: loss 0.3033
+2026-11-26 10:06:27,711 INFO entity_track_L9_gs2_1b_all_L9_16k_big__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 1/3 (8 conditions, 235.1s)
+2026-11-26 10:06:28,160 INFO DAS: training das8v2_kl_s1 (k=8, 10 epochs, lr 0.01, seed 1) for ioi_control L9 on 300 train pairs
+2026-11-26 10:07:28,723 INFO DAS v2 k=8 kl epoch 1/10: loss 0.9602
+2026-11-26 10:07:34,179 INFO DAS v2 k=8 kl epoch 2/10: loss 0.0518
+2026-11-26 10:07:39,567 INFO DAS v2 k=8 kl epoch 3/10: loss 0.0268
+2026-11-26 10:07:44,931 INFO DAS v2 k=8 kl epoch 4/10: loss 0.0147
+2026-11-26 10:07:50,326 INFO DAS v2 k=8 kl epoch 5/10: loss 0.0102
+2026-11-26 10:07:55,732 INFO DAS v2 k=8 kl epoch 6/10: loss 0.0076
+2026-11-26 10:08:01,101 INFO DAS v2 k=8 kl epoch 7/10: loss 0.0060
+2026-11-26 10:08:06,519 INFO DAS v2 k=8 kl epoch 8/10: loss 0.0052
+2026-11-26 10:08:11,919 INFO DAS v2 k=8 kl epoch 9/10: loss 0.0045
+2026-11-26 10:08:17,284 INFO DAS v2 k=8 kl epoch 10/10: loss 0.0040
+2026-11-26 10:10:22,177 INFO ioi_control_L9_gs2_1b_all_L9_16k_big unit 1/3 (8 conditions, 8.7s)
+2026-11-26 10:10:24,645 INFO DAS: training das8v2_kl_s1 (k=8, 10 epochs, lr 0.01, seed 1) for people_cities L10 on 300 train pairs
+2026-11-26 10:11:44,015 INFO DAS v2 k=8 kl epoch 1/10: loss 2.1338
+2026-11-26 10:12:10,895 INFO DAS v2 k=8 kl epoch 2/10: loss 0.9569
+2026-11-26 10:12:37,779 INFO DAS v2 k=8 kl epoch 3/10: loss 1.0546
+2026-11-26 10:13:04,677 INFO DAS v2 k=8 kl epoch 4/10: loss 1.1942
+2026-11-26 10:13:31,562 INFO DAS v2 k=8 kl epoch 5/10: loss 1.0736
+2026-11-26 10:13:58,475 INFO DAS v2 k=8 kl epoch 6/10: loss 0.9674
+2026-11-26 10:14:25,383 INFO DAS v2 k=8 kl epoch 7/10: loss 1.1820
+2026-11-26 10:14:52,296 INFO DAS v2 k=8 kl epoch 8/10: loss 1.0873
+2026-11-26 10:15:19,216 INFO DAS v2 k=8 kl epoch 9/10: loss 1.0250
+2026-11-26 10:15:46,152 INFO DAS v2 k=8 kl epoch 10/10: loss 0.9791
+2026-11-26 10:17:01,211 INFO people_cities_L10_gs2_1b_all_L10_16k_big__fit-pc_en__eval-pc_en unit 1/3 (8 conditions, 52.2s)
+2026-11-26 10:17:03,410 INFO DAS: training das8v2_kl_s1 (k=8, 10 epochs, lr 0.01, seed 1) for entity_track L10 on 300 train pairs
+2026-11-26 10:18:47,900 INFO DAS v2 k=8 kl epoch 1/10: loss 1.3024
+2026-11-26 10:19:26,900 INFO DAS v2 k=8 kl epoch 2/10: loss 0.8736
+2026-11-26 10:20:05,864 INFO DAS v2 k=8 kl epoch 3/10: loss 0.7882
+2026-11-26 10:20:44,885 INFO DAS v2 k=8 kl epoch 4/10: loss 0.7208
+2026-11-26 10:21:23,865 INFO DAS v2 k=8 kl epoch 5/10: loss 0.5307
+2026-11-26 10:22:02,838 INFO DAS v2 k=8 kl epoch 6/10: loss 0.4652
+2026-11-26 10:22:41,858 INFO DAS v2 k=8 kl epoch 7/10: loss 0.4210
+2026-11-26 10:23:20,838 INFO DAS v2 k=8 kl epoch 8/10: loss 0.4667
+2026-11-26 10:23:59,832 INFO DAS v2 k=8 kl epoch 9/10: loss 0.3712
+2026-11-26 10:24:38,865 INFO DAS v2 k=8 kl epoch 10/10: loss 0.3347
+2026-11-26 10:28:10,932 INFO entity_track_L10_gs2_1b_all_L10_16k_small__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 3/3 (6 conditions, 171.9s)
+2026-11-26 10:31:56,295 INFO entity_track_L10_gs2_1b_all_L10_16k_big__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 2/3 (8 conditions, 223.5s)
+2026-11-26 10:32:28,420 INFO ioi_control_L10_gs2_1b_all_L10_16k_small unit 1/3 (8 conditions, 8.5s)
+2026-11-26 10:32:31,940 INFO DAS: training das8v2_kl_s0 (k=8, 10 epochs, lr 0.01, seed 0) for people_cities L11 on 300 train pairs
+2026-11-26 10:33:49,608 INFO DAS v2 k=8 kl epoch 1/10: loss 1.8331
+2026-11-26 10:34:15,075 INFO DAS v2 k=8 kl epoch 2/10: loss 1.1416
+2026-11-26 10:34:40,530 INFO DAS v2 k=8 kl epoch 3/10: loss 1.0777
+2026-11-26 10:35:05,975 INFO DAS v2 k=8 kl epoch 4/10: loss 1.0556
+2026-11-26 10:35:31,464 INFO DAS v2 k=8 kl epoch 5/10: loss 1.1404
+2026-11-26 10:35:56,950 INFO DAS v2 k=8 kl epoch 6/10: loss 1.1458
+2026-11-26 10:36:22,404 INFO DAS v2 k=8 kl epoch 7/10: loss 1.3175
+2026-11-26 10:36:47,835 INFO DAS v2 k=8 kl epoch 8/10: loss 1.0994
+2026-11-26 10:37:13,281 INFO DAS v2 k=8 kl epoch 9/10: loss 1.1214
+2026-11-26 10:37:38,739 INFO DAS v2 k=8 kl epoch 10/10: loss 1.0906
+2026-11-26 10:38:49,914 INFO people_cities_L11_gs2_1b_all_L11_16k_big__fit-pc_en__eval-pc_en unit 1/3 (8 conditions, 49.5s)
+2026-11-26 10:38:53,562 INFO DAS: training das8v2_kl_s1 (k=8, 10 epochs, lr 0.01, seed 1) for entity_track L11 on 300 train pairs
+2026-11-26 10:40:35,828 INFO DAS v2 k=8 kl epoch 1/10: loss 1.3335
+2026-11-26 10:41:12,732 INFO DAS v2 k=8 kl epoch 2/10: loss 0.9071
+2026-11-26 10:41:49,682 INFO DAS v2 k=8 kl epoch 3/10: loss 0.7408
+2026-11-26 10:42:26,605 INFO DAS v2 k=8 kl epoch 4/10: loss 0.6688
+2026-11-26 10:43:03,518 INFO DAS v2 k=8 kl epoch 5/10: loss 0.5662
+2026-11-26 10:43:40,419 INFO DAS v2 k=8 kl epoch 6/10: loss 0.5335
+2026-11-26 10:44:17,295 INFO DAS v2 k=8 kl epoch 7/10: loss 0.5429
+2026-11-26 10:44:54,200 INFO DAS v2 k=8 kl epoch 8/10: loss 0.5208
+2026-11-26 10:45:31,105 INFO DAS v2 k=8 kl epoch 9/10: loss 0.3835
+2026-11-26 10:46:08,002 INFO DAS v2 k=8 kl epoch 10/10: loss 0.4943
+2026-11-26 10:50:13,190 INFO entity_track_L11_gs2_1b_all_L11_16k_big__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 1/3 (8 conditions, 211.3s)
+2026-11-26 10:50:13,580 INFO DAS: training das8v2_kl_s1 (k=8, 10 epochs, lr 0.01, seed 1) for ioi_control L11 on 300 train pairs
+2026-11-26 10:50:59,276 INFO DAS v2 k=8 kl epoch 1/10: loss 0.7838
+2026-11-26 10:51:04,076 INFO DAS v2 k=8 kl epoch 2/10: loss 0.0356
+2026-11-26 10:51:08,917 INFO DAS v2 k=8 kl epoch 3/10: loss 0.0178
+2026-11-26 10:51:13,709 INFO DAS v2 k=8 kl epoch 4/10: loss 0.0098
+2026-11-26 10:51:18,518 INFO DAS v2 k=8 kl epoch 5/10: loss 0.0067
+2026-11-26 10:51:23,337 INFO DAS v2 k=8 kl epoch 6/10: loss 0.0052
+2026-11-26 10:51:28,130 INFO DAS v2 k=8 kl epoch 7/10: loss 0.0042
+2026-11-26 10:51:32,953 INFO DAS v2 k=8 kl epoch 8/10: loss 0.0037
+2026-11-26 10:51:37,761 INFO DAS v2 k=8 kl epoch 9/10: loss 0.0032
+2026-11-26 10:51:42,554 INFO DAS v2 k=8 kl epoch 10/10: loss 0.0030
+2026-11-26 10:51:56,842 INFO DAS: training das8v2_kl_s2 (k=8, 10 epochs, lr 0.01, seed 2) for ioi_control L11 on 300 train pairs
+2026-11-26 10:52:41,191 INFO DAS v2 k=8 kl epoch 1/10: loss 0.8772
+2026-11-26 10:52:45,925 INFO DAS v2 k=8 kl epoch 2/10: loss 0.0267
+2026-11-26 10:52:50,649 INFO DAS v2 k=8 kl epoch 3/10: loss 0.0117
+2026-11-26 10:52:55,395 INFO DAS v2 k=8 kl epoch 4/10: loss 0.0069
+2026-11-26 10:53:00,169 INFO DAS v2 k=8 kl epoch 5/10: loss 0.0049
+2026-11-26 10:53:04,931 INFO DAS v2 k=8 kl epoch 6/10: loss 0.0039
+2026-11-26 10:53:09,665 INFO DAS v2 k=8 kl epoch 7/10: loss 0.0033
+2026-11-26 10:53:14,428 INFO DAS v2 k=8 kl epoch 8/10: loss 0.0029
+2026-11-26 10:53:19,190 INFO DAS v2 k=8 kl epoch 9/10: loss 0.0027
+2026-11-26 10:53:23,925 INFO DAS v2 k=8 kl epoch 10/10: loss 0.0024
+2026-11-26 10:53:46,411 INFO ioi_control_L11_gs2_1b_all_L11_16k_big unit 1/3 (8 conditions, 8.3s)
+2026-11-26 10:53:48,711 INFO DAS: training das8v2_kl_s0 (k=8, 10 epochs, lr 0.01, seed 0) for people_cities L12 on 300 train pairs
+2026-11-26 10:55:03,718 INFO DAS v2 k=8 kl epoch 1/10: loss 2.0603
+2026-11-26 10:55:27,620 INFO DAS v2 k=8 kl epoch 2/10: loss 1.1748
+2026-11-26 10:55:51,540 INFO DAS v2 k=8 kl epoch 3/10: loss 1.0655
+2026-11-26 10:56:15,433 INFO DAS v2 k=8 kl epoch 4/10: loss 1.0780
+2026-11-26 10:56:39,299 INFO DAS v2 k=8 kl epoch 5/10: loss 1.0312
+2026-11-26 10:57:03,186 INFO DAS v2 k=8 kl epoch 6/10: loss 1.0805
+2026-11-26 10:57:27,082 INFO DAS v2 k=8 kl epoch 7/10: loss 1.1671
+2026-11-26 10:57:50,984 INFO DAS v2 k=8 kl epoch 8/10: loss 1.0371
+2026-11-26 10:58:14,891 INFO DAS v2 k=8 kl epoch 9/10: loss 1.0597
+2026-11-26 10:58:38,817 INFO DAS v2 k=8 kl epoch 10/10: loss 1.0117
+2026-11-26 10:59:46,025 INFO people_cities_L12_gs2_1b_all_L12_16k_big__fit-pc_en__eval-pc_en unit 1/3 (8 conditions, 46.6s)
+2026-11-26 10:59:47,859 INFO DAS: training das8v2_kl_s1 (k=8, 10 epochs, lr 0.01, seed 1) for entity_track L12 on 300 train pairs
+2026-11-26 11:01:25,889 INFO DAS v2 k=8 kl epoch 1/10: loss 1.1670
+2026-11-26 11:02:00,468 INFO DAS v2 k=8 kl epoch 2/10: loss 1.0571
+2026-11-26 11:02:35,046 INFO DAS v2 k=8 kl epoch 3/10: loss 0.8514
+2026-11-26 11:03:09,590 INFO DAS v2 k=8 kl epoch 4/10: loss 0.8188
+2026-11-26 11:03:44,141 INFO DAS v2 k=8 kl epoch 5/10: loss 0.6529
+2026-11-26 11:04:18,729 INFO DAS v2 k=8 kl epoch 6/10: loss 0.5227
+2026-11-26 11:04:53,288 INFO DAS v2 k=8 kl epoch 7/10: loss 0.5566
+2026-11-26 11:05:27,854 INFO DAS v2 k=8 kl epoch 8/10: loss 0.5878
+2026-11-26 11:06:02,396 INFO DAS v2 k=8 kl epoch 9/10: loss 0.4268
+2026-11-26 11:06:37,017 INFO DAS v2 k=8 kl epoch 10/10: loss 0.3864
+2026-11-26 11:09:44,318 INFO entity_track_L12_gs2_1b_all_L12_16k_small__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 3/3 (6 conditions, 155.1s)
+2026-11-26 11:13:06,334 INFO entity_track_L12_gs2_1b_all_L12_16k_big__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 2/3 (8 conditions, 200.1s)
+2026-11-26 11:13:50,305 INFO ioi_control_L12_gs2_1b_all_L12_16k_small unit 2/3 (8 conditions, 7.6s)
+2026-11-26 11:13:53,862 INFO DAS: training das8v2_kl_s1 (k=8, 10 epochs, lr 0.01, seed 1) for people_cities L13 on 300 train pairs
+2026-11-26 11:15:06,132 INFO DAS v2 k=8 kl epoch 1/10: loss 2.0581
+2026-11-26 11:15:28,561 INFO DAS v2 k=8 kl epoch 2/10: loss 1.0367
+2026-11-26 11:15:50,928 INFO DAS v2 k=8 kl epoch 3/10: loss 0.9834
+2026-11-26 11:16:13,304 INFO DAS v2 k=8 kl epoch 4/10: loss 1.1525
+2026-11-26 11:16:35,692 INFO DAS v2 k=8 kl epoch 5/10: loss 1.2472
+2026-11-26 11:16:58,030 INFO DAS v2 k=8 kl epoch 6/10: loss 1.2091
+2026-11-26 11:17:20,455 INFO DAS v2 k=8 kl epoch 7/10: loss 1.0279
+2026-11-26 11:17:42,858 INFO DAS v2 k=8 kl epoch 8/10: loss 0.9978
+2026-11-26 11:18:05,260 INFO DAS v2 k=8 kl epoch 9/10: loss 1.2121
+2026-11-26 11:18:27,586 INFO DAS v2 k=8 kl epoch 10/10: loss 1.2519
+2026-11-26 11:19:18,455 INFO people_cities_L13_gs2_1b_all_L13_16k_small__fit-pc_en__eval-pc_en unit 3/3 (6 conditions, 34.3s)
+2026-11-26 11:20:03,604 INFO people_cities_L13_gs2_1b_all_L13_16k_big__fit-pc_en__eval-pc_en unit 2/3 (8 conditions, 43.9s)
+2026-11-26 11:29:32,350 INFO entity_track_L13_gs2_1b_all_L13_16k_small__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 1/3 (8 conditions, 184.6s)
+2026-11-26 11:29:34,238 INFO DAS: training das8v2_kl_s1 (k=8, 10 epochs, lr 0.01, seed 1) for ioi_control L13 on 300 train pairs
+2026-11-26 11:30:17,128 INFO DAS v2 k=8 kl epoch 1/10: loss 0.8925
+2026-11-26 11:30:21,411 INFO DAS v2 k=8 kl epoch 2/10: loss 0.0615
+2026-11-26 11:30:25,697 INFO DAS v2 k=8 kl epoch 3/10: loss 0.0249
+2026-11-26 11:30:30,014 INFO DAS v2 k=8 kl epoch 4/10: loss 0.0127
+2026-11-26 11:30:34,300 INFO DAS v2 k=8 kl epoch 5/10: loss 0.0075
+2026-11-26 11:30:38,582 INFO DAS v2 k=8 kl epoch 6/10: loss 0.0056
+2026-11-26 11:30:42,875 INFO DAS v2 k=8 kl epoch 7/10: loss 0.0043
+2026-11-26 11:30:47,199 INFO DAS v2 k=8 kl epoch 8/10: loss 0.0037
+2026-11-26 11:30:51,482 INFO DAS v2 k=8 kl epoch 9/10: loss 0.0032
+2026-11-26 11:30:55,769 INFO DAS v2 k=8 kl epoch 10/10: loss 0.0029
+2026-11-26 11:32:46,832 INFO ioi_control_L13_gs2_1b_all_L13_16k_big unit 1/3 (8 conditions, 7.0s)
+2026-11-26 11:32:49,759 INFO DAS: training das8v2_kl_s0 (k=8, 10 epochs, lr 0.01, seed 0) for people_cities L14 on 300 train pairs
+2026-11-26 11:33:58,002 INFO DAS v2 k=8 kl epoch 1/10: loss 1.8596
+2026-11-26 11:34:18,799 INFO DAS v2 k=8 kl epoch 2/10: loss 1.2243
+2026-11-26 11:34:39,552 INFO DAS v2 k=8 kl epoch 3/10: loss 1.2102
+2026-11-26 11:35:00,373 INFO DAS v2 k=8 kl epoch 4/10: loss 0.9989
+2026-11-26 11:35:21,133 INFO DAS v2 k=8 kl epoch 5/10: loss 1.2402
+2026-11-26 11:35:41,944 INFO DAS v2 k=8 kl epoch 6/10: loss 1.2927
+2026-11-26 11:36:02,696 INFO DAS v2 k=8 kl epoch 7/10: loss 1.3585
+2026-11-26 11:36:23,491 INFO DAS v2 k=8 kl epoch 8/10: loss 1.1532
+2026-11-26 11:36:44,335 INFO DAS v2 k=8 kl epoch 9/10: loss 1.0752
+2026-11-26 11:37:05,110 INFO DAS v2 k=8 kl epoch 10/10: loss 1.1156
+2026-11-26 11:38:06,056 INFO people_cities_L14_gs2_1b_all_L14_16k_big__fit-pc_en__eval-pc_en unit 1/3 (8 conditions, 41.0s)
+2026-11-26 11:38:09,118 INFO DAS: training das8v2_kl_s0 (k=8, 10 epochs, lr 0.01, seed 0) for entity_track L14 on 300 train pairs
+2026-11-26 11:39:38,426 INFO DAS v2 k=8 kl epoch 1/10: loss 1.3064
+2026-11-26 11:40:08,344 INFO DAS v2 k=8 kl epoch 2/10: loss 0.8258
+2026-11-26 11:40:38,295 INFO DAS v2 k=8 kl epoch 3/10: loss 0.8980
+2026-11-26 11:41:08,192 INFO DAS v2 k=8 kl epoch 4/10: loss 0.8241
+2026-11-26 11:41:38,077 INFO DAS v2 k=8 kl epoch 5/10: loss 0.7808
+2026-11-26 11:42:08,007 INFO DAS v2 k=8 kl epoch 6/10: loss 0.6713
+2026-11-26 11:42:37,865 INFO DAS v2 k=8 kl epoch 7/10: loss 0.5350
+2026-11-26 11:43:07,809 INFO DAS v2 k=8 kl epoch 8/10: loss 0.4218
+2026-11-26 11:43:37,692 INFO DAS v2 k=8 kl epoch 9/10: loss 0.4251
+2026-11-26 11:44:07,613 INFO DAS v2 k=8 kl epoch 10/10: loss 0.3665
+2026-11-26 11:47:34,763 INFO entity_track_L14_gs2_1b_all_L14_16k_big__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 1/3 (8 conditions, 175.5s)
+2026-11-26 11:47:35,103 INFO DAS: training das8v2_kl_s1 (k=8, 10 epochs, lr 0.01, seed 1) for ioi_control L14 on 300 train pairs
+2026-11-26 11:48:16,841 INFO DAS v2 k=8 kl epoch 1/10: loss 0.6969
+2026-11-26 11:48:20,873 INFO DAS v2 k=8 kl epoch 2/10: loss 0.0441
+2026-11-26 11:48:24,913 INFO DAS v2 k=8 kl epoch 3/10: loss 0.0207
+2026-11-26 11:48:28,976 INFO DAS v2 k=8 kl epoch 4/10: loss 0.0134
+2026-11-26 11:48:33,039 INFO DAS v2 k=8 kl epoch 5/10: loss 0.0098
+2026-11-26 11:48:37,067 INFO DAS v2 k=8 kl epoch 6/10: loss 0.0076
+2026-11-26 11:48:41,109 INFO DAS v2 k=8 kl epoch 7/10: loss 0.0062
+2026-11-26 11:48:45,188 INFO DAS v2 k=8 kl epoch 8/10: loss 0.0055
+2026-11-26 11:48:49,240 INFO DAS v2 k=8 kl epoch 9/10: loss 0.0049
+2026-11-26 11:48:53,271 INFO DAS v2 k=8 kl epoch 10/10: loss 0.0043
+2026-11-26 11:49:04,871 INFO DAS: training das8v2_kl_s2 (k=8, 10 epochs, lr 0.01, seed 2) for ioi_control L14 on 300 train pairs
+2026-11-26 11:49:46,336 INFO DAS v2 k=8 kl epoch 1/10: loss 0.9292
+2026-11-26 11:49:50,331 INFO DAS v2 k=8 kl epoch 2/10: loss 0.0327
+2026-11-26 11:49:54,329 INFO DAS v2 k=8 kl epoch 3/10: loss 0.0206
+2026-11-26 11:49:58,408 INFO DAS v2 k=8 kl epoch 4/10: loss 0.0130
+2026-11-26 11:50:02,498 INFO DAS v2 k=8 kl epoch 5/10: loss 0.0101
+2026-11-26 11:50:06,534 INFO DAS v2 k=8 kl epoch 6/10: loss 0.0076
+2026-11-26 11:50:10,540 INFO DAS v2 k=8 kl epoch 7/10: loss 0.0062
+2026-11-26 11:50:14,543 INFO DAS v2 k=8 kl epoch 8/10: loss 0.0055
+2026-11-26 11:50:18,568 INFO DAS v2 k=8 kl epoch 9/10: loss 0.0053
+2026-11-26 11:50:22,586 INFO DAS v2 k=8 kl epoch 10/10: loss 0.0044
+2026-11-26 11:50:41,291 INFO ioi_control_L14_gs2_1b_all_L14_16k_big unit 1/3 (8 conditions, 6.9s)
+2026-11-26 11:50:43,894 INFO DAS: training das8v2_kl_s0 (k=8, 10 epochs, lr 0.01, seed 0) for people_cities L15 on 300 train pairs
+2026-11-26 11:51:50,438 INFO DAS v2 k=8 kl epoch 1/10: loss 2.0071
+2026-11-26 11:52:09,622 INFO DAS v2 k=8 kl epoch 2/10: loss 1.2484
+2026-11-26 11:52:28,848 INFO DAS v2 k=8 kl epoch 3/10: loss 1.1046
+2026-11-26 11:52:48,051 INFO DAS v2 k=8 kl epoch 4/10: loss 1.0452
+2026-11-26 11:53:07,295 INFO DAS v2 k=8 kl epoch 5/10: loss 1.1369
+2026-11-26 11:53:26,494 INFO DAS v2 k=8 kl epoch 6/10: loss 1.1831
+2026-11-26 11:53:45,719 INFO DAS v2 k=8 kl epoch 7/10: loss 1.2752
+2026-11-26 11:54:04,943 INFO DAS v2 k=8 kl epoch 8/10: loss 1.1089
+2026-11-26 11:54:24,127 INFO DAS v2 k=8 kl epoch 9/10: loss 1.0196
+2026-11-26 11:54:43,368 INFO DAS v2 k=8 kl epoch 10/10: loss 1.0980
+2026-11-26 11:55:29,684 INFO people_cities_L15_gs2_1b_all_L15_16k_small__fit-pc_en__eval-pc_en unit 3/3 (6 conditions, 30.3s)
+2026-11-26 11:56:09,278 INFO people_cities_L15_gs2_1b_all_L15_16k_big__fit-pc_en__eval-pc_en unit 2/3 (8 conditions, 38.4s)
+2026-11-26 12:04:24,226 INFO entity_track_L15_gs2_1b_all_L15_16k_small__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 1/3 (8 conditions, 161.2s)
+2026-11-26 12:04:26,272 INFO DAS: training das8v2_kl_s0 (k=8, 10 epochs, lr 0.01, seed 0) for ioi_control L15 on 300 train pairs
+2026-11-26 12:05:06,817 INFO DAS v2 k=8 kl epoch 1/10: loss 1.2568
+2026-11-26 12:05:10,599 INFO DAS v2 k=8 kl epoch 2/10: loss 0.0498
+2026-11-26 12:05:14,378 INFO DAS v2 k=8 kl epoch 3/10: loss 0.0246
+2026-11-26 12:05:18,187 INFO DAS v2 k=8 kl epoch 4/10: loss 0.0139
+2026-11-26 12:05:22,001 INFO DAS v2 k=8 kl epoch 5/10: loss 0.0097
+2026-11-26 12:05:25,786 INFO DAS v2 k=8 kl epoch 6/10: loss 0.0076
+2026-11-26 12:05:29,576 INFO DAS v2 k=8 kl epoch 7/10: loss 0.0061
+2026-11-26 12:05:33,389 INFO DAS v2 k=8 kl epoch 8/10: loss 0.0050
+2026-11-26 12:05:37,194 INFO DAS v2 k=8 kl epoch 9/10: loss 0.0044
+2026-11-26 12:05:40,974 INFO DAS v2 k=8 kl epoch 10/10: loss 0.0038
+2026-11-26 12:05:51,554 INFO DAS: training das8v2_kl_s2 (k=8, 10 epochs, lr 0.01, seed 2) for ioi_control L15 on 300 train pairs
+2026-11-26 12:06:31,801 INFO DAS v2 k=8 kl epoch 1/10: loss 0.8046
+2026-11-26 12:06:35,572 INFO DAS v2 k=8 kl epoch 2/10: loss 0.0286
+2026-11-26 12:06:39,342 INFO DAS v2 k=8 kl epoch 3/10: loss 0.0141
+2026-11-26 12:06:43,086 INFO DAS v2 k=8 kl epoch 4/10: loss 0.0081
+2026-11-26 12:06:46,834 INFO DAS v2 k=8 kl epoch 5/10: loss 0.0056
+2026-11-26 12:06:50,595 INFO DAS v2 k=8 kl epoch 6/10: loss 0.0041
+2026-11-26 12:06:54,370 INFO DAS v2 k=8 kl epoch 7/10: loss 0.0035
+2026-11-26 12:06:58,131 INFO DAS v2 k=8 kl epoch 8/10: loss 0.0030
+2026-11-26 12:07:01,876 INFO DAS v2 k=8 kl epoch 9/10: loss 0.0026
+2026-11-26 12:07:05,629 INFO DAS v2 k=8 kl epoch 10/10: loss 0.0022
+2026-11-26 12:07:22,389 INFO ioi_control_L15_gs2_1b_all_L15_16k_small unit 2/3 (8 conditions, 6.5s)
+2026-11-26 12:07:25,575 INFO DAS: training das8v2_kl_s1 (k=8, 10 epochs, lr 0.01, seed 1) for people_cities L16 on 300 train pairs
+2026-11-26 12:08:29,405 INFO DAS v2 k=8 kl epoch 1/10: loss 1.8527
+2026-11-26 12:08:47,083 INFO DAS v2 k=8 kl epoch 2/10: loss 1.0589
+2026-11-26 12:09:04,751 INFO DAS v2 k=8 kl epoch 3/10: loss 1.1623
+2026-11-26 12:09:22,440 INFO DAS v2 k=8 kl epoch 4/10: loss 1.1768
+2026-11-26 12:09:40,140 INFO DAS v2 k=8 kl epoch 5/10: loss 1.1461
+2026-11-26 12:09:57,815 INFO DAS v2 k=8 kl epoch 6/10: loss 1.0968
+2026-11-26 12:10:15,509 INFO DAS v2 k=8 kl epoch 7/10: loss 1.0618
+2026-11-26 12:10:33,194 INFO DAS v2 k=8 kl epoch 8/10: loss 1.1400
+2026-11-26 12:10:50,919 INFO DAS v2 k=8 kl epoch 9/10: loss 1.0483
+2026-11-26 12:11:08,593 INFO DAS v2 k=8 kl epoch 10/10: loss 1.0569
+2026-11-26 12:11:49,771 INFO people_cities_L16_gs2_1b_all_L16_16k_small__fit-pc_en__eval-pc_en unit 3/3 (6 conditions, 28.4s)
+2026-11-26 12:12:26,639 INFO people_cities_L16_gs2_1b_all_L16_16k_big__fit-pc_en__eval-pc_en unit 2/3 (8 conditions, 35.7s)
+2026-11-26 12:20:07,645 INFO entity_track_L16_gs2_1b_all_L16_16k_small__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 1/3 (8 conditions, 149.3s)
+2026-11-26 12:20:09,705 INFO DAS: training das8v2_kl_s0 (k=8, 10 epochs, lr 0.01, seed 0) for ioi_control L16 on 300 train pairs
+2026-11-26 12:20:48,941 INFO DAS v2 k=8 kl epoch 1/10: loss 1.0791
+2026-11-26 12:20:52,473 INFO DAS v2 k=8 kl epoch 2/10: loss 0.0418
+2026-11-26 12:20:56,031 INFO DAS v2 k=8 kl epoch 3/10: loss 0.0251
+2026-11-26 12:20:59,596 INFO DAS v2 k=8 kl epoch 4/10: loss 0.0121
+2026-11-26 12:21:03,134 INFO DAS v2 k=8 kl epoch 5/10: loss 0.0085
+2026-11-26 12:21:06,667 INFO DAS v2 k=8 kl epoch 6/10: loss 0.0065
+2026-11-26 12:21:10,208 INFO DAS v2 k=8 kl epoch 7/10: loss 0.0053
+2026-11-26 12:21:13,771 INFO DAS v2 k=8 kl epoch 8/10: loss 0.0046
+2026-11-26 12:21:17,321 INFO DAS v2 k=8 kl epoch 9/10: loss 0.0042
+2026-11-26 12:21:20,855 INFO DAS v2 k=8 kl epoch 10/10: loss 0.0037
+2026-11-26 12:21:30,603 INFO DAS: training das8v2_kl_s2 (k=8, 10 epochs, lr 0.01, seed 2) for ioi_control L16 on 300 train pairs
+2026-11-26 12:22:09,681 INFO DAS v2 k=8 kl epoch 1/10: loss 0.7620
+2026-11-26 12:22:13,179 INFO DAS v2 k=8 kl epoch 2/10: loss 0.0187
+2026-11-26 12:22:16,685 INFO DAS v2 k=8 kl epoch 3/10: loss 0.0079
+2026-11-26 12:22:20,207 INFO DAS v2 k=8 kl epoch 4/10: loss 0.0060
+2026-11-26 12:22:23,704 INFO DAS v2 k=8 kl epoch 5/10: loss 0.0045
+2026-11-26 12:22:27,212 INFO DAS v2 k=8 kl epoch 6/10: loss 0.0038
+2026-11-26 12:22:30,712 INFO DAS v2 k=8 kl epoch 7/10: loss 0.0032
+2026-11-26 12:22:34,235 INFO DAS v2 k=8 kl epoch 8/10: loss 0.0029
+2026-11-26 12:22:37,749 INFO DAS v2 k=8 kl epoch 9/10: loss 0.0026
+2026-11-26 12:22:41,246 INFO DAS v2 k=8 kl epoch 10/10: loss 0.0024
+2026-11-26 12:22:57,368 INFO ioi_control_L16_gs2_1b_all_L16_16k_big unit 1/3 (8 conditions, 6.1s)
+2026-11-26 12:22:59,768 INFO DAS: training das8v2_kl_s0 (k=8, 10 epochs, lr 0.01, seed 0) for people_cities L17 on 300 train pairs
+2026-11-26 12:24:00,818 INFO DAS v2 k=8 kl epoch 1/10: loss 2.0186
+2026-11-26 12:24:16,972 INFO DAS v2 k=8 kl epoch 2/10: loss 1.0796
+2026-11-26 12:24:33,157 INFO DAS v2 k=8 kl epoch 3/10: loss 0.9533
+2026-11-26 12:24:49,338 INFO DAS v2 k=8 kl epoch 4/10: loss 1.0941
+2026-11-26 12:25:05,492 INFO DAS v2 k=8 kl epoch 5/10: loss 0.9246
+2026-11-26 12:25:21,692 INFO DAS v2 k=8 kl epoch 6/10: loss 0.9052
+2026-11-26 12:25:37,869 INFO DAS v2 k=8 kl epoch 7/10: loss 0.8222
+2026-11-26 12:25:54,038 INFO DAS v2 k=8 kl epoch 8/10: loss 0.6551
+2026-11-26 12:26:10,212 INFO DAS v2 k=8 kl epoch 9/10: loss 0.6301
+2026-11-26 12:26:26,393 INFO DAS v2 k=8 kl epoch 10/10: loss 0.5671
+2026-11-26 12:27:13,325 INFO people_cities_L17_gs2_1b_all_L17_16k_big__fit-pc_en__eval-pc_en unit 1/3 (8 conditions, 32.8s)
+2026-11-26 12:27:15,450 INFO DAS: training das8v2_kl_s1 (k=8, 10 epochs, lr 0.01, seed 1) for entity_track L17 on 300 train pairs
+2026-11-26 12:28:33,680 INFO DAS v2 k=8 kl epoch 1/10: loss 1.2824
+2026-11-26 12:28:57,000 INFO DAS v2 k=8 kl epoch 2/10: loss 0.7069
+2026-11-26 12:29:20,331 INFO DAS v2 k=8 kl epoch 3/10: loss 0.7900
+2026-11-26 12:29:43,667 INFO DAS v2 k=8 kl epoch 4/10: loss 0.7079
+2026-11-26 12:30:06,991 INFO DAS v2 k=8 kl epoch 5/10: loss 0.5957
+2026-11-26 12:30:30,338 INFO DAS v2 k=8 kl epoch 6/10: loss 0.4886
+2026-11-26 12:30:53,657 INFO DAS v2 k=8 kl epoch 7/10: loss 0.4665
+2026-11-26 12:31:16,990 INFO DAS v2 k=8 kl epoch 8/10: loss 0.4534
+2026-11-26 12:31:40,342 INFO DAS v2 k=8 kl epoch 9/10: loss 0.4139
+2026-11-26 12:32:03,671 INFO DAS v2 k=8 kl epoch 10/10: loss 0.4125
+2026-11-26 12:34:46,503 INFO entity_track_L17_gs2_1b_all_L17_16k_small__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 1/3 (8 conditions, 140.2s)
+2026-11-26 12:34:48,584 INFO DAS: training das8v2_kl_s0 (k=8, 10 epochs, lr 0.01, seed 0) for ioi_control L17 on 300 train pairs
+2026-11-26 12:35:27,053 INFO DAS v2 k=8 kl epoch 1/10: loss 1.3379
+2026-11-26 12:35:30,349 INFO DAS v2 k=8 kl epoch 2/10: loss 0.1666
+2026-11-26 12:35:33,639 INFO DAS v2 k=8 kl epoch 3/10: loss 0.0786
+2026-11-26 12:35:36,942 INFO DAS v2 k=8 kl epoch 4/10: loss 0.0433
+2026-11-26 12:35:40,258 INFO DAS v2 k=8 kl epoch 5/10: loss 0.0323
+2026-11-26 12:35:43,556 INFO DAS v2 k=8 kl epoch 6/10: loss 0.0241
+2026-11-26 12:35:46,842 INFO DAS v2 k=8 kl epoch 7/10: loss 0.0199
+2026-11-26 12:35:50,133 INFO DAS v2 k=8 kl epoch 8/10: loss 0.0174
+2026-11-26 12:35:53,439 INFO DAS v2 k=8 kl epoch 9/10: loss 0.0154
+2026-11-26 12:35:56,758 INFO DAS v2 k=8 kl epoch 10/10: loss 0.0137
+2026-11-26 12:36:05,668 INFO DAS: training das8v2_kl_s2 (k=8, 10 epochs, lr 0.01, seed 2) for ioi_control L17 on 300 train pairs
+2026-11-26 12:36:43,628 INFO DAS v2 k=8 kl epoch 1/10: loss 1.2670
+2026-11-26 12:36:46,870 INFO DAS v2 k=8 kl epoch 2/10: loss 0.1163
+2026-11-26 12:36:50,110 INFO DAS v2 k=8 kl epoch 3/10: loss 0.0639
+2026-11-26 12:36:53,353 INFO DAS v2 k=8 kl epoch 4/10: loss 0.0368
+2026-11-26 12:36:56,614 INFO DAS v2 k=8 kl epoch 5/10: loss 0.0245
+2026-11-26 12:36:59,869 INFO DAS v2 k=8 kl epoch 6/10: loss 0.0185
+2026-11-26 12:37:03,148 INFO DAS v2 k=8 kl epoch 7/10: loss 0.0152
+2026-11-26 12:37:06,423 INFO DAS v2 k=8 kl epoch 8/10: loss 0.0128
+2026-11-26 12:37:09,680 INFO DAS v2 k=8 kl epoch 9/10: loss 0.0117
+2026-11-26 12:37:12,932 INFO DAS v2 k=8 kl epoch 10/10: loss 0.0105
+2026-11-26 12:37:26,083 INFO ioi_control_L17_gs2_1b_all_L17_16k_small unit 3/3 (6 conditions, 4.5s)
+2026-11-26 12:37:32,047 INFO ioi_control_L17_gs2_1b_all_L17_16k_big unit 2/3 (8 conditions, 5.6s)
+2026-11-26 12:41:18,660 INFO people_cities_L18_gs2_1b_all_L18_16k_small__fit-pc_en__eval-pc_en unit 1/3 (8 conditions, 28.3s)
+2026-11-26 12:41:43,645 INFO people_cities_L18_gs2_1b_all_L18_16k_big__fit-pc_en__eval-pc_en unit 3/3 (6 conditions, 23.8s)
+2026-11-26 12:41:44,637 INFO DAS: training das8v2_kl_s2 (k=8, 10 epochs, lr 0.01, seed 2) for entity_track L18 on 300 train pairs
+2026-11-26 12:42:58,610 INFO DAS v2 k=8 kl epoch 1/10: loss 0.9820
+2026-11-26 12:43:19,629 INFO DAS v2 k=8 kl epoch 2/10: loss 0.4960
+2026-11-26 12:43:40,701 INFO DAS v2 k=8 kl epoch 3/10: loss 0.4741
+2026-11-26 12:44:01,728 INFO DAS v2 k=8 kl epoch 4/10: loss 0.4841
+2026-11-26 12:44:22,781 INFO DAS v2 k=8 kl epoch 5/10: loss 0.5164
+2026-11-26 12:44:43,809 INFO DAS v2 k=8 kl epoch 6/10: loss 0.5016
+2026-11-26 12:45:04,891 INFO DAS v2 k=8 kl epoch 7/10: loss 0.5722
+2026-11-26 12:45:25,949 INFO DAS v2 k=8 kl epoch 8/10: loss 0.5114
+2026-11-26 12:45:46,973 INFO DAS v2 k=8 kl epoch 9/10: loss 0.7389
+2026-11-26 12:46:08,010 INFO DAS v2 k=8 kl epoch 10/10: loss 0.7027
+2026-11-26 12:48:33,303 INFO entity_track_L18_gs2_1b_all_L18_16k_big__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 1/3 (8 conditions, 128.4s)
+2026-11-26 12:48:33,648 INFO DAS: training das8v2_kl_s1 (k=8, 10 epochs, lr 0.01, seed 1) for ioi_control L18 on 300 train pairs
+2026-11-26 12:49:10,851 INFO DAS v2 k=8 kl epoch 1/10: loss 1.7178
+2026-11-26 12:49:13,894 INFO DAS v2 k=8 kl epoch 2/10: loss 0.3466
+2026-11-26 12:49:16,943 INFO DAS v2 k=8 kl epoch 3/10: loss 0.1640
+2026-11-26 12:49:19,992 INFO DAS v2 k=8 kl epoch 4/10: loss 0.0682
+2026-11-26 12:49:23,057 INFO DAS v2 k=8 kl epoch 5/10: loss 0.0334
+2026-11-26 12:49:26,112 INFO DAS v2 k=8 kl epoch 6/10: loss 0.0215
+2026-11-26 12:49:29,153 INFO DAS v2 k=8 kl epoch 7/10: loss 0.0157
+2026-11-26 12:49:32,194 INFO DAS v2 k=8 kl epoch 8/10: loss 0.0128
+2026-11-26 12:49:35,239 INFO DAS v2 k=8 kl epoch 9/10: loss 0.0108
+2026-11-26 12:49:38,299 INFO DAS v2 k=8 kl epoch 10/10: loss 0.0093
+2026-11-26 12:51:00,803 INFO ioi_control_L18_gs2_1b_all_L18_16k_small unit 2/3 (8 conditions, 4.9s)
+2026-11-26 12:51:04,394 INFO DAS: training das8v2_kl_s1 (k=8, 10 epochs, lr 0.01, seed 1) for people_cities L19 on 300 train pairs
+2026-11-26 12:51:58,826 INFO DAS v2 k=8 kl epoch 1/10: loss 1.6905
+2026-11-26 12:52:11,837 INFO DAS v2 k=8 kl epoch 2/10: loss 0.5972
+2026-11-26 12:52:24,812 INFO DAS v2 k=8 kl epoch 3/10: loss 0.6336
+2026-11-26 12:52:37,793 INFO DAS v2 k=8 kl epoch 4/10: loss 0.8539
+2026-11-26 12:52:50,811 INFO DAS v2 k=8 kl epoch 5/10: loss 0.6974
+2026-11-26 12:53:03,850 INFO DAS v2 k=8 kl epoch 6/10: loss 0.7859
+2026-11-26 12:53:16,876 INFO DAS v2 k=8 kl epoch 7/10: loss 0.7112
+2026-11-26 12:53:29,880 INFO DAS v2 k=8 kl epoch 8/10: loss 0.7079
+2026-11-26 12:53:42,859 INFO DAS v2 k=8 kl epoch 9/10: loss 0.8145
+2026-11-26 12:53:55,882 INFO DAS v2 k=8 kl epoch 10/10: loss 0.7418
+2026-11-26 12:54:36,455 INFO people_cities_L19_gs2_1b_all_L19_16k_big__fit-pc_en__eval-pc_en unit 1/3 (8 conditions, 27.1s)
+2026-11-26 12:54:39,878 INFO DAS: training das8v2_kl_s1 (k=8, 10 epochs, lr 0.01, seed 1) for entity_track L19 on 300 train pairs
+2026-11-26 12:55:50,380 INFO DAS v2 k=8 kl epoch 1/10: loss 1.2482
+2026-11-26 12:56:09,182 INFO DAS v2 k=8 kl epoch 2/10: loss 0.5584
+2026-11-26 12:56:28,012 INFO DAS v2 k=8 kl epoch 3/10: loss 0.5079
+2026-11-26 12:56:46,846 INFO DAS v2 k=8 kl epoch 4/10: loss 0.4355
+2026-11-26 12:57:05,662 INFO DAS v2 k=8 kl epoch 5/10: loss 0.3804
+2026-11-26 12:57:24,469 INFO DAS v2 k=8 kl epoch 6/10: loss 0.4011
+2026-11-26 12:57:43,283 INFO DAS v2 k=8 kl epoch 7/10: loss 0.3138
+2026-11-26 12:58:02,138 INFO DAS v2 k=8 kl epoch 8/10: loss 0.3262
+2026-11-26 12:58:20,939 INFO DAS v2 k=8 kl epoch 9/10: loss 0.2805
+2026-11-26 12:58:39,739 INFO DAS v2 k=8 kl epoch 10/10: loss 0.2617
+2026-11-26 13:00:55,678 INFO entity_track_L19_gs2_1b_all_L19_16k_big__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 1/3 (8 conditions, 116.3s)
+2026-11-26 13:00:56,021 INFO DAS: training das8v2_kl_s1 (k=8, 10 epochs, lr 0.01, seed 1) for ioi_control L19 on 300 train pairs
+2026-11-26 13:01:32,212 INFO DAS v2 k=8 kl epoch 1/10: loss 1.4950
+2026-11-26 13:01:35,005 INFO DAS v2 k=8 kl epoch 2/10: loss 0.3215
+2026-11-26 13:01:37,796 INFO DAS v2 k=8 kl epoch 3/10: loss 0.1578
+2026-11-26 13:01:40,582 INFO DAS v2 k=8 kl epoch 4/10: loss 0.0726
+2026-11-26 13:01:43,379 INFO DAS v2 k=8 kl epoch 5/10: loss 0.0379
+2026-11-26 13:01:46,177 INFO DAS v2 k=8 kl epoch 6/10: loss 0.0224
+2026-11-26 13:01:48,980 INFO DAS v2 k=8 kl epoch 7/10: loss 0.0180
+2026-11-26 13:01:51,784 INFO DAS v2 k=8 kl epoch 8/10: loss 0.0133
+2026-11-26 13:01:54,579 INFO DAS v2 k=8 kl epoch 9/10: loss 0.0116
+2026-11-26 13:01:57,384 INFO DAS v2 k=8 kl epoch 10/10: loss 0.0097
+2026-11-26 13:03:08,119 INFO ioi_control_L19_gs2_1b_all_L19_16k_big unit 1/3 (8 conditions, 4.5s)
+2026-11-26 13:03:11,134 INFO DAS: training das8v2_kl_s0 (k=8, 10 epochs, lr 0.01, seed 0) for people_cities L20 on 300 train pairs
+2026-11-26 13:04:02,894 INFO DAS v2 k=8 kl epoch 1/10: loss 1.6005
+2026-11-26 13:04:14,319 INFO DAS v2 k=8 kl epoch 2/10: loss 0.8140
+2026-11-26 13:04:25,757 INFO DAS v2 k=8 kl epoch 3/10: loss 0.7260
+2026-11-26 13:04:37,229 INFO DAS v2 k=8 kl epoch 4/10: loss 0.8459
+2026-11-26 13:04:48,680 INFO DAS v2 k=8 kl epoch 5/10: loss 0.7093
+2026-11-26 13:05:00,160 INFO DAS v2 k=8 kl epoch 6/10: loss 0.8921
+2026-11-26 13:05:11,619 INFO DAS v2 k=8 kl epoch 7/10: loss 1.0050
+2026-11-26 13:05:23,071 INFO DAS v2 k=8 kl epoch 8/10: loss 0.7723
+2026-11-26 13:05:34,559 INFO DAS v2 k=8 kl epoch 9/10: loss 0.8236
+2026-11-26 13:05:46,020 INFO DAS v2 k=8 kl epoch 10/10: loss 0.8166
+2026-11-26 13:06:19,071 INFO people_cities_L20_gs2_1b_all_L20_16k_small__fit-pc_en__eval-pc_en unit 2/3 (8 conditions, 24.5s)
+2026-11-26 13:06:25,092 INFO DAS: training das8v2_kl_s0 (k=8, 10 epochs, lr 0.01, seed 0) for entity_track L20 on 300 train pairs
+2026-11-26 13:07:31,941 INFO DAS v2 k=8 kl epoch 1/10: loss 0.9956
+2026-11-26 13:07:48,487 INFO DAS v2 k=8 kl epoch 2/10: loss 0.6721
+2026-11-26 13:08:05,058 INFO DAS v2 k=8 kl epoch 3/10: loss 0.6076
+2026-11-26 13:08:21,628 INFO DAS v2 k=8 kl epoch 4/10: loss 0.5273
+2026-11-26 13:08:38,170 INFO DAS v2 k=8 kl epoch 5/10: loss 0.5596
+2026-11-26 13:08:54,784 INFO DAS v2 k=8 kl epoch 6/10: loss 0.6285
+2026-11-26 13:09:11,354 INFO DAS v2 k=8 kl epoch 7/10: loss 0.5520
+2026-11-26 13:09:27,913 INFO DAS v2 k=8 kl epoch 8/10: loss 0.5389
+2026-11-26 13:09:44,513 INFO DAS v2 k=8 kl epoch 9/10: loss 0.5127
+2026-11-26 13:10:01,077 INFO DAS v2 k=8 kl epoch 10/10: loss 0.5167
+2026-11-26 13:11:41,147 INFO entity_track_L20_gs2_1b_all_L20_16k_small__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 3/3 (6 conditions, 87.6s)
+2026-11-26 13:13:27,635 INFO entity_track_L20_gs2_1b_all_L20_16k_big__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 2/3 (8 conditions, 104.9s)
+2026-11-26 13:14:10,614 INFO ioi_control_L20_gs2_1b_all_L20_16k_small unit 1/3 (8 conditions, 4.1s)
+2026-11-26 13:14:14,075 INFO DAS: training das8v2_kl_s1 (k=8, 10 epochs, lr 0.01, seed 1) for people_cities L21 on 300 train pairs
+2026-11-26 13:15:03,423 INFO DAS v2 k=8 kl epoch 1/10: loss 1.6185
+2026-11-26 13:15:13,376 INFO DAS v2 k=8 kl epoch 2/10: loss 0.9623
+2026-11-26 13:15:23,330 INFO DAS v2 k=8 kl epoch 3/10: loss 0.9222
+2026-11-26 13:15:33,300 INFO DAS v2 k=8 kl epoch 4/10: loss 0.9072
+2026-11-26 13:15:43,243 INFO DAS v2 k=8 kl epoch 5/10: loss 0.9051
+2026-11-26 13:15:53,207 INFO DAS v2 k=8 kl epoch 6/10: loss 0.8865
+2026-11-26 13:16:03,199 INFO DAS v2 k=8 kl epoch 7/10: loss 0.8022
+2026-11-26 13:16:13,131 INFO DAS v2 k=8 kl epoch 8/10: loss 0.8586
+2026-11-26 13:16:23,101 INFO DAS v2 k=8 kl epoch 9/10: loss 0.9679
+2026-11-26 13:16:33,074 INFO DAS v2 k=8 kl epoch 10/10: loss 0.7821
+2026-11-26 13:16:58,092 INFO people_cities_L21_gs2_1b_all_L21_16k_small__fit-pc_en__eval-pc_en unit 3/3 (6 conditions, 18.4s)
+2026-11-26 13:17:21,023 INFO people_cities_L21_gs2_1b_all_L21_16k_big__fit-pc_en__eval-pc_en unit 2/3 (8 conditions, 21.8s)
+2026-11-26 13:22:10,472 INFO entity_track_L21_gs2_1b_all_L21_16k_small__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 2/3 (8 conditions, 90.3s)
+2026-11-26 13:23:30,950 INFO entity_track_L21_gs2_1b_all_L21_16k_big__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 3/3 (6 conditions, 78.9s)
+2026-11-26 13:24:13,441 INFO ioi_control_L21_gs2_1b_all_L21_16k_small unit 2/3 (8 conditions, 3.7s)
+2026-11-26 13:24:16,985 INFO DAS: training das8v2_kl_s0 (k=8, 10 epochs, lr 0.01, seed 0) for people_cities L22 on 300 train pairs
+2026-11-26 13:25:03,418 INFO DAS v2 k=8 kl epoch 1/10: loss 1.4599
+2026-11-26 13:25:11,725 INFO DAS v2 k=8 kl epoch 2/10: loss 0.7355
+2026-11-26 13:25:20,094 INFO DAS v2 k=8 kl epoch 3/10: loss 0.7481
+2026-11-26 13:25:28,439 INFO DAS v2 k=8 kl epoch 4/10: loss 0.8596
+2026-11-26 13:25:36,834 INFO DAS v2 k=8 kl epoch 5/10: loss 0.8671
+2026-11-26 13:25:45,185 INFO DAS v2 k=8 kl epoch 6/10: loss 0.7569
+2026-11-26 13:25:53,563 INFO DAS v2 k=8 kl epoch 7/10: loss 0.8974
+2026-11-26 13:26:01,899 INFO DAS v2 k=8 kl epoch 8/10: loss 0.7287
+2026-11-26 13:26:10,282 INFO DAS v2 k=8 kl epoch 9/10: loss 0.8426
+2026-11-26 13:26:18,605 INFO DAS v2 k=8 kl epoch 10/10: loss 0.8365
+2026-11-26 13:26:46,003 INFO people_cities_L22_gs2_1b_all_L22_16k_big__fit-pc_en__eval-pc_en unit 1/3 (8 conditions, 18.8s)
+2026-11-26 13:26:49,562 INFO DAS: training das8v2_kl_s0 (k=8, 10 epochs, lr 0.01, seed 0) for entity_track L22 on 300 train pairs
+2026-11-26 13:27:48,842 INFO DAS v2 k=8 kl epoch 1/10: loss 0.8861
+2026-11-26 13:28:00,965 INFO DAS v2 k=8 kl epoch 2/10: loss 0.5712
+2026-11-26 13:28:13,081 INFO DAS v2 k=8 kl epoch 3/10: loss 0.5637
+2026-11-26 13:28:25,221 INFO DAS v2 k=8 kl epoch 4/10: loss 0.4681
+2026-11-26 13:28:37,356 INFO DAS v2 k=8 kl epoch 5/10: loss 0.5916
+2026-11-26 13:28:49,493 INFO DAS v2 k=8 kl epoch 6/10: loss 0.5257
+2026-11-26 13:29:01,630 INFO DAS v2 k=8 kl epoch 7/10: loss 0.5255
+2026-11-26 13:29:13,794 INFO DAS v2 k=8 kl epoch 8/10: loss 0.5873
+2026-11-26 13:29:25,928 INFO DAS v2 k=8 kl epoch 9/10: loss 0.5038
+2026-11-26 13:29:38,044 INFO DAS v2 k=8 kl epoch 10/10: loss 0.6084
+2026-11-26 13:31:12,039 INFO entity_track_L22_gs2_1b_all_L22_16k_big__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 1/3 (8 conditions, 80.8s)
+2026-11-26 13:31:12,385 INFO DAS: training das8v2_kl_s1 (k=8, 10 epochs, lr 0.01, seed 1) for ioi_control L22 on 300 train pairs
+2026-11-26 13:31:45,085 INFO DAS v2 k=8 kl epoch 1/10: loss 1.3837
+2026-11-26 13:31:47,130 INFO DAS v2 k=8 kl epoch 2/10: loss 0.2287
+2026-11-26 13:31:49,175 INFO DAS v2 k=8 kl epoch 3/10: loss 0.1322
+2026-11-26 13:31:51,222 INFO DAS v2 k=8 kl epoch 4/10: loss 0.0648
+2026-11-26 13:31:53,267 INFO DAS v2 k=8 kl epoch 5/10: loss 0.0349
+2026-11-26 13:31:55,311 INFO DAS v2 k=8 kl epoch 6/10: loss 0.0225
+2026-11-26 13:31:57,369 INFO DAS v2 k=8 kl epoch 7/10: loss 0.0170
+2026-11-26 13:31:59,416 INFO DAS v2 k=8 kl epoch 8/10: loss 0.0144
+2026-11-26 13:32:01,454 INFO DAS v2 k=8 kl epoch 9/10: loss 0.0125
+2026-11-26 13:32:03,508 INFO DAS v2 k=8 kl epoch 10/10: loss 0.0112
+2026-11-26 13:33:05,832 INFO ioi_control_L22_gs2_1b_all_L22_16k_big unit 1/3 (8 conditions, 3.2s)
+2026-11-26 13:33:08,835 INFO DAS: training das8v2_kl_s1 (k=8, 10 epochs, lr 0.01, seed 1) for people_cities L23 on 300 train pairs
+2026-11-26 13:33:52,234 INFO DAS v2 k=8 kl epoch 1/10: loss 1.4620
+2026-11-26 13:33:59,066 INFO DAS v2 k=8 kl epoch 2/10: loss 0.6938
+2026-11-26 13:34:05,918 INFO DAS v2 k=8 kl epoch 3/10: loss 0.7590
+2026-11-26 13:34:12,818 INFO DAS v2 k=8 kl epoch 4/10: loss 1.0738
+2026-11-26 13:34:19,699 INFO DAS v2 k=8 kl epoch 5/10: loss 0.7610
+2026-11-26 13:34:26,577 INFO DAS v2 k=8 kl epoch 6/10: loss 0.8393
+2026-11-26 13:34:33,487 INFO DAS v2 k=8 kl epoch 7/10: loss 0.7577
+2026-11-26 13:34:40,350 INFO DAS v2 k=8 kl epoch 8/10: loss 0.8400
+2026-11-26 13:34:47,231 INFO DAS v2 k=8 kl epoch 9/10: loss 0.9225
+2026-11-26 13:34:54,146 INFO DAS v2 k=8 kl epoch 10/10: loss 0.6848
+2026-11-26 13:35:18,518 INFO people_cities_L23_gs2_1b_all_L23_16k_big__fit-pc_en__eval-pc_en unit 1/3 (8 conditions, 16.0s)
+2026-11-26 13:35:21,483 INFO DAS: training das8v2_kl_s0 (k=8, 10 epochs, lr 0.01, seed 0) for entity_track L23 on 300 train pairs
+2026-11-26 13:36:16,980 INFO DAS v2 k=8 kl epoch 1/10: loss 0.8774
+2026-11-26 13:36:26,860 INFO DAS v2 k=8 kl epoch 2/10: loss 0.4400
+2026-11-26 13:36:36,710 INFO DAS v2 k=8 kl epoch 3/10: loss 0.5312
+2026-11-26 13:36:46,570 INFO DAS v2 k=8 kl epoch 4/10: loss 0.5081
+2026-11-26 13:36:56,452 INFO DAS v2 k=8 kl epoch 5/10: loss 0.5767
+2026-11-26 13:37:06,294 INFO DAS v2 k=8 kl epoch 6/10: loss 0.4882
+2026-11-26 13:37:16,128 INFO DAS v2 k=8 kl epoch 7/10: loss 0.5239
+2026-11-26 13:37:26,011 INFO DAS v2 k=8 kl epoch 8/10: loss 0.4505
+2026-11-26 13:37:35,884 INFO DAS v2 k=8 kl epoch 9/10: loss 0.5946
+2026-11-26 13:37:45,712 INFO DAS v2 k=8 kl epoch 10/10: loss 0.5155
+2026-11-26 13:39:03,119 INFO entity_track_L23_gs2_1b_all_L23_16k_small__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 2/3 (8 conditions, 69.2s)
+2026-11-26 13:39:04,967 INFO DAS: training das8v2_kl_s0 (k=8, 10 epochs, lr 0.01, seed 0) for ioi_control L23 on 300 train pairs
+2026-11-26 13:39:36,493 INFO DAS v2 k=8 kl epoch 1/10: loss 1.5567
+2026-11-26 13:39:38,314 INFO DAS v2 k=8 kl epoch 2/10: loss 0.2126
+2026-11-26 13:39:40,124 INFO DAS v2 k=8 kl epoch 3/10: loss 0.1210
+2026-11-26 13:39:41,939 INFO DAS v2 k=8 kl epoch 4/10: loss 0.0606
+2026-11-26 13:39:43,745 INFO DAS v2 k=8 kl epoch 5/10: loss 0.0351
+2026-11-26 13:39:45,558 INFO DAS v2 k=8 kl epoch 6/10: loss 0.0235
+2026-11-26 13:39:47,365 INFO DAS v2 k=8 kl epoch 7/10: loss 0.0176
+2026-11-26 13:39:49,179 INFO DAS v2 k=8 kl epoch 8/10: loss 0.0148
+2026-11-26 13:39:50,999 INFO DAS v2 k=8 kl epoch 9/10: loss 0.0130
+2026-11-26 13:39:52,817 INFO DAS v2 k=8 kl epoch 10/10: loss 0.0119
+2026-11-26 13:40:49,099 INFO ioi_control_L23_gs2_1b_all_L23_16k_small unit 3/3 (6 conditions, 2.5s)
+2026-11-26 13:40:52,277 INFO ioi_control_L23_gs2_1b_all_L23_16k_big unit 2/3 (8 conditions, 2.8s)
+2026-11-26 13:42:39,397 INFO people_cities_L24_gs2_1b_all_L24_16k_small__fit-pc_en__eval-pc_en unit 1/3 (8 conditions, 12.6s)
+2026-11-26 13:42:52,554 INFO people_cities_L24_gs2_1b_all_L24_16k_big__fit-pc_en__eval-pc_en unit 3/3 (6 conditions, 12.0s)
+2026-11-26 13:42:53,575 INFO DAS: training das8v2_kl_s2 (k=8, 10 epochs, lr 0.01, seed 2) for entity_track L24 on 300 train pairs
+2026-11-26 13:43:44,677 INFO DAS v2 k=8 kl epoch 1/10: loss 0.8510
+2026-11-26 13:43:52,332 INFO DAS v2 k=8 kl epoch 2/10: loss 0.4869
+2026-11-26 13:43:59,953 INFO DAS v2 k=8 kl epoch 3/10: loss 0.5489
+2026-11-26 13:44:07,578 INFO DAS v2 k=8 kl epoch 4/10: loss 0.5534
+2026-11-26 13:44:15,229 INFO DAS v2 k=8 kl epoch 5/10: loss 0.4867
+2026-11-26 13:44:22,856 INFO DAS v2 k=8 kl epoch 6/10: loss 0.5709
+2026-11-26 13:44:30,499 INFO DAS v2 k=8 kl epoch 7/10: loss 0.5651
+2026-11-26 13:44:38,153 INFO DAS v2 k=8 kl epoch 8/10: loss 0.5496
+2026-11-26 13:44:45,782 INFO DAS v2 k=8 kl epoch 9/10: loss 0.5841
+2026-11-26 13:44:53,412 INFO DAS v2 k=8 kl epoch 10/10: loss 0.5950
+2026-11-26 13:45:50,636 INFO entity_track_L24_gs2_1b_all_L24_16k_small__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 3/3 (6 conditions, 53.6s)
+2026-11-26 13:46:45,970 INFO entity_track_L24_gs2_1b_all_L24_16k_big__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 3/3 (6 conditions, 53.7s)
+2026-11-26 13:47:31,610 INFO ioi_control_L24_gs2_1b_all_L24_16k_small unit 2/3 (8 conditions, 2.4s)
+2026-11-26 13:49:04,824 INFO people_cities_L25_gs2_1b_all_L25_16k_small__fit-pc_en__eval-pc_en unit 1/3 (8 conditions, 10.2s)
+2026-11-26 13:49:16,350 INFO people_cities_L25_gs2_1b_all_L25_16k_big__fit-pc_en__eval-pc_en unit 2/3 (8 conditions, 10.3s)
+2026-11-26 13:49:17,345 INFO DAS: training das8v2_kl_s2 (k=8, 10 epochs, lr 0.01, seed 2) for entity_track L25 on 300 train pairs
+2026-11-26 13:50:05,558 INFO DAS v2 k=8 kl epoch 1/10: loss 0.8845
+2026-11-26 13:50:11,395 INFO DAS v2 k=8 kl epoch 2/10: loss 0.4642
+2026-11-26 13:50:17,219 INFO DAS v2 k=8 kl epoch 3/10: loss 0.5344
+2026-11-26 13:50:23,037 INFO DAS v2 k=8 kl epoch 4/10: loss 0.4209
+2026-11-26 13:50:28,909 INFO DAS v2 k=8 kl epoch 5/10: loss 0.4163
+2026-11-26 13:50:34,723 INFO DAS v2 k=8 kl epoch 6/10: loss 0.4552
+2026-11-26 13:50:40,535 INFO DAS v2 k=8 kl epoch 7/10: loss 0.5536
+2026-11-26 13:50:46,349 INFO DAS v2 k=8 kl epoch 8/10: loss 0.4945
+2026-11-26 13:50:52,178 INFO DAS v2 k=8 kl epoch 9/10: loss 0.5449
+2026-11-26 13:50:58,005 INFO DAS v2 k=8 kl epoch 10/10: loss 0.5383
+2026-11-26 13:51:46,325 INFO entity_track_L25_gs2_1b_all_L25_16k_small__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 3/3 (6 conditions, 45.5s)
+2026-11-26 13:51:48,480 INFO DAS: training das8v2_kl_s0 (k=8, 10 epochs, lr 0.01, seed 0) for ioi_control L25 on 300 train pairs
+2026-11-26 13:52:17,893 INFO DAS v2 k=8 kl epoch 1/10: loss 1.4178
+2026-11-26 13:52:19,375 INFO DAS v2 k=8 kl epoch 2/10: loss 0.2057
+2026-11-26 13:52:20,868 INFO DAS v2 k=8 kl epoch 3/10: loss 0.1285
+2026-11-26 13:52:22,362 INFO DAS v2 k=8 kl epoch 4/10: loss 0.0691
+2026-11-26 13:52:23,852 INFO DAS v2 k=8 kl epoch 5/10: loss 0.0434
+2026-11-26 13:52:25,344 INFO DAS v2 k=8 kl epoch 6/10: loss 0.0284
+2026-11-26 13:52:26,845 INFO DAS v2 k=8 kl epoch 7/10: loss 0.0216
+2026-11-26 13:52:28,331 INFO DAS v2 k=8 kl epoch 8/10: loss 0.0190
+2026-11-26 13:52:29,820 INFO DAS v2 k=8 kl epoch 9/10: loss 0.0175
+2026-11-26 13:52:31,323 INFO DAS v2 k=8 kl epoch 10/10: loss 0.0163
+2026-11-26 13:53:16,624 INFO ioi_control_L25_gs2_1b_all_L25_16k_small unit 1/3 (8 conditions, 2.0s)
+2026-11-26 13:53:18,919 INFO ioi_control_L25_gs2_1b_all_L25_16k_big unit 3/3 (6 conditions, 1.9s)
+2026-11-26 13:53:19,037 INFO P20 -> /home2/prakhar2218/PRISM/runs/P20/f95188403a91 (worker_done)
+Loaded pretrained model gemma-3-1b-pt into HookedTransformer

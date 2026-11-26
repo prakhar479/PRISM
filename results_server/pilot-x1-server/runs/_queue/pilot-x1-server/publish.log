@@ -1,0 +1,2 @@
+
+=== attempt 1 2026-11-26 16:31:04 slots=[]: /home2/prakhar2218/PRISM/.venv-harness/bin/python scripts/publish_results.py --tag pilot-x1-server --queue queue/pilot-x1-server.yaml

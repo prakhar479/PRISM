@@ -1,0 +1,188 @@
+{
+ "diffmean": {
+  "estimator": "diffmean",
+  "fit_digest": "4a9da926b5ee95d1",
+  "n_fit_rows": 600,
+  "evr": null,
+  "meta": {
+   "norm": 5261.532829260373,
+   "pair_proj_mean": 5261.532829260373,
+   "pair_proj_pos_frac": 1.0
+  }
+ },
+ "das1v2_kl_s0": {
+  "estimator": "das1v2_kl_s0",
+  "fit_digest": "4a9da926b5ee95d1",
+  "n_fit_rows": 300,
+  "evr": null,
+  "meta": {
+   "k": 1,
+   "version": 2,
+   "objective": "kl",
+   "epochs": 10,
+   "lr": 0.01,
+   "seed": 0,
+   "init_seed": 1986969376,
+   "holdout": 0.2,
+   "step_tokens": 1024,
+   "oom_backoffs": 0,
+   "n_train": 300,
+   "n_fit": 240,
+   "n_val": 60,
+   "losses": [
+    6.054158158955155,
+    0.03650378901123379,
+    0.026398896293782552,
+    0.009516395219664749,
+    0.005231700436297615,
+    0.0021492970235309863,
+    0.0016792762571033867,
+    0.0009703557045175633,
+    0.000755337264395924,
+    0.0005416256935745877
+   ],
+   "loss_first_epoch": 6.054158158955155,
+   "loss_last_epoch": 0.0005416256935745877,
+   "fit": {
+    "n": 240,
+    "iia": 1.0,
+    "nldr_mean": 0.9438223457087779,
+    "nldr_median": 0.9686609858542944,
+    "share_above_full": 0.20416666666666666,
+    "full_iia": 1.0
+   },
+   "val": {
+    "n": 60,
+    "iia": 1.0,
+    "nldr_mean": 0.9525802184600055,
+    "nldr_median": 0.9815991557391772,
+    "share_above_full": 0.23333333333333334,
+    "full_iia": 1.0
+   },
+   "train_interchange_acc": 1.0,
+   "val_interchange_acc": 1.0
+  }
+ },
+ "das1v2_kl_s1": {
+  "estimator": "das1v2_kl_s1",
+  "fit_digest": "4a9da926b5ee95d1",
+  "n_fit_rows": 300,
+  "evr": null,
+  "meta": {
+   "k": 1,
+   "version": 2,
+   "objective": "kl",
+   "epochs": 10,
+   "lr": 0.01,
+   "seed": 1,
+   "init_seed": 529780687,
+   "holdout": 0.2,
+   "step_tokens": 1024,
+   "oom_backoffs": 0,
+   "n_train": 300,
+   "n_fit": 240,
+   "n_val": 60,
+   "losses": [
+    7.480723791692435,
+    0.00044270975219357447,
+    0.0014986611498898129,
+    0.002441361157252686,
+    0.002579961716764956,
+    0.0025306270117653185,
+    0.0018438379947535092,
+    0.0013948985310586674,
+    0.0011662401415378555,
+    0.0008321603274756247
+   ],
+   "loss_first_epoch": 7.480723791692435,
+   "loss_last_epoch": 0.0008321603274756247,
+   "fit": {
+    "n": 240,
+    "iia": 1.0,
+    "nldr_mean": 1.0777884523578811,
+    "nldr_median": 1.1053282966350215,
+    "share_above_full": 0.7375,
+    "full_iia": 1.0
+   },
+   "val": {
+    "n": 60,
+    "iia": 1.0,
+    "nldr_mean": 1.0738311122074744,
+    "nldr_median": 1.130037309587121,
+    "share_above_full": 0.7166666666666667,
+    "full_iia": 1.0
+   },
+   "train_interchange_acc": 1.0,
+   "val_interchange_acc": 1.0
+  }
+ },
+ "das4v2_kl_s0": {
+  "estimator": "das4v2_kl_s0",
+  "fit_digest": "4a9da926b5ee95d1",
+  "n_fit_rows": 300,
+  "evr": null,
+  "meta": {
+   "k": 4,
+   "version": 2,
+   "objective": "kl",
+   "epochs": 10,
+   "lr": 0.01,
+   "seed": 0,
+   "init_seed": 1986969376,
+   "holdout": 0.2,
+   "step_tokens": 1024,
+   "oom_backoffs": 0,
+   "n_train": 300,
+   "n_fit": 240,
+   "n_val": 60,
+   "losses": [
+    2.0459693751908463,
+    0.0001589713294682345,
+    0.00010294919214857146,
+    6.86508916449687e-05,
+    4.3636926769371105e-05,
+    4.166262323224146e-05,
+    3.98743902659741e-05,
+    3.851091929618633e-05,
+    3.806878726777541e-05,
+    3.721958927182338e-05
+   ],
+   "loss_first_epoch": 2.0459693751908463,
+   "loss_last_epoch": 3.721958927182338e-05,
+   "fit": {
+    "n": 240,
+    "iia": 1.0,
+    "nldr_mean": 1.0590054905718291,
+    "nldr_median": 1.0811494987552983,
+    "share_above_full": 0.6125,
+    "full_iia": 1.0
+   },
+   "val": {
+    "n": 60,
+    "iia": 1.0,
+    "nldr_mean": 1.0723352371197892,
+    "nldr_median": 1.0887372013651877,
+    "share_above_full": 0.7166666666666667,
+    "full_iia": 1.0
+   },
+   "train_interchange_acc": 1.0,
+   "val_interchange_acc": 1.0
+  }
+ },
+ "_cosines": {
+  "diffmean|das1v2_kl_s0|r1": [
+   0.4767830883190731
+  ],
+  "diffmean|das1v2_kl_s1|r1": [
+   0.29163401886151213
+  ],
+  "das1v2_kl_s0|das1v2_kl_s1|r1": [
+   0.2986023426055908
+  ]
+ },
+ "_fitset": {
+  "digest": "4a9da926b5ee95d1",
+  "n_pairs": 300,
+  "filter": "f_pilot"
+ }
+}

@@ -1,0 +1,67 @@
+
+=== attempt 1 2026-11-26 04:11:42 slots=['3']: /home2/prakhar2218/PRISM/.venv-harness/bin/python scripts/run_dict_fidelity.py --config configs/batch2/P20.yaml --eval-set generic/pile10k_100x128_g3.json --extras
+2026-11-26 04:11:50,218 INFO PF: 52 dictionaries to do, 0 done
+2026-11-26 04:11:59,026 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-pt/tree/fcf18a2a879aab110ca39f8bffbccd5d49d8eb29/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-26 04:11:59,279 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-pt/tree/fcf18a2a879aab110ca39f8bffbccd5d49d8eb29?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-26 04:12:01,024 INFO HTTP Request: HEAD https://huggingface.co/google/gemma-3-1b-pt/resolve/fcf18a2a879aab110ca39f8bffbccd5d49d8eb29/added_tokens.json "HTTP/1.1 200 OK"
+2026-11-26 04:12:01,519 INFO HTTP Request: HEAD https://huggingface.co/google/gemma-3-1b-pt/resolve/fcf18a2a879aab110ca39f8bffbccd5d49d8eb29/chat_template.jinja "HTTP/1.1 404 Not Found"
+2026-11-26 04:12:04,640 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-pt "HTTP/1.1 200 OK"
+Loading weights:   0%|          | 0/340 [00:00<?, ?it/s]Loading weights:   9%|▉         | 32/340 [00:00<00:00, 315.43it/s]Loading weights:  19%|█▉        | 66/340 [00:00<00:00, 319.87it/s]Loading weights:  29%|██▉       | 98/340 [00:00<00:00, 277.42it/s]Loading weights:  38%|███▊      | 130/340 [00:00<00:00, 292.47it/s]Loading weights:  57%|█████▋    | 194/340 [00:00<00:00, 399.27it/s]Loading weights:  69%|██████▉   | 235/340 [00:00<00:00, 364.84it/s]Loading weights:  80%|████████  | 273/340 [00:00<00:00, 358.13it/s]Loading weights:  91%|█████████ | 310/340 [00:00<00:00, 327.62it/s]Loading weights: 100%|██████████| 340/340 [00:01<00:00, 339.02it/s]
+2026-11-26 04:12:12,512 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-pt "HTTP/1.1 200 OK"
+2026-11-26 04:12:13,199 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-pt/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-26 04:12:13,446 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-pt/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-26 04:12:16,079 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-pt "HTTP/1.1 200 OK"
+2026-11-26 04:13:07,310 INFO L0_gs2_1b_all_L0_16k_small: CE delta 0.0592, recovered(mean) 0.9923, FVU 0.0301, L0 14.1 (28s)
+2026-11-26 04:13:36,835 INFO L0_gs2_1b_all_L0_16k_big: CE delta 0.0510, recovered(mean) 0.9934, FVU 0.0177, L0 63.0 (28s)
+2026-11-26 04:14:06,869 INFO L1_gs2_1b_all_L1_16k_small: CE delta 0.0811, recovered(mean) 0.9895, FVU 0.0465, L0 13.1 (29s)
+2026-11-26 04:14:41,478 INFO L1_gs2_1b_all_L1_16k_big: CE delta 0.0572, recovered(mean) 0.9926, FVU 0.0278, L0 68.6 (34s)
+2026-11-26 04:15:11,046 INFO L2_gs2_1b_all_L2_16k_small: CE delta 0.1223, recovered(mean) 0.9838, FVU 0.0602, L0 14.6 (29s)
+2026-11-26 04:15:40,515 INFO L2_gs2_1b_all_L2_16k_big: CE delta 0.0697, recovered(mean) 0.9907, FVU 0.0350, L0 75.9 (29s)
+2026-11-26 04:16:10,201 INFO L3_gs2_1b_all_L3_16k_small: CE delta 0.1228, recovered(mean) 0.9845, FVU 0.0617, L0 16.0 (29s)
+2026-11-26 04:16:39,828 INFO L3_gs2_1b_all_L3_16k_big: CE delta 0.0659, recovered(mean) 0.9917, FVU 0.0367, L0 83.2 (29s)
+2026-11-26 04:17:09,472 INFO L4_gs2_1b_all_L4_16k_small: CE delta 0.1319, recovered(mean) 0.9821, FVU 0.0710, L0 16.2 (29s)
+2026-11-26 04:17:39,248 INFO L4_gs2_1b_all_L4_16k_big: CE delta 0.0719, recovered(mean) 0.9902, FVU 0.0424, L0 92.1 (29s)
+2026-11-26 04:18:09,131 INFO L5_gs2_1b_all_L5_16k_small: CE delta 0.1145, recovered(mean) 0.9852, FVU 0.0772, L0 16.5 (29s)
+2026-11-26 04:18:38,940 INFO L5_gs2_1b_all_L5_16k_big: CE delta 0.0583, recovered(mean) 0.9925, FVU 0.0473, L0 97.0 (29s)
+2026-11-26 04:19:08,681 INFO L6_gs2_1b_all_L6_16k_small: CE delta 0.1142, recovered(mean) 0.9841, FVU 0.0954, L0 17.6 (29s)
+2026-11-26 04:19:38,552 INFO L6_gs2_1b_all_L6_16k_big: CE delta 0.0556, recovered(mean) 0.9923, FVU 0.0610, L0 104.5 (29s)
+2026-11-26 04:20:08,522 INFO L7_gs2_1b_all_L7_16k_small: CE delta 0.1319, recovered(mean) 0.9829, FVU 0.0830, L0 19.7 (29s)
+2026-11-26 04:20:38,241 INFO L7_gs2_1b_all_L7_16k_big: CE delta 0.0634, recovered(mean) 0.9918, FVU 0.0552, L0 112.9 (29s)
+2026-11-26 04:21:07,882 INFO L8_gs2_1b_all_L8_16k_small: CE delta 0.1574, recovered(mean) 0.9790, FVU 0.0985, L0 20.2 (29s)
+2026-11-26 04:21:37,582 INFO L8_gs2_1b_all_L8_16k_big: CE delta 0.0805, recovered(mean) 0.9893, FVU 0.0653, L0 118.9 (29s)
+2026-11-26 04:22:06,919 INFO L9_gs2_1b_all_L9_16k_small: CE delta 0.1462, recovered(mean) 0.9798, FVU 0.1227, L0 21.1 (29s)
+2026-11-26 04:22:36,449 INFO L9_gs2_1b_all_L9_16k_big: CE delta 0.0746, recovered(mean) 0.9897, FVU 0.0850, L0 124.5 (29s)
+2026-11-26 04:23:05,963 INFO L10_gs2_1b_all_L10_16k_small: CE delta 0.1769, recovered(mean) 0.9744, FVU 0.1511, L0 21.4 (29s)
+2026-11-26 04:23:35,268 INFO L10_gs2_1b_all_L10_16k_big: CE delta 0.0773, recovered(mean) 0.9888, FVU 0.1001, L0 125.3 (29s)
+2026-11-26 04:24:04,775 INFO L11_gs2_1b_all_L11_16k_small: CE delta 0.1893, recovered(mean) 0.9728, FVU 0.1295, L0 20.8 (29s)
+2026-11-26 04:24:34,294 INFO L11_gs2_1b_all_L11_16k_big: CE delta 0.0816, recovered(mean) 0.9883, FVU 0.0870, L0 122.0 (29s)
+2026-11-26 04:25:03,714 INFO L12_gs2_1b_all_L12_16k_small: CE delta 0.1942, recovered(mean) 0.9719, FVU 0.1252, L0 21.1 (29s)
+2026-11-26 04:25:33,181 INFO L12_gs2_1b_all_L12_16k_big: CE delta 0.0972, recovered(mean) 0.9859, FVU 0.0847, L0 120.5 (29s)
+2026-11-26 04:26:02,733 INFO L13_gs2_1b_all_L13_16k_small: CE delta 0.2205, recovered(mean) 0.9680, FVU 0.1628, L0 21.5 (29s)
+2026-11-26 04:26:32,272 INFO L13_gs2_1b_all_L13_16k_big: CE delta 0.0980, recovered(mean) 0.9858, FVU 0.1137, L0 121.8 (29s)
+2026-11-26 04:27:01,725 INFO L14_gs2_1b_all_L14_16k_small: CE delta 0.2353, recovered(mean) 0.9663, FVU 0.1968, L0 22.3 (29s)
+2026-11-26 04:27:31,717 INFO L14_gs2_1b_all_L14_16k_big: CE delta 0.1184, recovered(mean) 0.9830, FVU 0.1425, L0 122.7 (29s)
+2026-11-26 04:28:01,646 INFO L15_gs2_1b_all_L15_16k_small: CE delta 0.2510, recovered(mean) 0.9634, FVU 0.2341, L0 22.5 (29s)
+2026-11-26 04:28:31,417 INFO L15_gs2_1b_all_L15_16k_big: CE delta 0.1249, recovered(mean) 0.9818, FVU 0.1690, L0 122.9 (29s)
+2026-11-26 04:29:01,402 INFO L16_gs2_1b_all_L16_16k_small: CE delta 0.2315, recovered(mean) 0.9663, FVU 0.2176, L0 22.9 (29s)
+2026-11-26 04:29:31,049 INFO L16_gs2_1b_all_L16_16k_big: CE delta 0.1126, recovered(mean) 0.9836, FVU 0.1499, L0 122.9 (29s)
+2026-11-26 04:30:00,393 INFO L17_gs2_1b_all_L17_16k_small: CE delta 0.2119, recovered(mean) 0.9684, FVU 0.2068, L0 23.5 (29s)
+2026-11-26 04:30:29,967 INFO L17_gs2_1b_all_L17_16k_big: CE delta 0.1105, recovered(mean) 0.9835, FVU 0.1442, L0 121.7 (29s)
+2026-11-26 04:30:59,517 INFO L18_gs2_1b_all_L18_16k_small: CE delta 0.2258, recovered(mean) 0.9666, FVU 0.2030, L0 24.1 (29s)
+2026-11-26 04:31:28,898 INFO L18_gs2_1b_all_L18_16k_big: CE delta 0.1200, recovered(mean) 0.9823, FVU 0.1436, L0 122.9 (29s)
+2026-11-26 04:31:58,458 INFO L19_gs2_1b_all_L19_16k_small: CE delta 0.2545, recovered(mean) 0.9628, FVU 0.1987, L0 24.4 (29s)
+2026-11-26 04:32:28,039 INFO L19_gs2_1b_all_L19_16k_big: CE delta 0.1426, recovered(mean) 0.9792, FVU 0.1413, L0 124.6 (29s)
+2026-11-26 04:32:57,482 INFO L20_gs2_1b_all_L20_16k_small: CE delta 0.2752, recovered(mean) 0.9605, FVU 0.2055, L0 25.0 (29s)
+2026-11-26 04:33:27,001 INFO L20_gs2_1b_all_L20_16k_big: CE delta 0.1543, recovered(mean) 0.9779, FVU 0.1461, L0 126.2 (29s)
+2026-11-26 04:33:56,535 INFO L21_gs2_1b_all_L21_16k_small: CE delta 0.2952, recovered(mean) 0.9581, FVU 0.2232, L0 24.8 (29s)
+2026-11-26 04:34:26,061 INFO L21_gs2_1b_all_L21_16k_big: CE delta 0.1620, recovered(mean) 0.9770, FVU 0.1595, L0 126.0 (29s)
+2026-11-26 04:34:55,545 INFO L22_gs2_1b_all_L22_16k_small: CE delta 0.3183, recovered(mean) 0.9543, FVU 0.2526, L0 25.0 (29s)
+2026-11-26 04:35:25,078 INFO L22_gs2_1b_all_L22_16k_big: CE delta 0.1749, recovered(mean) 0.9749, FVU 0.1816, L0 127.5 (29s)
+2026-11-26 04:35:54,621 INFO L23_gs2_1b_all_L23_16k_small: CE delta 0.3322, recovered(mean) 0.9531, FVU 0.2875, L0 25.4 (29s)
+2026-11-26 04:36:24,017 INFO L23_gs2_1b_all_L23_16k_big: CE delta 0.1836, recovered(mean) 0.9741, FVU 0.2084, L0 127.1 (29s)
+2026-11-26 04:36:53,565 INFO L24_gs2_1b_all_L24_16k_small: CE delta 0.3730, recovered(mean) 0.9474, FVU 0.3289, L0 25.3 (29s)
+2026-11-26 04:37:23,071 INFO L24_gs2_1b_all_L24_16k_big: CE delta 0.2125, recovered(mean) 0.9701, FVU 0.2386, L0 128.5 (29s)
+2026-11-26 04:37:52,464 INFO L25_gs2_1b_all_L25_16k_small: CE delta 0.5122, recovered(mean) 0.9312, FVU 0.3557, L0 25.9 (29s)
+2026-11-26 04:38:21,964 INFO L25_gs2_1b_all_L25_16k_big: CE delta 0.3018, recovered(mean) 0.9595, FVU 0.2617, L0 125.3 (29s)
+2026-11-26 04:38:22,670 INFO PF e6677ae81942 -> /home2/prakhar2218/PRISM/runs/PF/e6677ae81942 (complete)
+Loaded pretrained model gemma-3-1b-pt into HookedTransformer

@@ -1,0 +1,12 @@
+
+=== attempt 1 2026-11-26 13:53:20 slots=['2']: /home2/prakhar2218/PRISM/.venv-harness/bin/python -m harness.run --config configs/batch2/P28.yaml --profile server --stage 1
+2026-11-26 13:53:45,404 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-pt/tree/fcf18a2a879aab110ca39f8bffbccd5d49d8eb29/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-26 13:53:45,652 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-pt/tree/fcf18a2a879aab110ca39f8bffbccd5d49d8eb29?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-26 13:53:48,914 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-pt "HTTP/1.1 200 OK"
+Loading weights:   0%|          | 0/340 [00:00<?, ?it/s]Loading weights:  11%|█         | 38/340 [00:00<00:00, 333.01it/s]Loading weights:  21%|██        | 72/340 [00:00<00:00, 299.73it/s]Loading weights:  30%|███       | 103/340 [00:00<00:00, 279.15it/s]Loading weights:  39%|███▊      | 131/340 [00:00<00:00, 257.26it/s]Loading weights:  48%|████▊     | 164/340 [00:00<00:00, 265.19it/s]Loading weights:  57%|█████▋    | 194/340 [00:00<00:00, 263.31it/s]Loading weights:  66%|██████▋   | 226/340 [00:00<00:00, 271.76it/s]Loading weights:  75%|███████▍  | 254/340 [00:00<00:00, 266.89it/s]Loading weights:  83%|████████▎ | 281/340 [00:01<00:00, 258.01it/s]Loading weights:  94%|█████████▎| 318/340 [00:01<00:00, 280.37it/s]Loading weights: 100%|██████████| 340/340 [00:01<00:00, 278.66it/s]
+2026-11-26 13:53:58,618 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-pt "HTTP/1.1 200 OK"
+2026-11-26 13:53:59,096 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-pt/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-26 13:53:59,345 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-pt/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-26 13:54:02,271 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-pt "HTTP/1.1 200 OK"
+2026-11-26 13:54:33,378 INFO P28 -> /home2/prakhar2218/PRISM/runs/P28/99f7cf79ef69 (stage1_complete)
+Loaded pretrained model gemma-3-1b-pt into HookedTransformer

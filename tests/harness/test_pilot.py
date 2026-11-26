@@ -499,3 +499,27 @@ def test_decompose_rows_dense_matches_reference_and_bounds_memory(kind, monkeypa
     xh, eps, l0 = d._decompose_rows(X)
     assert torch.allclose(xh, ref, atol=1e-5) and torch.allclose(eps, X - ref, atol=1e-5)
     assert torch.equal(l0, (f > 0).sum(-1))
+
+
+@pytest.mark.slow
+def test_das_v2_oom_retry_runs_after_the_failed_batch_is_released(tiny, monkeypatch):
+    """Regression (P21, 2026-11-26): the retry used to run INSIDE the except block, where the exception still referenced the failed
+    batch's activation graph, so the half batches also ran out of memory. The injected error holds a weakly referenced tensor in
+    the frame that raised it: by the time any retry runs it must be gone."""
+    import weakref
+    from harness.model import das as D
+    m, rows, sp = tiny
+    real = D.runtime.last_logits_from
+    held = []
+
+    def flaky(model, resid, layer, tokens):
+        if held:                                                       # a retry: the failed attempt's frame must be released
+            assert all(r() is None for r in held), "retry ran while the failed batch was still referenced"
+        if resid.shape[0] > 1 and torch.is_grad_enabled():
+            graph = torch.zeros(16)                                    # stands for the activations a real OOM leaves behind
+            held.append(weakref.ref(graph))
+            raise RuntimeError("CUDA out of memory. Tried to allocate 2.00 GiB")
+        return real(model, resid, layer, tokens)
+    monkeypatch.setattr(D.runtime, "last_logits_from", flaky)
+    U, info = D.fit_das_v2(m, 1, rows, list(range(14)), sp, 2, objective="kl", epochs=1, seed=0, init_seed=3, step_tokens=96)
+    assert info["oom_backoffs"] >= 1 and held and np.isfinite(U).all()

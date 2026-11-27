@@ -1,0 +1,798 @@
+
+=== attempt 1 2026-11-26 15:45:27 slots=['2']: /home2/prakhar2218/PRISM/.venv-harness/bin/python -m harness.run --config configs/batch2/P21.yaml --profile server --stage 3 --worker P21_s3-1
+2026-11-26 15:45:37,648 INFO DAS: training das8v2_kl_s0 (k=8, 10 epochs, lr 0.01, seed 0) for add_chain L2 on 300 train pairs
+Loading weights:   0%|          | 0/288 [00:00<?, ?it/s]Loading weights:   0%|          | 1/288 [02:03<9:52:57, 123.96s/it]Loading weights: 100%|██████████| 288/288 [02:03<00:00,  2.32it/s] 
+2026-11-26 15:47:52,272 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-26 15:47:52,594 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-26 15:47:52,851 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-26 15:47:54,600 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-26 15:50:29,080 ERROR run failed
+Traceback (most recent call last):
+  File "/home2/prakhar2218/PRISM/harness/model/das.py", line 204, in step
+    loss = loss_of(forward(ps, True), ps)
+                   ^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/harness/model/das.py", line 179, in forward
+    return runtime.last_logits_from(model, x, layer, tB)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/src/models/runtime.py", line 182, in last_logits_from
+    out = model.run_with_hooks(resid, fwd_hooks=[], start_at_layer=layer + 1, stop_at_layer=model.cfg.n_layers,
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/transformer_lens/HookedRootModule.py", line 324, in run_with_hooks
+    return hooked_model.forward(*model_args, **model_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/transformer_lens/HookedTransformer.py", line 663, in forward
+    residual = block(
+               ^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1783, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1794, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/transformer_lens/components/transformer_block.py", line 205, in forward
+    mlp_out = self.apply_mlp(normalized_resid_mid)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/transformer_lens/components/transformer_block.py", line 229, in apply_mlp
+    mlp_out = self.mlp(normalized_resid)  # [batch, pos, d_model]
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1783, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1794, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/transformer_lens/components/mlps/gated_mlp.py", line 76, in forward
+    return F.linear(post_act, self.W_out.T.contiguous(), self.b_out)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 42.00 MiB. GPU 0 has a total capacity of 10.57 GiB of which 396.06 MiB is free. Including non-PyTorch memory, this process has 10.18 GiB memory in use. 9.97 GiB allowed; Of the allocated memory 9.90 GiB is allocated by PyTorch, and 59.52 MiB is reserved by PyTorch but unallocated.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home2/prakhar2218/PRISM/harness/model/das.py", line 204, in step
+    loss = loss_of(forward(ps, True), ps)
+                   ^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/harness/model/das.py", line 179, in forward
+    return runtime.last_logits_from(model, x, layer, tB)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/src/models/runtime.py", line 182, in last_logits_from
+    out = model.run_with_hooks(resid, fwd_hooks=[], start_at_layer=layer + 1, stop_at_layer=model.cfg.n_layers,
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/transformer_lens/HookedRootModule.py", line 324, in run_with_hooks
+    return hooked_model.forward(*model_args, **model_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/transformer_lens/HookedTransformer.py", line 663, in forward
+    residual = block(
+               ^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1783, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1794, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/transformer_lens/components/transformer_block.py", line 171, in forward
+    self.attn(
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1783, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1794, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/transformer_lens/components/abstract_attention.py", line 243, in forward
+    q, k, v = self.calculate_qkv_matrices(query_input, key_input, value_input)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/transformer_lens/components/grouped_query_attention.py", line 128, in calculate_qkv_matrices
+    attn_fn(query_input, self.W_Q, self.b_Q)
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/transformer_lens/utilities/attention.py", line 24, in simple_attn_linear
+    w = einops.rearrange(w, "head_index d_model d_head -> (head_index d_head) d_model")
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/einops/einops.py", line 616, in rearrange
+    return reduce(tensor, pattern, reduction="rearrange", **axes_lengths)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/einops/einops.py", line 540, in reduce
+    return _apply_recipe(
+           ^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/einops/einops.py", line 251, in _apply_recipe
+    tensor = backend.reshape(tensor, final_shapes)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/einops/_backends.py", line 96, in reshape
+    return x.reshape(shape)
+           ^^^^^^^^^^^^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 20.00 MiB. GPU 0 has a total capacity of 10.57 GiB of which 396.06 MiB is free. Including non-PyTorch memory, this process has 10.18 GiB memory in use. 9.97 GiB allowed; Of the allocated memory 9.93 GiB is allocated by PyTorch, and 36.78 MiB is reserved by PyTorch but unallocated.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home2/prakhar2218/PRISM/harness/run.py", line 1203, in main
+    {"1": R.run_stage1, "2": R.run_stage2, "3": R.run_stage3}[s]()
+  File "/home2/prakhar2218/PRISM/harness/run.py", line 934, in run_stage3
+    bun = self.bundle(cell.task, cell.layer, sid, cell.fit_families)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/harness/run.py", line 655, in bundle
+    b.dirs[est] = self.das_direction(task, layer, rows, tr, sp, fs, est, blocking=blocking)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/harness/run.py", line 725, in das_direction
+    U, info = fit_das_v2(model, layer, rows, tr, sp, k, objective=spec["objective"], epochs=epochs, lr=lr,
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/harness/model/das.py", line 225, in fit_das_v2
+    tot += step(ps)
+           ^^^^^^^^
+  File "/home2/prakhar2218/PRISM/harness/model/das.py", line 219, in step
+    return step(ps[:h]) + step(ps[h:])
+           ^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/harness/model/das.py", line 219, in step
+    return step(ps[:h]) + step(ps[h:])
+           ^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/harness/model/das.py", line 204, in step
+    loss = loss_of(forward(ps, True), ps)
+                   ^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/harness/model/das.py", line 179, in forward
+    return runtime.last_logits_from(model, x, layer, tB)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/src/models/runtime.py", line 182, in last_logits_from
+    out = model.run_with_hooks(resid, fwd_hooks=[], start_at_layer=layer + 1, stop_at_layer=model.cfg.n_layers,
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/transformer_lens/HookedRootModule.py", line 324, in run_with_hooks
+    return hooked_model.forward(*model_args, **model_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/transformer_lens/HookedTransformer.py", line 663, in forward
+    residual = block(
+               ^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1783, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1794, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/transformer_lens/components/transformer_block.py", line 171, in forward
+    self.attn(
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1783, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1794, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/transformer_lens/components/abstract_attention.py", line 243, in forward
+    q, k, v = self.calculate_qkv_matrices(query_input, key_input, value_input)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/transformer_lens/components/grouped_query_attention.py", line 128, in calculate_qkv_matrices
+    attn_fn(query_input, self.W_Q, self.b_Q)
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/transformer_lens/utilities/attention.py", line 24, in simple_attn_linear
+    w = einops.rearrange(w, "head_index d_model d_head -> (head_index d_head) d_model")
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/einops/einops.py", line 616, in rearrange
+    return reduce(tensor, pattern, reduction="rearrange", **axes_lengths)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/einops/einops.py", line 540, in reduce
+    return _apply_recipe(
+           ^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/einops/einops.py", line 251, in _apply_recipe
+    tensor = backend.reshape(tensor, final_shapes)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/einops/_backends.py", line 96, in reshape
+    return x.reshape(shape)
+           ^^^^^^^^^^^^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 20.00 MiB. GPU 0 has a total capacity of 10.57 GiB of which 396.06 MiB is free. Including non-PyTorch memory, this process has 10.18 GiB memory in use. 9.97 GiB allowed; Of the allocated memory 9.94 GiB is allocated by PyTorch, and 25.42 MiB is reserved by PyTorch but unallocated.
+2026-11-26 15:50:29,223 INFO P21 -> /home2/prakhar2218/PRISM/runs/P21/b783867f3c0d (failed)
+Loaded pretrained model gemma-2-2b into HookedTransformer
+
+=== attempt 2 2026-11-26 15:50:32 slots=['2']: /home2/prakhar2218/PRISM/.venv-harness/bin/python -m harness.run --config configs/batch2/P21.yaml --profile server --stage 3 --worker P21_s3-1
+2026-11-26 15:50:44,366 INFO DAS: training das8v2_kl_s1 (k=8, 10 epochs, lr 0.01, seed 1) for add_chain L2 on 300 train pairs
+Loading weights:   0%|          | 0/288 [00:00<?, ?it/s]Loading weights:   0%|          | 1/288 [00:00<02:26,  1.97it/s]Loading weights:  74%|███████▎  | 212/288 [00:00<00:00, 448.45it/s]Loading weights: 100%|██████████| 288/288 [00:00<00:00, 389.61it/s]
+2026-11-26 15:50:52,420 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-26 15:50:52,689 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-26 15:50:52,945 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-26 15:50:54,388 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-26 15:53:29,187 ERROR run failed
+Traceback (most recent call last):
+  File "/home2/prakhar2218/PRISM/harness/model/das.py", line 204, in step
+    loss = loss_of(forward(ps, True), ps)
+                   ^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/harness/model/das.py", line 179, in forward
+    return runtime.last_logits_from(model, x, layer, tB)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/src/models/runtime.py", line 182, in last_logits_from
+    out = model.run_with_hooks(resid, fwd_hooks=[], start_at_layer=layer + 1, stop_at_layer=model.cfg.n_layers,
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/transformer_lens/HookedRootModule.py", line 324, in run_with_hooks
+    return hooked_model.forward(*model_args, **model_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/transformer_lens/HookedTransformer.py", line 663, in forward
+    residual = block(
+               ^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1783, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1794, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/transformer_lens/components/transformer_block.py", line 205, in forward
+    mlp_out = self.apply_mlp(normalized_resid_mid)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/transformer_lens/components/transformer_block.py", line 229, in apply_mlp
+    mlp_out = self.mlp(normalized_resid)  # [batch, pos, d_model]
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1783, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1794, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/transformer_lens/components/mlps/gated_mlp.py", line 69, in forward
+    F.linear(x, self.W_in.T.contiguous())  # [batch, pos, d_mlp]
+                ^^^^^^^^^^^^^^^^^^^^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 42.00 MiB. GPU 0 has a total capacity of 10.57 GiB of which 416.06 MiB is free. Including non-PyTorch memory, this process has 10.16 GiB memory in use. 9.97 GiB allowed; Of the allocated memory 9.90 GiB is allocated by PyTorch, and 42.21 MiB is reserved by PyTorch but unallocated.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home2/prakhar2218/PRISM/harness/model/das.py", line 204, in step
+    loss = loss_of(forward(ps, True), ps)
+                   ^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/harness/model/das.py", line 179, in forward
+    return runtime.last_logits_from(model, x, layer, tB)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/src/models/runtime.py", line 182, in last_logits_from
+    out = model.run_with_hooks(resid, fwd_hooks=[], start_at_layer=layer + 1, stop_at_layer=model.cfg.n_layers,
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/transformer_lens/HookedRootModule.py", line 324, in run_with_hooks
+    return hooked_model.forward(*model_args, **model_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/transformer_lens/HookedTransformer.py", line 663, in forward
+    residual = block(
+               ^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1783, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1794, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/transformer_lens/components/transformer_block.py", line 171, in forward
+    self.attn(
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1783, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1794, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/transformer_lens/components/abstract_attention.py", line 243, in forward
+    q, k, v = self.calculate_qkv_matrices(query_input, key_input, value_input)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/transformer_lens/components/grouped_query_attention.py", line 134, in calculate_qkv_matrices
+    else attn_fn(key_input, self._W_K, self._b_K)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/transformer_lens/utilities/attention.py", line 24, in simple_attn_linear
+    w = einops.rearrange(w, "head_index d_model d_head -> (head_index d_head) d_model")
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/einops/einops.py", line 616, in rearrange
+    return reduce(tensor, pattern, reduction="rearrange", **axes_lengths)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/einops/einops.py", line 540, in reduce
+    return _apply_recipe(
+           ^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/einops/einops.py", line 251, in _apply_recipe
+    tensor = backend.reshape(tensor, final_shapes)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/einops/_backends.py", line 96, in reshape
+    return x.reshape(shape)
+           ^^^^^^^^^^^^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 20.00 MiB. GPU 0 has a total capacity of 10.57 GiB of which 396.06 MiB is free. Including non-PyTorch memory, this process has 10.18 GiB memory in use. 9.97 GiB allowed; Of the allocated memory 9.93 GiB is allocated by PyTorch, and 27.78 MiB is reserved by PyTorch but unallocated.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home2/prakhar2218/PRISM/harness/run.py", line 1203, in main
+    {"1": R.run_stage1, "2": R.run_stage2, "3": R.run_stage3}[s]()
+  File "/home2/prakhar2218/PRISM/harness/run.py", line 934, in run_stage3
+    bun = self.bundle(cell.task, cell.layer, sid, cell.fit_families)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/harness/run.py", line 655, in bundle
+    b.dirs[est] = self.das_direction(task, layer, rows, tr, sp, fs, est, blocking=blocking)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/harness/run.py", line 725, in das_direction
+    U, info = fit_das_v2(model, layer, rows, tr, sp, k, objective=spec["objective"], epochs=epochs, lr=lr,
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/harness/model/das.py", line 225, in fit_das_v2
+    tot += step(ps)
+           ^^^^^^^^
+  File "/home2/prakhar2218/PRISM/harness/model/das.py", line 219, in step
+    return step(ps[:h]) + step(ps[h:])
+           ^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/harness/model/das.py", line 219, in step
+    return step(ps[:h]) + step(ps[h:])
+           ^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/harness/model/das.py", line 204, in step
+    loss = loss_of(forward(ps, True), ps)
+                   ^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/harness/model/das.py", line 179, in forward
+    return runtime.last_logits_from(model, x, layer, tB)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/src/models/runtime.py", line 182, in last_logits_from
+    out = model.run_with_hooks(resid, fwd_hooks=[], start_at_layer=layer + 1, stop_at_layer=model.cfg.n_layers,
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/transformer_lens/HookedRootModule.py", line 324, in run_with_hooks
+    return hooked_model.forward(*model_args, **model_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/transformer_lens/HookedTransformer.py", line 663, in forward
+    residual = block(
+               ^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1783, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1794, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/transformer_lens/components/transformer_block.py", line 174, in forward
+    key_input=self.ln1(key_input)
+              ^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1783, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1794, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home2/prakhar2218/PRISM/.venv-harness/lib/python3.12/site-packages/transformer_lens/components/rms_norm.py", line 48, in forward
+    (x.pow(2).mean(-1, keepdim=True) + self.eps).sqrt()
+     ^^^^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 20.00 MiB. GPU 0 has a total capacity of 10.57 GiB of which 396.06 MiB is free. Including non-PyTorch memory, this process has 10.18 GiB memory in use. 9.97 GiB allowed; Of the allocated memory 9.94 GiB is allocated by PyTorch, and 20.21 MiB is reserved by PyTorch but unallocated.
+2026-11-26 15:53:29,296 INFO P21 -> /home2/prakhar2218/PRISM/runs/P21/b783867f3c0d (failed)
+Loaded pretrained model gemma-2-2b into HookedTransformer
+
+=== attempt 1 2026-11-26 19:44:19 slots=['1']: /home2/prakhar2218/PRISM/.venv-harness/bin/python -m harness.run --config configs/batch2/P21.yaml --profile server --stage 3 --worker P21_s3-1
+2026-11-26 19:44:29,191 INFO DAS: training das8v2_kl_s1 (k=8, 10 epochs, lr 0.01, seed 1) for add_chain L2 on 300 train pairs
+Loading weights:   0%|          | 0/288 [00:00<?, ?it/s]Loading weights:   0%|          | 1/288 [00:00<02:26,  1.96it/s]Loading weights:  85%|████████▍ | 244/288 [00:00<00:00, 532.95it/s]Loading weights: 100%|██████████| 288/288 [00:00<00:00, 416.76it/s]
+2026-11-26 19:44:37,244 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-26 19:44:37,504 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-26 19:44:37,760 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-26 19:44:39,238 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-26 19:49:41,952 INFO DAS v2 k=8 kl epoch 1/10: loss 0.1224
+2026-11-26 19:51:22,093 INFO DAS v2 k=8 kl epoch 2/10: loss 0.5970
+2026-11-26 19:53:02,168 INFO DAS v2 k=8 kl epoch 3/10: loss 0.0615
+2026-11-26 19:54:42,311 INFO DAS v2 k=8 kl epoch 4/10: loss 0.1045
+2026-11-26 19:56:23,027 INFO DAS v2 k=8 kl epoch 5/10: loss 0.0090
+2026-11-26 19:58:03,113 INFO DAS v2 k=8 kl epoch 6/10: loss 0.0051
+2026-11-26 19:59:43,246 INFO DAS v2 k=8 kl epoch 7/10: loss 0.0019
+2026-11-26 20:01:23,891 INFO DAS v2 k=8 kl epoch 8/10: loss 0.0254
+2026-11-26 20:03:03,919 INFO DAS v2 k=8 kl epoch 9/10: loss 0.0049
+2026-11-26 20:04:43,953 INFO DAS v2 k=8 kl epoch 10/10: loss 0.0721
+2026-11-26 20:07:52,960 INFO add_chain_L2_16k_l0141 unit 3/3 (6 conditions, 124.3s)
+2026-11-26 20:10:39,645 INFO add_chain_L2_65k_l0169 unit 2/3 (8 conditions, 165.0s)
+2026-11-26 20:37:58,838 INFO people_cities_L2_16k_l0141__fit-pc_en__eval-pc_en unit 3/3 (6 conditions, 150.6s)
+2026-11-26 20:41:25,520 INFO people_cities_L2_65k_l0169__fit-pc_en__eval-pc_en unit 2/3 (8 conditions, 204.4s)
+2026-11-26 21:22:40,738 INFO entity_track_L2_16k_l0141__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 3/3 (6 conditions, 659.4s)
+2026-11-26 21:37:23,399 INFO entity_track_L2_65k_l0169__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 2/3 (8 conditions, 879.2s)
+2026-11-26 21:47:30,703 INFO ioi_control_L2_16k_l0141 unit 1/3 (8 conditions, 31.6s)
+2026-11-26 21:47:34,946 INFO DAS: training das8v2_kl_s1 (k=8, 10 epochs, lr 0.01, seed 1) for add_chain L4 on 300 train pairs
+2026-11-26 21:52:07,478 INFO DAS v2 k=8 kl epoch 1/10: loss 0.2327
+2026-11-26 21:53:39,149 INFO DAS v2 k=8 kl epoch 2/10: loss 0.3855
+2026-11-26 21:55:10,806 INFO DAS v2 k=8 kl epoch 3/10: loss 0.0541
+2026-11-26 21:56:42,417 INFO DAS v2 k=8 kl epoch 4/10: loss 0.0810
+2026-11-26 21:58:14,531 INFO DAS v2 k=8 kl epoch 5/10: loss 0.0215
+2026-11-26 21:59:46,158 INFO DAS v2 k=8 kl epoch 6/10: loss 0.0123
+2026-11-26 22:01:17,797 INFO DAS v2 k=8 kl epoch 7/10: loss 0.0077
+2026-11-26 22:02:49,981 INFO DAS v2 k=8 kl epoch 8/10: loss 0.0641
+2026-11-26 22:04:21,644 INFO DAS v2 k=8 kl epoch 9/10: loss 0.0195
+2026-11-26 22:05:53,275 INFO DAS v2 k=8 kl epoch 10/10: loss 0.0221
+2026-11-26 22:09:28,053 INFO add_chain_L4_65k_l089 unit 1/3 (8 conditions, 152.9s)
+2026-11-26 22:09:30,216 INFO DAS: training das8v2_kl_s1 (k=8, 10 epochs, lr 0.01, seed 1) for people_cities L4 on 300 train pairs
+2026-11-26 22:15:01,057 INFO DAS v2 k=8 kl epoch 1/10: loss 2.0399
+2026-11-26 22:16:46,082 INFO DAS v2 k=8 kl epoch 2/10: loss 2.1514
+2026-11-26 22:18:30,821 INFO DAS v2 k=8 kl epoch 3/10: loss 1.8824
+2026-11-26 22:20:15,565 INFO DAS v2 k=8 kl epoch 4/10: loss 1.4602
+2026-11-26 22:22:00,770 INFO DAS v2 k=8 kl epoch 5/10: loss 1.1375
+2026-11-26 22:23:45,513 INFO DAS v2 k=8 kl epoch 6/10: loss 0.9468
+2026-11-26 22:25:30,211 INFO DAS v2 k=8 kl epoch 7/10: loss 0.9019
+2026-11-26 22:27:15,363 INFO DAS v2 k=8 kl epoch 8/10: loss 0.7551
+2026-11-26 22:29:00,071 INFO DAS v2 k=8 kl epoch 9/10: loss 0.7327
+2026-11-26 22:30:44,796 INFO DAS v2 k=8 kl epoch 10/10: loss 0.7105
+2026-11-26 22:35:58,367 INFO people_cities_L4_65k_l089__fit-pc_en__eval-pc_en unit 1/3 (8 conditions, 187.9s)
+2026-11-26 22:36:05,186 INFO DAS: training das8v2_kl_s1 (k=8, 10 epochs, lr 0.01, seed 1) for entity_track L4 on 300 train pairs
+2026-11-26 22:43:26,685 INFO DAS v2 k=8 kl epoch 1/10: loss 2.3027
+2026-11-26 22:45:43,797 INFO DAS v2 k=8 kl epoch 2/10: loss 2.1337
+2026-11-26 22:48:01,012 INFO DAS v2 k=8 kl epoch 3/10: loss 2.0115
+2026-11-26 22:50:18,215 INFO DAS v2 k=8 kl epoch 4/10: loss 1.9151
+2026-11-26 22:52:35,918 INFO DAS v2 k=8 kl epoch 5/10: loss 1.7946
+2026-11-26 22:54:53,114 INFO DAS v2 k=8 kl epoch 6/10: loss 1.6081
+2026-11-26 22:57:10,251 INFO DAS v2 k=8 kl epoch 7/10: loss 1.5852
+2026-11-26 22:59:27,783 INFO DAS v2 k=8 kl epoch 8/10: loss 1.4365
+2026-11-26 23:01:44,934 INFO DAS v2 k=8 kl epoch 9/10: loss 1.2734
+2026-11-26 23:04:02,177 INFO DAS v2 k=8 kl epoch 10/10: loss 0.9565
+2026-11-26 23:20:09,300 INFO entity_track_L4_16k_l0124__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 2/3 (8 conditions, 811.2s)
+2026-11-26 23:20:13,659 INFO DAS: training das8v2_kl_s1 (k=8, 10 epochs, lr 0.01, seed 1) for ioi_control L4 on 300 train pairs
+2026-11-26 23:21:58,614 INFO DAS v2 k=8 kl epoch 1/10: loss 2.9334
+2026-11-26 23:22:50,437 INFO DAS v2 k=8 kl epoch 2/10: loss 5.0413
+2026-11-26 23:23:42,295 INFO DAS v2 k=8 kl epoch 3/10: loss 5.3519
+2026-11-26 23:24:34,110 INFO DAS v2 k=8 kl epoch 4/10: loss 5.0472
+2026-11-26 23:25:26,382 INFO DAS v2 k=8 kl epoch 5/10: loss 4.5329
+2026-11-26 23:26:18,201 INFO DAS v2 k=8 kl epoch 6/10: loss 3.3253
+2026-11-26 23:27:10,041 INFO DAS v2 k=8 kl epoch 7/10: loss 2.0349
+2026-11-26 23:28:02,387 INFO DAS v2 k=8 kl epoch 8/10: loss 1.9420
+2026-11-26 23:28:54,180 INFO DAS v2 k=8 kl epoch 9/10: loss 1.7092
+2026-11-26 23:29:45,966 INFO DAS v2 k=8 kl epoch 10/10: loss 1.5844
+2026-11-26 23:39:48,142 INFO ioi_control_L4_65k_l089 unit 1/3 (8 conditions, 29.2s)
+2026-11-26 23:39:50,984 INFO DAS: training das8v2_kl_s1 (k=8, 10 epochs, lr 0.01, seed 1) for add_chain L6 on 300 train pairs
+2026-11-26 23:44:10,925 INFO DAS v2 k=8 kl epoch 1/10: loss 0.5802
+2026-11-26 23:45:34,033 INFO DAS v2 k=8 kl epoch 2/10: loss 0.3756
+2026-11-26 23:46:57,089 INFO DAS v2 k=8 kl epoch 3/10: loss 0.1712
+2026-11-26 23:48:20,077 INFO DAS v2 k=8 kl epoch 4/10: loss 0.1359
+2026-11-26 23:49:43,639 INFO DAS v2 k=8 kl epoch 5/10: loss 0.0794
+2026-11-26 23:51:06,694 INFO DAS v2 k=8 kl epoch 6/10: loss 0.0560
+2026-11-26 23:52:29,774 INFO DAS v2 k=8 kl epoch 7/10: loss 0.0266
+2026-11-26 23:53:53,361 INFO DAS v2 k=8 kl epoch 8/10: loss 0.0229
+2026-11-26 23:55:16,415 INFO DAS v2 k=8 kl epoch 9/10: loss 0.0166
+2026-11-26 23:56:39,475 INFO DAS v2 k=8 kl epoch 10/10: loss 0.2107
+2026-11-27 00:00:17,775 INFO add_chain_L6_65k_l056 unit 1/3 (8 conditions, 139.5s)
+2026-11-27 00:00:19,757 INFO DAS: training das8v2_kl_s1 (k=8, 10 epochs, lr 0.01, seed 1) for people_cities L6 on 300 train pairs
+2026-11-27 00:05:32,599 INFO DAS v2 k=8 kl epoch 1/10: loss 2.2714
+2026-11-27 00:07:07,594 INFO DAS v2 k=8 kl epoch 2/10: loss 2.0708
+2026-11-27 00:08:42,641 INFO DAS v2 k=8 kl epoch 3/10: loss 1.6891
+2026-11-27 00:10:17,760 INFO DAS v2 k=8 kl epoch 4/10: loss 1.2304
+2026-11-27 00:11:53,313 INFO DAS v2 k=8 kl epoch 5/10: loss 1.0578
+2026-11-27 00:13:28,357 INFO DAS v2 k=8 kl epoch 6/10: loss 0.9074
+2026-11-27 00:15:03,405 INFO DAS v2 k=8 kl epoch 7/10: loss 0.8710
+2026-11-27 00:16:38,893 INFO DAS v2 k=8 kl epoch 8/10: loss 0.7109
+2026-11-27 00:18:13,934 INFO DAS v2 k=8 kl epoch 9/10: loss 0.7544
+2026-11-27 00:19:48,948 INFO DAS v2 k=8 kl epoch 10/10: loss 0.8139
+2026-11-27 00:24:34,991 INFO people_cities_L6_16k_l070__fit-pc_en__eval-pc_en unit 2/3 (8 conditions, 172.6s)
+2026-11-27 00:24:40,720 INFO DAS: training das8v2_kl_s1 (k=8, 10 epochs, lr 0.01, seed 1) for entity_track L6 on 300 train pairs
+2026-11-27 00:30:24,635 INFO DAS v2 k=8 kl epoch 1/10: loss 2.3733
+2026-11-27 00:32:29,028 INFO DAS v2 k=8 kl epoch 2/10: loss 2.0492
+2026-11-27 00:34:33,299 INFO DAS v2 k=8 kl epoch 3/10: loss 1.9615
+2026-11-27 00:36:37,587 INFO DAS v2 k=8 kl epoch 4/10: loss 1.9567
+2026-11-27 00:38:42,247 INFO DAS v2 k=8 kl epoch 5/10: loss 1.7293
+2026-11-27 00:40:46,448 INFO DAS v2 k=8 kl epoch 6/10: loss 1.6263
+2026-11-27 00:42:50,638 INFO DAS v2 k=8 kl epoch 7/10: loss 1.4505
+2026-11-27 00:44:55,268 INFO DAS v2 k=8 kl epoch 8/10: loss 1.2614
+2026-11-27 00:46:59,447 INFO DAS v2 k=8 kl epoch 9/10: loss 1.1493
+2026-11-27 00:49:03,661 INFO DAS v2 k=8 kl epoch 10/10: loss 0.9946
+2026-11-27 01:04:15,160 INFO entity_track_L6_16k_l070__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 2/3 (8 conditions, 745.7s)
+2026-11-27 01:04:19,364 INFO DAS: training das8v2_kl_s1 (k=8, 10 epochs, lr 0.01, seed 1) for ioi_control L6 on 300 train pairs
+2026-11-27 01:05:59,510 INFO DAS v2 k=8 kl epoch 1/10: loss 1.8844
+2026-11-27 01:06:46,744 INFO DAS v2 k=8 kl epoch 2/10: loss 2.7477
+2026-11-27 01:07:33,950 INFO DAS v2 k=8 kl epoch 3/10: loss 2.4679
+2026-11-27 01:08:21,193 INFO DAS v2 k=8 kl epoch 4/10: loss 1.5940
+2026-11-27 01:09:08,942 INFO DAS v2 k=8 kl epoch 5/10: loss 0.7398
+2026-11-27 01:09:56,164 INFO DAS v2 k=8 kl epoch 6/10: loss 0.6329
+2026-11-27 01:10:43,393 INFO DAS v2 k=8 kl epoch 7/10: loss 0.4725
+2026-11-27 01:11:31,189 INFO DAS v2 k=8 kl epoch 8/10: loss 0.5587
+2026-11-27 01:12:18,396 INFO DAS v2 k=8 kl epoch 9/10: loss 0.2798
+2026-11-27 01:13:05,688 INFO DAS v2 k=8 kl epoch 10/10: loss 0.5117
+2026-11-27 01:22:16,862 INFO ioi_control_L6_16k_l070 unit 2/3 (8 conditions, 26.9s)
+2026-11-27 01:22:20,982 INFO DAS: training das8v2_kl_s1 (k=8, 10 epochs, lr 0.01, seed 1) for add_chain L8 on 300 train pairs
+2026-11-27 01:25:18,773 INFO DAS v2 k=8 kl epoch 1/10: loss 0.6418
+2026-11-27 01:26:17,140 INFO DAS v2 k=8 kl epoch 2/10: loss 0.0952
+2026-11-27 01:27:15,508 INFO DAS v2 k=8 kl epoch 3/10: loss 0.0644
+2026-11-27 01:28:13,869 INFO DAS v2 k=8 kl epoch 4/10: loss 0.1779
+2026-11-27 01:29:12,226 INFO DAS v2 k=8 kl epoch 5/10: loss 0.2221
+2026-11-27 01:30:10,565 INFO DAS v2 k=8 kl epoch 6/10: loss 0.0387
+2026-11-27 01:31:08,909 INFO DAS v2 k=8 kl epoch 7/10: loss 0.0476
+2026-11-27 01:32:07,320 INFO DAS v2 k=8 kl epoch 8/10: loss 0.0819
+2026-11-27 01:33:05,712 INFO DAS v2 k=8 kl epoch 9/10: loss 0.0263
+2026-11-27 01:34:04,092 INFO DAS v2 k=8 kl epoch 10/10: loss 0.0209
+2026-11-27 01:37:06,094 INFO add_chain_L8_16k_l071 unit 2/3 (8 conditions, 127.9s)
+2026-11-27 01:37:10,202 INFO DAS: training das8v2_kl_s1 (k=8, 10 epochs, lr 0.01, seed 1) for people_cities L8 on 300 train pairs
+2026-11-27 01:40:41,791 INFO DAS v2 k=8 kl epoch 1/10: loss 1.6679
+2026-11-27 01:41:56,527 INFO DAS v2 k=8 kl epoch 2/10: loss 1.2548
+2026-11-27 01:43:11,243 INFO DAS v2 k=8 kl epoch 3/10: loss 1.3135
+2026-11-27 01:44:25,902 INFO DAS v2 k=8 kl epoch 4/10: loss 1.2260
+2026-11-27 01:45:40,572 INFO DAS v2 k=8 kl epoch 5/10: loss 1.4329
+2026-11-27 01:46:55,180 INFO DAS v2 k=8 kl epoch 6/10: loss 1.3384
+2026-11-27 01:48:09,849 INFO DAS v2 k=8 kl epoch 7/10: loss 1.2574
+2026-11-27 01:49:24,473 INFO DAS v2 k=8 kl epoch 8/10: loss 1.2089
+2026-11-27 01:50:39,125 INFO DAS v2 k=8 kl epoch 9/10: loss 1.2116
+2026-11-27 01:51:53,747 INFO DAS v2 k=8 kl epoch 10/10: loss 1.4483
+2026-11-27 01:56:18,277 INFO people_cities_L8_65k_l059__fit-pc_en__eval-pc_en unit 1/3 (8 conditions, 157.1s)
+2026-11-27 01:56:23,780 INFO DAS: training das8v2_kl_s1 (k=8, 10 epochs, lr 0.01, seed 1) for entity_track L8 on 300 train pairs
+2026-11-27 02:01:06,039 INFO DAS v2 k=8 kl epoch 1/10: loss 2.0288
+2026-11-27 02:02:53,357 INFO DAS v2 k=8 kl epoch 2/10: loss 1.6929
+2026-11-27 02:04:40,628 INFO DAS v2 k=8 kl epoch 3/10: loss 1.7814
+2026-11-27 02:06:27,914 INFO DAS v2 k=8 kl epoch 4/10: loss 1.7239
+2026-11-27 02:08:15,242 INFO DAS v2 k=8 kl epoch 5/10: loss 1.2475
+2026-11-27 02:10:02,528 INFO DAS v2 k=8 kl epoch 6/10: loss 1.2067
+2026-11-27 02:11:49,825 INFO DAS v2 k=8 kl epoch 7/10: loss 1.1084
+2026-11-27 02:13:37,091 INFO DAS v2 k=8 kl epoch 8/10: loss 1.0014
+2026-11-27 02:15:24,363 INFO DAS v2 k=8 kl epoch 9/10: loss 0.8336
+2026-11-27 02:17:11,643 INFO DAS v2 k=8 kl epoch 10/10: loss 0.8928
+2026-11-27 02:27:57,250 INFO entity_track_L8_16k_l071__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 3/3 (6 conditions, 520.5s)
+2026-11-27 02:39:22,086 INFO entity_track_L8_65k_l059__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 2/3 (8 conditions, 681.4s)
+2026-11-27 02:52:12,886 INFO add_chain_L10_16k_l077 unit 1/3 (8 conditions, 112.6s)
+2026-11-27 02:52:17,094 INFO DAS: training das8v2_kl_s1 (k=8, 10 epochs, lr 0.01, seed 1) for people_cities L10 on 300 train pairs
+2026-11-27 02:55:33,776 INFO DAS v2 k=8 kl epoch 1/10: loss 1.8772
+2026-11-27 02:56:40,252 INFO DAS v2 k=8 kl epoch 2/10: loss 1.3919
+2026-11-27 02:57:46,691 INFO DAS v2 k=8 kl epoch 3/10: loss 1.2260
+2026-11-27 02:58:53,094 INFO DAS v2 k=8 kl epoch 4/10: loss 1.1716
+2026-11-27 02:59:59,516 INFO DAS v2 k=8 kl epoch 5/10: loss 1.2302
+2026-11-27 03:01:05,935 INFO DAS v2 k=8 kl epoch 6/10: loss 1.2864
+2026-11-27 03:02:12,356 INFO DAS v2 k=8 kl epoch 7/10: loss 1.2814
+2026-11-27 03:03:18,805 INFO DAS v2 k=8 kl epoch 8/10: loss 1.2394
+2026-11-27 03:04:25,211 INFO DAS v2 k=8 kl epoch 9/10: loss 1.3395
+2026-11-27 03:05:31,595 INFO DAS v2 k=8 kl epoch 10/10: loss 1.3666
+2026-11-27 03:08:57,170 INFO people_cities_L10_16k_l077__fit-pc_en__eval-pc_en unit 3/3 (6 conditions, 109.1s)
+2026-11-27 03:11:22,791 INFO people_cities_L10_65k_l066__fit-pc_en__eval-pc_en unit 2/3 (8 conditions, 143.4s)
+2026-11-27 03:40:17,967 INFO entity_track_L10_16k_l077__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 1/3 (8 conditions, 612.9s)
+2026-11-27 03:40:22,646 INFO DAS: training das8v2_kl_s0 (k=8, 10 epochs, lr 0.01, seed 0) for ioi_control L10 on 300 train pairs
+2026-11-27 03:41:43,094 INFO DAS v2 k=8 kl epoch 1/10: loss 1.2750
+2026-11-27 03:41:54,587 INFO DAS v2 k=8 kl epoch 2/10: loss 0.0605
+2026-11-27 03:42:06,085 INFO DAS v2 k=8 kl epoch 3/10: loss 0.0239
+2026-11-27 03:42:17,589 INFO DAS v2 k=8 kl epoch 4/10: loss 0.0118
+2026-11-27 03:42:29,072 INFO DAS v2 k=8 kl epoch 5/10: loss 0.0082
+2026-11-27 03:42:40,576 INFO DAS v2 k=8 kl epoch 6/10: loss 0.0059
+2026-11-27 03:42:52,049 INFO DAS v2 k=8 kl epoch 7/10: loss 0.0050
+2026-11-27 03:43:03,534 INFO DAS v2 k=8 kl epoch 8/10: loss 0.0046
+2026-11-27 03:43:15,041 INFO DAS v2 k=8 kl epoch 9/10: loss 0.0043
+2026-11-27 03:43:26,521 INFO DAS v2 k=8 kl epoch 10/10: loss 0.0040
+2026-11-27 03:43:51,902 INFO DAS: training das8v2_kl_s2 (k=8, 10 epochs, lr 0.01, seed 2) for ioi_control L10 on 300 train pairs
+2026-11-27 03:45:12,171 INFO DAS v2 k=8 kl epoch 1/10: loss 1.1522
+2026-11-27 03:45:23,632 INFO DAS v2 k=8 kl epoch 2/10: loss 0.0678
+2026-11-27 03:45:35,084 INFO DAS v2 k=8 kl epoch 3/10: loss 0.0273
+2026-11-27 03:45:46,563 INFO DAS v2 k=8 kl epoch 4/10: loss 0.0132
+2026-11-27 03:45:58,028 INFO DAS v2 k=8 kl epoch 5/10: loss 0.0082
+2026-11-27 03:46:09,508 INFO DAS v2 k=8 kl epoch 6/10: loss 0.0066
+2026-11-27 03:46:20,963 INFO DAS v2 k=8 kl epoch 7/10: loss 0.0055
+2026-11-27 03:46:32,441 INFO DAS v2 k=8 kl epoch 8/10: loss 0.0051
+2026-11-27 03:46:43,913 INFO DAS v2 k=8 kl epoch 9/10: loss 0.0047
+2026-11-27 03:46:55,399 INFO DAS v2 k=8 kl epoch 10/10: loss 0.0044
+2026-11-27 03:47:44,395 INFO ioi_control_L10_16k_l077 unit 1/3 (8 conditions, 23.6s)
+2026-11-27 03:48:09,369 INFO ioi_control_L10_65k_l066 unit 2/3 (8 conditions, 23.7s)
+2026-11-27 03:59:49,862 INFO add_chain_L12_16k_l082 unit 1/3 (8 conditions, 100.3s)
+2026-11-27 03:59:53,944 INFO DAS: training das8v2_kl_s1 (k=8, 10 epochs, lr 0.01, seed 1) for people_cities L12 on 300 train pairs
+2026-11-27 04:02:56,951 INFO DAS v2 k=8 kl epoch 1/10: loss 1.8134
+2026-11-27 04:03:55,210 INFO DAS v2 k=8 kl epoch 2/10: loss 1.2888
+2026-11-27 04:04:53,469 INFO DAS v2 k=8 kl epoch 3/10: loss 1.1034
+2026-11-27 04:05:51,710 INFO DAS v2 k=8 kl epoch 4/10: loss 1.2132
+2026-11-27 04:06:49,921 INFO DAS v2 k=8 kl epoch 5/10: loss 1.3133
+2026-11-27 04:07:48,150 INFO DAS v2 k=8 kl epoch 6/10: loss 1.1619
+2026-11-27 04:08:46,324 INFO DAS v2 k=8 kl epoch 7/10: loss 1.4125
+2026-11-27 04:09:44,550 INFO DAS v2 k=8 kl epoch 8/10: loss 1.3494
+2026-11-27 04:10:42,726 INFO DAS v2 k=8 kl epoch 9/10: loss 1.1087
+2026-11-27 04:11:40,896 INFO DAS v2 k=8 kl epoch 10/10: loss 1.2557
+2026-11-27 04:15:16,098 INFO people_cities_L12_65k_l072__fit-pc_en__eval-pc_en unit 1/3 (8 conditions, 126.9s)
+2026-11-27 04:15:21,631 INFO DAS: training das8v2_kl_s0 (k=8, 10 epochs, lr 0.01, seed 0) for entity_track L12 on 300 train pairs
+2026-11-27 04:19:24,109 INFO DAS v2 k=8 kl epoch 1/10: loss 2.1810
+2026-11-27 04:20:47,506 INFO DAS v2 k=8 kl epoch 2/10: loss 1.8817
+2026-11-27 04:22:10,883 INFO DAS v2 k=8 kl epoch 3/10: loss 1.7520
+2026-11-27 04:23:34,313 INFO DAS v2 k=8 kl epoch 4/10: loss 1.4174
+2026-11-27 04:24:57,690 INFO DAS v2 k=8 kl epoch 5/10: loss 1.4576
+2026-11-27 04:26:21,029 INFO DAS v2 k=8 kl epoch 6/10: loss 1.2477
+2026-11-27 04:27:44,395 INFO DAS v2 k=8 kl epoch 7/10: loss 0.9886
+2026-11-27 04:29:07,721 INFO DAS v2 k=8 kl epoch 8/10: loss 0.9916
+2026-11-27 04:30:31,088 INFO DAS v2 k=8 kl epoch 9/10: loss 0.8739
+2026-11-27 04:31:54,390 INFO DAS v2 k=8 kl epoch 10/10: loss 0.8233
+2026-11-27 04:42:38,373 INFO entity_track_L12_65k_l072__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 1/3 (8 conditions, 549.4s)
+2026-11-27 04:42:39,586 INFO DAS: training das8v2_kl_s1 (k=8, 10 epochs, lr 0.01, seed 1) for ioi_control L12 on 300 train pairs
+2026-11-27 04:43:56,073 INFO DAS v2 k=8 kl epoch 1/10: loss 0.5659
+2026-11-27 04:44:06,257 INFO DAS v2 k=8 kl epoch 2/10: loss 0.0448
+2026-11-27 04:44:16,441 INFO DAS v2 k=8 kl epoch 3/10: loss 0.0201
+2026-11-27 04:44:26,644 INFO DAS v2 k=8 kl epoch 4/10: loss 0.0125
+2026-11-27 04:44:36,823 INFO DAS v2 k=8 kl epoch 5/10: loss 0.0077
+2026-11-27 04:44:47,001 INFO DAS v2 k=8 kl epoch 6/10: loss 0.0065
+2026-11-27 04:44:57,191 INFO DAS v2 k=8 kl epoch 7/10: loss 0.0051
+2026-11-27 04:45:07,403 INFO DAS v2 k=8 kl epoch 8/10: loss 0.0046
+2026-11-27 04:45:17,587 INFO DAS v2 k=8 kl epoch 9/10: loss 0.0041
+2026-11-27 04:45:27,781 INFO DAS v2 k=8 kl epoch 10/10: loss 0.0037
+2026-11-27 04:49:09,876 INFO ioi_control_L12_16k_l082 unit 2/3 (8 conditions, 20.1s)
+2026-11-27 04:49:27,083 INFO ioi_control_L12_65k_l072 unit 3/3 (6 conditions, 15.9s)
+2026-11-27 04:49:28,817 INFO DAS: training das8v2_kl_s1 (k=8, 10 epochs, lr 0.01, seed 1) for add_chain L14 on 300 train pairs
+2026-11-27 04:51:51,934 INFO DAS v2 k=8 kl epoch 1/10: loss 0.7091
+2026-11-27 04:52:31,133 INFO DAS v2 k=8 kl epoch 2/10: loss 0.4982
+2026-11-27 04:53:10,337 INFO DAS v2 k=8 kl epoch 3/10: loss 0.3595
+2026-11-27 04:53:49,537 INFO DAS v2 k=8 kl epoch 4/10: loss 0.2413
+2026-11-27 04:54:28,704 INFO DAS v2 k=8 kl epoch 5/10: loss 0.1215
+2026-11-27 04:55:07,925 INFO DAS v2 k=8 kl epoch 6/10: loss 0.0933
+2026-11-27 04:55:47,102 INFO DAS v2 k=8 kl epoch 7/10: loss 0.1008
+2026-11-27 04:56:26,309 INFO DAS v2 k=8 kl epoch 8/10: loss 0.1414
+2026-11-27 04:57:05,513 INFO DAS v2 k=8 kl epoch 9/10: loss 0.1590
+2026-11-27 04:57:44,696 INFO DAS v2 k=8 kl epoch 10/10: loss 0.1698
+2026-11-27 04:59:27,789 INFO add_chain_L14_16k_l084 unit 3/3 (6 conditions, 71.6s)
+2026-11-27 05:01:00,809 INFO add_chain_L14_65k_l073 unit 2/3 (8 conditions, 91.1s)
+2026-11-27 05:13:07,360 INFO people_cities_L14_16k_l084__fit-pc_en__eval-pc_en unit 1/3 (8 conditions, 109.7s)
+2026-11-27 05:13:16,776 INFO DAS: training das8v2_kl_s1 (k=8, 10 epochs, lr 0.01, seed 1) for entity_track L14 on 300 train pairs
+2026-11-27 05:16:58,851 INFO DAS v2 k=8 kl epoch 1/10: loss 2.0915
+2026-11-27 05:18:10,330 INFO DAS v2 k=8 kl epoch 2/10: loss 1.6895
+2026-11-27 05:19:21,791 INFO DAS v2 k=8 kl epoch 3/10: loss 1.5894
+2026-11-27 05:20:33,250 INFO DAS v2 k=8 kl epoch 4/10: loss 1.4371
+2026-11-27 05:21:44,719 INFO DAS v2 k=8 kl epoch 5/10: loss 1.3448
+2026-11-27 05:22:56,243 INFO DAS v2 k=8 kl epoch 6/10: loss 1.1535
+2026-11-27 05:24:07,711 INFO DAS v2 k=8 kl epoch 7/10: loss 1.0930
+2026-11-27 05:25:19,184 INFO DAS v2 k=8 kl epoch 8/10: loss 0.9971
+2026-11-27 05:26:30,642 INFO DAS v2 k=8 kl epoch 9/10: loss 0.9150
+2026-11-27 05:27:42,085 INFO DAS v2 k=8 kl epoch 10/10: loss 0.8679
+2026-11-27 05:37:24,264 INFO entity_track_L14_16k_l084__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 2/3 (8 conditions, 483.5s)
+2026-11-27 05:37:28,847 INFO DAS: training das8v2_kl_s1 (k=8, 10 epochs, lr 0.01, seed 1) for ioi_control L14 on 300 train pairs
+2026-11-27 05:38:40,161 INFO DAS v2 k=8 kl epoch 1/10: loss 0.4700
+2026-11-27 05:38:49,075 INFO DAS v2 k=8 kl epoch 2/10: loss 0.0407
+2026-11-27 05:38:57,974 INFO DAS v2 k=8 kl epoch 3/10: loss 0.0182
+2026-11-27 05:39:06,896 INFO DAS v2 k=8 kl epoch 4/10: loss 0.0110
+2026-11-27 05:39:15,804 INFO DAS v2 k=8 kl epoch 5/10: loss 0.0084
+2026-11-27 05:39:24,724 INFO DAS v2 k=8 kl epoch 6/10: loss 0.0067
+2026-11-27 05:39:33,627 INFO DAS v2 k=8 kl epoch 7/10: loss 0.0058
+2026-11-27 05:39:42,536 INFO DAS v2 k=8 kl epoch 8/10: loss 0.0050
+2026-11-27 05:39:51,439 INFO DAS v2 k=8 kl epoch 9/10: loss 0.0045
+2026-11-27 05:40:00,347 INFO DAS v2 k=8 kl epoch 10/10: loss 0.0041
+2026-11-27 05:43:20,248 INFO ioi_control_L14_16k_l084 unit 1/3 (8 conditions, 17.8s)
+2026-11-27 05:43:40,031 INFO ioi_control_L14_65k_l073 unit 1/3 (8 conditions, 18.0s)
+2026-11-27 05:43:41,731 INFO DAS: training das8v2_kl_s2 (k=8, 10 epochs, lr 0.01, seed 2) for add_chain L16 on 300 train pairs
+2026-11-27 05:45:52,663 INFO DAS v2 k=8 kl epoch 1/10: loss 0.7016
+2026-11-27 05:46:25,332 INFO DAS v2 k=8 kl epoch 2/10: loss 0.2701
+2026-11-27 05:46:57,999 INFO DAS v2 k=8 kl epoch 3/10: loss 0.1245
+2026-11-27 05:47:30,652 INFO DAS v2 k=8 kl epoch 4/10: loss 0.1160
+2026-11-27 05:48:03,308 INFO DAS v2 k=8 kl epoch 5/10: loss 0.3063
+2026-11-27 05:48:35,992 INFO DAS v2 k=8 kl epoch 6/10: loss 0.3518
+2026-11-27 05:49:08,673 INFO DAS v2 k=8 kl epoch 7/10: loss 0.2998
+2026-11-27 05:49:41,315 INFO DAS v2 k=8 kl epoch 8/10: loss 0.3273
+2026-11-27 05:50:13,980 INFO DAS v2 k=8 kl epoch 9/10: loss 0.1948
+2026-11-27 05:50:46,629 INFO DAS v2 k=8 kl epoch 10/10: loss 0.1283
+2026-11-27 05:52:15,410 INFO add_chain_L16_16k_l078 unit 3/3 (6 conditions, 62.8s)
+2026-11-27 05:53:36,077 INFO add_chain_L16_65k_l069 unit 2/3 (8 conditions, 78.7s)
+2026-11-27 06:04:01,273 INFO people_cities_L16_16k_l078__fit-pc_en__eval-pc_en unit 1/3 (8 conditions, 94.5s)
+2026-11-27 06:04:13,137 INFO DAS: training das8v2_kl_s1 (k=8, 10 epochs, lr 0.01, seed 1) for entity_track L16 on 300 train pairs
+2026-11-27 06:07:35,329 INFO DAS v2 k=8 kl epoch 1/10: loss 2.1182
+2026-11-27 06:08:34,961 INFO DAS v2 k=8 kl epoch 2/10: loss 1.6174
+2026-11-27 06:09:34,556 INFO DAS v2 k=8 kl epoch 3/10: loss 1.6866
+2026-11-27 06:10:34,155 INFO DAS v2 k=8 kl epoch 4/10: loss 1.4555
+2026-11-27 06:11:33,706 INFO DAS v2 k=8 kl epoch 5/10: loss 1.3097
+2026-11-27 06:12:33,264 INFO DAS v2 k=8 kl epoch 6/10: loss 1.3774
+2026-11-27 06:13:32,837 INFO DAS v2 k=8 kl epoch 7/10: loss 1.2350
+2026-11-27 06:14:32,457 INFO DAS v2 k=8 kl epoch 8/10: loss 1.1993
+2026-11-27 06:15:32,050 INFO DAS v2 k=8 kl epoch 9/10: loss 1.1396
+2026-11-27 06:16:31,624 INFO DAS v2 k=8 kl epoch 10/10: loss 1.0215
+2026-11-27 06:23:21,739 INFO entity_track_L16_16k_l078__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 3/3 (6 conditions, 333.2s)
+2026-11-27 06:30:24,120 INFO entity_track_L16_65k_l069__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 2/3 (8 conditions, 418.8s)
+2026-11-27 06:37:32,321 INFO add_chain_L18_16k_l074 unit 1/3 (8 conditions, 63.7s)
+2026-11-27 06:37:37,770 INFO DAS: training das8v2_kl_s0 (k=8, 10 epochs, lr 0.01, seed 0) for people_cities L18 on 300 train pairs
+2026-11-27 06:39:56,503 INFO DAS v2 k=8 kl epoch 1/10: loss 2.4868
+2026-11-27 06:40:30,085 INFO DAS v2 k=8 kl epoch 2/10: loss 1.7545
+2026-11-27 06:41:03,706 INFO DAS v2 k=8 kl epoch 3/10: loss 1.7369
+2026-11-27 06:41:37,301 INFO DAS v2 k=8 kl epoch 4/10: loss 1.6995
+2026-11-27 06:42:10,908 INFO DAS v2 k=8 kl epoch 5/10: loss 1.7854
+2026-11-27 06:42:44,518 INFO DAS v2 k=8 kl epoch 6/10: loss 1.7095
+2026-11-27 06:43:18,090 INFO DAS v2 k=8 kl epoch 7/10: loss 1.7655
+2026-11-27 06:43:51,664 INFO DAS v2 k=8 kl epoch 8/10: loss 1.7682
+2026-11-27 06:44:25,221 INFO DAS v2 k=8 kl epoch 9/10: loss 1.6955
+2026-11-27 06:44:58,823 INFO DAS v2 k=8 kl epoch 10/10: loss 1.5827
+2026-11-27 06:47:15,731 INFO people_cities_L18_16k_l074__fit-pc_en__eval-pc_en unit 2/3 (8 conditions, 81.6s)
+2026-11-27 06:47:25,366 INFO DAS: training das8v2_kl_s0 (k=8, 10 epochs, lr 0.01, seed 0) for entity_track L18 on 300 train pairs
+2026-11-27 06:50:27,897 INFO DAS v2 k=8 kl epoch 1/10: loss 2.2271
+2026-11-27 06:51:15,680 INFO DAS v2 k=8 kl epoch 2/10: loss 2.1431
+2026-11-27 06:52:03,425 INFO DAS v2 k=8 kl epoch 3/10: loss 2.0188
+2026-11-27 06:52:51,160 INFO DAS v2 k=8 kl epoch 4/10: loss 1.8257
+2026-11-27 06:53:38,841 INFO DAS v2 k=8 kl epoch 5/10: loss 1.7171
+2026-11-27 06:54:26,546 INFO DAS v2 k=8 kl epoch 6/10: loss 1.5793
+2026-11-27 06:55:14,252 INFO DAS v2 k=8 kl epoch 7/10: loss 1.5126
+2026-11-27 06:56:01,951 INFO DAS v2 k=8 kl epoch 8/10: loss 1.4434
+2026-11-27 06:56:49,665 INFO DAS v2 k=8 kl epoch 9/10: loss 1.3507
+2026-11-27 06:57:37,356 INFO DAS v2 k=8 kl epoch 10/10: loss 1.3342
+2026-11-27 07:04:31,486 INFO entity_track_L18_16k_l074__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 1/3 (8 conditions, 353.1s)
+2026-11-27 07:04:35,998 INFO DAS: training das8v2_kl_s1 (k=8, 10 epochs, lr 0.01, seed 1) for ioi_control L18 on 300 train pairs
+2026-11-27 07:05:38,395 INFO DAS v2 k=8 kl epoch 1/10: loss 0.8894
+2026-11-27 07:05:44,758 INFO DAS v2 k=8 kl epoch 2/10: loss 0.2120
+2026-11-27 07:05:51,079 INFO DAS v2 k=8 kl epoch 3/10: loss 0.1109
+2026-11-27 07:05:57,438 INFO DAS v2 k=8 kl epoch 4/10: loss 0.0661
+2026-11-27 07:06:03,761 INFO DAS v2 k=8 kl epoch 5/10: loss 0.0473
+2026-11-27 07:06:10,117 INFO DAS v2 k=8 kl epoch 6/10: loss 0.0386
+2026-11-27 07:06:16,436 INFO DAS v2 k=8 kl epoch 7/10: loss 0.0277
+2026-11-27 07:06:22,794 INFO DAS v2 k=8 kl epoch 8/10: loss 0.0241
+2026-11-27 07:06:29,122 INFO DAS v2 k=8 kl epoch 9/10: loss 0.0213
+2026-11-27 07:06:35,469 INFO DAS v2 k=8 kl epoch 10/10: loss 0.0193
+2026-11-27 07:09:04,327 INFO ioi_control_L18_16k_l074 unit 3/3 (6 conditions, 10.7s)
+2026-11-27 07:09:19,106 INFO ioi_control_L18_65k_l064 unit 1/3 (8 conditions, 13.2s)
+2026-11-27 07:09:20,815 INFO DAS: training das8v2_kl_s2 (k=8, 10 epochs, lr 0.01, seed 2) for add_chain L20 on 300 train pairs
+2026-11-27 07:11:07,918 INFO DAS v2 k=8 kl epoch 1/10: loss 0.6478
+2026-11-27 07:11:27,832 INFO DAS v2 k=8 kl epoch 2/10: loss 0.1340
+2026-11-27 07:11:47,738 INFO DAS v2 k=8 kl epoch 3/10: loss 0.2803
+2026-11-27 07:12:07,627 INFO DAS v2 k=8 kl epoch 4/10: loss 0.2188
+2026-11-27 07:12:27,518 INFO DAS v2 k=8 kl epoch 5/10: loss 0.1425
+2026-11-27 07:12:47,385 INFO DAS v2 k=8 kl epoch 6/10: loss 0.0977
+2026-11-27 07:13:07,295 INFO DAS v2 k=8 kl epoch 7/10: loss 0.1173
+2026-11-27 07:13:27,191 INFO DAS v2 k=8 kl epoch 8/10: loss 0.1990
+2026-11-27 07:13:47,090 INFO DAS v2 k=8 kl epoch 9/10: loss 0.1125
+2026-11-27 07:14:06,986 INFO DAS v2 k=8 kl epoch 10/10: loss 0.0558
+2026-11-27 07:15:16,274 INFO add_chain_L20_16k_l071 unit 2/3 (8 conditions, 54.2s)
+2026-11-27 07:15:20,087 INFO DAS: training das8v2_kl_s1 (k=8, 10 epochs, lr 0.01, seed 1) for people_cities L20 on 300 train pairs
+2026-11-27 07:17:24,374 INFO DAS v2 k=8 kl epoch 1/10: loss 2.0064
+2026-11-27 07:17:49,678 INFO DAS v2 k=8 kl epoch 2/10: loss 1.6652
+2026-11-27 07:18:14,962 INFO DAS v2 k=8 kl epoch 3/10: loss 1.5396
+2026-11-27 07:18:40,252 INFO DAS v2 k=8 kl epoch 4/10: loss 1.5798
+2026-11-27 07:19:05,520 INFO DAS v2 k=8 kl epoch 5/10: loss 1.6579
+2026-11-27 07:19:30,812 INFO DAS v2 k=8 kl epoch 6/10: loss 1.8430
+2026-11-27 07:19:56,109 INFO DAS v2 k=8 kl epoch 7/10: loss 1.6238
+2026-11-27 07:20:21,398 INFO DAS v2 k=8 kl epoch 8/10: loss 1.6348
+2026-11-27 07:20:46,676 INFO DAS v2 k=8 kl epoch 9/10: loss 1.5759
+2026-11-27 07:21:11,960 INFO DAS v2 k=8 kl epoch 10/10: loss 1.7124
+2026-11-27 07:23:03,747 INFO people_cities_L20_65k_l061__fit-pc_en__eval-pc_en unit 1/3 (8 conditions, 66.4s)
+2026-11-27 07:23:09,761 INFO DAS: training das8v2_kl_s0 (k=8, 10 epochs, lr 0.01, seed 0) for entity_track L20 on 300 train pairs
+2026-11-27 07:25:52,242 INFO DAS v2 k=8 kl epoch 1/10: loss 1.9321
+2026-11-27 07:26:28,155 INFO DAS v2 k=8 kl epoch 2/10: loss 1.6848
+2026-11-27 07:27:04,080 INFO DAS v2 k=8 kl epoch 3/10: loss 1.5608
+2026-11-27 07:27:40,009 INFO DAS v2 k=8 kl epoch 4/10: loss 1.4518
+2026-11-27 07:28:15,947 INFO DAS v2 k=8 kl epoch 5/10: loss 1.2775
+2026-11-27 07:28:51,861 INFO DAS v2 k=8 kl epoch 6/10: loss 1.1921
+2026-11-27 07:29:27,752 INFO DAS v2 k=8 kl epoch 7/10: loss 1.1314
+2026-11-27 07:30:03,706 INFO DAS v2 k=8 kl epoch 8/10: loss 1.1078
+2026-11-27 07:30:39,623 INFO DAS v2 k=8 kl epoch 9/10: loss 1.0272
+2026-11-27 07:31:15,549 INFO DAS v2 k=8 kl epoch 10/10: loss 0.9837
+2026-11-27 07:36:05,331 INFO entity_track_L20_16k_l071__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 3/3 (6 conditions, 240.2s)
+2026-11-27 07:40:57,231 INFO entity_track_L20_65k_l061__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 2/3 (8 conditions, 288.2s)
+2026-11-27 07:45:14,692 INFO add_chain_L22_16k_l072 unit 1/3 (8 conditions, 39.8s)
+2026-11-27 07:45:52,576 INFO add_chain_L22_65k_l062 unit 3/3 (6 conditions, 35.9s)
+2026-11-27 07:51:07,531 INFO people_cities_L22_16k_l072__fit-pc_en__eval-pc_en unit 2/3 (8 conditions, 49.5s)
+2026-11-27 07:51:19,484 INFO DAS: training das8v2_kl_s1 (k=8, 10 epochs, lr 0.01, seed 1) for entity_track L22 on 300 train pairs
+2026-11-27 07:53:41,967 INFO DAS v2 k=8 kl epoch 1/10: loss 1.7814
+2026-11-27 07:54:06,220 INFO DAS v2 k=8 kl epoch 2/10: loss 1.3054
+2026-11-27 07:54:30,482 INFO DAS v2 k=8 kl epoch 3/10: loss 1.4569
+2026-11-27 07:54:54,728 INFO DAS v2 k=8 kl epoch 4/10: loss 1.3941
+2026-11-27 07:55:18,989 INFO DAS v2 k=8 kl epoch 5/10: loss 1.2930
+2026-11-27 07:55:43,227 INFO DAS v2 k=8 kl epoch 6/10: loss 1.1750
+2026-11-27 07:56:07,484 INFO DAS v2 k=8 kl epoch 7/10: loss 1.0629
+2026-11-27 07:56:31,728 INFO DAS v2 k=8 kl epoch 8/10: loss 0.9905
+2026-11-27 07:56:55,968 INFO DAS v2 k=8 kl epoch 9/10: loss 0.8360
+2026-11-27 07:57:20,232 INFO DAS v2 k=8 kl epoch 10/10: loss 0.7739
+2026-11-27 08:01:38,831 INFO entity_track_L22_16k_l072__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 2/3 (8 conditions, 222.0s)
+2026-11-27 08:04:57,843 INFO entity_track_L22_65k_l062__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 3/3 (6 conditions, 194.6s)
+2026-11-27 08:04:59,956 INFO DAS: training das8v2_kl_s0 (k=8, 10 epochs, lr 0.01, seed 0) for ioi_control L22 on 300 train pairs
+2026-11-27 08:05:53,785 INFO DAS v2 k=8 kl epoch 1/10: loss 1.8837
+2026-11-27 08:05:57,514 INFO DAS v2 k=8 kl epoch 2/10: loss 0.6489
+2026-11-27 08:06:01,251 INFO DAS v2 k=8 kl epoch 3/10: loss 0.2886
+2026-11-27 08:06:04,974 INFO DAS v2 k=8 kl epoch 4/10: loss 0.1606
+2026-11-27 08:06:08,713 INFO DAS v2 k=8 kl epoch 5/10: loss 0.1229
+2026-11-27 08:06:12,432 INFO DAS v2 k=8 kl epoch 6/10: loss 0.1114
+2026-11-27 08:06:16,162 INFO DAS v2 k=8 kl epoch 7/10: loss 0.1088
+2026-11-27 08:06:19,913 INFO DAS v2 k=8 kl epoch 8/10: loss 0.1122
+2026-11-27 08:06:23,645 INFO DAS v2 k=8 kl epoch 9/10: loss 0.1644
+2026-11-27 08:06:27,380 INFO DAS v2 k=8 kl epoch 10/10: loss 0.1722
+2026-11-27 08:06:51,506 INFO ioi_control_L22_16k_l072 unit 2/3 (8 conditions, 8.7s)
+2026-11-27 08:07:00,441 INFO ioi_control_L22_65k_l062 unit 3/3 (6 conditions, 7.6s)
+2026-11-27 08:07:02,098 INFO DAS: training das8v2_kl_s2 (k=8, 10 epochs, lr 0.01, seed 2) for add_chain L24 on 300 train pairs
+2026-11-27 08:08:26,204 INFO DAS v2 k=8 kl epoch 1/10: loss 0.2677
+2026-11-27 08:08:33,423 INFO DAS v2 k=8 kl epoch 2/10: loss 0.0491
+2026-11-27 08:08:40,616 INFO DAS v2 k=8 kl epoch 3/10: loss 0.0624
+2026-11-27 08:08:47,838 INFO DAS v2 k=8 kl epoch 4/10: loss 0.0907
+2026-11-27 08:08:55,071 INFO DAS v2 k=8 kl epoch 5/10: loss 0.0721
+2026-11-27 08:09:02,549 INFO DAS v2 k=8 kl epoch 6/10: loss 0.0672
+2026-11-27 08:09:09,742 INFO DAS v2 k=8 kl epoch 7/10: loss 0.0846
+2026-11-27 08:09:16,922 INFO DAS v2 k=8 kl epoch 8/10: loss 0.0636
+2026-11-27 08:09:24,084 INFO DAS v2 k=8 kl epoch 9/10: loss 0.0299
+2026-11-27 08:09:31,248 INFO DAS v2 k=8 kl epoch 10/10: loss 0.0232
+2026-11-27 08:10:06,146 INFO add_chain_L24_16k_l073 unit 2/3 (8 conditions, 29.5s)
+2026-11-27 08:10:35,705 INFO add_chain_L24_65k_l063 unit 3/3 (6 conditions, 27.7s)
+2026-11-27 08:10:37,730 INFO DAS: training das8v2_kl_s1 (k=8, 10 epochs, lr 0.01, seed 1) for people_cities L24 on 300 train pairs
+2026-11-27 08:12:13,277 INFO DAS v2 k=8 kl epoch 1/10: loss 1.3326
+2026-11-27 08:12:22,198 INFO DAS v2 k=8 kl epoch 2/10: loss 0.9607
+2026-11-27 08:12:31,106 INFO DAS v2 k=8 kl epoch 3/10: loss 0.8480
+2026-11-27 08:12:40,038 INFO DAS v2 k=8 kl epoch 4/10: loss 0.9139
+2026-11-27 08:12:48,967 INFO DAS v2 k=8 kl epoch 5/10: loss 1.1239
+2026-11-27 08:12:57,900 INFO DAS v2 k=8 kl epoch 6/10: loss 0.9552
+2026-11-27 08:13:06,835 INFO DAS v2 k=8 kl epoch 7/10: loss 1.0262
+2026-11-27 08:13:15,745 INFO DAS v2 k=8 kl epoch 8/10: loss 1.0019
+2026-11-27 08:13:24,653 INFO DAS v2 k=8 kl epoch 9/10: loss 0.9670
+2026-11-27 08:13:33,586 INFO DAS v2 k=8 kl epoch 10/10: loss 1.0026
+2026-11-27 08:14:16,121 INFO people_cities_L24_16k_l073__fit-pc_en__eval-pc_en unit 2/3 (8 conditions, 36.6s)
+2026-11-27 08:14:52,725 INFO people_cities_L24_65k_l063__fit-pc_en__eval-pc_en unit 3/3 (6 conditions, 34.3s)
+2026-11-27 08:15:00,281 INFO DAS: training das8v2_kl_s1 (k=8, 10 epochs, lr 0.01, seed 1) for entity_track L24 on 300 train pairs
+2026-11-27 08:17:03,442 INFO DAS v2 k=8 kl epoch 1/10: loss 1.5080
+2026-11-27 08:17:15,836 INFO DAS v2 k=8 kl epoch 2/10: loss 1.1169
+2026-11-27 08:17:28,219 INFO DAS v2 k=8 kl epoch 3/10: loss 1.1362
+2026-11-27 08:17:40,619 INFO DAS v2 k=8 kl epoch 4/10: loss 1.0529
+2026-11-27 08:17:53,012 INFO DAS v2 k=8 kl epoch 5/10: loss 0.9194
+2026-11-27 08:18:05,402 INFO DAS v2 k=8 kl epoch 6/10: loss 0.9354
+2026-11-27 08:18:17,778 INFO DAS v2 k=8 kl epoch 7/10: loss 0.8505
+2026-11-27 08:18:30,175 INFO DAS v2 k=8 kl epoch 8/10: loss 0.7836
+2026-11-27 08:18:42,560 INFO DAS v2 k=8 kl epoch 9/10: loss 0.6868
+2026-11-27 08:18:54,958 INFO DAS v2 k=8 kl epoch 10/10: loss 0.6668
+2026-11-27 08:21:38,415 INFO entity_track_L24_16k_l073__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 1/3 (8 conditions, 157.1s)
+2026-11-27 08:24:09,094 INFO entity_track_L24_65k_l063__fit-ot_placed_dest+ot_bin_dest+ot_drawer_dest__eval-ot_placed_dest+ot_bin_dest+ot_drawer_dest unit 3/3 (6 conditions, 147.1s)
+2026-11-27 08:24:10,306 INFO DAS: training das8v2_kl_s1 (k=8, 10 epochs, lr 0.01, seed 1) for ioi_control L24 on 300 train pairs
+2026-11-27 08:24:58,967 INFO DAS v2 k=8 kl epoch 1/10: loss 1.4450
+2026-11-27 08:25:01,423 INFO DAS v2 k=8 kl epoch 2/10: loss 0.5364
+2026-11-27 08:25:03,876 INFO DAS v2 k=8 kl epoch 3/10: loss 0.2649
+2026-11-27 08:25:06,324 INFO DAS v2 k=8 kl epoch 4/10: loss 0.1346
+2026-11-27 08:25:08,780 INFO DAS v2 k=8 kl epoch 5/10: loss 0.1091
+2026-11-27 08:25:11,229 INFO DAS v2 k=8 kl epoch 6/10: loss 0.0931
+2026-11-27 08:25:13,676 INFO DAS v2 k=8 kl epoch 7/10: loss 0.0855
+2026-11-27 08:25:16,124 INFO DAS v2 k=8 kl epoch 8/10: loss 0.0630
+2026-11-27 08:25:18,573 INFO DAS v2 k=8 kl epoch 9/10: loss 0.0625
+2026-11-27 08:25:21,024 INFO DAS v2 k=8 kl epoch 10/10: loss 0.0523
+2026-11-27 08:25:38,365 INFO ioi_control_L24_16k_l073 unit 2/3 (8 conditions, 6.3s)
+2026-11-27 08:25:46,041 INFO ioi_control_L24_65k_l063 unit 2/3 (8 conditions, 6.3s)
+2026-11-27 08:25:46,158 INFO P21 -> /home2/prakhar2218/PRISM/runs/P21/dc6367888597 (worker_done)
+Loaded pretrained model gemma-2-2b into HookedTransformer

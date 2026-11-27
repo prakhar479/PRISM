@@ -1,0 +1,14 @@
+2026-11-25 16:38:34,346 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-25 16:38:34,611 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-25 16:38:34,876 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-25 16:38:36,344 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-25 16:38:36,887 INFO 96 pairs (192 prompts)
+2026-11-25 16:38:38,051 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-25 16:38:39,698 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-25 16:38:39,964 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-25 16:38:40,208 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-25 16:38:41,474 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-25 16:38:55,558 INFO model loaded: 4.92 GiB VRAM in use (embedding on CPU)
+2026-11-25 16:38:55,563 INFO runtime plan: {'device': 'cuda', 'total_vram_gb': 10.57, 'free_vram_after_model_gb': 5.26, 'embed_on_cpu': True, 'max_batch_tokens': 2048, 'batch_size_cap': 128, 'cpu_threads': 10, 'cpu_workers': 3, 'resume_from_layer': True, 'ram_available_gb': 116.1}
+2026-11-25 16:39:19,773 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-25 16:39:22,465 INFO HF google/gemma-2-2b loaded on cuda (torch.bfloat16) in 3s

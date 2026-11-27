@@ -1,0 +1,38 @@
+
+=== attempt 1 2026-11-26 15:56:03 slots=['1']: /home2/prakhar2218/PRISM/.venv-harness/bin/python scripts/run_dict_fidelity.py --config configs/batch2/P21.yaml --extras
+2026-11-26 15:56:09,348 INFO PF: 24 dictionaries to do, 0 done
+Loading weights:   0%|          | 0/288 [00:00<?, ?it/s]Loading weights:   0%|          | 1/288 [00:00<00:59,  4.86it/s]Loading weights:  66%|██████▋   | 191/288 [00:00<00:00, 779.68it/s]Loading weights: 100%|██████████| 288/288 [00:00<00:00, 694.94it/s]
+2026-11-26 15:56:16,816 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-26 15:56:17,137 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-26 15:56:17,449 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-26 15:56:18,857 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-2-2b "HTTP/1.1 200 OK"
+2026-11-26 15:57:49,356 INFO L2_16k_l0141: CE delta 0.0326, recovered(mean) 0.9956, FVU 0.1280, L0 142.7 (72s)
+2026-11-26 16:00:12,842 INFO L2_65k_l0169: CE delta 0.0147, recovered(mean) 0.9980, FVU 0.0779, L0 170.6 (143s)
+2026-11-26 16:01:29,418 INFO L4_16k_l0124: CE delta 0.0350, recovered(mean) 0.9964, FVU 0.1412, L0 133.6 (76s)
+2026-11-26 16:02:55,902 INFO L4_65k_l089: CE delta 0.0247, recovered(mean) 0.9975, FVU 0.1100, L0 93.3 (86s)
+2026-11-26 16:04:09,598 INFO L6_16k_l070: CE delta 0.0646, recovered(mean) 0.9930, FVU 0.1894, L0 74.4 (73s)
+2026-11-26 16:05:52,339 INFO L6_65k_l056: CE delta 0.0444, recovered(mean) 0.9952, FVU 0.1509, L0 59.5 (102s)
+2026-11-26 16:07:05,986 INFO L8_16k_l071: CE delta 0.0757, recovered(mean) 0.9907, FVU 0.2014, L0 74.5 (73s)
+2026-11-26 16:09:08,710 INFO L8_65k_l059: CE delta 0.0577, recovered(mean) 0.9929, FVU 0.1635, L0 62.3 (122s)
+2026-11-26 16:10:22,317 INFO L10_16k_l077: CE delta 0.0957, recovered(mean) 0.9889, FVU 0.2348, L0 81.9 (73s)
+2026-11-26 16:11:46,407 INFO L10_65k_l066: CE delta 0.0634, recovered(mean) 0.9927, FVU 0.1974, L0 71.3 (83s)
+2026-11-26 16:13:25,190 INFO L12_16k_l082: CE delta 0.1167, recovered(mean) 0.9855, FVU 0.2447, L0 84.5 (98s)
+2026-11-26 16:15:00,840 INFO L12_65k_l072: CE delta 0.0830, recovered(mean) 0.9897, FVU 0.2091, L0 75.6 (95s)
+2026-11-26 16:16:17,127 INFO L14_16k_l084: CE delta 0.1283, recovered(mean) 0.9842, FVU 0.2362, L0 85.2 (76s)
+2026-11-26 16:17:41,288 INFO L14_65k_l073: CE delta 0.1025, recovered(mean) 0.9874, FVU 0.2071, L0 72.5 (83s)
+2026-11-26 16:18:54,859 INFO L16_16k_l078: CE delta 0.1549, recovered(mean) 0.9814, FVU 0.2185, L0 81.0 (73s)
+2026-11-26 16:20:18,867 INFO L16_65k_l069: CE delta 0.1161, recovered(mean) 0.9860, FVU 0.1859, L0 72.3 (83s)
+2026-11-26 16:21:32,540 INFO L18_16k_l074: CE delta 0.1716, recovered(mean) 0.9792, FVU 0.2021, L0 75.7 (73s)
+2026-11-26 16:22:56,478 INFO L18_65k_l064: CE delta 0.1301, recovered(mean) 0.9842, FVU 0.1689, L0 66.1 (83s)
+2026-11-26 16:24:10,052 INFO L20_16k_l071: CE delta 0.2008, recovered(mean) 0.9747, FVU 0.2154, L0 77.1 (73s)
+2026-11-26 16:25:34,111 INFO L20_65k_l061: CE delta 0.1598, recovered(mean) 0.9799, FVU 0.1796, L0 64.7 (83s)
+2026-11-26 16:26:47,869 INFO L22_16k_l072: CE delta 0.2425, recovered(mean) 0.9738, FVU 0.2370, L0 76.7 (73s)
+2026-11-26 16:28:11,896 INFO L22_65k_l062: CE delta 0.1922, recovered(mean) 0.9792, FVU 0.1980, L0 66.4 (83s)
+2026-11-26 16:29:25,571 INFO L24_16k_l073: CE delta 0.3400, recovered(mean) 0.9634, FVU 0.2484, L0 76.7 (73s)
+2026-11-26 16:30:49,581 INFO L24_65k_l063: CE delta 0.2605, recovered(mean) 0.9720, FVU 0.2107, L0 67.0 (83s)
+2026-11-26 16:30:50,326 INFO PF 5b18d268750e -> /home2/prakhar2218/PRISM/runs/PF/5b18d268750e (complete)
+Loaded pretrained model gemma-2-2b into HookedTransformer
+
+=== attempt 1 2026-11-27 08:09:01 slots=['2']: /home2/prakhar2218/PRISM/.venv-harness/bin/python scripts/run_dict_fidelity.py --config configs/batch2/P21.yaml --extras
+2026-11-27 08:09:10,020 INFO PF: 0 dictionaries to do, 24 done
+2026-11-27 08:09:10,483 INFO PF 5b18d268750e -> /home2/prakhar2218/PRISM/runs/PF/5b18d268750e (complete)

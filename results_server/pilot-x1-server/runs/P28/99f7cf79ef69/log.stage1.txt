@@ -1,0 +1,8 @@
+2026-11-26 13:53:45,404 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-pt/tree/fcf18a2a879aab110ca39f8bffbccd5d49d8eb29/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-26 13:53:45,652 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-pt/tree/fcf18a2a879aab110ca39f8bffbccd5d49d8eb29?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-26 13:53:48,914 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-pt "HTTP/1.1 200 OK"
+2026-11-26 13:53:58,618 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-pt "HTTP/1.1 200 OK"
+2026-11-26 13:53:59,096 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-pt/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-26 13:53:59,345 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-pt/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-26 13:54:02,271 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-pt "HTTP/1.1 200 OK"
+2026-11-26 13:54:33,378 INFO P28 -> /home2/prakhar2218/PRISM/runs/P28/99f7cf79ef69 (stage1_complete)

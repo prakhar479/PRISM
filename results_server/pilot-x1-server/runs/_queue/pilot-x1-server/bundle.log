@@ -1,0 +1,6 @@
+
+=== attempt 1 2026-11-26 16:30:52 slots=[]: /home2/prakhar2218/PRISM/.venv-harness/bin/python scripts/bundle_results.py --tag pilot-x1-server --queue queue/pilot-x1-server.yaml
+7 runs, 1003 files -> /home2/prakhar2218/PRISM/bundles/pilot-x1-server_20261126_163055.tar.gz (58.1 MB)
+
+=== attempt 1 2026-11-27 08:25:51 slots=[]: /home2/prakhar2218/PRISM/.venv-harness/bin/python scripts/bundle_results.py --tag pilot-x1-server --queue queue/pilot-x1-server.yaml
+7 runs, 1007 files -> /home2/prakhar2218/PRISM/bundles/pilot-x1-server_20261127_082554.tar.gz (58.1 MB)

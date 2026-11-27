@@ -1,0 +1,902 @@
+{
+ "exp_id": "PF",
+ "run_hash": "e6677ae81942",
+ "status": "complete",
+ "smoke": false,
+ "tiny": false,
+ "table": "fidelity.csv",
+ "config": {
+  "name": "dict_fidelity",
+  "identity": {
+   "exp": "PF",
+   "config": "P20",
+   "config_hash": "c579a1e2fc16",
+   "dicts": [
+    "L0_gs2_1b_all_L0_16k_big",
+    "L0_gs2_1b_all_L0_16k_small",
+    "L10_gs2_1b_all_L10_16k_big",
+    "L10_gs2_1b_all_L10_16k_small",
+    "L11_gs2_1b_all_L11_16k_big",
+    "L11_gs2_1b_all_L11_16k_small",
+    "L12_gs2_1b_all_L12_16k_big",
+    "L12_gs2_1b_all_L12_16k_small",
+    "L13_gs2_1b_all_L13_16k_big",
+    "L13_gs2_1b_all_L13_16k_small",
+    "L14_gs2_1b_all_L14_16k_big",
+    "L14_gs2_1b_all_L14_16k_small",
+    "L15_gs2_1b_all_L15_16k_big",
+    "L15_gs2_1b_all_L15_16k_small",
+    "L16_gs2_1b_all_L16_16k_big",
+    "L16_gs2_1b_all_L16_16k_small",
+    "L17_gs2_1b_all_L17_16k_big",
+    "L17_gs2_1b_all_L17_16k_small",
+    "L18_gs2_1b_all_L18_16k_big",
+    "L18_gs2_1b_all_L18_16k_small",
+    "L19_gs2_1b_all_L19_16k_big",
+    "L19_gs2_1b_all_L19_16k_small",
+    "L1_gs2_1b_all_L1_16k_big",
+    "L1_gs2_1b_all_L1_16k_small",
+    "L20_gs2_1b_all_L20_16k_big",
+    "L20_gs2_1b_all_L20_16k_small",
+    "L21_gs2_1b_all_L21_16k_big",
+    "L21_gs2_1b_all_L21_16k_small",
+    "L22_gs2_1b_all_L22_16k_big",
+    "L22_gs2_1b_all_L22_16k_small",
+    "L23_gs2_1b_all_L23_16k_big",
+    "L23_gs2_1b_all_L23_16k_small",
+    "L24_gs2_1b_all_L24_16k_big",
+    "L24_gs2_1b_all_L24_16k_small",
+    "L25_gs2_1b_all_L25_16k_big",
+    "L25_gs2_1b_all_L25_16k_small",
+    "L2_gs2_1b_all_L2_16k_big",
+    "L2_gs2_1b_all_L2_16k_small",
+    "L3_gs2_1b_all_L3_16k_big",
+    "L3_gs2_1b_all_L3_16k_small",
+    "L4_gs2_1b_all_L4_16k_big",
+    "L4_gs2_1b_all_L4_16k_small",
+    "L5_gs2_1b_all_L5_16k_big",
+    "L5_gs2_1b_all_L5_16k_small",
+    "L6_gs2_1b_all_L6_16k_big",
+    "L6_gs2_1b_all_L6_16k_small",
+    "L7_gs2_1b_all_L7_16k_big",
+    "L7_gs2_1b_all_L7_16k_small",
+    "L8_gs2_1b_all_L8_16k_big",
+    "L8_gs2_1b_all_L8_16k_small",
+    "L9_gs2_1b_all_L9_16k_big",
+    "L9_gs2_1b_all_L9_16k_small"
+   ],
+   "eval": "082c070e5e6dc59d",
+   "n_windows": null,
+   "extras": true,
+   "tiny": false
+  },
+  "source_config": "configs/batch2/P20.yaml"
+ },
+ "git": {
+  "commit": "df26a40f83a5b7f186febc61c7e602ef6bd1279e",
+  "branch": "HEAD",
+  "tags": [
+   "run-20261126-b2a"
+  ],
+  "dirty": false,
+  "dirty_files": []
+ },
+ "packages": {
+  "torch": "2.14.1+cu126",
+  "transformers": "5.19.0",
+  "transformer-lens": "3.9.0",
+  "numpy": "2.5.4",
+  "pandas": "3.0.6",
+  "pyarrow": "26.0.0",
+  "safetensors": "0.8.0",
+  "huggingface-hub": "2.2.0",
+  "scipy": "1.18.1"
+ },
+ "machine": {
+  "hostname": "gnode047",
+  "os": "Linux-5.15.0-191-generic-x86_64-with-glibc2.35",
+  "python": "3.12.16",
+  "device": "cuda:0",
+  "torch": "2.14.1+cu126",
+  "torch_cuda": "12.6",
+  "gpu_name": "NVIDIA GeForce RTX 2080 Ti",
+  "gpu_total_gb": 10.57,
+  "gpu_free_gb": 8.45,
+  "capability": "7.5",
+  "cudnn": 91002,
+  "nvidia_driver": "570.211.01\n570.211.01\n570.211.01\n570.211.01"
+ },
+ "model": {
+  "name": "gemma-3-1b-pt",
+  "revision": "fcf18a2a879aab110ca39f8bffbccd5d49d8eb29",
+  "dtype": "bfloat16",
+  "site": "resid_post",
+  "tiny_seed": 0,
+  "tiny_vocab": 0,
+  "tiny_layers": 4
+ },
+ "dicts": {
+  "L0_gs2_1b_all_L0_16k_small": {
+   "layer": 0,
+   "width": "16k",
+   "l0": 10,
+   "repo": "google/gemma-scope-2-1b-pt",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "source": "registry",
+   "name": "gs2_1b_all_L0_16k_small",
+   "arch": "gs2",
+   "files": [
+    "resid_post_all/layer_0_width_16k_l0_small/params.safetensors",
+    "resid_post_all/layer_0_width_16k_l0_small/config.json"
+   ],
+   "addon": ""
+  },
+  "L0_gs2_1b_all_L0_16k_big": {
+   "layer": 0,
+   "width": "16k",
+   "l0": 60,
+   "repo": "google/gemma-scope-2-1b-pt",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "source": "registry",
+   "name": "gs2_1b_all_L0_16k_big",
+   "arch": "gs2",
+   "files": [
+    "resid_post_all/layer_0_width_16k_l0_big/params.safetensors",
+    "resid_post_all/layer_0_width_16k_l0_big/config.json"
+   ],
+   "addon": ""
+  },
+  "L1_gs2_1b_all_L1_16k_small": {
+   "layer": 1,
+   "width": "16k",
+   "l0": 11,
+   "repo": "google/gemma-scope-2-1b-pt",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "source": "registry",
+   "name": "gs2_1b_all_L1_16k_small",
+   "arch": "gs2",
+   "files": [
+    "resid_post_all/layer_1_width_16k_l0_small/params.safetensors",
+    "resid_post_all/layer_1_width_16k_l0_small/config.json"
+   ],
+   "addon": ""
+  },
+  "L1_gs2_1b_all_L1_16k_big": {
+   "layer": 1,
+   "width": "16k",
+   "l0": 66,
+   "repo": "google/gemma-scope-2-1b-pt",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "source": "registry",
+   "name": "gs2_1b_all_L1_16k_big",
+   "arch": "gs2",
+   "files": [
+    "resid_post_all/layer_1_width_16k_l0_big/params.safetensors",
+    "resid_post_all/layer_1_width_16k_l0_big/config.json"
+   ],
+   "addon": ""
+  },
+  "L2_gs2_1b_all_L2_16k_small": {
+   "layer": 2,
+   "width": "16k",
+   "l0": 12,
+   "repo": "google/gemma-scope-2-1b-pt",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "source": "registry",
+   "name": "gs2_1b_all_L2_16k_small",
+   "arch": "gs2",
+   "files": [
+    "resid_post_all/layer_2_width_16k_l0_small/params.safetensors",
+    "resid_post_all/layer_2_width_16k_l0_small/config.json"
+   ],
+   "addon": ""
+  },
+  "L2_gs2_1b_all_L2_16k_big": {
+   "layer": 2,
+   "width": "16k",
+   "l0": 73,
+   "repo": "google/gemma-scope-2-1b-pt",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "source": "registry",
+   "name": "gs2_1b_all_L2_16k_big",
+   "arch": "gs2",
+   "files": [
+    "resid_post_all/layer_2_width_16k_l0_big/params.safetensors",
+    "resid_post_all/layer_2_width_16k_l0_big/config.json"
+   ],
+   "addon": ""
+  },
+  "L3_gs2_1b_all_L3_16k_small": {
+   "layer": 3,
+   "width": "16k",
+   "l0": 13,
+   "repo": "google/gemma-scope-2-1b-pt",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "source": "registry",
+   "name": "gs2_1b_all_L3_16k_small",
+   "arch": "gs2",
+   "files": [
+    "resid_post_all/layer_3_width_16k_l0_small/params.safetensors",
+    "resid_post_all/layer_3_width_16k_l0_small/config.json"
+   ],
+   "addon": ""
+  },
+  "L3_gs2_1b_all_L3_16k_big": {
+   "layer": 3,
+   "width": "16k",
+   "l0": 80,
+   "repo": "google/gemma-scope-2-1b-pt",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "source": "registry",
+   "name": "gs2_1b_all_L3_16k_big",
+   "arch": "gs2",
+   "files": [
+    "resid_post_all/layer_3_width_16k_l0_big/params.safetensors",
+    "resid_post_all/layer_3_width_16k_l0_big/config.json"
+   ],
+   "addon": ""
+  },
+  "L4_gs2_1b_all_L4_16k_small": {
+   "layer": 4,
+   "width": "16k",
+   "l0": 14,
+   "repo": "google/gemma-scope-2-1b-pt",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "source": "registry",
+   "name": "gs2_1b_all_L4_16k_small",
+   "arch": "gs2",
+   "files": [
+    "resid_post_all/layer_4_width_16k_l0_small/params.safetensors",
+    "resid_post_all/layer_4_width_16k_l0_small/config.json"
+   ],
+   "addon": ""
+  },
+  "L4_gs2_1b_all_L4_16k_big": {
+   "layer": 4,
+   "width": "16k",
+   "l0": 87,
+   "repo": "google/gemma-scope-2-1b-pt",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "source": "registry",
+   "name": "gs2_1b_all_L4_16k_big",
+   "arch": "gs2",
+   "files": [
+    "resid_post_all/layer_4_width_16k_l0_big/params.safetensors",
+    "resid_post_all/layer_4_width_16k_l0_big/config.json"
+   ],
+   "addon": ""
+  },
+  "L5_gs2_1b_all_L5_16k_small": {
+   "layer": 5,
+   "width": "16k",
+   "l0": 15,
+   "repo": "google/gemma-scope-2-1b-pt",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "source": "registry",
+   "name": "gs2_1b_all_L5_16k_small",
+   "arch": "gs2",
+   "files": [
+    "resid_post_all/layer_5_width_16k_l0_small/params.safetensors",
+    "resid_post_all/layer_5_width_16k_l0_small/config.json"
+   ],
+   "addon": ""
+  },
+  "L5_gs2_1b_all_L5_16k_big": {
+   "layer": 5,
+   "width": "16k",
+   "l0": 94,
+   "repo": "google/gemma-scope-2-1b-pt",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "source": "registry",
+   "name": "gs2_1b_all_L5_16k_big",
+   "arch": "gs2",
+   "files": [
+    "resid_post_all/layer_5_width_16k_l0_big/params.safetensors",
+    "resid_post_all/layer_5_width_16k_l0_big/config.json"
+   ],
+   "addon": ""
+  },
+  "L6_gs2_1b_all_L6_16k_small": {
+   "layer": 6,
+   "width": "16k",
+   "l0": 16,
+   "repo": "google/gemma-scope-2-1b-pt",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "source": "registry",
+   "name": "gs2_1b_all_L6_16k_small",
+   "arch": "gs2",
+   "files": [
+    "resid_post_all/layer_6_width_16k_l0_small/params.safetensors",
+    "resid_post_all/layer_6_width_16k_l0_small/config.json"
+   ],
+   "addon": ""
+  },
+  "L6_gs2_1b_all_L6_16k_big": {
+   "layer": 6,
+   "width": "16k",
+   "l0": 101,
+   "repo": "google/gemma-scope-2-1b-pt",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "source": "registry",
+   "name": "gs2_1b_all_L6_16k_big",
+   "arch": "gs2",
+   "files": [
+    "resid_post_all/layer_6_width_16k_l0_big/params.safetensors",
+    "resid_post_all/layer_6_width_16k_l0_big/config.json"
+   ],
+   "addon": ""
+  },
+  "L7_gs2_1b_all_L7_16k_small": {
+   "layer": 7,
+   "width": "16k",
+   "l0": 18,
+   "repo": "google/gemma-scope-2-1b-pt",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "source": "registry",
+   "name": "gs2_1b_all_L7_16k_small",
+   "arch": "gs2",
+   "files": [
+    "resid_post_all/layer_7_width_16k_l0_small/params.safetensors",
+    "resid_post_all/layer_7_width_16k_l0_small/config.json"
+   ],
+   "addon": ""
+  },
+  "L7_gs2_1b_all_L7_16k_big": {
+   "layer": 7,
+   "width": "16k",
+   "l0": 108,
+   "repo": "google/gemma-scope-2-1b-pt",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "source": "registry",
+   "name": "gs2_1b_all_L7_16k_big",
+   "arch": "gs2",
+   "files": [
+    "resid_post_all/layer_7_width_16k_l0_big/params.safetensors",
+    "resid_post_all/layer_7_width_16k_l0_big/config.json"
+   ],
+   "addon": ""
+  },
+  "L8_gs2_1b_all_L8_16k_small": {
+   "layer": 8,
+   "width": "16k",
+   "l0": 19,
+   "repo": "google/gemma-scope-2-1b-pt",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "source": "registry",
+   "name": "gs2_1b_all_L8_16k_small",
+   "arch": "gs2",
+   "files": [
+    "resid_post_all/layer_8_width_16k_l0_small/params.safetensors",
+    "resid_post_all/layer_8_width_16k_l0_small/config.json"
+   ],
+   "addon": ""
+  },
+  "L8_gs2_1b_all_L8_16k_big": {
+   "layer": 8,
+   "width": "16k",
+   "l0": 115,
+   "repo": "google/gemma-scope-2-1b-pt",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "source": "registry",
+   "name": "gs2_1b_all_L8_16k_big",
+   "arch": "gs2",
+   "files": [
+    "resid_post_all/layer_8_width_16k_l0_big/params.safetensors",
+    "resid_post_all/layer_8_width_16k_l0_big/config.json"
+   ],
+   "addon": ""
+  },
+  "L9_gs2_1b_all_L9_16k_small": {
+   "layer": 9,
+   "width": "16k",
+   "l0": 20,
+   "repo": "google/gemma-scope-2-1b-pt",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "source": "registry",
+   "name": "gs2_1b_all_L9_16k_small",
+   "arch": "gs2",
+   "files": [
+    "resid_post_all/layer_9_width_16k_l0_small/params.safetensors",
+    "resid_post_all/layer_9_width_16k_l0_small/config.json"
+   ],
+   "addon": ""
+  },
+  "L9_gs2_1b_all_L9_16k_big": {
+   "layer": 9,
+   "width": "16k",
+   "l0": 120,
+   "repo": "google/gemma-scope-2-1b-pt",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "source": "registry",
+   "name": "gs2_1b_all_L9_16k_big",
+   "arch": "gs2",
+   "files": [
+    "resid_post_all/layer_9_width_16k_l0_big/params.safetensors",
+    "resid_post_all/layer_9_width_16k_l0_big/config.json"
+   ],
+   "addon": ""
+  },
+  "L10_gs2_1b_all_L10_16k_small": {
+   "layer": 10,
+   "width": "16k",
+   "l0": 20,
+   "repo": "google/gemma-scope-2-1b-pt",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "source": "registry",
+   "name": "gs2_1b_all_L10_16k_small",
+   "arch": "gs2",
+   "files": [
+    "resid_post_all/layer_10_width_16k_l0_small/params.safetensors",
+    "resid_post_all/layer_10_width_16k_l0_small/config.json"
+   ],
+   "addon": ""
+  },
+  "L10_gs2_1b_all_L10_16k_big": {
+   "layer": 10,
+   "width": "16k",
+   "l0": 120,
+   "repo": "google/gemma-scope-2-1b-pt",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "source": "registry",
+   "name": "gs2_1b_all_L10_16k_big",
+   "arch": "gs2",
+   "files": [
+    "resid_post_all/layer_10_width_16k_l0_big/params.safetensors",
+    "resid_post_all/layer_10_width_16k_l0_big/config.json"
+   ],
+   "addon": ""
+  },
+  "L11_gs2_1b_all_L11_16k_small": {
+   "layer": 11,
+   "width": "16k",
+   "l0": 20,
+   "repo": "google/gemma-scope-2-1b-pt",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "source": "registry",
+   "name": "gs2_1b_all_L11_16k_small",
+   "arch": "gs2",
+   "files": [
+    "resid_post_all/layer_11_width_16k_l0_small/params.safetensors",
+    "resid_post_all/layer_11_width_16k_l0_small/config.json"
+   ],
+   "addon": ""
+  },
+  "L11_gs2_1b_all_L11_16k_big": {
+   "layer": 11,
+   "width": "16k",
+   "l0": 120,
+   "repo": "google/gemma-scope-2-1b-pt",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "source": "registry",
+   "name": "gs2_1b_all_L11_16k_big",
+   "arch": "gs2",
+   "files": [
+    "resid_post_all/layer_11_width_16k_l0_big/params.safetensors",
+    "resid_post_all/layer_11_width_16k_l0_big/config.json"
+   ],
+   "addon": ""
+  },
+  "L12_gs2_1b_all_L12_16k_small": {
+   "layer": 12,
+   "width": "16k",
+   "l0": 20,
+   "repo": "google/gemma-scope-2-1b-pt",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "source": "registry",
+   "name": "gs2_1b_all_L12_16k_small",
+   "arch": "gs2",
+   "files": [
+    "resid_post_all/layer_12_width_16k_l0_small/params.safetensors",
+    "resid_post_all/layer_12_width_16k_l0_small/config.json"
+   ],
+   "addon": ""
+  },
+  "L12_gs2_1b_all_L12_16k_big": {
+   "layer": 12,
+   "width": "16k",
+   "l0": 120,
+   "repo": "google/gemma-scope-2-1b-pt",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "source": "registry",
+   "name": "gs2_1b_all_L12_16k_big",
+   "arch": "gs2",
+   "files": [
+    "resid_post_all/layer_12_width_16k_l0_big/params.safetensors",
+    "resid_post_all/layer_12_width_16k_l0_big/config.json"
+   ],
+   "addon": ""
+  },
+  "L13_gs2_1b_all_L13_16k_small": {
+   "layer": 13,
+   "width": "16k",
+   "l0": 20,
+   "repo": "google/gemma-scope-2-1b-pt",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "source": "registry",
+   "name": "gs2_1b_all_L13_16k_small",
+   "arch": "gs2",
+   "files": [
+    "resid_post_all/layer_13_width_16k_l0_small/params.safetensors",
+    "resid_post_all/layer_13_width_16k_l0_small/config.json"
+   ],
+   "addon": ""
+  },
+  "L13_gs2_1b_all_L13_16k_big": {
+   "layer": 13,
+   "width": "16k",
+   "l0": 120,
+   "repo": "google/gemma-scope-2-1b-pt",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "source": "registry",
+   "name": "gs2_1b_all_L13_16k_big",
+   "arch": "gs2",
+   "files": [
+    "resid_post_all/layer_13_width_16k_l0_big/params.safetensors",
+    "resid_post_all/layer_13_width_16k_l0_big/config.json"
+   ],
+   "addon": ""
+  },
+  "L14_gs2_1b_all_L14_16k_small": {
+   "layer": 14,
+   "width": "16k",
+   "l0": 20,
+   "repo": "google/gemma-scope-2-1b-pt",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "source": "registry",
+   "name": "gs2_1b_all_L14_16k_small",
+   "arch": "gs2",
+   "files": [
+    "resid_post_all/layer_14_width_16k_l0_small/params.safetensors",
+    "resid_post_all/layer_14_width_16k_l0_small/config.json"
+   ],
+   "addon": ""
+  },
+  "L14_gs2_1b_all_L14_16k_big": {
+   "layer": 14,
+   "width": "16k",
+   "l0": 120,
+   "repo": "google/gemma-scope-2-1b-pt",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "source": "registry",
+   "name": "gs2_1b_all_L14_16k_big",
+   "arch": "gs2",
+   "files": [
+    "resid_post_all/layer_14_width_16k_l0_big/params.safetensors",
+    "resid_post_all/layer_14_width_16k_l0_big/config.json"
+   ],
+   "addon": ""
+  },
+  "L15_gs2_1b_all_L15_16k_small": {
+   "layer": 15,
+   "width": "16k",
+   "l0": 20,
+   "repo": "google/gemma-scope-2-1b-pt",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "source": "registry",
+   "name": "gs2_1b_all_L15_16k_small",
+   "arch": "gs2",
+   "files": [
+    "resid_post_all/layer_15_width_16k_l0_small/params.safetensors",
+    "resid_post_all/layer_15_width_16k_l0_small/config.json"
+   ],
+   "addon": ""
+  },
+  "L15_gs2_1b_all_L15_16k_big": {
+   "layer": 15,
+   "width": "16k",
+   "l0": 120,
+   "repo": "google/gemma-scope-2-1b-pt",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "source": "registry",
+   "name": "gs2_1b_all_L15_16k_big",
+   "arch": "gs2",
+   "files": [
+    "resid_post_all/layer_15_width_16k_l0_big/params.safetensors",
+    "resid_post_all/layer_15_width_16k_l0_big/config.json"
+   ],
+   "addon": ""
+  },
+  "L16_gs2_1b_all_L16_16k_small": {
+   "layer": 16,
+   "width": "16k",
+   "l0": 20,
+   "repo": "google/gemma-scope-2-1b-pt",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "source": "registry",
+   "name": "gs2_1b_all_L16_16k_small",
+   "arch": "gs2",
+   "files": [
+    "resid_post_all/layer_16_width_16k_l0_small/params.safetensors",
+    "resid_post_all/layer_16_width_16k_l0_small/config.json"
+   ],
+   "addon": ""
+  },
+  "L16_gs2_1b_all_L16_16k_big": {
+   "layer": 16,
+   "width": "16k",
+   "l0": 120,
+   "repo": "google/gemma-scope-2-1b-pt",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "source": "registry",
+   "name": "gs2_1b_all_L16_16k_big",
+   "arch": "gs2",
+   "files": [
+    "resid_post_all/layer_16_width_16k_l0_big/params.safetensors",
+    "resid_post_all/layer_16_width_16k_l0_big/config.json"
+   ],
+   "addon": ""
+  },
+  "L17_gs2_1b_all_L17_16k_small": {
+   "layer": 17,
+   "width": "16k",
+   "l0": 20,
+   "repo": "google/gemma-scope-2-1b-pt",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "source": "registry",
+   "name": "gs2_1b_all_L17_16k_small",
+   "arch": "gs2",
+   "files": [
+    "resid_post_all/layer_17_width_16k_l0_small/params.safetensors",
+    "resid_post_all/layer_17_width_16k_l0_small/config.json"
+   ],
+   "addon": ""
+  },
+  "L17_gs2_1b_all_L17_16k_big": {
+   "layer": 17,
+   "width": "16k",
+   "l0": 120,
+   "repo": "google/gemma-scope-2-1b-pt",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "source": "registry",
+   "name": "gs2_1b_all_L17_16k_big",
+   "arch": "gs2",
+   "files": [
+    "resid_post_all/layer_17_width_16k_l0_big/params.safetensors",
+    "resid_post_all/layer_17_width_16k_l0_big/config.json"
+   ],
+   "addon": ""
+  },
+  "L18_gs2_1b_all_L18_16k_small": {
+   "layer": 18,
+   "width": "16k",
+   "l0": 20,
+   "repo": "google/gemma-scope-2-1b-pt",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "source": "registry",
+   "name": "gs2_1b_all_L18_16k_small",
+   "arch": "gs2",
+   "files": [
+    "resid_post_all/layer_18_width_16k_l0_small/params.safetensors",
+    "resid_post_all/layer_18_width_16k_l0_small/config.json"
+   ],
+   "addon": ""
+  },
+  "L18_gs2_1b_all_L18_16k_big": {
+   "layer": 18,
+   "width": "16k",
+   "l0": 120,
+   "repo": "google/gemma-scope-2-1b-pt",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "source": "registry",
+   "name": "gs2_1b_all_L18_16k_big",
+   "arch": "gs2",
+   "files": [
+    "resid_post_all/layer_18_width_16k_l0_big/params.safetensors",
+    "resid_post_all/layer_18_width_16k_l0_big/config.json"
+   ],
+   "addon": ""
+  },
+  "L19_gs2_1b_all_L19_16k_small": {
+   "layer": 19,
+   "width": "16k",
+   "l0": 20,
+   "repo": "google/gemma-scope-2-1b-pt",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "source": "registry",
+   "name": "gs2_1b_all_L19_16k_small",
+   "arch": "gs2",
+   "files": [
+    "resid_post_all/layer_19_width_16k_l0_small/params.safetensors",
+    "resid_post_all/layer_19_width_16k_l0_small/config.json"
+   ],
+   "addon": ""
+  },
+  "L19_gs2_1b_all_L19_16k_big": {
+   "layer": 19,
+   "width": "16k",
+   "l0": 120,
+   "repo": "google/gemma-scope-2-1b-pt",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "source": "registry",
+   "name": "gs2_1b_all_L19_16k_big",
+   "arch": "gs2",
+   "files": [
+    "resid_post_all/layer_19_width_16k_l0_big/params.safetensors",
+    "resid_post_all/layer_19_width_16k_l0_big/config.json"
+   ],
+   "addon": ""
+  },
+  "L20_gs2_1b_all_L20_16k_small": {
+   "layer": 20,
+   "width": "16k",
+   "l0": 20,
+   "repo": "google/gemma-scope-2-1b-pt",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "source": "registry",
+   "name": "gs2_1b_all_L20_16k_small",
+   "arch": "gs2",
+   "files": [
+    "resid_post_all/layer_20_width_16k_l0_small/params.safetensors",
+    "resid_post_all/layer_20_width_16k_l0_small/config.json"
+   ],
+   "addon": ""
+  },
+  "L20_gs2_1b_all_L20_16k_big": {
+   "layer": 20,
+   "width": "16k",
+   "l0": 120,
+   "repo": "google/gemma-scope-2-1b-pt",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "source": "registry",
+   "name": "gs2_1b_all_L20_16k_big",
+   "arch": "gs2",
+   "files": [
+    "resid_post_all/layer_20_width_16k_l0_big/params.safetensors",
+    "resid_post_all/layer_20_width_16k_l0_big/config.json"
+   ],
+   "addon": ""
+  },
+  "L21_gs2_1b_all_L21_16k_small": {
+   "layer": 21,
+   "width": "16k",
+   "l0": 20,
+   "repo": "google/gemma-scope-2-1b-pt",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "source": "registry",
+   "name": "gs2_1b_all_L21_16k_small",
+   "arch": "gs2",
+   "files": [
+    "resid_post_all/layer_21_width_16k_l0_small/params.safetensors",
+    "resid_post_all/layer_21_width_16k_l0_small/config.json"
+   ],
+   "addon": ""
+  },
+  "L21_gs2_1b_all_L21_16k_big": {
+   "layer": 21,
+   "width": "16k",
+   "l0": 120,
+   "repo": "google/gemma-scope-2-1b-pt",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "source": "registry",
+   "name": "gs2_1b_all_L21_16k_big",
+   "arch": "gs2",
+   "files": [
+    "resid_post_all/layer_21_width_16k_l0_big/params.safetensors",
+    "resid_post_all/layer_21_width_16k_l0_big/config.json"
+   ],
+   "addon": ""
+  },
+  "L22_gs2_1b_all_L22_16k_small": {
+   "layer": 22,
+   "width": "16k",
+   "l0": 20,
+   "repo": "google/gemma-scope-2-1b-pt",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "source": "registry",
+   "name": "gs2_1b_all_L22_16k_small",
+   "arch": "gs2",
+   "files": [
+    "resid_post_all/layer_22_width_16k_l0_small/params.safetensors",
+    "resid_post_all/layer_22_width_16k_l0_small/config.json"
+   ],
+   "addon": ""
+  },
+  "L22_gs2_1b_all_L22_16k_big": {
+   "layer": 22,
+   "width": "16k",
+   "l0": 120,
+   "repo": "google/gemma-scope-2-1b-pt",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "source": "registry",
+   "name": "gs2_1b_all_L22_16k_big",
+   "arch": "gs2",
+   "files": [
+    "resid_post_all/layer_22_width_16k_l0_big/params.safetensors",
+    "resid_post_all/layer_22_width_16k_l0_big/config.json"
+   ],
+   "addon": ""
+  },
+  "L23_gs2_1b_all_L23_16k_small": {
+   "layer": 23,
+   "width": "16k",
+   "l0": 20,
+   "repo": "google/gemma-scope-2-1b-pt",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "source": "registry",
+   "name": "gs2_1b_all_L23_16k_small",
+   "arch": "gs2",
+   "files": [
+    "resid_post_all/layer_23_width_16k_l0_small/params.safetensors",
+    "resid_post_all/layer_23_width_16k_l0_small/config.json"
+   ],
+   "addon": ""
+  },
+  "L23_gs2_1b_all_L23_16k_big": {
+   "layer": 23,
+   "width": "16k",
+   "l0": 120,
+   "repo": "google/gemma-scope-2-1b-pt",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "source": "registry",
+   "name": "gs2_1b_all_L23_16k_big",
+   "arch": "gs2",
+   "files": [
+    "resid_post_all/layer_23_width_16k_l0_big/params.safetensors",
+    "resid_post_all/layer_23_width_16k_l0_big/config.json"
+   ],
+   "addon": ""
+  },
+  "L24_gs2_1b_all_L24_16k_small": {
+   "layer": 24,
+   "width": "16k",
+   "l0": 20,
+   "repo": "google/gemma-scope-2-1b-pt",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "source": "registry",
+   "name": "gs2_1b_all_L24_16k_small",
+   "arch": "gs2",
+   "files": [
+    "resid_post_all/layer_24_width_16k_l0_small/params.safetensors",
+    "resid_post_all/layer_24_width_16k_l0_small/config.json"
+   ],
+   "addon": ""
+  },
+  "L24_gs2_1b_all_L24_16k_big": {
+   "layer": 24,
+   "width": "16k",
+   "l0": 120,
+   "repo": "google/gemma-scope-2-1b-pt",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "source": "registry",
+   "name": "gs2_1b_all_L24_16k_big",
+   "arch": "gs2",
+   "files": [
+    "resid_post_all/layer_24_width_16k_l0_big/params.safetensors",
+    "resid_post_all/layer_24_width_16k_l0_big/config.json"
+   ],
+   "addon": ""
+  },
+  "L25_gs2_1b_all_L25_16k_small": {
+   "layer": 25,
+   "width": "16k",
+   "l0": 20,
+   "repo": "google/gemma-scope-2-1b-pt",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "source": "registry",
+   "name": "gs2_1b_all_L25_16k_small",
+   "arch": "gs2",
+   "files": [
+    "resid_post_all/layer_25_width_16k_l0_small/params.safetensors",
+    "resid_post_all/layer_25_width_16k_l0_small/config.json"
+   ],
+   "addon": ""
+  },
+  "L25_gs2_1b_all_L25_16k_big": {
+   "layer": 25,
+   "width": "16k",
+   "l0": 120,
+   "repo": "google/gemma-scope-2-1b-pt",
+   "revision": "b738dc06961818c011fb2e44a316352ca0f4e873",
+   "source": "registry",
+   "name": "gs2_1b_all_L25_16k_big",
+   "arch": "gs2",
+   "files": [
+    "resid_post_all/layer_25_width_16k_l0_big/params.safetensors",
+    "resid_post_all/layer_25_width_16k_l0_big/config.json"
+   ],
+   "addon": ""
+  }
+ },
+ "created": "2026-11-26T04:38:22+0530",
+ "wall_time_s": 1592.1
+}

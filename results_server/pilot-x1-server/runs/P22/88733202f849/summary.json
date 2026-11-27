@@ -1,0 +1,3181 @@
+{
+ "exp_id": "P22",
+ "run_hash": "88733202f849",
+ "n_rows": 273000,
+ "hook_checks": [
+  {
+   "cell": "refusal_0_L0_gs2_1bit_all_L0_16k_big_pilot",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_0_L0_gs2_1bit_all_L0_16k_big_pilot",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_0_L0_gs2_1bit_all_L0_16k_small_pilot",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_0_L0_gs2_1bit_all_L0_16k_small_pilot",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_1_L1_gs2_1bit_all_L1_16k_big_pilot",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_1_L1_gs2_1bit_all_L1_16k_big_pilot",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_1_L1_gs2_1bit_all_L1_16k_small_pilot",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_1_L1_gs2_1bit_all_L1_16k_small_pilot",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_2_L2_gs2_1bit_all_L2_16k_big_pilot",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_2_L2_gs2_1bit_all_L2_16k_big_pilot",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_2_L2_gs2_1bit_all_L2_16k_small_pilot",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_2_L2_gs2_1bit_all_L2_16k_small_pilot",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_3_L3_gs2_1bit_all_L3_16k_big_pilot",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_3_L3_gs2_1bit_all_L3_16k_big_pilot",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_3_L3_gs2_1bit_all_L3_16k_small_pilot",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_3_L3_gs2_1bit_all_L3_16k_small_pilot",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_4_L4_gs2_1bit_all_L4_16k_big_pilot",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_4_L4_gs2_1bit_all_L4_16k_big_pilot",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_4_L4_gs2_1bit_all_L4_16k_small_pilot",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_4_L4_gs2_1bit_all_L4_16k_small_pilot",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_5_L5_gs2_1bit_all_L5_16k_big_pilot",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_5_L5_gs2_1bit_all_L5_16k_big_pilot",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_5_L5_gs2_1bit_all_L5_16k_small_pilot",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_5_L5_gs2_1bit_all_L5_16k_small_pilot",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_6_L6_gs2_1bit_all_L6_16k_big_pilot",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_6_L6_gs2_1bit_all_L6_16k_big_pilot",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_6_L6_gs2_1bit_all_L6_16k_small_pilot",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_6_L6_gs2_1bit_all_L6_16k_small_pilot",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_7_L7_gs2_1bit_all_L7_16k_big_pilot",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_7_L7_gs2_1bit_all_L7_16k_big_pilot",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_7_L7_gs2_1bit_all_L7_16k_small_pilot",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_7_L7_gs2_1bit_all_L7_16k_small_pilot",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_8_L8_gs2_1bit_all_L8_16k_big_pilot",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_8_L8_gs2_1bit_all_L8_16k_big_pilot",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_8_L8_gs2_1bit_all_L8_16k_small_pilot",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_8_L8_gs2_1bit_all_L8_16k_small_pilot",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_9_L9_gs2_1bit_all_L9_16k_big_pilot",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_9_L9_gs2_1bit_all_L9_16k_big_pilot",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_9_L9_gs2_1bit_all_L9_16k_small_pilot",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_9_L9_gs2_1bit_all_L9_16k_small_pilot",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_10_L10_gs2_1bit_all_L10_16k_big_pilot",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_10_L10_gs2_1bit_all_L10_16k_big_pilot",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_10_L10_gs2_1bit_all_L10_16k_small_pilot",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_10_L10_gs2_1bit_all_L10_16k_small_pilot",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_11_L11_gs2_1bit_all_L11_16k_big_pilot",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_11_L11_gs2_1bit_all_L11_16k_big_pilot",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_11_L11_gs2_1bit_all_L11_16k_small_pilot",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_11_L11_gs2_1bit_all_L11_16k_small_pilot",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_12_L12_gs2_1bit_all_L12_16k_big_pilot",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_12_L12_gs2_1bit_all_L12_16k_big_pilot",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_12_L12_gs2_1bit_all_L12_16k_small_pilot",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_12_L12_gs2_1bit_all_L12_16k_small_pilot",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_13_L13_gs2_1bit_all_L13_16k_big_pilot",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_13_L13_gs2_1bit_all_L13_16k_big_pilot",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_13_L13_gs2_1bit_all_L13_16k_small_pilot",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_13_L13_gs2_1bit_all_L13_16k_small_pilot",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_14_L14_gs2_1bit_all_L14_16k_big_pilot",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_14_L14_gs2_1bit_all_L14_16k_big_pilot",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_14_L14_gs2_1bit_all_L14_16k_small_pilot",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_14_L14_gs2_1bit_all_L14_16k_small_pilot",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_15_L15_gs2_1bit_all_L15_16k_big_pilot",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_15_L15_gs2_1bit_all_L15_16k_big_pilot",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_15_L15_gs2_1bit_all_L15_16k_small_pilot",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_15_L15_gs2_1bit_all_L15_16k_small_pilot",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_16_L16_gs2_1bit_all_L16_16k_big_pilot",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_16_L16_gs2_1bit_all_L16_16k_big_pilot",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_16_L16_gs2_1bit_all_L16_16k_small_pilot",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_16_L16_gs2_1bit_all_L16_16k_small_pilot",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_17_L17_gs2_1bit_all_L17_16k_big_pilot",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_17_L17_gs2_1bit_all_L17_16k_big_pilot",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_17_L17_gs2_1bit_all_L17_16k_small_pilot",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_17_L17_gs2_1bit_all_L17_16k_small_pilot",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_18_L18_gs2_1bit_all_L18_16k_big_pilot",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_18_L18_gs2_1bit_all_L18_16k_big_pilot",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_18_L18_gs2_1bit_all_L18_16k_small_pilot",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_18_L18_gs2_1bit_all_L18_16k_small_pilot",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_19_L19_gs2_1bit_all_L19_16k_big_pilot",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_19_L19_gs2_1bit_all_L19_16k_big_pilot",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_19_L19_gs2_1bit_all_L19_16k_small_pilot",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_19_L19_gs2_1bit_all_L19_16k_small_pilot",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_20_L20_gs2_1bit_all_L20_16k_big_pilot",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_20_L20_gs2_1bit_all_L20_16k_big_pilot",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_20_L20_gs2_1bit_all_L20_16k_small_pilot",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_20_L20_gs2_1bit_all_L20_16k_small_pilot",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_21_L21_gs2_1bit_all_L21_16k_big_pilot",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_21_L21_gs2_1bit_all_L21_16k_big_pilot",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_21_L21_gs2_1bit_all_L21_16k_small_pilot",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_21_L21_gs2_1bit_all_L21_16k_small_pilot",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_22_L22_gs2_1bit_all_L22_16k_big_pilot",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_22_L22_gs2_1bit_all_L22_16k_big_pilot",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_22_L22_gs2_1bit_all_L22_16k_small_pilot",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_22_L22_gs2_1bit_all_L22_16k_small_pilot",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_23_L23_gs2_1bit_all_L23_16k_big_pilot",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_23_L23_gs2_1bit_all_L23_16k_big_pilot",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_23_L23_gs2_1bit_all_L23_16k_small_pilot",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_23_L23_gs2_1bit_all_L23_16k_small_pilot",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_24_L24_gs2_1bit_all_L24_16k_big_pilot",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_24_L24_gs2_1bit_all_L24_16k_big_pilot",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_24_L24_gs2_1bit_all_L24_16k_small_pilot",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_24_L24_gs2_1bit_all_L24_16k_small_pilot",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_25_L25_gs2_1bit_all_L25_16k_big_pilot",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_25_L25_gs2_1bit_all_L25_16k_big_pilot",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_25_L25_gs2_1bit_all_L25_16k_small_pilot",
+   "check": "full_B vs clean_B",
+   "max_abs_dD": 0.0
+  },
+  {
+   "cell": "refusal_25_L25_gs2_1bit_all_L25_16k_small_pilot",
+   "check": "full_A vs clean_A",
+   "max_abs_dD": 0.0
+  }
+ ],
+ "cells": [
+  {
+   "cell": "refusal_L0_gs2_1bit_all_L0_16k_small",
+   "role": "exploratory",
+   "sae": {
+    "layer": 0,
+    "width": "16k",
+    "l0": 10,
+    "repo": "google/gemma-scope-2-1b-it",
+    "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+    "source": "registry",
+    "name": "gs2_1bit_all_L0_16k_small",
+    "arch": "gs2",
+    "files": [
+     "resid_post_all/layer_0_width_16k_l0_small/params.safetensors",
+     "resid_post_all/layer_0_width_16k_l0_small/config.json"
+    ],
+    "addon": ""
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "4a9da926b5ee95d1",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    }
+   },
+   "mean_l0_test": [
+    12.512024879455566,
+    11.689240455627441
+   ],
+   "rel_err_norm_test": 0.10748554021120071,
+   "mean_pos_coverage": {
+    "slot": 0,
+    "offset": 1580,
+    "task": 0
+   }
+  },
+  {
+   "cell": "refusal_L0_gs2_1bit_all_L0_16k_big",
+   "role": "exploratory",
+   "sae": {
+    "layer": 0,
+    "width": "16k",
+    "l0": 60,
+    "repo": "google/gemma-scope-2-1b-it",
+    "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+    "source": "registry",
+    "name": "gs2_1bit_all_L0_16k_big",
+    "arch": "gs2",
+    "files": [
+     "resid_post_all/layer_0_width_16k_l0_big/params.safetensors",
+     "resid_post_all/layer_0_width_16k_l0_big/config.json"
+    ],
+    "addon": ""
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "4a9da926b5ee95d1",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    }
+   },
+   "mean_l0_test": [
+    55.851898193359375,
+    52.239871978759766
+   ],
+   "rel_err_norm_test": 0.06579714268445969,
+   "mean_pos_coverage": {
+    "slot": 0,
+    "offset": 1580,
+    "task": 0
+   }
+  },
+  {
+   "cell": "refusal_L1_gs2_1bit_all_L1_16k_small",
+   "role": "exploratory",
+   "sae": {
+    "layer": 1,
+    "width": "16k",
+    "l0": 11,
+    "repo": "google/gemma-scope-2-1b-it",
+    "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+    "source": "registry",
+    "name": "gs2_1bit_all_L1_16k_small",
+    "arch": "gs2",
+    "files": [
+     "resid_post_all/layer_1_width_16k_l0_small/params.safetensors",
+     "resid_post_all/layer_1_width_16k_l0_small/config.json"
+    ],
+    "addon": ""
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "4a9da926b5ee95d1",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    }
+   },
+   "mean_l0_test": [
+    11.70822811126709,
+    11.443037986755371
+   ],
+   "rel_err_norm_test": 0.11339569836854935,
+   "mean_pos_coverage": {
+    "slot": 0,
+    "offset": 1580,
+    "task": 0
+   }
+  },
+  {
+   "cell": "refusal_L1_gs2_1bit_all_L1_16k_big",
+   "role": "exploratory",
+   "sae": {
+    "layer": 1,
+    "width": "16k",
+    "l0": 66,
+    "repo": "google/gemma-scope-2-1b-it",
+    "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+    "source": "registry",
+    "name": "gs2_1bit_all_L1_16k_big",
+    "arch": "gs2",
+    "files": [
+     "resid_post_all/layer_1_width_16k_l0_big/params.safetensors",
+     "resid_post_all/layer_1_width_16k_l0_big/config.json"
+    ],
+    "addon": ""
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "4a9da926b5ee95d1",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    }
+   },
+   "mean_l0_test": [
+    60.29430389404297,
+    58.35063171386719
+   ],
+   "rel_err_norm_test": 0.07480617612600327,
+   "mean_pos_coverage": {
+    "slot": 0,
+    "offset": 1580,
+    "task": 0
+   }
+  },
+  {
+   "cell": "refusal_L2_gs2_1bit_all_L2_16k_small",
+   "role": "exploratory",
+   "sae": {
+    "layer": 2,
+    "width": "16k",
+    "l0": 12,
+    "repo": "google/gemma-scope-2-1b-it",
+    "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+    "source": "registry",
+    "name": "gs2_1bit_all_L2_16k_small",
+    "arch": "gs2",
+    "files": [
+     "resid_post_all/layer_2_width_16k_l0_small/params.safetensors",
+     "resid_post_all/layer_2_width_16k_l0_small/config.json"
+    ],
+    "addon": ""
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "4a9da926b5ee95d1",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    }
+   },
+   "mean_l0_test": [
+    12.433544158935547,
+    12.038607597351074
+   ],
+   "rel_err_norm_test": 0.1229664608836174,
+   "mean_pos_coverage": {
+    "slot": 0,
+    "offset": 1580,
+    "task": 0
+   }
+  },
+  {
+   "cell": "refusal_L2_gs2_1bit_all_L2_16k_big",
+   "role": "exploratory",
+   "sae": {
+    "layer": 2,
+    "width": "16k",
+    "l0": 73,
+    "repo": "google/gemma-scope-2-1b-it",
+    "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+    "source": "registry",
+    "name": "gs2_1bit_all_L2_16k_big",
+    "arch": "gs2",
+    "files": [
+     "resid_post_all/layer_2_width_16k_l0_big/params.safetensors",
+     "resid_post_all/layer_2_width_16k_l0_big/config.json"
+    ],
+    "addon": ""
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "4a9da926b5ee95d1",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    }
+   },
+   "mean_l0_test": [
+    67.65885925292969,
+    65.53291320800781
+   ],
+   "rel_err_norm_test": 0.07978825271129608,
+   "mean_pos_coverage": {
+    "slot": 0,
+    "offset": 1580,
+    "task": 0
+   }
+  },
+  {
+   "cell": "refusal_L3_gs2_1bit_all_L3_16k_small",
+   "role": "exploratory",
+   "sae": {
+    "layer": 3,
+    "width": "16k",
+    "l0": 13,
+    "repo": "google/gemma-scope-2-1b-it",
+    "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+    "source": "registry",
+    "name": "gs2_1bit_all_L3_16k_small",
+    "arch": "gs2",
+    "files": [
+     "resid_post_all/layer_3_width_16k_l0_small/params.safetensors",
+     "resid_post_all/layer_3_width_16k_l0_small/config.json"
+    ],
+    "addon": ""
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "4a9da926b5ee95d1",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    }
+   },
+   "mean_l0_test": [
+    12.865822792053223,
+    12.6968355178833
+   ],
+   "rel_err_norm_test": 0.09763196855783463,
+   "mean_pos_coverage": {
+    "slot": 0,
+    "offset": 1580,
+    "task": 0
+   }
+  },
+  {
+   "cell": "refusal_L3_gs2_1bit_all_L3_16k_big",
+   "role": "exploratory",
+   "sae": {
+    "layer": 3,
+    "width": "16k",
+    "l0": 80,
+    "repo": "google/gemma-scope-2-1b-it",
+    "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+    "source": "registry",
+    "name": "gs2_1bit_all_L3_16k_big",
+    "arch": "gs2",
+    "files": [
+     "resid_post_all/layer_3_width_16k_l0_big/params.safetensors",
+     "resid_post_all/layer_3_width_16k_l0_big/config.json"
+    ],
+    "addon": ""
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "4a9da926b5ee95d1",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    }
+   },
+   "mean_l0_test": [
+    74.0075912475586,
+    71.81771850585938
+   ],
+   "rel_err_norm_test": 0.06335703283548355,
+   "mean_pos_coverage": {
+    "slot": 0,
+    "offset": 1580,
+    "task": 0
+   }
+  },
+  {
+   "cell": "refusal_L4_gs2_1bit_all_L4_16k_small",
+   "role": "exploratory",
+   "sae": {
+    "layer": 4,
+    "width": "16k",
+    "l0": 14,
+    "repo": "google/gemma-scope-2-1b-it",
+    "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+    "source": "registry",
+    "name": "gs2_1bit_all_L4_16k_small",
+    "arch": "gs2",
+    "files": [
+     "resid_post_all/layer_4_width_16k_l0_small/params.safetensors",
+     "resid_post_all/layer_4_width_16k_l0_small/config.json"
+    ],
+    "addon": ""
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "4a9da926b5ee95d1",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    }
+   },
+   "mean_l0_test": [
+    13.849367141723633,
+    13.54177188873291
+   ],
+   "rel_err_norm_test": 0.09336631745100021,
+   "mean_pos_coverage": {
+    "slot": 0,
+    "offset": 1580,
+    "task": 0
+   }
+  },
+  {
+   "cell": "refusal_L4_gs2_1bit_all_L4_16k_big",
+   "role": "exploratory",
+   "sae": {
+    "layer": 4,
+    "width": "16k",
+    "l0": 87,
+    "repo": "google/gemma-scope-2-1b-it",
+    "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+    "source": "registry",
+    "name": "gs2_1bit_all_L4_16k_big",
+    "arch": "gs2",
+    "files": [
+     "resid_post_all/layer_4_width_16k_l0_big/params.safetensors",
+     "resid_post_all/layer_4_width_16k_l0_big/config.json"
+    ],
+    "addon": ""
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "4a9da926b5ee95d1",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    }
+   },
+   "mean_l0_test": [
+    81.56329345703125,
+    79.70696258544922
+   ],
+   "rel_err_norm_test": 0.06555566936731339,
+   "mean_pos_coverage": {
+    "slot": 0,
+    "offset": 1580,
+    "task": 0
+   }
+  },
+  {
+   "cell": "refusal_L5_gs2_1bit_all_L5_16k_small",
+   "role": "exploratory",
+   "sae": {
+    "layer": 5,
+    "width": "16k",
+    "l0": 15,
+    "repo": "google/gemma-scope-2-1b-it",
+    "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+    "source": "registry",
+    "name": "gs2_1bit_all_L5_16k_small",
+    "arch": "gs2",
+    "files": [
+     "resid_post_all/layer_5_width_16k_l0_small/params.safetensors",
+     "resid_post_all/layer_5_width_16k_l0_small/config.json"
+    ],
+    "addon": ""
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "4a9da926b5ee95d1",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    }
+   },
+   "mean_l0_test": [
+    15.008228302001953,
+    14.774683952331543
+   ],
+   "rel_err_norm_test": 0.07395998388528824,
+   "mean_pos_coverage": {
+    "slot": 0,
+    "offset": 1580,
+    "task": 0
+   }
+  },
+  {
+   "cell": "refusal_L5_gs2_1bit_all_L5_16k_big",
+   "role": "exploratory",
+   "sae": {
+    "layer": 5,
+    "width": "16k",
+    "l0": 94,
+    "repo": "google/gemma-scope-2-1b-it",
+    "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+    "source": "registry",
+    "name": "gs2_1bit_all_L5_16k_big",
+    "arch": "gs2",
+    "files": [
+     "resid_post_all/layer_5_width_16k_l0_big/params.safetensors",
+     "resid_post_all/layer_5_width_16k_l0_big/config.json"
+    ],
+    "addon": ""
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "4a9da926b5ee95d1",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    }
+   },
+   "mean_l0_test": [
+    88.92088317871094,
+    86.06012725830078
+   ],
+   "rel_err_norm_test": 0.053572025150060654,
+   "mean_pos_coverage": {
+    "slot": 0,
+    "offset": 1580,
+    "task": 0
+   }
+  },
+  {
+   "cell": "refusal_L6_gs2_1bit_all_L6_16k_small",
+   "role": "exploratory",
+   "sae": {
+    "layer": 6,
+    "width": "16k",
+    "l0": 16,
+    "repo": "google/gemma-scope-2-1b-it",
+    "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+    "source": "registry",
+    "name": "gs2_1bit_all_L6_16k_small",
+    "arch": "gs2",
+    "files": [
+     "resid_post_all/layer_6_width_16k_l0_small/params.safetensors",
+     "resid_post_all/layer_6_width_16k_l0_small/config.json"
+    ],
+    "addon": ""
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "4a9da926b5ee95d1",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    }
+   },
+   "mean_l0_test": [
+    16.581012725830078,
+    15.93797492980957
+   ],
+   "rel_err_norm_test": 0.08460981398820877,
+   "mean_pos_coverage": {
+    "slot": 0,
+    "offset": 1580,
+    "task": 0
+   }
+  },
+  {
+   "cell": "refusal_L6_gs2_1bit_all_L6_16k_big",
+   "role": "exploratory",
+   "sae": {
+    "layer": 6,
+    "width": "16k",
+    "l0": 101,
+    "repo": "google/gemma-scope-2-1b-it",
+    "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+    "source": "registry",
+    "name": "gs2_1bit_all_L6_16k_big",
+    "arch": "gs2",
+    "files": [
+     "resid_post_all/layer_6_width_16k_l0_big/params.safetensors",
+     "resid_post_all/layer_6_width_16k_l0_big/config.json"
+    ],
+    "addon": ""
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "4a9da926b5ee95d1",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    }
+   },
+   "mean_l0_test": [
+    98.49493408203125,
+    94.08607482910156
+   ],
+   "rel_err_norm_test": 0.06307552009820938,
+   "mean_pos_coverage": {
+    "slot": 0,
+    "offset": 1580,
+    "task": 0
+   }
+  },
+  {
+   "cell": "refusal_L7_gs2_1bit_all_L7_16k_small",
+   "role": "exploratory",
+   "sae": {
+    "layer": 7,
+    "width": "16k",
+    "l0": 18,
+    "repo": "google/gemma-scope-2-1b-it",
+    "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+    "source": "registry",
+    "name": "gs2_1bit_all_L7_16k_small",
+    "arch": "gs2",
+    "files": [
+     "resid_post_all/layer_7_width_16k_l0_small/params.safetensors",
+     "resid_post_all/layer_7_width_16k_l0_small/config.json"
+    ],
+    "addon": ""
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "4a9da926b5ee95d1",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    }
+   },
+   "mean_l0_test": [
+    19.62784767150879,
+    19.005695343017578
+   ],
+   "rel_err_norm_test": 0.06990508735179901,
+   "mean_pos_coverage": {
+    "slot": 0,
+    "offset": 1580,
+    "task": 0
+   }
+  },
+  {
+   "cell": "refusal_L7_gs2_1bit_all_L7_16k_big",
+   "role": "exploratory",
+   "sae": {
+    "layer": 7,
+    "width": "16k",
+    "l0": 108,
+    "repo": "google/gemma-scope-2-1b-it",
+    "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+    "source": "registry",
+    "name": "gs2_1bit_all_L7_16k_big",
+    "arch": "gs2",
+    "files": [
+     "resid_post_all/layer_7_width_16k_l0_big/params.safetensors",
+     "resid_post_all/layer_7_width_16k_l0_big/config.json"
+    ],
+    "addon": ""
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "4a9da926b5ee95d1",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    }
+   },
+   "mean_l0_test": [
+    110.62152099609375,
+    105.48480987548828
+   ],
+   "rel_err_norm_test": 0.05332362651824951,
+   "mean_pos_coverage": {
+    "slot": 0,
+    "offset": 1580,
+    "task": 0
+   }
+  },
+  {
+   "cell": "refusal_L8_gs2_1bit_all_L8_16k_small",
+   "role": "exploratory",
+   "sae": {
+    "layer": 8,
+    "width": "16k",
+    "l0": 19,
+    "repo": "google/gemma-scope-2-1b-it",
+    "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+    "source": "registry",
+    "name": "gs2_1bit_all_L8_16k_small",
+    "arch": "gs2",
+    "files": [
+     "resid_post_all/layer_8_width_16k_l0_small/params.safetensors",
+     "resid_post_all/layer_8_width_16k_l0_small/config.json"
+    ],
+    "addon": ""
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "4a9da926b5ee95d1",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    }
+   },
+   "mean_l0_test": [
+    21.936708450317383,
+    19.074050903320312
+   ],
+   "rel_err_norm_test": 0.061117060482501984,
+   "mean_pos_coverage": {
+    "slot": 0,
+    "offset": 1580,
+    "task": 0
+   }
+  },
+  {
+   "cell": "refusal_L8_gs2_1bit_all_L8_16k_big",
+   "role": "exploratory",
+   "sae": {
+    "layer": 8,
+    "width": "16k",
+    "l0": 115,
+    "repo": "google/gemma-scope-2-1b-it",
+    "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+    "source": "registry",
+    "name": "gs2_1bit_all_L8_16k_big",
+    "arch": "gs2",
+    "files": [
+     "resid_post_all/layer_8_width_16k_l0_big/params.safetensors",
+     "resid_post_all/layer_8_width_16k_l0_big/config.json"
+    ],
+    "addon": ""
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "4a9da926b5ee95d1",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    }
+   },
+   "mean_l0_test": [
+    127.37657928466797,
+    112.38861083984375
+   ],
+   "rel_err_norm_test": 0.048190224915742874,
+   "mean_pos_coverage": {
+    "slot": 0,
+    "offset": 1580,
+    "task": 0
+   }
+  },
+  {
+   "cell": "refusal_L9_gs2_1bit_all_L9_16k_small",
+   "role": "exploratory",
+   "sae": {
+    "layer": 9,
+    "width": "16k",
+    "l0": 20,
+    "repo": "google/gemma-scope-2-1b-it",
+    "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+    "source": "registry",
+    "name": "gs2_1bit_all_L9_16k_small",
+    "arch": "gs2",
+    "files": [
+     "resid_post_all/layer_9_width_16k_l0_small/params.safetensors",
+     "resid_post_all/layer_9_width_16k_l0_small/config.json"
+    ],
+    "addon": ""
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "4a9da926b5ee95d1",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    }
+   },
+   "mean_l0_test": [
+    21.970252990722656,
+    18.700632095336914
+   ],
+   "rel_err_norm_test": 0.07201911509037018,
+   "mean_pos_coverage": {
+    "slot": 0,
+    "offset": 1580,
+    "task": 0
+   }
+  },
+  {
+   "cell": "refusal_L9_gs2_1bit_all_L9_16k_big",
+   "role": "exploratory",
+   "sae": {
+    "layer": 9,
+    "width": "16k",
+    "l0": 120,
+    "repo": "google/gemma-scope-2-1b-it",
+    "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+    "source": "registry",
+    "name": "gs2_1bit_all_L9_16k_big",
+    "arch": "gs2",
+    "files": [
+     "resid_post_all/layer_9_width_16k_l0_big/params.safetensors",
+     "resid_post_all/layer_9_width_16k_l0_big/config.json"
+    ],
+    "addon": ""
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "4a9da926b5ee95d1",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    }
+   },
+   "mean_l0_test": [
+    132.4746856689453,
+    114.64303588867188
+   ],
+   "rel_err_norm_test": 0.05336996167898178,
+   "mean_pos_coverage": {
+    "slot": 0,
+    "offset": 1580,
+    "task": 0
+   }
+  },
+  {
+   "cell": "refusal_L10_gs2_1bit_all_L10_16k_small",
+   "role": "exploratory",
+   "sae": {
+    "layer": 10,
+    "width": "16k",
+    "l0": 20,
+    "repo": "google/gemma-scope-2-1b-it",
+    "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+    "source": "registry",
+    "name": "gs2_1bit_all_L10_16k_small",
+    "arch": "gs2",
+    "files": [
+     "resid_post_all/layer_10_width_16k_l0_small/params.safetensors",
+     "resid_post_all/layer_10_width_16k_l0_small/config.json"
+    ],
+    "addon": ""
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "4a9da926b5ee95d1",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    }
+   },
+   "mean_l0_test": [
+    21.72468376159668,
+    18.929113388061523
+   ],
+   "rel_err_norm_test": 0.06923462450504303,
+   "mean_pos_coverage": {
+    "slot": 0,
+    "offset": 1580,
+    "task": 0
+   }
+  },
+  {
+   "cell": "refusal_L10_gs2_1bit_all_L10_16k_big",
+   "role": "exploratory",
+   "sae": {
+    "layer": 10,
+    "width": "16k",
+    "l0": 120,
+    "repo": "google/gemma-scope-2-1b-it",
+    "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+    "source": "registry",
+    "name": "gs2_1bit_all_L10_16k_big",
+    "arch": "gs2",
+    "files": [
+     "resid_post_all/layer_10_width_16k_l0_big/params.safetensors",
+     "resid_post_all/layer_10_width_16k_l0_big/config.json"
+    ],
+    "addon": ""
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "4a9da926b5ee95d1",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    }
+   },
+   "mean_l0_test": [
+    124.07341766357422,
+    108.00949096679688
+   ],
+   "rel_err_norm_test": 0.05188077315688133,
+   "mean_pos_coverage": {
+    "slot": 0,
+    "offset": 1580,
+    "task": 0
+   }
+  },
+  {
+   "cell": "refusal_L11_gs2_1bit_all_L11_16k_small",
+   "role": "exploratory",
+   "sae": {
+    "layer": 11,
+    "width": "16k",
+    "l0": 20,
+    "repo": "google/gemma-scope-2-1b-it",
+    "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+    "source": "registry",
+    "name": "gs2_1bit_all_L11_16k_small",
+    "arch": "gs2",
+    "files": [
+     "resid_post_all/layer_11_width_16k_l0_small/params.safetensors",
+     "resid_post_all/layer_11_width_16k_l0_small/config.json"
+    ],
+    "addon": ""
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "4a9da926b5ee95d1",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    }
+   },
+   "mean_l0_test": [
+    21.49240493774414,
+    18.955062866210938
+   ],
+   "rel_err_norm_test": 0.061815179884433746,
+   "mean_pos_coverage": {
+    "slot": 0,
+    "offset": 1580,
+    "task": 0
+   }
+  },
+  {
+   "cell": "refusal_L11_gs2_1bit_all_L11_16k_big",
+   "role": "exploratory",
+   "sae": {
+    "layer": 11,
+    "width": "16k",
+    "l0": 120,
+    "repo": "google/gemma-scope-2-1b-it",
+    "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+    "source": "registry",
+    "name": "gs2_1bit_all_L11_16k_big",
+    "arch": "gs2",
+    "files": [
+     "resid_post_all/layer_11_width_16k_l0_big/params.safetensors",
+     "resid_post_all/layer_11_width_16k_l0_big/config.json"
+    ],
+    "addon": ""
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "4a9da926b5ee95d1",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    }
+   },
+   "mean_l0_test": [
+    113.45632934570312,
+    103.33987426757812
+   ],
+   "rel_err_norm_test": 0.04865263029932976,
+   "mean_pos_coverage": {
+    "slot": 0,
+    "offset": 1580,
+    "task": 0
+   }
+  },
+  {
+   "cell": "refusal_L12_gs2_1bit_all_L12_16k_small",
+   "role": "exploratory",
+   "sae": {
+    "layer": 12,
+    "width": "16k",
+    "l0": 20,
+    "repo": "google/gemma-scope-2-1b-it",
+    "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+    "source": "registry",
+    "name": "gs2_1bit_all_L12_16k_small",
+    "arch": "gs2",
+    "files": [
+     "resid_post_all/layer_12_width_16k_l0_small/params.safetensors",
+     "resid_post_all/layer_12_width_16k_l0_small/config.json"
+    ],
+    "addon": ""
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "4a9da926b5ee95d1",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    }
+   },
+   "mean_l0_test": [
+    21.00379753112793,
+    19.494304656982422
+   ],
+   "rel_err_norm_test": 0.06890624016523361,
+   "mean_pos_coverage": {
+    "slot": 0,
+    "offset": 1580,
+    "task": 0
+   }
+  },
+  {
+   "cell": "refusal_L12_gs2_1bit_all_L12_16k_big",
+   "role": "exploratory",
+   "sae": {
+    "layer": 12,
+    "width": "16k",
+    "l0": 120,
+    "repo": "google/gemma-scope-2-1b-it",
+    "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+    "source": "registry",
+    "name": "gs2_1bit_all_L12_16k_big",
+    "arch": "gs2",
+    "files": [
+     "resid_post_all/layer_12_width_16k_l0_big/params.safetensors",
+     "resid_post_all/layer_12_width_16k_l0_big/config.json"
+    ],
+    "addon": ""
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "4a9da926b5ee95d1",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    }
+   },
+   "mean_l0_test": [
+    116.87657928466797,
+    105.77214813232422
+   ],
+   "rel_err_norm_test": 0.05394395813345909,
+   "mean_pos_coverage": {
+    "slot": 0,
+    "offset": 1580,
+    "task": 0
+   }
+  },
+  {
+   "cell": "refusal_L13_gs2_1bit_all_L13_16k_small",
+   "role": "exploratory",
+   "sae": {
+    "layer": 13,
+    "width": "16k",
+    "l0": 20,
+    "repo": "google/gemma-scope-2-1b-it",
+    "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+    "source": "registry",
+    "name": "gs2_1bit_all_L13_16k_small",
+    "arch": "gs2",
+    "files": [
+     "resid_post_all/layer_13_width_16k_l0_small/params.safetensors",
+     "resid_post_all/layer_13_width_16k_l0_small/config.json"
+    ],
+    "addon": ""
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "4a9da926b5ee95d1",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    }
+   },
+   "mean_l0_test": [
+    18.115821838378906,
+    16.022151947021484
+   ],
+   "rel_err_norm_test": 0.08772148191928864,
+   "mean_pos_coverage": {
+    "slot": 0,
+    "offset": 1580,
+    "task": 0
+   }
+  },
+  {
+   "cell": "refusal_L13_gs2_1bit_all_L13_16k_big",
+   "role": "exploratory",
+   "sae": {
+    "layer": 13,
+    "width": "16k",
+    "l0": 120,
+    "repo": "google/gemma-scope-2-1b-it",
+    "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+    "source": "registry",
+    "name": "gs2_1bit_all_L13_16k_big",
+    "arch": "gs2",
+    "files": [
+     "resid_post_all/layer_13_width_16k_l0_big/params.safetensors",
+     "resid_post_all/layer_13_width_16k_l0_big/config.json"
+    ],
+    "addon": ""
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "4a9da926b5ee95d1",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    }
+   },
+   "mean_l0_test": [
+    107.49873352050781,
+    94.79240417480469
+   ],
+   "rel_err_norm_test": 0.07136929035186768,
+   "mean_pos_coverage": {
+    "slot": 0,
+    "offset": 1580,
+    "task": 0
+   }
+  },
+  {
+   "cell": "refusal_L14_gs2_1bit_all_L14_16k_small",
+   "role": "exploratory",
+   "sae": {
+    "layer": 14,
+    "width": "16k",
+    "l0": 20,
+    "repo": "google/gemma-scope-2-1b-it",
+    "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+    "source": "registry",
+    "name": "gs2_1bit_all_L14_16k_small",
+    "arch": "gs2",
+    "files": [
+     "resid_post_all/layer_14_width_16k_l0_small/params.safetensors",
+     "resid_post_all/layer_14_width_16k_l0_small/config.json"
+    ],
+    "addon": ""
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "4a9da926b5ee95d1",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    }
+   },
+   "mean_l0_test": [
+    19.586708068847656,
+    17.308860778808594
+   ],
+   "rel_err_norm_test": 0.09888682514429092,
+   "mean_pos_coverage": {
+    "slot": 0,
+    "offset": 1580,
+    "task": 0
+   }
+  },
+  {
+   "cell": "refusal_L14_gs2_1bit_all_L14_16k_big",
+   "role": "exploratory",
+   "sae": {
+    "layer": 14,
+    "width": "16k",
+    "l0": 120,
+    "repo": "google/gemma-scope-2-1b-it",
+    "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+    "source": "registry",
+    "name": "gs2_1bit_all_L14_16k_big",
+    "arch": "gs2",
+    "files": [
+     "resid_post_all/layer_14_width_16k_l0_big/params.safetensors",
+     "resid_post_all/layer_14_width_16k_l0_big/config.json"
+    ],
+    "addon": ""
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "4a9da926b5ee95d1",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    }
+   },
+   "mean_l0_test": [
+    107.27214813232422,
+    96.4993667602539
+   ],
+   "rel_err_norm_test": 0.08527438342571259,
+   "mean_pos_coverage": {
+    "slot": 0,
+    "offset": 1580,
+    "task": 0
+   }
+  },
+  {
+   "cell": "refusal_L15_gs2_1bit_all_L15_16k_small",
+   "role": "exploratory",
+   "sae": {
+    "layer": 15,
+    "width": "16k",
+    "l0": 20,
+    "repo": "google/gemma-scope-2-1b-it",
+    "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+    "source": "registry",
+    "name": "gs2_1bit_all_L15_16k_small",
+    "arch": "gs2",
+    "files": [
+     "resid_post_all/layer_15_width_16k_l0_small/params.safetensors",
+     "resid_post_all/layer_15_width_16k_l0_small/config.json"
+    ],
+    "addon": ""
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "4a9da926b5ee95d1",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    }
+   },
+   "mean_l0_test": [
+    17.624683380126953,
+    14.865189552307129
+   ],
+   "rel_err_norm_test": 0.11515984684228897,
+   "mean_pos_coverage": {
+    "slot": 0,
+    "offset": 1580,
+    "task": 0
+   }
+  },
+  {
+   "cell": "refusal_L15_gs2_1bit_all_L15_16k_big",
+   "role": "exploratory",
+   "sae": {
+    "layer": 15,
+    "width": "16k",
+    "l0": 120,
+    "repo": "google/gemma-scope-2-1b-it",
+    "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+    "source": "registry",
+    "name": "gs2_1bit_all_L15_16k_big",
+    "arch": "gs2",
+    "files": [
+     "resid_post_all/layer_15_width_16k_l0_big/params.safetensors",
+     "resid_post_all/layer_15_width_16k_l0_big/config.json"
+    ],
+    "addon": ""
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "4a9da926b5ee95d1",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    }
+   },
+   "mean_l0_test": [
+    94.74746704101562,
+    86.24873352050781
+   ],
+   "rel_err_norm_test": 0.09645203500986099,
+   "mean_pos_coverage": {
+    "slot": 0,
+    "offset": 1580,
+    "task": 0
+   }
+  },
+  {
+   "cell": "refusal_L16_gs2_1bit_all_L16_16k_small",
+   "role": "exploratory",
+   "sae": {
+    "layer": 16,
+    "width": "16k",
+    "l0": 20,
+    "repo": "google/gemma-scope-2-1b-it",
+    "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+    "source": "registry",
+    "name": "gs2_1bit_all_L16_16k_small",
+    "arch": "gs2",
+    "files": [
+     "resid_post_all/layer_16_width_16k_l0_small/params.safetensors",
+     "resid_post_all/layer_16_width_16k_l0_small/config.json"
+    ],
+    "addon": ""
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "4a9da926b5ee95d1",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    }
+   },
+   "mean_l0_test": [
+    16.309494018554688,
+    15.082911491394043
+   ],
+   "rel_err_norm_test": 0.11702432483434677,
+   "mean_pos_coverage": {
+    "slot": 0,
+    "offset": 1580,
+    "task": 0
+   }
+  },
+  {
+   "cell": "refusal_L16_gs2_1bit_all_L16_16k_big",
+   "role": "exploratory",
+   "sae": {
+    "layer": 16,
+    "width": "16k",
+    "l0": 120,
+    "repo": "google/gemma-scope-2-1b-it",
+    "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+    "source": "registry",
+    "name": "gs2_1bit_all_L16_16k_big",
+    "arch": "gs2",
+    "files": [
+     "resid_post_all/layer_16_width_16k_l0_big/params.safetensors",
+     "resid_post_all/layer_16_width_16k_l0_big/config.json"
+    ],
+    "addon": ""
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "4a9da926b5ee95d1",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    }
+   },
+   "mean_l0_test": [
+    92.93733978271484,
+    91.09494018554688
+   ],
+   "rel_err_norm_test": 0.09765440225601196,
+   "mean_pos_coverage": {
+    "slot": 0,
+    "offset": 1580,
+    "task": 0
+   }
+  },
+  {
+   "cell": "refusal_L17_gs2_1bit_all_L17_16k_small",
+   "role": "exploratory",
+   "sae": {
+    "layer": 17,
+    "width": "16k",
+    "l0": 20,
+    "repo": "google/gemma-scope-2-1b-it",
+    "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+    "source": "registry",
+    "name": "gs2_1bit_all_L17_16k_small",
+    "arch": "gs2",
+    "files": [
+     "resid_post_all/layer_17_width_16k_l0_small/params.safetensors",
+     "resid_post_all/layer_17_width_16k_l0_small/config.json"
+    ],
+    "addon": ""
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "4a9da926b5ee95d1",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    }
+   },
+   "mean_l0_test": [
+    14.471518516540527,
+    13.66265869140625
+   ],
+   "rel_err_norm_test": 0.1338862031698227,
+   "mean_pos_coverage": {
+    "slot": 0,
+    "offset": 1580,
+    "task": 0
+   }
+  },
+  {
+   "cell": "refusal_L17_gs2_1bit_all_L17_16k_big",
+   "role": "exploratory",
+   "sae": {
+    "layer": 17,
+    "width": "16k",
+    "l0": 120,
+    "repo": "google/gemma-scope-2-1b-it",
+    "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+    "source": "registry",
+    "name": "gs2_1bit_all_L17_16k_big",
+    "arch": "gs2",
+    "files": [
+     "resid_post_all/layer_17_width_16k_l0_big/params.safetensors",
+     "resid_post_all/layer_17_width_16k_l0_big/config.json"
+    ],
+    "addon": ""
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "4a9da926b5ee95d1",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    }
+   },
+   "mean_l0_test": [
+    88.23417663574219,
+    82.62531280517578
+   ],
+   "rel_err_norm_test": 0.10974492877721786,
+   "mean_pos_coverage": {
+    "slot": 0,
+    "offset": 1580,
+    "task": 0
+   }
+  },
+  {
+   "cell": "refusal_L18_gs2_1bit_all_L18_16k_small",
+   "role": "exploratory",
+   "sae": {
+    "layer": 18,
+    "width": "16k",
+    "l0": 20,
+    "repo": "google/gemma-scope-2-1b-it",
+    "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+    "source": "registry",
+    "name": "gs2_1bit_all_L18_16k_small",
+    "arch": "gs2",
+    "files": [
+     "resid_post_all/layer_18_width_16k_l0_small/params.safetensors",
+     "resid_post_all/layer_18_width_16k_l0_small/config.json"
+    ],
+    "addon": ""
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "4a9da926b5ee95d1",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    }
+   },
+   "mean_l0_test": [
+    14.084177017211914,
+    13.881645202636719
+   ],
+   "rel_err_norm_test": 0.14670994877815247,
+   "mean_pos_coverage": {
+    "slot": 0,
+    "offset": 1580,
+    "task": 0
+   }
+  },
+  {
+   "cell": "refusal_L18_gs2_1bit_all_L18_16k_big",
+   "role": "exploratory",
+   "sae": {
+    "layer": 18,
+    "width": "16k",
+    "l0": 120,
+    "repo": "google/gemma-scope-2-1b-it",
+    "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+    "source": "registry",
+    "name": "gs2_1bit_all_L18_16k_big",
+    "arch": "gs2",
+    "files": [
+     "resid_post_all/layer_18_width_16k_l0_big/params.safetensors",
+     "resid_post_all/layer_18_width_16k_l0_big/config.json"
+    ],
+    "addon": ""
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "4a9da926b5ee95d1",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    }
+   },
+   "mean_l0_test": [
+    85.08924102783203,
+    80.06392669677734
+   ],
+   "rel_err_norm_test": 0.12335362285375595,
+   "mean_pos_coverage": {
+    "slot": 0,
+    "offset": 1580,
+    "task": 0
+   }
+  },
+  {
+   "cell": "refusal_L19_gs2_1bit_all_L19_16k_small",
+   "role": "exploratory",
+   "sae": {
+    "layer": 19,
+    "width": "16k",
+    "l0": 20,
+    "repo": "google/gemma-scope-2-1b-it",
+    "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+    "source": "registry",
+    "name": "gs2_1bit_all_L19_16k_small",
+    "arch": "gs2",
+    "files": [
+     "resid_post_all/layer_19_width_16k_l0_small/params.safetensors",
+     "resid_post_all/layer_19_width_16k_l0_small/config.json"
+    ],
+    "addon": ""
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "4a9da926b5ee95d1",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    }
+   },
+   "mean_l0_test": [
+    13.5582275390625,
+    13.02405071258545
+   ],
+   "rel_err_norm_test": 0.1514434963464737,
+   "mean_pos_coverage": {
+    "slot": 0,
+    "offset": 1580,
+    "task": 0
+   }
+  },
+  {
+   "cell": "refusal_L19_gs2_1bit_all_L19_16k_big",
+   "role": "exploratory",
+   "sae": {
+    "layer": 19,
+    "width": "16k",
+    "l0": 120,
+    "repo": "google/gemma-scope-2-1b-it",
+    "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+    "source": "registry",
+    "name": "gs2_1bit_all_L19_16k_big",
+    "arch": "gs2",
+    "files": [
+     "resid_post_all/layer_19_width_16k_l0_big/params.safetensors",
+     "resid_post_all/layer_19_width_16k_l0_big/config.json"
+    ],
+    "addon": ""
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "4a9da926b5ee95d1",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    }
+   },
+   "mean_l0_test": [
+    82.96835327148438,
+    77.4424057006836
+   ],
+   "rel_err_norm_test": 0.12607792019844055,
+   "mean_pos_coverage": {
+    "slot": 0,
+    "offset": 1580,
+    "task": 0
+   }
+  },
+  {
+   "cell": "refusal_L20_gs2_1bit_all_L20_16k_small",
+   "role": "exploratory",
+   "sae": {
+    "layer": 20,
+    "width": "16k",
+    "l0": 20,
+    "repo": "google/gemma-scope-2-1b-it",
+    "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+    "source": "registry",
+    "name": "gs2_1bit_all_L20_16k_small",
+    "arch": "gs2",
+    "files": [
+     "resid_post_all/layer_20_width_16k_l0_small/params.safetensors",
+     "resid_post_all/layer_20_width_16k_l0_small/config.json"
+    ],
+    "addon": ""
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "4a9da926b5ee95d1",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    }
+   },
+   "mean_l0_test": [
+    12.367721557617188,
+    12.321518898010254
+   ],
+   "rel_err_norm_test": 0.16249053180217743,
+   "mean_pos_coverage": {
+    "slot": 0,
+    "offset": 1580,
+    "task": 0
+   }
+  },
+  {
+   "cell": "refusal_L20_gs2_1bit_all_L20_16k_big",
+   "role": "exploratory",
+   "sae": {
+    "layer": 20,
+    "width": "16k",
+    "l0": 120,
+    "repo": "google/gemma-scope-2-1b-it",
+    "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+    "source": "registry",
+    "name": "gs2_1bit_all_L20_16k_big",
+    "arch": "gs2",
+    "files": [
+     "resid_post_all/layer_20_width_16k_l0_big/params.safetensors",
+     "resid_post_all/layer_20_width_16k_l0_big/config.json"
+    ],
+    "addon": ""
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "4a9da926b5ee95d1",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    }
+   },
+   "mean_l0_test": [
+    77.03860473632812,
+    73.7082290649414
+   ],
+   "rel_err_norm_test": 0.1373061239719391,
+   "mean_pos_coverage": {
+    "slot": 0,
+    "offset": 1580,
+    "task": 0
+   }
+  },
+  {
+   "cell": "refusal_L21_gs2_1bit_all_L21_16k_small",
+   "role": "exploratory",
+   "sae": {
+    "layer": 21,
+    "width": "16k",
+    "l0": 20,
+    "repo": "google/gemma-scope-2-1b-it",
+    "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+    "source": "registry",
+    "name": "gs2_1bit_all_L21_16k_small",
+    "arch": "gs2",
+    "files": [
+     "resid_post_all/layer_21_width_16k_l0_small/params.safetensors",
+     "resid_post_all/layer_21_width_16k_l0_small/config.json"
+    ],
+    "addon": ""
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "4a9da926b5ee95d1",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    }
+   },
+   "mean_l0_test": [
+    12.594304084777832,
+    11.917088508605957
+   ],
+   "rel_err_norm_test": 0.1744980365037918,
+   "mean_pos_coverage": {
+    "slot": 0,
+    "offset": 1580,
+    "task": 0
+   }
+  },
+  {
+   "cell": "refusal_L21_gs2_1bit_all_L21_16k_big",
+   "role": "exploratory",
+   "sae": {
+    "layer": 21,
+    "width": "16k",
+    "l0": 120,
+    "repo": "google/gemma-scope-2-1b-it",
+    "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+    "source": "registry",
+    "name": "gs2_1bit_all_L21_16k_big",
+    "arch": "gs2",
+    "files": [
+     "resid_post_all/layer_21_width_16k_l0_big/params.safetensors",
+     "resid_post_all/layer_21_width_16k_l0_big/config.json"
+    ],
+    "addon": ""
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "4a9da926b5ee95d1",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    }
+   },
+   "mean_l0_test": [
+    81.12405395507812,
+    73.39620208740234
+   ],
+   "rel_err_norm_test": 0.14726637303829193,
+   "mean_pos_coverage": {
+    "slot": 0,
+    "offset": 1580,
+    "task": 0
+   }
+  },
+  {
+   "cell": "refusal_L22_gs2_1bit_all_L22_16k_small",
+   "role": "exploratory",
+   "sae": {
+    "layer": 22,
+    "width": "16k",
+    "l0": 20,
+    "repo": "google/gemma-scope-2-1b-it",
+    "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+    "source": "registry",
+    "name": "gs2_1bit_all_L22_16k_small",
+    "arch": "gs2",
+    "files": [
+     "resid_post_all/layer_22_width_16k_l0_small/params.safetensors",
+     "resid_post_all/layer_22_width_16k_l0_small/config.json"
+    ],
+    "addon": ""
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "4a9da926b5ee95d1",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    }
+   },
+   "mean_l0_test": [
+    13.027215003967285,
+    12.219620704650879
+   ],
+   "rel_err_norm_test": 0.18364626169204712,
+   "mean_pos_coverage": {
+    "slot": 0,
+    "offset": 1580,
+    "task": 0
+   }
+  },
+  {
+   "cell": "refusal_L22_gs2_1bit_all_L22_16k_big",
+   "role": "exploratory",
+   "sae": {
+    "layer": 22,
+    "width": "16k",
+    "l0": 120,
+    "repo": "google/gemma-scope-2-1b-it",
+    "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+    "source": "registry",
+    "name": "gs2_1bit_all_L22_16k_big",
+    "arch": "gs2",
+    "files": [
+     "resid_post_all/layer_22_width_16k_l0_big/params.safetensors",
+     "resid_post_all/layer_22_width_16k_l0_big/config.json"
+    ],
+    "addon": ""
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "4a9da926b5ee95d1",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    }
+   },
+   "mean_l0_test": [
+    82.2335433959961,
+    73.1405029296875
+   ],
+   "rel_err_norm_test": 0.15692457556724548,
+   "mean_pos_coverage": {
+    "slot": 0,
+    "offset": 1580,
+    "task": 0
+   }
+  },
+  {
+   "cell": "refusal_L23_gs2_1bit_all_L23_16k_small",
+   "role": "exploratory",
+   "sae": {
+    "layer": 23,
+    "width": "16k",
+    "l0": 20,
+    "repo": "google/gemma-scope-2-1b-it",
+    "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+    "source": "registry",
+    "name": "gs2_1bit_all_L23_16k_small",
+    "arch": "gs2",
+    "files": [
+     "resid_post_all/layer_23_width_16k_l0_small/params.safetensors",
+     "resid_post_all/layer_23_width_16k_l0_small/config.json"
+    ],
+    "addon": ""
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "4a9da926b5ee95d1",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    }
+   },
+   "mean_l0_test": [
+    12.603164672851562,
+    11.756961822509766
+   ],
+   "rel_err_norm_test": 0.20199018716812134,
+   "mean_pos_coverage": {
+    "slot": 0,
+    "offset": 1580,
+    "task": 0
+   }
+  },
+  {
+   "cell": "refusal_L23_gs2_1bit_all_L23_16k_big",
+   "role": "exploratory",
+   "sae": {
+    "layer": 23,
+    "width": "16k",
+    "l0": 120,
+    "repo": "google/gemma-scope-2-1b-it",
+    "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+    "source": "registry",
+    "name": "gs2_1bit_all_L23_16k_big",
+    "arch": "gs2",
+    "files": [
+     "resid_post_all/layer_23_width_16k_l0_big/params.safetensors",
+     "resid_post_all/layer_23_width_16k_l0_big/config.json"
+    ],
+    "addon": ""
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "4a9da926b5ee95d1",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    }
+   },
+   "mean_l0_test": [
+    78.97847747802734,
+    71.12405395507812
+   ],
+   "rel_err_norm_test": 0.17663508653640747,
+   "mean_pos_coverage": {
+    "slot": 0,
+    "offset": 1580,
+    "task": 0
+   }
+  },
+  {
+   "cell": "refusal_L24_gs2_1bit_all_L24_16k_small",
+   "role": "exploratory",
+   "sae": {
+    "layer": 24,
+    "width": "16k",
+    "l0": 20,
+    "repo": "google/gemma-scope-2-1b-it",
+    "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+    "source": "registry",
+    "name": "gs2_1bit_all_L24_16k_small",
+    "arch": "gs2",
+    "files": [
+     "resid_post_all/layer_24_width_16k_l0_small/params.safetensors",
+     "resid_post_all/layer_24_width_16k_l0_small/config.json"
+    ],
+    "addon": ""
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "4a9da926b5ee95d1",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    }
+   },
+   "mean_l0_test": [
+    13.964556694030762,
+    12.721518516540527
+   ],
+   "rel_err_norm_test": 0.22955001890659332,
+   "mean_pos_coverage": {
+    "slot": 0,
+    "offset": 1580,
+    "task": 0
+   }
+  },
+  {
+   "cell": "refusal_L24_gs2_1bit_all_L24_16k_big",
+   "role": "exploratory",
+   "sae": {
+    "layer": 24,
+    "width": "16k",
+    "l0": 120,
+    "repo": "google/gemma-scope-2-1b-it",
+    "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+    "source": "registry",
+    "name": "gs2_1bit_all_L24_16k_big",
+    "arch": "gs2",
+    "files": [
+     "resid_post_all/layer_24_width_16k_l0_big/params.safetensors",
+     "resid_post_all/layer_24_width_16k_l0_big/config.json"
+    ],
+    "addon": ""
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "4a9da926b5ee95d1",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    }
+   },
+   "mean_l0_test": [
+    82.78607940673828,
+    74.38734436035156
+   ],
+   "rel_err_norm_test": 0.19869257509708405,
+   "mean_pos_coverage": {
+    "slot": 0,
+    "offset": 1580,
+    "task": 0
+   }
+  },
+  {
+   "cell": "refusal_L25_gs2_1bit_all_L25_16k_small",
+   "role": "exploratory",
+   "sae": {
+    "layer": 25,
+    "width": "16k",
+    "l0": 20,
+    "repo": "google/gemma-scope-2-1b-it",
+    "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+    "source": "registry",
+    "name": "gs2_1bit_all_L25_16k_small",
+    "arch": "gs2",
+    "files": [
+     "resid_post_all/layer_25_width_16k_l0_small/params.safetensors",
+     "resid_post_all/layer_25_width_16k_l0_small/config.json"
+    ],
+    "addon": ""
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "4a9da926b5ee95d1",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    }
+   },
+   "mean_l0_test": [
+    12.860759735107422,
+    12.749366760253906
+   ],
+   "rel_err_norm_test": 0.3667186498641968,
+   "mean_pos_coverage": {
+    "slot": 0,
+    "offset": 1580,
+    "task": 0
+   }
+  },
+  {
+   "cell": "refusal_L25_gs2_1bit_all_L25_16k_big",
+   "role": "exploratory",
+   "sae": {
+    "layer": 25,
+    "width": "16k",
+    "l0": 120,
+    "repo": "google/gemma-scope-2-1b-it",
+    "revision": "b0fa29457c3601df0a70c48a15534c738d7c10e0",
+    "source": "registry",
+    "name": "gs2_1bit_all_L25_16k_big",
+    "arch": "gs2",
+    "files": [
+     "resid_post_all/layer_25_width_16k_l0_big/params.safetensors",
+     "resid_post_all/layer_25_width_16k_l0_big/config.json"
+    ],
+    "addon": ""
+   },
+   "fit_families": null,
+   "eval_families": null,
+   "n_test_by_filter": {
+    "f_pilot": 150
+   },
+   "n_test_union": 150,
+   "n_train": 300,
+   "fitset_digest": "4a9da926b5ee95d1",
+   "keep_rates": {
+    "train": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    },
+    "test": {
+     "f_none": 1.0,
+     "f_A_correct": 1.0,
+     "f_both_correct": 1.0,
+     "f_pilot": 1.0
+    }
+   },
+   "mean_l0_test": [
+    78.27025604248047,
+    70.30189514160156
+   ],
+   "rel_err_norm_test": 0.32740435004234314,
+   "mean_pos_coverage": {
+    "slot": 0,
+    "offset": 1580,
+    "task": 0
+   }
+  }
+ ]
+}

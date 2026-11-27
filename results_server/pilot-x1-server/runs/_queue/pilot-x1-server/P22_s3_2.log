@@ -1,0 +1,3 @@
+
+=== attempt 1 2026-11-26 13:53:22 slots=['1']: /home2/prakhar2218/PRISM/.venv-harness/bin/python -m harness.run --config configs/batch2/P22.yaml --profile server --stage 3 --worker P22_s3-2
+2026-11-26 13:55:02,414 INFO P22 -> /home2/prakhar2218/PRISM/runs/P22/88733202f849 (worker_done)

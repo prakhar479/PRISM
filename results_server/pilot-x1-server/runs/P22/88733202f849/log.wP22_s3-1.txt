@@ -1,0 +1,541 @@
+2026-11-26 04:40:32,677 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-it/tree/dcc83ea841ab6100d6b47a070329e1ba4cf78752/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-26 04:40:32,931 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-it/tree/dcc83ea841ab6100d6b47a070329e1ba4cf78752?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-26 04:40:35,145 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-it "HTTP/1.1 200 OK"
+2026-11-26 04:40:35,936 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-it "HTTP/1.1 200 OK"
+2026-11-26 04:40:36,334 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-it/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-11-26 04:40:36,570 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-it/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-11-26 04:40:38,760 INFO HTTP Request: GET https://huggingface.co/api/models/google/gemma-3-1b-it "HTTP/1.1 200 OK"
+2026-11-26 04:40:53,365 INFO refusal_L3_gs2_1bit_all_L3_16k_small unit 1/5 (8 conditions, 5.7s)
+2026-11-26 04:40:59,686 INFO refusal_L3_gs2_1bit_all_L3_16k_big unit 3/5 (8 conditions, 5.5s)
+2026-11-26 04:41:01,402 INFO refusal_L3_gs2_1bit_all_L3_16k_big unit 5/5 (2 conditions, 1.7s)
+2026-11-26 04:41:02,200 INFO DAS: training das1v2_kl_s0 (k=1, 10 epochs, lr 0.01, seed 0) for refusal L4 on 300 train pairs
+2026-11-26 04:42:02,758 INFO DAS v2 k=1 kl epoch 1/10: loss 13.1116
+2026-11-26 04:42:06,250 INFO DAS v2 k=1 kl epoch 2/10: loss 4.2394
+2026-11-26 04:42:09,744 INFO DAS v2 k=1 kl epoch 3/10: loss 2.8109
+2026-11-26 04:42:13,239 INFO DAS v2 k=1 kl epoch 4/10: loss 1.9927
+2026-11-26 04:42:16,741 INFO DAS v2 k=1 kl epoch 5/10: loss 1.2091
+2026-11-26 04:42:20,243 INFO DAS v2 k=1 kl epoch 6/10: loss 0.9836
+2026-11-26 04:42:23,745 INFO DAS v2 k=1 kl epoch 7/10: loss 0.7173
+2026-11-26 04:42:27,266 INFO DAS v2 k=1 kl epoch 8/10: loss 0.4246
+2026-11-26 04:42:30,779 INFO DAS v2 k=1 kl epoch 9/10: loss 0.5634
+2026-11-26 04:42:34,302 INFO DAS v2 k=1 kl epoch 10/10: loss 1.6540
+2026-11-26 04:44:42,006 INFO refusal_L4_gs2_1bit_all_L4_16k_small unit 1/5 (8 conditions, 5.3s)
+2026-11-26 04:44:47,339 INFO refusal_L4_gs2_1bit_all_L4_16k_small unit 3/5 (8 conditions, 5.3s)
+2026-11-26 04:44:48,961 INFO refusal_L4_gs2_1bit_all_L4_16k_small unit 5/5 (2 conditions, 1.6s)
+2026-11-26 04:44:54,986 INFO refusal_L4_gs2_1bit_all_L4_16k_big unit 2/5 (8 conditions, 5.3s)
+2026-11-26 04:45:00,350 INFO refusal_L4_gs2_1bit_all_L4_16k_big unit 3/5 (8 conditions, 5.3s)
+2026-11-26 04:45:01,978 INFO refusal_L4_gs2_1bit_all_L4_16k_big unit 5/5 (2 conditions, 1.6s)
+2026-11-26 04:45:02,516 INFO DAS: training das1v2_kl_s1 (k=1, 10 epochs, lr 0.01, seed 1) for refusal L5 on 300 train pairs
+2026-11-26 04:45:50,311 INFO DAS v2 k=1 kl epoch 1/10: loss 12.0817
+2026-11-26 04:45:53,587 INFO DAS v2 k=1 kl epoch 2/10: loss 2.3463
+2026-11-26 04:45:56,868 INFO DAS v2 k=1 kl epoch 3/10: loss 2.3504
+2026-11-26 04:46:00,156 INFO DAS v2 k=1 kl epoch 4/10: loss 2.2342
+2026-11-26 04:46:03,440 INFO DAS v2 k=1 kl epoch 5/10: loss 2.1189
+2026-11-26 04:46:06,738 INFO DAS v2 k=1 kl epoch 6/10: loss 1.9872
+2026-11-26 04:46:10,037 INFO DAS v2 k=1 kl epoch 7/10: loss 1.7024
+2026-11-26 04:46:13,336 INFO DAS v2 k=1 kl epoch 8/10: loss 1.4561
+2026-11-26 04:46:16,633 INFO DAS v2 k=1 kl epoch 9/10: loss 1.2862
+2026-11-26 04:46:19,939 INFO DAS v2 k=1 kl epoch 10/10: loss 1.1303
+2026-11-26 04:46:38,923 INFO DAS: training das4v2_kl_s0 (k=4, 10 epochs, lr 0.01, seed 0) for refusal L5 on 300 train pairs
+2026-11-26 04:47:25,516 INFO DAS v2 k=4 kl epoch 1/10: loss 6.0099
+2026-11-26 04:47:29,048 INFO DAS v2 k=4 kl epoch 2/10: loss 1.0802
+2026-11-26 04:47:32,597 INFO DAS v2 k=4 kl epoch 3/10: loss 0.9393
+2026-11-26 04:47:36,128 INFO DAS v2 k=4 kl epoch 4/10: loss 0.5668
+2026-11-26 04:47:39,664 INFO DAS v2 k=4 kl epoch 5/10: loss 0.5569
+2026-11-26 04:47:43,194 INFO DAS v2 k=4 kl epoch 6/10: loss 0.4430
+2026-11-26 04:47:46,734 INFO DAS v2 k=4 kl epoch 7/10: loss 0.4215
+2026-11-26 04:47:50,265 INFO DAS v2 k=4 kl epoch 8/10: loss 0.3137
+2026-11-26 04:47:53,800 INFO DAS v2 k=4 kl epoch 9/10: loss 0.2551
+2026-11-26 04:47:57,347 INFO DAS v2 k=4 kl epoch 10/10: loss 0.2382
+2026-11-26 04:48:20,956 INFO refusal_L5_gs2_1bit_all_L5_16k_small unit 1/5 (8 conditions, 5.3s)
+2026-11-26 04:48:26,287 INFO refusal_L5_gs2_1bit_all_L5_16k_small unit 3/5 (8 conditions, 5.3s)
+2026-11-26 04:48:27,936 INFO refusal_L5_gs2_1bit_all_L5_16k_small unit 5/5 (2 conditions, 1.6s)
+2026-11-26 04:48:33,877 INFO refusal_L5_gs2_1bit_all_L5_16k_big unit 2/5 (8 conditions, 5.3s)
+2026-11-26 04:48:39,197 INFO refusal_L5_gs2_1bit_all_L5_16k_big unit 4/5 (8 conditions, 5.3s)
+2026-11-26 04:48:39,732 INFO DAS: training das1v2_kl_s0 (k=1, 10 epochs, lr 0.01, seed 0) for refusal L6 on 300 train pairs
+2026-11-26 04:49:27,140 INFO DAS v2 k=1 kl epoch 1/10: loss 9.5981
+2026-11-26 04:49:30,426 INFO DAS v2 k=1 kl epoch 2/10: loss 1.4107
+2026-11-26 04:49:33,732 INFO DAS v2 k=1 kl epoch 3/10: loss 1.4631
+2026-11-26 04:49:37,057 INFO DAS v2 k=1 kl epoch 4/10: loss 1.3182
+2026-11-26 04:49:40,384 INFO DAS v2 k=1 kl epoch 5/10: loss 1.1103
+2026-11-26 04:49:43,704 INFO DAS v2 k=1 kl epoch 6/10: loss 1.0189
+2026-11-26 04:49:47,030 INFO DAS v2 k=1 kl epoch 7/10: loss 0.9009
+2026-11-26 04:49:50,361 INFO DAS v2 k=1 kl epoch 8/10: loss 0.7923
+2026-11-26 04:49:53,689 INFO DAS v2 k=1 kl epoch 9/10: loss 0.6198
+2026-11-26 04:49:57,041 INFO DAS v2 k=1 kl epoch 10/10: loss 0.6032
+2026-11-26 04:50:15,967 INFO DAS: training das4v2_kl_s0 (k=4, 10 epochs, lr 0.01, seed 0) for refusal L6 on 300 train pairs
+2026-11-26 04:51:03,964 INFO DAS v2 k=4 kl epoch 1/10: loss 6.0613
+2026-11-26 04:51:07,486 INFO DAS v2 k=4 kl epoch 2/10: loss 0.1974
+2026-11-26 04:51:10,974 INFO DAS v2 k=4 kl epoch 3/10: loss 0.3111
+2026-11-26 04:51:14,495 INFO DAS v2 k=4 kl epoch 4/10: loss 0.0566
+2026-11-26 04:51:18,006 INFO DAS v2 k=4 kl epoch 5/10: loss 0.0001
+2026-11-26 04:51:21,496 INFO DAS v2 k=4 kl epoch 6/10: loss 0.0001
+2026-11-26 04:51:25,007 INFO DAS v2 k=4 kl epoch 7/10: loss 0.0001
+2026-11-26 04:51:28,551 INFO DAS v2 k=4 kl epoch 8/10: loss 0.0001
+2026-11-26 04:51:32,081 INFO DAS v2 k=4 kl epoch 9/10: loss 0.0000
+2026-11-26 04:51:35,596 INFO DAS v2 k=4 kl epoch 10/10: loss 0.0000
+2026-11-26 04:51:59,299 INFO refusal_L6_gs2_1bit_all_L6_16k_small unit 1/5 (8 conditions, 5.1s)
+2026-11-26 04:52:04,439 INFO refusal_L6_gs2_1bit_all_L6_16k_small unit 3/5 (8 conditions, 5.1s)
+2026-11-26 04:52:06,077 INFO refusal_L6_gs2_1bit_all_L6_16k_small unit 5/5 (2 conditions, 1.6s)
+2026-11-26 04:52:11,847 INFO refusal_L6_gs2_1bit_all_L6_16k_big unit 2/5 (8 conditions, 5.1s)
+2026-11-26 04:52:16,982 INFO refusal_L6_gs2_1bit_all_L6_16k_big unit 4/5 (8 conditions, 5.1s)
+2026-11-26 04:52:18,475 INFO DAS: training das1v2_kl_s1 (k=1, 10 epochs, lr 0.01, seed 1) for refusal L7 on 300 train pairs
+2026-11-26 04:53:05,084 INFO DAS v2 k=1 kl epoch 1/10: loss 12.1782
+2026-11-26 04:53:08,172 INFO DAS v2 k=1 kl epoch 2/10: loss 0.7399
+2026-11-26 04:53:11,253 INFO DAS v2 k=1 kl epoch 3/10: loss 0.2704
+2026-11-26 04:53:14,360 INFO DAS v2 k=1 kl epoch 4/10: loss 0.0411
+2026-11-26 04:53:17,444 INFO DAS v2 k=1 kl epoch 5/10: loss 0.0009
+2026-11-26 04:53:20,531 INFO DAS v2 k=1 kl epoch 6/10: loss 0.0050
+2026-11-26 04:53:23,616 INFO DAS v2 k=1 kl epoch 7/10: loss 0.0006
+2026-11-26 04:53:26,716 INFO DAS v2 k=1 kl epoch 8/10: loss 0.0004
+2026-11-26 04:53:29,793 INFO DAS v2 k=1 kl epoch 9/10: loss 0.0001
+2026-11-26 04:53:32,845 INFO DAS v2 k=1 kl epoch 10/10: loss 0.0000
+2026-11-26 04:53:55,465 INFO refusal_L7_gs2_1bit_all_L7_16k_small unit 1/5 (8 conditions, 4.9s)
+2026-11-26 04:54:00,429 INFO refusal_L7_gs2_1bit_all_L7_16k_small unit 3/5 (8 conditions, 4.9s)
+2026-11-26 04:54:02,047 INFO refusal_L7_gs2_1bit_all_L7_16k_small unit 5/5 (2 conditions, 1.6s)
+2026-11-26 04:54:07,661 INFO refusal_L7_gs2_1bit_all_L7_16k_big unit 2/5 (8 conditions, 4.9s)
+2026-11-26 04:54:12,586 INFO refusal_L7_gs2_1bit_all_L7_16k_big unit 4/5 (8 conditions, 4.9s)
+2026-11-26 04:54:13,490 INFO DAS: training das1v2_kl_s0 (k=1, 10 epochs, lr 0.01, seed 0) for refusal L8 on 300 train pairs
+2026-11-26 04:55:00,816 INFO DAS v2 k=1 kl epoch 1/10: loss 6.7371
+2026-11-26 04:55:03,859 INFO DAS v2 k=1 kl epoch 2/10: loss 0.5202
+2026-11-26 04:55:06,930 INFO DAS v2 k=1 kl epoch 3/10: loss 0.5198
+2026-11-26 04:55:09,989 INFO DAS v2 k=1 kl epoch 4/10: loss 0.4430
+2026-11-26 04:55:13,074 INFO DAS v2 k=1 kl epoch 5/10: loss 0.3876
+2026-11-26 04:55:16,116 INFO DAS v2 k=1 kl epoch 6/10: loss 0.3195
+2026-11-26 04:55:19,206 INFO DAS v2 k=1 kl epoch 7/10: loss 0.2828
+2026-11-26 04:55:22,285 INFO DAS v2 k=1 kl epoch 8/10: loss 0.2394
+2026-11-26 04:55:25,377 INFO DAS v2 k=1 kl epoch 9/10: loss 0.1790
+2026-11-26 04:55:28,412 INFO DAS v2 k=1 kl epoch 10/10: loss 0.1218
+2026-11-26 04:55:45,330 INFO DAS: training das4v2_kl_s0 (k=4, 10 epochs, lr 0.01, seed 0) for refusal L8 on 300 train pairs
+2026-11-26 04:56:29,844 INFO DAS v2 k=4 kl epoch 1/10: loss 2.8663
+2026-11-26 04:56:33,004 INFO DAS v2 k=4 kl epoch 2/10: loss 0.0554
+2026-11-26 04:56:36,167 INFO DAS v2 k=4 kl epoch 3/10: loss 0.0020
+2026-11-26 04:56:39,330 INFO DAS v2 k=4 kl epoch 4/10: loss 0.0004
+2026-11-26 04:56:42,483 INFO DAS v2 k=4 kl epoch 5/10: loss 0.0000
+2026-11-26 04:56:45,641 INFO DAS v2 k=4 kl epoch 6/10: loss 0.0000
+2026-11-26 04:56:48,803 INFO DAS v2 k=4 kl epoch 7/10: loss 0.0000
+2026-11-26 04:56:51,964 INFO DAS v2 k=4 kl epoch 8/10: loss 0.0000
+2026-11-26 04:56:55,125 INFO DAS v2 k=4 kl epoch 9/10: loss 0.0000
+2026-11-26 04:56:58,304 INFO DAS v2 k=4 kl epoch 10/10: loss 0.0000
+2026-11-26 04:57:18,916 INFO refusal_L8_gs2_1bit_all_L8_16k_small unit 1/5 (8 conditions, 4.7s)
+2026-11-26 04:57:23,647 INFO refusal_L8_gs2_1bit_all_L8_16k_small unit 3/5 (8 conditions, 4.7s)
+2026-11-26 04:57:25,228 INFO refusal_L8_gs2_1bit_all_L8_16k_small unit 5/5 (2 conditions, 1.6s)
+2026-11-26 04:57:30,588 INFO refusal_L8_gs2_1bit_all_L8_16k_big unit 2/5 (8 conditions, 4.7s)
+2026-11-26 04:57:35,318 INFO refusal_L8_gs2_1bit_all_L8_16k_big unit 4/5 (8 conditions, 4.7s)
+2026-11-26 04:57:36,222 INFO DAS: training das1v2_kl_s0 (k=1, 10 epochs, lr 0.01, seed 0) for refusal L9 on 300 train pairs
+2026-11-26 04:58:20,302 INFO DAS v2 k=1 kl epoch 1/10: loss 3.9069
+2026-11-26 04:58:23,181 INFO DAS v2 k=1 kl epoch 2/10: loss 0.0552
+2026-11-26 04:58:26,071 INFO DAS v2 k=1 kl epoch 3/10: loss 0.0891
+2026-11-26 04:58:28,953 INFO DAS v2 k=1 kl epoch 4/10: loss 0.0002
+2026-11-26 04:58:31,828 INFO DAS v2 k=1 kl epoch 5/10: loss 0.0001
+2026-11-26 04:58:34,708 INFO DAS v2 k=1 kl epoch 6/10: loss 0.0001
+2026-11-26 04:58:37,587 INFO DAS v2 k=1 kl epoch 7/10: loss 0.0001
+2026-11-26 04:58:40,469 INFO DAS v2 k=1 kl epoch 8/10: loss 0.0001
+2026-11-26 04:58:43,347 INFO DAS v2 k=1 kl epoch 9/10: loss 0.0001
+2026-11-26 04:58:46,220 INFO DAS v2 k=1 kl epoch 10/10: loss 0.0001
+2026-11-26 04:59:01,788 INFO DAS: training das4v2_kl_s0 (k=4, 10 epochs, lr 0.01, seed 0) for refusal L9 on 300 train pairs
+2026-11-26 04:59:44,508 INFO DAS v2 k=4 kl epoch 1/10: loss 2.4542
+2026-11-26 04:59:47,541 INFO DAS v2 k=4 kl epoch 2/10: loss 0.0000
+2026-11-26 04:59:50,575 INFO DAS v2 k=4 kl epoch 3/10: loss 0.0030
+2026-11-26 04:59:53,608 INFO DAS v2 k=4 kl epoch 4/10: loss 0.0002
+2026-11-26 04:59:56,651 INFO DAS v2 k=4 kl epoch 5/10: loss 0.0001
+2026-11-26 04:59:59,685 INFO DAS v2 k=4 kl epoch 6/10: loss 0.0001
+2026-11-26 05:00:02,719 INFO DAS v2 k=4 kl epoch 7/10: loss 0.0001
+2026-11-26 05:00:05,756 INFO DAS v2 k=4 kl epoch 8/10: loss 0.0001
+2026-11-26 05:00:08,808 INFO DAS v2 k=4 kl epoch 9/10: loss 0.0001
+2026-11-26 05:00:11,847 INFO DAS v2 k=4 kl epoch 10/10: loss 0.0001
+2026-11-26 05:00:31,419 INFO refusal_L9_gs2_1bit_all_L9_16k_small unit 1/5 (8 conditions, 4.5s)
+2026-11-26 05:00:35,951 INFO refusal_L9_gs2_1bit_all_L9_16k_small unit 3/5 (8 conditions, 4.5s)
+2026-11-26 05:00:37,498 INFO refusal_L9_gs2_1bit_all_L9_16k_small unit 5/5 (2 conditions, 1.5s)
+2026-11-26 05:00:42,632 INFO refusal_L9_gs2_1bit_all_L9_16k_big unit 2/5 (8 conditions, 4.5s)
+2026-11-26 05:00:47,150 INFO refusal_L9_gs2_1bit_all_L9_16k_big unit 4/5 (8 conditions, 4.5s)
+2026-11-26 05:00:48,053 INFO DAS: training das1v2_kl_s0 (k=1, 10 epochs, lr 0.01, seed 0) for refusal L10 on 300 train pairs
+2026-11-26 05:01:31,250 INFO DAS v2 k=1 kl epoch 1/10: loss 2.7911
+2026-11-26 05:01:33,997 INFO DAS v2 k=1 kl epoch 2/10: loss 0.0173
+2026-11-26 05:01:36,741 INFO DAS v2 k=1 kl epoch 3/10: loss 0.0449
+2026-11-26 05:01:39,486 INFO DAS v2 k=1 kl epoch 4/10: loss 0.0064
+2026-11-26 05:01:42,232 INFO DAS v2 k=1 kl epoch 5/10: loss 0.0000
+2026-11-26 05:01:44,976 INFO DAS v2 k=1 kl epoch 6/10: loss 0.0000
+2026-11-26 05:01:47,722 INFO DAS v2 k=1 kl epoch 7/10: loss 0.0000
+2026-11-26 05:01:50,467 INFO DAS v2 k=1 kl epoch 8/10: loss 0.0000
+2026-11-26 05:01:53,214 INFO DAS v2 k=1 kl epoch 9/10: loss 0.0000
+2026-11-26 05:01:56,010 INFO DAS v2 k=1 kl epoch 10/10: loss 0.0000
+2026-11-26 05:03:46,442 INFO refusal_L10_gs2_1bit_all_L10_16k_small unit 2/5 (8 conditions, 4.2s)
+2026-11-26 05:03:50,695 INFO refusal_L10_gs2_1bit_all_L10_16k_small unit 3/5 (8 conditions, 4.2s)
+2026-11-26 05:03:52,268 INFO refusal_L10_gs2_1bit_all_L10_16k_small unit 5/5 (2 conditions, 1.6s)
+2026-11-26 05:03:57,195 INFO refusal_L10_gs2_1bit_all_L10_16k_big unit 2/5 (8 conditions, 4.2s)
+2026-11-26 05:04:01,395 INFO refusal_L10_gs2_1bit_all_L10_16k_big unit 3/5 (8 conditions, 4.2s)
+2026-11-26 05:04:02,891 INFO refusal_L10_gs2_1bit_all_L10_16k_big unit 5/5 (2 conditions, 1.5s)
+2026-11-26 05:04:03,416 INFO DAS: training das1v2_kl_s1 (k=1, 10 epochs, lr 0.01, seed 1) for refusal L11 on 300 train pairs
+2026-11-26 05:04:45,352 INFO DAS v2 k=1 kl epoch 1/10: loss 9.1508
+2026-11-26 05:04:47,879 INFO DAS v2 k=1 kl epoch 2/10: loss 0.0256
+2026-11-26 05:04:50,415 INFO DAS v2 k=1 kl epoch 3/10: loss 0.0379
+2026-11-26 05:04:52,950 INFO DAS v2 k=1 kl epoch 4/10: loss 0.0367
+2026-11-26 05:04:55,479 INFO DAS v2 k=1 kl epoch 5/10: loss 0.0230
+2026-11-26 05:04:58,012 INFO DAS v2 k=1 kl epoch 6/10: loss 0.0087
+2026-11-26 05:05:00,544 INFO DAS v2 k=1 kl epoch 7/10: loss 0.0042
+2026-11-26 05:05:03,075 INFO DAS v2 k=1 kl epoch 8/10: loss 0.0023
+2026-11-26 05:05:05,611 INFO DAS v2 k=1 kl epoch 9/10: loss 0.0020
+2026-11-26 05:05:08,153 INFO DAS v2 k=1 kl epoch 10/10: loss 0.0020
+2026-11-26 05:05:21,846 INFO DAS: training das4v2_kl_s0 (k=4, 10 epochs, lr 0.01, seed 0) for refusal L11 on 300 train pairs
+2026-11-26 05:06:02,405 INFO DAS v2 k=4 kl epoch 1/10: loss 2.2129
+2026-11-26 05:06:05,180 INFO DAS v2 k=4 kl epoch 2/10: loss 0.0000
+2026-11-26 05:06:07,953 INFO DAS v2 k=4 kl epoch 3/10: loss 0.0000
+2026-11-26 05:06:10,716 INFO DAS v2 k=4 kl epoch 4/10: loss 0.0000
+2026-11-26 05:06:13,485 INFO DAS v2 k=4 kl epoch 5/10: loss 0.0000
+2026-11-26 05:06:16,254 INFO DAS v2 k=4 kl epoch 6/10: loss 0.0000
+2026-11-26 05:06:19,031 INFO DAS v2 k=4 kl epoch 7/10: loss 0.0000
+2026-11-26 05:06:21,800 INFO DAS v2 k=4 kl epoch 8/10: loss 0.0000
+2026-11-26 05:06:24,576 INFO DAS v2 k=4 kl epoch 9/10: loss 0.0000
+2026-11-26 05:06:27,349 INFO DAS v2 k=4 kl epoch 10/10: loss 0.0000
+2026-11-26 05:06:44,822 INFO refusal_L11_gs2_1bit_all_L11_16k_small unit 1/5 (8 conditions, 4.1s)
+2026-11-26 05:06:48,955 INFO refusal_L11_gs2_1bit_all_L11_16k_small unit 3/5 (8 conditions, 4.1s)
+2026-11-26 05:06:50,449 INFO refusal_L11_gs2_1bit_all_L11_16k_small unit 5/5 (2 conditions, 1.5s)
+2026-11-26 05:06:55,197 INFO refusal_L11_gs2_1bit_all_L11_16k_big unit 2/5 (8 conditions, 4.1s)
+2026-11-26 05:06:59,324 INFO refusal_L11_gs2_1bit_all_L11_16k_big unit 4/5 (8 conditions, 4.1s)
+2026-11-26 05:07:00,247 INFO DAS: training das1v2_kl_s0 (k=1, 10 epochs, lr 0.01, seed 0) for refusal L12 on 300 train pairs
+2026-11-26 05:07:41,275 INFO DAS v2 k=1 kl epoch 1/10: loss 6.3575
+2026-11-26 05:07:43,764 INFO DAS v2 k=1 kl epoch 2/10: loss 0.0230
+2026-11-26 05:07:46,251 INFO DAS v2 k=1 kl epoch 3/10: loss 0.0203
+2026-11-26 05:07:48,740 INFO DAS v2 k=1 kl epoch 4/10: loss 0.0004
+2026-11-26 05:07:51,228 INFO DAS v2 k=1 kl epoch 5/10: loss 0.0002
+2026-11-26 05:07:53,721 INFO DAS v2 k=1 kl epoch 6/10: loss 0.0001
+2026-11-26 05:07:56,216 INFO DAS v2 k=1 kl epoch 7/10: loss 0.0001
+2026-11-26 05:07:58,706 INFO DAS v2 k=1 kl epoch 8/10: loss 0.0001
+2026-11-26 05:08:01,196 INFO DAS v2 k=1 kl epoch 9/10: loss 0.0001
+2026-11-26 05:08:03,688 INFO DAS v2 k=1 kl epoch 10/10: loss 0.0001
+2026-11-26 05:08:16,634 INFO DAS: training das4v2_kl_s0 (k=4, 10 epochs, lr 0.01, seed 0) for refusal L12 on 300 train pairs
+2026-11-26 05:08:56,451 INFO DAS v2 k=4 kl epoch 1/10: loss 3.0722
+2026-11-26 05:08:59,098 INFO DAS v2 k=4 kl epoch 2/10: loss 0.0131
+2026-11-26 05:09:01,749 INFO DAS v2 k=4 kl epoch 3/10: loss 0.0001
+2026-11-26 05:09:04,401 INFO DAS v2 k=4 kl epoch 4/10: loss 0.0000
+2026-11-26 05:09:07,050 INFO DAS v2 k=4 kl epoch 5/10: loss 0.0000
+2026-11-26 05:09:09,699 INFO DAS v2 k=4 kl epoch 6/10: loss 0.0000
+2026-11-26 05:09:12,349 INFO DAS v2 k=4 kl epoch 7/10: loss 0.0000
+2026-11-26 05:09:14,998 INFO DAS v2 k=4 kl epoch 8/10: loss 0.0000
+2026-11-26 05:09:17,649 INFO DAS v2 k=4 kl epoch 9/10: loss 0.0000
+2026-11-26 05:09:20,299 INFO DAS v2 k=4 kl epoch 10/10: loss 0.0000
+2026-11-26 05:09:36,829 INFO refusal_L12_gs2_1bit_all_L12_16k_small unit 1/5 (8 conditions, 3.9s)
+2026-11-26 05:09:40,762 INFO refusal_L12_gs2_1bit_all_L12_16k_small unit 3/5 (8 conditions, 3.9s)
+2026-11-26 05:09:42,230 INFO refusal_L12_gs2_1bit_all_L12_16k_small unit 5/5 (2 conditions, 1.5s)
+2026-11-26 05:09:46,769 INFO refusal_L12_gs2_1bit_all_L12_16k_big unit 2/5 (8 conditions, 3.9s)
+2026-11-26 05:09:50,693 INFO refusal_L12_gs2_1bit_all_L12_16k_big unit 4/5 (8 conditions, 3.9s)
+2026-11-26 05:09:51,854 INFO DAS: training das1v2_kl_s1 (k=1, 10 epochs, lr 0.01, seed 1) for refusal L13 on 300 train pairs
+2026-11-26 05:10:30,464 INFO DAS v2 k=1 kl epoch 1/10: loss 6.9144
+2026-11-26 05:10:32,728 INFO DAS v2 k=1 kl epoch 2/10: loss 0.0001
+2026-11-26 05:10:34,995 INFO DAS v2 k=1 kl epoch 3/10: loss 0.0007
+2026-11-26 05:10:37,264 INFO DAS v2 k=1 kl epoch 4/10: loss 0.0016
+2026-11-26 05:10:39,528 INFO DAS v2 k=1 kl epoch 5/10: loss 0.0019
+2026-11-26 05:10:41,798 INFO DAS v2 k=1 kl epoch 6/10: loss 0.0013
+2026-11-26 05:10:44,066 INFO DAS v2 k=1 kl epoch 7/10: loss 0.0007
+2026-11-26 05:10:46,336 INFO DAS v2 k=1 kl epoch 8/10: loss 0.0004
+2026-11-26 05:10:48,602 INFO DAS v2 k=1 kl epoch 9/10: loss 0.0003
+2026-11-26 05:10:50,874 INFO DAS v2 k=1 kl epoch 10/10: loss 0.0003
+2026-11-26 05:11:06,357 INFO refusal_L13_gs2_1bit_all_L13_16k_small unit 2/5 (8 conditions, 3.7s)
+2026-11-26 05:11:10,093 INFO refusal_L13_gs2_1bit_all_L13_16k_small unit 3/5 (8 conditions, 3.7s)
+2026-11-26 05:11:11,540 INFO refusal_L13_gs2_1bit_all_L13_16k_small unit 5/5 (2 conditions, 1.4s)
+2026-11-26 05:11:15,890 INFO refusal_L13_gs2_1bit_all_L13_16k_big unit 2/5 (8 conditions, 3.7s)
+2026-11-26 05:11:19,616 INFO refusal_L13_gs2_1bit_all_L13_16k_big unit 4/5 (8 conditions, 3.7s)
+2026-11-26 05:11:20,507 INFO DAS: training das1v2_kl_s0 (k=1, 10 epochs, lr 0.01, seed 0) for refusal L14 on 300 train pairs
+2026-11-26 05:11:59,479 INFO DAS v2 k=1 kl epoch 1/10: loss 3.4010
+2026-11-26 05:12:01,719 INFO DAS v2 k=1 kl epoch 2/10: loss 0.0197
+2026-11-26 05:12:03,962 INFO DAS v2 k=1 kl epoch 3/10: loss 0.0027
+2026-11-26 05:12:06,205 INFO DAS v2 k=1 kl epoch 4/10: loss 0.0001
+2026-11-26 05:12:08,442 INFO DAS v2 k=1 kl epoch 5/10: loss 0.0000
+2026-11-26 05:12:10,686 INFO DAS v2 k=1 kl epoch 6/10: loss 0.0000
+2026-11-26 05:12:12,923 INFO DAS v2 k=1 kl epoch 7/10: loss 0.0000
+2026-11-26 05:12:15,164 INFO DAS v2 k=1 kl epoch 8/10: loss 0.0000
+2026-11-26 05:12:17,401 INFO DAS v2 k=1 kl epoch 9/10: loss 0.0000
+2026-11-26 05:12:19,646 INFO DAS v2 k=1 kl epoch 10/10: loss 0.0000
+2026-11-26 05:12:30,848 INFO DAS: training das4v2_kl_s0 (k=4, 10 epochs, lr 0.01, seed 0) for refusal L14 on 300 train pairs
+2026-11-26 05:13:08,599 INFO DAS v2 k=4 kl epoch 1/10: loss 2.2310
+2026-11-26 05:13:10,999 INFO DAS v2 k=4 kl epoch 2/10: loss 0.0000
+2026-11-26 05:13:13,400 INFO DAS v2 k=4 kl epoch 3/10: loss 0.0000
+2026-11-26 05:13:15,802 INFO DAS v2 k=4 kl epoch 4/10: loss 0.0000
+2026-11-26 05:13:18,211 INFO DAS v2 k=4 kl epoch 5/10: loss 0.0000
+2026-11-26 05:13:20,613 INFO DAS v2 k=4 kl epoch 6/10: loss 0.0000
+2026-11-26 05:13:23,016 INFO DAS v2 k=4 kl epoch 7/10: loss 0.0000
+2026-11-26 05:13:25,425 INFO DAS v2 k=4 kl epoch 8/10: loss 0.0000
+2026-11-26 05:13:27,834 INFO DAS v2 k=4 kl epoch 9/10: loss 0.0000
+2026-11-26 05:13:30,241 INFO DAS v2 k=4 kl epoch 10/10: loss 0.0000
+2026-11-26 05:13:44,711 INFO refusal_L14_gs2_1bit_all_L14_16k_small unit 1/5 (8 conditions, 3.5s)
+2026-11-26 05:13:48,253 INFO refusal_L14_gs2_1bit_all_L14_16k_small unit 3/5 (8 conditions, 3.5s)
+2026-11-26 05:13:49,677 INFO refusal_L14_gs2_1bit_all_L14_16k_small unit 5/5 (2 conditions, 1.4s)
+2026-11-26 05:13:53,818 INFO refusal_L14_gs2_1bit_all_L14_16k_big unit 2/5 (8 conditions, 3.5s)
+2026-11-26 05:13:57,346 INFO refusal_L14_gs2_1bit_all_L14_16k_big unit 4/5 (8 conditions, 3.5s)
+2026-11-26 05:13:58,232 INFO DAS: training das1v2_kl_s0 (k=1, 10 epochs, lr 0.01, seed 0) for refusal L15 on 300 train pairs
+2026-11-26 05:14:36,316 INFO DAS v2 k=1 kl epoch 1/10: loss 2.1764
+2026-11-26 05:14:38,429 INFO DAS v2 k=1 kl epoch 2/10: loss 0.0001
+2026-11-26 05:14:40,543 INFO DAS v2 k=1 kl epoch 3/10: loss 0.0002
+2026-11-26 05:14:42,659 INFO DAS v2 k=1 kl epoch 4/10: loss 0.0004
+2026-11-26 05:14:44,768 INFO DAS v2 k=1 kl epoch 5/10: loss 0.0004
+2026-11-26 05:14:46,883 INFO DAS v2 k=1 kl epoch 6/10: loss 0.0003
+2026-11-26 05:14:49,002 INFO DAS v2 k=1 kl epoch 7/10: loss 0.0002
+2026-11-26 05:14:51,117 INFO DAS v2 k=1 kl epoch 8/10: loss 0.0001
+2026-11-26 05:14:53,234 INFO DAS v2 k=1 kl epoch 9/10: loss 0.0001
+2026-11-26 05:14:55,357 INFO DAS v2 k=1 kl epoch 10/10: loss 0.0001
+2026-11-26 05:15:05,652 INFO DAS: training das4v2_kl_s0 (k=4, 10 epochs, lr 0.01, seed 0) for refusal L15 on 300 train pairs
+2026-11-26 05:15:42,389 INFO DAS v2 k=4 kl epoch 1/10: loss 2.2101
+2026-11-26 05:15:44,660 INFO DAS v2 k=4 kl epoch 2/10: loss 0.0001
+2026-11-26 05:15:46,938 INFO DAS v2 k=4 kl epoch 3/10: loss 0.0004
+2026-11-26 05:15:49,213 INFO DAS v2 k=4 kl epoch 4/10: loss 0.0001
+2026-11-26 05:15:51,495 INFO DAS v2 k=4 kl epoch 5/10: loss 0.0000
+2026-11-26 05:15:53,779 INFO DAS v2 k=4 kl epoch 6/10: loss 0.0000
+2026-11-26 05:15:56,059 INFO DAS v2 k=4 kl epoch 7/10: loss 0.0000
+2026-11-26 05:15:58,335 INFO DAS v2 k=4 kl epoch 8/10: loss 0.0000
+2026-11-26 05:16:00,612 INFO DAS v2 k=4 kl epoch 9/10: loss 0.0000
+2026-11-26 05:16:02,888 INFO DAS v2 k=4 kl epoch 10/10: loss 0.0000
+2026-11-26 05:16:16,255 INFO refusal_L15_gs2_1bit_all_L15_16k_small unit 1/5 (8 conditions, 3.3s)
+2026-11-26 05:16:19,592 INFO refusal_L15_gs2_1bit_all_L15_16k_small unit 3/5 (8 conditions, 3.3s)
+2026-11-26 05:16:20,985 INFO refusal_L15_gs2_1bit_all_L15_16k_small unit 5/5 (2 conditions, 1.4s)
+2026-11-26 05:16:24,941 INFO refusal_L15_gs2_1bit_all_L15_16k_big unit 2/5 (8 conditions, 3.3s)
+2026-11-26 05:16:28,267 INFO refusal_L15_gs2_1bit_all_L15_16k_big unit 4/5 (8 conditions, 3.3s)
+2026-11-26 05:16:29,207 INFO DAS: training das1v2_kl_s0 (k=1, 10 epochs, lr 0.01, seed 0) for refusal L16 on 300 train pairs
+2026-11-26 05:17:06,331 INFO DAS v2 k=1 kl epoch 1/10: loss 2.1318
+2026-11-26 05:17:08,324 INFO DAS v2 k=1 kl epoch 2/10: loss 0.0047
+2026-11-26 05:17:10,315 INFO DAS v2 k=1 kl epoch 3/10: loss 0.0030
+2026-11-26 05:17:12,308 INFO DAS v2 k=1 kl epoch 4/10: loss 0.0018
+2026-11-26 05:17:14,300 INFO DAS v2 k=1 kl epoch 5/10: loss 0.0004
+2026-11-26 05:17:16,290 INFO DAS v2 k=1 kl epoch 6/10: loss 0.0003
+2026-11-26 05:17:18,285 INFO DAS v2 k=1 kl epoch 7/10: loss 0.0002
+2026-11-26 05:17:20,274 INFO DAS v2 k=1 kl epoch 8/10: loss 0.0002
+2026-11-26 05:17:22,265 INFO DAS v2 k=1 kl epoch 9/10: loss 0.0001
+2026-11-26 05:17:24,257 INFO DAS v2 k=1 kl epoch 10/10: loss 0.0001
+2026-11-26 05:17:33,737 INFO DAS: training das4v2_kl_s0 (k=4, 10 epochs, lr 0.01, seed 0) for refusal L16 on 300 train pairs
+2026-11-26 05:18:09,554 INFO DAS v2 k=4 kl epoch 1/10: loss 2.1556
+2026-11-26 05:18:11,700 INFO DAS v2 k=4 kl epoch 2/10: loss 0.0028
+2026-11-26 05:18:13,847 INFO DAS v2 k=4 kl epoch 3/10: loss 0.0004
+2026-11-26 05:18:15,996 INFO DAS v2 k=4 kl epoch 4/10: loss 0.0001
+2026-11-26 05:18:18,146 INFO DAS v2 k=4 kl epoch 5/10: loss 0.0001
+2026-11-26 05:18:20,297 INFO DAS v2 k=4 kl epoch 6/10: loss 0.0000
+2026-11-26 05:18:22,446 INFO DAS v2 k=4 kl epoch 7/10: loss 0.0000
+2026-11-26 05:18:24,590 INFO DAS v2 k=4 kl epoch 8/10: loss 0.0000
+2026-11-26 05:18:26,743 INFO DAS v2 k=4 kl epoch 9/10: loss 0.0000
+2026-11-26 05:18:28,896 INFO DAS v2 k=4 kl epoch 10/10: loss 0.0000
+2026-11-26 05:18:41,205 INFO refusal_L16_gs2_1bit_all_L16_16k_small unit 1/5 (8 conditions, 3.1s)
+2026-11-26 05:18:44,344 INFO refusal_L16_gs2_1bit_all_L16_16k_small unit 3/5 (8 conditions, 3.1s)
+2026-11-26 05:18:45,714 INFO refusal_L16_gs2_1bit_all_L16_16k_small unit 5/5 (2 conditions, 1.4s)
+2026-11-26 05:18:49,461 INFO refusal_L16_gs2_1bit_all_L16_16k_big unit 2/5 (8 conditions, 3.1s)
+2026-11-26 05:18:52,588 INFO refusal_L16_gs2_1bit_all_L16_16k_big unit 4/5 (8 conditions, 3.1s)
+2026-11-26 05:18:53,692 INFO DAS: training das1v2_kl_s1 (k=1, 10 epochs, lr 0.01, seed 1) for refusal L17 on 300 train pairs
+2026-11-26 05:19:28,408 INFO DAS v2 k=1 kl epoch 1/10: loss 5.9432
+2026-11-26 05:19:30,191 INFO DAS v2 k=1 kl epoch 2/10: loss 0.0056
+2026-11-26 05:19:31,974 INFO DAS v2 k=1 kl epoch 3/10: loss 0.0324
+2026-11-26 05:19:33,755 INFO DAS v2 k=1 kl epoch 4/10: loss 0.0202
+2026-11-26 05:19:35,539 INFO DAS v2 k=1 kl epoch 5/10: loss 0.0054
+2026-11-26 05:19:37,321 INFO DAS v2 k=1 kl epoch 6/10: loss 0.0033
+2026-11-26 05:19:39,104 INFO DAS v2 k=1 kl epoch 7/10: loss 0.0016
+2026-11-26 05:19:40,885 INFO DAS v2 k=1 kl epoch 8/10: loss 0.0009
+2026-11-26 05:19:42,673 INFO DAS v2 k=1 kl epoch 9/10: loss 0.0007
+2026-11-26 05:19:44,453 INFO DAS v2 k=1 kl epoch 10/10: loss 0.0006
+2026-11-26 05:19:55,803 INFO refusal_L17_gs2_1bit_all_L17_16k_small unit 2/5 (8 conditions, 2.9s)
+2026-11-26 05:19:58,749 INFO refusal_L17_gs2_1bit_all_L17_16k_small unit 3/5 (8 conditions, 2.9s)
+2026-11-26 05:20:00,092 INFO refusal_L17_gs2_1bit_all_L17_16k_small unit 5/5 (2 conditions, 1.3s)
+2026-11-26 05:20:03,609 INFO refusal_L17_gs2_1bit_all_L17_16k_big unit 2/5 (8 conditions, 2.9s)
+2026-11-26 05:20:06,538 INFO refusal_L17_gs2_1bit_all_L17_16k_big unit 4/5 (8 conditions, 2.9s)
+2026-11-26 05:20:07,454 INFO DAS: training das1v2_kl_s0 (k=1, 10 epochs, lr 0.01, seed 0) for refusal L18 on 300 train pairs
+2026-11-26 05:20:42,500 INFO DAS v2 k=1 kl epoch 1/10: loss 2.2229
+2026-11-26 05:20:44,240 INFO DAS v2 k=1 kl epoch 2/10: loss 0.0002
+2026-11-26 05:20:45,979 INFO DAS v2 k=1 kl epoch 3/10: loss 0.0008
+2026-11-26 05:20:47,723 INFO DAS v2 k=1 kl epoch 4/10: loss 0.0010
+2026-11-26 05:20:49,464 INFO DAS v2 k=1 kl epoch 5/10: loss 0.0007
+2026-11-26 05:20:51,207 INFO DAS v2 k=1 kl epoch 6/10: loss 0.0004
+2026-11-26 05:20:52,948 INFO DAS v2 k=1 kl epoch 7/10: loss 0.0003
+2026-11-26 05:20:54,690 INFO DAS v2 k=1 kl epoch 8/10: loss 0.0003
+2026-11-26 05:20:56,448 INFO DAS v2 k=1 kl epoch 9/10: loss 0.0002
+2026-11-26 05:20:58,194 INFO DAS v2 k=1 kl epoch 10/10: loss 0.0002
+2026-11-26 05:21:05,945 INFO DAS: training das4v2_kl_s0 (k=4, 10 epochs, lr 0.01, seed 0) for refusal L18 on 300 train pairs
+2026-11-26 05:21:39,800 INFO DAS v2 k=4 kl epoch 1/10: loss 2.2616
+2026-11-26 05:21:41,709 INFO DAS v2 k=4 kl epoch 2/10: loss 0.0077
+2026-11-26 05:21:43,616 INFO DAS v2 k=4 kl epoch 3/10: loss 0.0000
+2026-11-26 05:21:45,521 INFO DAS v2 k=4 kl epoch 4/10: loss 0.0000
+2026-11-26 05:21:47,430 INFO DAS v2 k=4 kl epoch 5/10: loss 0.0000
+2026-11-26 05:21:49,341 INFO DAS v2 k=4 kl epoch 6/10: loss 0.0000
+2026-11-26 05:21:51,248 INFO DAS v2 k=4 kl epoch 7/10: loss 0.0000
+2026-11-26 05:21:53,156 INFO DAS v2 k=4 kl epoch 8/10: loss 0.0000
+2026-11-26 05:21:55,069 INFO DAS v2 k=4 kl epoch 9/10: loss 0.0000
+2026-11-26 05:21:57,011 INFO DAS v2 k=4 kl epoch 10/10: loss 0.0000
+2026-11-26 05:22:07,341 INFO refusal_L18_gs2_1bit_all_L18_16k_small unit 1/5 (8 conditions, 2.7s)
+2026-11-26 05:22:10,075 INFO refusal_L18_gs2_1bit_all_L18_16k_small unit 3/5 (8 conditions, 2.7s)
+2026-11-26 05:22:11,395 INFO refusal_L18_gs2_1bit_all_L18_16k_small unit 5/5 (2 conditions, 1.3s)
+2026-11-26 05:22:14,734 INFO refusal_L18_gs2_1bit_all_L18_16k_big unit 2/5 (8 conditions, 2.7s)
+2026-11-26 05:22:17,482 INFO refusal_L18_gs2_1bit_all_L18_16k_big unit 4/5 (8 conditions, 2.7s)
+2026-11-26 05:22:18,441 INFO DAS: training das1v2_kl_s0 (k=1, 10 epochs, lr 0.01, seed 0) for refusal L19 on 300 train pairs
+2026-11-26 05:22:52,560 INFO DAS v2 k=1 kl epoch 1/10: loss 2.1911
+2026-11-26 05:22:54,179 INFO DAS v2 k=1 kl epoch 2/10: loss 0.0004
+2026-11-26 05:22:55,806 INFO DAS v2 k=1 kl epoch 3/10: loss 0.0002
+2026-11-26 05:22:57,432 INFO DAS v2 k=1 kl epoch 4/10: loss 0.0001
+2026-11-26 05:22:59,048 INFO DAS v2 k=1 kl epoch 5/10: loss 0.0001
+2026-11-26 05:23:00,661 INFO DAS v2 k=1 kl epoch 6/10: loss 0.0001
+2026-11-26 05:23:02,277 INFO DAS v2 k=1 kl epoch 7/10: loss 0.0001
+2026-11-26 05:23:03,891 INFO DAS v2 k=1 kl epoch 8/10: loss 0.0001
+2026-11-26 05:23:05,508 INFO DAS v2 k=1 kl epoch 9/10: loss 0.0001
+2026-11-26 05:23:07,125 INFO DAS v2 k=1 kl epoch 10/10: loss 0.0001
+2026-11-26 05:23:14,015 INFO DAS: training das4v2_kl_s0 (k=4, 10 epochs, lr 0.01, seed 0) for refusal L19 on 300 train pairs
+2026-11-26 05:23:46,837 INFO DAS v2 k=4 kl epoch 1/10: loss 2.3063
+2026-11-26 05:23:48,628 INFO DAS v2 k=4 kl epoch 2/10: loss 0.0041
+2026-11-26 05:23:50,410 INFO DAS v2 k=4 kl epoch 3/10: loss 0.0000
+2026-11-26 05:23:52,192 INFO DAS v2 k=4 kl epoch 4/10: loss 0.0000
+2026-11-26 05:23:53,981 INFO DAS v2 k=4 kl epoch 5/10: loss 0.0000
+2026-11-26 05:23:55,791 INFO DAS v2 k=4 kl epoch 6/10: loss 0.0000
+2026-11-26 05:23:57,595 INFO DAS v2 k=4 kl epoch 7/10: loss 0.0000
+2026-11-26 05:23:59,378 INFO DAS v2 k=4 kl epoch 8/10: loss 0.0000
+2026-11-26 05:24:01,161 INFO DAS v2 k=4 kl epoch 9/10: loss 0.0000
+2026-11-26 05:24:02,947 INFO DAS v2 k=4 kl epoch 10/10: loss 0.0000
+2026-11-26 05:24:12,233 INFO refusal_L19_gs2_1bit_all_L19_16k_small unit 2/5 (8 conditions, 2.5s)
+2026-11-26 05:24:14,771 INFO refusal_L19_gs2_1bit_all_L19_16k_small unit 3/5 (8 conditions, 2.5s)
+2026-11-26 05:24:16,068 INFO refusal_L19_gs2_1bit_all_L19_16k_small unit 5/5 (2 conditions, 1.3s)
+2026-11-26 05:24:19,268 INFO refusal_L19_gs2_1bit_all_L19_16k_big unit 2/5 (8 conditions, 2.5s)
+2026-11-26 05:24:21,796 INFO refusal_L19_gs2_1bit_all_L19_16k_big unit 4/5 (8 conditions, 2.5s)
+2026-11-26 05:24:22,779 INFO DAS: training das1v2_kl_s0 (k=1, 10 epochs, lr 0.01, seed 0) for refusal L20 on 300 train pairs
+2026-11-26 05:24:55,637 INFO DAS v2 k=1 kl epoch 1/10: loss 3.6949
+2026-11-26 05:24:57,144 INFO DAS v2 k=1 kl epoch 2/10: loss 0.0017
+2026-11-26 05:24:58,637 INFO DAS v2 k=1 kl epoch 3/10: loss 0.0123
+2026-11-26 05:25:00,129 INFO DAS v2 k=1 kl epoch 4/10: loss 0.0115
+2026-11-26 05:25:01,622 INFO DAS v2 k=1 kl epoch 5/10: loss 0.0071
+2026-11-26 05:25:03,116 INFO DAS v2 k=1 kl epoch 6/10: loss 0.0031
+2026-11-26 05:25:04,603 INFO DAS v2 k=1 kl epoch 7/10: loss 0.0024
+2026-11-26 05:25:06,092 INFO DAS v2 k=1 kl epoch 8/10: loss 0.0016
+2026-11-26 05:25:07,580 INFO DAS v2 k=1 kl epoch 9/10: loss 0.0010
+2026-11-26 05:25:09,069 INFO DAS v2 k=1 kl epoch 10/10: loss 0.0007
+2026-11-26 05:25:15,053 INFO DAS: training das4v2_kl_s0 (k=4, 10 epochs, lr 0.01, seed 0) for refusal L20 on 300 train pairs
+2026-11-26 05:25:47,016 INFO DAS v2 k=4 kl epoch 1/10: loss 2.1553
+2026-11-26 05:25:48,681 INFO DAS v2 k=4 kl epoch 2/10: loss 0.0010
+2026-11-26 05:25:50,346 INFO DAS v2 k=4 kl epoch 3/10: loss 0.0003
+2026-11-26 05:25:52,013 INFO DAS v2 k=4 kl epoch 4/10: loss 0.0001
+2026-11-26 05:25:53,679 INFO DAS v2 k=4 kl epoch 5/10: loss 0.0001
+2026-11-26 05:25:55,343 INFO DAS v2 k=4 kl epoch 6/10: loss 0.0000
+2026-11-26 05:25:57,018 INFO DAS v2 k=4 kl epoch 7/10: loss 0.0000
+2026-11-26 05:25:58,675 INFO DAS v2 k=4 kl epoch 8/10: loss 0.0000
+2026-11-26 05:26:00,347 INFO DAS v2 k=4 kl epoch 9/10: loss 0.0000
+2026-11-26 05:26:02,007 INFO DAS v2 k=4 kl epoch 10/10: loss 0.0000
+2026-11-26 05:26:10,199 INFO refusal_L20_gs2_1bit_all_L20_16k_small unit 1/5 (8 conditions, 2.3s)
+2026-11-26 05:26:12,530 INFO refusal_L20_gs2_1bit_all_L20_16k_small unit 3/5 (8 conditions, 2.3s)
+2026-11-26 05:26:13,820 INFO refusal_L20_gs2_1bit_all_L20_16k_small unit 5/5 (2 conditions, 1.3s)
+2026-11-26 05:26:16,912 INFO refusal_L20_gs2_1bit_all_L20_16k_big unit 2/5 (8 conditions, 2.3s)
+2026-11-26 05:26:19,240 INFO refusal_L20_gs2_1bit_all_L20_16k_big unit 4/5 (8 conditions, 2.3s)
+2026-11-26 05:26:20,159 INFO DAS: training das1v2_kl_s0 (k=1, 10 epochs, lr 0.01, seed 0) for refusal L21 on 300 train pairs
+2026-11-26 05:26:52,295 INFO DAS v2 k=1 kl epoch 1/10: loss 2.2027
+2026-11-26 05:26:53,673 INFO DAS v2 k=1 kl epoch 2/10: loss 0.0000
+2026-11-26 05:26:55,048 INFO DAS v2 k=1 kl epoch 3/10: loss 0.0001
+2026-11-26 05:26:56,434 INFO DAS v2 k=1 kl epoch 4/10: loss 0.0002
+2026-11-26 05:26:57,817 INFO DAS v2 k=1 kl epoch 5/10: loss 0.0001
+2026-11-26 05:26:59,192 INFO DAS v2 k=1 kl epoch 6/10: loss 0.0001
+2026-11-26 05:27:00,568 INFO DAS v2 k=1 kl epoch 7/10: loss 0.0001
+2026-11-26 05:27:01,942 INFO DAS v2 k=1 kl epoch 8/10: loss 0.0001
+2026-11-26 05:27:03,314 INFO DAS v2 k=1 kl epoch 9/10: loss 0.0001
+2026-11-26 05:27:04,693 INFO DAS v2 k=1 kl epoch 10/10: loss 0.0001
+2026-11-26 05:27:09,826 INFO DAS: training das4v2_kl_s0 (k=4, 10 epochs, lr 0.01, seed 0) for refusal L21 on 300 train pairs
+2026-11-26 05:27:40,951 INFO DAS v2 k=4 kl epoch 1/10: loss 2.1811
+2026-11-26 05:27:42,491 INFO DAS v2 k=4 kl epoch 2/10: loss 0.0003
+2026-11-26 05:27:44,035 INFO DAS v2 k=4 kl epoch 3/10: loss 0.0002
+2026-11-26 05:27:45,578 INFO DAS v2 k=4 kl epoch 4/10: loss 0.0001
+2026-11-26 05:27:47,118 INFO DAS v2 k=4 kl epoch 5/10: loss 0.0001
+2026-11-26 05:27:48,658 INFO DAS v2 k=4 kl epoch 6/10: loss 0.0001
+2026-11-26 05:27:50,202 INFO DAS v2 k=4 kl epoch 7/10: loss 0.0001
+2026-11-26 05:27:51,744 INFO DAS v2 k=4 kl epoch 8/10: loss 0.0001
+2026-11-26 05:27:53,289 INFO DAS v2 k=4 kl epoch 9/10: loss 0.0001
+2026-11-26 05:27:54,833 INFO DAS v2 k=4 kl epoch 10/10: loss 0.0001
+2026-11-26 05:28:02,175 INFO refusal_L21_gs2_1bit_all_L21_16k_small unit 1/5 (8 conditions, 2.1s)
+2026-11-26 05:28:04,308 INFO refusal_L21_gs2_1bit_all_L21_16k_small unit 3/5 (8 conditions, 2.1s)
+2026-11-26 05:28:05,540 INFO refusal_L21_gs2_1bit_all_L21_16k_small unit 5/5 (2 conditions, 1.2s)
+2026-11-26 05:28:08,377 INFO refusal_L21_gs2_1bit_all_L21_16k_big unit 2/5 (8 conditions, 2.1s)
+2026-11-26 05:28:10,506 INFO refusal_L21_gs2_1bit_all_L21_16k_big unit 4/5 (8 conditions, 2.1s)
+2026-11-26 05:28:11,685 INFO DAS: training das1v2_kl_s1 (k=1, 10 epochs, lr 0.01, seed 1) for refusal L22 on 300 train pairs
+2026-11-26 05:28:41,540 INFO DAS v2 k=1 kl epoch 1/10: loss 12.9541
+2026-11-26 05:28:42,726 INFO DAS v2 k=1 kl epoch 2/10: loss 0.0042
+2026-11-26 05:28:43,912 INFO DAS v2 k=1 kl epoch 3/10: loss 0.0153
+2026-11-26 05:28:45,098 INFO DAS v2 k=1 kl epoch 4/10: loss 0.0112
+2026-11-26 05:28:46,283 INFO DAS v2 k=1 kl epoch 5/10: loss 0.0038
+2026-11-26 05:28:47,470 INFO DAS v2 k=1 kl epoch 6/10: loss 0.0029
+2026-11-26 05:28:48,654 INFO DAS v2 k=1 kl epoch 7/10: loss 0.0018
+2026-11-26 05:28:49,840 INFO DAS v2 k=1 kl epoch 8/10: loss 0.0015
+2026-11-26 05:28:51,025 INFO DAS v2 k=1 kl epoch 9/10: loss 0.0012
+2026-11-26 05:28:52,211 INFO DAS v2 k=1 kl epoch 10/10: loss 0.0009
+2026-11-26 05:28:58,418 INFO refusal_L22_gs2_1bit_all_L22_16k_small unit 2/5 (8 conditions, 1.9s)
+2026-11-26 05:29:00,353 INFO refusal_L22_gs2_1bit_all_L22_16k_small unit 3/5 (8 conditions, 1.9s)
+2026-11-26 05:29:01,574 INFO refusal_L22_gs2_1bit_all_L22_16k_small unit 5/5 (2 conditions, 1.2s)
+2026-11-26 05:29:04,174 INFO refusal_L22_gs2_1bit_all_L22_16k_big unit 2/5 (8 conditions, 1.9s)
+2026-11-26 05:29:06,109 INFO refusal_L22_gs2_1bit_all_L22_16k_big unit 4/5 (8 conditions, 1.9s)
+2026-11-26 05:29:07,051 INFO DAS: training das1v2_kl_s0 (k=1, 10 epochs, lr 0.01, seed 0) for refusal L23 on 300 train pairs
+2026-11-26 05:29:37,064 INFO DAS v2 k=1 kl epoch 1/10: loss 6.0542
+2026-11-26 05:29:38,211 INFO DAS v2 k=1 kl epoch 2/10: loss 0.0365
+2026-11-26 05:29:39,346 INFO DAS v2 k=1 kl epoch 3/10: loss 0.0264
+2026-11-26 05:29:40,481 INFO DAS v2 k=1 kl epoch 4/10: loss 0.0095
+2026-11-26 05:29:41,621 INFO DAS v2 k=1 kl epoch 5/10: loss 0.0052
+2026-11-26 05:29:42,754 INFO DAS v2 k=1 kl epoch 6/10: loss 0.0021
+2026-11-26 05:29:43,890 INFO DAS v2 k=1 kl epoch 7/10: loss 0.0017
+2026-11-26 05:29:45,050 INFO DAS v2 k=1 kl epoch 8/10: loss 0.0010
+2026-11-26 05:29:46,254 INFO DAS v2 k=1 kl epoch 9/10: loss 0.0008
+2026-11-26 05:29:47,457 INFO DAS v2 k=1 kl epoch 10/10: loss 0.0005
+2026-11-26 05:29:50,860 INFO DAS: training das4v2_kl_s0 (k=4, 10 epochs, lr 0.01, seed 0) for refusal L23 on 300 train pairs
+2026-11-26 05:30:20,537 INFO DAS v2 k=4 kl epoch 1/10: loss 2.0460
+2026-11-26 05:30:21,983 INFO DAS v2 k=4 kl epoch 2/10: loss 0.0002
+2026-11-26 05:30:23,426 INFO DAS v2 k=4 kl epoch 3/10: loss 0.0001
+2026-11-26 05:30:24,867 INFO DAS v2 k=4 kl epoch 4/10: loss 0.0001
+2026-11-26 05:30:26,329 INFO DAS v2 k=4 kl epoch 5/10: loss 0.0000
+2026-11-26 05:30:27,774 INFO DAS v2 k=4 kl epoch 6/10: loss 0.0000
+2026-11-26 05:30:29,217 INFO DAS v2 k=4 kl epoch 7/10: loss 0.0000
+2026-11-26 05:30:30,658 INFO DAS v2 k=4 kl epoch 8/10: loss 0.0000
+2026-11-26 05:30:32,098 INFO DAS v2 k=4 kl epoch 9/10: loss 0.0000
+2026-11-26 05:30:33,543 INFO DAS v2 k=4 kl epoch 10/10: loss 0.0000
+2026-11-26 05:30:38,726 INFO refusal_L23_gs2_1bit_all_L23_16k_small unit 2/5 (8 conditions, 1.7s)
+2026-11-26 05:30:40,470 INFO refusal_L23_gs2_1bit_all_L23_16k_small unit 3/5 (8 conditions, 1.7s)
+2026-11-26 05:30:41,663 INFO refusal_L23_gs2_1bit_all_L23_16k_small unit 5/5 (2 conditions, 1.2s)
+2026-11-26 05:30:44,066 INFO refusal_L23_gs2_1bit_all_L23_16k_big unit 2/5 (8 conditions, 1.7s)
+2026-11-26 05:30:45,797 INFO refusal_L23_gs2_1bit_all_L23_16k_big unit 4/5 (8 conditions, 1.7s)
+2026-11-26 05:30:46,798 INFO DAS: training das1v2_kl_s0 (k=1, 10 epochs, lr 0.01, seed 0) for refusal L24 on 300 train pairs
+2026-11-26 05:31:15,971 INFO DAS v2 k=1 kl epoch 1/10: loss 15.5687
+2026-11-26 05:31:17,068 INFO DAS v2 k=1 kl epoch 2/10: loss 0.0082
+2026-11-26 05:31:18,157 INFO DAS v2 k=1 kl epoch 3/10: loss 0.0031
+2026-11-26 05:31:19,243 INFO DAS v2 k=1 kl epoch 4/10: loss 0.0006
+2026-11-26 05:31:20,338 INFO DAS v2 k=1 kl epoch 5/10: loss 0.0004
+2026-11-26 05:31:21,429 INFO DAS v2 k=1 kl epoch 6/10: loss 0.0003
+2026-11-26 05:31:22,520 INFO DAS v2 k=1 kl epoch 7/10: loss 0.0003
+2026-11-26 05:31:23,608 INFO DAS v2 k=1 kl epoch 8/10: loss 0.0003
+2026-11-26 05:31:24,696 INFO DAS v2 k=1 kl epoch 9/10: loss 0.0003
+2026-11-26 05:31:25,793 INFO DAS v2 k=1 kl epoch 10/10: loss 0.0002
+2026-11-26 05:31:28,330 INFO DAS: training das4v2_kl_s0 (k=4, 10 epochs, lr 0.01, seed 0) for refusal L24 on 300 train pairs
+2026-11-26 05:31:56,612 INFO DAS v2 k=4 kl epoch 1/10: loss 2.1988
+2026-11-26 05:31:57,939 INFO DAS v2 k=4 kl epoch 2/10: loss 0.0001
+2026-11-26 05:31:59,268 INFO DAS v2 k=4 kl epoch 3/10: loss 0.0001
+2026-11-26 05:32:00,595 INFO DAS v2 k=4 kl epoch 4/10: loss 0.0002
+2026-11-26 05:32:01,922 INFO DAS v2 k=4 kl epoch 5/10: loss 0.0001
+2026-11-26 05:32:03,245 INFO DAS v2 k=4 kl epoch 6/10: loss 0.0001
+2026-11-26 05:32:04,572 INFO DAS v2 k=4 kl epoch 7/10: loss 0.0001
+2026-11-26 05:32:05,898 INFO DAS v2 k=4 kl epoch 8/10: loss 0.0001
+2026-11-26 05:32:07,222 INFO DAS v2 k=4 kl epoch 9/10: loss 0.0001
+2026-11-26 05:32:08,555 INFO DAS v2 k=4 kl epoch 10/10: loss 0.0001
+2026-11-26 05:32:12,695 INFO refusal_L24_gs2_1bit_all_L24_16k_small unit 2/5 (8 conditions, 1.5s)
+2026-11-26 05:32:14,241 INFO refusal_L24_gs2_1bit_all_L24_16k_small unit 3/5 (8 conditions, 1.5s)
+2026-11-26 05:32:15,412 INFO refusal_L24_gs2_1bit_all_L24_16k_small unit 5/5 (2 conditions, 1.2s)
+2026-11-26 05:32:17,641 INFO refusal_L24_gs2_1bit_all_L24_16k_big unit 2/5 (8 conditions, 1.5s)
+2026-11-26 05:32:19,175 INFO refusal_L24_gs2_1bit_all_L24_16k_big unit 4/5 (8 conditions, 1.5s)
+2026-11-26 05:32:20,178 INFO DAS: training das1v2_kl_s0 (k=1, 10 epochs, lr 0.01, seed 0) for refusal L25 on 300 train pairs
+2026-11-26 05:32:48,365 INFO DAS v2 k=1 kl epoch 1/10: loss 2.6965
+2026-11-26 05:32:49,354 INFO DAS v2 k=1 kl epoch 2/10: loss 0.0003
+2026-11-26 05:32:50,329 INFO DAS v2 k=1 kl epoch 3/10: loss 0.0003
+2026-11-26 05:32:51,301 INFO DAS v2 k=1 kl epoch 4/10: loss 0.0002
+2026-11-26 05:32:52,277 INFO DAS v2 k=1 kl epoch 5/10: loss 0.0002
+2026-11-26 05:32:53,250 INFO DAS v2 k=1 kl epoch 6/10: loss 0.0002
+2026-11-26 05:32:54,224 INFO DAS v2 k=1 kl epoch 7/10: loss 0.0002
+2026-11-26 05:32:55,210 INFO DAS v2 k=1 kl epoch 8/10: loss 0.0002
+2026-11-26 05:32:56,194 INFO DAS v2 k=1 kl epoch 9/10: loss 0.0002
+2026-11-26 05:32:57,168 INFO DAS v2 k=1 kl epoch 10/10: loss 0.0002
+2026-11-26 05:32:58,797 INFO DAS: training das4v2_kl_s0 (k=4, 10 epochs, lr 0.01, seed 0) for refusal L25 on 300 train pairs
+2026-11-26 05:33:26,043 INFO DAS v2 k=4 kl epoch 1/10: loss 3.8881
+2026-11-26 05:33:27,247 INFO DAS v2 k=4 kl epoch 2/10: loss 0.0003
+2026-11-26 05:33:28,452 INFO DAS v2 k=4 kl epoch 3/10: loss 0.0002
+2026-11-26 05:33:29,659 INFO DAS v2 k=4 kl epoch 4/10: loss 0.0002
+2026-11-26 05:33:30,864 INFO DAS v2 k=4 kl epoch 5/10: loss 0.0002
+2026-11-26 05:33:32,071 INFO DAS v2 k=4 kl epoch 6/10: loss 0.0002
+2026-11-26 05:33:33,273 INFO DAS v2 k=4 kl epoch 7/10: loss 0.0002
+2026-11-26 05:33:34,479 INFO DAS v2 k=4 kl epoch 8/10: loss 0.0002
+2026-11-26 05:33:35,682 INFO DAS v2 k=4 kl epoch 9/10: loss 0.0002
+2026-11-26 05:33:36,888 INFO DAS v2 k=4 kl epoch 10/10: loss 0.0002
+2026-11-26 05:33:40,023 INFO refusal_L25_gs2_1bit_all_L25_16k_small unit 1/5 (8 conditions, 1.4s)
+2026-11-26 05:33:41,438 INFO refusal_L25_gs2_1bit_all_L25_16k_small unit 3/5 (8 conditions, 1.4s)
+2026-11-26 05:33:42,598 INFO refusal_L25_gs2_1bit_all_L25_16k_small unit 5/5 (2 conditions, 1.2s)
+2026-11-26 05:33:44,683 INFO refusal_L25_gs2_1bit_all_L25_16k_big unit 2/5 (8 conditions, 1.4s)
+2026-11-26 05:33:46,081 INFO refusal_L25_gs2_1bit_all_L25_16k_big unit 4/5 (8 conditions, 1.4s)
+2026-11-26 05:33:46,178 INFO P22 -> /home2/prakhar2218/PRISM/runs/P22/88733202f849 (worker_done)

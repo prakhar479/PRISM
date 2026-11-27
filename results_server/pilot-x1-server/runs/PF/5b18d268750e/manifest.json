@@ -1,0 +1,262 @@
+{
+ "exp_id": "PF",
+ "run_hash": "5b18d268750e",
+ "status": "complete",
+ "smoke": false,
+ "tiny": false,
+ "table": "fidelity.csv",
+ "config": {
+  "name": "dict_fidelity",
+  "identity": {
+   "exp": "PF",
+   "config": "P21",
+   "config_hash": "8c5248c67952",
+   "dicts": [
+    "L10_16k_l077",
+    "L10_65k_l066",
+    "L12_16k_l082",
+    "L12_65k_l072",
+    "L14_16k_l084",
+    "L14_65k_l073",
+    "L16_16k_l078",
+    "L16_65k_l069",
+    "L18_16k_l074",
+    "L18_65k_l064",
+    "L20_16k_l071",
+    "L20_65k_l061",
+    "L22_16k_l072",
+    "L22_65k_l062",
+    "L24_16k_l073",
+    "L24_65k_l063",
+    "L2_16k_l0141",
+    "L2_65k_l0169",
+    "L4_16k_l0124",
+    "L4_65k_l089",
+    "L6_16k_l070",
+    "L6_65k_l056",
+    "L8_16k_l071",
+    "L8_65k_l059"
+   ],
+   "eval": "755b5b80a4fbf7d1",
+   "n_windows": null,
+   "extras": true,
+   "tiny": false
+  },
+  "source_config": "configs/batch2/P21.yaml"
+ },
+ "git": {
+  "commit": "0b9038e601aa4e0c9684ea9319d12941b20d01e5",
+  "branch": "HEAD",
+  "tags": [
+   "run-20261126-b2a2"
+  ],
+  "dirty": false,
+  "dirty_files": []
+ },
+ "packages": {
+  "torch": "2.14.1+cu126",
+  "transformers": "5.19.0",
+  "transformer-lens": "3.9.0",
+  "numpy": "2.5.4",
+  "pandas": "3.0.6",
+  "pyarrow": "26.0.0",
+  "safetensors": "0.8.0",
+  "huggingface-hub": "2.2.0",
+  "scipy": "1.18.1"
+ },
+ "machine": {
+  "hostname": "gnode047",
+  "os": "Linux-5.15.0-191-generic-x86_64-with-glibc2.35",
+  "python": "3.12.16",
+  "device": "cuda:0",
+  "torch": "2.14.1+cu126",
+  "torch_cuda": "12.6",
+  "gpu_name": "NVIDIA GeForce RTX 2080 Ti",
+  "gpu_total_gb": 10.57,
+  "gpu_free_gb": 10.42,
+  "capability": "7.5",
+  "cudnn": 91002,
+  "nvidia_driver": "570.211.01\n570.211.01\n570.211.01\n570.211.01"
+ },
+ "model": {
+  "name": "gemma-2-2b",
+  "revision": "c5ebcd40d208330abc697524c919956e692655cf",
+  "dtype": "bfloat16",
+  "site": "resid_post",
+  "tiny_seed": 0,
+  "tiny_vocab": 0,
+  "tiny_layers": 4
+ },
+ "dicts": {
+  "L2_16k_l0141": {
+   "layer": 2,
+   "width": "16k",
+   "l0": 141,
+   "repo": "google/gemma-scope-2b-pt-res",
+   "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+  },
+  "L2_65k_l0169": {
+   "layer": 2,
+   "width": "65k",
+   "l0": 169,
+   "repo": "google/gemma-scope-2b-pt-res",
+   "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+  },
+  "L4_16k_l0124": {
+   "layer": 4,
+   "width": "16k",
+   "l0": 124,
+   "repo": "google/gemma-scope-2b-pt-res",
+   "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+  },
+  "L4_65k_l089": {
+   "layer": 4,
+   "width": "65k",
+   "l0": 89,
+   "repo": "google/gemma-scope-2b-pt-res",
+   "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+  },
+  "L6_16k_l070": {
+   "layer": 6,
+   "width": "16k",
+   "l0": 70,
+   "repo": "google/gemma-scope-2b-pt-res",
+   "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+  },
+  "L6_65k_l056": {
+   "layer": 6,
+   "width": "65k",
+   "l0": 56,
+   "repo": "google/gemma-scope-2b-pt-res",
+   "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+  },
+  "L8_16k_l071": {
+   "layer": 8,
+   "width": "16k",
+   "l0": 71,
+   "repo": "google/gemma-scope-2b-pt-res",
+   "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+  },
+  "L8_65k_l059": {
+   "layer": 8,
+   "width": "65k",
+   "l0": 59,
+   "repo": "google/gemma-scope-2b-pt-res",
+   "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+  },
+  "L10_16k_l077": {
+   "layer": 10,
+   "width": "16k",
+   "l0": 77,
+   "repo": "google/gemma-scope-2b-pt-res",
+   "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+  },
+  "L10_65k_l066": {
+   "layer": 10,
+   "width": "65k",
+   "l0": 66,
+   "repo": "google/gemma-scope-2b-pt-res",
+   "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+  },
+  "L12_16k_l082": {
+   "layer": 12,
+   "width": "16k",
+   "l0": 82,
+   "repo": "google/gemma-scope-2b-pt-res",
+   "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+  },
+  "L12_65k_l072": {
+   "layer": 12,
+   "width": "65k",
+   "l0": 72,
+   "repo": "google/gemma-scope-2b-pt-res",
+   "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+  },
+  "L14_16k_l084": {
+   "layer": 14,
+   "width": "16k",
+   "l0": 84,
+   "repo": "google/gemma-scope-2b-pt-res",
+   "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+  },
+  "L14_65k_l073": {
+   "layer": 14,
+   "width": "65k",
+   "l0": 73,
+   "repo": "google/gemma-scope-2b-pt-res",
+   "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+  },
+  "L16_16k_l078": {
+   "layer": 16,
+   "width": "16k",
+   "l0": 78,
+   "repo": "google/gemma-scope-2b-pt-res",
+   "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+  },
+  "L16_65k_l069": {
+   "layer": 16,
+   "width": "65k",
+   "l0": 69,
+   "repo": "google/gemma-scope-2b-pt-res",
+   "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+  },
+  "L18_16k_l074": {
+   "layer": 18,
+   "width": "16k",
+   "l0": 74,
+   "repo": "google/gemma-scope-2b-pt-res",
+   "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+  },
+  "L18_65k_l064": {
+   "layer": 18,
+   "width": "65k",
+   "l0": 64,
+   "repo": "google/gemma-scope-2b-pt-res",
+   "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+  },
+  "L20_16k_l071": {
+   "layer": 20,
+   "width": "16k",
+   "l0": 71,
+   "repo": "google/gemma-scope-2b-pt-res",
+   "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+  },
+  "L20_65k_l061": {
+   "layer": 20,
+   "width": "65k",
+   "l0": 61,
+   "repo": "google/gemma-scope-2b-pt-res",
+   "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+  },
+  "L22_16k_l072": {
+   "layer": 22,
+   "width": "16k",
+   "l0": 72,
+   "repo": "google/gemma-scope-2b-pt-res",
+   "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+  },
+  "L22_65k_l062": {
+   "layer": 22,
+   "width": "65k",
+   "l0": 62,
+   "repo": "google/gemma-scope-2b-pt-res",
+   "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+  },
+  "L24_16k_l073": {
+   "layer": 24,
+   "width": "16k",
+   "l0": 73,
+   "repo": "google/gemma-scope-2b-pt-res",
+   "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+  },
+  "L24_65k_l063": {
+   "layer": 24,
+   "width": "65k",
+   "l0": 63,
+   "repo": "google/gemma-scope-2b-pt-res",
+   "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
+  }
+ },
+ "created": "2026-11-27T08:09:10+0530",
+ "wall_time_s": 0.1
+}

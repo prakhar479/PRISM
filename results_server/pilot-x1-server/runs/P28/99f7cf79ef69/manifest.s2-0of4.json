@@ -1,0 +1,2226 @@
+{
+ "exp_id": "P28",
+ "run_hash": "99f7cf79ef69",
+ "status": "stage2_complete",
+ "stages": [
+  "2"
+ ],
+ "smoke": false,
+ "tiny": false,
+ "created": "2026-11-26T14:06:47+0530",
+ "wall_time_s": 722.5,
+ "config": {
+  "exp_id": "P28",
+  "name": "width_sparsity_grid_gemma3",
+  "description": "Gemma 3 1B at layers 7 / 13 / 17 / 22: Gemma Scope 2 residual SAEs at 3 widths x 3 sparsities (36 dictionaries): what moves capture, width or L0, and does it depend on depth? Shares the DAS rotations of P20. (At these layers the all-layers dictionaries of P20 are independently trained replicates.)",
+  "kind": "patch_grid",
+  "model": "gemma-3-1b-pt",
+  "model_revision": "fcf18a2a879aab110ca39f8bffbccd5d49d8eb29",
+  "prompt_sets": {
+   "people_cities": "prompt_sets/people_cities_p1_g3.jsonl.gz",
+   "entity_track": "prompt_sets/entity_track_p11_g3.jsonl.gz",
+   "ioi_control": "prompt_sets/ioi_control_x1_g3.jsonl.gz"
+  },
+  "cells": [
+   {
+    "task": "people_cities",
+    "layer": 7,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L7_16k_small",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": [
+     "pc_en"
+    ],
+    "eval_families": [
+     "pc_en"
+    ]
+   },
+   {
+    "task": "people_cities",
+    "layer": 7,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L7_16k_medium",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": [
+     "pc_en"
+    ],
+    "eval_families": [
+     "pc_en"
+    ]
+   },
+   {
+    "task": "people_cities",
+    "layer": 7,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L7_16k_big",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": [
+     "pc_en"
+    ],
+    "eval_families": [
+     "pc_en"
+    ]
+   },
+   {
+    "task": "people_cities",
+    "layer": 7,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L7_65k_small",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": [
+     "pc_en"
+    ],
+    "eval_families": [
+     "pc_en"
+    ]
+   },
+   {
+    "task": "people_cities",
+    "layer": 7,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L7_65k_medium",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": [
+     "pc_en"
+    ],
+    "eval_families": [
+     "pc_en"
+    ]
+   },
+   {
+    "task": "people_cities",
+    "layer": 7,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L7_65k_big",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": [
+     "pc_en"
+    ],
+    "eval_families": [
+     "pc_en"
+    ]
+   },
+   {
+    "task": "people_cities",
+    "layer": 7,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L7_262k_small",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": [
+     "pc_en"
+    ],
+    "eval_families": [
+     "pc_en"
+    ]
+   },
+   {
+    "task": "people_cities",
+    "layer": 7,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L7_262k_medium",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": [
+     "pc_en"
+    ],
+    "eval_families": [
+     "pc_en"
+    ]
+   },
+   {
+    "task": "people_cities",
+    "layer": 7,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L7_262k_big",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": [
+     "pc_en"
+    ],
+    "eval_families": [
+     "pc_en"
+    ]
+   },
+   {
+    "task": "entity_track",
+    "layer": 7,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L7_16k_small",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": [
+     "ot_placed_dest",
+     "ot_bin_dest",
+     "ot_drawer_dest"
+    ],
+    "eval_families": [
+     "ot_placed_dest",
+     "ot_bin_dest",
+     "ot_drawer_dest"
+    ]
+   },
+   {
+    "task": "entity_track",
+    "layer": 7,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L7_16k_medium",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": [
+     "ot_placed_dest",
+     "ot_bin_dest",
+     "ot_drawer_dest"
+    ],
+    "eval_families": [
+     "ot_placed_dest",
+     "ot_bin_dest",
+     "ot_drawer_dest"
+    ]
+   },
+   {
+    "task": "entity_track",
+    "layer": 7,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L7_16k_big",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": [
+     "ot_placed_dest",
+     "ot_bin_dest",
+     "ot_drawer_dest"
+    ],
+    "eval_families": [
+     "ot_placed_dest",
+     "ot_bin_dest",
+     "ot_drawer_dest"
+    ]
+   },
+   {
+    "task": "entity_track",
+    "layer": 7,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L7_65k_small",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": [
+     "ot_placed_dest",
+     "ot_bin_dest",
+     "ot_drawer_dest"
+    ],
+    "eval_families": [
+     "ot_placed_dest",
+     "ot_bin_dest",
+     "ot_drawer_dest"
+    ]
+   },
+   {
+    "task": "entity_track",
+    "layer": 7,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L7_65k_medium",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": [
+     "ot_placed_dest",
+     "ot_bin_dest",
+     "ot_drawer_dest"
+    ],
+    "eval_families": [
+     "ot_placed_dest",
+     "ot_bin_dest",
+     "ot_drawer_dest"
+    ]
+   },
+   {
+    "task": "entity_track",
+    "layer": 7,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L7_65k_big",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": [
+     "ot_placed_dest",
+     "ot_bin_dest",
+     "ot_drawer_dest"
+    ],
+    "eval_families": [
+     "ot_placed_dest",
+     "ot_bin_dest",
+     "ot_drawer_dest"
+    ]
+   },
+   {
+    "task": "entity_track",
+    "layer": 7,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L7_262k_small",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": [
+     "ot_placed_dest",
+     "ot_bin_dest",
+     "ot_drawer_dest"
+    ],
+    "eval_families": [
+     "ot_placed_dest",
+     "ot_bin_dest",
+     "ot_drawer_dest"
+    ]
+   },
+   {
+    "task": "entity_track",
+    "layer": 7,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L7_262k_medium",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": [
+     "ot_placed_dest",
+     "ot_bin_dest",
+     "ot_drawer_dest"
+    ],
+    "eval_families": [
+     "ot_placed_dest",
+     "ot_bin_dest",
+     "ot_drawer_dest"
+    ]
+   },
+   {
+    "task": "entity_track",
+    "layer": 7,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L7_262k_big",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": [
+     "ot_placed_dest",
+     "ot_bin_dest",
+     "ot_drawer_dest"
+    ],
+    "eval_families": [
+     "ot_placed_dest",
+     "ot_bin_dest",
+     "ot_drawer_dest"
+    ]
+   },
+   {
+    "task": "ioi_control",
+    "layer": 7,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L7_16k_small",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": null,
+    "eval_families": null
+   },
+   {
+    "task": "ioi_control",
+    "layer": 7,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L7_16k_medium",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": null,
+    "eval_families": null
+   },
+   {
+    "task": "ioi_control",
+    "layer": 7,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L7_16k_big",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": null,
+    "eval_families": null
+   },
+   {
+    "task": "ioi_control",
+    "layer": 7,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L7_65k_small",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": null,
+    "eval_families": null
+   },
+   {
+    "task": "ioi_control",
+    "layer": 7,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L7_65k_medium",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": null,
+    "eval_families": null
+   },
+   {
+    "task": "ioi_control",
+    "layer": 7,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L7_65k_big",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": null,
+    "eval_families": null
+   },
+   {
+    "task": "ioi_control",
+    "layer": 7,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L7_262k_small",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": null,
+    "eval_families": null
+   },
+   {
+    "task": "ioi_control",
+    "layer": 7,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L7_262k_medium",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": null,
+    "eval_families": null
+   },
+   {
+    "task": "ioi_control",
+    "layer": 7,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L7_262k_big",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": null,
+    "eval_families": null
+   },
+   {
+    "task": "people_cities",
+    "layer": 13,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L13_16k_small",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": [
+     "pc_en"
+    ],
+    "eval_families": [
+     "pc_en"
+    ]
+   },
+   {
+    "task": "people_cities",
+    "layer": 13,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L13_16k_medium",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": [
+     "pc_en"
+    ],
+    "eval_families": [
+     "pc_en"
+    ]
+   },
+   {
+    "task": "people_cities",
+    "layer": 13,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L13_16k_big",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": [
+     "pc_en"
+    ],
+    "eval_families": [
+     "pc_en"
+    ]
+   },
+   {
+    "task": "people_cities",
+    "layer": 13,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L13_65k_small",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": [
+     "pc_en"
+    ],
+    "eval_families": [
+     "pc_en"
+    ]
+   },
+   {
+    "task": "people_cities",
+    "layer": 13,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L13_65k_medium",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": [
+     "pc_en"
+    ],
+    "eval_families": [
+     "pc_en"
+    ]
+   },
+   {
+    "task": "people_cities",
+    "layer": 13,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L13_65k_big",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": [
+     "pc_en"
+    ],
+    "eval_families": [
+     "pc_en"
+    ]
+   },
+   {
+    "task": "people_cities",
+    "layer": 13,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L13_262k_small",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": [
+     "pc_en"
+    ],
+    "eval_families": [
+     "pc_en"
+    ]
+   },
+   {
+    "task": "people_cities",
+    "layer": 13,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L13_262k_medium",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": [
+     "pc_en"
+    ],
+    "eval_families": [
+     "pc_en"
+    ]
+   },
+   {
+    "task": "people_cities",
+    "layer": 13,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L13_262k_big",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": [
+     "pc_en"
+    ],
+    "eval_families": [
+     "pc_en"
+    ]
+   },
+   {
+    "task": "entity_track",
+    "layer": 13,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L13_16k_small",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": [
+     "ot_placed_dest",
+     "ot_bin_dest",
+     "ot_drawer_dest"
+    ],
+    "eval_families": [
+     "ot_placed_dest",
+     "ot_bin_dest",
+     "ot_drawer_dest"
+    ]
+   },
+   {
+    "task": "entity_track",
+    "layer": 13,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L13_16k_medium",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": [
+     "ot_placed_dest",
+     "ot_bin_dest",
+     "ot_drawer_dest"
+    ],
+    "eval_families": [
+     "ot_placed_dest",
+     "ot_bin_dest",
+     "ot_drawer_dest"
+    ]
+   },
+   {
+    "task": "entity_track",
+    "layer": 13,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L13_16k_big",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": [
+     "ot_placed_dest",
+     "ot_bin_dest",
+     "ot_drawer_dest"
+    ],
+    "eval_families": [
+     "ot_placed_dest",
+     "ot_bin_dest",
+     "ot_drawer_dest"
+    ]
+   },
+   {
+    "task": "entity_track",
+    "layer": 13,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L13_65k_small",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": [
+     "ot_placed_dest",
+     "ot_bin_dest",
+     "ot_drawer_dest"
+    ],
+    "eval_families": [
+     "ot_placed_dest",
+     "ot_bin_dest",
+     "ot_drawer_dest"
+    ]
+   },
+   {
+    "task": "entity_track",
+    "layer": 13,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L13_65k_medium",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": [
+     "ot_placed_dest",
+     "ot_bin_dest",
+     "ot_drawer_dest"
+    ],
+    "eval_families": [
+     "ot_placed_dest",
+     "ot_bin_dest",
+     "ot_drawer_dest"
+    ]
+   },
+   {
+    "task": "entity_track",
+    "layer": 13,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L13_65k_big",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": [
+     "ot_placed_dest",
+     "ot_bin_dest",
+     "ot_drawer_dest"
+    ],
+    "eval_families": [
+     "ot_placed_dest",
+     "ot_bin_dest",
+     "ot_drawer_dest"
+    ]
+   },
+   {
+    "task": "entity_track",
+    "layer": 13,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L13_262k_small",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": [
+     "ot_placed_dest",
+     "ot_bin_dest",
+     "ot_drawer_dest"
+    ],
+    "eval_families": [
+     "ot_placed_dest",
+     "ot_bin_dest",
+     "ot_drawer_dest"
+    ]
+   },
+   {
+    "task": "entity_track",
+    "layer": 13,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L13_262k_medium",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": [
+     "ot_placed_dest",
+     "ot_bin_dest",
+     "ot_drawer_dest"
+    ],
+    "eval_families": [
+     "ot_placed_dest",
+     "ot_bin_dest",
+     "ot_drawer_dest"
+    ]
+   },
+   {
+    "task": "entity_track",
+    "layer": 13,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L13_262k_big",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": [
+     "ot_placed_dest",
+     "ot_bin_dest",
+     "ot_drawer_dest"
+    ],
+    "eval_families": [
+     "ot_placed_dest",
+     "ot_bin_dest",
+     "ot_drawer_dest"
+    ]
+   },
+   {
+    "task": "ioi_control",
+    "layer": 13,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L13_16k_small",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": null,
+    "eval_families": null
+   },
+   {
+    "task": "ioi_control",
+    "layer": 13,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L13_16k_medium",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": null,
+    "eval_families": null
+   },
+   {
+    "task": "ioi_control",
+    "layer": 13,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L13_16k_big",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": null,
+    "eval_families": null
+   },
+   {
+    "task": "ioi_control",
+    "layer": 13,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L13_65k_small",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": null,
+    "eval_families": null
+   },
+   {
+    "task": "ioi_control",
+    "layer": 13,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L13_65k_medium",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": null,
+    "eval_families": null
+   },
+   {
+    "task": "ioi_control",
+    "layer": 13,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L13_65k_big",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": null,
+    "eval_families": null
+   },
+   {
+    "task": "ioi_control",
+    "layer": 13,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L13_262k_small",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": null,
+    "eval_families": null
+   },
+   {
+    "task": "ioi_control",
+    "layer": 13,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L13_262k_medium",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": null,
+    "eval_families": null
+   },
+   {
+    "task": "ioi_control",
+    "layer": 13,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L13_262k_big",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": null,
+    "eval_families": null
+   },
+   {
+    "task": "people_cities",
+    "layer": 17,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L17_16k_small",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": [
+     "pc_en"
+    ],
+    "eval_families": [
+     "pc_en"
+    ]
+   },
+   {
+    "task": "people_cities",
+    "layer": 17,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L17_16k_medium",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": [
+     "pc_en"
+    ],
+    "eval_families": [
+     "pc_en"
+    ]
+   },
+   {
+    "task": "people_cities",
+    "layer": 17,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L17_16k_big",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": [
+     "pc_en"
+    ],
+    "eval_families": [
+     "pc_en"
+    ]
+   },
+   {
+    "task": "people_cities",
+    "layer": 17,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L17_65k_small",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": [
+     "pc_en"
+    ],
+    "eval_families": [
+     "pc_en"
+    ]
+   },
+   {
+    "task": "people_cities",
+    "layer": 17,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L17_65k_medium",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": [
+     "pc_en"
+    ],
+    "eval_families": [
+     "pc_en"
+    ]
+   },
+   {
+    "task": "people_cities",
+    "layer": 17,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L17_65k_big",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": [
+     "pc_en"
+    ],
+    "eval_families": [
+     "pc_en"
+    ]
+   },
+   {
+    "task": "people_cities",
+    "layer": 17,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L17_262k_small",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": [
+     "pc_en"
+    ],
+    "eval_families": [
+     "pc_en"
+    ]
+   },
+   {
+    "task": "people_cities",
+    "layer": 17,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L17_262k_medium",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": [
+     "pc_en"
+    ],
+    "eval_families": [
+     "pc_en"
+    ]
+   },
+   {
+    "task": "people_cities",
+    "layer": 17,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L17_262k_big",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": [
+     "pc_en"
+    ],
+    "eval_families": [
+     "pc_en"
+    ]
+   },
+   {
+    "task": "entity_track",
+    "layer": 17,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L17_16k_small",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": [
+     "ot_placed_dest",
+     "ot_bin_dest",
+     "ot_drawer_dest"
+    ],
+    "eval_families": [
+     "ot_placed_dest",
+     "ot_bin_dest",
+     "ot_drawer_dest"
+    ]
+   },
+   {
+    "task": "entity_track",
+    "layer": 17,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L17_16k_medium",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": [
+     "ot_placed_dest",
+     "ot_bin_dest",
+     "ot_drawer_dest"
+    ],
+    "eval_families": [
+     "ot_placed_dest",
+     "ot_bin_dest",
+     "ot_drawer_dest"
+    ]
+   },
+   {
+    "task": "entity_track",
+    "layer": 17,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L17_16k_big",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": [
+     "ot_placed_dest",
+     "ot_bin_dest",
+     "ot_drawer_dest"
+    ],
+    "eval_families": [
+     "ot_placed_dest",
+     "ot_bin_dest",
+     "ot_drawer_dest"
+    ]
+   },
+   {
+    "task": "entity_track",
+    "layer": 17,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L17_65k_small",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": [
+     "ot_placed_dest",
+     "ot_bin_dest",
+     "ot_drawer_dest"
+    ],
+    "eval_families": [
+     "ot_placed_dest",
+     "ot_bin_dest",
+     "ot_drawer_dest"
+    ]
+   },
+   {
+    "task": "entity_track",
+    "layer": 17,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L17_65k_medium",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": [
+     "ot_placed_dest",
+     "ot_bin_dest",
+     "ot_drawer_dest"
+    ],
+    "eval_families": [
+     "ot_placed_dest",
+     "ot_bin_dest",
+     "ot_drawer_dest"
+    ]
+   },
+   {
+    "task": "entity_track",
+    "layer": 17,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L17_65k_big",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": [
+     "ot_placed_dest",
+     "ot_bin_dest",
+     "ot_drawer_dest"
+    ],
+    "eval_families": [
+     "ot_placed_dest",
+     "ot_bin_dest",
+     "ot_drawer_dest"
+    ]
+   },
+   {
+    "task": "entity_track",
+    "layer": 17,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L17_262k_small",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": [
+     "ot_placed_dest",
+     "ot_bin_dest",
+     "ot_drawer_dest"
+    ],
+    "eval_families": [
+     "ot_placed_dest",
+     "ot_bin_dest",
+     "ot_drawer_dest"
+    ]
+   },
+   {
+    "task": "entity_track",
+    "layer": 17,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L17_262k_medium",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": [
+     "ot_placed_dest",
+     "ot_bin_dest",
+     "ot_drawer_dest"
+    ],
+    "eval_families": [
+     "ot_placed_dest",
+     "ot_bin_dest",
+     "ot_drawer_dest"
+    ]
+   },
+   {
+    "task": "entity_track",
+    "layer": 17,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L17_262k_big",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": [
+     "ot_placed_dest",
+     "ot_bin_dest",
+     "ot_drawer_dest"
+    ],
+    "eval_families": [
+     "ot_placed_dest",
+     "ot_bin_dest",
+     "ot_drawer_dest"
+    ]
+   },
+   {
+    "task": "ioi_control",
+    "layer": 17,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L17_16k_small",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": null,
+    "eval_families": null
+   },
+   {
+    "task": "ioi_control",
+    "layer": 17,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L17_16k_medium",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": null,
+    "eval_families": null
+   },
+   {
+    "task": "ioi_control",
+    "layer": 17,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L17_16k_big",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": null,
+    "eval_families": null
+   },
+   {
+    "task": "ioi_control",
+    "layer": 17,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L17_65k_small",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": null,
+    "eval_families": null
+   },
+   {
+    "task": "ioi_control",
+    "layer": 17,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L17_65k_medium",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": null,
+    "eval_families": null
+   },
+   {
+    "task": "ioi_control",
+    "layer": 17,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L17_65k_big",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": null,
+    "eval_families": null
+   },
+   {
+    "task": "ioi_control",
+    "layer": 17,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L17_262k_small",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": null,
+    "eval_families": null
+   },
+   {
+    "task": "ioi_control",
+    "layer": 17,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L17_262k_medium",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": null,
+    "eval_families": null
+   },
+   {
+    "task": "ioi_control",
+    "layer": 17,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L17_262k_big",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": null,
+    "eval_families": null
+   },
+   {
+    "task": "people_cities",
+    "layer": 22,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L22_16k_small",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": [
+     "pc_en"
+    ],
+    "eval_families": [
+     "pc_en"
+    ]
+   },
+   {
+    "task": "people_cities",
+    "layer": 22,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L22_16k_medium",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": [
+     "pc_en"
+    ],
+    "eval_families": [
+     "pc_en"
+    ]
+   },
+   {
+    "task": "people_cities",
+    "layer": 22,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L22_16k_big",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": [
+     "pc_en"
+    ],
+    "eval_families": [
+     "pc_en"
+    ]
+   },
+   {
+    "task": "people_cities",
+    "layer": 22,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L22_65k_small",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": [
+     "pc_en"
+    ],
+    "eval_families": [
+     "pc_en"
+    ]
+   },
+   {
+    "task": "people_cities",
+    "layer": 22,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L22_65k_medium",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": [
+     "pc_en"
+    ],
+    "eval_families": [
+     "pc_en"
+    ]
+   },
+   {
+    "task": "people_cities",
+    "layer": 22,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L22_65k_big",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": [
+     "pc_en"
+    ],
+    "eval_families": [
+     "pc_en"
+    ]
+   },
+   {
+    "task": "people_cities",
+    "layer": 22,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L22_262k_small",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": [
+     "pc_en"
+    ],
+    "eval_families": [
+     "pc_en"
+    ]
+   },
+   {
+    "task": "people_cities",
+    "layer": 22,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L22_262k_medium",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": [
+     "pc_en"
+    ],
+    "eval_families": [
+     "pc_en"
+    ]
+   },
+   {
+    "task": "people_cities",
+    "layer": 22,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L22_262k_big",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": [
+     "pc_en"
+    ],
+    "eval_families": [
+     "pc_en"
+    ]
+   },
+   {
+    "task": "entity_track",
+    "layer": 22,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L22_16k_small",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": [
+     "ot_placed_dest",
+     "ot_bin_dest",
+     "ot_drawer_dest"
+    ],
+    "eval_families": [
+     "ot_placed_dest",
+     "ot_bin_dest",
+     "ot_drawer_dest"
+    ]
+   },
+   {
+    "task": "entity_track",
+    "layer": 22,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L22_16k_medium",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": [
+     "ot_placed_dest",
+     "ot_bin_dest",
+     "ot_drawer_dest"
+    ],
+    "eval_families": [
+     "ot_placed_dest",
+     "ot_bin_dest",
+     "ot_drawer_dest"
+    ]
+   },
+   {
+    "task": "entity_track",
+    "layer": 22,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L22_16k_big",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": [
+     "ot_placed_dest",
+     "ot_bin_dest",
+     "ot_drawer_dest"
+    ],
+    "eval_families": [
+     "ot_placed_dest",
+     "ot_bin_dest",
+     "ot_drawer_dest"
+    ]
+   },
+   {
+    "task": "entity_track",
+    "layer": 22,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L22_65k_small",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": [
+     "ot_placed_dest",
+     "ot_bin_dest",
+     "ot_drawer_dest"
+    ],
+    "eval_families": [
+     "ot_placed_dest",
+     "ot_bin_dest",
+     "ot_drawer_dest"
+    ]
+   },
+   {
+    "task": "entity_track",
+    "layer": 22,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L22_65k_medium",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": [
+     "ot_placed_dest",
+     "ot_bin_dest",
+     "ot_drawer_dest"
+    ],
+    "eval_families": [
+     "ot_placed_dest",
+     "ot_bin_dest",
+     "ot_drawer_dest"
+    ]
+   },
+   {
+    "task": "entity_track",
+    "layer": 22,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L22_65k_big",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": [
+     "ot_placed_dest",
+     "ot_bin_dest",
+     "ot_drawer_dest"
+    ],
+    "eval_families": [
+     "ot_placed_dest",
+     "ot_bin_dest",
+     "ot_drawer_dest"
+    ]
+   },
+   {
+    "task": "entity_track",
+    "layer": 22,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L22_262k_small",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": [
+     "ot_placed_dest",
+     "ot_bin_dest",
+     "ot_drawer_dest"
+    ],
+    "eval_families": [
+     "ot_placed_dest",
+     "ot_bin_dest",
+     "ot_drawer_dest"
+    ]
+   },
+   {
+    "task": "entity_track",
+    "layer": 22,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L22_262k_medium",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": [
+     "ot_placed_dest",
+     "ot_bin_dest",
+     "ot_drawer_dest"
+    ],
+    "eval_families": [
+     "ot_placed_dest",
+     "ot_bin_dest",
+     "ot_drawer_dest"
+    ]
+   },
+   {
+    "task": "entity_track",
+    "layer": 22,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L22_262k_big",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": [
+     "ot_placed_dest",
+     "ot_bin_dest",
+     "ot_drawer_dest"
+    ],
+    "eval_families": [
+     "ot_placed_dest",
+     "ot_bin_dest",
+     "ot_drawer_dest"
+    ]
+   },
+   {
+    "task": "ioi_control",
+    "layer": 22,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L22_16k_small",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": null,
+    "eval_families": null
+   },
+   {
+    "task": "ioi_control",
+    "layer": 22,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L22_16k_medium",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": null,
+    "eval_families": null
+   },
+   {
+    "task": "ioi_control",
+    "layer": 22,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L22_16k_big",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": null,
+    "eval_families": null
+   },
+   {
+    "task": "ioi_control",
+    "layer": 22,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L22_65k_small",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": null,
+    "eval_families": null
+   },
+   {
+    "task": "ioi_control",
+    "layer": 22,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L22_65k_medium",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": null,
+    "eval_families": null
+   },
+   {
+    "task": "ioi_control",
+    "layer": 22,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L22_65k_big",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": null,
+    "eval_families": null
+   },
+   {
+    "task": "ioi_control",
+    "layer": 22,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L22_262k_small",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": null,
+    "eval_families": null
+   },
+   {
+    "task": "ioi_control",
+    "layer": 22,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L22_262k_medium",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": null,
+    "eval_families": null
+   },
+   {
+    "task": "ioi_control",
+    "layer": 22,
+    "sae": {
+     "width": "16k",
+     "l0": null,
+     "rule": "canonical",
+     "dict": "gs2_1b_L22_262k_big",
+     "addon": null
+    },
+    "role": "exploratory",
+    "fit_families": null,
+    "eval_families": null
+   }
+  ],
+  "n_train": 300,
+  "n_test": 150,
+  "filters": [
+   "f_pilot"
+  ],
+  "fit_filter": "f_pilot",
+  "conditions": [
+   "feat_A_errB",
+   "feat_A_meanPos",
+   "feat_B_errA"
+  ],
+  "noise_seeds": [
+   0
+  ],
+  "directions": {
+   "conditions": [
+    "feat_A_along_U",
+    "full_along_U"
+   ],
+   "ranks": [
+    8
+   ],
+   "estimators": [
+    "das8v2_kl_s0",
+    "das8v2_kl_s1",
+    "das8v2_kl_s2"
+   ],
+   "sources": [
+    "same_task"
+   ],
+   "random_seeds": 5,
+   "r_max": 8
+  },
+  "generic": null,
+  "generic_l0": false,
+  "subthresh": null,
+  "bootstrap": 1000,
+  "seed": 0,
+  "smoke_pairs": 10,
+  "pilot_reference": null,
+  "notes": [
+   "batch 2 (docs/NEXT_BATCH_PLAN.md): exploratory, post hoc; generated by scripts/make_batch2_configs.py"
+  ]
+ },
+ "config_file": "configs/batch2/P28.yaml",
+ "profile": {
+  "name": "server",
+  "device": "cuda",
+  "model_dtype": "bfloat16",
+  "sae_dtype": "float32",
+  "sae_bf16_min_width": "524k",
+  "sae_placement": "auto",
+  "cache_root": "<cache_root>",
+  "data_root": "data",
+  "runs_root": "runs",
+  "hf_home": "<hf_home>",
+  "cache_spill": [
+   "<cache_spill>"
+  ],
+  "cache_spill_min_gb": 8,
+  "offline": false,
+  "batch_size": 16,
+  "max_batch_size": 72,
+  "max_batch_tokens": 9216,
+  "gpu_mem_cap_gb": 9.97,
+  "cpu_workers": 2,
+  "offload_embed": true,
+  "cpu_threads": 4,
+  "min_free_gb": 10,
+  "vram_headroom_gb": 0.6,
+  "allowed_experiments": [
+   "E0",
+   "E1",
+   "E2",
+   "E2r",
+   "E3",
+   "E4",
+   "E5",
+   "E6",
+   "E7",
+   "E8",
+   "E9",
+   "E9b",
+   "E10",
+   "E10b",
+   "E11",
+   "E12",
+   "E13",
+   "E14",
+   "E16",
+   "E17",
+   "E18",
+   "E19",
+   "E20",
+   "E22",
+   "P0",
+   "P1",
+   "P2",
+   "P4",
+   "P5",
+   "P7",
+   "P8",
+   "P9",
+   "P11",
+   "P12",
+   "P13",
+   "P14",
+   "P20",
+   "P21",
+   "P22",
+   "P23",
+   "P24",
+   "P25",
+   "P26",
+   "P27",
+   "P28",
+   "PT"
+  ],
+  "allow_real_model": true,
+  "sources": [
+   "profiles/server.yaml",
+   "profiles/local.yaml",
+   "env:HF_HOME",
+   "env:HL_MAX_BATCH_TOKENS",
+   "env:HL_CPU_THREADS"
+  ]
+ },
+ "git": {
+  "commit": "df26a40f83a5b7f186febc61c7e602ef6bd1279e",
+  "branch": "HEAD",
+  "tags": [
+   "run-20261126-b2a"
+  ],
+  "dirty": false,
+  "dirty_files": []
+ },
+ "packages": {
+  "torch": "2.14.1+cu126",
+  "transformers": "5.19.0",
+  "transformer-lens": "3.9.0",
+  "numpy": "2.5.4",
+  "pandas": "3.0.6",
+  "pyarrow": "26.0.0",
+  "safetensors": "0.8.0",
+  "huggingface-hub": "2.2.0",
+  "scipy": "1.18.1"
+ },
+ "machine": {
+  "hostname": "gnode047",
+  "os": "Linux-5.15.0-191-generic-x86_64-with-glibc2.35",
+  "python": "3.12.16",
+  "device": "cuda:0",
+  "torch": "2.14.1+cu126",
+  "torch_cuda": "12.6",
+  "gpu_name": "NVIDIA GeForce RTX 2080 Ti",
+  "gpu_total_gb": 10.57,
+  "gpu_free_gb": 10.36,
+  "capability": "7.5",
+  "cudnn": 91002,
+  "nvidia_driver": "570.211.01\n570.211.01\n570.211.01\n570.211.01"
+ },
+ "model": {
+  "name": "gemma-3-1b-pt",
+  "revision": "fcf18a2a879aab110ca39f8bffbccd5d49d8eb29",
+  "dtype": "bfloat16",
+  "site": "resid_post",
+  "tiny_seed": 0,
+  "tiny_vocab": 0,
+  "tiny_layers": 4
+ },
+ "sae_revision": "fd571b47c1c64851e9b1989792367b9babb4af63",
+ "prompt_sets": {
+  "people_cities": {
+   "hash": "b9e2cf13ada6d095",
+   "file": "prompt_sets/people_cities_p1_g3.jsonl.gz",
+   "n": 4050
+  },
+  "entity_track": {
+   "hash": "624dafa9924b5897",
+   "file": "prompt_sets/entity_track_p11_g3.jsonl.gz",
+   "n": 8100
+  },
+  "ioi_control": {
+   "hash": "df101c57818e810e",
+   "file": "prompt_sets/ioi_control_x1_g3.jsonl.gz",
+   "n": 900
+  }
+ },
+ "generic": null,
+ "seeds": {
+  "seed": 0,
+  "noise_seeds": [
+   0
+  ],
+  "random_seeds": 5
+ },
+ "timings": {
+  "stage2_L13_gs2_1b_L13_16k_big_s": 8.4,
+  "stage2_L13_gs2_1b_L13_262k_medium_s": 157.6,
+  "stage2_L13_gs2_1b_L13_65k_small_s": 13.0,
+  "stage2_L17_gs2_1b_L17_262k_big_s": 145.3,
+  "stage2_L17_gs2_1b_L17_65k_medium_s": 12.0,
+  "stage2_L22_gs2_1b_L22_16k_small_s": 4.5,
+  "stage2_L22_gs2_1b_L22_65k_big_s": 12.2,
+  "stage2_L7_gs2_1b_L7_16k_medium_s": 6.7,
+  "stage2_L7_gs2_1b_L7_262k_small_s": 162.0,
+  "stage2_total_s": 722.5
+ },
+ "budget": {
+  "max_tokens": 9216,
+  "backoffs": 0
+ },
+ "peak_gpu_gb": 1.19,
+ "cells": [],
+ "allow_dirty": false,
+ "worker": null,
+ "resources": {
+  "device_memory": {
+   "free_bytes": 11184177152,
+   "total_bytes": 11348672512,
+   "name": "NVIDIA GeForce RTX 2080 Ti"
+  },
+  "resolved": {
+   "gpu_mem_cap_gb": 9.97,
+   "offload_embed": true,
+   "max_batch_size": 72
+  },
+  "rules": {
+   "gpu_mem_cap_gb": "total 10.57 GiB - headroom 0.6",
+   "offload_embed": "GPU under 16 GiB",
+   "batch": "auto_budget(cap 9.97 GiB): 40% of the memory after the model"
+  },
+  "cpu_threads": 4
+ },
+ "machine_probe": {
+  "source": "nvidia-smi + /proc",
+  "gpus": [
+   {
+    "index": 2,
+    "uuid": "GPU-ddc787a0-0d18-826e-71a5-8fe63fc65447",
+    "name": "NVIDIA GeForce RTX 2080 Ti",
+    "total_bytes": 11811160064,
+    "free_bytes": 11348738048,
+    "compute_cap": "7.5",
+    "driver": "570.211.01"
+   }
+  ],
+  "ram_total_bytes": 135025209344,
+  "ram_available_bytes": 117665447936,
+  "cpu_logical": 40,
+  "cpu_affinity": 34,
+  "cpu_physical": 17,
+  "disk_free_bytes": 748451753984,
+  "cuda_visible_devices": "2"
+ },
+ "filters_overridden": null
+}

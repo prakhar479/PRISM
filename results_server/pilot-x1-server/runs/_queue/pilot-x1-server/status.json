@@ -1,0 +1,300 @@
+{
+ "prefetch": {
+  "status": "done",
+  "attempts": 0,
+  "note": "",
+  "slots": []
+ },
+ "preflight": {
+  "status": "done",
+  "attempts": 0,
+  "note": "",
+  "slots": []
+ },
+ "P20_s1": {
+  "status": "done",
+  "attempts": 0,
+  "note": "not selected (--only)",
+  "slots": []
+ },
+ "P22_s1": {
+  "status": "done",
+  "attempts": 0,
+  "note": "not selected (--only)",
+  "slots": []
+ },
+ "P28_s1": {
+  "status": "done",
+  "attempts": 0,
+  "note": "not selected (--only)",
+  "slots": []
+ },
+ "P21_s1": {
+  "status": "done",
+  "attempts": 0,
+  "note": "",
+  "slots": []
+ },
+ "P20_s2[0]": {
+  "status": "done",
+  "attempts": 0,
+  "note": "not selected (--only)",
+  "slots": []
+ },
+ "P20_s2[1]": {
+  "status": "done",
+  "attempts": 0,
+  "note": "not selected (--only)",
+  "slots": []
+ },
+ "P20_s2[2]": {
+  "status": "done",
+  "attempts": 0,
+  "note": "not selected (--only)",
+  "slots": []
+ },
+ "P20_s2[3]": {
+  "status": "done",
+  "attempts": 0,
+  "note": "not selected (--only)",
+  "slots": []
+ },
+ "P22_s2[0]": {
+  "status": "done",
+  "attempts": 0,
+  "note": "not selected (--only)",
+  "slots": []
+ },
+ "P22_s2[1]": {
+  "status": "done",
+  "attempts": 0,
+  "note": "not selected (--only)",
+  "slots": []
+ },
+ "P22_s2[2]": {
+  "status": "done",
+  "attempts": 0,
+  "note": "not selected (--only)",
+  "slots": []
+ },
+ "P22_s2[3]": {
+  "status": "done",
+  "attempts": 0,
+  "note": "not selected (--only)",
+  "slots": []
+ },
+ "P28_s2[0]": {
+  "status": "done",
+  "attempts": 0,
+  "note": "not selected (--only)",
+  "slots": []
+ },
+ "P28_s2[1]": {
+  "status": "done",
+  "attempts": 0,
+  "note": "not selected (--only)",
+  "slots": []
+ },
+ "P28_s2[2]": {
+  "status": "done",
+  "attempts": 0,
+  "note": "not selected (--only)",
+  "slots": []
+ },
+ "P28_s2[3]": {
+  "status": "done",
+  "attempts": 0,
+  "note": "not selected (--only)",
+  "slots": []
+ },
+ "P21_s2[0]": {
+  "status": "done",
+  "attempts": 0,
+  "note": "",
+  "slots": []
+ },
+ "P21_s2[1]": {
+  "status": "done",
+  "attempts": 0,
+  "note": "",
+  "slots": []
+ },
+ "P21_s2[2]": {
+  "status": "done",
+  "attempts": 0,
+  "note": "",
+  "slots": []
+ },
+ "P21_s2[3]": {
+  "status": "done",
+  "attempts": 0,
+  "note": "",
+  "slots": []
+ },
+ "P20_s3[0]": {
+  "status": "done",
+  "attempts": 0,
+  "note": "not selected (--only)",
+  "slots": []
+ },
+ "P20_s3[1]": {
+  "status": "done",
+  "attempts": 0,
+  "note": "not selected (--only)",
+  "slots": []
+ },
+ "P20_s3[2]": {
+  "status": "done",
+  "attempts": 0,
+  "note": "not selected (--only)",
+  "slots": []
+ },
+ "P20_s3[3]": {
+  "status": "done",
+  "attempts": 0,
+  "note": "not selected (--only)",
+  "slots": []
+ },
+ "P22_s3[0]": {
+  "status": "done",
+  "attempts": 0,
+  "note": "not selected (--only)",
+  "slots": []
+ },
+ "P22_s3[1]": {
+  "status": "done",
+  "attempts": 0,
+  "note": "not selected (--only)",
+  "slots": []
+ },
+ "P22_s3[2]": {
+  "status": "done",
+  "attempts": 0,
+  "note": "not selected (--only)",
+  "slots": []
+ },
+ "P22_s3[3]": {
+  "status": "done",
+  "attempts": 0,
+  "note": "not selected (--only)",
+  "slots": []
+ },
+ "P28_s3[0]": {
+  "status": "done",
+  "attempts": 0,
+  "note": "not selected (--only)",
+  "slots": []
+ },
+ "P28_s3[1]": {
+  "status": "done",
+  "attempts": 0,
+  "note": "not selected (--only)",
+  "slots": []
+ },
+ "P28_s3[2]": {
+  "status": "done",
+  "attempts": 0,
+  "note": "not selected (--only)",
+  "slots": []
+ },
+ "P28_s3[3]": {
+  "status": "done",
+  "attempts": 0,
+  "note": "not selected (--only)",
+  "slots": []
+ },
+ "P21_s3[0]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "761.5 min",
+  "slots": [
+   "0"
+  ]
+ },
+ "P21_s3[1]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "761.5 min",
+  "slots": [
+   "1"
+  ]
+ },
+ "P21_s3[2]": {
+  "status": "failed",
+  "attempts": 2,
+  "note": "exit -9",
+  "slots": [
+   "2"
+  ]
+ },
+ "P21_s3[3]": {
+  "status": "done",
+  "attempts": 1,
+  "note": "761.5 min",
+  "slots": [
+   "3"
+  ]
+ },
+ "PF_P20": {
+  "status": "done",
+  "attempts": 0,
+  "note": "not selected (--only)",
+  "slots": []
+ },
+ "PF_P22": {
+  "status": "done",
+  "attempts": 0,
+  "note": "not selected (--only)",
+  "slots": []
+ },
+ "PF_P28": {
+  "status": "done",
+  "attempts": 0,
+  "note": "not selected (--only)",
+  "slots": []
+ },
+ "PF_P21": {
+  "status": "done",
+  "attempts": 1,
+  "note": "0.2 min",
+  "slots": [
+   "2"
+  ]
+ },
+ "P20_fin": {
+  "status": "done",
+  "attempts": 0,
+  "note": "not selected (--only)",
+  "slots": []
+ },
+ "P22_fin": {
+  "status": "done",
+  "attempts": 0,
+  "note": "not selected (--only)",
+  "slots": []
+ },
+ "P28_fin": {
+  "status": "done",
+  "attempts": 0,
+  "note": "not selected (--only)",
+  "slots": []
+ },
+ "P21_fin": {
+  "status": "skipped",
+  "attempts": 0,
+  "note": "a dependency failed",
+  "slots": []
+ },
+ "bundle": {
+  "status": "done",
+  "attempts": 1,
+  "note": "0.2 min",
+  "slots": []
+ },
+ "publish": {
+  "status": "running",
+  "attempts": 1,
+  "note": "",
+  "slots": []
+ }
+}

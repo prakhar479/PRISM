@@ -206,7 +206,7 @@
  "P21_s3[0]": {
   "status": "done",
   "attempts": 1,
-  "note": "761.5 min",
+  "note": "213.6 min",
   "slots": [
    "0"
   ]
@@ -214,15 +214,15 @@
  "P21_s3[1]": {
   "status": "done",
   "attempts": 1,
-  "note": "761.5 min",
+  "note": "211.8 min",
   "slots": [
    "1"
   ]
  },
  "P21_s3[2]": {
-  "status": "failed",
-  "attempts": 2,
-  "note": "exit -9",
+  "status": "done",
+  "attempts": 1,
+  "note": "213.6 min",
   "slots": [
    "2"
   ]
@@ -230,7 +230,7 @@
  "P21_s3[3]": {
   "status": "done",
   "attempts": 1,
-  "note": "761.5 min",
+  "note": "211.7 min",
   "slots": [
    "3"
   ]
@@ -258,7 +258,7 @@
   "attempts": 1,
   "note": "0.2 min",
   "slots": [
-   "2"
+   "3"
   ]
  },
  "P20_fin": {
@@ -280,9 +280,9 @@
   "slots": []
  },
  "P21_fin": {
-  "status": "skipped",
-  "attempts": 0,
-  "note": "a dependency failed",
+  "status": "done",
+  "attempts": 1,
+  "note": "23.0 min",
   "slots": []
  },
  "bundle": {

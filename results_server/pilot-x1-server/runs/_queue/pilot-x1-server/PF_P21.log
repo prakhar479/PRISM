@@ -36,3 +36,7 @@ Loaded pretrained model gemma-2-2b into HookedTransformer
 === attempt 1 2026-11-27 08:09:01 slots=['2']: /home2/prakhar2218/PRISM/.venv-harness/bin/python scripts/run_dict_fidelity.py --config configs/batch2/P21.yaml --extras
 2026-11-27 08:09:10,020 INFO PF: 0 dictionaries to do, 24 done
 2026-11-27 08:09:10,483 INFO PF 5b18d268750e -> /home2/prakhar2218/PRISM/runs/PF/5b18d268750e (complete)
+
+=== attempt 1 2026-11-28 14:04:10 slots=['3']: /home2/prakhar2218/PRISM/.venv-harness/bin/python scripts/run_dict_fidelity.py --config configs/batch2/P21.yaml --extras
+2026-11-28 14:04:17,191 INFO PF: 0 dictionaries to do, 24 done
+2026-11-28 14:04:17,625 INFO PF 5b18d268750e -> /home2/prakhar2218/PRISM/runs/PF/5b18d268750e (complete)

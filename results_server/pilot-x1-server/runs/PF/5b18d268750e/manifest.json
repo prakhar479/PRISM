@@ -45,11 +45,9 @@
   "source_config": "configs/batch2/P21.yaml"
  },
  "git": {
-  "commit": "0b9038e601aa4e0c9684ea9319d12941b20d01e5",
-  "branch": "HEAD",
-  "tags": [
-   "run-20261126-b2a2"
-  ],
+  "commit": "2ff8a78c4ed2e1468dc0e652ac8f1589e0d00665",
+  "branch": "results/b2-x1-server-run-20261126-b2a2",
+  "tags": [],
   "dirty": false,
   "dirty_files": []
  },
@@ -257,6 +255,6 @@
    "revision": "fd571b47c1c64851e9b1989792367b9babb4af63"
   }
  },
- "created": "2026-11-27T08:09:10+0530",
+ "created": "2026-11-28T14:04:17+0530",
  "wall_time_s": 0.1
 }

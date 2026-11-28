@@ -39,11 +39,11 @@
   }
  ],
  "ram_total_bytes": 135025209344,
- "ram_available_bytes": 131794108416,
+ "ram_available_bytes": 132110446592,
  "cpu_logical": 40,
  "cpu_affinity": 34,
  "cpu_physical": 17,
- "disk_free_bytes": 646940749824,
+ "disk_free_bytes": 646927200256,
  "cuda_visible_devices": "0,1,2,3",
  "gpus_used": [
   "0",
